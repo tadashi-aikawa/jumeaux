@@ -67,3 +67,27 @@ class RequestCreator(object):
                 r['qs'] = ''
 
         return rs
+
+    def _from_apache_accesslog(r):
+        """Transform apache access_log.
+
+        Arguments:
+            (str) r: Access log record
+
+        Returns:
+            (dict): Refer to `Usage`.
+
+        Exception:
+            ValueError: If url is invalid.
+        """
+        url = r.split(' ')[6]
+        if len(url.split('?')) > 2:
+            raise ValueError
+
+        path = url.split('?')[0]
+        qs = url.split('?')[1] if len(url.split('?')) == 2 else ''
+
+        return {
+            "path": path,
+            "qs": qs
+        }
