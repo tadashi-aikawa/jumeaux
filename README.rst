@@ -43,15 +43,28 @@ Requirement
 Installation
 =================
 
-Create virtual environment and activate it.
+Download and extract
+----------------------
 
 .. sourcecode:: bash
 
+    $ wget 'https://github.com/tadashi-aikawa/gemini/archive/master.zip' -O master.zip
+    $ unzip master.zip -x */test/*
+    $ rm master.zip
+
+
+Create virtual environment and activate it
+---------------------------------------------
+
+.. sourcecode:: bash
+
+    $ cd gemini-master
     $ /usr/bin/pyvenv pyvenv
     $ source pyvenv/bin/activate
 
 
-Install pip.
+Install pip (under Python3.4 only)
+---------------------------------------------
 
 .. sourcecode:: bash
 
@@ -60,15 +73,23 @@ Install pip.
     $ python distribute-0.6.49/distribute_setup.py
     $ rm -rf distribute*
     $ easy_install pip
-    $ cd ../
 
-Install requisite packages.
+
+Install requisite packages
+----------------------------
 
 .. sourcecode:: bash
 
     $ pip install -r requirements.txt
 
-todo: Download and extract.
+
+Check operation
+----------------------------
+
+.. sourcecode:: bash
+
+    $ python gemini.py --version
+    0.5.0
 
 
 Usage
