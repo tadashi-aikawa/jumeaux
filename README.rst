@@ -7,8 +7,18 @@ Check difference between two responses of API.
 Test Result
 =================
 
+Master
+-----------
+
 .. image:: https://api.travis-ci.org/tadashi-aikawa/gemini.png?branch=master
     :target: https://travis-ci.org/tadashi-aikawa/gemini
+
+Current
+-----------
+
+.. image:: https://api.travis-ci.org/tadashi-aikawa/gemini.png?
+    :target: https://travis-ci.org/tadashi-aikawa/gemini
+
 
 Features
 =================
