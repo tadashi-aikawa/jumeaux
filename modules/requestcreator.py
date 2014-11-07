@@ -60,8 +60,6 @@ def from_yaml(f):
     for r in rs:
         if 'path' not in r:
             raise ValueError
-        if 'qs' not in r:
-            r['qs'] = ''
 
     return rs
 
