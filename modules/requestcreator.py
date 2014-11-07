@@ -18,7 +18,7 @@ Each function returns the format of the following.
     }
 ]
 
-If url has no queries, "qs" is empty(not None).
+"qs" never be None.
 """
 
 import yaml
@@ -54,7 +54,7 @@ def from_yaml(f):
         (dict): Refer to `Usage`.
 
     Exception:
-        ValueError: If url is invalid.
+        ValueError: If path does not exist.
     """
     rs = yaml.load(f.read())
     for r in rs:
