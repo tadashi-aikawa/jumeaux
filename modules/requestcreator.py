@@ -18,76 +18,74 @@ Each function returns the format of the following.
     }
 ]
 
-If url has no queries, "qs" is empty(not None).
+"qs" never be None.
 """
 
 import yaml
 
 
-class RequestCreator(object):
+def from_apache_accesslog(f):
+    """Transform apache access_log.
 
-    @classmethod
-    def from_apache_accesslog(cls, f):
-        """Transform apache access_log.
+    Arguments:
+        (file) f: Access log file
 
-        Arguments:
-            (file) f: Access log file
+    Returns:
+        (dict): Refer to `Usage`.
 
-        Returns:
-            (dict): Refer to `Usage`.
+    Exception:
+        ValueError: If url is invalid.
+    """
+    return [_from_apache_accesslog(r) for r in f]
 
-        Exception:
-            ValueError: If url is invalid.
-        """
-        return [cls._from_apache_accesslog(r) for r in f]
 
-    @classmethod
-    def from_yaml(cls, f):
-        """Transform yaml as below.
-            - path: "/path1"
-              qs: "a=1&b=2"
-            - path: "/path2"
-              qs: "c=1"
-            - path: "/path3"
+def from_yaml(f):
+    """Transform yaml as below.
+        - path: "/path1"
+          qs: "a=1&b=2"
+        - path: "/path2"
+          qs: "c=1"
+        - path: "/path3"
 
-        Arguments:
-            (file) f: yaml
+    Arguments:
+        (file) f: yaml
 
-        Returns:
-            (dict): Refer to `Usage`.
+    Returns:
+        (dict): Refer to `Usage`.
 
-        Exception:
-            ValueError: If url is invalid.
-        """
-        rs = yaml.load(f.read())
-        for r in rs:
-            if 'path' not in r:
-                raise ValueError
-            if 'qs' not in r:
-                r['qs'] = ''
-
-        return rs
-
-    def _from_apache_accesslog(r):
-        """Transform apache access_log.
-
-        Arguments:
-            (str) r: Access log record
-
-        Returns:
-            (dict): Refer to `Usage`.
-
-        Exception:
-            ValueError: If url is invalid.
-        """
-        url = r.split(' ')[6]
-        if len(url.split('?')) > 2:
+    Exception:
+        ValueError: If path does not exist.
+    """
+    rs = yaml.load(f.read())
+    for r in rs:
+        if 'path' not in r:
             raise ValueError
+        if 'qs' not in r:
+            r['qs'] = ''
 
-        path = url.split('?')[0]
-        qs = url.split('?')[1] if len(url.split('?')) == 2 else ''
+    return rs
 
-        return {
-            "path": path,
-            "qs": qs
-        }
+
+def _from_apache_accesslog(r):
+    """Transform apache access_log.
+
+    Arguments:
+        (str) r: Access log record
+
+    Returns:
+        (dict): Refer to `Usage`.
+
+    Exception:
+        ValueError: If url is invalid.
+    """
+    url = r.split(' ')[6]
+    if len(url.split('?')) > 2:
+        raise ValueError
+
+    path = url.split('?')[0]
+    qs = url.split('?')[1] if len(url.split('?')) == 2 else ''
+
+    return {
+        "path": path,
+        "qs": qs
+    }

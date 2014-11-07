@@ -38,7 +38,7 @@ from docopt import docopt
 from schema import Schema, Or, Use, SchemaError
 
 from modules.dictutils import DictUtils
-from modules.requestcreator import RequestCreator
+from modules import requestcreator
 
 
 VERSION = "0.5.0"
@@ -190,10 +190,10 @@ def main():
     logs = []
     if args['--input-format'] == 'apache':
         for f in args['<files>']:
-            logs.extend(RequestCreator.from_apache_accesslog(f))
+            logs.extend(requestcreator.from_apache_accesslog(f))
     elif args['--input-format'] == 'yaml':
         for f in args['<files>']:
-            logs.extend(RequestCreator.from_yaml(f))
+            logs.extend(requestcreator.from_yaml(f))
 
     trials = []
     for l in logs:
