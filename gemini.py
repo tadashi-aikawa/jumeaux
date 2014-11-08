@@ -28,6 +28,7 @@ import io
 import datetime
 import json
 
+import urllib.parse as urlparser
 import requests
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
@@ -77,10 +78,12 @@ def create_diff(text1, text2, ignore_properties, ignore_order=False):
     return None
 
 
-def create_trial(res_one, res_other, status, req_time):
+def create_trial(res_one, res_other, status, req_time, path, qs):
     return {
         "request_time": req_time.strftime("%Y/%m/%d %X"),
         "status": status,
+        "path": path,
+        "queries": urlparser.parse_qs(qs),
         "one": {
             "url": res_one.url,
             "status_code": res_one.status_code,
@@ -154,7 +157,7 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     url_one = '{0}{1}?{2}'.format(host_one, path, qs)
     url_other = '{0}{1}?{2}'.format(host_other, path, qs)
 
-    headers = []  # Todo headers
+    headers = []  # TODO: headers
 
     # Get two responses
     req_time = datetime.datetime.today()
@@ -164,9 +167,12 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     try:
         res_one, res_other = pool.imap(http_get, fs)
     except ConnectionError:
+        # TODO: Integrate logic into create_trial
         return {
             "request_time": req_time.strftime("%Y/%m/%d %X"),
             "status": "failure",
+            "path": path,
+            "queries": urlparser.parse_qs(qs),
             "one": {
                 "url": url_one
             },
@@ -180,7 +186,8 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     # Create diff
     ignore_properties = []  # Todo ignore_properties
     diff = create_diff(res_one.text, res_other.text, ignore_properties)
-    diff_without_order = create_diff(res_one.text, res_other.text, ignore_properties, True)
+    diff_without_order = create_diff(res_one.text, res_other.text,
+                                     ignore_properties, True)
 
     # Judgement
     status = "different"
@@ -189,7 +196,7 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     if diff is not None and len(diff) == 0:
         status = "same"
 
-    return create_trial(res_one, res_other, status, req_time)
+    return create_trial(res_one, res_other, status, req_time, path, qs)
 
 
 def main():
@@ -204,26 +211,20 @@ def main():
 
     # parse files to ...
     logs = []
-    if args['--input-format'] == 'apache':
-        for f in args['<files>']:
-            logs.extend(requestcreator.from_apache_accesslog(f))
-    elif args['--input-format'] == 'yaml':
-        for f in args['<files>']:
-            logs.extend(requestcreator.from_yaml(f))
-    elif args['--input-format'] == 'csv':
-        for f in args['<files>']:
-            logs.extend(requestcreator.from_csv(f))
+    for f in args['<files>']:
+        logs.extend(requestcreator.from_format(f, args['--input-format']))
 
-    trials = []
-    for l in logs:
-        t = challenge(s, args['--host-one'], args['--host-other'], l['path'], l['qs'], proxies_one, proxies_other)
-        trials.append(t)
+    trials = [challenge(s, args['--host-one'], args['--host-other'],
+                        l['path'], l['qs'],
+                        proxies_one, proxies_other)
+              for l in logs]
 
     result = {
         "trials": trials
     }
 
-    json.dump(result, codecs.open(args['--report'], 'w', encoding=args['--output-encoding']),
+    json.dump(result, codecs.open(args['--report'], 'w',
+              encoding=args['--output-encoding']),
               indent=4, ensure_ascii=False, sort_keys=True)
 
 
