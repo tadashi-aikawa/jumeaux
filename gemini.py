@@ -214,12 +214,10 @@ def main():
     for f in args['<files>']:
         logs.extend(requestcreator.from_format(f, args['--input-format']))
 
-    trials = []
-    for l in logs:
-        t = challenge(s, args['--host-one'], args['--host-other'],
-                      l['path'], l['qs'],
-                      proxies_one, proxies_other)
-        trials.append(t)
+    trials = [challenge(s, args['--host-one'], args['--host-other'],
+                        l['path'], l['qs'],
+                        proxies_one, proxies_other)
+              for l in logs]
 
     result = {
         "trials": trials
