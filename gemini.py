@@ -180,7 +180,8 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     # Create diff
     ignore_properties = []  # Todo ignore_properties
     diff = create_diff(res_one.text, res_other.text, ignore_properties)
-    diff_without_order = create_diff(res_one.text, res_other.text, ignore_properties, True)
+    diff_without_order = create_diff(res_one.text, res_other.text,
+                                     ignore_properties, True)
 
     # Judgement
     status = "different"
@@ -216,14 +217,17 @@ def main():
 
     trials = []
     for l in logs:
-        t = challenge(s, args['--host-one'], args['--host-other'], l['path'], l['qs'], proxies_one, proxies_other)
+        t = challenge(s, args['--host-one'], args['--host-other'],
+                      l['path'], l['qs'],
+                      proxies_one, proxies_other)
         trials.append(t)
 
     result = {
         "trials": trials
     }
 
-    json.dump(result, codecs.open(args['--report'], 'w', encoding=args['--output-encoding']),
+    json.dump(result, codecs.open(args['--report'], 'w',
+              encoding=args['--output-encoding']),
               indent=4, ensure_ascii=False, sort_keys=True)
 
 
