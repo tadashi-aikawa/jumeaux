@@ -30,6 +30,7 @@ import json
 
 import requests
 from requests.adapters import HTTPAdapter
+from requests.exceptions import ConnectionError
 from multiprocessing import Pool
 
 import xmltodict
@@ -112,8 +113,10 @@ def add_to_detail(detail, is_same, path):
 
 def http_get(args):
     session, url, headers, proxies = args
-    r = session.get(url, headers=headers, proxies=proxies)
-    session.close()
+    try:
+        r = session.get(url, headers=headers, proxies=proxies)
+    finally:
+        session.close()
     return r
 
 
@@ -158,8 +161,21 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     pool = Pool(2)
     fs = ((session, url_one, headers, proxies_one),
           (session, url_other, headers, proxies_other))
-    res_one, res_other = pool.imap(http_get, fs)
-    pool.close()
+    try:
+        res_one, res_other = pool.imap(http_get, fs)
+    except ConnectionError:
+        return {
+            "request_time": req_time.strftime("%Y/%m/%d %X"),
+            "status": "failure",
+            "one": {
+                "url": url_one
+            },
+            "other": {
+                "url": url_other
+            }
+        }
+    finally:
+        pool.close()
 
     # Create diff
     ignore_properties = []  # Todo ignore_properties
