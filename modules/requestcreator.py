@@ -26,18 +26,30 @@ import csv
 
 
 def from_apache_accesslog(f):
-    """Transform apache access_log.
+    """Transform apache access_log as below.
+        000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)"
+        000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)"
 
     Arguments:
         (file) f: Access log file
 
     Returns:
-        (dict): Refer to `Usage`.
+        list(dict): Refer to `Usage`.
 
     Exception:
         ValueError: If url is invalid.
     """
-    return [_from_apache_accesslog(r) for r in f]
+    outputs = []
+    for r in f:
+        url = r.split(' ')[6]
+        if len(url.split('?')) > 2:
+            raise ValueError
+
+        path = url.split('?')[0]
+        qs = url.split('?')[1] if len(url.split('?')) == 2 else ''
+
+        outputs.append({"path": path, "qs": qs})
+    return outputs
 
 
 def from_yaml(f):
@@ -52,7 +64,7 @@ def from_yaml(f):
         (file) f: yaml
 
     Returns:
-        (dict): Refer to `Usage`.
+        list(dict): Refer to `Usage`.
 
     Exception:
         ValueError: If path does not exist.
@@ -78,7 +90,7 @@ def from_csv(f):
         (file) f: csv
 
     Returns:
-        (dict): Refer to `Usage`.
+        list(dict): Refer to `Usage`.
 
     Exception:
         ValueError: If fomat is invalid.
@@ -92,28 +104,3 @@ def from_csv(f):
         outputs.append(r)
 
     return outputs
-
-
-def _from_apache_accesslog(r):
-    """Transform apache access_log.
-
-    Arguments:
-        (str) r: Access log record
-
-    Returns:
-        (dict): Refer to `Usage`.
-
-    Exception:
-        ValueError: If url is invalid.
-    """
-    url = r.split(' ')[6]
-    if len(url.split('?')) > 2:
-        raise ValueError
-
-    path = url.split('?')[0]
-    qs = url.split('?')[1] if len(url.split('?')) == 2 else ''
-
-    return {
-        "path": path,
-        "qs": qs
-    }
