@@ -80,6 +80,39 @@ class Test(unittest.TestCase):
             with self.assertRaises(ValueError):
                 requestcreator.from_yaml(f)
 
+    def test_from_csv_normal(self):
+        examinee = """
+"/test",
+"/test2"
+"/test3","q1=1"
+"/test4","q1=1&q2=2"
+""".strip()
+        with open('tmp', 'w', encoding='utf8') as f:
+            f.write(examinee)
+        with open('tmp', 'r', encoding='utf8') as f:
+            actual = requestcreator.from_csv(f)
+
+        self.assertEqual(len(actual), 4)
+
+        self.assertEqual(actual[0]['path'], '/test')
+        self.assertEqual(actual[0]['qs'], '')
+        self.assertEqual(actual[1]['path'], '/test2')
+        self.assertEqual(actual[1]['qs'], '')
+        self.assertEqual(actual[2]['path'], '/test3')
+        self.assertEqual(actual[2]['qs'], 'q1=1')
+        self.assertEqual(actual[3]['path'], '/test4')
+        self.assertEqual(actual[3]['qs'], 'q1=1&q2=2')
+
+    def test_from_csv_abnormal_length_over_3(self):
+        examinee = """
+"/path","q1=1","evil"
+""".strip()
+        with open('tmp', 'w', encoding='utf8') as f:
+            f.write(examinee)
+        with open('tmp', 'r', encoding='utf8') as f:
+            with self.assertRaises(ValueError):
+                requestcreator.from_csv(f)
+
 
 if __name__ == '__main__':
     unittest.main()
