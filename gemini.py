@@ -133,7 +133,7 @@ def create_args():
         '--host-other': str,
         '--proxy-one': Or(None, str),
         '--proxy-other': Or(None, str),
-        '--input-format': Or('apache', 'yaml'),
+        '--input-format': Or('apache', 'yaml', 'csv'),
         '--input-encoding': str,
         '--output-encoding': str,
         '--report': str
@@ -194,6 +194,9 @@ def main():
     elif args['--input-format'] == 'yaml':
         for f in args['<files>']:
             logs.extend(requestcreator.from_yaml(f))
+    elif args['--input-format'] == 'csv':
+        for f in args['<files>']:
+            logs.extend(requestcreator.from_csv(f))
 
     trials = []
     for l in logs:

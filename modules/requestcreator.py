@@ -22,6 +22,7 @@ Each function returns the format of the following.
 """
 
 import yaml
+import csv
 
 
 def from_apache_accesslog(f):
@@ -64,6 +65,33 @@ def from_yaml(f):
             r['qs'] = ''
 
     return rs
+
+
+def from_csv(f):
+    """Transform csv as below.
+        "/path1","a=1&b=2"
+        "/path2","c=1"
+        "/path3",
+        "/path4"
+
+    Arguments:
+        (file) f: csv
+
+    Returns:
+        (dict): Refer to `Usage`.
+
+    Exception:
+        ValueError: If fomat is invalid.
+    """
+    rs = csv.DictReader(f, ('path', 'qs'), restval='')
+
+    outputs = []
+    for r in rs:
+        if len(r) > 2:
+            raise ValueError
+        outputs.append(r)
+
+    return outputs
 
 
 def _from_apache_accesslog(r):
