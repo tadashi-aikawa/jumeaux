@@ -28,6 +28,7 @@ import io
 import datetime
 import json
 
+import urllib.parse as urlparser
 import requests
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
@@ -77,10 +78,12 @@ def create_diff(text1, text2, ignore_properties, ignore_order=False):
     return None
 
 
-def create_trial(res_one, res_other, status, req_time):
+def create_trial(res_one, res_other, status, req_time, path, qs):
     return {
         "request_time": req_time.strftime("%Y/%m/%d %X"),
         "status": status,
+        "path": path,
+        "queries": urlparser.parse_qs(qs),
         "one": {
             "url": res_one.url,
             "status_code": res_one.status_code,
@@ -154,7 +157,7 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     url_one = '{0}{1}?{2}'.format(host_one, path, qs)
     url_other = '{0}{1}?{2}'.format(host_other, path, qs)
 
-    headers = []  # Todo headers
+    headers = []  # TODO: headers
 
     # Get two responses
     req_time = datetime.datetime.today()
@@ -164,9 +167,12 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     try:
         res_one, res_other = pool.imap(http_get, fs)
     except ConnectionError:
+        # TODO: Integrate logic into create_trial
         return {
             "request_time": req_time.strftime("%Y/%m/%d %X"),
             "status": "failure",
+            "path": path,
+            "queries": urlparser.parse_qs(qs),
             "one": {
                 "url": url_one
             },
@@ -190,7 +196,7 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     if diff is not None and len(diff) == 0:
         status = "same"
 
-    return create_trial(res_one, res_other, status, req_time)
+    return create_trial(res_one, res_other, status, req_time, path, qs)
 
 
 def main():
