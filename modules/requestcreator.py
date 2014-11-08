@@ -25,7 +25,35 @@ import yaml
 import csv
 
 
-def from_apache_accesslog(f):
+def from_format(file, format):
+    """Transform any formatted file into request list.
+       Support for
+       * apache
+       * yaml
+       * csv
+
+    Arguments:
+        (file) file: file
+        (Str)  format: format
+
+    Returns:
+        list(dict): Refer to `Usage`.
+
+    Exception:
+        ValueError: If format is invalid.
+    """
+    functions = {
+        'apache': _from_apache_accesslog,
+        'yaml': _from_yaml,
+        'csv': _from_csv,
+    }
+    if format not in functions:
+        raise ValueError
+
+    return functions[format](file)
+
+
+def _from_apache_accesslog(f):
     """Transform apache access_log as below.
         000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)"
         000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)"
@@ -52,7 +80,7 @@ def from_apache_accesslog(f):
     return outputs
 
 
-def from_yaml(f):
+def _from_yaml(f):
     """Transform yaml as below.
         - path: "/path1"
           qs: "a=1&b=2"
@@ -79,7 +107,7 @@ def from_yaml(f):
     return rs
 
 
-def from_csv(f):
+def _from_csv(f):
     """Transform csv as below.
         "/path1","a=1&b=2"
         "/path2","c=1"

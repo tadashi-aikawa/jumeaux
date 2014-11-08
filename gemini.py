@@ -211,15 +211,8 @@ def main():
 
     # parse files to ...
     logs = []
-    if args['--input-format'] == 'apache':
-        for f in args['<files>']:
-            logs.extend(requestcreator.from_apache_accesslog(f))
-    elif args['--input-format'] == 'yaml':
-        for f in args['<files>']:
-            logs.extend(requestcreator.from_yaml(f))
-    elif args['--input-format'] == 'csv':
-        for f in args['<files>']:
-            logs.extend(requestcreator.from_csv(f))
+    for f in args['<files>']:
+        logs.extend(requestcreator.from_format(f, args['--input-format']))
 
     trials = []
     for l in logs:
