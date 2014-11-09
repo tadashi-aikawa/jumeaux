@@ -99,21 +99,6 @@ def create_trial(res_one, res_other, status, req_time, path, qs):
     }
 
 
-def add_to_detail(detail, is_same, path):
-    obj = detail['same'] if is_same else detail['different']
-    obj['count'] += 1
-
-    for a in obj['paths']:
-        if a['name'] == path:
-            a['count'] += 1
-            return
-
-    obj['paths'].append({
-        "name": path,
-        "count": 1
-    })
-
-
 def http_get(args):
     session, url, headers, proxies = args
     try:
