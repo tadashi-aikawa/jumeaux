@@ -4,4 +4,5 @@ python:
   - "3.4"
 install:
   - pip install -r requirements.txt
+  - pip install freezegun
 script: python -m unittest discover -s test

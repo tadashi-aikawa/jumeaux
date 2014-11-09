@@ -108,6 +108,18 @@ def http_get(args):
     return r
 
 
+def concurrent_request(session, headers, url_one, url_other, proxies_one, proxies_other):
+    pool = Pool(2)
+    fs = ((session, url_one, headers, proxies_one),
+          (session, url_other, headers, proxies_other))
+    try:
+        res_one, res_other = pool.imap(http_get, fs)
+    finally:
+        pool.close()
+
+    return res_one, res_other
+
+
 def create_proxies(proxy):
     p = dict()
     if proxy:
@@ -146,11 +158,10 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
 
     # Get two responses
     req_time = datetime.datetime.today()
-    pool = Pool(2)
-    fs = ((session, url_one, headers, proxies_one),
-          (session, url_other, headers, proxies_other))
     try:
-        res_one, res_other = pool.imap(http_get, fs)
+        res_one, res_other = concurrent_request(session, headers,
+                                                url_one, url_other,
+                                                proxies_one, proxies_other)
     except ConnectionError:
         # TODO: Integrate logic into create_trial
         return {
@@ -165,8 +176,6 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
                 "url": url_other
             }
         }
-    finally:
-        pool.close()
 
     # Create diff
     ignore_properties = []  # Todo ignore_properties
@@ -208,8 +217,8 @@ def main():
         "trials": trials
     }
 
-    json.dump(result, codecs.open(args['--report'], 'w',
-              encoding=args['--output-encoding']),
+    json.dump(result,
+              codecs.open(args['--report'], 'w', encoding=args['--output-encoding']),
               indent=4, ensure_ascii=False, sort_keys=True)
 
 
