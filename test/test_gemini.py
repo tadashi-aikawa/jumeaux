@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+import json
+
 import unittest
 from unittest.mock import MagicMock
 from unittest.mock import patch
@@ -290,6 +292,62 @@ class ChallengeTest(unittest.TestCase):
         }
 
         self.assertEqual(expected, actual)
+
+
+@patch('gemini.challenge')
+@patch('modules.requestcreator.from_format')
+@patch('gemini.create_args')
+class MainTest(unittest.TestCase):
+    def setUp(self):
+        self.maxDiff = None
+
+    def test(self, create_args, from_format, challenge):
+        create_args.return_value = {
+            '<files>': ['line1', 'line2'],
+            '--input-format': None,
+            '--output-encoding': 'utf8',
+            '--proxy-one': None,
+            '--proxy-other': None,
+            '--host-one': None,
+            '--host-other': None,
+            '--report': 'tmp'
+        }
+        from_format.return_value = [
+            {
+                'path': '/path',
+                'qs': 'qs'
+            }
+        ]
+        challenge.side_effect = [
+            {
+                "a": 1,
+                "b": 2
+            },
+            {
+                "c": 3,
+                "d": 4
+            }
+        ]
+
+        gemini.main()
+
+        expected = {
+            "trials": [
+                {
+                    "a": 1,
+                    "b": 2
+                },
+                {
+                    "c": 3,
+                    "d": 4
+                }
+            ]
+        }
+        with open('tmp', 'r') as f:
+            actual = json.load(f)
+
+        self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()
