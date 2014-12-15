@@ -217,9 +217,8 @@ def main():
         "trials": trials
     }
 
-    json.dump(result,
-              codecs.open(args['--report'], 'w', encoding=args['--output-encoding']),
-              indent=4, ensure_ascii=False, sort_keys=True)
+    with codecs.open(args['--report'], 'w', encoding=args['--output-encoding']) as f:
+        json.dump(result, f, indent=4, ensure_ascii=False, sort_keys=True)
 
 
 if __name__ == '__main__':
