@@ -99,21 +99,6 @@ def create_trial(res_one, res_other, status, req_time, path, qs):
     }
 
 
-def add_to_detail(detail, is_same, path):
-    obj = detail['same'] if is_same else detail['different']
-    obj['count'] += 1
-
-    for a in obj['paths']:
-        if a['name'] == path:
-            a['count'] += 1
-            return
-
-    obj['paths'].append({
-        "name": path,
-        "count": 1
-    })
-
-
 def http_get(args):
     session, url, headers, proxies = args
     try:
@@ -121,6 +106,18 @@ def http_get(args):
     finally:
         session.close()
     return r
+
+
+def concurrent_request(session, headers, url_one, url_other, proxies_one, proxies_other):
+    pool = Pool(2)
+    fs = ((session, url_one, headers, proxies_one),
+          (session, url_other, headers, proxies_other))
+    try:
+        res_one, res_other = pool.imap(http_get, fs)
+    finally:
+        pool.close()
+
+    return res_one, res_other
 
 
 def create_proxies(proxy):
@@ -161,11 +158,10 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
 
     # Get two responses
     req_time = datetime.datetime.today()
-    pool = Pool(2)
-    fs = ((session, url_one, headers, proxies_one),
-          (session, url_other, headers, proxies_other))
     try:
-        res_one, res_other = pool.imap(http_get, fs)
+        res_one, res_other = concurrent_request(session, headers,
+                                                url_one, url_other,
+                                                proxies_one, proxies_other)
     except ConnectionError:
         # TODO: Integrate logic into create_trial
         return {
@@ -180,8 +176,6 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
                 "url": url_other
             }
         }
-    finally:
-        pool.close()
 
     # Create diff
     ignore_properties = []  # Todo ignore_properties
@@ -223,9 +217,8 @@ def main():
         "trials": trials
     }
 
-    json.dump(result, codecs.open(args['--report'], 'w',
-              encoding=args['--output-encoding']),
-              indent=4, ensure_ascii=False, sort_keys=True)
+    with codecs.open(args['--report'], 'w', encoding=args['--output-encoding']) as f:
+        json.dump(result, f, indent=4, ensure_ascii=False, sort_keys=True)
 
 
 if __name__ == '__main__':

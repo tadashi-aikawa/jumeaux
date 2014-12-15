@@ -1,0 +1,353 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+import json
+
+import unittest
+from unittest.mock import MagicMock
+from unittest.mock import patch
+
+import gemini
+import datetime
+from freezegun import freeze_time
+from requests.exceptions import ConnectionError
+
+
+class ResponseBuilder():
+    """
+    Create mock of requests.models.Response.
+    """
+    def __init__(self):
+        self._text = None
+        self._url = None
+        self._status_code = None
+        self._content = None
+        self._seconds = None
+        self._microseconds = None
+
+    def text(self, text):
+        self._text = text
+        return self
+
+    def url(self, url):
+        self._url = url
+        return self
+
+    def status_code(self, status_code):
+        self._status_code = status_code
+        return self
+
+    def content(self, content):
+        self._content = content
+        return self
+
+    def second(self, seconds, microseconds):
+        self._seconds = seconds
+        self._microseconds = microseconds
+        return self
+
+    def build(self):
+        m = MagicMock()
+        m.text = self._text
+        m.url = self._url
+        m.status_code = self._status_code
+        m.content = self._content
+        m.elapsed.seconds = self._seconds
+        m.elapsed.microseconds = self._microseconds
+        return m
+
+
+class CreateProxiesTest(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test(self):
+        proxy = '1.2.3.4'
+        actual = gemini.create_proxies(proxy)
+
+        self.assertEqual(actual['http'], 'http://1.2.3.4')
+        self.assertEqual(actual['https'], 'https://1.2.3.4')
+
+    def test_None(self):
+        proxy = None
+        actual = gemini.create_proxies(proxy)
+
+        self.assertEqual(actual, {})
+
+
+class CreateTrialTest(unittest.TestCase):
+    def setUp(self):
+        self.maxDiff = None
+
+    def test(self):
+        status = 'status'
+        req_time = datetime.datetime(2000, 1, 2, 0, 10, 20, 123456)
+        path = '/path'
+        qs = 'q1=1&q2=10000&q2=2'
+        res_one = ResponseBuilder().url('URL_ONE') \
+                                   .status_code(200) \
+                                   .content('a') \
+                                   .second(1, 234567) \
+                                   .build()
+        res_other = ResponseBuilder().url('URL_OTHER') \
+                                     .status_code(400) \
+                                     .content('ab') \
+                                     .second(9, 876543) \
+                                     .build()
+
+        actual = gemini.create_trial(res_one, res_other, status, req_time, path, qs)
+        expected = {
+            "request_time": '2000/01/02 00:10:20',
+            "status": 'status',
+            "path": '/path',
+            "queries": {
+                'q1': ['1'],
+                'q2': ['10000', '2']
+            },
+            "one": {
+                "url": 'URL_ONE',
+                "status_code": 200,
+                "byte": 1,
+                "response_sec": 1.23
+            },
+            "other": {
+                "url": 'URL_OTHER',
+                "status_code": 400,
+                "byte": 2,
+                "response_sec": 9.88
+            }
+        }
+
+        self.assertEqual(expected, actual)
+
+
+@patch('gemini.concurrent_request')
+class ChallengeTest(unittest.TestCase):
+    """
+    Only make mock for gemini.concurrent_request.
+    Because it uses http requests.
+    """
+    def setUp(self):
+        self.maxDiff = None
+
+    @freeze_time('2000-1-1 00:00:00')
+    def test_different(self, concurrent_request):
+        res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
+                                   .url('URL_ONE') \
+                                   .status_code(200) \
+                                   .content('{"items": [1, 2, 3]}') \
+                                   .second(1, 234567) \
+                                   .build()
+
+        res_other = ResponseBuilder().text('{"items": [1, 2, 3, 4]}') \
+                                     .url('URL_OTHER') \
+                                     .status_code(400) \
+                                     .content('{"items": [1, 2, 3, 4]}') \
+                                     .second(9, 876543) \
+                                     .build()
+        concurrent_request.return_value = res_one, res_other
+
+        path = '/challenge'
+        qs = 'q1=1&q2=2'
+        actual = gemini.challenge(None, None, None, path, qs, None, None)
+
+        expected = {
+            "request_time": '2000/01/01 00:00:00',
+            "status": 'different',
+            "path": '/challenge',
+            "queries": {
+                'q1': ['1'],
+                'q2': ['2']
+            },
+            "one": {
+                "url": 'URL_ONE',
+                "status_code": 200,
+                "byte": 20,
+                "response_sec": 1.23
+            },
+            "other": {
+                "url": 'URL_OTHER',
+                "status_code": 400,
+                "byte": 23,
+                "response_sec": 9.88
+            }
+        }
+
+        self.assertEqual(expected, actual)
+
+    @freeze_time('2000-1-1 00:00:00')
+    def test_same(self, concurrent_request):
+        res_one = ResponseBuilder().text('a') \
+                                   .url('URL_ONE') \
+                                   .status_code(200) \
+                                   .content('a') \
+                                   .second(1, 234567) \
+                                   .build()
+
+        res_other = ResponseBuilder().text('a') \
+                                     .url('URL_OTHER') \
+                                     .status_code(200) \
+                                     .content('a') \
+                                     .second(9, 876543) \
+                                     .build()
+        concurrent_request.return_value = res_one, res_other
+
+        path = '/challenge'
+        qs = 'q1=1&q2=2'
+        actual = gemini.challenge(None, None, None, path, qs, None, None)
+
+        expected = {
+            "request_time": '2000/01/01 00:00:00',
+            "status": 'same',
+            "path": '/challenge',
+            "queries": {
+                'q1': ['1'],
+                'q2': ['2']
+            },
+            "one": {
+                "url": 'URL_ONE',
+                "status_code": 200,
+                "byte": 1,
+                "response_sec": 1.23
+            },
+            "other": {
+                "url": 'URL_OTHER',
+                "status_code": 200,
+                "byte": 1,
+                "response_sec": 9.88
+            }
+        }
+
+        self.assertEqual(expected, actual)
+
+    @freeze_time('2000-1-1 00:00:00')
+    def test_different_without_order(self, concurrent_request):
+        res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
+                                   .url('URL_ONE') \
+                                   .status_code(200) \
+                                   .content('{"items": [1, 2, 3]}') \
+                                   .second(1, 234567) \
+                                   .build()
+
+        res_other = ResponseBuilder().text('{"items": [3, 2, 1]}') \
+                                     .url('URL_OTHER') \
+                                     .status_code(200) \
+                                     .content('{"items": [3, 2, 1]}') \
+                                     .second(9, 876543) \
+                                     .build()
+        concurrent_request.return_value = res_one, res_other
+
+        path = '/challenge'
+        qs = 'q1=1&q2=2'
+        actual = gemini.challenge(None, None, None, path, qs, None, None)
+
+        expected = {
+            "request_time": '2000/01/01 00:00:00',
+            "status": 'same without order',
+            "path": '/challenge',
+            "queries": {
+                'q1': ['1'],
+                'q2': ['2']
+            },
+            "one": {
+                "url": 'URL_ONE',
+                "status_code": 200,
+                "byte": 20,
+                "response_sec": 1.23
+            },
+            "other": {
+                "url": 'URL_OTHER',
+                "status_code": 200,
+                "byte": 20,
+                "response_sec": 9.88
+            }
+        }
+
+        self.assertEqual(expected, actual)
+
+    @freeze_time('2000-1-1 00:00:00')
+    def test_failure(self, concurrent_request):
+        concurrent_request.side_effect = ConnectionError
+
+        host_one = 'http://one'
+        host_other = 'http://other'
+        path = '/challenge'
+        qs = 'q1=1&q2=2'
+        actual = gemini.challenge(None, host_one, host_other, path, qs, None, None)
+
+        expected = {
+            "request_time": '2000/01/01 00:00:00',
+            "status": 'failure',
+            "path": '/challenge',
+            "queries": {
+                'q1': ['1'],
+                'q2': ['2']
+            },
+            "one": {
+                "url": 'http://one/challenge?q1=1&q2=2',
+            },
+            "other": {
+                "url": 'http://other/challenge?q1=1&q2=2',
+            }
+        }
+
+        self.assertEqual(expected, actual)
+
+
+@patch('gemini.challenge')
+@patch('modules.requestcreator.from_format')
+@patch('gemini.create_args')
+class MainTest(unittest.TestCase):
+    def setUp(self):
+        self.maxDiff = None
+
+    def test(self, create_args, from_format, challenge):
+        create_args.return_value = {
+            '<files>': ['line1', 'line2'],
+            '--input-format': None,
+            '--output-encoding': 'utf8',
+            '--proxy-one': None,
+            '--proxy-other': None,
+            '--host-one': None,
+            '--host-other': None,
+            '--report': 'tmp'
+        }
+        from_format.return_value = [
+            {
+                'path': '/path',
+                'qs': 'qs'
+            }
+        ]
+        challenge.side_effect = [
+            {
+                "a": 1,
+                "b": 2
+            },
+            {
+                "c": 3,
+                "d": 4
+            }
+        ]
+
+        gemini.main()
+
+        expected = {
+            "trials": [
+                {
+                    "a": 1,
+                    "b": 2
+                },
+                {
+                    "c": 3,
+                    "d": 4
+                }
+            ]
+        }
+        with open('tmp', 'r') as f:
+            actual = json.load(f)
+
+        self.assertEqual(expected, actual)
+
+
+if __name__ == '__main__':
+    unittest.main()
