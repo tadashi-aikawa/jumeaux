@@ -19,7 +19,7 @@ class DictUtils(object):
             (dict): The number of properties.
         """
         report = {}
-        cls._count_dict_properties(report, '', dict_obj)
+        cls.__count_dict_properties(report, '', dict_obj)
         return report
 
     @classmethod
@@ -38,8 +38,8 @@ class DictUtils(object):
         cut2 = copy.deepcopy(dict_obj2)
 
         if ignore_properties:
-            cls._dict_cut(cut1, ignore_properties)
-            cls._dict_cut(cut2, ignore_properties)
+            cls.__dict_cut(cut1, ignore_properties)
+            cls.__dict_cut(cut2, ignore_properties)
 
         return cut1 == cut2
 
@@ -59,11 +59,11 @@ class DictUtils(object):
         j1 = copy.deepcopy(dict_obj1)
         j2 = copy.deepcopy(dict_obj2)
         if ignore_properties:
-            cls._dict_cut(j1, ignore_properties)
-            cls._dict_cut(j2, ignore_properties)
+            cls.__dict_cut(j1, ignore_properties)
+            cls.__dict_cut(j2, ignore_properties)
         if ignore_order:
-            cls._dict_sort(j1)
-            cls._dict_sort(j2)
+            cls.__dict_sort(j1)
+            cls.__dict_sort(j2)
 
         jstr1 = json.dumps(j1, indent=4, ensure_ascii=False, sort_keys=True)
         jstr2 = json.dumps(j2, indent=4, ensure_ascii=False, sort_keys=True)
@@ -72,79 +72,79 @@ class DictUtils(object):
         return list(ds)
 
     @classmethod
-    def _count_dict_properties(cls, report, key_root, dict_obj):
+    def __count_dict_properties(cls, report, key_root, dict_obj):
         for k, v in dict_obj.items():
             if isinstance(v, dict):
-                cls._count_dict_properties(report, cls.DELIMITER.join([key_root, k]), v)
+                cls.__count_dict_properties(report, cls.DELIMITER.join([key_root, k]), v)
             elif isinstance(v, list):
-                cls._count_list_properties(report, '%s[]' % cls.DELIMITER.join([key_root, k]), v)
+                cls.__count_list_properties(report, '%s[]' % cls.DELIMITER.join([key_root, k]), v)
             else:
-                cls._count(report, cls.DELIMITER.join([key_root, k]))
+                cls.__count(report, cls.DELIMITER.join([key_root, k]))
 
     @classmethod
-    def _count_list_properties(cls, report, key_root, list_obj):
-        cls._count(report, '%s (size:%d)' % (key_root, len(list_obj)))
+    def __count_list_properties(cls, report, key_root, list_obj):
+        cls.__count(report, '%s (size:%d)' % (key_root, len(list_obj)))
         for v in list_obj:
             if isinstance(v, dict):
-                cls._count_dict_properties(report, key_root, v)
+                cls.__count_dict_properties(report, key_root, v)
             elif isinstance(v, list):
-                cls._count_list_properties(report, '%s[]' % key_root, v)
+                cls.__count_list_properties(report, '%s[]' % key_root, v)
             else:
-                cls._count(report, '%s -> ?' % key_root)
+                cls.__count(report, '%s -> ?' % key_root)
 
     @classmethod
-    def _count(cls, report, property):
+    def __count(cls, report, property):
         if property in report:
             report[property] += 1
         else:
             report[property] = 1
 
     @classmethod
-    def _dict_cut(cls, dict_obj, cut_properties, location=''):
+    def __dict_cut(cls, dict_obj, cut_properties, location=''):
         if location in cut_properties:
             dict_obj.clear()
             return
 
         for k, v in dict_obj.items():
             if isinstance(v, dict):
-                cls._dict_cut(v, cut_properties, "{0}.{1}".format(location, k))
+                cls.__dict_cut(v, cut_properties, "{0}.{1}".format(location, k))
             elif isinstance(v, list):
-                cls._list_cut(v, cut_properties, "{0}.{1}".format(location, k))
+                cls.__list_cut(v, cut_properties, "{0}.{1}".format(location, k))
             else:
                 if "{0}.{1}".format(location, k) in cut_properties:
                     dict_obj[k] = None
 
     @classmethod
-    def _list_cut(cls, list_obj, cut_properties, location=''):
+    def __list_cut(cls, list_obj, cut_properties, location=''):
         if location in cut_properties:
             list_obj.clear()
             return
 
         for i, v in enumerate(list_obj):
             if isinstance(v, dict):
-                cls._dict_cut(v, cut_properties, "{0}.{1}".format(location, '[]'))
+                cls.__dict_cut(v, cut_properties, "{0}.{1}".format(location, '[]'))
             elif isinstance(v, list):
-                cls._list_cut(v, cut_properties, "{0}.{1}".format(location, '[]'))
+                cls.__list_cut(v, cut_properties, "{0}.{1}".format(location, '[]'))
             else:
                 list_obj[i] = None
 
     @classmethod
-    def _dict_sort(cls, dict_obj):
+    def __dict_sort(cls, dict_obj):
         for k, v in dict_obj.items():
             if isinstance(v, dict):
-                cls._dict_sort(v)
+                cls.__dict_sort(v)
             elif isinstance(v, list):
-                cls._list_sort(v)
+                cls.__list_sort(v)
             else:
                 pass
 
     @classmethod
-    def _list_sort(cls, list_obj):
+    def __list_sort(cls, list_obj):
         for v in list_obj:
             if isinstance(v, dict):
-                cls._dict_sort(v)
+                cls.__dict_sort(v)
             elif isinstance(v, list):
-                cls._list_sort(v)
+                cls.__list_sort(v)
             else:
                 pass
         list_obj.sort(key=lambda m: json.dumps(m, sort_keys=True, ensure_ascii=False))
