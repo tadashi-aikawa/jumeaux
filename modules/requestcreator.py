@@ -8,13 +8,18 @@ Each function returns the format of the following.
 [
     {
         "path": "/path",
-        "qs": 'a=1&b=2'
+        "qs": 'a=1&b=2',
+        "headers": {
+            "key1": "value1",
+            "key2": "value2"
+        }
     },
     ・
     ・
     {
         "path": "/path",
-        "qs": ''
+        "qs": '',
+        "headers": {}
     }
 ]
 
