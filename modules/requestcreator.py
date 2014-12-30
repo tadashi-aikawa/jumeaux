@@ -31,6 +31,7 @@ Each function returns the format of the following.
 
 import yaml
 import csv
+import urllib.parse as urlparser
 
 
 def from_format(file, format):
@@ -133,9 +134,9 @@ def _from_yaml(f):
 
 def _from_csv(f):
     """Transform csv as below.
-        "/path1","a=1&b=2"
+        "/path1","a=1&b=2","header1=1&header2=2"
         "/path2","c=1"
-        "/path3",
+        "/path3",,"header1=1&header2=2"
         "/path4"
 
     Arguments:
@@ -147,12 +148,19 @@ def _from_csv(f):
     Exception:
         ValueError: If fomat is invalid.
     """
-    rs = csv.DictReader(f, ('path', 'qs'), restval='')
+    rs = csv.DictReader(f, ('path', 'qs', 'headers'), restval={})
 
     outputs = []
     for r in rs:
-        if len(r) > 2:
+        if len(r) > 3:
             raise ValueError
+        r['qs'] = urlparser.parse_qs(r['qs'])
+
+        # XXX: This is bad implementation but looks simple...
+        r['headers'] = urlparser.parse_qs(r['headers'])
+        for k, v in r['headers'].items():
+            r['headers'][k] = v[0]
+
         outputs.append(r)
 
     return outputs

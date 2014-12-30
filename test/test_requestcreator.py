@@ -138,30 +138,55 @@ class Test(unittest.TestCase):
 
     def test_from_format_as_csv_normal(self):
         examinee = """
-"/test",
-"/test2"
-"/test3","q1=1"
-"/test4","q1=1&q2=2"
+"/test1","q1=1&q2=2","header1=1&header2=2"
+"/test2","q1=1"
+"/test3",,"header1=1&header2=2"
+"/test4"
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
         with open('tmp', 'r', encoding='utf8') as f:
             actual = requestcreator.from_format(f, 'csv')
 
-        self.assertEqual(len(actual), 4)
+        expected = [
+            {
+                "path": "/test1",
+                "qs": {
+                    "q1": ["1"],
+                    "q2": ["2"]
+                },
+                "headers": {
+                    "header1": "1",
+                    "header2": "2"
+                }
+            },
+            {
+                "path": "/test2",
+                "qs": {
+                    "q1": ["1"]
+                },
+                "headers": {}
+            },
+            {
+                "path": "/test3",
+                "qs": {},
+                "headers": {
+                    "header1": "1",
+                    "header2": "2"
+                }
+            },
+            {
+                "path": "/test4",
+                "qs": {},
+                "headers": {}
+            }
+        ]
 
-        self.assertEqual(actual[0]['path'], '/test')
-        self.assertEqual(actual[0]['qs'], '')
-        self.assertEqual(actual[1]['path'], '/test2')
-        self.assertEqual(actual[1]['qs'], '')
-        self.assertEqual(actual[2]['path'], '/test3')
-        self.assertEqual(actual[2]['qs'], 'q1=1')
-        self.assertEqual(actual[3]['path'], '/test4')
-        self.assertEqual(actual[3]['qs'], 'q1=1&q2=2')
+        self.assertEqual(actual, expected)
 
-    def test_from_format_as_csv_abnormal_length_over_3(self):
+    def test_from_format_as_csv_abnormal_length_over_4(self):
         examinee = """
-"/path","q1=1","evil"
+"/path","q1=1","header1=1","evil"
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
