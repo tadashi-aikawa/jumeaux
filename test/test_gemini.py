@@ -83,7 +83,14 @@ class CreateTrialTest(unittest.TestCase):
         status = 'status'
         req_time = datetime.datetime(2000, 1, 2, 0, 10, 20, 123456)
         path = '/path'
-        qs = 'q1=1&q2=10000&q2=2'
+        qs = {
+            'q1': ['1'],
+            'q2': ['10000', '2']
+        }
+        headers = {
+            'header1': '1',
+            'header2': '2'
+        }
         res_one = ResponseBuilder().url('URL_ONE') \
                                    .status_code(200) \
                                    .content('a') \
@@ -95,7 +102,7 @@ class CreateTrialTest(unittest.TestCase):
                                      .second(9, 876543) \
                                      .build()
 
-        actual = gemini.create_trial(res_one, res_other, status, req_time, path, qs)
+        actual = gemini.create_trial(res_one, res_other, status, req_time, path, qs, headers)
         expected = {
             "request_time": '2000/01/02 00:10:20',
             "status": 'status',
@@ -103,6 +110,10 @@ class CreateTrialTest(unittest.TestCase):
             "queries": {
                 'q1': ['1'],
                 'q2': ['10000', '2']
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
             },
             "one": {
                 "url": 'URL_ONE',
@@ -152,7 +163,14 @@ class ChallengeTest(unittest.TestCase):
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
-            "qs": "q1=1&q2=2",
+            "qs": {
+                "q1": ["1"],
+                "q2": ["2-1", "2-2"]
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
+            },
             "proxies_one": None,
             "proxies_other": None
         }
@@ -163,8 +181,12 @@ class ChallengeTest(unittest.TestCase):
             "status": 'different',
             "path": '/challenge',
             "queries": {
-                'q1': ['1'],
-                'q2': ['2']
+                "q1": ["1"],
+                "q2": ["2-1", "2-2"]
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
             },
             "one": {
                 "url": 'URL_ONE',
@@ -204,7 +226,14 @@ class ChallengeTest(unittest.TestCase):
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
-            "qs": "q1=1&q2=2",
+            "qs": {
+                "q1": ["1"],
+                "q2": ["2-1", "2-2"]
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
+            },
             "proxies_one": None,
             "proxies_other": None
         }
@@ -216,7 +245,11 @@ class ChallengeTest(unittest.TestCase):
             "path": '/challenge',
             "queries": {
                 'q1': ['1'],
-                'q2': ['2']
+                'q2': ['2-1', '2-2']
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
             },
             "one": {
                 "url": 'URL_ONE',
@@ -256,7 +289,14 @@ class ChallengeTest(unittest.TestCase):
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
-            "qs": "q1=1&q2=2",
+            "qs": {
+                "q1": ["1"],
+                "q2": ["2-1", "2-2"]
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
+            },
             "proxies_one": None,
             "proxies_other": None
         }
@@ -268,7 +308,11 @@ class ChallengeTest(unittest.TestCase):
             "path": '/challenge',
             "queries": {
                 'q1': ['1'],
-                'q2': ['2']
+                'q2': ['2-1', '2-2']
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
             },
             "one": {
                 "url": 'URL_ONE',
@@ -295,7 +339,13 @@ class ChallengeTest(unittest.TestCase):
             "host_one": "http://one",
             "host_other": "http://other",
             "path": "/challenge",
-            "qs": "q1=1&q2=2",
+            "qs": {
+                "q1": ["1"]
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
+            },
             "proxies_one": None,
             "proxies_other": None
         }
@@ -306,14 +356,17 @@ class ChallengeTest(unittest.TestCase):
             "status": 'failure',
             "path": '/challenge',
             "queries": {
-                'q1': ['1'],
-                'q2': ['2']
+                'q1': ['1']
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
             },
             "one": {
-                "url": 'http://one/challenge?q1=1&q2=2',
+                "url": 'http://one/challenge?q1=1',
             },
             "other": {
-                "url": 'http://other/challenge?q1=1&q2=2',
+                "url": 'http://other/challenge?q1=1',
             }
         }
 
@@ -342,7 +395,8 @@ class MainTest(unittest.TestCase):
         from_format.return_value = [
             {
                 'path': '/path',
-                'qs': 'qs'
+                'qs': ['qs'],
+                'headers': ['headers']
             }
         ]
         challenge.side_effect = [

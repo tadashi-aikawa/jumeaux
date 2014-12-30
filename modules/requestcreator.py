@@ -8,21 +8,31 @@ Each function returns the format of the following.
 [
     {
         "path": "/path",
-        "qs": 'a=1&b=2'
+        "qs": {
+            "q1": ["v1"],
+            "q2": ["v2", "v3"]
+        }
+        "headers": {
+            "key1": "value1",
+            "key2": "value2"
+        }
     },
     ・
     ・
     {
         "path": "/path",
-        "qs": ''
+        "qs": {},
+        "headers": {}
     }
 ]
 
 "qs" never be None.
 """
 
+import re
 import yaml
 import csv
+import urllib.parse as urlparser
 
 
 def from_format(file, format):
@@ -55,8 +65,8 @@ def from_format(file, format):
 
 def _from_apache_accesslog(f):
     """Transform apache access_log as below.
-        000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)"
-        000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)"
+        000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
+        000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=-" "header2=-"
 
     Arguments:
         (file) f: Access log file
@@ -74,19 +84,42 @@ def _from_apache_accesslog(f):
             raise ValueError
 
         path = url.split('?')[0]
-        qs = url.split('?')[1] if len(url.split('?')) == 2 else ''
+        if len(url.split('?')) > 1:
+            qs = urlparser.parse_qs(url.split('?')[1])
+        else:
+            qs = {}
 
-        outputs.append({"path": path, "qs": qs})
+        headers = {}
+        for h in re.compile('"([^= ]+=[^ ]+)"').findall(r):
+            k, v = h.split('=')
+            if v != '-':
+                headers[k] = v
+
+        outputs.append({"path": path, "qs": qs, "headers": headers})
     return outputs
 
 
 def _from_yaml(f):
     """Transform yaml as below.
         - path: "/path1"
-          qs: "a=1&b=2"
+          qs:
+            q1:
+              - v1
+            q2:
+              - v2
+              - v3
+          headers:
+            key1: "header1"
+            key2: "header2"
         - path: "/path2"
-          qs: "c=1"
+          qs:
+            q1:
+              - v1
         - path: "/path3"
+          headers:
+            key1: "header1"
+            key2: "header2"
+        - path: "/path4"
 
     Arguments:
         (file) f: yaml
@@ -102,16 +135,18 @@ def _from_yaml(f):
         if 'path' not in r:
             raise ValueError
         if 'qs' not in r:
-            r['qs'] = ''
+            r['qs'] = {}
+        if 'headers' not in r:
+            r['headers'] = {}
 
     return rs
 
 
 def _from_csv(f):
     """Transform csv as below.
-        "/path1","a=1&b=2"
+        "/path1","a=1&b=2","header1=1&header2=2"
         "/path2","c=1"
-        "/path3",
+        "/path3",,"header1=1&header2=2"
         "/path4"
 
     Arguments:
@@ -123,12 +158,19 @@ def _from_csv(f):
     Exception:
         ValueError: If fomat is invalid.
     """
-    rs = csv.DictReader(f, ('path', 'qs'), restval='')
+    rs = csv.DictReader(f, ('path', 'qs', 'headers'), restval={})
 
     outputs = []
     for r in rs:
-        if len(r) > 2:
+        if len(r) > 3:
             raise ValueError
+        r['qs'] = urlparser.parse_qs(r['qs'])
+
+        # XXX: This is bad implementation but looks simple...
+        r['headers'] = urlparser.parse_qs(r['headers'])
+        for k, v in r['headers'].items():
+            r['headers'][k] = v[0]
+
         outputs.append(r)
 
     return outputs
