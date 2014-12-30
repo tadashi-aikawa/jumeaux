@@ -51,20 +51,30 @@ class Test(unittest.TestCase):
         examinee = """
 - path: "/test1"
 - path: "/test2"
-  qs: ""
+  qs:
+    q1:
+      - "1"
 - path: "/test3"
-  qs: "q1=1"
+  qs:
+    q1:
+      - "1"
+    q2:
+      - "2-1"
+      - "2-2"
 - path: "/test4"
-  qs: "q1=1&q2=2"
+  headers:
+    key1: "header1"
+    key2: "header2"
 - path: "/test5"
+  qs:
+    q1:
+      - "1"
+    q2:
+      - "2-1"
+      - "2-2"
   headers:
-      key1: "header1"
-      key2: "header2"
-- path: "/test6"
-  qs: "q1=1&q2=2"
-  headers:
-      key1: "header1"
-      key2: "header2"
+    key1: "header1"
+    key2: "header2"
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
@@ -74,35 +84,38 @@ class Test(unittest.TestCase):
         expected = [
             {
                 "path": "/test1",
-                "qs": "",
+                "qs": {},
                 "headers": {}
             },
             {
                 "path": "/test2",
-                "qs": "",
+                "qs": {
+                    "q1": ["1"]
+                },
                 "headers": {}
             },
             {
                 "path": "/test3",
-                "qs": "q1=1",
+                "qs": {
+                    "q1": ["1"],
+                    "q2": ["2-1", "2-2"]
+                },
                 "headers": {}
             },
             {
                 "path": "/test4",
-                "qs": "q1=1&q2=2",
-                "headers": {}
-            },
-            {
-                "path": "/test5",
-                "qs": "",
+                "qs": {},
                 "headers": {
                     "key1": "header1",
                     "key2": "header2"
                 }
             },
             {
-                "path": "/test6",
-                "qs": "q1=1&q2=2",
+                "path": "/test5",
+                "qs": {
+                    "q1": ["1"],
+                    "q2": ["2-1", "2-2"]
+                },
                 "headers": {
                     "key1": "header1",
                     "key2": "header2"

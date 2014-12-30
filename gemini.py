@@ -86,7 +86,7 @@ def create_trial(res_one, res_other, status, req_time, path, qs):
         "request_time": req_time.strftime("%Y/%m/%d %X"),
         "status": status,
         "path": path,
-        "queries": urlparser.parse_qs(qs),
+        "queries": qs,
         "one": {
             "url": res_one.url,
             "status_code": res_one.status_code,
@@ -162,7 +162,9 @@ def challenge(args):
          - (str) host_one
          - (str) host_other
          - (str) path
-         - (str) qs
+         - (dict) qs
+           - (str) key of query
+           - ...
          - (dict) proxies_one
            - (str) http
            - (str) https
@@ -170,8 +172,10 @@ def challenge(args):
            - (str) http
            - (str) https
     """
-    url_one = '{0}{1}?{2}'.format(args['host_one'], args['path'], args['qs'])
-    url_other = '{0}{1}?{2}'.format(args['host_other'], args['path'], args['qs'])
+    qs_str = urlparser.urlencode(args['qs'], doseq=True)
+
+    url_one = '{0}{1}?{2}'.format(args['host_one'], args['path'], qs_str)
+    url_other = '{0}{1}?{2}'.format(args['host_other'], args['path'], qs_str)
 
     headers = []  # TODO: headers
 
@@ -187,7 +191,7 @@ def challenge(args):
             "request_time": req_time.strftime("%Y/%m/%d %X"),
             "status": "failure",
             "path": args['path'],
-            "queries": urlparser.parse_qs(args['qs']),
+            "queries": args['qs'],
             "one": {
                 "url": url_one
             },

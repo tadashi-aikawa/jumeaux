@@ -8,7 +8,10 @@ Each function returns the format of the following.
 [
     {
         "path": "/path",
-        "qs": 'a=1&b=2',
+        "qs": {
+            "q1": ["v1"],
+            "q2": ["v2", "v3"]
+        }
         "headers": {
             "key1": "value1",
             "key2": "value2"
@@ -18,7 +21,7 @@ Each function returns the format of the following.
     ・
     {
         "path": "/path",
-        "qs": '',
+        "qs": {},
         "headers": {}
     }
 ]
@@ -88,16 +91,23 @@ def _from_apache_accesslog(f):
 def _from_yaml(f):
     """Transform yaml as below.
         - path: "/path1"
-          qs: "a=1&b=2"
+          qs:
+            q1:
+              - v1
+            q2:
+              - v2
+              - v3
           headers:
-              key1: "header1"
-              key2: "header2"
+            key1: "header1"
+            key2: "header2"
         - path: "/path2"
-          qs: "c=1"
+          qs:
+            q1:
+              - v1
         - path: "/path3"
           headers:
-              key1: "header1"
-              key2: "header2"
+            key1: "header1"
+            key2: "header2"
         - path: "/path4"
 
     Arguments:
@@ -114,7 +124,7 @@ def _from_yaml(f):
         if 'path' not in r:
             raise ValueError
         if 'qs' not in r:
-            r['qs'] = ''
+            r['qs'] = {}
         if 'headers' not in r:
             r['headers'] = {}
 
