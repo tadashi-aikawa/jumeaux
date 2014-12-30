@@ -95,6 +95,28 @@ Check operation
 Usage
 =================
 
+::
+
+  gemini --host-one=<host_one> --host-other=<host_other> --report <report> <files>...
+                        [--input-format=<input_format>]
+                        [--proxy-one=<proxy_one>] [--proxy-other=<proxy_other>]
+                        [--input-encoding=<input_encoding>] [--output-encoding=<output_encoding>]
+                        [--threads=<threads>]
+
+  Options:
+  <files>...
+  --host-one = <host_one>                   One host
+  --host-other = <host_other>               Other host
+  --proxy-one = <proxy_one>                 Proxy for one host
+  --proxy-other = <proxy_other>             Proxy for other host
+  --input-format = <input_format>           Input file format [default: apache]
+  --input-encoding = <input_encoding>       Input file encoding [default: utf8]
+  --output-encoding = <output_encoding>     Output json encoding [default: utf8]
+  --threads = <threads>                     The number of threads in challenge [default: 1]
+  --report = <report>                       Output json file
+
+Example
+
 .. sourcecode:: bash
 
     $ python gemini.py --host-one   http://one.net   \
