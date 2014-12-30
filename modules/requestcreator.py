@@ -89,9 +89,16 @@ def _from_yaml(f):
     """Transform yaml as below.
         - path: "/path1"
           qs: "a=1&b=2"
+          headers:
+              key1: "header1"
+              key2: "header2"
         - path: "/path2"
           qs: "c=1"
         - path: "/path3"
+          headers:
+              key1: "header1"
+              key2: "header2"
+        - path: "/path4"
 
     Arguments:
         (file) f: yaml
@@ -108,6 +115,8 @@ def _from_yaml(f):
             raise ValueError
         if 'qs' not in r:
             r['qs'] = ''
+        if 'headers' not in r:
+            r['headers'] = {}
 
     return rs
 

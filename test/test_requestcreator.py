@@ -49,29 +49,68 @@ class Test(unittest.TestCase):
 
     def test_from_format_as_yaml_normal(self):
         examinee = """
-- path: "/test"
-  qs: ""
+- path: "/test1"
 - path: "/test2"
+  qs: ""
 - path: "/test3"
   qs: "q1=1"
 - path: "/test4"
   qs: "q1=1&q2=2"
+- path: "/test5"
+  headers:
+      key1: "header1"
+      key2: "header2"
+- path: "/test6"
+  qs: "q1=1&q2=2"
+  headers:
+      key1: "header1"
+      key2: "header2"
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
         with open('tmp', 'r', encoding='utf8') as f:
             actual = requestcreator.from_format(f, 'yaml')
 
-        self.assertEqual(len(actual), 4)
+        expected = [
+            {
+                "path": "/test1",
+                "qs": "",
+                "headers": {}
+            },
+            {
+                "path": "/test2",
+                "qs": "",
+                "headers": {}
+            },
+            {
+                "path": "/test3",
+                "qs": "q1=1",
+                "headers": {}
+            },
+            {
+                "path": "/test4",
+                "qs": "q1=1&q2=2",
+                "headers": {}
+            },
+            {
+                "path": "/test5",
+                "qs": "",
+                "headers": {
+                    "key1": "header1",
+                    "key2": "header2"
+                }
+            },
+            {
+                "path": "/test6",
+                "qs": "q1=1&q2=2",
+                "headers": {
+                    "key1": "header1",
+                    "key2": "header2"
+                }
+            }
+        ]
 
-        self.assertEqual(actual[0]['path'], '/test')
-        self.assertEqual(actual[0]['qs'], '')
-        self.assertEqual(actual[1]['path'], '/test2')
-        self.assertEqual(actual[1]['qs'], '')
-        self.assertEqual(actual[2]['path'], '/test3')
-        self.assertEqual(actual[2]['qs'], 'q1=1')
-        self.assertEqual(actual[3]['path'], '/test4')
-        self.assertEqual(actual[3]['qs'], 'q1=1&q2=2')
+        self.assertEqual(actual, expected)
 
     def test_from_format_as_yaml_abnormal_path_not_exist(self):
         examinee = """
