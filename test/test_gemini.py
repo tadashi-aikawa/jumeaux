@@ -147,9 +147,16 @@ class ChallengeTest(unittest.TestCase):
                                      .build()
         concurrent_request.return_value = res_one, res_other
 
-        path = '/challenge'
-        qs = 'q1=1&q2=2'
-        actual = gemini.challenge(None, None, None, path, qs, None, None)
+        args = {
+            "session": None,
+            "host_one": None,
+            "host_other": None,
+            "path": "/challenge",
+            "qs": "q1=1&q2=2",
+            "proxies_one": None,
+            "proxies_other": None
+        }
+        actual = gemini.challenge(args)
 
         expected = {
             "request_time": '2000/01/01 00:00:00',
@@ -192,9 +199,16 @@ class ChallengeTest(unittest.TestCase):
                                      .build()
         concurrent_request.return_value = res_one, res_other
 
-        path = '/challenge'
-        qs = 'q1=1&q2=2'
-        actual = gemini.challenge(None, None, None, path, qs, None, None)
+        args = {
+            "session": None,
+            "host_one": None,
+            "host_other": None,
+            "path": "/challenge",
+            "qs": "q1=1&q2=2",
+            "proxies_one": None,
+            "proxies_other": None
+        }
+        actual = gemini.challenge(args)
 
         expected = {
             "request_time": '2000/01/01 00:00:00',
@@ -237,9 +251,16 @@ class ChallengeTest(unittest.TestCase):
                                      .build()
         concurrent_request.return_value = res_one, res_other
 
-        path = '/challenge'
-        qs = 'q1=1&q2=2'
-        actual = gemini.challenge(None, None, None, path, qs, None, None)
+        args = {
+            "session": None,
+            "host_one": None,
+            "host_other": None,
+            "path": "/challenge",
+            "qs": "q1=1&q2=2",
+            "proxies_one": None,
+            "proxies_other": None
+        }
+        actual = gemini.challenge(args)
 
         expected = {
             "request_time": '2000/01/01 00:00:00',
@@ -269,11 +290,16 @@ class ChallengeTest(unittest.TestCase):
     def test_failure(self, concurrent_request):
         concurrent_request.side_effect = ConnectionError
 
-        host_one = 'http://one'
-        host_other = 'http://other'
-        path = '/challenge'
-        qs = 'q1=1&q2=2'
-        actual = gemini.challenge(None, host_one, host_other, path, qs, None, None)
+        args = {
+            "session": None,
+            "host_one": "http://one",
+            "host_other": "http://other",
+            "path": "/challenge",
+            "qs": "q1=1&q2=2",
+            "proxies_one": None,
+            "proxies_other": None
+        }
+        actual = gemini.challenge(args)
 
         expected = {
             "request_time": '2000/01/01 00:00:00',
@@ -310,6 +336,7 @@ class MainTest(unittest.TestCase):
             '--proxy-other': None,
             '--host-one': None,
             '--host-other': None,
+            '--threads': 1,
             '--report': 'tmp'
         }
         from_format.return_value = [
