@@ -9,6 +9,7 @@ gemini --host-one=<host_one> --host-other=<host_other> --report <report> <files>
                       [--input-format=<input_format>]
                       [--proxy-one=<proxy_one>] [--proxy-other=<proxy_other>]
                       [--input-encoding=<input_encoding>] [--output-encoding=<output_encoding>]
+                      [--threads=<threads>]
 
 Options:
 <files>...
@@ -19,6 +20,7 @@ Options:
 --input-format = <input_format>           Input file format [default: apache]
 --input-encoding = <input_encoding>       Input file encoding [default: utf8]
 --output-encoding = <output_encoding>     Output json encoding [default: utf8]
+--threads = <threads>                     The number of threads in challenge [default: 1]
 --report = <report>                       Output json file
 """
 
@@ -38,7 +40,7 @@ from concurrent import futures
 import xmltodict
 
 from docopt import docopt
-from schema import Schema, Or, Use, SchemaError
+from schema import Schema, Or, And, Use, SchemaError
 
 from modules.dictutils import DictUtils
 from modules import requestcreator
@@ -140,6 +142,7 @@ def create_args():
         '--input-format': Or('apache', 'yaml', 'csv'),
         '--input-encoding': str,
         '--output-encoding': str,
+        '--threads': And(Use(int), lambda n: n > 0),
         '--report': str
     })
     try:
@@ -225,7 +228,7 @@ def main():
                "proxies_other": proxies_other
                } for l in logs]
 
-    with futures.ThreadPoolExecutor(max_workers=3) as ex:
+    with futures.ThreadPoolExecutor(max_workers=args['--threads']) as ex:
         trials = [r for r in ex.map(parallel_challenge, ex_args)]
 
     result = {
