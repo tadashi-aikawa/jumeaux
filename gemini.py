@@ -46,7 +46,7 @@ from modules.dictutils import DictUtils
 from modules import requestcreator
 
 
-VERSION = "0.5.0"
+VERSION = "0.9.0"
 MAX_RETRIES = 3
 
 
