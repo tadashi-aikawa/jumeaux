@@ -33,6 +33,7 @@ import requests
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 from multiprocessing import Pool
+from concurrent import futures
 
 import xmltodict
 
@@ -193,6 +194,12 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     return create_trial(res_one, res_other, status, req_time, path, qs)
 
 
+def parallel_challenge(args):
+    return challenge(args['session'], args['host_one'], args['host_other'],
+                     args['path'], args['qs'],
+                     args['proxies_one'], args['proxies_other'])
+
+
 def main():
     args = create_args()
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args['--output-encoding'])
@@ -208,10 +215,18 @@ def main():
     for f in args['<files>']:
         logs.extend(requestcreator.from_format(f, args['--input-format']))
 
-    trials = [challenge(s, args['--host-one'], args['--host-other'],
-                        l['path'], l['qs'],
-                        proxies_one, proxies_other)
-              for l in logs]
+    ex_args = [{
+               "session": s,
+               "host_one": args['--host-one'],
+               "host_other": args['--host-other'],
+               "path": l['path'],
+               "qs": l['qs'],
+               "proxies_one": proxies_one,
+               "proxies_other": proxies_other
+               } for l in logs]
+
+    with futures.ThreadPoolExecutor(max_workers=3) as ex:
+        trials = [r for r in ex.map(parallel_challenge, ex_args)]
 
     result = {
         "trials": trials
