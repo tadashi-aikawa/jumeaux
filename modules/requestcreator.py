@@ -29,6 +29,7 @@ Each function returns the format of the following.
 "qs" never be None.
 """
 
+import re
 import yaml
 import csv
 import urllib.parse as urlparser
@@ -64,8 +65,8 @@ def from_format(file, format):
 
 def _from_apache_accesslog(f):
     """Transform apache access_log as below.
-        000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)"
-        000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)"
+        000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
+        000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=-" "header2=-"
 
     Arguments:
         (file) f: Access log file
@@ -83,9 +84,18 @@ def _from_apache_accesslog(f):
             raise ValueError
 
         path = url.split('?')[0]
-        qs = url.split('?')[1] if len(url.split('?')) == 2 else ''
+        if len(url.split('?')) > 1:
+            qs = urlparser.parse_qs(url.split('?')[1])
+        else:
+            qs = {}
 
-        outputs.append({"path": path, "qs": qs})
+        headers = {}
+        for h in re.compile('"([^= ]+=[^ ]+)"').findall(r):
+            k, v = h.split('=')
+            if v != '-':
+                headers[k] = v
+
+        outputs.append({"path": path, "qs": qs, "headers": headers})
     return outputs
 
 
