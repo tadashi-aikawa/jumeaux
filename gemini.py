@@ -154,25 +154,40 @@ def create_args():
     return args
 
 
-def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_other={}):
-    url_one = '{0}{1}?{2}'.format(host_one, path, qs)
-    url_other = '{0}{1}?{2}'.format(host_other, path, qs)
+def challenge(args):
+    """
+    Arguments:
+       (dict) args
+         - (session) session
+         - (str) host_one
+         - (str) host_other
+         - (str) path
+         - (str) qs
+         - (dict) proxies_one
+           - (str) http
+           - (str) https
+         - (dict) proxies_other
+           - (str) http
+           - (str) https
+    """
+    url_one = '{0}{1}?{2}'.format(args['host_one'], args['path'], args['qs'])
+    url_other = '{0}{1}?{2}'.format(args['host_other'], args['path'], args['qs'])
 
     headers = []  # TODO: headers
 
     # Get two responses
     req_time = datetime.datetime.today()
     try:
-        res_one, res_other = concurrent_request(session, headers,
+        res_one, res_other = concurrent_request(args['session'], headers,
                                                 url_one, url_other,
-                                                proxies_one, proxies_other)
+                                                args['proxies_one'], args['proxies_other'])
     except ConnectionError:
         # TODO: Integrate logic into create_trial
         return {
             "request_time": req_time.strftime("%Y/%m/%d %X"),
             "status": "failure",
-            "path": path,
-            "queries": urlparser.parse_qs(qs),
+            "path": args['path'],
+            "queries": urlparser.parse_qs(args['qs']),
             "one": {
                 "url": url_one
             },
@@ -194,26 +209,21 @@ def challenge(session, host_one, host_other, path, qs, proxies_one={}, proxies_o
     if diff is not None and len(diff) == 0:
         status = "same"
 
-    return create_trial(res_one, res_other, status, req_time, path, qs)
-
-
-def parallel_challenge(args):
-    return challenge(args['session'], args['host_one'], args['host_other'],
-                     args['path'], args['qs'],
-                     args['proxies_one'], args['proxies_other'])
+    return create_trial(res_one, res_other, status, req_time, args['path'], args['qs'])
 
 
 def main():
     args = create_args()
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args['--output-encoding'])
 
+    # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
     proxies_one = create_proxies(args['--proxy-one'])
     proxies_other = create_proxies(args['--proxy-other'])
 
-    # parse files to ...
+    # Parse inputs to args of multi-thread executor.
     logs = []
     for f in args['<files>']:
         logs.extend(requestcreator.from_format(f, args['--input-format']))
@@ -228,13 +238,15 @@ def main():
                "proxies_other": proxies_other
                } for l in logs]
 
+    # Challenge
     with futures.ThreadPoolExecutor(max_workers=args['--threads']) as ex:
-        trials = [r for r in ex.map(parallel_challenge, ex_args)]
+        trials = [r for r in ex.map(challenge, ex_args)]
 
     result = {
         "trials": trials
     }
 
+    # Output result
     with codecs.open(args['--report'], 'w', encoding=args['--output-encoding']) as f:
         json.dump(result, f, indent=4, ensure_ascii=False, sort_keys=True)
 
