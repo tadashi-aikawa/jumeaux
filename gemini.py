@@ -81,12 +81,13 @@ def create_diff(text1, text2, ignore_properties, ignore_order=False):
     return None
 
 
-def create_trial(res_one, res_other, status, req_time, path, qs):
+def create_trial(res_one, res_other, status, req_time, path, qs, headers):
     return {
         "request_time": req_time.strftime("%Y/%m/%d %X"),
         "status": status,
         "path": path,
         "queries": qs,
+        "headers": headers,
         "one": {
             "url": res_one.url,
             "status_code": res_one.status_code,
@@ -165,6 +166,9 @@ def challenge(args):
          - (dict) qs
            - (str) key of query
            - ...
+         - (dict) headers
+           - (str) key of header
+           - ...
          - (dict) proxies_one
            - (str) http
            - (str) https
@@ -177,12 +181,10 @@ def challenge(args):
     url_one = '{0}{1}?{2}'.format(args['host_one'], args['path'], qs_str)
     url_other = '{0}{1}?{2}'.format(args['host_other'], args['path'], qs_str)
 
-    headers = []  # TODO: headers
-
     # Get two responses
     req_time = datetime.datetime.today()
     try:
-        res_one, res_other = concurrent_request(args['session'], headers,
+        res_one, res_other = concurrent_request(args['session'], args['headers'],
                                                 url_one, url_other,
                                                 args['proxies_one'], args['proxies_other'])
     except ConnectionError:
@@ -192,6 +194,7 @@ def challenge(args):
             "status": "failure",
             "path": args['path'],
             "queries": args['qs'],
+            "headers": args['headers'],
             "one": {
                 "url": url_one
             },
@@ -213,7 +216,7 @@ def challenge(args):
     if diff is not None and len(diff) == 0:
         status = "same"
 
-    return create_trial(res_one, res_other, status, req_time, args['path'], args['qs'])
+    return create_trial(res_one, res_other, status, req_time, args['path'], args['qs'], args['headers'])
 
 
 def main():
@@ -238,6 +241,7 @@ def main():
                "host_other": args['--host-other'],
                "path": l['path'],
                "qs": l['qs'],
+               "headers": l['headers'],
                "proxies_one": proxies_one,
                "proxies_other": proxies_other
                } for l in logs]
