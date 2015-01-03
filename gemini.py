@@ -27,7 +27,6 @@ Options:
 import codecs
 import sys
 import io
-import datetime
 import json
 
 import urllib.parse as urlparser
@@ -36,6 +35,7 @@ from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 from multiprocessing import Pool
 from concurrent import futures
+from datetime import datetime
 
 import xmltodict
 
@@ -48,6 +48,13 @@ from modules import requestcreator
 
 VERSION = "0.9.0"
 MAX_RETRIES = 3
+
+
+def now():
+    """
+    For test
+    """
+    return datetime.today()
 
 
 def create_diff(text1, text2, ignore_properties, ignore_order=False):
@@ -182,7 +189,7 @@ def challenge(args):
     url_other = '{0}{1}?{2}'.format(args['host_other'], args['path'], qs_str)
 
     # Get two responses
-    req_time = datetime.datetime.today()
+    req_time = now()
     try:
         res_one, res_other = concurrent_request(args['session'], args['headers'],
                                                 url_one, url_other,
@@ -247,10 +254,27 @@ def main():
                } for l in logs]
 
     # Challenge
+    start_time = now()
     with futures.ThreadPoolExecutor(max_workers=args['--threads']) as ex:
         trials = [r for r in ex.map(challenge, ex_args)]
+    end_time = now()
 
     result = {
+        "summary": {
+            "time": {
+                "start": start_time.strftime("%Y/%m/%d %X"),
+                "end": end_time.strftime("%Y/%m/%d %X"),
+                "elapsed_sec": (end_time - start_time).seconds
+            },
+            "one": {
+                "host": args['--host-one'],
+                "proxy": args['--proxy-one']
+            },
+            "other": {
+                "host": args['--host-other'],
+                "proxy": args['--proxy-other']
+            }
+        },
         "trials": trials
     }
 
