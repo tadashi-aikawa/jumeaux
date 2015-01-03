@@ -189,7 +189,7 @@ def challenge(args):
     url_other = '{0}{1}?{2}'.format(args['host_other'], args['path'], qs_str)
 
     # Get two responses
-    req_time = datetime.today()
+    req_time = now()
     try:
         res_one, res_other = concurrent_request(args['session'], args['headers'],
                                                 url_one, url_other,

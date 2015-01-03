@@ -3,4 +3,3 @@ docopt
 schema
 xmltodict
 pyyaml
-freezegun

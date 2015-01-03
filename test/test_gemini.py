@@ -9,7 +9,6 @@ from unittest.mock import patch
 
 import gemini
 import datetime
-from freezegun import freeze_time
 from requests.exceptions import ConnectionError
 
 
@@ -132,6 +131,7 @@ class CreateTrialTest(unittest.TestCase):
         self.assertEqual(expected, actual)
 
 
+@patch('gemini.now')
 @patch('gemini.concurrent_request')
 class ChallengeTest(unittest.TestCase):
     """
@@ -141,8 +141,7 @@ class ChallengeTest(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    @freeze_time('2000-1-1 00:00:00')
-    def test_different(self, concurrent_request):
+    def test_different(self, concurrent_request, now):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
                                    .url('URL_ONE') \
                                    .status_code(200) \
@@ -157,6 +156,7 @@ class ChallengeTest(unittest.TestCase):
                                      .second(9, 876543) \
                                      .build()
         concurrent_request.return_value = res_one, res_other
+        now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
             "session": None,
@@ -204,8 +204,7 @@ class ChallengeTest(unittest.TestCase):
 
         self.assertEqual(expected, actual)
 
-    @freeze_time('2000-1-1 00:00:00')
-    def test_same(self, concurrent_request):
+    def test_same(self, concurrent_request, now):
         res_one = ResponseBuilder().text('a') \
                                    .url('URL_ONE') \
                                    .status_code(200) \
@@ -220,6 +219,7 @@ class ChallengeTest(unittest.TestCase):
                                      .second(9, 876543) \
                                      .build()
         concurrent_request.return_value = res_one, res_other
+        now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
             "session": None,
@@ -267,8 +267,7 @@ class ChallengeTest(unittest.TestCase):
 
         self.assertEqual(expected, actual)
 
-    @freeze_time('2000-1-1 00:00:00')
-    def test_different_without_order(self, concurrent_request):
+    def test_different_without_order(self, concurrent_request, now):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
                                    .url('URL_ONE') \
                                    .status_code(200) \
@@ -283,6 +282,7 @@ class ChallengeTest(unittest.TestCase):
                                      .second(9, 876543) \
                                      .build()
         concurrent_request.return_value = res_one, res_other
+        now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
             "session": None,
@@ -330,9 +330,9 @@ class ChallengeTest(unittest.TestCase):
 
         self.assertEqual(expected, actual)
 
-    @freeze_time('2000-1-1 00:00:00')
-    def test_failure(self, concurrent_request):
+    def test_failure(self, concurrent_request, now):
         concurrent_request.side_effect = ConnectionError
+        now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
             "session": None,
