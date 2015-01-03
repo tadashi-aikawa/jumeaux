@@ -50,6 +50,13 @@ VERSION = "0.9.0"
 MAX_RETRIES = 3
 
 
+def now():
+    """
+    For test
+    """
+    return datetime.today()
+
+
 def create_diff(text1, text2, ignore_properties, ignore_order=False):
     """
     Arguments:
@@ -247,10 +254,10 @@ def main():
                } for l in logs]
 
     # Challenge
-    start_time = datetime.today()
+    start_time = now()
     with futures.ThreadPoolExecutor(max_workers=args['--threads']) as ex:
         trials = [r for r in ex.map(challenge, ex_args)]
-    end_time = datetime.today()
+    end_time = now()
 
     result = {
         "summary": {

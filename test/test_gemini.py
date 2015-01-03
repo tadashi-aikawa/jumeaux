@@ -373,6 +373,7 @@ class ChallengeTest(unittest.TestCase):
         self.assertEqual(expected, actual)
 
 
+@patch('gemini.now')
 @patch('gemini.challenge')
 @patch('modules.requestcreator.from_format')
 @patch('gemini.create_args')
@@ -380,15 +381,15 @@ class MainTest(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    def test(self, create_args, from_format, challenge):
+    def test(self, create_args, from_format, challenge, now):
         create_args.return_value = {
             '<files>': ['line1', 'line2'],
             '--input-format': None,
             '--output-encoding': 'utf8',
-            '--proxy-one': None,
-            '--proxy-other': None,
-            '--host-one': None,
-            '--host-other': None,
+            '--proxy-one': 'http://proxy/one',
+            '--proxy-other': 'http://proxy/other',
+            '--host-one': 'http://host/one',
+            '--host-other': 'http://host/other',
             '--threads': 1,
             '--report': 'tmp'
         }
@@ -409,10 +410,29 @@ class MainTest(unittest.TestCase):
                 "d": 4
             }
         ]
+        now.side_effect = [
+            datetime.datetime(2000, 1, 1, 23, 50, 30),
+            datetime.datetime(2000, 1, 2, 0, 0, 0)
+        ]
 
         gemini.main()
 
         expected = {
+            "summary": {
+                "time": {
+                    "start": '2000/01/01 23:50:30',
+                    "end": '2000/01/02 00:00:00',
+                    "elapsed_sec": 570
+                },
+                "one": {
+                    "host": "http://host/one",
+                    "proxy": "http://proxy/one"
+                },
+                "other": {
+                    "host": "http://host/other",
+                    "proxy": "http://proxy/other"
+                }
+            },
             "trials": [
                 {
                     "a": 1,
