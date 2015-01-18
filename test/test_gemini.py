@@ -383,15 +383,15 @@ class MainTest(unittest.TestCase):
 
     def test(self, create_args, from_format, challenge, now):
         create_args.return_value = {
-            '<files>': ['line1', 'line2'],
-            '--input-format': None,
-            '--output-encoding': 'utf8',
-            '--proxy-one': 'http://proxy/one',
-            '--proxy-other': 'http://proxy/other',
-            '--host-one': 'http://host/one',
-            '--host-other': 'http://host/other',
-            '--threads': 1,
-            '--report': 'tmp'
+            'files': ['line1', 'line2'],
+            'input_format': None,
+            'output_encoding': 'utf8',
+            'proxy_one': 'http://proxy/one',
+            'proxy_other': 'http://proxy/other',
+            'host_one': 'http://host/one',
+            'host_other': 'http://host/other',
+            'threads': 1,
+            'report': 'tmp'
         }
         from_format.return_value = [
             {
