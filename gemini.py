@@ -5,23 +5,33 @@
 gemini
 
 Usage:
-gemini --host-one=<host_one> --host-other=<host_other> --report <report> <files>...
-                      [--input-format=<input_format>]
-                      [--proxy-one=<proxy_one>] [--proxy-other=<proxy_other>]
-                      [--input-encoding=<input_encoding>] [--output-encoding=<output_encoding>]
-                      [--threads=<threads>]
+  gemini --report <report> [--threads=<threads>] [--config=<json>] <files>...
 
 Options:
-<files>...
---host-one = <host_one>                   One host
---host-other = <host_other>               Other host
---proxy-one = <proxy_one>                 Proxy for one host
---proxy-other = <proxy_other>             Proxy for other host
---input-format = <input_format>           Input file format [default: apache]
---input-encoding = <input_encoding>       Input file encoding [default: utf8]
---output-encoding = <output_encoding>     Output json encoding [default: utf8]
---threads = <threads>                     The number of threads in challenge [default: 1]
---report = <report>                       Output json file
+  <files>...
+  --report = <report>    Output json file
+  --threads = <threads>  The number of threads in challenge [default: 1]
+  --config = <json>      Configuration file(see below) [default: config.json]
+
+Config file definition:
+  # Set following value as default if property is blank and not REQUIRED.
+    {
+        "one": {
+            "host": "http://one",  (# REQUIRED)
+            "proxy": None
+        },
+        "other": {
+            "host": "http://other",  (# REQUIRED)
+            "proxy": None
+        },
+        "input": {
+            "format": "yaml",
+            "encoding": "utf8"
+        },
+        "output": {
+            "encoding": "utf8"
+        }
+    }
 """
 
 import codecs
@@ -141,25 +151,52 @@ def create_proxies(proxy):
 
 
 def create_args():
-    schema = Schema({
-        '<files>': [Use(open)],
-        '--host-one': str,
-        '--host-other': str,
-        '--proxy-one': Or(None, str),
-        '--proxy-other': Or(None, str),
-        '--input-format': Or('apache', 'yaml', 'csv'),
-        '--input-encoding': str,
-        '--output-encoding': str,
+    doc = docopt(__doc__, version=VERSION)
+
+    pre_schema = Schema({
+        '<files>': [str],
+        '--config': Use(open),
         '--threads': And(Use(int), lambda n: n > 0),
         '--report': str
     })
     try:
-        args = schema.validate(docopt(__doc__, version=VERSION))
+        pre_args = pre_schema.validate(doc)
+        config = json.load(pre_args['--config'])
     except SchemaError as e:
         print(e)
         sys.exit(1)
 
-    return args
+    args = {
+        'files': pre_args['<files>'],
+        'host_one': config['one']['host'],
+        'host_other': config['other']['host'],
+        'proxy_one': config['one'].get('proxy', None),
+        'proxy_other': config['other'].get('proxy', None),
+        'input_encoding': config['input'].get('encoding', 'utf-8'),
+        'output_encoding': config['output'].get('encoding', 'utf-8'),
+        'input_format': config['input'].get('format', 'yaml'),
+        'threads': pre_args['--threads'],
+        'report': pre_args['--report']
+    }
+
+    schema = Schema({
+        'files': [Use(open)],
+        'host_one': str,
+        'host_other': str,
+        'proxy_one': Or(None, str),
+        'proxy_other': Or(None, str),
+        'input_encoding': str,
+        'output_encoding': str,
+        'input_format': Or('apache', 'yaml', 'csv'),
+        'threads': And(Use(int), lambda n: n > 0),
+        'report': str
+    })
+
+    try:
+        return schema.validate(args)
+    except SchemaError as e:
+        print(e)
+        sys.exit(1)
 
 
 def challenge(args):
@@ -228,24 +265,24 @@ def challenge(args):
 
 def main():
     args = create_args()
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args['--output-encoding'])
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args['output_encoding'])
 
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
-    proxies_one = create_proxies(args['--proxy-one'])
-    proxies_other = create_proxies(args['--proxy-other'])
+    proxies_one = create_proxies(args['proxy_one'])
+    proxies_other = create_proxies(args['proxy_other'])
 
     # Parse inputs to args of multi-thread executor.
     logs = []
-    for f in args['<files>']:
-        logs.extend(requestcreator.from_format(f, args['--input-format']))
+    for f in args['files']:
+        logs.extend(requestcreator.from_format(f, args['input_format']))
 
     ex_args = [{
                "session": s,
-               "host_one": args['--host-one'],
-               "host_other": args['--host-other'],
+               "host_one": args['host_one'],
+               "host_other": args['host_other'],
                "path": l['path'],
                "qs": l['qs'],
                "headers": l['headers'],
@@ -255,7 +292,7 @@ def main():
 
     # Challenge
     start_time = now()
-    with futures.ThreadPoolExecutor(max_workers=args['--threads']) as ex:
+    with futures.ThreadPoolExecutor(max_workers=args['threads']) as ex:
         trials = [r for r in ex.map(challenge, ex_args)]
     end_time = now()
 
@@ -267,19 +304,19 @@ def main():
                 "elapsed_sec": (end_time - start_time).seconds
             },
             "one": {
-                "host": args['--host-one'],
-                "proxy": args['--proxy-one']
+                "host": args['host_one'],
+                "proxy": args['proxy_one']
             },
             "other": {
-                "host": args['--host-other'],
-                "proxy": args['--proxy-other']
+                "host": args['host_other'],
+                "proxy": args['proxy_other']
             }
         },
         "trials": trials
     }
 
     # Output result
-    with codecs.open(args['--report'], 'w', encoding=args['--output-encoding']) as f:
+    with codecs.open(args['report'], 'w', encoding=args['output_encoding']) as f:
         json.dump(result, f, indent=4, ensure_ascii=False, sort_keys=True)
 
 

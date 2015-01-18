@@ -78,7 +78,7 @@ Check operation
 .. sourcecode:: bash
 
     $ python gemini.py --version
-    0.5.0
+    0.9.0
 
 
 Usage
@@ -86,32 +86,40 @@ Usage
 
 ::
 
-  gemini --host-one=<host_one> --host-other=<host_other> --report <report> <files>...
-                        [--input-format=<input_format>]
-                        [--proxy-one=<proxy_one>] [--proxy-other=<proxy_other>]
-                        [--input-encoding=<input_encoding>] [--output-encoding=<output_encoding>]
-                        [--threads=<threads>]
+  Usage:
+    gemini --report <report> [--threads=<threads>] [--config=<json>] <files>...
 
   Options:
-  <files>...
-  --host-one = <host_one>                   One host
-  --host-other = <host_other>               Other host
-  --proxy-one = <proxy_one>                 Proxy for one host
-  --proxy-other = <proxy_other>             Proxy for other host
-  --input-format = <input_format>           Input file format [default: apache]
-  --input-encoding = <input_encoding>       Input file encoding [default: utf8]
-  --output-encoding = <output_encoding>     Output json encoding [default: utf8]
-  --threads = <threads>                     The number of threads in challenge [default: 1]
-  --report = <report>                       Output json file
+    <files>...
+    --report = <report>    Output json file
+    --threads = <threads>  The number of threads in challenge [default: 1]
+    --config = <json>      Configuration file(see below) [default: config.json]
+
+  Config file definition:
+    # Set following value as default if property is blank and not REQUIRED.
+      {
+          "one": {
+              "host": "http://one",  (# REQUIRED)
+              "proxy": None
+          },
+          "other": {
+              "host": "http://other",  (# REQUIRED)
+              "proxy": None
+          },
+          "input": {
+              "format": "yaml",
+              "encoding": "utf8"
+          },
+          "output": {
+              "encoding": "utf8"
+          }
+      }
 
 Example
 
 .. sourcecode:: bash
 
-    $ python gemini.py --host-one   http://one.net   \
-                       --host-other http://other.net \
-                       --report     report.json      \
-                       access.log
+    $ python gemini.py --report report.json accesslog.yaml
 
 
 Test Result
