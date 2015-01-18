@@ -5,33 +5,33 @@
 gemini
 
 Usage:
-gemini --report <report> [--threads=<threads>] [--config=<json>] <files>...
+  gemini --report <report> [--threads=<threads>] [--config=<json>] <files>...
 
 Options:
-<files>...
---report = <report>    Output json file
---threads = <threads>  The number of threads in challenge [default: 1]
---config = <json>      Configuration file(see below) [default: config.json]
+  <files>...
+  --report = <report>    Output json file
+  --threads = <threads>  The number of threads in challenge [default: 1]
+  --config = <json>      Configuration file(see below) [default: config.json]
 
 Config file definition:
-# Set following value as default if property is blank and not REQUIRED.
-{
-    "one": {
-        "host": "http://one",  (# REQUIRED)
-        "proxy": None
-    },
-    "other": {
-        "host": "http://other",  (# REQUIRED)
-        "proxy": None
-    },
-    "input": {
-        "format": "yaml",
-        "encoding": "utf8"
-    },
-    "output": {
-        "encoding": "utf8"
+  # Set following value as default if property is blank and not REQUIRED.
+    {
+        "one": {
+            "host": "http://one",  (# REQUIRED)
+            "proxy": None
+        },
+        "other": {
+            "host": "http://other",  (# REQUIRED)
+            "proxy": None
+        },
+        "input": {
+            "format": "yaml",
+            "encoding": "utf8"
+        },
+        "output": {
+            "encoding": "utf8"
+        }
     }
-}
 """
 
 import codecs
