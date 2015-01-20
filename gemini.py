@@ -18,20 +18,27 @@ Config file definition:
     {
         "one": {
             "host": "http://one",  (# REQUIRED)
-            "proxy": None
+            "proxy": null
         },
         "other": {
             "host": "http://other",  (# REQUIRED)
-            "proxy": None
+            "proxy": null
         },
         "input": {
-            "format": "yaml",
+            "format": "plain",  (see `Input format`)
             "encoding": "utf8"
         },
         "output": {
             "encoding": "utf8"
         }
     }
+
+Input format:
+  # Correspond to following format.
+   * plain
+   * apache
+   * yaml
+   * csv
 """
 
 import codecs
