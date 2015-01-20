@@ -232,7 +232,7 @@ def create_args():
         'proxy_other': config['other'].get('proxy', None),
         'input_encoding': config['input'].get('encoding', 'utf-8'),
         'output_encoding': config['output'].get('encoding', 'utf-8'),
-        'input_format': config['input'].get('format', 'yaml'),
+        'input_format': config['input'].get('format', 'plain'),
         'threads': pre_args['--threads'],
         'report': pre_args['--report']
     }
