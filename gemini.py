@@ -187,7 +187,7 @@ def create_args():
         'proxy_other': Or(None, str),
         'input_encoding': str,
         'output_encoding': str,
-        'input_format': Or('apache', 'yaml', 'csv'),
+        'input_format': Or('plain', 'apache', 'yaml', 'csv'),
         'threads': And(Use(int), lambda n: n > 0),
         'report': str
     })
