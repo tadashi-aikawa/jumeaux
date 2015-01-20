@@ -13,6 +13,44 @@ class Test(unittest.TestCase):
         with self.assertRaises(ValueError):
             requestcreator.from_format(None, 'unsupported format')
 
+    def test_from_format_as_plain_normal(self):
+        examinee = """
+/path1?a=1&b=2
+/path2?c=1
+
+/path3
+""".strip()
+        with open('tmp', 'w', encoding='utf8') as f:
+            f.write(examinee)
+        with open('tmp', 'r', encoding='utf8') as f:
+            actual = requestcreator.from_format(f, 'plain')
+
+        # Line break is ignored. (examinee has 3 not 4)
+        expected = [
+            {
+                "path": "/path1",
+                "qs": {
+                    "a": ["1"],
+                    "b": ["2"]
+                },
+                "headers": {}
+            },
+            {
+                "path": "/path2",
+                "qs": {
+                    "c": ["1"]
+                },
+                "headers": {}
+            },
+            {
+                "path": "/path3",
+                "qs": {},
+                "headers": {}
+            }
+        ]
+
+        self.assertEqual(actual, expected)
+
     def test_from_format_as_apache_normal(self):
         examinee = """
 000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
