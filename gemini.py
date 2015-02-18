@@ -294,6 +294,7 @@ def challenge(args):
          - (str) host_one
          - (str) host_other
          - (str) path
+         - (str) output_encoding
          - (dict) qs
            - (str) key of query
            - ...
@@ -353,8 +354,8 @@ def challenge(args):
     if status != "same":
         file_one = "one{}".format(args['seq'])
         file_other = "other{}".format(args['seq'])
-        write_to_file(file_one, "dir", pretty(res_one), "utf8")
-        write_to_file(file_other, "dir", pretty(res_other), "utf8")
+        write_to_file(file_one, "dir", pretty(res_one), args['output_encoding'])
+        write_to_file(file_other, "dir", pretty(res_other), args['output_encoding'])
 
     return create_trial(res_one, res_other, file_one, file_other,
                         status, req_time, args['path'], args['qs'], args['headers'])
@@ -385,7 +386,8 @@ def main():
                "qs": l['qs'],
                "headers": l['headers'],
                "proxies_one": proxies_one,
-               "proxies_other": proxies_other
+               "proxies_other": proxies_other,
+               "output_encoding": args['output_encoding']
                } for i, l in enumerate(logs)]
 
     # Challenge
