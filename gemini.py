@@ -284,6 +284,7 @@ def challenge(args):
     """
     Arguments:
        (dict) args
+         - (int) sequence
          - (session) session
          - (str) host_one
          - (str) host_other
@@ -338,8 +339,8 @@ def challenge(args):
     if diff is not None and len(diff) == 0:
         status = "same"
     else:
-        write_to_file("hoge_one", "dir", pretty(res_one), "utf8")
-        write_to_file("hoge_other", "dir", pretty(res_other), "utf8")
+        write_to_file("one{}".format(args['seq']), "dir", pretty(res_one), "utf8")
+        write_to_file("other{}".format(args['seq']), "dir", pretty(res_other), "utf8")
         if diff_without_order is not None and len(diff_without_order) == 0:
             status = "same without order"
         else:
@@ -365,6 +366,7 @@ def main():
         logs.extend(requestcreator.from_format(f, args['input_format']))
 
     ex_args = [{
+               "seq": i + 1,
                "session": s,
                "host_one": args['host_one'],
                "host_other": args['host_other'],
@@ -373,7 +375,7 @@ def main():
                "headers": l['headers'],
                "proxies_one": proxies_one,
                "proxies_other": proxies_other
-               } for l in logs]
+               } for i, l in enumerate(logs)]
 
     # Challenge
     start_time = now()
