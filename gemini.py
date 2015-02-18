@@ -96,7 +96,6 @@ import codecs
 import sys
 import io
 import json
-import codecs
 import os
 
 import urllib.parse as urlparser
