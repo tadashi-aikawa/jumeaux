@@ -96,6 +96,8 @@ import codecs
 import sys
 import io
 import json
+import codecs
+import os
 
 import urllib.parse as urlparser
 import requests
@@ -106,6 +108,8 @@ from concurrent import futures
 from datetime import datetime
 
 import xmltodict
+from xml.dom import minidom
+from xml.etree import ElementTree
 
 from docopt import docopt
 from schema import Schema, Or, And, Use, SchemaError
@@ -154,6 +158,25 @@ def create_diff(text1, text2, ignore_properties, ignore_order=False):
         pass
 
     return None
+
+
+def pretty(res):
+    mime_type = res.headers['content-type'].split(';')[0]
+    if mime_type in ('text/json', 'application/json'):
+        return json.dumps(res.json(), ensure_ascii=False, indent=4, sort_keys=True)
+    elif mime_type in ('text/xml', 'application/xml'):
+        tree = ElementTree.XML(res.text)
+        return minidom.parseString(ElementTree.tostring(tree)).toprettyxml(indent='    ')
+    elif mime_type in ('text/plain'):
+        return res.text
+    else:
+        return None
+
+
+def write_to_file(name, dir, body, encoding):
+    # todo: dir check
+    with codecs.open(os.path.join(dir, name), "w", encoding=encoding) as f:
+        f.write(body)
 
 
 def create_trial(res_one, res_other, status, req_time, path, qs, headers):
@@ -312,11 +335,15 @@ def challenge(args):
                                      ignore_properties, True)
 
     # Judgement
-    status = "different"
-    if diff_without_order is not None and len(diff_without_order) == 0:
-        status = "same without order"
     if diff is not None and len(diff) == 0:
         status = "same"
+    else:
+        write_to_file("hoge_one", "dir", pretty(res_one), "utf8")
+        write_to_file("hoge_other", "dir", pretty(res_other), "utf8")
+        if diff_without_order is not None and len(diff_without_order) == 0:
+            status = "same without order"
+        else:
+            status = "different"
 
     return create_trial(res_one, res_other, status, req_time, args['path'], args['qs'], args['headers'])
 
