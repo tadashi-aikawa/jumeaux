@@ -36,7 +36,10 @@ Set following value as default if property is blank and not REQUIRED.
         "encoding": "utf8"
     },
     "output": {
-        "encoding": "utf8"
+        "encoding": "utf8",
+        "response": {
+            "dir": "response"    (# REQUIRED)
+        }
     }
 }
 
@@ -260,6 +263,7 @@ def create_args():
         'proxy_other': config['other'].get('proxy', None),
         'input_encoding': config['input'].get('encoding', 'utf-8'),
         'output_encoding': config['output'].get('encoding', 'utf-8'),
+        'res_dir': config['output']['response'].get('dir', 'response'),
         'input_format': config['input'].get('format', 'plain'),
         'threads': pre_args['--threads'],
         'report': pre_args['--report']
@@ -273,6 +277,7 @@ def create_args():
         'proxy_other': Or(None, str),
         'input_encoding': str,
         'output_encoding': str,
+        'res_dir': os.path.exists,
         'input_format': Or('plain', 'apache', 'yaml', 'csv'),
         'threads': And(Use(int), lambda n: n > 0),
         'report': str
@@ -295,6 +300,7 @@ def challenge(args):
          - (str) host_other
          - (str) path
          - (str) output_encoding
+         - (str) res_dir
          - (dict) qs
            - (str) key of query
            - ...
@@ -354,8 +360,8 @@ def challenge(args):
     if status != "same":
         file_one = "one{}".format(args['seq'])
         file_other = "other{}".format(args['seq'])
-        write_to_file(file_one, "dir", pretty(res_one), args['output_encoding'])
-        write_to_file(file_other, "dir", pretty(res_other), args['output_encoding'])
+        write_to_file(file_one, args['res_dir'], pretty(res_one), args['output_encoding'])
+        write_to_file(file_other, args['res_dir'], pretty(res_other), args['output_encoding'])
 
     return create_trial(res_one, res_other, file_one, file_other,
                         status, req_time, args['path'], args['qs'], args['headers'])
@@ -387,7 +393,8 @@ def main():
                "headers": l['headers'],
                "proxies_one": proxies_one,
                "proxies_other": proxies_other,
-               "output_encoding": args['output_encoding']
+               "output_encoding": args['output_encoding'],
+               "res_dir": args['res_dir']
                } for i, l in enumerate(logs)]
 
     # Challenge
