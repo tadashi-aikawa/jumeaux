@@ -341,18 +341,20 @@ def challenge(args):
                                      ignore_properties, True)
 
     # Judgement
-    file_one, file_other = None, None
     if diff is not None and len(diff) == 0:
         status = "same"
+    elif diff_without_order is not None and len(diff_without_order) == 0:
+        status = "same without order"
     else:
+        status = "different"
+
+    # Write response body to file
+    file_one, file_other = None, None
+    if status != "same":
         file_one = "one{}".format(args['seq'])
         file_other = "other{}".format(args['seq'])
         write_to_file(file_one, "dir", pretty(res_one), "utf8")
         write_to_file(file_other, "dir", pretty(res_other), "utf8")
-        if diff_without_order is not None and len(diff_without_order) == 0:
-            status = "same without order"
-        else:
-            status = "different"
 
     return create_trial(res_one, res_other, file_one, file_other,
                         status, req_time, args['path'], args['qs'], args['headers'])
