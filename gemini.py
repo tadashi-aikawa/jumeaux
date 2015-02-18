@@ -178,8 +178,9 @@ def write_to_file(name, dir, body, encoding):
         f.write(body)
 
 
-def create_trial(res_one, res_other, status, req_time, path, qs, headers):
-    return {
+def create_trial(res_one, res_other, file_one, file_other,
+                 status, req_time, path, qs, headers):
+    trial = {
         "request_time": req_time.strftime("%Y/%m/%d %X"),
         "status": status,
         "path": path,
@@ -198,6 +199,11 @@ def create_trial(res_one, res_other, status, req_time, path, qs, headers):
             "response_sec": round(res_other.elapsed.seconds + res_other.elapsed.microseconds / 1000000, 2)
         }
     }
+    if file_one is not None:
+        trial['one']['file'] = file_one
+    if file_other is not None:
+        trial['other']['file'] = file_other
+    return trial
 
 
 def http_get(args):
@@ -335,17 +341,21 @@ def challenge(args):
                                      ignore_properties, True)
 
     # Judgement
+    file_one, file_other = None, None
     if diff is not None and len(diff) == 0:
         status = "same"
     else:
-        write_to_file("one{}".format(args['seq']), "dir", pretty(res_one), "utf8")
-        write_to_file("other{}".format(args['seq']), "dir", pretty(res_other), "utf8")
+        file_one = "one{}".format(args['seq'])
+        file_other = "other{}".format(args['seq'])
+        write_to_file(file_one, "dir", pretty(res_one), "utf8")
+        write_to_file(file_other, "dir", pretty(res_other), "utf8")
         if diff_without_order is not None and len(diff_without_order) == 0:
             status = "same without order"
         else:
             status = "different"
 
-    return create_trial(res_one, res_other, status, req_time, args['path'], args['qs'], args['headers'])
+    return create_trial(res_one, res_other, file_one, file_other,
+                        status, req_time, args['path'], args['qs'], args['headers'])
 
 
 def main():
