@@ -7,11 +7,10 @@ Usage
 =======================
 
 Usage:
-  gemini.py --report <report> [--threads=<threads>] [--config=<json>] <files>...
+  gemini.py [--threads=<threads>] [--config=<json>] <files>...
 
 Options:
   <files>...
-  --report = <report>    Output json file
   --threads = <threads>  The number of threads in challenge [default: 1]
   --config = <json>      Configuration file(see below) [default: config.json]
 
@@ -245,8 +244,7 @@ def create_args():
     pre_schema = Schema({
         '<files>': [str],
         '--config': Use(open),
-        '--threads': And(Use(int), lambda n: n > 0),
-        '--report': str
+        '--threads': And(Use(int), lambda n: n > 0)
     })
     try:
         pre_args = pre_schema.validate(doc)
@@ -265,8 +263,7 @@ def create_args():
         'output_encoding': config['output'].get('encoding', 'utf-8'),
         'res_dir': config['output']['response'].get('dir', 'response'),
         'input_format': config['input'].get('format', 'plain'),
-        'threads': pre_args['--threads'],
-        'report': pre_args['--report']
+        'threads': pre_args['--threads']
     }
 
     schema = Schema({
@@ -279,8 +276,7 @@ def create_args():
         'output_encoding': str,
         'res_dir': os.path.exists,
         'input_format': Or('plain', 'apache', 'yaml', 'csv'),
-        'threads': And(Use(int), lambda n: n > 0),
-        'report': str
+        'threads': And(Use(int), lambda n: n > 0)
     })
 
     try:
@@ -423,8 +419,7 @@ def main():
     }
 
     # Output result
-    with codecs.open(args['report'], 'w', encoding=args['output_encoding']) as f:
-        json.dump(result, f, indent=4, ensure_ascii=False, sort_keys=True)
+    print(json.dumps(result, f, indent=4, ensure_ascii=False, sort_keys=True))
 
 
 if __name__ == '__main__':
