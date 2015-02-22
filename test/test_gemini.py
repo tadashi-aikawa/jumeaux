@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+import os
 import json
+import shutil
 
 import unittest
 from unittest.mock import MagicMock
@@ -154,6 +156,10 @@ class ChallengeTest(unittest.TestCase):
     """
     def setUp(self):
         self.maxDiff = None
+        os.mkdir("tmpdir")
+
+    def tearDown(self):
+        shutil.rmtree("tmpdir")
 
     def test_different(self, concurrent_request, now):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
@@ -183,7 +189,7 @@ class ChallengeTest(unittest.TestCase):
             "host_other": None,
             "path": "/challenge",
             "output_encoding": "utf8",
-            "res_dir": "response",
+            "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"],
                 "q2": ["2-1", "2-2"]
@@ -195,6 +201,7 @@ class ChallengeTest(unittest.TestCase):
             "proxies_one": None,
             "proxies_other": None
         }
+
         actual = gemini.challenge(args)
 
         expected = {
@@ -253,7 +260,7 @@ class ChallengeTest(unittest.TestCase):
             "host_other": None,
             "path": "/challenge",
             "output_encoding": "utf8",
-            "res_dir": "response",
+            "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"],
                 "q2": ["2-1", "2-2"]
@@ -323,7 +330,7 @@ class ChallengeTest(unittest.TestCase):
             "host_other": None,
             "path": "/challenge",
             "output_encoding": "utf8",
-            "res_dir": "response",
+            "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"],
                 "q2": ["2-1", "2-2"]
@@ -378,7 +385,7 @@ class ChallengeTest(unittest.TestCase):
             "host_other": "http://other",
             "path": "/challenge",
             "output_encoding": "utf8",
-            "res_dir": "response",
+            "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"]
             },
