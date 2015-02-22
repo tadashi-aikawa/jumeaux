@@ -23,21 +23,25 @@ Set following value as default if property is blank and not REQUIRED.
 
 {
     "one": {
-        "host": "http://one",  (# REQUIRED)
+        "host": "http://one",  # (REQUIRED)
         "proxy": null
     },
     "other": {
-        "host": "http://other",  (# REQUIRED)
+        "host": "http://other",  # (REQUIRED)
         "proxy": null
     },
     "input": {
-        "format": "plain",  (see `Input format`)
+        "format": "plain",  # (see `Input format`)
         "encoding": "utf8"
     },
     "output": {
         "encoding": "utf8",
         "response": {
-            "dir": "response"    (# REQUIRED)
+            "dir": "response"    # (REQUIRED)
+        },
+        "logger_level": {
+            "__main__": "DEBUG",  # (Do not output if blank)
+            "requests": "INFO"    # (Do not output if blank)
         }
     }
 }
@@ -99,6 +103,8 @@ import sys
 import io
 import json
 import os
+from logging import getLogger
+import logging.config
 
 import urllib.parse as urlparser
 import requests
@@ -121,6 +127,7 @@ from modules import requestcreator
 
 VERSION = "0.9.0"
 MAX_RETRIES = 3
+logger = getLogger(__name__)
 
 
 def now():
@@ -259,6 +266,7 @@ def create_args():
         'proxy_other': config['other'].get('proxy', None),
         'input_encoding': config['input'].get('encoding', 'utf-8'),
         'output_encoding': config['output'].get('encoding', 'utf-8'),
+        "logger_level": config['output'].get('logger_level', {}),
         'res_dir': config['output']['response'].get('dir', 'response'),
         'input_format': config['input'].get('format', 'plain'),
         'threads': pre_args['--threads']
@@ -272,6 +280,7 @@ def create_args():
         'proxy_other': Or(None, str),
         'input_encoding': str,
         'output_encoding': str,
+        'logger_level': dict,
         'res_dir': os.path.exists,
         'input_format': Or('plain', 'apache', 'yaml', 'csv'),
         'threads': And(Use(int), lambda n: n > 0)
@@ -308,6 +317,7 @@ def challenge(args):
            - (str) http
            - (str) https
     """
+
     qs_str = urlparser.urlencode(args['qs'], doseq=True)
 
     url_one = '{0}{1}?{2}'.format(args['host_one'], args['path'], qs_str)
@@ -420,4 +430,31 @@ def main(args):
 if __name__ == '__main__':
     args = create_args()
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args['output_encoding'])
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=args['output_encoding'])
+
+    # Logging settings load
+    logging_conf = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'default': {
+                'class': 'logging.StreamHandler',
+                'stream': 'ext://sys.stderr',
+                'formatter': 'standard'
+            }
+        },
+        'loggers': {},
+        'formatters': {
+            'standard': {
+                'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+            }
+        }
+    }
+    for k, v in args.get('logger_level', {}).items():
+        logging_conf['loggers'][k] = {
+            'level': v,
+            'handlers': ['default']
+        }
+    logging.config.dictConfig(logging_conf)
+
     main(args)
