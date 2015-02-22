@@ -36,7 +36,10 @@ Set following value as default if property is blank and not REQUIRED.
         "encoding": "utf8"
     },
     "output": {
-        "encoding": "utf8"
+        "encoding": "utf8",
+        "response": {
+            "dir": "response"    (# REQUIRED)
+        }
     }
 }
 
@@ -96,6 +99,7 @@ import codecs
 import sys
 import io
 import json
+import os
 
 import urllib.parse as urlparser
 import requests
@@ -106,6 +110,8 @@ from concurrent import futures
 from datetime import datetime
 
 import xmltodict
+from xml.dom import minidom
+from xml.etree import ElementTree
 
 from docopt import docopt
 from schema import Schema, Or, And, Use, SchemaError
@@ -156,8 +162,28 @@ def create_diff(text1, text2, ignore_properties, ignore_order=False):
     return None
 
 
-def create_trial(res_one, res_other, status, req_time, path, qs, headers):
-    return {
+def pretty(res):
+    mime_type = res.headers['content-type'].split(';')[0]
+    if mime_type in ('text/json', 'application/json'):
+        return json.dumps(res.json(), ensure_ascii=False, indent=4, sort_keys=True)
+    elif mime_type in ('text/xml', 'application/xml'):
+        tree = ElementTree.XML(res.text)
+        return minidom.parseString(ElementTree.tostring(tree)).toprettyxml(indent='    ')
+    elif mime_type in ('text/plain'):
+        return res.text
+    else:
+        return None
+
+
+def write_to_file(name, dir, body, encoding):
+    # todo: dir check
+    with codecs.open(os.path.join(dir, name), "w", encoding=encoding) as f:
+        f.write(body)
+
+
+def create_trial(res_one, res_other, file_one, file_other,
+                 status, req_time, path, qs, headers):
+    trial = {
         "request_time": req_time.strftime("%Y/%m/%d %X"),
         "status": status,
         "path": path,
@@ -176,6 +202,11 @@ def create_trial(res_one, res_other, status, req_time, path, qs, headers):
             "response_sec": round(res_other.elapsed.seconds + res_other.elapsed.microseconds / 1000000, 2)
         }
     }
+    if file_one is not None:
+        trial['one']['file'] = file_one
+    if file_other is not None:
+        trial['other']['file'] = file_other
+    return trial
 
 
 def http_get(args):
@@ -232,6 +263,7 @@ def create_args():
         'proxy_other': config['other'].get('proxy', None),
         'input_encoding': config['input'].get('encoding', 'utf-8'),
         'output_encoding': config['output'].get('encoding', 'utf-8'),
+        'res_dir': config['output']['response'].get('dir', 'response'),
         'input_format': config['input'].get('format', 'plain'),
         'threads': pre_args['--threads'],
         'report': pre_args['--report']
@@ -245,6 +277,7 @@ def create_args():
         'proxy_other': Or(None, str),
         'input_encoding': str,
         'output_encoding': str,
+        'res_dir': os.path.exists,
         'input_format': Or('plain', 'apache', 'yaml', 'csv'),
         'threads': And(Use(int), lambda n: n > 0),
         'report': str
@@ -261,10 +294,13 @@ def challenge(args):
     """
     Arguments:
        (dict) args
+         - (int) seq
          - (session) session
          - (str) host_one
          - (str) host_other
          - (str) path
+         - (str) output_encoding
+         - (str) res_dir
          - (dict) qs
            - (str) key of query
            - ...
@@ -312,13 +348,23 @@ def challenge(args):
                                      ignore_properties, True)
 
     # Judgement
-    status = "different"
-    if diff_without_order is not None and len(diff_without_order) == 0:
-        status = "same without order"
     if diff is not None and len(diff) == 0:
         status = "same"
+    elif diff_without_order is not None and len(diff_without_order) == 0:
+        status = "same without order"
+    else:
+        status = "different"
 
-    return create_trial(res_one, res_other, status, req_time, args['path'], args['qs'], args['headers'])
+    # Write response body to file
+    file_one, file_other = None, None
+    if status != "same":
+        file_one = "one{}".format(args['seq'])
+        file_other = "other{}".format(args['seq'])
+        write_to_file(file_one, args['res_dir'], pretty(res_one), args['output_encoding'])
+        write_to_file(file_other, args['res_dir'], pretty(res_other), args['output_encoding'])
+
+    return create_trial(res_one, res_other, file_one, file_other,
+                        status, req_time, args['path'], args['qs'], args['headers'])
 
 
 def main():
@@ -338,6 +384,7 @@ def main():
         logs.extend(requestcreator.from_format(f, args['input_format']))
 
     ex_args = [{
+               "seq": i + 1,
                "session": s,
                "host_one": args['host_one'],
                "host_other": args['host_other'],
@@ -345,8 +392,10 @@ def main():
                "qs": l['qs'],
                "headers": l['headers'],
                "proxies_one": proxies_one,
-               "proxies_other": proxies_other
-               } for l in logs]
+               "proxies_other": proxies_other,
+               "output_encoding": args['output_encoding'],
+               "res_dir": args['res_dir']
+               } for i, l in enumerate(logs)]
 
     # Challenge
     start_time = now()

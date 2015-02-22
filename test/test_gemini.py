@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+import os
 import json
+import shutil
 
 import unittest
 from unittest.mock import MagicMock
@@ -18,8 +20,10 @@ class ResponseBuilder():
     """
     def __init__(self):
         self._text = None
+        self._json = None
         self._url = None
         self._status_code = None
+        self._content_type = None
         self._content = None
         self._seconds = None
         self._microseconds = None
@@ -28,12 +32,20 @@ class ResponseBuilder():
         self._text = text
         return self
 
+    def json(self, json):
+        self._json = json
+        return self
+
     def url(self, url):
         self._url = url
         return self
 
     def status_code(self, status_code):
         self._status_code = status_code
+        return self
+
+    def content_type(self, content_type):
+        self._content_type = content_type
         return self
 
     def content(self, content):
@@ -50,9 +62,13 @@ class ResponseBuilder():
         m.text = self._text
         m.url = self._url
         m.status_code = self._status_code
+        m.headers = {
+            "content-type": self._content_type
+        }
         m.content = self._content
         m.elapsed.seconds = self._seconds
         m.elapsed.microseconds = self._microseconds
+        m.json.return_value = self._json
         return m
 
 
@@ -100,8 +116,66 @@ class CreateTrialTest(unittest.TestCase):
                                      .content('ab') \
                                      .second(9, 876543) \
                                      .build()
+        file_one = 'file_one'
+        file_other = 'file_other'
 
-        actual = gemini.create_trial(res_one, res_other, status, req_time, path, qs, headers)
+        actual = gemini.create_trial(res_one, res_other, file_one, file_other, status, req_time, path, qs, headers)
+        expected = {
+            "request_time": '2000/01/02 00:10:20',
+            "status": 'status',
+            "path": '/path',
+            "queries": {
+                'q1': ['1'],
+                'q2': ['10000', '2']
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
+            },
+            "one": {
+                "file": 'file_one',
+                "url": 'URL_ONE',
+                "status_code": 200,
+                "byte": 1,
+                "response_sec": 1.23
+            },
+            "other": {
+                "file": 'file_other',
+                "url": 'URL_OTHER',
+                "status_code": 400,
+                "byte": 2,
+                "response_sec": 9.88
+            }
+        }
+
+        self.assertEqual(expected, actual)
+
+    def test_file_is_none(self):
+        status = 'status'
+        req_time = datetime.datetime(2000, 1, 2, 0, 10, 20, 123456)
+        path = '/path'
+        qs = {
+            'q1': ['1'],
+            'q2': ['10000', '2']
+        }
+        headers = {
+            'header1': '1',
+            'header2': '2'
+        }
+        res_one = ResponseBuilder().url('URL_ONE') \
+                                   .status_code(200) \
+                                   .content('a') \
+                                   .second(1, 234567) \
+                                   .build()
+        res_other = ResponseBuilder().url('URL_OTHER') \
+                                     .status_code(400) \
+                                     .content('ab') \
+                                     .second(9, 876543) \
+                                     .build()
+        file_one = None
+        file_other = None
+
+        actual = gemini.create_trial(res_one, res_other, file_one, file_other, status, req_time, path, qs, headers)
         expected = {
             "request_time": '2000/01/02 00:10:20',
             "status": 'status',
@@ -140,18 +214,26 @@ class ChallengeTest(unittest.TestCase):
     """
     def setUp(self):
         self.maxDiff = None
+        os.mkdir("tmpdir")
+
+    def tearDown(self):
+        shutil.rmtree("tmpdir")
 
     def test_different(self, concurrent_request, now):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
+                                   .json({"items": [1, 2, 3]}) \
                                    .url('URL_ONE') \
                                    .status_code(200) \
+                                   .content_type('application/json;utf-8') \
                                    .content('{"items": [1, 2, 3]}') \
                                    .second(1, 234567) \
                                    .build()
 
         res_other = ResponseBuilder().text('{"items": [1, 2, 3, 4]}') \
+                                     .json({"items": [1, 2, 3, 4]}) \
                                      .url('URL_OTHER') \
                                      .status_code(400) \
+                                     .content_type('application/json;utf-8') \
                                      .content('{"items": [1, 2, 3, 4]}') \
                                      .second(9, 876543) \
                                      .build()
@@ -159,10 +241,13 @@ class ChallengeTest(unittest.TestCase):
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
+            "seq": 1,
             "session": None,
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
+            "output_encoding": "utf8",
+            "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"],
                 "q2": ["2-1", "2-2"]
@@ -174,6 +259,7 @@ class ChallengeTest(unittest.TestCase):
             "proxies_one": None,
             "proxies_other": None
         }
+
         actual = gemini.challenge(args)
 
         expected = {
@@ -189,12 +275,14 @@ class ChallengeTest(unittest.TestCase):
                 "header2": "2",
             },
             "one": {
+                "file": "one1",
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 20,
                 "response_sec": 1.23
             },
             "other": {
+                "file": "other1",
                 "url": 'URL_OTHER',
                 "status_code": 400,
                 "byte": 23,
@@ -208,6 +296,7 @@ class ChallengeTest(unittest.TestCase):
         res_one = ResponseBuilder().text('a') \
                                    .url('URL_ONE') \
                                    .status_code(200) \
+                                   .content_type('text/plain;utf-8') \
                                    .content('a') \
                                    .second(1, 234567) \
                                    .build()
@@ -215,6 +304,7 @@ class ChallengeTest(unittest.TestCase):
         res_other = ResponseBuilder().text('a') \
                                      .url('URL_OTHER') \
                                      .status_code(200) \
+                                     .content_type('text/plain;utf-8') \
                                      .content('a') \
                                      .second(9, 876543) \
                                      .build()
@@ -222,10 +312,13 @@ class ChallengeTest(unittest.TestCase):
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
+            "seq": 1,
             "session": None,
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
+            "output_encoding": "utf8",
+            "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"],
                 "q2": ["2-1", "2-2"]
@@ -269,15 +362,19 @@ class ChallengeTest(unittest.TestCase):
 
     def test_different_without_order(self, concurrent_request, now):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
+                                   .json({"items": [1, 2, 3]}) \
                                    .url('URL_ONE') \
                                    .status_code(200) \
+                                   .content_type('application/json;utf-8') \
                                    .content('{"items": [1, 2, 3]}') \
                                    .second(1, 234567) \
                                    .build()
 
         res_other = ResponseBuilder().text('{"items": [3, 2, 1]}') \
+                                     .json({"items": [3, 2, 1]}) \
                                      .url('URL_OTHER') \
                                      .status_code(200) \
+                                     .content_type('application/json;utf-8') \
                                      .content('{"items": [3, 2, 1]}') \
                                      .second(9, 876543) \
                                      .build()
@@ -285,10 +382,13 @@ class ChallengeTest(unittest.TestCase):
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
+            "seq": 1,
             "session": None,
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
+            "output_encoding": "utf8",
+            "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"],
                 "q2": ["2-1", "2-2"]
@@ -315,12 +415,14 @@ class ChallengeTest(unittest.TestCase):
                 "header2": "2",
             },
             "one": {
+                "file": "one1",
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 20,
                 "response_sec": 1.23
             },
             "other": {
+                "file": "other1",
                 "url": 'URL_OTHER',
                 "status_code": 200,
                 "byte": 20,
@@ -335,10 +437,13 @@ class ChallengeTest(unittest.TestCase):
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
+            "seq": 1,
             "session": None,
             "host_one": "http://one",
             "host_other": "http://other",
             "path": "/challenge",
+            "output_encoding": "utf8",
+            "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"]
             },
@@ -381,6 +486,9 @@ class MainTest(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
+    def tearDown(self):
+        os.path.exists('tmp') and os.remove('tmp')
+
     def test(self, create_args, from_format, challenge, now):
         create_args.return_value = {
             'files': ['line1', 'line2'],
@@ -390,6 +498,7 @@ class MainTest(unittest.TestCase):
             'proxy_other': 'http://proxy/other',
             'host_one': 'http://host/one',
             'host_other': 'http://host/other',
+            'res_dir': 'tmpdir',
             'threads': 1,
             'report': 'tmp'
         }
