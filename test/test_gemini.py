@@ -495,6 +495,7 @@ class MainTest(unittest.TestCase):
             'proxy_other': 'http://proxy/other',
             'host_one': 'http://host/one',
             'host_other': 'http://host/other',
+            'res_dir': 'tmpdir',
             'threads': 1,
             'report': 'tmp'
         }
