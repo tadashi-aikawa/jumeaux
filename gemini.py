@@ -361,10 +361,7 @@ def challenge(args):
                         status, req_time, args['path'], args['qs'], args['headers'])
 
 
-def main():
-    args = create_args()
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args['output_encoding'])
-
+def main(args):
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
@@ -421,4 +418,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    args = create_args()
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args['output_encoding'])
+    main(args)

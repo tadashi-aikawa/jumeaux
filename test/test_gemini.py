@@ -4,6 +4,8 @@
 import os
 import json
 import shutil
+import sys
+from io import StringIO
 
 import unittest
 from unittest.mock import MagicMock
@@ -481,27 +483,15 @@ class ChallengeTest(unittest.TestCase):
 @patch('gemini.now')
 @patch('gemini.challenge')
 @patch('modules.requestcreator.from_format')
-@patch('gemini.create_args')
 class MainTest(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
+        self.held, sys.stdout = sys.stdout, StringIO()
 
     def tearDown(self):
-        os.path.exists('tmp') and os.remove('tmp')
+        sys.stdout = self.held
 
-    def test(self, create_args, from_format, challenge, now):
-        create_args.return_value = {
-            'files': ['line1', 'line2'],
-            'input_format': None,
-            'output_encoding': 'utf8',
-            'proxy_one': 'http://proxy/one',
-            'proxy_other': 'http://proxy/other',
-            'host_one': 'http://host/one',
-            'host_other': 'http://host/other',
-            'res_dir': 'tmpdir',
-            'threads': 1,
-            'report': 'tmp'
-        }
+    def test(self, from_format, challenge, now):
         from_format.return_value = [
             {
                 'path': '/path',
@@ -524,7 +514,18 @@ class MainTest(unittest.TestCase):
             datetime.datetime(2000, 1, 2, 0, 0, 0)
         ]
 
-        gemini.main()
+        args = {
+            'files': ['line1', 'line2'],
+            'input_format': None,
+            'output_encoding': 'utf8',
+            'proxy_one': 'http://proxy/one',
+            'proxy_other': 'http://proxy/other',
+            'host_one': 'http://host/one',
+            'host_other': 'http://host/other',
+            'res_dir': 'tmpdir',
+            'threads': 1
+        }
+        gemini.main(args)
 
         expected = {
             "summary": {
@@ -553,10 +554,8 @@ class MainTest(unittest.TestCase):
                 }
             ]
         }
-        with open('tmp', 'r') as f:
-            actual = json.load(f)
 
-        self.assertEqual(expected, actual)
+        self.assertEqual(expected, json.loads(sys.stdout.getvalue()))
 
 
 if __name__ == '__main__':
