@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+import os
 import unittest
 from modules import requestcreator
 
@@ -8,6 +9,9 @@ from modules import requestcreator
 class Test(unittest.TestCase):
     def setUp(self):
         pass
+
+    def tearDown(self):
+        os.path.exists('tmp') and os.remove('tmp')
 
     def test_from_format_as_wrong_format(self):
         with self.assertRaises(ValueError):

@@ -486,6 +486,9 @@ class MainTest(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
+    def tearDown(self):
+        os.path.exists('tmp') and os.remove('tmp')
+
     def test(self, create_args, from_format, challenge, now):
         create_args.return_value = {
             'files': ['line1', 'line2'],
