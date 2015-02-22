@@ -294,7 +294,7 @@ def challenge(args):
     """
     Arguments:
        (dict) args
-         - (int) sequence
+         - (int) seq
          - (session) session
          - (str) host_one
          - (str) host_other
