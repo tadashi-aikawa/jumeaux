@@ -168,14 +168,12 @@ def pretty(res):
     elif mime_type in ('text/xml', 'application/xml'):
         tree = ElementTree.XML(res.text)
         return minidom.parseString(ElementTree.tostring(tree)).toprettyxml(indent='    ')
-    elif mime_type in ('text/plain'):
-        return res.text
     else:
-        return None
+        # TODO: If binary, return res.content or None
+        return res.text
 
 
 def write_to_file(name, dir, body, encoding):
-    # todo: dir check
     with codecs.open(os.path.join(dir, name), "w", encoding=encoding) as f:
         f.write(body)
 
