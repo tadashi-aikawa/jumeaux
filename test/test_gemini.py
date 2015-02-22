@@ -150,6 +150,60 @@ class CreateTrialTest(unittest.TestCase):
 
         self.assertEqual(expected, actual)
 
+    def test_file_is_none(self):
+        status = 'status'
+        req_time = datetime.datetime(2000, 1, 2, 0, 10, 20, 123456)
+        path = '/path'
+        qs = {
+            'q1': ['1'],
+            'q2': ['10000', '2']
+        }
+        headers = {
+            'header1': '1',
+            'header2': '2'
+        }
+        res_one = ResponseBuilder().url('URL_ONE') \
+                                   .status_code(200) \
+                                   .content('a') \
+                                   .second(1, 234567) \
+                                   .build()
+        res_other = ResponseBuilder().url('URL_OTHER') \
+                                     .status_code(400) \
+                                     .content('ab') \
+                                     .second(9, 876543) \
+                                     .build()
+        file_one = None
+        file_other = None
+
+        actual = gemini.create_trial(res_one, res_other, file_one, file_other, status, req_time, path, qs, headers)
+        expected = {
+            "request_time": '2000/01/02 00:10:20',
+            "status": 'status',
+            "path": '/path',
+            "queries": {
+                'q1': ['1'],
+                'q2': ['10000', '2']
+            },
+            "headers": {
+                "header1": "1",
+                "header2": "2",
+            },
+            "one": {
+                "url": 'URL_ONE',
+                "status_code": 200,
+                "byte": 1,
+                "response_sec": 1.23
+            },
+            "other": {
+                "url": 'URL_OTHER',
+                "status_code": 400,
+                "byte": 2,
+                "response_sec": 9.88
+            }
+        }
+
+        self.assertEqual(expected, actual)
+
 
 @patch('gemini.now')
 @patch('gemini.concurrent_request')
