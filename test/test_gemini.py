@@ -18,8 +18,10 @@ class ResponseBuilder():
     """
     def __init__(self):
         self._text = None
+        self._json = None
         self._url = None
         self._status_code = None
+        self._content_type = None
         self._content = None
         self._seconds = None
         self._microseconds = None
@@ -28,12 +30,20 @@ class ResponseBuilder():
         self._text = text
         return self
 
+    def json(self, json):
+        self._json = json
+        return self
+
     def url(self, url):
         self._url = url
         return self
 
     def status_code(self, status_code):
         self._status_code = status_code
+        return self
+
+    def content_type(self, content_type):
+        self._content_type = content_type
         return self
 
     def content(self, content):
@@ -50,9 +60,13 @@ class ResponseBuilder():
         m.text = self._text
         m.url = self._url
         m.status_code = self._status_code
+        m.headers = {
+            "content-type": self._content_type
+        }
         m.content = self._content
         m.elapsed.seconds = self._seconds
         m.elapsed.microseconds = self._microseconds
+        m.json.return_value = self._json
         return m
 
 
@@ -143,15 +157,19 @@ class ChallengeTest(unittest.TestCase):
 
     def test_different(self, concurrent_request, now):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
+                                   .json({"items": [1, 2, 3]}) \
                                    .url('URL_ONE') \
                                    .status_code(200) \
+                                   .content_type('application/json;utf-8') \
                                    .content('{"items": [1, 2, 3]}') \
                                    .second(1, 234567) \
                                    .build()
 
         res_other = ResponseBuilder().text('{"items": [1, 2, 3, 4]}') \
+                                     .json({"items": [1, 2, 3, 4]}) \
                                      .url('URL_OTHER') \
                                      .status_code(400) \
+                                     .content_type('application/json;utf-8') \
                                      .content('{"items": [1, 2, 3, 4]}') \
                                      .second(9, 876543) \
                                      .build()
@@ -159,10 +177,13 @@ class ChallengeTest(unittest.TestCase):
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
+            "seq": 1,
             "session": None,
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
+            "output_encoding": "utf8",
+            "res_dir": "response",
             "qs": {
                 "q1": ["1"],
                 "q2": ["2-1", "2-2"]
@@ -189,12 +210,14 @@ class ChallengeTest(unittest.TestCase):
                 "header2": "2",
             },
             "one": {
+                "file": "one1",
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 20,
                 "response_sec": 1.23
             },
             "other": {
+                "file": "other1",
                 "url": 'URL_OTHER',
                 "status_code": 400,
                 "byte": 23,
@@ -208,6 +231,7 @@ class ChallengeTest(unittest.TestCase):
         res_one = ResponseBuilder().text('a') \
                                    .url('URL_ONE') \
                                    .status_code(200) \
+                                   .content_type('text/plain;utf-8') \
                                    .content('a') \
                                    .second(1, 234567) \
                                    .build()
@@ -215,6 +239,7 @@ class ChallengeTest(unittest.TestCase):
         res_other = ResponseBuilder().text('a') \
                                      .url('URL_OTHER') \
                                      .status_code(200) \
+                                     .content_type('text/plain;utf-8') \
                                      .content('a') \
                                      .second(9, 876543) \
                                      .build()
@@ -222,10 +247,13 @@ class ChallengeTest(unittest.TestCase):
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
+            "seq": 1,
             "session": None,
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
+            "output_encoding": "utf8",
+            "res_dir": "response",
             "qs": {
                 "q1": ["1"],
                 "q2": ["2-1", "2-2"]
@@ -269,15 +297,19 @@ class ChallengeTest(unittest.TestCase):
 
     def test_different_without_order(self, concurrent_request, now):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
+                                   .json({"items": [1, 2, 3]}) \
                                    .url('URL_ONE') \
                                    .status_code(200) \
+                                   .content_type('application/json;utf-8') \
                                    .content('{"items": [1, 2, 3]}') \
                                    .second(1, 234567) \
                                    .build()
 
         res_other = ResponseBuilder().text('{"items": [3, 2, 1]}') \
+                                     .json({"items": [3, 2, 1]}) \
                                      .url('URL_OTHER') \
                                      .status_code(200) \
+                                     .content_type('application/json;utf-8') \
                                      .content('{"items": [3, 2, 1]}') \
                                      .second(9, 876543) \
                                      .build()
@@ -285,10 +317,13 @@ class ChallengeTest(unittest.TestCase):
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
+            "seq": 1,
             "session": None,
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
+            "output_encoding": "utf8",
+            "res_dir": "response",
             "qs": {
                 "q1": ["1"],
                 "q2": ["2-1", "2-2"]
@@ -315,12 +350,14 @@ class ChallengeTest(unittest.TestCase):
                 "header2": "2",
             },
             "one": {
+                "file": "one1",
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 20,
                 "response_sec": 1.23
             },
             "other": {
+                "file": "other1",
                 "url": 'URL_OTHER',
                 "status_code": 200,
                 "byte": 20,
@@ -335,10 +372,13 @@ class ChallengeTest(unittest.TestCase):
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
+            "seq": 1,
             "session": None,
             "host_one": "http://one",
             "host_other": "http://other",
             "path": "/challenge",
+            "output_encoding": "utf8",
+            "res_dir": "response",
             "qs": {
                 "q1": ["1"]
             },
