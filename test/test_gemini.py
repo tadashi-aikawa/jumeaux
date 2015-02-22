@@ -116,8 +116,10 @@ class CreateTrialTest(unittest.TestCase):
                                      .content('ab') \
                                      .second(9, 876543) \
                                      .build()
+        file_one = 'file_one'
+        file_other = 'file_other'
 
-        actual = gemini.create_trial(res_one, res_other, status, req_time, path, qs, headers)
+        actual = gemini.create_trial(res_one, res_other, file_one, file_other, status, req_time, path, qs, headers)
         expected = {
             "request_time": '2000/01/02 00:10:20',
             "status": 'status',
@@ -131,12 +133,14 @@ class CreateTrialTest(unittest.TestCase):
                 "header2": "2",
             },
             "one": {
+                "file": 'file_one',
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 1,
                 "response_sec": 1.23
             },
             "other": {
+                "file": 'file_other',
                 "url": 'URL_OTHER',
                 "status_code": 400,
                 "byte": 2,
