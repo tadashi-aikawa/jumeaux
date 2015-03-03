@@ -86,93 +86,99 @@ Usage
 
 ::
 
-  =======================
-  Usage
-  =======================
+    =======================
+    Usage
+    =======================
 
-  Usage:
-    gemini.py --report <report> [--threads=<threads>] [--config=<json>] <files>...
+    Usage:
+      gemini.py [--threads=<threads>] [--config=<json>] <files>...
 
-  Options:
-    <files>...
-    --report = <report>    Output json file
-    --threads = <threads>  The number of threads in challenge [default: 1]
-    --config = <json>      Configuration file(see below) [default: config.json]
+    Options:
+      <files>...
+      --threads = <threads>  The number of threads in challenge [default: 1]
+      --config = <json>      Configuration file(see below) [default: config.json]
 
 
-  =======================
-  Config file definition
-  =======================
+    =======================
+    Config file definition
+    =======================
 
-  Set following value as default if property is blank and not REQUIRED.
+    Set following value as default if property is blank and not REQUIRED.
 
-  {
-      "one": {
-          "host": "http://one",  (# REQUIRED)
-          "proxy": null
-      },
-      "other": {
-          "host": "http://other",  (# REQUIRED)
-          "proxy": null
-      },
-      "input": {
-          "format": "plain",  (see `Input format`)
-          "encoding": "utf8"
-      },
-      "output": {
-          "encoding": "utf8"
-      }
-  }
+    {
+        "one": {
+            "host": "http://one",  # (REQUIRED)
+            "proxy": null
+        },
+        "other": {
+            "host": "http://other",  # (REQUIRED)
+            "proxy": null
+        },
+        "input": {
+            "format": "plain",  # (see `Input format`)
+            "encoding": "utf8"
+        },
+        "output": {
+            "encoding": "utf8",
+            "response": {
+                "dir": "response"    # (REQUIRED)
+            },
+            "logger_level": {
+                "__main__": "DEBUG",  # (Do not output if blank)
+                "requests": "INFO"    # (Do not output if blank)
+            }
+        }
+    }
 
-  =======================
-  Input format
-  =======================
+    =======================
+    Input format
+    =======================
 
-  Correspond to following format.
+    Correspond to following format.
 
-  1. plain
-  ---------
+    1. plain
+    ---------
 
-  "/path1?a=1&b=2"
-  "/path2?c=1"
-  "/path3"
+    "/path1?a=1&b=2"
+    "/path2?c=1"
+    "/path3"
 
-  2. apache
-  ---------
+    2. apache
+    ---------
 
-  000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
-  000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=-" "header2=-"
+    000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
+    000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=-" "header2=-"
 
-  3. yaml
-  ---------
+    3. yaml
+    ---------
 
-  - path: "/path1"
-    qs:
-      q1:
-        - v1
-      q2:
-        - v2
-        - v3
-    headers:
-      key1: "header1"
-      key2: "header2"
-  - path: "/path2"
-    qs:
-      q1:
-        - v1
-  - path: "/path3"
-    headers:
-      key1: "header1"
-      key2: "header2"
-  - path: "/path4"
+    - path: "/path1"
+      qs:
+        q1:
+          - v1
+        q2:
+          - v2
+          - v3
+      headers:
+        key1: "header1"
+        key2: "header2"
+    - path: "/path2"
+      qs:
+        q1:
+          - v1
+    - path: "/path3"
+      headers:
+        key1: "header1"
+        key2: "header2"
+    - path: "/path4"
 
-  4. csv
-  ---------
+    4. csv
+    ---------
 
-  "/path1","a=1&b=2","header1=1&header2=2"
-  "/path2","c=1"
-  "/path3",,"header1=1&header2=2"
-  "/path4"
+    "/path1","a=1&b=2","header1=1&header2=2"
+    "/path2","c=1"
+    "/path3",,"header1=1&header2=2"
+    "/path4"
 
 Example
 
