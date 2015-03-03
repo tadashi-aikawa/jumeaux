@@ -78,7 +78,7 @@ Check operation
 .. sourcecode:: bash
 
     $ python gemini.py --version
-    0.9.0
+    0.9.5
 
 
 Usage
