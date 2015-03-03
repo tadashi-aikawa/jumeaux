@@ -7,11 +7,10 @@ Usage
 =======================
 
 Usage:
-  gemini.py --report <report> [--threads=<threads>] [--config=<json>] <files>...
+  gemini.py [--threads=<threads>] [--config=<json>] <files>...
 
 Options:
   <files>...
-  --report = <report>    Output json file
   --threads = <threads>  The number of threads in challenge [default: 1]
   --config = <json>      Configuration file(see below) [default: config.json]
 
@@ -24,21 +23,25 @@ Set following value as default if property is blank and not REQUIRED.
 
 {
     "one": {
-        "host": "http://one",  (# REQUIRED)
+        "host": "http://one",  # (REQUIRED)
         "proxy": null
     },
     "other": {
-        "host": "http://other",  (# REQUIRED)
+        "host": "http://other",  # (REQUIRED)
         "proxy": null
     },
     "input": {
-        "format": "plain",  (see `Input format`)
+        "format": "plain",  # (see `Input format`)
         "encoding": "utf8"
     },
     "output": {
         "encoding": "utf8",
         "response": {
-            "dir": "response"    (# REQUIRED)
+            "dir": "response"    # (REQUIRED)
+        },
+        "logger_level": {
+            "__main__": "DEBUG",  # (Do not output if blank)
+            "requests": "INFO"    # (Do not output if blank)
         }
     }
 }
@@ -100,6 +103,8 @@ import sys
 import io
 import json
 import os
+from logging import getLogger
+import logging.config
 
 import urllib.parse as urlparser
 import requests
@@ -122,6 +127,7 @@ from modules import requestcreator
 
 VERSION = "0.9.0"
 MAX_RETRIES = 3
+logger = getLogger(__name__)
 
 
 def now():
@@ -169,14 +175,12 @@ def pretty(res):
     elif mime_type in ('text/xml', 'application/xml'):
         tree = ElementTree.XML(res.text)
         return minidom.parseString(ElementTree.tostring(tree)).toprettyxml(indent='    ')
-    elif mime_type in ('text/plain'):
-        return res.text
     else:
-        return None
+        # TODO: If binary, return res.content or None
+        return res.text
 
 
 def write_to_file(name, dir, body, encoding):
-    # todo: dir check
     with codecs.open(os.path.join(dir, name), "w", encoding=encoding) as f:
         f.write(body)
 
@@ -245,8 +249,7 @@ def create_args():
     pre_schema = Schema({
         '<files>': [str],
         '--config': Use(open),
-        '--threads': And(Use(int), lambda n: n > 0),
-        '--report': str
+        '--threads': And(Use(int), lambda n: n > 0)
     })
     try:
         pre_args = pre_schema.validate(doc)
@@ -263,10 +266,10 @@ def create_args():
         'proxy_other': config['other'].get('proxy', None),
         'input_encoding': config['input'].get('encoding', 'utf-8'),
         'output_encoding': config['output'].get('encoding', 'utf-8'),
+        "logger_level": config['output'].get('logger_level', {}),
         'res_dir': config['output']['response'].get('dir', 'response'),
         'input_format': config['input'].get('format', 'plain'),
-        'threads': pre_args['--threads'],
-        'report': pre_args['--report']
+        'threads': pre_args['--threads']
     }
 
     schema = Schema({
@@ -277,10 +280,10 @@ def create_args():
         'proxy_other': Or(None, str),
         'input_encoding': str,
         'output_encoding': str,
+        'logger_level': dict,
         'res_dir': os.path.exists,
         'input_format': Or('plain', 'apache', 'yaml', 'csv'),
-        'threads': And(Use(int), lambda n: n > 0),
-        'report': str
+        'threads': And(Use(int), lambda n: n > 0)
     })
 
     try:
@@ -314,6 +317,7 @@ def challenge(args):
            - (str) http
            - (str) https
     """
+
     qs_str = urlparser.urlencode(args['qs'], doseq=True)
 
     url_one = '{0}{1}?{2}'.format(args['host_one'], args['path'], qs_str)
@@ -367,10 +371,7 @@ def challenge(args):
                         status, req_time, args['path'], args['qs'], args['headers'])
 
 
-def main():
-    args = create_args()
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args['output_encoding'])
-
+def main(args):
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
@@ -423,9 +424,37 @@ def main():
     }
 
     # Output result
-    with codecs.open(args['report'], 'w', encoding=args['output_encoding']) as f:
-        json.dump(result, f, indent=4, ensure_ascii=False, sort_keys=True)
+    print(json.dumps(result, f, indent=4, ensure_ascii=False, sort_keys=True))
 
 
 if __name__ == '__main__':
-    main()
+    args = create_args()
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args['output_encoding'])
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=args['output_encoding'])
+
+    # Logging settings load
+    logging_conf = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'default': {
+                'class': 'logging.StreamHandler',
+                'stream': 'ext://sys.stderr',
+                'formatter': 'standard'
+            }
+        },
+        'loggers': {},
+        'formatters': {
+            'standard': {
+                'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+            }
+        }
+    }
+    for k, v in args.get('logger_level', {}).items():
+        logging_conf['loggers'][k] = {
+            'level': v,
+            'handlers': ['default']
+        }
+    logging.config.dictConfig(logging_conf)
+
+    main(args)
