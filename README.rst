@@ -123,9 +123,8 @@ Usage
             "response": {
                 "dir": "response"    # (REQUIRED)
             },
-            "logger_level": {
-                "__main__": "DEBUG",  # (Do not output if blank)
-                "requests": "INFO"    # (Do not output if blank)
+            "logger": {
+                # (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
             }
         }
     }

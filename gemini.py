@@ -39,9 +39,8 @@ Set following value as default if property is blank and not REQUIRED.
         "response": {
             "dir": "response"    # (REQUIRED)
         },
-        "logger_level": {
-            "__main__": "DEBUG",  # (Do not output if blank)
-            "requests": "INFO"    # (Do not output if blank)
+        "logger": {
+            # (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
         }
     }
 }
@@ -266,7 +265,7 @@ def create_args():
         'proxy_other': config['other'].get('proxy', None),
         'input_encoding': config['input'].get('encoding', 'utf-8'),
         'output_encoding': config['output'].get('encoding', 'utf-8'),
-        "logger_level": config['output'].get('logger_level', {}),
+        "logger": config['output'].get('logger', None),
         'res_dir': config['output']['response'].get('dir', 'response'),
         'input_format': config['input'].get('format', 'plain'),
         'threads': pre_args['--threads']
@@ -280,7 +279,7 @@ def create_args():
         'proxy_other': Or(None, str),
         'input_encoding': str,
         'output_encoding': str,
-        'logger_level': dict,
+        'logger': Or(None, dict),
         'res_dir': os.path.exists,
         'input_format': Or('plain', 'apache', 'yaml', 'csv'),
         'threads': And(Use(int), lambda n: n > 0)
@@ -433,28 +432,8 @@ if __name__ == '__main__':
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=args['output_encoding'])
 
     # Logging settings load
-    logging_conf = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'handlers': {
-            'default': {
-                'class': 'logging.StreamHandler',
-                'stream': 'ext://sys.stderr',
-                'formatter': 'standard'
-            }
-        },
-        'loggers': {},
-        'formatters': {
-            'standard': {
-                'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
-            }
-        }
-    }
-    for k, v in args.get('logger_level', {}).items():
-        logging_conf['loggers'][k] = {
-            'level': v,
-            'handlers': ['default']
-        }
-    logging.config.dictConfig(logging_conf)
+    logger_config = args.get('logger')
+    if (logger_config is not None):
+        logging.config.dictConfig(logger_config)
 
     main(args)
