@@ -184,7 +184,7 @@ Example
 
 .. sourcecode:: bash
 
-    $ python gemini.py --report report.json accesslog.yaml
+    $ python gemini.py accesslog.txt
 
 
 Test Result
