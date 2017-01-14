@@ -433,7 +433,7 @@ if __name__ == '__main__':
 
     # Logging settings load
     logger_config = args.get('logger')
-    if (logger_config is not None):
+    if logger_config:
         logging.config.dictConfig(logger_config)
 
     main(args)
