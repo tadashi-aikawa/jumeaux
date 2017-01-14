@@ -1,6 +1,8 @@
 Gemini
 ******
 
+|travis| |coverage| |complexity| |license|
+
 Check difference between two responses of API.
 
 Outline
@@ -184,3 +186,15 @@ MIT
 ---
 
 This software is released under the MIT License, see LICENSE.txt.
+
+
+.. |travis| image:: https://api.travis-ci.org/tadashi-aikawa/gemini.svg?branch=master
+:target: https://travis-ci.org/tadashi-aikawa/gemini/builds
+    :alt: Build Status
+.. |coverage| image:: https://codeclimate.com/github/tadashi-aikawa/gemini/badges/coverage.svg
+:target: https://codeclimate.com/github/tadashi-aikawa/gemini/coverage
+    :alt: Test Coverage
+.. |complexity| image:: https://codeclimate.com/github/tadashi-aikawa/gemini/badges/gpa.svg
+:target: https://codeclimate.com/github/tadashi-aikawa/gemini
+    :alt: Code Climate
+.. |license| image:: https://img.shields.io/github/license/mashape/apistatus.svg
