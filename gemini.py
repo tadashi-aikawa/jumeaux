@@ -423,7 +423,7 @@ def main(args):
     }
 
     # Output result
-    print(json.dumps(result, f, indent=4, ensure_ascii=False, sort_keys=True))
+    print(json.dumps(result, indent=4, ensure_ascii=False, sort_keys=True))
 
 
 if __name__ == '__main__':
