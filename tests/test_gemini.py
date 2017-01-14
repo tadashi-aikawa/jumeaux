@@ -7,7 +7,6 @@ import shutil
 import sys
 from io import StringIO
 
-import unittest
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
@@ -74,29 +73,23 @@ class ResponseBuilder():
         return m
 
 
-class CreateProxiesTest(unittest.TestCase):
-    def setUp(self):
-        pass
-
-    def test(self):
+class CreateProxiesTest:
+    def test_normal(self):
         proxy = '1.2.3.4'
         actual = gemini.create_proxies(proxy)
 
-        self.assertEqual(actual['http'], 'http://1.2.3.4')
-        self.assertEqual(actual['https'], 'https://1.2.3.4')
+        assert actual['http'] == 'http://1.2.3.4'
+        assert actual['https'] == 'https://1.2.3.4'
 
-    def test_None(self):
+    def test_none(self):
         proxy = None
         actual = gemini.create_proxies(proxy)
 
-        self.assertEqual(actual, {})
+        assert actual == {}
 
 
-class CreateTrialTest(unittest.TestCase):
-    def setUp(self):
-        self.maxDiff = None
-
-    def test(self):
+class TestCreateTrial:
+    def test_normal(self):
         status = 'status'
         req_time = datetime.datetime(2000, 1, 2, 0, 10, 20, 123456)
         path = '/path'
@@ -150,7 +143,7 @@ class CreateTrialTest(unittest.TestCase):
             }
         }
 
-        self.assertEqual(expected, actual)
+        assert actual == expected
 
     def test_file_is_none(self):
         status = 'status'
@@ -204,21 +197,22 @@ class CreateTrialTest(unittest.TestCase):
             }
         }
 
-        self.assertEqual(expected, actual)
+        assert actual == expected
 
 
 @patch('gemini.now')
 @patch('gemini.concurrent_request')
-class ChallengeTest(unittest.TestCase):
+class TestChallenge:
     """
     Only make mock for gemini.concurrent_request.
     Because it uses http requests.
     """
-    def setUp(self):
-        self.maxDiff = None
+    @classmethod
+    def setup_class(cls):
         os.mkdir("tmpdir")
 
-    def tearDown(self):
+    @classmethod
+    def teardown_class(cls):
         shutil.rmtree("tmpdir")
 
     def test_different(self, concurrent_request, now):
@@ -292,7 +286,7 @@ class ChallengeTest(unittest.TestCase):
             }
         }
 
-        self.assertEqual(expected, actual)
+        assert actual == expected
 
     def test_same(self, concurrent_request, now):
         res_one = ResponseBuilder().text('a') \
@@ -360,7 +354,7 @@ class ChallengeTest(unittest.TestCase):
             }
         }
 
-        self.assertEqual(expected, actual)
+        assert actual == expected
 
     def test_different_without_order(self, concurrent_request, now):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
@@ -432,7 +426,7 @@ class ChallengeTest(unittest.TestCase):
             }
         }
 
-        self.assertEqual(expected, actual)
+        assert actual == expected
 
     def test_failure(self, concurrent_request, now):
         concurrent_request.side_effect = ConnectionError
@@ -477,19 +471,21 @@ class ChallengeTest(unittest.TestCase):
             }
         }
 
-        self.assertEqual(expected, actual)
+        assert actual == expected
 
 
 @patch('gemini.now')
 @patch('gemini.challenge')
 @patch('modules.requestcreator.from_format')
-class MainTest(unittest.TestCase):
-    def setUp(self):
-        self.maxDiff = None
-        self.held, sys.stdout = sys.stdout, StringIO()
+class TestMain:
 
-    def tearDown(self):
-        sys.stdout = self.held
+    @classmethod
+    def setup_class(cls):
+        cls.held, sys.stdout = sys.stdout, StringIO()
+
+    @classmethod
+    def teardown_class(cls):
+        sys.stdout = cls.held
 
     def test(self, from_format, challenge, now):
         from_format.return_value = [
@@ -555,8 +551,4 @@ class MainTest(unittest.TestCase):
             ]
         }
 
-        self.assertEqual(expected, json.loads(sys.stdout.getvalue()))
-
-
-if __name__ == '__main__':
-    unittest.main()
+        assert json.loads(sys.stdout.getvalue()) == expected

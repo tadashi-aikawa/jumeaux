@@ -1,8 +1,14 @@
 language: python
 python:
-  - "3.3"
-  - "3.4"
+  - "3.5"
+  - "3.6-dev"
 install:
   - pip install -r requirements.txt
-  - pip install freezegun
-script: python -m unittest discover -s test
+  - pip install pytest pytest-cov codeclimate-test-reporter
+script:
+  - py.test -v --cov=. tests/
+after_success:
+  - codeclimate-test-reporter
+notifications:
+  slack:
+    secure: S81vdt0O2Tyb5XD/wyTysjxzsh8eRBu55KF2n/zjScWxh78pVKUicfJd2CzrdsQ9EVdugY/E2PCyLDaX9jWRIyY0JiQ2e6Q62wcgAnZuTPIwPTcVBljd9I1ptuKKq5EWeeQKr2lnxA+EKUfjKZsflEMOKRmbQnVrJDOLADT7JoycuMn17mzobz9gu7hC9Haac+WUJxElhFZt/TpADEBVcn8bngMr3lg4eKgrodRvGi2BZCeTSCoq43O/HUaJ9o9URf/ifzvtrc2DJr1PSy3NRk5gMt++YpHTDDS2+zNzXgM1Ve0KvvrsdB3VRDx2ICWD5PV6oZmT9xcaKOKG5+VSAml9BMp2e4I0PQxkoaGCyi3bLhqLW/UQPcj2UIhIbRN8tTF0lMRMT7RbExjfD7MBcR4wRwIbWSZuVnJxLE50HFOkn+aZ2ZIJMObJbnkxwCoFz3Eikn0B/TkkvlVswvNQpitjwBBGVMiSUSHYcChsKf/mm7zmjzQgRoRzag+5XfACEm347PEyGooSt6g7Fehvtw/Zz2HeJwz5pCu/SUrdLexOPydwNQrX40yIYhD/PvA/pLnyrlOVa6W/1JBlOYuxfno1wWpLyxVoW0n+oRgKmMdMxAuteFiyeHEW1tLz8KUDbW64cEfQorvdtMYxKKY5ieGFppvA/R0XnifvveM7S9Y=

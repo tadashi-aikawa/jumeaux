@@ -2,22 +2,20 @@
 # -*- coding:utf-8 -*-
 
 import os
-import unittest
+import pytest
 from modules import requestcreator
 
 
-class Test(unittest.TestCase):
-    def setUp(self):
-        pass
-
-    def tearDown(self):
+class TestFromFormat:
+    @classmethod
+    def teardown_class(cls):
         os.path.exists('tmp') and os.remove('tmp')
 
-    def test_from_format_as_wrong_format(self):
-        with self.assertRaises(ValueError):
+    def test_wrong_format(self):
+        with pytest.raises(ValueError):
             requestcreator.from_format(None, 'unsupported format')
 
-    def test_from_format_as_plain_normal(self):
+    def test_plain(self):
         examinee = """
 /path1?a=1&b=2
 /path2?c=1
@@ -53,9 +51,9 @@ class Test(unittest.TestCase):
             }
         ]
 
-        self.assertEqual(actual, expected)
+        assert actual == expected
 
-    def test_from_format_as_apache_normal(self):
+    def test_apache(self):
         examinee = """
 000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
 000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test2 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=-" "header2=-"
@@ -98,9 +96,9 @@ class Test(unittest.TestCase):
             },
         ]
 
-        self.assertEqual(actual, expected)
+        assert actual == expected
 
-    def test_from_format_as_apache_abnormal_wrong_url_two_questions(self):
+    def test_apache_wrong_url_two_questions(self):
         examinee = """
 000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /test?test? HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)"
 """.strip()
@@ -108,10 +106,10 @@ class Test(unittest.TestCase):
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
         with open('tmp', 'r', encoding='utf8') as f:
-            with self.assertRaises(ValueError):
+            with pytest.raises(ValueError):
                 requestcreator.from_format(f, 'apache')
 
-    def test_from_format_as_yaml_normal(self):
+    def test_yaml(self):
         examinee = """
 - path: "/test1"
 - path: "/test2"
@@ -187,9 +185,9 @@ class Test(unittest.TestCase):
             }
         ]
 
-        self.assertEqual(actual, expected)
+        assert actual == expected
 
-    def test_from_format_as_yaml_abnormal_path_not_exist(self):
+    def test_yaml_path_not_exist(self):
         examinee = """
 - qs: ""
 """.strip()
@@ -197,10 +195,10 @@ class Test(unittest.TestCase):
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
         with open('tmp', 'r', encoding='utf8') as f:
-            with self.assertRaises(ValueError):
+            with pytest.raises(ValueError):
                 requestcreator.from_format(f, 'yaml')
 
-    def test_from_format_as_csv_normal(self):
+    def test_csv(self):
         examinee = """
 "/test1","q1=1&q2=2","header1=1&header2=2"
 "/test2","q1=1"
@@ -246,18 +244,14 @@ class Test(unittest.TestCase):
             }
         ]
 
-        self.assertEqual(actual, expected)
+        assert actual == expected
 
-    def test_from_format_as_csv_abnormal_length_over_4(self):
+    def test_csv_length_over_4(self):
         examinee = """
 "/path","q1=1","header1=1","evil"
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
         with open('tmp', 'r', encoding='utf8') as f:
-            with self.assertRaises(ValueError):
+            with pytest.raises(ValueError):
                 requestcreator.from_format(f, 'csv')
-
-
-if __name__ == '__main__':
-    unittest.main()
