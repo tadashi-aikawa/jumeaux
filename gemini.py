@@ -370,7 +370,7 @@ def challenge(args):
                         status, req_time, args['path'], args['qs'], args['headers'])
 
 
-def main(args):
+def exec(args):
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
@@ -403,7 +403,7 @@ def main(args):
         trials = [r for r in ex.map(challenge, ex_args)]
     end_time = now()
 
-    result = {
+    return {
         "summary": {
             "time": {
                 "start": start_time.strftime("%Y/%m/%d %X"),
@@ -422,9 +422,6 @@ def main(args):
         "trials": trials
     }
 
-    # Output result
-    print(json.dumps(result, indent=4, ensure_ascii=False, sort_keys=True))
-
 
 if __name__ == '__main__':
     args = create_args()
@@ -436,4 +433,4 @@ if __name__ == '__main__':
     if logger_config:
         logging.config.dictConfig(logger_config)
 
-    main(args)
+    print(json.dumps(exec(args), indent=4, ensure_ascii=False, sort_keys=True))

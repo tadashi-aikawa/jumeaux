@@ -477,16 +477,7 @@ class TestChallenge:
 @patch('gemini.now')
 @patch('gemini.challenge')
 @patch('modules.requestcreator.from_format')
-class TestMain:
-
-    @classmethod
-    def setup_class(cls):
-        cls.held, sys.stdout = sys.stdout, StringIO()
-
-    @classmethod
-    def teardown_class(cls):
-        sys.stdout = cls.held
-
+class TestExec:
     def test(self, from_format, challenge, now):
         from_format.return_value = [
             {
@@ -521,7 +512,7 @@ class TestMain:
             'res_dir': 'tmpdir',
             'threads': 1
         }
-        gemini.main(args)
+        actual = gemini.exec(args)
 
         expected = {
             "summary": {
@@ -551,4 +542,4 @@ class TestMain:
             ]
         }
 
-        assert json.loads(sys.stdout.getvalue()) == expected
+        assert actual == expected
