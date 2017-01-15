@@ -30,25 +30,19 @@ Each function returns the format of the following.
 """
 
 import re
-import yaml
 import csv
 import urllib.parse as urlparser
 
+from modules.models import *
 
-def from_format(file, format):
+
+def from_format(file: Text, format: Text, encoding: Text='utf8') -> TList[Request]:
     """Transform any formatted file into request list.
        Support for
        * plain
        * apache
        * yaml
        * csv
-
-    Arguments:
-        (file) file: file
-        (Str)  format: format
-
-    Returns:
-        list(dict): Refer to `Usage`.
 
     Exception:
         ValueError: If format is invalid.
@@ -62,70 +56,60 @@ def from_format(file, format):
     if format not in functions:
         raise ValueError
 
-    return functions[format](file)
+    return functions[format](file, encoding)
 
 
-def _from_plain(f):
+def _from_plain(file: Text, encoding: Text) -> TList[Request]:
     """Transform plain as below.
         "/path1?a=1&b=2"
         "/path2?c=1"
         "/path3"
-
-    Arguments:
-        (file) f: plain url file
-
-    Returns:
-        list(dict): Refer to `Usage`.
     """
     outputs = []
-    for r in [x.rstrip() for x in f if x != '\n']:
-        path = r.split('?')[0]
-        if len(r.split('?')) > 1:
-            qs = urlparser.parse_qs(r.split('?')[1])
-        else:
-            qs = {}
-        outputs.append({"path": path, "qs": qs, "headers": {}})
+    with open(file, encoding=encoding) as f:
+        for r in [x.rstrip() for x in f if x != '\n']:
+            path = r.split('?')[0]
+            if len(r.split('?')) > 1:
+                qs = urlparser.parse_qs(r.split('?')[1])
+            else:
+                qs = {}
+            outputs.append({"path": path, "qs": qs, "headers": {}})
 
-    return outputs
+    return Request.from_dicts(outputs)
 
 
-def _from_apache_accesslog(f):
+def _from_apache_accesslog(file: Text, encoding: Text) -> TList[Request]:
     """Transform apache access_log as below.
         000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
         000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=-" "header2=-"
-
-    Arguments:
-        (file) f: Access log file
-
-    Returns:
-        list(dict): Refer to `Usage`.
 
     Exception:
         ValueError: If url is invalid.
     """
     outputs = []
-    for r in f:
-        url = r.split(' ')[6]
-        if len(url.split('?')) > 2:
-            raise ValueError
+    with open(file, encoding=encoding) as f:
+        for r in f:
+            url = r.split(' ')[6]
+            if len(url.split('?')) > 2:
+                raise ValueError
 
-        path = url.split('?')[0]
-        if len(url.split('?')) > 1:
-            qs = urlparser.parse_qs(url.split('?')[1])
-        else:
-            qs = {}
+            path = url.split('?')[0]
+            if len(url.split('?')) > 1:
+                qs = urlparser.parse_qs(url.split('?')[1])
+            else:
+                qs = {}
 
-        headers = {}
-        for h in re.compile('"([^= ]+=[^ ]+)"').findall(r):
-            k, v = h.split('=')
-            if v != '-':
-                headers[k] = v
+            headers = {}
+            for h in re.compile('"([^= ]+=[^ ]+)"').findall(r):
+                k, v = h.split('=')
+                if v != '-':
+                    headers[k] = v
+            outputs.append({"path": path, "qs": qs, "headers": headers})
 
-        outputs.append({"path": path, "qs": qs, "headers": headers})
-    return outputs
+    return Request.from_dicts(outputs)
 
 
-def _from_yaml(f):
+def _from_yaml(file: Text, encoding: Text) -> TList[Request]:
     """Transform yaml as below.
         - path: "/path1"
           qs:
@@ -147,56 +131,39 @@ def _from_yaml(f):
             key2: "header2"
         - path: "/path4"
 
-    Arguments:
-        (file) f: yaml
-
-    Returns:
-        list(dict): Refer to `Usage`.
-
     Exception:
         ValueError: If path does not exist.
     """
-    rs = yaml.load(f.read())
-    for r in rs:
-        if 'path' not in r:
-            raise ValueError
-        if 'qs' not in r:
-            r['qs'] = {}
-        if 'headers' not in r:
-            r['headers'] = {}
-
-    return rs
+    try:
+        return Request.from_yamlf_to_list(file, encoding=encoding)
+    except TypeError as e:
+        raise ValueError(e)
 
 
-def _from_csv(f):
+def _from_csv(file: Text, encoding: Text) -> TList[Request]:
     """Transform csv as below.
         "/path1","a=1&b=2","header1=1&header2=2"
         "/path2","c=1"
         "/path3",,"header1=1&header2=2"
         "/path4"
 
-    Arguments:
-        (file) f: csv
-
-    Returns:
-        list(dict): Refer to `Usage`.
-
     Exception:
         ValueError: If fomat is invalid.
     """
-    rs = csv.DictReader(f, ('path', 'qs', 'headers'), restval={})
-
     outputs = []
-    for r in rs:
-        if len(r) > 3:
-            raise ValueError
-        r['qs'] = urlparser.parse_qs(r['qs'])
 
-        # XXX: This is bad implementation but looks simple...
-        r['headers'] = urlparser.parse_qs(r['headers'])
-        for k, v in r['headers'].items():
-            r['headers'][k] = v[0]
+    with open(file, encoding=encoding) as f:
+        rs = csv.DictReader(f, ('path', 'qs', 'headers'), restval={})
+        for r in rs:
+            if len(r) > 3:
+                raise ValueError
+            r['qs'] = urlparser.parse_qs(r['qs'])
 
-        outputs.append(r)
+            # XXX: This is bad implementation but looks simple...
+            r['headers'] = urlparser.parse_qs(r['headers'])
+            for k, v in r['headers'].items():
+                r['headers'][k] = v[0]
 
-    return outputs
+            outputs.append(r)
+
+    return Request.from_dicts(outputs)

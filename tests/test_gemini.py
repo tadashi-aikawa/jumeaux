@@ -504,6 +504,7 @@ class TestExec:
         args = {
             'files': ['line1', 'line2'],
             'input_format': None,
+            'input_encoding': 'utf8',
             'output_encoding': 'utf8',
             'proxy_one': 'http://proxy/one',
             'proxy_other': 'http://proxy/other',

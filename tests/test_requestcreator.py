@@ -13,7 +13,7 @@ class TestFromFormat:
 
     def test_wrong_format(self):
         with pytest.raises(ValueError):
-            requestcreator.from_format(None, 'unsupported format')
+            requestcreator.from_format('dummy', 'unsupported format')
 
     def test_plain(self):
         examinee = """
@@ -24,8 +24,7 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        with open('tmp', 'r', encoding='utf8') as f:
-            actual = requestcreator.from_format(f, 'plain')
+        actual = requestcreator.from_format('tmp', 'plain')
 
         # Line break is ignored. (examinee has 3 not 4)
         expected = [
@@ -51,7 +50,7 @@ class TestFromFormat:
             }
         ]
 
-        assert actual == expected
+        assert actual.to_dicts() == expected
 
     def test_apache(self):
         examinee = """
@@ -62,8 +61,7 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        with open('tmp', 'r', encoding='utf8') as f:
-            actual = requestcreator.from_format(f, 'apache')
+        actual = requestcreator.from_format('tmp', 'apache')
 
         expected = [
             {
@@ -96,7 +94,7 @@ class TestFromFormat:
             },
         ]
 
-        assert actual == expected
+        assert actual.to_dicts() == expected
 
     def test_apache_wrong_url_two_questions(self):
         examinee = """
@@ -105,9 +103,8 @@ class TestFromFormat:
 
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        with open('tmp', 'r', encoding='utf8') as f:
-            with pytest.raises(ValueError):
-                requestcreator.from_format(f, 'apache')
+        with pytest.raises(ValueError):
+            requestcreator.from_format('tmp', 'apache')
 
     def test_yaml(self):
         examinee = """
@@ -140,8 +137,7 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        with open('tmp', 'r', encoding='utf8') as f:
-            actual = requestcreator.from_format(f, 'yaml')
+        actual = requestcreator.from_format('tmp', 'yaml')
 
         expected = [
             {
@@ -185,7 +181,7 @@ class TestFromFormat:
             }
         ]
 
-        assert actual == expected
+        assert actual.to_dicts() == expected
 
     def test_yaml_path_not_exist(self):
         examinee = """
@@ -194,9 +190,8 @@ class TestFromFormat:
 
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        with open('tmp', 'r', encoding='utf8') as f:
-            with pytest.raises(ValueError):
-                requestcreator.from_format(f, 'yaml')
+        with pytest.raises(ValueError):
+            requestcreator.from_format('tmp', 'yaml')
 
     def test_csv(self):
         examinee = """
@@ -207,8 +202,7 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        with open('tmp', 'r', encoding='utf8') as f:
-            actual = requestcreator.from_format(f, 'csv')
+        actual = requestcreator.from_format('tmp', 'csv')
 
         expected = [
             {
@@ -244,7 +238,7 @@ class TestFromFormat:
             }
         ]
 
-        assert actual == expected
+        assert actual.to_dicts() == expected
 
     def test_csv_length_over_4(self):
         examinee = """
@@ -252,6 +246,5 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        with open('tmp', 'r', encoding='utf8') as f:
-            with pytest.raises(ValueError):
-                requestcreator.from_format(f, 'csv')
+        with pytest.raises(ValueError):
+            requestcreator.from_format('tmp', 'csv')

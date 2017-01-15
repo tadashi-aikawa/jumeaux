@@ -107,6 +107,7 @@ import logging.config
 
 import urllib.parse as urlparser
 import requests
+from owlmixin import TList
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 from multiprocessing import Pool
@@ -272,7 +273,7 @@ def create_args():
     }
 
     schema = Schema({
-        'files': [Use(open)],
+        'files': [str],
         'host_one': str,
         'host_other': str,
         'proxy_one': Or(None, str),
@@ -379,9 +380,9 @@ def exec(args):
     proxies_other = create_proxies(args['proxy_other'])
 
     # Parse inputs to args of multi-thread executor.
-    logs = []
-    for f in args['files']:
-        logs.extend(requestcreator.from_format(f, args['input_format']))
+    logs = TList()
+    for fpath in args['files']:
+        logs.extend(requestcreator.from_format(fpath, args['input_format'], args['input_encoding']))
 
     ex_args = [{
                "seq": i + 1,
@@ -395,7 +396,7 @@ def exec(args):
                "proxies_other": proxies_other,
                "output_encoding": args['output_encoding'],
                "res_dir": args['res_dir']
-               } for i, l in enumerate(logs)]
+               } for i, l in enumerate(logs.to_dicts())]
 
     # Challenge
     start_time = now()
