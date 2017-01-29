@@ -36,7 +36,7 @@ import urllib.parse as urlparser
 from modules.models import *
 
 
-def from_format(file: Text, format: Text, encoding: Text='utf8') -> TList[Request]:
+def from_format(file: str, format: str, encoding: str='utf8') -> TList[Request]:
     """Transform any formatted file into request list.
        Support for
        * plain
@@ -59,7 +59,7 @@ def from_format(file: Text, format: Text, encoding: Text='utf8') -> TList[Reques
     return functions[format](file, encoding)
 
 
-def _from_plain(file: Text, encoding: Text) -> TList[Request]:
+def _from_plain(file: str, encoding: str) -> TList[Request]:
     """Transform plain as below.
         "/path1?a=1&b=2"
         "/path2?c=1"
@@ -78,7 +78,7 @@ def _from_plain(file: Text, encoding: Text) -> TList[Request]:
     return Request.from_dicts(outputs)
 
 
-def _from_apache_accesslog(file: Text, encoding: Text) -> TList[Request]:
+def _from_apache_accesslog(file: str, encoding: str) -> TList[Request]:
     """Transform apache access_log as below.
         000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
         000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=-" "header2=-"
@@ -109,7 +109,7 @@ def _from_apache_accesslog(file: Text, encoding: Text) -> TList[Request]:
     return Request.from_dicts(outputs)
 
 
-def _from_yaml(file: Text, encoding: Text) -> TList[Request]:
+def _from_yaml(file: str, encoding: str) -> TList[Request]:
     """Transform yaml as below.
         - path: "/path1"
           qs:
@@ -140,7 +140,7 @@ def _from_yaml(file: Text, encoding: Text) -> TList[Request]:
         raise ValueError(e)
 
 
-def _from_csv(file: Text, encoding: Text) -> TList[Request]:
+def _from_csv(file: str, encoding: str) -> TList[Request]:
     """Transform csv as below.
         "/path1","a=1&b=2","header1=1&header2=2"
         "/path2","c=1"
