@@ -505,7 +505,7 @@ class TestExec:
         args: Args = Args.from_dict({
             "files": ['line1', 'line2'],
             "threads": 1,
-            "config": "config/config.json"
+            "config": "tests/config.json"
         })
         actual = gemini.exec(args)
 
