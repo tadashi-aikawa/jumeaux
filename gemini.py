@@ -234,15 +234,6 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
     return res_one, res_other
 
 
-def create_proxies(proxy):
-    p = dict()
-    if proxy:
-        p['http'] = "http://{0}".format(proxy)
-        p['https'] = "https://{0}".format(proxy)
-
-    return p
-
-
 def challenge(args):
     """
     Arguments:
@@ -326,14 +317,11 @@ def exec(args: Args):
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
-    proxies_one = create_proxies(args.config.one.proxy)
-    proxies_other = create_proxies(args.config.other.proxy)
 
     # Parse inputs to args of multi-thread executor.
-    # TODO: -> flat_map
-    logs = args.files.map(
+    logs = args.files.flat_map(
         lambda f: requestcreator.from_format(f, args.config.input.format, args.config.input.encoding)
-    ).flatten()
+    )
 
     ex_args = TList(enumerate(logs)).map(lambda x: {
         "seq": x[0] + 1,
@@ -343,8 +331,8 @@ def exec(args: Args):
         "path": x[1].path,
         "qs": x[1].qs,
         "headers": x[1].headers,
-        "proxies_one": args.config.one.proxy,
-        "proxies_other": args.config.other.proxy,
+        "proxies_one": Proxy.from_host(args.config.one.proxy),
+        "proxies_other": Proxy.from_host(args.config.other.proxy),
         "output_encoding": args.config.output.encoding,
         "res_dir": args.config.output.response_dir
     })
