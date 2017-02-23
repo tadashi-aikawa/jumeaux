@@ -4,6 +4,14 @@ from typing import Optional, Any
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList, TDict
 from modules.requestcreator import *
+from enum import Enum
+
+
+class Format(Enum):
+    PLAIN = "plain"
+    APACHE = "apache"
+    YAML = "yaml"
+    CSV = "csv"
 
 
 class AccessPoint(OwlMixin):
@@ -36,9 +44,9 @@ class Config(OwlMixin):
 
 class Args(OwlMixin):
     def __init__(self, files, config: str, threads):
-        self.files: TList[str] = files
+        self.files: TList[str] = TList(files)
         self.config: Config = Config.from_jsonf(config)
-        self.threads: int = threads
+        self.threads: int = int(threads)
 
 
 class Request(OwlMixin):

@@ -330,9 +330,10 @@ def exec(args: Args):
     proxies_other = create_proxies(args.config.other.proxy)
 
     # Parse inputs to args of multi-thread executor.
-    logs = args.files.flat_map(
+    # TODO: -> flat_map
+    logs = args.files.map(
         lambda f: requestcreator.from_format(f, args.config.input.format, args.config.input.encoding)
-    )
+    ).flatten()
 
     ex_args = TList(enumerate(logs)).map(lambda x: {
         "seq": x[0] + 1,

@@ -3,16 +3,8 @@
 import re
 import csv
 import urllib.parse as urlparser
-from enum import Enum
 
 from modules.models import *
-
-
-class Format(Enum):
-    PLAIN = "plain"
-    APACHE = "apache"
-    YAML = "yaml"
-    CSV = "csv"
 
 
 def from_format(file: str, format_: Format, encoding: str='utf8') -> TList[Request]:
