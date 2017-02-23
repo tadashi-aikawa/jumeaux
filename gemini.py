@@ -107,22 +107,22 @@ import logging.config
 
 import urllib.parse as urlparser
 import requests
-from owlmixin import TList
+from owlmixin.owlcollections import TList
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 from multiprocessing import Pool
 from concurrent import futures
 from datetime import datetime
+from fn import _
 
 import xmltodict
 from xml.dom import minidom
 from xml.etree import ElementTree
-
 from docopt import docopt
-from schema import Schema, Or, And, Use, SchemaError
 
 from modules.dictutils import DictUtils
 from modules import requestcreator
+from modules.models import *
 
 
 VERSION = "0.9.5"
@@ -243,56 +243,6 @@ def create_proxies(proxy):
     return p
 
 
-def create_args():
-    doc = docopt(__doc__, version=VERSION)
-
-    pre_schema = Schema({
-        '<files>': [str],
-        '--config': Use(open),
-        '--threads': And(Use(int), lambda n: n > 0)
-    })
-    try:
-        pre_args = pre_schema.validate(doc)
-        config = json.load(pre_args['--config'])
-    except SchemaError as e:
-        print(e)
-        sys.exit(1)
-
-    args = {
-        'files': pre_args['<files>'],
-        'host_one': config['one']['host'],
-        'host_other': config['other']['host'],
-        'proxy_one': config['one'].get('proxy', None),
-        'proxy_other': config['other'].get('proxy', None),
-        'input_encoding': config['input'].get('encoding', 'utf-8'),
-        'output_encoding': config['output'].get('encoding', 'utf-8'),
-        "logger": config['output'].get('logger', None),
-        'res_dir': config['output']['response'].get('dir', 'response'),
-        'input_format': config['input'].get('format', 'plain'),
-        'threads': pre_args['--threads']
-    }
-
-    schema = Schema({
-        'files': [str],
-        'host_one': str,
-        'host_other': str,
-        'proxy_one': Or(None, str),
-        'proxy_other': Or(None, str),
-        'input_encoding': str,
-        'output_encoding': str,
-        'logger': Or(None, dict),
-        'res_dir': os.path.exists,
-        'input_format': Or('plain', 'apache', 'yaml', 'csv'),
-        'threads': And(Use(int), lambda n: n > 0)
-    })
-
-    try:
-        return schema.validate(args)
-    except SchemaError as e:
-        print(e)
-        sys.exit(1)
-
-
 def challenge(args):
     """
     Arguments:
@@ -371,36 +321,36 @@ def challenge(args):
                         status, req_time, args['path'], args['qs'], args['headers'])
 
 
-def exec(args):
+def exec(args: Args):
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
-    proxies_one = create_proxies(args['proxy_one'])
-    proxies_other = create_proxies(args['proxy_other'])
+    proxies_one = create_proxies(args.config.one.proxy)
+    proxies_other = create_proxies(args.config.other.proxy)
 
     # Parse inputs to args of multi-thread executor.
-    logs = TList()
-    for fpath in args['files']:
-        logs.extend(requestcreator.from_format(fpath, args['input_format'], args['input_encoding']))
+    logs = args.files.flat_map(
+        lambda f: requestcreator.from_format(f, args.config.input.format, args.config.input.encoding)
+    )
 
-    ex_args = [{
-               "seq": i + 1,
-               "session": s,
-               "host_one": args['host_one'],
-               "host_other": args['host_other'],
-               "path": l['path'],
-               "qs": l['qs'],
-               "headers": l['headers'],
-               "proxies_one": proxies_one,
-               "proxies_other": proxies_other,
-               "output_encoding": args['output_encoding'],
-               "res_dir": args['res_dir']
-               } for i, l in enumerate(logs.to_dicts())]
+    ex_args = TList(enumerate(logs)).map(lambda x: {
+        "seq": x[0] + 1,
+        "session": s,
+        "host_one": args.config.one.host,
+        "host_other": args.config.other.host,
+        "path": x[1].path,
+        "qs": x[1].qs,
+        "headers": x[1].headers,
+        "proxies_one": args.config.one.proxy,
+        "proxies_other": args.config.other.proxy,
+        "output_encoding": args.config.output.encoding,
+        "res_dir": args.config.output.response_dir
+    })
 
     # Challenge
     start_time = now()
-    with futures.ThreadPoolExecutor(max_workers=args['threads']) as ex:
+    with futures.ThreadPoolExecutor(max_workers=args.threads) as ex:
         trials = [r for r in ex.map(challenge, ex_args)]
     end_time = now()
 
@@ -412,12 +362,12 @@ def exec(args):
                 "elapsed_sec": (end_time - start_time).seconds
             },
             "one": {
-                "host": args['host_one'],
-                "proxy": args['proxy_one']
+                "host": args.config.one.host,
+                "proxy": args.config.one.proxy
             },
             "other": {
-                "host": args['host_other'],
-                "proxy": args['proxy_other']
+                "host": args.config.other.host,
+                "proxy": args.config.other.proxy
             }
         },
         "trials": trials
@@ -425,12 +375,12 @@ def exec(args):
 
 
 if __name__ == '__main__':
-    args = create_args()
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args['output_encoding'])
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=args['output_encoding'])
+    args: Args = Args.from_dict(docopt(__doc__, version=VERSION))
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args.config.output.encoding)
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=args.config.output.encoding)
 
     # Logging settings load
-    logger_config = args.get('logger')
+    logger_config = args.config.output.logger
     if logger_config:
         logging.config.dictConfig(logger_config)
 

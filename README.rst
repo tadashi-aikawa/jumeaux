@@ -97,9 +97,7 @@ Usage
         },
         "output": {
             "encoding": "utf8",
-            "response": {
-                "dir": "response"    # (REQUIRED)
-            },
+            "response_dir": "response",    # (REQUIRED)
             "logger": {
                 # (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
             }

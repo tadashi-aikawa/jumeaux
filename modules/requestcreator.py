@@ -1,81 +1,56 @@
 # -*- coding:utf-8 -*-
 
-
-"""
-Usage:
-Each function returns the format of the following.
-
-[
-    {
-        "path": "/path",
-        "qs": {
-            "q1": ["v1"],
-            "q2": ["v2", "v3"]
-        }
-        "headers": {
-            "key1": "value1",
-            "key2": "value2"
-        }
-    },
-    ・
-    ・
-    {
-        "path": "/path",
-        "qs": {},
-        "headers": {}
-    }
-]
-
-"qs" and "headers" never be None.
-"""
-
 import re
 import csv
 import urllib.parse as urlparser
+from enum import Enum
 
 from modules.models import *
 
 
-def from_format(file: str, format: str, encoding: str='utf8') -> TList[Request]:
-    """Transform any formatted file into request list.
-       Support for
-       * plain
-       * apache
-       * yaml
-       * csv
+class Format(Enum):
+    PLAIN = "plain"
+    APACHE = "apache"
+    YAML = "yaml"
+    CSV = "csv"
 
-    Exception:
-        ValueError: If format is invalid.
+
+def from_format(file: str, format_: Format, encoding: str='utf8') -> TList[Request]:
+    """Transform any formatted file into request list.
+
+    :param file: Log file
+    :param format_: Log format
+    :param encoding: Log encoding
+    :return: Requests
     """
     functions = {
-        'plain': _from_plain,
-        'apache': _from_apache_accesslog,
-        'yaml': _from_yaml,
-        'csv': _from_csv,
+        Format.PLAIN: _from_plain,
+        Format.APACHE: _from_apache_accesslog,
+        Format.YAML: _from_yaml,
+        Format.CSV: _from_csv,
     }
-    if format not in functions:
+    if format_ not in functions:
         raise ValueError
 
-    return functions[format](file, encoding)
+    return functions[format_](file, encoding)
 
 
 def _from_plain(file: str, encoding: str) -> TList[Request]:
     """Transform plain as below.
-        "/path1?a=1&b=2"
-        "/path2?c=1"
-        "/path3"
-    """
-    outputs = []
-    with open(file, encoding=encoding) as f:
-        for r in [x.rstrip() for x in f if x != '\n']:
-            path = r.split('?')[0]
-            if len(r.split('?')) > 1:
-                qs = urlparser.parse_qs(r.split('?')[1])
-            else:
-                qs = {}
-            outputs.append({"path": path, "qs": qs, "headers": {}})
 
-    return Request.from_dicts(outputs)
+    :param file:
+    :param encoding:
+    :return: Requests
+    """
+    def line_to_request(line: str) -> Request:
+        path = line.split('?')[0]
+        qs = urlparser.parse_qs(line.split('?')[1]) if len(line.split('?')) > 1 else {}
+        return Request.from_dict({"path": path, "qs": qs, "headers": {}})
+
+    with open(file, encoding=encoding) as f:
+        requests: TList[Request] = TList([x.rstrip() for x in f if x != '\n']).map(line_to_request)
+
+    return requests
 
 
 def _from_apache_accesslog(file: str, encoding: str) -> TList[Request]:

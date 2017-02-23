@@ -4,16 +4,13 @@
 import os
 import pytest
 from modules import requestcreator
+from modules.requestcreator import Format
 
 
 class TestFromFormat:
     @classmethod
     def teardown_class(cls):
         os.path.exists('tmp') and os.remove('tmp')
-
-    def test_wrong_format(self):
-        with pytest.raises(ValueError):
-            requestcreator.from_format('dummy', 'unsupported format')
 
     def test_plain(self):
         examinee = """
@@ -24,7 +21,7 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        actual = requestcreator.from_format('tmp', 'plain')
+        actual = requestcreator.from_format('tmp', Format.PLAIN)
 
         # Line break is ignored. (examinee has 3 not 4)
         expected = [
@@ -61,7 +58,7 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        actual = requestcreator.from_format('tmp', 'apache')
+        actual = requestcreator.from_format('tmp', Format.APACHE)
 
         expected = [
             {
@@ -104,7 +101,7 @@ class TestFromFormat:
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
         with pytest.raises(ValueError):
-            requestcreator.from_format('tmp', 'apache')
+            requestcreator.from_format('tmp', Format.APACHE)
 
     def test_yaml(self):
         examinee = """
@@ -137,7 +134,7 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        actual = requestcreator.from_format('tmp', 'yaml')
+        actual = requestcreator.from_format('tmp', Format.YAML)
 
         expected = [
             {
@@ -191,7 +188,7 @@ class TestFromFormat:
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
         with pytest.raises(ValueError):
-            requestcreator.from_format('tmp', 'yaml')
+            requestcreator.from_format('tmp', Format.YAML)
 
     def test_csv(self):
         examinee = """
@@ -202,7 +199,7 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        actual = requestcreator.from_format('tmp', 'csv')
+        actual = requestcreator.from_format('tmp', Format.CSV)
 
         expected = [
             {
@@ -247,4 +244,4 @@ class TestFromFormat:
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
         with pytest.raises(ValueError):
-            requestcreator.from_format('tmp', 'csv')
+            requestcreator.from_format('tmp', Format.CSV)
