@@ -13,6 +13,7 @@ from unittest.mock import patch
 import gemini
 import datetime
 from requests.exceptions import ConnectionError
+from modules.models import *
 
 
 class ResponseBuilder():
@@ -479,13 +480,13 @@ class TestChallenge:
 @patch('modules.requestcreator.from_format')
 class TestExec:
     def test(self, from_format, challenge, now):
-        from_format.return_value = [
+        from_format.return_value = Request.from_dicts([
             {
                 'path': '/path',
-                'qs': ['qs'],
-                'headers': ['headers']
+                'qs': {'q': ["v"]},
+                'headers': {}
             }
-        ]
+        ])
         challenge.side_effect = [
             {
                 "a": 1,
@@ -501,18 +502,11 @@ class TestExec:
             datetime.datetime(2000, 1, 2, 0, 0, 0)
         ]
 
-        args = {
-            'files': ['line1', 'line2'],
-            'input_format': None,
-            'input_encoding': 'utf8',
-            'output_encoding': 'utf8',
-            'proxy_one': 'http://proxy/one',
-            'proxy_other': 'http://proxy/other',
-            'host_one': 'http://host/one',
-            'host_other': 'http://host/other',
-            'res_dir': 'tmpdir',
-            'threads': 1
-        }
+        args: Args = Args.from_dict({
+            "files": ['line1', 'line2'],
+            "threads": 1,
+            "config": "config/config.json"
+        })
         actual = gemini.exec(args)
 
         expected = {

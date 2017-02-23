@@ -4,7 +4,8 @@ import re
 import csv
 import urllib.parse as urlparser
 
-from modules.models import *
+from owlmixin.owlcollections import TList
+from modules.models import Request, Format
 
 
 def from_format(file: str, format_: Format, encoding: str='utf8') -> TList[Request]:
@@ -21,8 +22,6 @@ def from_format(file: str, format_: Format, encoding: str='utf8') -> TList[Reque
         Format.YAML: _from_yaml,
         Format.CSV: _from_csv,
     }
-    if format_ not in functions:
-        raise ValueError
 
     return functions[format_](file, encoding)
 

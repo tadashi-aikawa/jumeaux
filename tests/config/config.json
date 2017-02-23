@@ -1,0 +1,20 @@
+{
+    "one": {
+        "name": "name_one",
+        "host": "http://host/one",
+        "proxy": "http://proxy/one"
+    },
+    "other": {
+        "name": "name_other",
+        "host": "http://host/other",
+        "proxy": "http://proxy/other"
+    },
+    "input": {
+        "format": "csv",
+        "encoding": "utf8"
+    },
+    "output": {
+        "encoding": "utf8",
+        "response_dir": "tmpdir"
+    }
+}
