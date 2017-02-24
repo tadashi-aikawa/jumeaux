@@ -3,21 +3,22 @@
 from typing import Optional, Any, Dict, List
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList, TDict
+from owlmixin.owlenum import OwlEnum
 from modules.requestcreator import *
-from enum import Enum
 
 
-class Format(Enum):
+class Format(OwlEnum):
     PLAIN = "plain"
     APACHE = "apache"
     YAML = "yaml"
     CSV = "csv"
 
 
-class Status(Enum):
+class Status(OwlEnum):
     SAME = "same"
     SAME_WITHOUT_ORDER = "same_without_order"
     DIFFERENT = "different"
+    FAILURE = "failure"
 
 
 class AccessPoint(OwlMixin):
@@ -49,8 +50,9 @@ class Config(OwlMixin):
 
 
 class Args(OwlMixin):
-    def __init__(self, files, config: str, threads):
+    def __init__(self, files, title: str, config: str, threads):
         self.files: TList[str] = TList(files)
+        self.title: str = title
         self.config: Config = Config.from_jsonf(config)
         self.threads: int = int(threads)
 
@@ -72,7 +74,7 @@ class Proxy(OwlMixin):
         return Proxy.from_dict({
             'http': f"http://{host}",
             'https': f"https://{host}",
-        }) if host else {}
+        }) if host else None
 
 
 # --------
@@ -89,8 +91,15 @@ class Summary(OwlMixin):
     def __init__(self, one: dict, other: dict, status: dict, time: dict):
         self.one: AccessPoint = AccessPoint.from_dict(one)
         self.other: AccessPoint = AccessPoint.from_dict(other)
-        self.status: Dict[Status, int] = {Status(name): num for name, num in status}
+        self.status: StatusCounts = StatusCounts.from_dict(status)
         self.time: Time = Time.from_dict(time)
+
+
+class StatusCounts(OwlMixin):
+    def __init__(self, same: int=0, different: int=0, failure: int=0):
+        self.same: int = same
+        self.different: int = different
+        self.failure: int = failure
 
 
 class Time(OwlMixin):
@@ -113,9 +122,9 @@ class Trial(OwlMixin):
 
 
 class ResponseSummary(OwlMixin):
-    def __init__(self, status_code: int, byte: int, response_sec: int, url: str, file: Optional[str]=None):
-        self.status_code: int = status_code
-        self.byte: int = byte
-        self.response_sec: int = response_sec
+    def __init__(self, url: str, status_code: int=None, byte: int=None, response_sec: int=None, file: Optional[str]=None):
         self.url: str = url
+        self.status_code: Optional[int] = status_code
+        self.byte: Optional[int] = byte
+        self.response_sec: Optional[int] = response_sec
         self.file: Optional[str] = file

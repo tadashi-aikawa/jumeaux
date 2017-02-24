@@ -7,10 +7,11 @@ Usage
 =======================
 
 Usage:
-  gemini.py [--threads=<threads>] [--config=<json>] <files>...
+  gemini.py --title=<title> [--threads=<threads>] [--config=<json>] <files>...
 
 Options:
   <files>...
+  --title = <title>      The title of report
   --threads = <threads>  The number of threads in challenge [default: 1]
   --config = <json>      Configuration file(see below) [default: config.json]
 
@@ -102,12 +103,14 @@ import sys
 import io
 import json
 import os
+import hashlib
 from logging import getLogger
 import logging.config
 
 import urllib.parse as urlparser
 import requests
 from owlmixin.owlcollections import TList
+from owlmixin.util import O
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 from multiprocessing import Pool
@@ -312,7 +315,7 @@ def challenge(args):
                         status, req_time, args['path'], args['qs'], args['headers'])
 
 
-def exec(args: Args):
+def exec(args: Args) -> Report:
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
@@ -331,8 +334,8 @@ def exec(args: Args):
         "path": x[1].path,
         "qs": x[1].qs,
         "headers": x[1].headers,
-        "proxies_one": Proxy.from_host(args.config.one.proxy),
-        "proxies_other": Proxy.from_host(args.config.other.proxy),
+        "proxies_one": O(Proxy.from_host(args.config.one.proxy)).then_or_none(lambda x: x.to_dict()),
+        "proxies_other": O(Proxy.from_host(args.config.other.proxy)).then_or_none(lambda x: x.to_dict()),
         "output_encoding": args.config.output.encoding,
         "res_dir": args.config.output.response_dir
     })
@@ -340,27 +343,38 @@ def exec(args: Args):
     # Challenge
     start_time = now()
     with futures.ThreadPoolExecutor(max_workers=args.threads) as ex:
-        trials = [r for r in ex.map(challenge, ex_args)]
+        trials = TList([r for r in ex.map(challenge, ex_args)])
     end_time = now()
 
-    return {
-        "summary": {
-            "time": {
-                "start": start_time.strftime("%Y/%m/%d %X"),
-                "end": end_time.strftime("%Y/%m/%d %X"),
-                "elapsed_sec": (end_time - start_time).seconds
-            },
-            "one": {
-                "host": args.config.one.host,
-                "proxy": args.config.one.proxy
-            },
-            "other": {
-                "host": args.config.other.host,
-                "proxy": args.config.other.proxy
-            }
+    summary = Summary.from_dict({
+        "one": {
+            "name": args.config.one.name,
+            "host": args.config.one.host,
+            "proxy": args.config.one.proxy
         },
+        "other": {
+            "name": args.config.other.name,
+            "host": args.config.other.host,
+            "proxy": args.config.other.proxy
+        },
+        "status": trials.group_by(_['status']).map_values(len).to_dict(),
+        "time": {
+            "start": start_time.strftime("%Y/%m/%d %X"),
+            "end": end_time.strftime("%Y/%m/%d %X"),
+            "elapsed_sec": (end_time - start_time).seconds
+        }
+    })
+
+    return Report.from_dict({
+        "key": hash_from_summary(summary),
+        "title": args.title,
+        "summary": summary.to_dict(),
         "trials": trials
-    }
+    })
+
+
+def hash_from_summary(summary: Summary):
+    return hashlib.sha256((str(now()) + summary.to_json()).encode()).hexdigest()
 
 
 if __name__ == '__main__':
@@ -373,4 +387,4 @@ if __name__ == '__main__':
     if logger_config:
         logging.config.dictConfig(logger_config)
 
-    print(json.dumps(exec(args), indent=4, ensure_ascii=False, sort_keys=True))
+    print(exec(args).to_pretty_json())

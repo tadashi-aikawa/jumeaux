@@ -2,12 +2,11 @@
     "one": {
         "name": "name_one",
         "host": "http://host/one",
-        "proxy": "http://proxy/one"
+        "proxy": "http://proxy"
     },
     "other": {
         "name": "name_other",
-        "host": "http://host/other",
-        "proxy": "http://proxy/other"
+        "host": "http://host/other"
     },
     "input": {
         "format": "csv",
