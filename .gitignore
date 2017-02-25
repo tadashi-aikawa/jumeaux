@@ -1,5 +1,4 @@
 sftp-config.json
-.gitignore
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -58,3 +57,6 @@ target/
 
 # IntelliJ
 .idea/
+
+resource
+response

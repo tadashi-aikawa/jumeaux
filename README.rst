@@ -20,22 +20,13 @@ todo
 Requirement
 ===========
 
-* Python3.5 and upper
+* Python3.6
 
 
 Installation
 ============
 
-Download and extract
---------------------
-
-.. sourcecode:: bash
-
-    $ wget 'https://github.com/tadashi-aikawa/gemini/archive/master.zip' -O master.zip
-    $ unzip master.zip -x */test/*
-    $ rm master.zip
-
-or ``git clone``
+First, Clone this repository.
 
 
 Install requisite packages
@@ -44,9 +35,6 @@ Install requisite packages
 .. sourcecode:: bash
 
     $ pip install -r requirements.txt
-
-
-``Note: Create virtual environment if you want.``
 
 
 Check operation
@@ -97,9 +85,7 @@ Usage
         },
         "output": {
             "encoding": "utf8",
-            "response": {
-                "dir": "response"    # (REQUIRED)
-            },
+            "response_dir": "response",    # (REQUIRED)
             "logger": {
                 # (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
             }

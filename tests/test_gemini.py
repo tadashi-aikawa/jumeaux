@@ -13,6 +13,7 @@ from unittest.mock import patch
 import gemini
 import datetime
 from requests.exceptions import ConnectionError
+from modules.models import *
 
 
 class ResponseBuilder():
@@ -71,21 +72,6 @@ class ResponseBuilder():
         m.elapsed.microseconds = self._microseconds
         m.json.return_value = self._json
         return m
-
-
-class CreateProxiesTest:
-    def test_normal(self):
-        proxy = '1.2.3.4'
-        actual = gemini.create_proxies(proxy)
-
-        assert actual['http'] == 'http://1.2.3.4'
-        assert actual['https'] == 'https://1.2.3.4'
-
-    def test_none(self):
-        proxy = None
-        actual = gemini.create_proxies(proxy)
-
-        assert actual == {}
 
 
 class TestCreateTrial:
@@ -476,24 +462,72 @@ class TestChallenge:
 
 @patch('gemini.now')
 @patch('gemini.challenge')
+@patch('gemini.hash_from_summary')
 @patch('modules.requestcreator.from_format')
 class TestExec:
-    def test(self, from_format, challenge, now):
-        from_format.return_value = [
+    def test(self, from_format, hash_from_summary, challenge, now):
+        from_format.return_value = Request.from_dicts([
             {
                 'path': '/path',
-                'qs': ['qs'],
-                'headers': ['headers']
+                'qs': {'q': ["v"]},
+                'headers': {}
             }
-        ]
+        ])
+        hash_from_summary.return_value = "dummy hash"
         challenge.side_effect = [
             {
-                "a": 1,
-                "b": 2
+                "request_time": '2000/01/01 00:00:01',
+                "status": 'different',
+                "path": '/challenge1',
+                "queries": {
+                    "q1": ["1"],
+                    "q2": ["2-1", "2-2"]
+                },
+                "headers": {
+                    "header1": "1",
+                    "header2": "2",
+                },
+                "one": {
+                    "file": "one1",
+                    "url": 'URL_ONE',
+                    "status_code": 200,
+                    "byte": 20,
+                    "response_sec": 1.23
+                },
+                "other": {
+                    "file": "other1",
+                    "url": 'URL_OTHER',
+                    "status_code": 400,
+                    "byte": 23,
+                    "response_sec": 9.88
+                }
             },
             {
-                "c": 3,
-                "d": 4
+                "request_time": '2000/01/01 00:00:02',
+                "status": 'same',
+                "path": '/challenge2',
+                "queries": {
+                    "q1": ["1"],
+                    "q2": ["2-1", "2-2"]
+                },
+                "headers": {
+                    "header1": "1",
+                    "header2": "2",
+                },
+                "one": {
+                    "file": "one2",
+                    "url": 'URL_ONE',
+                    "status_code": 200,
+                    "byte": 1,
+                    "response_sec": 1.00
+                },
+                "other": {
+                    "file": "other2",
+                    "url": 'URL_OTHER',
+                    "status_code": 200,
+                    "byte": 1,
+                    "response_sec": 2.00
+                }
             }
         ]
         now.side_effect = [
@@ -501,21 +535,17 @@ class TestExec:
             datetime.datetime(2000, 1, 2, 0, 0, 0)
         ]
 
-        args = {
-            'files': ['line1', 'line2'],
-            'input_format': None,
-            'input_encoding': 'utf8',
-            'output_encoding': 'utf8',
-            'proxy_one': 'http://proxy/one',
-            'proxy_other': 'http://proxy/other',
-            'host_one': 'http://host/one',
-            'host_other': 'http://host/other',
-            'res_dir': 'tmpdir',
-            'threads': 1
-        }
+        args: Args = Args.from_dict({
+            "files": ['line1', 'line2'],
+            "threads": 1,
+            "title": "Report title",
+            "config": "tests/config.json"
+        })
         actual = gemini.exec(args)
 
         expected = {
+            "key": "dummy hash",
+            "title": "Report title",
             "summary": {
                 "time": {
                     "start": '2000/01/01 23:50:30',
@@ -524,23 +554,75 @@ class TestExec:
                 },
                 "one": {
                     "host": "http://host/one",
-                    "proxy": "http://proxy/one"
+                    "proxy": "http://proxy",
+                    "name": "name_one"
                 },
                 "other": {
                     "host": "http://host/other",
-                    "proxy": "http://proxy/other"
+                    "name": "name_other"
+                },
+                "status": {
+                    "same": 1,
+                    "different": 1,
+                    "failure": 0
                 }
             },
             "trials": [
                 {
-                    "a": 1,
-                    "b": 2
+                    "request_time": '2000/01/01 00:00:01',
+                    "status": Status.DIFFERENT,
+                    "path": '/challenge1',
+                    "queries": {
+                        "q1": ["1"],
+                        "q2": ["2-1", "2-2"]
+                    },
+                    "headers": {
+                        "header1": "1",
+                        "header2": "2",
+                    },
+                    "one": {
+                        "file": "one1",
+                        "url": 'URL_ONE',
+                        "status_code": 200,
+                        "byte": 20,
+                        "response_sec": 1.23
+                    },
+                    "other": {
+                        "file": "other1",
+                        "url": 'URL_OTHER',
+                        "status_code": 400,
+                        "byte": 23,
+                        "response_sec": 9.88
+                    }
                 },
                 {
-                    "c": 3,
-                    "d": 4
+                    "request_time": '2000/01/01 00:00:02',
+                    "status": Status.SAME,
+                    "path": '/challenge2',
+                    "queries": {
+                        "q1": ["1"],
+                        "q2": ["2-1", "2-2"]
+                    },
+                    "headers": {
+                        "header1": "1",
+                        "header2": "2",
+                    },
+                    "one": {
+                        "file": "one2",
+                        "url": 'URL_ONE',
+                        "status_code": 200,
+                        "byte": 1,
+                        "response_sec": 1.00
+                    },
+                    "other": {
+                        "file": "other2",
+                        "url": 'URL_OTHER',
+                        "status_code": 200,
+                        "byte": 1,
+                        "response_sec": 2.00
+                    }
                 }
             ]
         }
 
-        assert actual == expected
+        assert actual.to_dict() == expected
