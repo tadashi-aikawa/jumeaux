@@ -539,7 +539,7 @@ class TestExec:
             "files": ['line1', 'line2'],
             "threads": 1,
             "title": "Report title",
-            "config": "tests/config.json"
+            "config": "tests/config.yaml"
         })
         actual = gemini.exec(args)
 

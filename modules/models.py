@@ -69,7 +69,7 @@ class Args(OwlMixin):
     def __init__(self, files, title: str, config: str, threads):
         self.files: TList[str] = TList(files)
         self.title: str = title
-        self.config: Config = Config.from_jsonf(config)
+        self.config: Config = Config.from_yamlf(config)
         self.threads: int = int(threads)
 
 

@@ -7,44 +7,44 @@ Usage
 =======================
 
 Usage:
-  gemini.py --title=<title> [--threads=<threads>] [--config=<json>] <files>...
+  gemini.py --title=<title> [--threads=<threads>] [--config=<yaml>] <files>...
 
 Options:
   <files>...
   --title = <title>      The title of report
   --threads = <threads>  The number of threads in challenge [default: 1]
-  --config = <json>      Configuration file(see below) [default: config.json]
+  --config = <yaml>      Configuration file(see below) [default: config.yaml]
 
 
 =======================
 Config file definition
 =======================
 
-Set following value as default if property is blank and not REQUIRED.
+one:
+  name: total
+  host: http://api.navitime.jp/v1/00001014
+  # proxy: null
+other:
+  name: transfer
+  host: http://api.navitime.jp/v1/00002005
+  # proxy: null
+input:
+  encoding: utf8
+  # plan / csv / json / yaml
+  format: csv
+output:
+  encoding: utf8
+  response_dir: response
+# logger:
+#   (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
+addons:
+# after:
+#   - name: modules.addons.hello.main
+#   - name: modules.addons.hello.main
+#     command: change_title
+#     config:
+#       locate_prefix: true
 
-{
-    "one": {
-        "host": "http://one",  # (REQUIRED)
-        "proxy": null
-    },
-    "other": {
-        "host": "http://other",  # (REQUIRED)
-        "proxy": null
-    },
-    "input": {
-        "format": "plain",  # (see `Input format`)
-        "encoding": "utf8"
-    },
-    "output": {
-        "encoding": "utf8",
-        "response": {
-            "dir": "response"    # (REQUIRED)
-        },
-        "logger": {
-            # (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
-        }
-    }
-}
 
 =======================
 Input format
