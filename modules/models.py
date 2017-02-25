@@ -41,12 +41,28 @@ class OutputSummary(OwlMixin):
         self.logger: Optional[Any] = logger
 
 
+class Addon(OwlMixin):
+    def __init__(self, name, command: str='main', config: dict=None):
+        self.name: str = name
+        self.command: str = command
+        self.config: dict = config
+
+
+class Addons(OwlMixin):
+    def __init__(self, after=None):
+        self.after: TList[Addon] = Addon.from_optional_dicts(after) or TList()
+
+
 class Config(OwlMixin):
-    def __init__(self, one, other, input, output):
+    def __init__(self, one, other, input, output, addons=None):
         self.one: AccessPoint = AccessPoint.from_dict(one)
         self.other: AccessPoint = AccessPoint.from_dict(other)
         self.input: InputSummary = InputSummary.from_dict(input)
         self.output: OutputSummary = OutputSummary.from_dict(output)
+        self.addons: Optional[Addons] = Addons.from_optional_dict(addons)
+
+
+# --------
 
 
 class Args(OwlMixin):
@@ -96,7 +112,7 @@ class Summary(OwlMixin):
 
 
 class StatusCounts(OwlMixin):
-    def __init__(self, same: int=0, different: int=0, failure: int=0):
+    def __init__(self, same: int = 0, different: int = 0, failure: int = 0):
         self.same: int = same
         self.different: int = different
         self.failure: int = failure
@@ -105,7 +121,7 @@ class StatusCounts(OwlMixin):
 class Time(OwlMixin):
     def __init__(self, start: str, end: str, elapsed_sec: int):
         self.start: str = start  # yyyy/MM/dd hh:mm:ss
-        self.end: str = end    # yyyy/MM/dd hh:mm:ss
+        self.end: str = end  # yyyy/MM/dd hh:mm:ss
         self.elapsed_sec: int = elapsed_sec
 
 
@@ -122,7 +138,8 @@ class Trial(OwlMixin):
 
 
 class ResponseSummary(OwlMixin):
-    def __init__(self, url: str, status_code: int=None, byte: int=None, response_sec: int=None, file: Optional[str]=None):
+    def __init__(self, url: str, status_code: int = None, byte: int = None, response_sec: int = None,
+                 file: Optional[str] = None):
         self.url: str = url
         self.status_code: Optional[int] = status_code
         self.byte: Optional[int] = byte

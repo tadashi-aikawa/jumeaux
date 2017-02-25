@@ -104,6 +104,7 @@ import io
 import json
 import os
 import hashlib
+from importlib import import_module
 from logging import getLogger
 import logging.config
 
@@ -138,6 +139,14 @@ def now():
     For test
     """
     return datetime.today()
+
+
+def hash_from_summary(summary: Summary):
+    return hashlib.sha256((str(now()) + summary.to_json()).encode()).hexdigest()
+
+
+def apply_addon(r: Report, a: Addon):
+    return getattr(import_module(a.name), a.command)(r, a.config)
 
 
 def create_diff(text1, text2, ignore_properties, ignore_order=False):
@@ -373,10 +382,6 @@ def exec(args: Args) -> Report:
     })
 
 
-def hash_from_summary(summary: Summary):
-    return hashlib.sha256((str(now()) + summary.to_json()).encode()).hexdigest()
-
-
 if __name__ == '__main__':
     args: Args = Args.from_dict(docopt(__doc__, version=VERSION))
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args.config.output.encoding)
@@ -387,4 +392,9 @@ if __name__ == '__main__':
     if logger_config:
         logging.config.dictConfig(logger_config)
 
-    print(exec(args).to_pretty_json())
+    report: Report = O(args.config.addons) \
+        .then(_.after) \
+        .or_(TList()) \
+        .reduce(apply_addon, exec(args))
+
+    print(report.to_pretty_json())
