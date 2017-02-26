@@ -311,7 +311,7 @@ def challenge(args):
     # Write response body to file
     file_one, file_other = None, None
     dir = os.path.join(args["res_dir"], args["key"])
-    if status != Status.SAME:
+    if status != "same":
         file_one = f"one{args['seq']}"
         file_other = f"other{args['seq']}"
         write_to_file(file_one, dir, pretty(res_one), args['output_encoding'])
