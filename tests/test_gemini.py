@@ -20,6 +20,7 @@ class ResponseBuilder():
     """
     Create mock of requests.models.Response.
     """
+
     def __init__(self):
         self._text = None
         self._json = None
@@ -88,15 +89,15 @@ class TestCreateTrial:
             'header2': '2'
         }
         res_one = ResponseBuilder().url('URL_ONE') \
-                                   .status_code(200) \
-                                   .content('a') \
-                                   .second(1, 234567) \
-                                   .build()
+            .status_code(200) \
+            .content('a') \
+            .second(1, 234567) \
+            .build()
         res_other = ResponseBuilder().url('URL_OTHER') \
-                                     .status_code(400) \
-                                     .content('ab') \
-                                     .second(9, 876543) \
-                                     .build()
+            .status_code(400) \
+            .content('ab') \
+            .second(9, 876543) \
+            .build()
         file_one = 'file_one'
         file_other = 'file_other'
 
@@ -144,15 +145,15 @@ class TestCreateTrial:
             'header2': '2'
         }
         res_one = ResponseBuilder().url('URL_ONE') \
-                                   .status_code(200) \
-                                   .content('a') \
-                                   .second(1, 234567) \
-                                   .build()
+            .status_code(200) \
+            .content('a') \
+            .second(1, 234567) \
+            .build()
         res_other = ResponseBuilder().url('URL_OTHER') \
-                                     .status_code(400) \
-                                     .content('ab') \
-                                     .second(9, 876543) \
-                                     .build()
+            .status_code(400) \
+            .content('ab') \
+            .second(9, 876543) \
+            .build()
         file_one = None
         file_other = None
 
@@ -193,9 +194,11 @@ class TestChallenge:
     Only make mock for gemini.concurrent_request.
     Because it uses http requests.
     """
+
     @classmethod
     def setup_class(cls):
         os.mkdir("tmpdir")
+        os.mkdir(os.path.join("tmpdir", "hash_key"))
 
     @classmethod
     def teardown_class(cls):
@@ -203,27 +206,28 @@ class TestChallenge:
 
     def test_different(self, concurrent_request, now):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
-                                   .json({"items": [1, 2, 3]}) \
-                                   .url('URL_ONE') \
-                                   .status_code(200) \
-                                   .content_type('application/json;utf-8') \
-                                   .content('{"items": [1, 2, 3]}') \
-                                   .second(1, 234567) \
-                                   .build()
+            .json({"items": [1, 2, 3]}) \
+            .url('URL_ONE') \
+            .status_code(200) \
+            .content_type('application/json;utf-8') \
+            .content('{"items": [1, 2, 3]}') \
+            .second(1, 234567) \
+            .build()
 
         res_other = ResponseBuilder().text('{"items": [1, 2, 3, 4]}') \
-                                     .json({"items": [1, 2, 3, 4]}) \
-                                     .url('URL_OTHER') \
-                                     .status_code(400) \
-                                     .content_type('application/json;utf-8') \
-                                     .content('{"items": [1, 2, 3, 4]}') \
-                                     .second(9, 876543) \
-                                     .build()
+            .json({"items": [1, 2, 3, 4]}) \
+            .url('URL_OTHER') \
+            .status_code(400) \
+            .content_type('application/json;utf-8') \
+            .content('{"items": [1, 2, 3, 4]}') \
+            .second(9, 876543) \
+            .build()
         concurrent_request.return_value = res_one, res_other
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
             "seq": 1,
+            "key": "hash_key",
             "session": None,
             "host_one": None,
             "host_other": None,
@@ -276,25 +280,26 @@ class TestChallenge:
 
     def test_same(self, concurrent_request, now):
         res_one = ResponseBuilder().text('a') \
-                                   .url('URL_ONE') \
-                                   .status_code(200) \
-                                   .content_type('text/plain;utf-8') \
-                                   .content('a') \
-                                   .second(1, 234567) \
-                                   .build()
+            .url('URL_ONE') \
+            .status_code(200) \
+            .content_type('text/plain;utf-8') \
+            .content('a') \
+            .second(1, 234567) \
+            .build()
 
         res_other = ResponseBuilder().text('a') \
-                                     .url('URL_OTHER') \
-                                     .status_code(200) \
-                                     .content_type('text/plain;utf-8') \
-                                     .content('a') \
-                                     .second(9, 876543) \
-                                     .build()
+            .url('URL_OTHER') \
+            .status_code(200) \
+            .content_type('text/plain;utf-8') \
+            .content('a') \
+            .second(9, 876543) \
+            .build()
         concurrent_request.return_value = res_one, res_other
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
             "seq": 1,
+            "key": "hash_key",
             "session": None,
             "host_one": None,
             "host_other": None,
@@ -344,27 +349,28 @@ class TestChallenge:
 
     def test_different_without_order(self, concurrent_request, now):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
-                                   .json({"items": [1, 2, 3]}) \
-                                   .url('URL_ONE') \
-                                   .status_code(200) \
-                                   .content_type('application/json;utf-8') \
-                                   .content('{"items": [1, 2, 3]}') \
-                                   .second(1, 234567) \
-                                   .build()
+            .json({"items": [1, 2, 3]}) \
+            .url('URL_ONE') \
+            .status_code(200) \
+            .content_type('application/json;utf-8') \
+            .content('{"items": [1, 2, 3]}') \
+            .second(1, 234567) \
+            .build()
 
         res_other = ResponseBuilder().text('{"items": [3, 2, 1]}') \
-                                     .json({"items": [3, 2, 1]}) \
-                                     .url('URL_OTHER') \
-                                     .status_code(200) \
-                                     .content_type('application/json;utf-8') \
-                                     .content('{"items": [3, 2, 1]}') \
-                                     .second(9, 876543) \
-                                     .build()
+            .json({"items": [3, 2, 1]}) \
+            .url('URL_OTHER') \
+            .status_code(200) \
+            .content_type('application/json;utf-8') \
+            .content('{"items": [3, 2, 1]}') \
+            .second(9, 876543) \
+            .build()
         concurrent_request.return_value = res_one, res_other
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args = {
             "seq": 1,
+            "key": "hash_key",
             "session": None,
             "host_one": None,
             "host_other": None,
@@ -420,6 +426,7 @@ class TestChallenge:
 
         args = {
             "seq": 1,
+            "key": "hash_key",
             "session": None,
             "host_one": "http://one",
             "host_other": "http://other",
@@ -462,10 +469,20 @@ class TestChallenge:
 
 @patch('gemini.now')
 @patch('gemini.challenge')
-@patch('gemini.hash_from_summary')
+@patch('gemini.hash_from_args')
 @patch('modules.requestcreator.from_format')
 class TestExec:
-    def test(self, from_format, hash_from_summary, challenge, now):
+    @classmethod
+    def setup_class(cls):
+        os.mkdir("tmpdir")
+
+    @classmethod
+    def teardown_class(cls):
+        shutil.rmtree("tmpdir")
+
+    def test(self, from_format, hash_from_args, challenge, now):
+        DUMMY_HASH = "dummy hash"
+
         from_format.return_value = Request.from_dicts([
             {
                 'path': '/path',
@@ -473,7 +490,7 @@ class TestExec:
                 'headers': {}
             }
         ])
-        hash_from_summary.return_value = "dummy hash"
+        hash_from_args.return_value = DUMMY_HASH
         challenge.side_effect = [
             {
                 "request_time": '2000/01/01 00:00:01',
@@ -541,10 +558,10 @@ class TestExec:
             "title": "Report title",
             "config": "tests/config.yaml"
         })
-        actual = gemini.exec(args)
+        actual = gemini.exec(args, DUMMY_HASH)
 
         expected = {
-            "key": "dummy hash",
+            "key": DUMMY_HASH,
             "title": "Report title",
             "summary": {
                 "time": {

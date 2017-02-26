@@ -304,7 +304,7 @@ def challenge(args):
     if diff is not None and len(diff) == 0:
         status = "same"
     elif diff_without_order is not None and len(diff_without_order) == 0:
-        status = "same_without_order"
+        status = "same without order"
     else:
         status = "different"
 
@@ -381,6 +381,10 @@ def exec(args: Args, key: str) -> Report:
     })
 
 
+def hash_from_args(args: Args) -> str:
+    return hashlib.sha256((str(now()) + args.to_json()).encode()).hexdigest()
+
+
 if __name__ == '__main__':
     args: Args = Args.from_dict(docopt(__doc__, version=VERSION))
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args.config.output.encoding)
@@ -394,10 +398,9 @@ if __name__ == '__main__':
     def apply_after_addon(r: Report, a: Addon):
         return getattr(import_module(a.name), a.command)(r, a.config, args.config.output)
 
-    key = hashlib.sha256((str(now()) + args.to_json()).encode()).hexdigest()
     report: Report = O(args.config.addons) \
         .then(_.after) \
         .or_(TList()) \
-        .reduce(apply_after_addon, exec(args, key))
+        .reduce(apply_after_addon, exec(args, hash_from_args(args)))
 
     print(report.to_pretty_json())
