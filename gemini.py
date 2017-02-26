@@ -39,11 +39,14 @@ output:
 #   (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
 addons:
 # after:
-#   - name: modules.addons.hello.main
-#   - name: modules.addons.hello.main
-#     command: change_title
+#   - name: addons.gemini-viewer-addon
 #     config:
-#       locate_prefix: true
+#       aws_access_key_id: aaaaaaaaaaaa
+#       aws_secret_access_key: ssssssssssssssssssssssssssss
+#       region: ap-northeast-1
+#       table:  dynamo-db-table-name
+#       bucket: s3-bucket-name
+
 
 
 =======================
@@ -139,14 +142,6 @@ def now():
     For test
     """
     return datetime.today()
-
-
-def hash_from_summary(summary: Summary):
-    return hashlib.sha256((str(now()) + summary.to_json()).encode()).hexdigest()
-
-
-def apply_addon(r: Report, a: Addon):
-    return getattr(import_module(a.name), a.command)(r, a.config)
 
 
 def create_diff(text1, text2, ignore_properties, ignore_order=False):
@@ -247,10 +242,11 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
 
 
 def challenge(args):
-    """
+    """TODO: Assign types
     Arguments:
        (dict) args
          - (int) seq
+         - (str) key
          - (session) session
          - (str) host_one
          - (str) host_other
@@ -273,8 +269,8 @@ def challenge(args):
 
     qs_str = urlparser.urlencode(args['qs'], doseq=True)
 
-    url_one = '{0}{1}?{2}'.format(args['host_one'], args['path'], qs_str)
-    url_other = '{0}{1}?{2}'.format(args['host_other'], args['path'], qs_str)
+    url_one = f'{args["host_one"]}{args["path"]}?{qs_str}'
+    url_other = f'{args["host_other"]}{args["path"]}?{qs_str}'
 
     # Get two responses
     req_time = now()
@@ -308,23 +304,24 @@ def challenge(args):
     if diff is not None and len(diff) == 0:
         status = "same"
     elif diff_without_order is not None and len(diff_without_order) == 0:
-        status = "same without order"
+        status = "same_without_order"
     else:
         status = "different"
 
     # Write response body to file
     file_one, file_other = None, None
-    if status != "same":
-        file_one = "one{}".format(args['seq'])
-        file_other = "other{}".format(args['seq'])
-        write_to_file(file_one, args['res_dir'], pretty(res_one), args['output_encoding'])
-        write_to_file(file_other, args['res_dir'], pretty(res_other), args['output_encoding'])
+    dir = os.path.join(args["res_dir"], args["key"])
+    if status != Status.SAME:
+        file_one = f"one{args['seq']}"
+        file_other = f"other{args['seq']}"
+        write_to_file(file_one, dir, pretty(res_one), args['output_encoding'])
+        write_to_file(file_other, dir, pretty(res_other), args['output_encoding'])
 
     return create_trial(res_one, res_other, file_one, file_other,
                         status, req_time, args['path'], args['qs'], args['headers'])
 
 
-def exec(args: Args) -> Report:
+def exec(args: Args, key: str) -> Report:
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
@@ -335,8 +332,10 @@ def exec(args: Args) -> Report:
         lambda f: requestcreator.from_format(f, args.config.input.format, args.config.input.encoding)
     )
 
+    os.mkdir(os.path.join(args.config.output.response_dir, key))
     ex_args = TList(enumerate(logs)).map(lambda x: {
         "seq": x[0] + 1,
+        "key": key,
         "session": s,
         "host_one": args.config.one.host,
         "host_other": args.config.other.host,
@@ -375,7 +374,7 @@ def exec(args: Args) -> Report:
     })
 
     return Report.from_dict({
-        "key": hash_from_summary(summary),
+        "key": key,
         "title": args.title,
         "summary": summary.to_dict(),
         "trials": trials
@@ -392,9 +391,13 @@ if __name__ == '__main__':
     if logger_config:
         logging.config.dictConfig(logger_config)
 
+    def apply_after_addon(r: Report, a: Addon):
+        return getattr(import_module(a.name), a.command)(r, a.config, args.config.output)
+
+    key = hashlib.sha256((str(now()) + args.to_json()).encode()).hexdigest()
     report: Report = O(args.config.addons) \
         .then(_.after) \
         .or_(TList()) \
-        .reduce(apply_addon, exec(args))
+        .reduce(apply_after_addon, exec(args, key))
 
     print(report.to_pretty_json())

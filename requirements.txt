@@ -5,3 +5,4 @@ xmltodict
 pyyaml
 owlmixin
 fn
+boto3
