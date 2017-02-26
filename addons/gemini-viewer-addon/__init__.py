@@ -21,7 +21,8 @@ def main(report, config, output_summary):
         "one_host": report.summary.one.host,
         "other_host": report.summary.other.host,
         "same_count": Decimal(report.summary.status.same),
-        "different_count": Decimal(report.summary.status.different),
+        "different_count": Decimal(report.summary.status.different) + Decimal(report.summary.status.same_without_order),
+        "failure_count": Decimal(report.summary.status.failure),
         "start": report.summary.time.start,
         "end": report.summary.time.end,
         "report": json.loads(report.to_json(), parse_float=Decimal)

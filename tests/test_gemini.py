@@ -392,7 +392,7 @@ class TestChallenge:
 
         expected = {
             "request_time": '2000/01/01 00:00:00',
-            "status": 'same without order',
+            "status": 'same_without_order',
             "path": '/challenge',
             "queries": {
                 'q1': ['1'],

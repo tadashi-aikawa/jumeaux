@@ -304,7 +304,7 @@ def challenge(args):
     if diff is not None and len(diff) == 0:
         status = "same"
     elif diff_without_order is not None and len(diff_without_order) == 0:
-        status = "same without order"
+        status = "same_without_order"
     else:
         status = "different"
 
