@@ -98,8 +98,8 @@ class TestCreateTrial:
             .content('ab') \
             .second(9, 876543) \
             .build()
-        file_one = 'file_one'
-        file_other = 'file_other'
+        file_one = 'dir/one'
+        file_other = 'dir/other'
 
         actual = gemini.create_trial(res_one, res_other, file_one, file_other, status, req_time, path, qs, headers)
         expected = {
@@ -115,14 +115,14 @@ class TestCreateTrial:
                 "header2": "2",
             },
             "one": {
-                "file": 'file_one',
+                "file": 'dir/one',
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 1,
                 "response_sec": 1.23
             },
             "other": {
-                "file": 'file_other',
+                "file": 'dir/other',
                 "url": 'URL_OTHER',
                 "status_code": 400,
                 "byte": 2,
@@ -197,8 +197,8 @@ class TestChallenge:
 
     @classmethod
     def setup_class(cls):
-        os.mkdir("tmpdir")
-        os.mkdir(os.path.join("tmpdir", "hash_key"))
+        os.makedirs(os.path.join("tmpdir", "hash_key", "one"))
+        os.makedirs(os.path.join("tmpdir", "hash_key", "other"))
 
     @classmethod
     def teardown_class(cls):
@@ -261,14 +261,14 @@ class TestChallenge:
                 "header2": "2",
             },
             "one": {
-                "file": "one1",
+                "file": "one/1",
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 20,
                 "response_sec": 1.23
             },
             "other": {
-                "file": "other1",
+                "file": "other/1",
                 "url": 'URL_OTHER',
                 "status_code": 400,
                 "byte": 23,
@@ -403,14 +403,14 @@ class TestChallenge:
                 "header2": "2",
             },
             "one": {
-                "file": "one1",
+                "file": "one/1",
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 20,
                 "response_sec": 1.23
             },
             "other": {
-                "file": "other1",
+                "file": "other/1",
                 "url": 'URL_OTHER',
                 "status_code": 200,
                 "byte": 20,
@@ -474,7 +474,8 @@ class TestChallenge:
 class TestExec:
     @classmethod
     def setup_class(cls):
-        os.mkdir("tmpdir")
+        os.makedirs(os.path.join("tmpdir", "hash_key", "one"))
+        os.makedirs(os.path.join("tmpdir", "hash_key", "other"))
 
     @classmethod
     def teardown_class(cls):
@@ -505,14 +506,14 @@ class TestExec:
                     "header2": "2",
                 },
                 "one": {
-                    "file": "one1",
+                    "file": "one/1",
                     "url": 'URL_ONE',
                     "status_code": 200,
                     "byte": 20,
                     "response_sec": 1.23
                 },
                 "other": {
-                    "file": "other1",
+                    "file": "other/1",
                     "url": 'URL_OTHER',
                     "status_code": 400,
                     "byte": 23,
@@ -532,14 +533,14 @@ class TestExec:
                     "header2": "2",
                 },
                 "one": {
-                    "file": "one2",
+                    "file": "one/2",
                     "url": 'URL_ONE',
                     "status_code": 200,
                     "byte": 1,
                     "response_sec": 1.00
                 },
                 "other": {
-                    "file": "other2",
+                    "file": "other/2",
                     "url": 'URL_OTHER',
                     "status_code": 200,
                     "byte": 1,
@@ -599,14 +600,14 @@ class TestExec:
                         "header2": "2",
                     },
                     "one": {
-                        "file": "one1",
+                        "file": "one/1",
                         "url": 'URL_ONE',
                         "status_code": 200,
                         "byte": 20,
                         "response_sec": 1.23
                     },
                     "other": {
-                        "file": "other1",
+                        "file": "other/1",
                         "url": 'URL_OTHER',
                         "status_code": 400,
                         "byte": 23,
@@ -626,14 +627,14 @@ class TestExec:
                         "header2": "2",
                     },
                     "one": {
-                        "file": "one2",
+                        "file": "one/2",
                         "url": 'URL_ONE',
                         "status_code": 200,
                         "byte": 1,
                         "response_sec": 1.00
                     },
                     "other": {
-                        "file": "other2",
+                        "file": "other/2",
                         "url": 'URL_OTHER',
                         "status_code": 200,
                         "byte": 1,

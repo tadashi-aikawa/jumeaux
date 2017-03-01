@@ -188,8 +188,13 @@ def pretty(res):
 
 
 def write_to_file(name, dir, body, encoding):
-    with codecs.open(os.path.join(dir, name), "w", encoding=encoding) as f:
+    with codecs.open(f'{dir}/{name}', "w", encoding=encoding) as f:
         f.write(body)
+
+
+def make_dir(path):
+    os.makedirs(path)
+    os.chmod(path, 777)
 
 
 def create_trial(res_one, res_other, file_one, file_other,
@@ -309,11 +314,11 @@ def challenge(args):
         status = "different"
 
     # Write response body to file
-    file_one, file_other = None, None
-    dir = os.path.join(args["res_dir"], args["key"])
+    file_one = file_other = None
     if status != "same":
-        file_one = f"one{args['seq']}"
-        file_other = f"other{args['seq']}"
+        dir = f'{args["res_dir"]}/{args["key"]}'
+        file_one = f'one/{args["seq"]}'
+        file_other = f'other/{args["seq"]}'
         write_to_file(file_one, dir, pretty(res_one), args['output_encoding'])
         write_to_file(file_other, dir, pretty(res_other), args['output_encoding'])
 
@@ -332,7 +337,8 @@ def exec(args: Args, key: str) -> Report:
         lambda f: requestcreator.from_format(f, args.config.input.format, args.config.input.encoding)
     )
 
-    os.mkdir(os.path.join(args.config.output.response_dir, key))
+    make_dir(f'{args.config.output.response_dir}/{key}/one')
+    make_dir(f'{args.config.output.response_dir}/{key}/other')
     ex_args = TList(enumerate(logs)).map(lambda x: {
         "seq": x[0] + 1,
         "key": key,

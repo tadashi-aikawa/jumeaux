@@ -35,10 +35,14 @@ def main(report, config, output_summary):
                       aws_secret_access_key=config['aws_secret_access_key'],
                       region_name=config['region'])
 
-    dir = os.path.join(output_summary.response_dir, report.key)
-    for file in os.listdir(dir):
-        s3.upload_file(Bucket=config['bucket'],
-                       Key=f'{report.key}/{file}',
-                       Filename=f'{dir}/{file}')
+    def upload_s3(which: str):
+        dir = f'{output_summary.response_dir}/{report.key}'
+        for file in os.listdir(f'{dir}/{which}'):
+            s3.upload_file(Bucket=config['bucket'],
+                           Key=f'{report.key}/{which}/{file}',
+                           Filename=f'{dir}/{which}/{file}')
+
+    upload_s3("one")
+    upload_s3("other")
 
     return report
