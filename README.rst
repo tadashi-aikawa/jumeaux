@@ -20,9 +20,7 @@ todo
 Requirement
 ===========
 
-* Python3.6
-
-
+* Python3.6 and uppper
 Installation
 ============
 
