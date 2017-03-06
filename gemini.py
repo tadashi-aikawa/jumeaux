@@ -194,7 +194,7 @@ def write_to_file(name, dir, body, encoding):
 
 def make_dir(path):
     os.makedirs(path)
-    os.chmod(path, 777)
+    os.chmod(path, 0o777)
 
 
 def create_trial(res_one, res_other, file_one, file_other,
