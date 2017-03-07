@@ -24,10 +24,11 @@ def main(report, config, output_summary):
         "different_count": Decimal(report.summary.status.different) + Decimal(report.summary.status.same_without_order),
         "failure_count": Decimal(report.summary.status.failure),
         "start": report.summary.time.start,
-        "end": report.summary.time.end,
-        "report": json.loads(report.to_json(), parse_float=Decimal)
+        "end": report.summary.time.end
     }
     table.put_item(Item=item)
+
+    # "report": json.loads(report.to_json(), parse_float=Decimal)
 
     # s3
     s3 = boto3.client('s3',
@@ -35,14 +36,20 @@ def main(report, config, output_summary):
                       aws_secret_access_key=config['aws_secret_access_key'],
                       region_name=config['region'])
 
-    def upload_s3(which: str):
+    def upload_responses(which: str):
         dir = f'{output_summary.response_dir}/{report.key}'
         for file in os.listdir(f'{dir}/{which}'):
             s3.upload_file(Bucket=config['bucket'],
                            Key=f'{report.key}/{which}/{file}',
                            Filename=f'{dir}/{which}/{file}')
 
-    upload_s3("one")
-    upload_s3("other")
+    # report
+    s3.put_object(Bucket=config['bucket'],
+                  Key=f'{report.key}/report.json',
+                  Body=report.to_json())
+
+    # details
+    upload_responses("one")
+    upload_responses("other")
 
     return report
