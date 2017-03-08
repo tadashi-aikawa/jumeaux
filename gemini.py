@@ -175,18 +175,6 @@ def create_diff(text1, text2, ignore_properties, ignore_order=False):
     return None
 
 
-def pretty(res):
-    mime_type = res.headers['content-type'].split(';')[0]
-    if mime_type in ('text/json', 'application/json'):
-        return json.dumps(res.json(), ensure_ascii=False, indent=4, sort_keys=True)
-    elif mime_type in ('text/xml', 'application/xml'):
-        tree = ElementTree.XML(res.text)
-        return minidom.parseString(ElementTree.tostring(tree)).toprettyxml(indent='    ')
-    else:
-        # TODO: If binary, return res.content or None
-        return res.text
-
-
 def write_to_file(name, dir, body, encoding):
     with codecs.open(f'{dir}/{name}', "w", encoding=encoding) as f:
         f.write(body)
@@ -314,6 +302,15 @@ def challenge(args):
         status = "different"
 
     # Write response body to file
+    def apply_response_parser_addon(res, a: Addon):
+        return getattr(import_module(a.name), a.command)(res, a.config)
+
+    def pretty(res):
+        return O(args.config.addons) \
+            .then(_.response_parser) \
+            .or_(TList()) \
+            .reduce(apply_response_parser_addon, exec(args, hash_from_args(args)))
+
     file_one = file_other = None
     if status != "same":
         dir = f'{args["res_dir"]}/{args["key"]}'

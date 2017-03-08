@@ -49,7 +49,8 @@ class Addon(OwlMixin):
 
 
 class Addons(OwlMixin):
-    def __init__(self, after=None):
+    def __init__(self, response_parser=None, after=None):
+        self.response_parser: TList[Addon] = Addon.from_optional_dicts(response_parser) or TList()
         self.after: TList[Addon] = Addon.from_optional_dicts(after) or TList()
 
 
