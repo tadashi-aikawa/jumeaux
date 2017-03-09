@@ -35,14 +35,13 @@ class InputSummary(OwlMixin):
 
 
 class OutputSummary(OwlMixin):
-    def __init__(self, response_dir='response', encoding='utf8', logger=None):
+    def __init__(self, response_dir='response', logger=None):
         self.response_dir: str = response_dir
-        self.encoding: str = encoding
         self.logger: Optional[Any] = logger
 
 
 class Addon(OwlMixin):
-    def __init__(self, name, command: str='main', config: dict=None):
+    def __init__(self, name, command: str = 'main', config: dict = None):
         self.name: str = name
         self.command: str = command
         self.config: dict = config
@@ -147,3 +146,12 @@ class ResponseSummary(OwlMixin):
         self.byte: Optional[int] = byte
         self.response_sec: Optional[int] = response_sec
         self.file: Optional[str] = file
+
+
+# ---
+
+class ResponseAddOnPayload(OwlMixin):
+    def __init__(self, response, body: bytes, encoding: str):
+        self.response = response  # requests style
+        self.body = body
+        self.encoding = encoding

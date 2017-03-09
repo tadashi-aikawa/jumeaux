@@ -175,8 +175,8 @@ def create_diff(text1, text2, ignore_properties, ignore_order=False):
     return None
 
 
-def write_to_file(name, dir, body, encoding):
-    with codecs.open(f'{dir}/{name}', "w", encoding=encoding) as f:
+def write_to_file(name, dir, body):
+    with open(f'{dir}/{name}', "bw") as f:
         f.write(body)
 
 
@@ -244,7 +244,6 @@ def challenge(args):
          - (str) host_one
          - (str) host_other
          - (str) path
-         - (str) output_encoding
          - (str) res_dir
          - (dict) qs
            - (str) key of query
@@ -302,22 +301,27 @@ def challenge(args):
         status = "different"
 
     # Write response body to file
-    def apply_response_parser_addon(res, a: Addon):
-        return getattr(import_module(a.name), a.command)(res, a.config)
+    def apply_response_parser_addon(payload: ResponseAddOnPayload, a: Addon):
+        return getattr(import_module(a.name), a.command)(payload, a.config)
 
     def pretty(res):
+        payload = ResponseAddOnPayload.from_dict({
+            "response": res,
+            "body": res.content,
+            "encoding": res.encoding
+        })
         return O(args.config.addons) \
             .then(_.response_parser) \
             .or_(TList()) \
-            .reduce(apply_response_parser_addon, exec(args, hash_from_args(args)))
+            .reduce(apply_response_parser_addon, payload)
 
     file_one = file_other = None
     if status != "same":
         dir = f'{args["res_dir"]}/{args["key"]}'
         file_one = f'one/{args["seq"]}'
         file_other = f'other/{args["seq"]}'
-        write_to_file(file_one, dir, pretty(res_one), args['output_encoding'])
-        write_to_file(file_other, dir, pretty(res_other), args['output_encoding'])
+        write_to_file(file_one, dir, pretty(res_one))
+        write_to_file(file_other, dir, pretty(res_other))
 
     return create_trial(res_one, res_other, file_one, file_other,
                         status, req_time, args['path'], args['qs'], args['headers'])
@@ -347,7 +351,6 @@ def exec(args: Args, key: str) -> Report:
         "headers": x[1].headers,
         "proxies_one": O(Proxy.from_host(args.config.one.proxy)).then_or_none(lambda x: x.to_dict()),
         "proxies_other": O(Proxy.from_host(args.config.other.proxy)).then_or_none(lambda x: x.to_dict()),
-        "output_encoding": args.config.output.encoding,
         "res_dir": args.config.output.response_dir
     })
 
