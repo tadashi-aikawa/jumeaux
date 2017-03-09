@@ -320,6 +320,7 @@ def challenge(args):
         status = "same_without_order"
     else:
         status = "different"
+    logger.info(f"Status:   {status}")
 
     # Write response body to file
     def apply_response_parser_addon(payload: ResponseAddOnPayload, a: Addon):
