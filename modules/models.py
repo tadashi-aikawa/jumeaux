@@ -35,8 +35,9 @@ class InputSummary(OwlMixin):
 
 
 class OutputSummary(OwlMixin):
-    def __init__(self, response_dir='response', logger=None):
+    def __init__(self, response_dir='response', encoding='utf8', logger=None):
         self.response_dir: str = response_dir
+        self.encoding: str = encoding
         self.logger: Optional[Any] = logger
 
 

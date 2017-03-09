@@ -11,8 +11,8 @@ class Config(OwlMixin):
 
 
 def main(payload: ResponseAddOnPayload, config_dict: dict):
-    config: Config = Config.from_dict(config_dict)
-    mime_type = payload.response.get('content-type').split(';')[0]
+    config: Config = Config.from_dict(config_dict or {})
+    mime_type = payload.response.headers.get('content-type').split(';')[0]
 
     return ResponseAddOnPayload.from_dict({
         "response": payload.response,

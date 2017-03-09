@@ -257,6 +257,7 @@ def challenge(args):
          - (dict) proxies_other
            - (str) http
            - (str) https
+         - (Addons) addons
     """
 
     qs_str = urlparser.urlencode(args['qs'], doseq=True)
@@ -310,10 +311,11 @@ def challenge(args):
             "body": res.content,
             "encoding": res.encoding
         })
-        return O(args.config.addons) \
+        return O(args["addons"]) \
             .then(_.response_parser) \
             .or_(TList()) \
-            .reduce(apply_response_parser_addon, payload)
+            .reduce(apply_response_parser_addon, payload) \
+            .body
 
     file_one = file_other = None
     if status != "same":
@@ -351,7 +353,8 @@ def exec(args: Args, key: str) -> Report:
         "headers": x[1].headers,
         "proxies_one": O(Proxy.from_host(args.config.one.proxy)).then_or_none(lambda x: x.to_dict()),
         "proxies_other": O(Proxy.from_host(args.config.other.proxy)).then_or_none(lambda x: x.to_dict()),
-        "res_dir": args.config.output.response_dir
+        "res_dir": args.config.output.response_dir,
+        "addons": args.config.addons
     })
 
     # Challenge
