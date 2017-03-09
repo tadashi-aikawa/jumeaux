@@ -35,8 +35,20 @@ input:
 output:
   encoding: utf8
   response_dir: response
-# logger:
-#   (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
+# logger:  # (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
+#   version: 1
+#   formatters:
+#     simple:
+#       format: '%(levelname)s %(message)s'
+#   handlers:
+#     console:
+#       class : logging.StreamHandler
+#       formatter: simple
+#       level   : INFO
+#       stream  : ext://sys.stderr
+#   root:
+#     level: INFO
+#     handlers: [console]
 addons:
 # after:
 #   - name: addons.gemini-viewer-addon
@@ -197,13 +209,13 @@ def create_trial(res_one, res_other, file_one, file_other,
             "url": res_one.url,
             "status_code": res_one.status_code,
             "byte": len(res_one.content),
-            "response_sec": round(res_one.elapsed.seconds + res_one.elapsed.microseconds / 1000000, 2)
+            "response_sec": to_sec(res_one.elapsed)
         },
         "other": {
             "url": res_other.url,
             "status_code": res_other.status_code,
             "byte": len(res_other.content),
-            "response_sec": round(res_other.elapsed.seconds + res_other.elapsed.microseconds / 1000000, 2)
+            "response_sec": to_sec(res_other.elapsed)
         }
     }
     if file_one is not None:
@@ -222,12 +234,20 @@ def http_get(args):
     return r
 
 
+def to_sec(elapsed):
+    return round(elapsed.seconds + elapsed.microseconds / 1000000, 2)
+
+
 def concurrent_request(session, headers, url_one, url_other, proxies_one, proxies_other):
     pool = Pool(2)
     fs = ((session, url_one, headers, proxies_one),
           (session, url_other, headers, proxies_other))
     try:
+        logger.info(f"Request one:   {url_one}")
+        logger.info(f"Request other: {url_one}")
         res_one, res_other = pool.imap(http_get, fs)
+        logger.info(f"Response one:   {res_one.status_code} / {to_sec(res_one.elapsed)}s / {len(res_one.content)}b")
+        logger.info(f"Response other: {res_other.status_code} / {to_sec(res_other.elapsed)}s / {len(res_other.content)}b")
     finally:
         pool.close()
 
@@ -402,6 +422,7 @@ if __name__ == '__main__':
     # Logging settings load
     logger_config = args.config.output.logger
     if logger_config:
+        logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
 
     def apply_after_addon(r: Report, a: Addon):
