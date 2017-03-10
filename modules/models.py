@@ -42,14 +42,15 @@ class OutputSummary(OwlMixin):
 
 
 class Addon(OwlMixin):
-    def __init__(self, name, command: str='main', config: dict=None):
+    def __init__(self, name, command: str = 'main', config: dict = None):
         self.name: str = name
         self.command: str = command
         self.config: dict = config
 
 
 class Addons(OwlMixin):
-    def __init__(self, after=None):
+    def __init__(self, response_parser=None, after=None):
+        self.response_parser: TList[Addon] = Addon.from_optional_dicts(response_parser) or TList()
         self.after: TList[Addon] = Addon.from_optional_dicts(after) or TList()
 
 
@@ -146,3 +147,12 @@ class ResponseSummary(OwlMixin):
         self.byte: Optional[int] = byte
         self.response_sec: Optional[int] = response_sec
         self.file: Optional[str] = file
+
+
+# ---
+
+class ResponseAddOnPayload(OwlMixin):
+    def __init__(self, response, body: bytes, encoding: str):
+        self.response = response  # requests style
+        self.body = body
+        self.encoding = encoding

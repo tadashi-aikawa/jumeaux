@@ -35,8 +35,20 @@ input:
 output:
   encoding: utf8
   response_dir: response
-# logger:
-#   (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
+# logger:  # (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
+#   version: 1
+#   formatters:
+#     simple:
+#       format: '%(levelname)s %(message)s'
+#   handlers:
+#     console:
+#       class : logging.StreamHandler
+#       formatter: simple
+#       level   : INFO
+#       stream  : ext://sys.stderr
+#   root:
+#     level: INFO
+#     handlers: [console]
 addons:
 # after:
 #   - name: addons.gemini-viewer-addon
@@ -175,20 +187,8 @@ def create_diff(text1, text2, ignore_properties, ignore_order=False):
     return None
 
 
-def pretty(res):
-    mime_type = res.headers['content-type'].split(';')[0]
-    if mime_type in ('text/json', 'application/json'):
-        return json.dumps(res.json(), ensure_ascii=False, indent=4, sort_keys=True)
-    elif mime_type in ('text/xml', 'application/xml'):
-        tree = ElementTree.XML(res.text)
-        return minidom.parseString(ElementTree.tostring(tree)).toprettyxml(indent='    ')
-    else:
-        # TODO: If binary, return res.content or None
-        return res.text
-
-
-def write_to_file(name, dir, body, encoding):
-    with codecs.open(f'{dir}/{name}', "w", encoding=encoding) as f:
+def write_to_file(name, dir, body):
+    with open(f'{dir}/{name}', "bw") as f:
         f.write(body)
 
 
@@ -209,13 +209,13 @@ def create_trial(res_one, res_other, file_one, file_other,
             "url": res_one.url,
             "status_code": res_one.status_code,
             "byte": len(res_one.content),
-            "response_sec": round(res_one.elapsed.seconds + res_one.elapsed.microseconds / 1000000, 2)
+            "response_sec": to_sec(res_one.elapsed)
         },
         "other": {
             "url": res_other.url,
             "status_code": res_other.status_code,
             "byte": len(res_other.content),
-            "response_sec": round(res_other.elapsed.seconds + res_other.elapsed.microseconds / 1000000, 2)
+            "response_sec": to_sec(res_other.elapsed)
         }
     }
     if file_one is not None:
@@ -234,12 +234,20 @@ def http_get(args):
     return r
 
 
+def to_sec(elapsed):
+    return round(elapsed.seconds + elapsed.microseconds / 1000000, 2)
+
+
 def concurrent_request(session, headers, url_one, url_other, proxies_one, proxies_other):
     pool = Pool(2)
     fs = ((session, url_one, headers, proxies_one),
           (session, url_other, headers, proxies_other))
     try:
+        logger.info(f"Request one:   {url_one}")
+        logger.info(f"Request other: {url_one}")
         res_one, res_other = pool.imap(http_get, fs)
+        logger.info(f"Response one:   {res_one.status_code} / {to_sec(res_one.elapsed)}s / {len(res_one.content)}b")
+        logger.info(f"Response other: {res_other.status_code} / {to_sec(res_other.elapsed)}s / {len(res_other.content)}b")
     finally:
         pool.close()
 
@@ -256,7 +264,6 @@ def challenge(args):
          - (str) host_one
          - (str) host_other
          - (str) path
-         - (str) output_encoding
          - (str) res_dir
          - (dict) qs
            - (str) key of query
@@ -270,6 +277,7 @@ def challenge(args):
          - (dict) proxies_other
            - (str) http
            - (str) https
+         - (Addons) addons
     """
 
     qs_str = urlparser.urlencode(args['qs'], doseq=True)
@@ -312,15 +320,31 @@ def challenge(args):
         status = "same_without_order"
     else:
         status = "different"
+    logger.info(f"Status:   {status}")
 
     # Write response body to file
+    def apply_response_parser_addon(payload: ResponseAddOnPayload, a: Addon):
+        return getattr(import_module(a.name), a.command)(payload, a.config)
+
+    def pretty(res):
+        payload = ResponseAddOnPayload.from_dict({
+            "response": res,
+            "body": res.content,
+            "encoding": res.encoding
+        })
+        return O(args["addons"]) \
+            .then(_.response_parser) \
+            .or_(TList()) \
+            .reduce(apply_response_parser_addon, payload) \
+            .body
+
     file_one = file_other = None
     if status != "same":
         dir = f'{args["res_dir"]}/{args["key"]}'
         file_one = f'one/{args["seq"]}'
         file_other = f'other/{args["seq"]}'
-        write_to_file(file_one, dir, pretty(res_one), args['output_encoding'])
-        write_to_file(file_other, dir, pretty(res_other), args['output_encoding'])
+        write_to_file(file_one, dir, pretty(res_one))
+        write_to_file(file_other, dir, pretty(res_other))
 
     return create_trial(res_one, res_other, file_one, file_other,
                         status, req_time, args['path'], args['qs'], args['headers'])
@@ -350,8 +374,8 @@ def exec(args: Args, key: str) -> Report:
         "headers": x[1].headers,
         "proxies_one": O(Proxy.from_host(args.config.one.proxy)).then_or_none(lambda x: x.to_dict()),
         "proxies_other": O(Proxy.from_host(args.config.other.proxy)).then_or_none(lambda x: x.to_dict()),
-        "output_encoding": args.config.output.encoding,
-        "res_dir": args.config.output.response_dir
+        "res_dir": args.config.output.response_dir,
+        "addons": args.config.addons
     })
 
     # Challenge
@@ -399,6 +423,7 @@ if __name__ == '__main__':
     # Logging settings load
     logger_config = args.config.output.logger
     if logger_config:
+        logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
 
     def apply_after_addon(r: Report, a: Addon):

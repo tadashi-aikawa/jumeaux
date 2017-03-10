@@ -28,6 +28,7 @@ class ResponseBuilder():
         self._status_code = None
         self._content_type = None
         self._content = None
+        self._encoding = None
         self._seconds = None
         self._microseconds = None
 
@@ -55,6 +56,10 @@ class ResponseBuilder():
         self._content = content
         return self
 
+    def encoding(self, encoding):
+        self._encoding = encoding
+        return self
+
     def second(self, seconds, microseconds):
         self._seconds = seconds
         self._microseconds = microseconds
@@ -69,6 +74,7 @@ class ResponseBuilder():
             "content-type": self._content_type
         }
         m.content = self._content
+        m.encoding = self._encoding
         m.elapsed.seconds = self._seconds
         m.elapsed.microseconds = self._microseconds
         m.json.return_value = self._json
@@ -146,12 +152,14 @@ class TestCreateTrial:
         }
         res_one = ResponseBuilder().url('URL_ONE') \
             .status_code(200) \
-            .content('a') \
+            .content(b'a') \
+            .encoding('utf8') \
             .second(1, 234567) \
             .build()
         res_other = ResponseBuilder().url('URL_OTHER') \
             .status_code(400) \
-            .content('ab') \
+            .content(b'ab') \
+            .encoding('utf8') \
             .second(9, 876543) \
             .build()
         file_one = None
@@ -210,7 +218,8 @@ class TestChallenge:
             .url('URL_ONE') \
             .status_code(200) \
             .content_type('application/json;utf-8') \
-            .content('{"items": [1, 2, 3]}') \
+            .content(b'{"items": [1, 2, 3]}') \
+            .encoding('utf8') \
             .second(1, 234567) \
             .build()
 
@@ -219,7 +228,8 @@ class TestChallenge:
             .url('URL_OTHER') \
             .status_code(400) \
             .content_type('application/json;utf-8') \
-            .content('{"items": [1, 2, 3, 4]}') \
+            .content(b'{"items": [1, 2, 3, 4]}') \
+            .encoding('utf8') \
             .second(9, 876543) \
             .build()
         concurrent_request.return_value = res_one, res_other
@@ -243,7 +253,8 @@ class TestChallenge:
                 "header2": "2",
             },
             "proxies_one": None,
-            "proxies_other": None
+            "proxies_other": None,
+            "addons": None
         }
 
         actual = gemini.challenge(args)
@@ -283,7 +294,8 @@ class TestChallenge:
             .url('URL_ONE') \
             .status_code(200) \
             .content_type('text/plain;utf-8') \
-            .content('a') \
+            .content(b'a') \
+            .encoding('utf8') \
             .second(1, 234567) \
             .build()
 
@@ -291,7 +303,8 @@ class TestChallenge:
             .url('URL_OTHER') \
             .status_code(200) \
             .content_type('text/plain;utf-8') \
-            .content('a') \
+            .content(b'a') \
+            .encoding('utf8') \
             .second(9, 876543) \
             .build()
         concurrent_request.return_value = res_one, res_other
@@ -315,7 +328,8 @@ class TestChallenge:
                 "header2": "2",
             },
             "proxies_one": None,
-            "proxies_other": None
+            "proxies_other": None,
+            "addons": None
         }
         actual = gemini.challenge(args)
 
@@ -353,7 +367,8 @@ class TestChallenge:
             .url('URL_ONE') \
             .status_code(200) \
             .content_type('application/json;utf-8') \
-            .content('{"items": [1, 2, 3]}') \
+            .content(b'{"items": [1, 2, 3]}') \
+            .encoding('utf8') \
             .second(1, 234567) \
             .build()
 
@@ -362,7 +377,8 @@ class TestChallenge:
             .url('URL_OTHER') \
             .status_code(200) \
             .content_type('application/json;utf-8') \
-            .content('{"items": [3, 2, 1]}') \
+            .content(b'{"items": [3, 2, 1]}') \
+            .encoding('utf8') \
             .second(9, 876543) \
             .build()
         concurrent_request.return_value = res_one, res_other
@@ -386,7 +402,8 @@ class TestChallenge:
                 "header2": "2",
             },
             "proxies_one": None,
-            "proxies_other": None
+            "proxies_other": None,
+            "addons": None
         }
         actual = gemini.challenge(args)
 
