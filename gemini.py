@@ -246,7 +246,7 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
           (session, url_other, headers, proxies_other))
     try:
         logger.info(f"Request one:   {url_one}")
-        logger.info(f"Request other: {url_one}")
+        logger.info(f"Request other: {url_other}")
         res_one, res_other = pool.imap(http_get, fs)
         logger.info(f"Response one:   {res_one.status_code} / {to_sec(res_one.elapsed)}s / {len(res_one.content)}b")
         logger.info(f"Response other: {res_other.status_code} / {to_sec(res_other.elapsed)}s / {len(res_other.content)}b")
@@ -261,6 +261,7 @@ def challenge(args):
     Arguments:
        (dict) args
          - (int) seq
+         - (int) number_of_request
          - (str) key
          - (session) session
          - (str) host_one
@@ -290,6 +291,7 @@ def challenge(args):
     # Get two responses
     req_time = now()
     try:
+        logger.info(f"Progress:  {args['seq']} / {args['number_of_request']}")
         res_one, res_other = concurrent_request(args['session'], args['headers'],
                                                 url_one, url_other,
                                                 args['proxies_one'], args['proxies_other'])
@@ -367,6 +369,7 @@ def exec(args: Args, key: str) -> Report:
     make_dir(f'{args.config.output.response_dir}/{key}/other')
     ex_args = TList(enumerate(logs)).map(lambda x: {
         "seq": x[0] + 1,
+        "number_of_request": len(logs),
         "key": key,
         "session": s,
         "host_one": args.config.one.host,
