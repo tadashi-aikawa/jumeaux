@@ -209,13 +209,15 @@ def create_trial(res_one, res_other, file_one, file_other,
             "url": res_one.url,
             "status_code": res_one.status_code,
             "byte": len(res_one.content),
-            "response_sec": to_sec(res_one.elapsed)
+            "response_sec": to_sec(res_one.elapsed),
+            "content_type": res_one.headers.get("content-type")
         },
         "other": {
             "url": res_other.url,
             "status_code": res_other.status_code,
             "byte": len(res_other.content),
-            "response_sec": to_sec(res_other.elapsed)
+            "response_sec": to_sec(res_other.elapsed),
+            "content_type": res_other.headers.get("content-type")
         }
     }
     if file_one is not None:
