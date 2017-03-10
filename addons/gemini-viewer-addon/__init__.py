@@ -1,20 +1,24 @@
 # -*- coding:utf-8 -*-
 
 import os
-import json
 from decimal import Decimal
-
+from owlmixin import OwlMixin
+from modules.models import Report, OutputSummary
 import boto3
 
 
-def main(report, config, output_summary):
+class Config(OwlMixin):
+    def __init__(self, table, bucket):
+        self.table: str = table
+        self.bucket: str = bucket
+
+
+def main(report: Report, config_dict: dict, output_summary: OutputSummary):
+    config: Config = Config.from_dict(config_dict or {})
 
     # dynamo
-    dynamodb = boto3.resource('dynamodb',
-                              aws_access_key_id=config['aws_access_key_id'],
-                              aws_secret_access_key=config['aws_secret_access_key'],
-                              region_name=config['region'])
-    table = dynamodb.Table(config['table'])
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table(config.table)
     item = {
         "hashkey": report.key,
         "title": report.title,
@@ -28,23 +32,18 @@ def main(report, config, output_summary):
     }
     table.put_item(Item=item)
 
-    # "report": json.loads(report.to_json(), parse_float=Decimal)
-
     # s3
-    s3 = boto3.client('s3',
-                      aws_access_key_id=config['aws_access_key_id'],
-                      aws_secret_access_key=config['aws_secret_access_key'],
-                      region_name=config['region'])
+    s3 = boto3.client('s3')
 
     def upload_responses(which: str):
         dir = f'{output_summary.response_dir}/{report.key}'
         for file in os.listdir(f'{dir}/{which}'):
-            s3.upload_file(Bucket=config['bucket'],
+            s3.upload_file(Bucket=config.bucket,
                            Key=f'{report.key}/{which}/{file}',
                            Filename=f'{dir}/{which}/{file}')
 
     # report
-    s3.put_object(Bucket=config['bucket'],
+    s3.put_object(Bucket=config.bucket,
                   Key=f'{report.key}/report.json',
                   Body=report.to_json())
 
