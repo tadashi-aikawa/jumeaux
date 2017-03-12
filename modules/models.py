@@ -74,10 +74,11 @@ class Args(OwlMixin):
 
 
 class Request(OwlMixin):
-    def __init__(self, path, qs=None, headers=None):
-        self.path = path  # type: str
-        self.qs = TDict(qs) if qs else {}  # type: TDict[TList[str]]
-        self.headers = TDict(headers) if headers else {}  # type: TDict[str]
+    def __init__(self, path, qs=None, headers=None, name=None):
+        self.path: str = path
+        self.qs: TDict[TList[str]] = TDict(qs) if qs else {}
+        self.headers: TDict[str] = TDict(headers) if headers else {}
+        self.name: Optional[str] = name
 
 
 class Proxy(OwlMixin):
@@ -96,13 +97,14 @@ class Proxy(OwlMixin):
 # --------
 
 class ChallengeArg(OwlMixin):
-    def __init__(self, seq: int, number_of_request: int, key: str, session: object,
-                 host_one: str, host_other: str, path: str, res_dir: str,
+    def __init__(self, seq: int, number_of_request: int, key: str, name: str,
+                 session: object, host_one: str, host_other: str, path: str, res_dir: str,
                  qs: TDict[TList[str]], headers: TDict[str], proxy_one: Proxy, proxy_other: Proxy,
                  addons: Addons):
         self.seq: int = seq
         self.number_of_request: int = number_of_request
         self.key: str = key
+        self.name: str = name
         self.session: object = session
         self.host_one: str = host_one
         self.host_other: str = host_other

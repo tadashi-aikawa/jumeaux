@@ -192,10 +192,10 @@ class TestFromFormat:
 
     def test_csv(self):
         examinee = """
-"/test1","q1=1&q2=2","header1=1&header2=2"
-"/test2","q1=1"
-"/test3",,"header1=1&header2=2"
-"/test4"
+"name1","/test1","q1=1&q2=2","header1=1&header2=2"
+"name2","/test2","q1=1"
+"name3","/test3",,"header1=1&header2=2"
+"name4","/test4"
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
@@ -203,6 +203,7 @@ class TestFromFormat:
 
         expected = [
             {
+                "name": "name1",
                 "path": "/test1",
                 "qs": {
                     "q1": ["1"],
@@ -214,6 +215,7 @@ class TestFromFormat:
                 }
             },
             {
+                "name": "name2",
                 "path": "/test2",
                 "qs": {
                     "q1": ["1"]
@@ -221,6 +223,7 @@ class TestFromFormat:
                 "headers": {}
             },
             {
+                "name": "name3",
                 "path": "/test3",
                 "qs": {},
                 "headers": {
@@ -229,6 +232,7 @@ class TestFromFormat:
                 }
             },
             {
+                "name": "name4",
                 "path": "/test4",
                 "qs": {},
                 "headers": {}
@@ -237,9 +241,9 @@ class TestFromFormat:
 
         assert actual.to_dicts() == expected
 
-    def test_csv_length_over_4(self):
+    def test_csv_length_over_5(self):
         examinee = """
-"/path","q1=1","header1=1","evil"
+"name","/path","q1=1","header1=1","evil"
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)

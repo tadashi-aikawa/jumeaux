@@ -120,6 +120,7 @@ class TestChallenge:
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
+            "name": "name1",
             "number_of_request": 10,
             "key": "hash_key",
             "session": None,
@@ -143,7 +144,7 @@ class TestChallenge:
         actual = gemini.challenge(args)
 
         expected = {
-            "name": "1",
+            "name": "name1",
             "request_time": '2000/01/01 00:00:00',
             "status": Status.DIFFERENT,
             "path": '/challenge',
@@ -198,6 +199,7 @@ class TestChallenge:
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
+            "name": "name2",
             "number_of_request": 10,
             "key": "hash_key",
             "session": None,
@@ -220,7 +222,7 @@ class TestChallenge:
         actual = gemini.challenge(args)
 
         expected = {
-            "name": "1",
+            "name": "name2",
             "request_time": '2000/01/01 00:00:00',
             "status": Status.SAME,
             "path": '/challenge',
@@ -256,6 +258,7 @@ class TestChallenge:
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": "1",
+            "name": "name3",
             "number_of_request": 10,
             "key": "hash_key",
             "session": None,
@@ -277,7 +280,7 @@ class TestChallenge:
         actual = gemini.challenge(args)
 
         expected = {
-            "name": "1",
+            "name": "name3",
             "request_time": '2000/01/01 00:00:00',
             "status": Status.FAILURE,
             "path": '/challenge',

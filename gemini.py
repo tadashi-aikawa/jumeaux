@@ -223,6 +223,8 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
 
 
 def challenge(arg: ChallengeArg) -> Trial:
+    logger.info(f"Challenge:  {arg.seq} / {arg.number_of_request} -- {arg.name}")
+
     qs_str = urlparser.urlencode(arg.qs, doseq=True)
 
     url_one = f'{arg.host_one}{arg.path}?{qs_str}'
@@ -231,14 +233,13 @@ def challenge(arg: ChallengeArg) -> Trial:
     # Get two responses
     req_time = now()
     try:
-        logger.info(f"Progress:  {arg.seq} / {arg.number_of_request}")
         res_one, res_other = concurrent_request(arg.session, arg.headers,
                                                 url_one, url_other,
                                                 arg.proxy_one, arg.proxy_other)
     except ConnectionError:
         # TODO: Integrate logic into create_trial
         return Trial.from_dict({
-            "name": str(arg.seq),
+            "name": arg.name,
             "request_time": req_time.strftime("%Y/%m/%d %X"),
             "status": Status.FAILURE,
             "path": arg.path,
@@ -287,7 +288,7 @@ def challenge(arg: ChallengeArg) -> Trial:
         write_to_file(file_other, dir, pretty(res_other))
 
     return Trial.from_dict({
-        "name": str(arg.seq),
+        "name": arg.name,
         "request_time": req_time.strftime("%Y/%m/%d %X"),
         "status": status,
         "path": arg.path,
@@ -329,6 +330,7 @@ def exec(args: Args, key: str) -> Report:
         "seq": x[0] + 1,
         "number_of_request": len(logs),
         "key": key,
+        "name": x[1].name or str(x[0] + 1),
         "session": s,
         "host_one": args.config.one.host,
         "host_other": args.config.other.host,

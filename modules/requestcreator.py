@@ -119,9 +119,9 @@ def _from_csv(file: str, encoding: str) -> TList[Request]:
     outputs = []
 
     with open(file, encoding=encoding) as f:
-        rs = csv.DictReader(f, ('path', 'qs', 'headers'), restval={})
+        rs = csv.DictReader(f, ('name', 'path', 'qs', 'headers'), restval={})
         for r in rs:
-            if len(r) > 3:
+            if len(r) > 4:
                 raise ValueError
             r['qs'] = urlparser.parse_qs(r['qs'])
 
