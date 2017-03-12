@@ -25,7 +25,7 @@ def main(report: Report, config_dict: dict, output_summary: OutputSummary):
         "one_host": report.summary.one.host,
         "other_host": report.summary.other.host,
         "same_count": Decimal(report.summary.status.same),
-        "different_count": Decimal(report.summary.status.different) + Decimal(report.summary.status.same_without_order),
+        "different_count": Decimal(report.summary.status.different),
         "failure_count": Decimal(report.summary.status.failure),
         "start": report.summary.time.start,
         "end": report.summary.time.end

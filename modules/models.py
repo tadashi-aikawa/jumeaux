@@ -16,7 +16,6 @@ class Format(OwlEnum):
 
 class Status(OwlEnum):
     SAME = "same"
-    SAME_WITHOUT_ORDER = "same_without_order"
     DIFFERENT = "different"
     FAILURE = "failure"
 
@@ -92,6 +91,28 @@ class Proxy(OwlMixin):
             'http': f"http://{host}",
             'https': f"https://{host}",
         }) if host else None
+
+
+# --------
+
+class ChallengeArg(OwlMixin):
+    def __init__(self, seq: int, number_of_request: int, key: str, session: object,
+                 host_one: str, host_other: str, path: str, res_dir: str,
+                 qs: TDict[TList[str]], headers: TDict[str], proxy_one: Proxy, proxy_other: Proxy,
+                 addons: Addons):
+        self.seq: int = seq
+        self.number_of_request: int = number_of_request
+        self.key: str = key
+        self.session: object = session
+        self.host_one: str = host_one
+        self.host_other: str = host_other
+        self.path: str = path
+        self.res_dir: str = res_dir
+        self.qs: TDict[TList[str]] = qs
+        self.headers: TDict[str] = headers
+        self.proxy_one: Optional[Proxy] = proxy_one
+        self.proxy_other: Optional[Proxy] = proxy_other
+        self.addons: Optional[Addons] = addons
 
 
 # --------

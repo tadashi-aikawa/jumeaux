@@ -81,120 +81,6 @@ class ResponseBuilder():
         return m
 
 
-class TestCreateTrial:
-    def test_normal(self):
-        status = 'status'
-        req_time = datetime.datetime(2000, 1, 2, 0, 10, 20, 123456)
-        path = '/path'
-        qs = {
-            'q1': ['1'],
-            'q2': ['10000', '2']
-        }
-        headers = {
-            'header1': '1',
-            'header2': '2'
-        }
-        res_one = ResponseBuilder().url('URL_ONE') \
-            .status_code(200) \
-            .content('a') \
-            .second(1, 234567) \
-            .build()
-        res_other = ResponseBuilder().url('URL_OTHER') \
-            .status_code(400) \
-            .content('ab') \
-            .second(9, 876543) \
-            .build()
-        file_one = 'dir/one'
-        file_other = 'dir/other'
-
-        actual = gemini.create_trial(res_one, res_other, file_one, file_other, status, req_time, path, qs, headers)
-        expected = {
-            "request_time": '2000/01/02 00:10:20',
-            "status": 'status',
-            "path": '/path',
-            "queries": {
-                'q1': ['1'],
-                'q2': ['10000', '2']
-            },
-            "headers": {
-                "header1": "1",
-                "header2": "2",
-            },
-            "one": {
-                "file": 'dir/one',
-                "url": 'URL_ONE',
-                "status_code": 200,
-                "byte": 1,
-                "response_sec": 1.23
-            },
-            "other": {
-                "file": 'dir/other',
-                "url": 'URL_OTHER',
-                "status_code": 400,
-                "byte": 2,
-                "response_sec": 9.88
-            }
-        }
-
-        assert actual == expected
-
-    def test_file_is_none(self):
-        status = 'status'
-        req_time = datetime.datetime(2000, 1, 2, 0, 10, 20, 123456)
-        path = '/path'
-        qs = {
-            'q1': ['1'],
-            'q2': ['10000', '2']
-        }
-        headers = {
-            'header1': '1',
-            'header2': '2'
-        }
-        res_one = ResponseBuilder().url('URL_ONE') \
-            .status_code(200) \
-            .content(b'a') \
-            .encoding('utf8') \
-            .second(1, 234567) \
-            .build()
-        res_other = ResponseBuilder().url('URL_OTHER') \
-            .status_code(400) \
-            .content(b'ab') \
-            .encoding('utf8') \
-            .second(9, 876543) \
-            .build()
-        file_one = None
-        file_other = None
-
-        actual = gemini.create_trial(res_one, res_other, file_one, file_other, status, req_time, path, qs, headers)
-        expected = {
-            "request_time": '2000/01/02 00:10:20',
-            "status": 'status',
-            "path": '/path',
-            "queries": {
-                'q1': ['1'],
-                'q2': ['10000', '2']
-            },
-            "headers": {
-                "header1": "1",
-                "header2": "2",
-            },
-            "one": {
-                "url": 'URL_ONE',
-                "status_code": 200,
-                "byte": 1,
-                "response_sec": 1.23
-            },
-            "other": {
-                "url": 'URL_OTHER',
-                "status_code": 400,
-                "byte": 2,
-                "response_sec": 9.88
-            }
-        }
-
-        assert actual == expected
-
-
 @patch('gemini.now')
 @patch('gemini.concurrent_request')
 class TestChallenge:
@@ -235,14 +121,14 @@ class TestChallenge:
         concurrent_request.return_value = res_one, res_other
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
-        args = {
+        args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
+            "number_of_request": 10,
             "key": "hash_key",
             "session": None,
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
-            "output_encoding": "utf8",
             "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"],
@@ -252,16 +138,16 @@ class TestChallenge:
                 "header1": "1",
                 "header2": "2",
             },
-            "proxies_one": None,
-            "proxies_other": None,
+            "proxy_one": None,
+            "proxy_other": None,
             "addons": None
-        }
+        })
 
         actual = gemini.challenge(args)
 
         expected = {
             "request_time": '2000/01/01 00:00:00',
-            "status": 'different',
+            "status": Status.DIFFERENT,
             "path": '/challenge',
             "queries": {
                 "q1": ["1"],
@@ -276,18 +162,20 @@ class TestChallenge:
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 20,
-                "response_sec": 1.23
+                "response_sec": 1.23,
+                "content_type": 'application/json;utf-8'
             },
             "other": {
                 "file": "other/1",
                 "url": 'URL_OTHER',
                 "status_code": 400,
                 "byte": 23,
-                "response_sec": 9.88
+                "response_sec": 9.88,
+                "content_type": 'application/json;utf-8'
             }
         }
 
-        assert actual == expected
+        assert actual.to_dict() == expected
 
     def test_same(self, concurrent_request, now):
         res_one = ResponseBuilder().text('a') \
@@ -302,7 +190,7 @@ class TestChallenge:
         res_other = ResponseBuilder().text('a') \
             .url('URL_OTHER') \
             .status_code(200) \
-            .content_type('text/plain;utf-8') \
+            .content_type('text/plain') \
             .content(b'a') \
             .encoding('utf8') \
             .second(9, 876543) \
@@ -310,14 +198,14 @@ class TestChallenge:
         concurrent_request.return_value = res_one, res_other
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
-        args = {
+        args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
+            "number_of_request": 10,
             "key": "hash_key",
             "session": None,
             "host_one": None,
             "host_other": None,
             "path": "/challenge",
-            "output_encoding": "utf8",
             "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"],
@@ -327,15 +215,15 @@ class TestChallenge:
                 "header1": "1",
                 "header2": "2",
             },
-            "proxies_one": None,
-            "proxies_other": None,
+            "proxy_one": None,
+            "proxy_other": None,
             "addons": None
-        }
+        })
         actual = gemini.challenge(args)
 
         expected = {
             "request_time": '2000/01/01 00:00:00',
-            "status": 'same',
+            "status": Status.SAME,
             "path": '/challenge',
             "queries": {
                 'q1': ['1'],
@@ -349,106 +237,32 @@ class TestChallenge:
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 1,
-                "response_sec": 1.23
+                "response_sec": 1.23,
+                "content_type": 'text/plain;utf-8'
             },
             "other": {
                 "url": 'URL_OTHER',
                 "status_code": 200,
                 "byte": 1,
-                "response_sec": 9.88
+                "response_sec": 9.88,
+                "content_type": 'text/plain'
             }
         }
 
-        assert actual == expected
-
-    def test_different_without_order(self, concurrent_request, now):
-        res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
-            .json({"items": [1, 2, 3]}) \
-            .url('URL_ONE') \
-            .status_code(200) \
-            .content_type('application/json;utf-8') \
-            .content(b'{"items": [1, 2, 3]}') \
-            .encoding('utf8') \
-            .second(1, 234567) \
-            .build()
-
-        res_other = ResponseBuilder().text('{"items": [3, 2, 1]}') \
-            .json({"items": [3, 2, 1]}) \
-            .url('URL_OTHER') \
-            .status_code(200) \
-            .content_type('application/json;utf-8') \
-            .content(b'{"items": [3, 2, 1]}') \
-            .encoding('utf8') \
-            .second(9, 876543) \
-            .build()
-        concurrent_request.return_value = res_one, res_other
-        now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
-
-        args = {
-            "seq": 1,
-            "key": "hash_key",
-            "session": None,
-            "host_one": None,
-            "host_other": None,
-            "path": "/challenge",
-            "output_encoding": "utf8",
-            "res_dir": "tmpdir",
-            "qs": {
-                "q1": ["1"],
-                "q2": ["2-1", "2-2"]
-            },
-            "headers": {
-                "header1": "1",
-                "header2": "2",
-            },
-            "proxies_one": None,
-            "proxies_other": None,
-            "addons": None
-        }
-        actual = gemini.challenge(args)
-
-        expected = {
-            "request_time": '2000/01/01 00:00:00',
-            "status": 'same_without_order',
-            "path": '/challenge',
-            "queries": {
-                'q1': ['1'],
-                'q2': ['2-1', '2-2']
-            },
-            "headers": {
-                "header1": "1",
-                "header2": "2",
-            },
-            "one": {
-                "file": "one/1",
-                "url": 'URL_ONE',
-                "status_code": 200,
-                "byte": 20,
-                "response_sec": 1.23
-            },
-            "other": {
-                "file": "other/1",
-                "url": 'URL_OTHER',
-                "status_code": 200,
-                "byte": 20,
-                "response_sec": 9.88
-            }
-        }
-
-        assert actual == expected
+        assert actual.to_dict() == expected
 
     def test_failure(self, concurrent_request, now):
         concurrent_request.side_effect = ConnectionError
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
-        args = {
+        args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
+            "number_of_request": 10,
             "key": "hash_key",
             "session": None,
             "host_one": "http://one",
             "host_other": "http://other",
             "path": "/challenge",
-            "output_encoding": "utf8",
             "res_dir": "tmpdir",
             "qs": {
                 "q1": ["1"]
@@ -457,14 +271,15 @@ class TestChallenge:
                 "header1": "1",
                 "header2": "2",
             },
-            "proxies_one": None,
-            "proxies_other": None
-        }
+            "proxy_one": None,
+            "proxy_other": None,
+            "addons": None
+        })
         actual = gemini.challenge(args)
 
         expected = {
             "request_time": '2000/01/01 00:00:00',
-            "status": 'failure',
+            "status": Status.FAILURE,
             "path": '/challenge',
             "queries": {
                 'q1': ['1']
@@ -481,7 +296,7 @@ class TestChallenge:
             }
         }
 
-        assert actual == expected
+        assert actual.to_dict() == expected
 
 
 @patch('gemini.now')
@@ -509,7 +324,7 @@ class TestExec:
             }
         ])
         hash_from_args.return_value = DUMMY_HASH
-        challenge.side_effect = [
+        challenge.side_effect = Trial.from_dicts([
             {
                 "request_time": '2000/01/01 00:00:01',
                 "status": 'different',
@@ -564,7 +379,7 @@ class TestExec:
                     "response_sec": 2.00
                 }
             }
-        ]
+        ])
         now.side_effect = [
             datetime.datetime(2000, 1, 1, 23, 50, 30),
             datetime.datetime(2000, 1, 2, 0, 0, 0)
@@ -576,7 +391,7 @@ class TestExec:
             "title": "Report title",
             "config": "tests/config.yaml"
         })
-        actual = gemini.exec(args, DUMMY_HASH)
+        actual: Report = gemini.exec(args, DUMMY_HASH)
 
         expected = {
             "key": DUMMY_HASH,

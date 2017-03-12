@@ -197,36 +197,6 @@ def make_dir(path):
     os.chmod(path, 0o777)
 
 
-def create_trial(res_one, res_other, file_one, file_other,
-                 status, req_time, path, qs, headers):
-    trial = {
-        "request_time": req_time.strftime("%Y/%m/%d %X"),
-        "status": status,
-        "path": path,
-        "queries": qs,
-        "headers": headers,
-        "one": {
-            "url": res_one.url,
-            "status_code": res_one.status_code,
-            "byte": len(res_one.content),
-            "response_sec": to_sec(res_one.elapsed),
-            "content_type": res_one.headers.get("content-type")
-        },
-        "other": {
-            "url": res_other.url,
-            "status_code": res_other.status_code,
-            "byte": len(res_other.content),
-            "response_sec": to_sec(res_other.elapsed),
-            "content_type": res_other.headers.get("content-type")
-        }
-    }
-    if file_one is not None:
-        trial['one']['file'] = file_one
-    if file_other is not None:
-        trial['other']['file'] = file_other
-    return trial
-
-
 def http_get(args):
     session, url, headers, proxies = args
     try:
@@ -256,75 +226,44 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
     return res_one, res_other
 
 
-def challenge(args):
-    """TODO: Assign types
-    Arguments:
-       (dict) args
-         - (int) seq
-         - (int) number_of_request
-         - (str) key
-         - (session) session
-         - (str) host_one
-         - (str) host_other
-         - (str) path
-         - (str) res_dir
-         - (dict) qs
-           - (str) key of query
-           - ...
-         - (dict) headers
-           - (str) key of header
-           - ...
-         - (dict) proxies_one
-           - (str) http
-           - (str) https
-         - (dict) proxies_other
-           - (str) http
-           - (str) https
-         - (Addons) addons
-    """
+def challenge(arg: ChallengeArg) -> Trial:
+    qs_str = urlparser.urlencode(arg.qs, doseq=True)
 
-    qs_str = urlparser.urlencode(args['qs'], doseq=True)
-
-    url_one = f'{args["host_one"]}{args["path"]}?{qs_str}'
-    url_other = f'{args["host_other"]}{args["path"]}?{qs_str}'
+    url_one = f'{arg.host_one}{arg.path}?{qs_str}'
+    url_other = f'{arg.host_other}{arg.path}?{qs_str}'
 
     # Get two responses
     req_time = now()
     try:
-        logger.info(f"Progress:  {args['seq']} / {args['number_of_request']}")
-        res_one, res_other = concurrent_request(args['session'], args['headers'],
+        logger.info(f"Progress:  {arg.seq} / {arg.number_of_request}")
+        res_one, res_other = concurrent_request(arg.session, arg.headers,
                                                 url_one, url_other,
-                                                args['proxies_one'], args['proxies_other'])
+                                                arg.proxy_one, arg.proxy_other)
     except ConnectionError:
         # TODO: Integrate logic into create_trial
-        return {
+        return Trial.from_dict({
             "request_time": req_time.strftime("%Y/%m/%d %X"),
-            "status": "failure",
-            "path": args['path'],
-            "queries": args['qs'],
-            "headers": args['headers'],
+            "status": Status.FAILURE,
+            "path": arg.path,
+            "queries": arg.qs,
+            "headers": arg.headers,
             "one": {
                 "url": url_one
             },
             "other": {
                 "url": url_other
             }
-        }
+        })
 
     # Create diff
-    ignore_properties = []  # Todo ignore_properties
-    diff = create_diff(res_one.text, res_other.text, ignore_properties)
-    diff_without_order = create_diff(res_one.text, res_other.text,
-                                     ignore_properties, True)
+    diff = create_diff(res_one.text, res_other.text, None)
 
     # Judgement
     if diff is not None and len(diff) == 0:
-        status = "same"
-    elif diff_without_order is not None and len(diff_without_order) == 0:
-        status = "same_without_order"
+        status: Status = Status.SAME
     else:
-        status = "different"
-    logger.info(f"Status:   {status}")
+        status: Status = Status.DIFFERENT
+    logger.info(f"Status:   {status.value}")
 
     # Write response body to file
     def apply_response_parser_addon(payload: ResponseAddOnPayload, a: Addon):
@@ -336,22 +275,43 @@ def challenge(args):
             "body": res.content,
             "encoding": res.encoding
         })
-        return O(args["addons"]) \
+        return O(arg.addons) \
             .then(_.response_parser) \
             .or_(TList()) \
             .reduce(apply_response_parser_addon, payload) \
             .body
 
     file_one = file_other = None
-    if status != "same":
-        dir = f'{args["res_dir"]}/{args["key"]}'
-        file_one = f'one/{args["seq"]}'
-        file_other = f'other/{args["seq"]}'
+    if status != Status.SAME:
+        dir = f'{arg.res_dir}/{arg.key}'
+        file_one = f'one/{arg.seq}'
+        file_other = f'other/{arg.seq}'
         write_to_file(file_one, dir, pretty(res_one))
         write_to_file(file_other, dir, pretty(res_other))
 
-    return create_trial(res_one, res_other, file_one, file_other,
-                        status, req_time, args['path'], args['qs'], args['headers'])
+    return Trial.from_dict({
+        "request_time": req_time.strftime("%Y/%m/%d %X"),
+        "status": status,
+        "path": arg.path,
+        "queries": arg.qs,
+        "headers": arg.headers,
+        "one": {
+            "url": res_one.url,
+            "status_code": res_one.status_code,
+            "byte": len(res_one.content),
+            "response_sec": to_sec(res_one.elapsed),
+            "content_type": res_one.headers.get("content-type"),
+            "file": file_one
+        },
+        "other": {
+            "url": res_other.url,
+            "status_code": res_other.status_code,
+            "byte": len(res_other.content),
+            "response_sec": to_sec(res_other.elapsed),
+            "content_type": res_other.headers.get("content-type"),
+            "file": file_other
+        }
+    })
 
 
 def exec(args: Args, key: str) -> Report:
@@ -377,8 +337,8 @@ def exec(args: Args, key: str) -> Report:
         "path": x[1].path,
         "qs": x[1].qs,
         "headers": x[1].headers,
-        "proxies_one": O(Proxy.from_host(args.config.one.proxy)).then_or_none(lambda x: x.to_dict()),
-        "proxies_other": O(Proxy.from_host(args.config.other.proxy)).then_or_none(lambda x: x.to_dict()),
+        "proxy_one": Proxy.from_host(args.config.one.proxy),
+        "proxy_other": Proxy.from_host(args.config.other.proxy),
         "res_dir": args.config.output.response_dir,
         "addons": args.config.addons
     })
@@ -386,7 +346,7 @@ def exec(args: Args, key: str) -> Report:
     # Challenge
     start_time = now()
     with futures.ThreadPoolExecutor(max_workers=args.threads) as ex:
-        trials = TList([r for r in ex.map(challenge, ex_args)])
+        trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))])
     end_time = now()
 
     summary = Summary.from_dict({
@@ -400,7 +360,7 @@ def exec(args: Args, key: str) -> Report:
             "host": args.config.other.host,
             "proxy": args.config.other.proxy
         },
-        "status": trials.group_by(_['status']).map_values(len).to_dict(),
+        "status": trials.group_by(_.status.value).map_values(len).to_dict(),
         "time": {
             "start": start_time.strftime("%Y/%m/%d %X"),
             "end": end_time.strftime("%Y/%m/%d %X"),
@@ -412,7 +372,7 @@ def exec(args: Args, key: str) -> Report:
         "key": key,
         "title": args.title,
         "summary": summary.to_dict(),
-        "trials": trials
+        "trials": trials.to_dicts()
     })
 
 
