@@ -51,11 +51,8 @@ output:
 #     handlers: [console]
 addons:
 # after:
-#   - name: addons.gemini-viewer-addon
+#   - name: addons.after.gemini-viewer-addon
 #     config:
-#       aws_access_key_id: aaaaaaaaaaaa
-#       aws_secret_access_key: ssssssssssssssssssssssssssss
-#       region: ap-northeast-1
 #       table:  dynamo-db-table-name
 #       bucket: s3-bucket-name
 
