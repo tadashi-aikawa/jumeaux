@@ -113,7 +113,6 @@ Correspond to following format.
 
 """
 
-import codecs
 import sys
 import io
 import json
@@ -123,7 +122,6 @@ from importlib import import_module
 from logging import getLogger
 import logging.config
 
-import urllib.parse as urlparser
 import requests
 from owlmixin.owlcollections import TList
 from owlmixin.util import O
@@ -135,8 +133,6 @@ from datetime import datetime
 from fn import _
 
 import xmltodict
-from xml.dom import minidom
-from xml.etree import ElementTree
 from docopt import docopt
 
 from modules.dictutils import DictUtils
@@ -242,6 +238,7 @@ def challenge(arg: ChallengeArg) -> Trial:
     except ConnectionError:
         # TODO: Integrate logic into create_trial
         return Trial.from_dict({
+            "name": str(arg.seq),
             "request_time": req_time.strftime("%Y/%m/%d %X"),
             "status": Status.FAILURE,
             "path": arg.path,
@@ -290,6 +287,7 @@ def challenge(arg: ChallengeArg) -> Trial:
         write_to_file(file_other, dir, pretty(res_other))
 
     return Trial.from_dict({
+        "name": str(arg.seq),
         "request_time": req_time.strftime("%Y/%m/%d %X"),
         "status": status,
         "path": arg.path,

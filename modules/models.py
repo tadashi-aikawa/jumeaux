@@ -149,8 +149,9 @@ class Time(OwlMixin):
 
 
 class Trial(OwlMixin):
-    def __init__(self, headers: dict, queries: dict, one: dict, other: dict,
+    def __init__(self, name: str, headers: dict, queries: dict, one: dict, other: dict,
                  path: str, request_time: str, status: str):
+        self.name: str = name
         self.headers: Dict[str, str] = headers
         self.queries: Dict[str, List[str]] = queries
         self.one: ResponseSummary = ResponseSummary.from_dict(one)

@@ -2,10 +2,7 @@
 # -*- coding:utf-8 -*-
 
 import os
-import json
 import shutil
-import sys
-from io import StringIO
 
 from unittest.mock import MagicMock
 from unittest.mock import patch
@@ -146,6 +143,7 @@ class TestChallenge:
         actual = gemini.challenge(args)
 
         expected = {
+            "name": "1",
             "request_time": '2000/01/01 00:00:00',
             "status": Status.DIFFERENT,
             "path": '/challenge',
@@ -222,6 +220,7 @@ class TestChallenge:
         actual = gemini.challenge(args)
 
         expected = {
+            "name": "1",
             "request_time": '2000/01/01 00:00:00',
             "status": Status.SAME,
             "path": '/challenge',
@@ -256,7 +255,7 @@ class TestChallenge:
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args: ChallengeArg = ChallengeArg.from_dict({
-            "seq": 1,
+            "seq": "1",
             "number_of_request": 10,
             "key": "hash_key",
             "session": None,
@@ -278,6 +277,7 @@ class TestChallenge:
         actual = gemini.challenge(args)
 
         expected = {
+            "name": "1",
             "request_time": '2000/01/01 00:00:00',
             "status": Status.FAILURE,
             "path": '/challenge',
@@ -326,6 +326,7 @@ class TestExec:
         hash_from_args.return_value = DUMMY_HASH
         challenge.side_effect = Trial.from_dicts([
             {
+                "name": "1",
                 "request_time": '2000/01/01 00:00:01',
                 "status": 'different',
                 "path": '/challenge1',
@@ -353,6 +354,7 @@ class TestExec:
                 }
             },
             {
+                "name": "2",
                 "request_time": '2000/01/01 00:00:02',
                 "status": 'same',
                 "path": '/challenge2',
@@ -420,6 +422,7 @@ class TestExec:
             },
             "trials": [
                 {
+                    "name": "1",
                     "request_time": '2000/01/01 00:00:01',
                     "status": Status.DIFFERENT,
                     "path": '/challenge1',
@@ -447,6 +450,7 @@ class TestExec:
                     }
                 },
                 {
+                    "name": "2",
                     "request_time": '2000/01/01 00:00:02',
                     "status": Status.SAME,
                     "path": '/challenge2',
