@@ -4,14 +4,6 @@ from typing import Optional, Any, Dict, List
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList, TDict
 from owlmixin.owlenum import OwlEnum
-from modules.requestcreator import *
-
-
-class Format(OwlEnum):
-    PLAIN = "plain"
-    APACHE = "apache"
-    YAML = "yaml"
-    CSV = "csv"
 
 
 class Status(OwlEnum):
@@ -25,12 +17,6 @@ class AccessPoint(OwlMixin):
         self.name: str = name
         self.host: str = host
         self.proxy: Optional[str] = proxy
-
-
-class InputSummary(OwlMixin):
-    def __init__(self, format='plain', encoding='utf8'):
-        self.format: Format = Format(format)
-        self.encoding: str = encoding
 
 
 class OutputSummary(OwlMixin):
@@ -48,16 +34,16 @@ class Addon(OwlMixin):
 
 
 class Addons(OwlMixin):
-    def __init__(self, response_parser=None, after=None):
+    def __init__(self, log, response_parser=None, after=None):
+        self.log: Addon = Addon.from_dict(log)
         self.response_parser: TList[Addon] = Addon.from_optional_dicts(response_parser) or TList()
         self.after: TList[Addon] = Addon.from_optional_dicts(after) or TList()
 
 
 class Config(OwlMixin):
-    def __init__(self, one, other, input, output, addons=None):
+    def __init__(self, one, other, output, addons=None):
         self.one: AccessPoint = AccessPoint.from_dict(one)
         self.other: AccessPoint = AccessPoint.from_dict(other)
-        self.input: InputSummary = InputSummary.from_dict(input)
         self.output: OutputSummary = OutputSummary.from_dict(output)
         self.addons: Optional[Addons] = Addons.from_optional_dict(addons)
 

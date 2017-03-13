@@ -50,64 +50,15 @@ output:
 #     level: INFO
 #     handlers: [console]
 addons:
+  log:
+    name: addons.log.csv-addon
+    config:
+      encoding: utf8
 # after:
 #   - name: addons.after.gemini-viewer-addon
 #     config:
 #       table:  dynamo-db-table-name
 #       bucket: s3-bucket-name
-
-
-
-=======================
-Input format
-=======================
-
-Correspond to following format.
-
-1. plain
----------
-
-"/path1?a=1&b=2"
-"/path2?c=1"
-"/path3"
-
-2. apache
----------
-
-000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
-000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=-" "header2=-"
-
-3. yaml
----------
-
-- path: "/path1"
-  qs:
-    q1:
-      - v1
-    q2:
-      - v2
-      - v3
-  headers:
-    key1: "header1"
-    key2: "header2"
-- path: "/path2"
-  qs:
-    q1:
-      - v1
-- path: "/path3"
-  headers:
-    key1: "header1"
-    key2: "header2"
-- path: "/path4"
-
-4. csv
----------
-
-"/path1","a=1&b=2","header1=1&header2=2"
-"/path2","c=1"
-"/path3",,"header1=1&header2=2"
-"/path4"
-
 """
 
 import sys
@@ -120,6 +71,7 @@ from logging import getLogger
 import logging.config
 
 import requests
+import urllib.parse as urlparser
 from owlmixin.owlcollections import TList
 from owlmixin.util import O
 from requests.adapters import HTTPAdapter
@@ -133,7 +85,6 @@ import xmltodict
 from docopt import docopt
 
 from modules.dictutils import DictUtils
-from modules import requestcreator
 from modules.models import *
 
 
@@ -316,9 +267,12 @@ def exec(args: Args, key: str) -> Report:
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
 
+    def apply_log_addon(file: str, a: Addon):
+        return getattr(import_module(a.name), a.command)(file, a.config)
+
     # Parse inputs to args of multi-thread executor.
     logs = args.files.flat_map(
-        lambda f: requestcreator.from_format(f, args.config.input.format, args.config.input.encoding)
+        lambda f: apply_log_addon(f, args.config.addons.log)
     )
 
     make_dir(f'{args.config.output.response_dir}/{key}/one')
