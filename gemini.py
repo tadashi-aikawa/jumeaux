@@ -28,10 +28,6 @@ other:
   name: transfer
   host: http://api.navitime.jp/v1/00002005
   # proxy: null
-input:
-  encoding: utf8
-  # plan / csv / json / yaml
-  format: csv
 output:
   encoding: utf8
   response_dir: response
@@ -212,7 +208,7 @@ def challenge(arg: ChallengeArg) -> Trial:
     logger.info(f"Status:   {status.value}")
 
     # Write response body to file
-    def apply_response_parser_addon(payload: ResponseAddOnPayload, a: Addon):
+    def apply_dump_addon(payload: ResponseAddOnPayload, a: Addon):
         return getattr(import_module(a.name), a.command)(payload, a.config)
 
     def pretty(res):
@@ -222,9 +218,9 @@ def challenge(arg: ChallengeArg) -> Trial:
             "encoding": res.encoding
         })
         return O(arg.addons) \
-            .then(_.response_parser) \
+            .then(_.dump) \
             .or_(TList()) \
-            .reduce(apply_response_parser_addon, payload) \
+            .reduce(apply_dump_addon, payload) \
             .body
 
     file_one = file_other = None
