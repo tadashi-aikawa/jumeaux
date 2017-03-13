@@ -27,7 +27,7 @@ def pretty(xmls: str) -> str:
         """
 
 
-def main(payload: ResponseAddOnPayload, config_dict: dict):
+def exec(payload: ResponseAddOnPayload, config_dict: dict):
     config: Config = Config.from_dict(config_dict or {})
     content_type = payload.response.headers.get('content-type')
     mime_type = content_type.split(';')[0] if content_type else None

@@ -15,7 +15,7 @@ class Config(OwlMixin):
         self.encoding: str = encoding
 
 
-def main(file: str, config_dict: dict) -> TList[Request]:
+def exec(file: str, config_dict: dict) -> TList[Request]:
     """Transform from yaml to Request
 
     Exception:

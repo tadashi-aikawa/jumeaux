@@ -3,7 +3,7 @@
 
 import os
 import pytest
-from addons.log.csv_addon import main
+from addons.log.csv_addon import exec
 
 
 class TestFromFormat:
@@ -20,7 +20,7 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        actual = main('tmp', {"encoding": "utf8"})
+        actual = exec('tmp', {"encoding": "utf8"})
 
         expected = [
             {
@@ -69,4 +69,4 @@ class TestFromFormat:
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
         with pytest.raises(ValueError):
-            main('tmp', {"encoding": "utf8"})
+            exec('tmp', {"encoding": "utf8"})

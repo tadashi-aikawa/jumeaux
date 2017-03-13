@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 import os
-from addons.log.plain_addon import main
+from addons.log.plain_addon import exec
 
 
 class TestFromFormat:
@@ -19,7 +19,7 @@ class TestFromFormat:
 """.strip()
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        actual = main('tmp', {"encoding": "utf8"})
+        actual = exec('tmp', {"encoding": "utf8"})
 
         # Line break is ignored. (examinee has 3 not 4)
         expected = [

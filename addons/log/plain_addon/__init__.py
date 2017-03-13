@@ -15,7 +15,7 @@ class Config(OwlMixin):
         self.encoding: str = encoding
 
 
-def main(file: str, config_dict: dict) -> TList[Request]:
+def exec(file: str, config_dict: dict) -> TList[Request]:
     config: Config = Config.from_dict(config_dict or {})
 
     def line_to_request(line: str) -> Request:

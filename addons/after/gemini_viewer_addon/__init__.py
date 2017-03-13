@@ -13,7 +13,7 @@ class Config(OwlMixin):
         self.bucket: str = bucket
 
 
-def main(report: Report, config_dict: dict, output_summary: OutputSummary):
+def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
     config: Config = Config.from_dict(config_dict or {})
 
     # dynamo

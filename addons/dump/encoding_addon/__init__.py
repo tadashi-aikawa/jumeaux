@@ -12,7 +12,7 @@ class Config(OwlMixin):
         self.encoding: str = encoding
 
 
-def main(payload: ResponseAddOnPayload, config_dict: dict):
+def exec(payload: ResponseAddOnPayload, config_dict: dict):
     config: Config = Config.from_dict(config_dict or {})
 
     return ResponseAddOnPayload.from_dict({

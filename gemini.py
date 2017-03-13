@@ -51,11 +51,11 @@ output:
 #     handlers: [console]
 addons:
   log:
-    name: addons.log.csv-addon
+    name: addons.log.csv_addon
     config:
       encoding: utf8
 # after:
-#   - name: addons.after.gemini-viewer-addon
+#   - name: addons.after.gemini_viewer_addon
 #     config:
 #       table:  dynamo-db-table-name
 #       bucket: s3-bucket-name

@@ -16,7 +16,7 @@ class Config(OwlMixin):
         self.encoding: str = encoding
 
 
-def main(file: str, config_dict: dict) -> TList[Request]:
+def exec(file: str, config_dict: dict) -> TList[Request]:
     """Transform csv as below.
         "title1","/path1","a=1&b=2","header1=1&header2=2"
         "title2","/path2","c=1"

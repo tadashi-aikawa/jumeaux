@@ -10,7 +10,7 @@ class Config(OwlMixin):
         self.force: bool = force
 
 
-def main(payload: ResponseAddOnPayload, config_dict: dict):
+def exec(payload: ResponseAddOnPayload, config_dict: dict):
     config: Config = Config.from_dict(config_dict or {})
     mime_type = payload.response.headers.get('content-type').split(';')[0]
 

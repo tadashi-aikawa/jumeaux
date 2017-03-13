@@ -27,7 +27,7 @@ class OutputSummary(OwlMixin):
 
 
 class Addon(OwlMixin):
-    def __init__(self, name, command: str = 'main', config: dict = None):
+    def __init__(self, name, command: str = 'exec', config: dict = None):
         self.name: str = name
         self.command: str = command
         self.config: dict = config

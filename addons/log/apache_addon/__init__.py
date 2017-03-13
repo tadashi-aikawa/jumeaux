@@ -16,7 +16,7 @@ class Config(OwlMixin):
         self.encoding: str = encoding
 
 
-def main(file: str, config_dict: dict) -> TList[Request]:
+def exec(file: str, config_dict: dict) -> TList[Request]:
     """Transform apache access_log as below.
         000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
         000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=-" "header2=-"
