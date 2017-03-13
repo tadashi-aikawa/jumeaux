@@ -261,14 +261,15 @@ def challenge(arg: ChallengeArg) -> Trial:
     })
 
 
+def apply_log_addon(file: str, a: Addon):
+    return getattr(import_module(a.name), a.command)(file, a.config)
+
+
 def exec(args: Args, key: str) -> Report:
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
-
-    def apply_log_addon(file: str, a: Addon):
-        return getattr(import_module(a.name), a.command)(file, a.config)
 
     # Parse inputs to args of multi-thread executor.
     logs = args.files.flat_map(

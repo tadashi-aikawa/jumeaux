@@ -305,7 +305,7 @@ class TestChallenge:
 @patch('gemini.now')
 @patch('gemini.challenge')
 @patch('gemini.hash_from_args')
-@patch('modules.requestcreator.from_format')
+@patch('gemini.apply_log_addon')
 class TestExec:
     @classmethod
     def setup_class(cls):
@@ -316,10 +316,10 @@ class TestExec:
     def teardown_class(cls):
         shutil.rmtree("tmpdir")
 
-    def test(self, from_format, hash_from_args, challenge, now):
+    def test(self, apply_log_addon, hash_from_args, challenge, now):
         DUMMY_HASH = "dummy hash"
 
-        from_format.return_value = Request.from_dicts([
+        apply_log_addon.return_value = Request.from_dicts([
             {
                 'path': '/path',
                 'qs': {'q': ["v"]},

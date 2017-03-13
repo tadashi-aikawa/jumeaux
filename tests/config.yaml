@@ -5,9 +5,11 @@ one:
 other:
   name: name_other
   host: http://host/other
-input:
-  encoding: utf8
-  format: csv
 output:
   encoding: utf8
   response_dir: tmpdir
+addons:
+  log:
+    name: addons.log.csv-addon
+    config:
+      encoding: utf8
