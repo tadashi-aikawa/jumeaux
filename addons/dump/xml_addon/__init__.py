@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, force=False):
+    def __init__(self, default_encoding='utf8', force=False):
+        self.default_encoding: str = default_encoding
         self.force: bool = force
 
 
@@ -31,18 +32,19 @@ def exec(payload: ResponseAddOnPayload, config_dict: dict):
     config: Config = Config.from_dict(config_dict or {})
     content_type = payload.response.headers.get('content-type')
     mime_type = content_type.split(';')[0] if content_type else None
+    encoding = payload.encoding or config.default_encoding
 
     if config.force:
-        logger.debug(f"Forced to xml -- mime_type: {mime_type} -- encoding: {payload.encoding}")
-        body = pretty(payload.body.decode(payload.encoding)).encode(payload.encoding)
+        logger.debug(f"Forced to xml -- mime_type: {mime_type} -- encoding: {encoding}")
+        body = pretty(payload.body.decode(encoding)).encode(encoding)
     elif mime_type in ('text/xml', 'application/xml'):
-        logger.debug(f"Parse as xml -- mime_type: {mime_type} -- encoding: {payload.encoding}")
-        body = pretty(payload.body.decode(payload.encoding)).encode(payload.encoding)
+        logger.debug(f"Parse as xml -- mime_type: {mime_type} -- encoding: {encoding}")
+        body = pretty(payload.body.decode(encoding)).encode(encoding)
     else:
         body = payload.body
 
     return ResponseAddOnPayload.from_dict({
         "response": payload.response,
         "body": body,
-        "encoding": payload.encoding
+        "encoding": encoding
     })
