@@ -96,18 +96,32 @@ def now():
     return datetime.today()
 
 
+def addon_log(func):
+    def wrapper(*args, **kwargs):
+        addon_name = TList(args).find(lambda x: isinstance(x, Addon)).name
+        logger.debug(f'********** Start {addon_name} **********')
+        result = func(*args, **kwargs)
+        logger.debug(f'********** End   {addon_name} **********')
+        return result
+    return wrapper
+
+
+@addon_log
 def apply_log_addon(file: str, a: Addon):
     return getattr(import_module(a.name), a.command)(file, a.config)
 
 
+@addon_log
 def apply_request_addon(requests: TList[Request], a: Addon):
     return getattr(import_module(a.name), a.command)(requests, a.config)
 
 
+@addon_log
 def apply_dump_addon(payload: ResponseAddOnPayload, a: Addon):
     return getattr(import_module(a.name), a.command)(payload, a.config)
 
 
+@addon_log
 def apply_after_addon(r: Report, a: Addon, summary: OutputSummary):
     return getattr(import_module(a.name), a.command)(r, a.config, summary)
 
