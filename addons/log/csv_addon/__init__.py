@@ -12,8 +12,9 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, encoding='utf8'):
+    def __init__(self, encoding='utf8', dialect='excel'):
         self.encoding: str = encoding
+        self.dialect: str = dialect
 
 
 def exec(file: str, config_dict: dict) -> TList[Request]:
@@ -31,7 +32,7 @@ def exec(file: str, config_dict: dict) -> TList[Request]:
     outputs = []
 
     with open(file, encoding=config.encoding) as f:
-        rs = csv.DictReader(f, ('name', 'path', 'qs', 'headers'), restval={})
+        rs = csv.DictReader(f, ('name', 'path', 'qs', 'headers'), restval={}, dialect=config.dialect)
         for r in rs:
             if len(r) > 4:
                 raise ValueError
