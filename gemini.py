@@ -96,6 +96,22 @@ def now():
     return datetime.today()
 
 
+def apply_log_addon(file: str, a: Addon):
+    return getattr(import_module(a.name), a.command)(file, a.config)
+
+
+def apply_request_addon(requests: TList[Request], a: Addon):
+    return getattr(import_module(a.name), a.command)(requests, a.config)
+
+
+def apply_dump_addon(payload: ResponseAddOnPayload, a: Addon):
+    return getattr(import_module(a.name), a.command)(payload, a.config)
+
+
+def apply_after_addon(r: Report, a: Addon, summary: OutputSummary):
+    return getattr(import_module(a.name), a.command)(r, a.config, summary)
+
+
 def create_diff(text1, text2, ignore_properties, ignore_order=False):
     """
     Arguments:
@@ -208,18 +224,13 @@ def challenge(arg: ChallengeArg) -> Trial:
     logger.info(f"Status:   {status.value}")
 
     # Write response body to file
-    def apply_dump_addon(payload: ResponseAddOnPayload, a: Addon):
-        return getattr(import_module(a.name), a.command)(payload, a.config)
-
     def pretty(res):
         payload = ResponseAddOnPayload.from_dict({
             "response": res,
             "body": res.content,
             "encoding": res.encoding
         })
-        return O(arg.addons) \
-            .then(_.dump) \
-            .or_(TList()) \
+        return O(arg.addons).then(_.dump).or_(TList()) \
             .reduce(apply_dump_addon, payload) \
             .body
 
@@ -257,23 +268,23 @@ def challenge(arg: ChallengeArg) -> Trial:
     })
 
 
-def apply_log_addon(file: str, a: Addon):
-    return getattr(import_module(a.name), a.command)(file, a.config)
-
-
 def exec(args: Args, key: str) -> Report:
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
 
-    # Parse inputs to args of multi-thread executor.
-    logs = args.files.flat_map(
+    origin_logs = args.files.flat_map(
         lambda f: apply_log_addon(f, args.config.addons.log)
     )
 
+    logs = O(args.config.addons).then(_.request).or_(TList()) \
+        .reduce(apply_request_addon, origin_logs)
+
     make_dir(f'{args.config.output.response_dir}/{key}/one')
     make_dir(f'{args.config.output.response_dir}/{key}/other')
+
+    # Parse inputs to args of multi-thread executor.
     ex_args = TList(enumerate(logs)).map(lambda x: {
         "seq": x[0] + 1,
         "number_of_request": len(logs),
@@ -339,12 +350,7 @@ if __name__ == '__main__':
         logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
 
-    def apply_after_addon(r: Report, a: Addon):
-        return getattr(import_module(a.name), a.command)(r, a.config, args.config.output)
-
-    report: Report = O(args.config.addons) \
-        .then(_.after) \
-        .or_(TList()) \
-        .reduce(apply_after_addon, exec(args, hash_from_args(args)))
+    report: Report = O(args.config.addons).then(_.after).or_(TList()) \
+        .reduce(lambda t, x: apply_after_addon(t, x, args.config.output), exec(args, hash_from_args(args)))
 
     print(report.to_pretty_json())

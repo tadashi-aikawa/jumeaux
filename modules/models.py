@@ -34,10 +34,11 @@ class Addon(OwlMixin):
 
 
 class Addons(OwlMixin):
-    def __init__(self, log, dump=None, after=None):
+    def __init__(self, log, dump=None, after=None, request=None):
         self.log: Addon = Addon.from_dict(log)
         self.dump: TList[Addon] = Addon.from_optional_dicts(dump) or TList()
         self.after: TList[Addon] = Addon.from_optional_dicts(after) or TList()
+        self.request: TList[Addon] = Addon.from_optional_dicts(request) or TList()
 
 
 class Config(OwlMixin):
