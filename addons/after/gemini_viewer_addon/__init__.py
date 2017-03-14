@@ -1,16 +1,22 @@
 # -*- coding:utf-8 -*-
 
 import os
+import logging
 from decimal import Decimal
+from typing import Optional
+
 from owlmixin import OwlMixin
 from modules.models import Report, OutputSummary
 import boto3
 
+logger = logging.getLogger(__name__)
+
 
 class Config(OwlMixin):
-    def __init__(self, table, bucket):
+    def __init__(self, table, bucket, cache_max_age=0):
         self.table: str = table
         self.bucket: str = bucket
+        self.cache_max_age: int = cache_max_age
 
 
 def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
@@ -38,9 +44,12 @@ def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
     def upload_responses(which: str):
         dir = f'{output_summary.response_dir}/{report.key}'
         for file in os.listdir(f'{dir}/{which}'):
-            s3.upload_file(Bucket=config.bucket,
-                           Key=f'{report.key}/{which}/{file}',
-                           Filename=f'{dir}/{which}/{file}')
+            with open(f'{dir}/{which}/{file}', 'rb') as f:
+                logger.info(f'Put {dir}/{which}/{file}')
+                s3.put_object(Bucket=config.bucket,
+                              Key=f'{report.key}/{which}/{file}',
+                              Body=f.read(),
+                              CacheControl=f'max-age={config.cache_max_age}')
 
     # report
     s3.put_object(Bucket=config.bucket,
