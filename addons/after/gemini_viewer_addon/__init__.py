@@ -3,7 +3,6 @@
 import os
 import logging
 from decimal import Decimal
-from typing import Optional
 
 from owlmixin import OwlMixin
 from modules.models import Report, OutputSummary
@@ -33,8 +32,8 @@ def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
         "same_count": Decimal(report.summary.status.same),
         "different_count": Decimal(report.summary.status.different),
         "failure_count": Decimal(report.summary.status.failure),
-        "start": report.summary.time.start,
-        "end": report.summary.time.end
+        "begin_time": report.summary.time.start,
+        "end_time": report.summary.time.end
     }
     table.put_item(Item=item)
 
