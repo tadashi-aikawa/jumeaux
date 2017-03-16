@@ -115,10 +115,11 @@ class Report(OwlMixin):
 
 
 class Summary(OwlMixin):
-    def __init__(self, one: dict, other: dict, status: dict, time: dict):
+    def __init__(self, one: dict, other: dict, status: TDict[str], paths: TDict[str], time: dict):
         self.one: AccessPoint = AccessPoint.from_dict(one)
         self.other: AccessPoint = AccessPoint.from_dict(other)
         self.status: StatusCounts = StatusCounts.from_dict(status)
+        self.paths: TDict[str] = paths
         self.time: Time = Time.from_dict(time)
 
 

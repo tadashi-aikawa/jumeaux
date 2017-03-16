@@ -416,6 +416,10 @@ class TestExec:
                     "host": "http://host/other",
                     "name": "name_other"
                 },
+                "paths": {
+                    "/challenge1": 1,
+                    "/challenge2": 1
+                },
                 "status": {
                     "same": 1,
                     "different": 1,

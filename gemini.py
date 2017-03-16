@@ -334,6 +334,7 @@ def exec(args: Args, key: str) -> Report:
             "proxy": args.config.other.proxy
         },
         "status": trials.group_by(_.status.value).map_values(len).to_dict(),
+        "paths": trials.group_by(_.path).map_values(len).to_dict(),
         "time": {
             "start": start_time.strftime("%Y/%m/%d %X"),
             "end": end_time.strftime("%Y/%m/%d %X"),
