@@ -419,8 +419,7 @@ class TestExec:
                 "status": {
                     "same": 1,
                     "different": 1,
-                    "failure": 0,
-                    "same_without_order": 0
+                    "failure": 0
                 }
             },
             "trials": [

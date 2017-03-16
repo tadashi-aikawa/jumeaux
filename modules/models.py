@@ -123,9 +123,8 @@ class Summary(OwlMixin):
 
 
 class StatusCounts(OwlMixin):
-    def __init__(self, same: int = 0, same_without_order: int = 0, different: int = 0, failure: int = 0):
+    def __init__(self, same: int = 0, different: int = 0, failure: int = 0):
         self.same: int = same
-        self.same_without_order: int = same_without_order
         self.different: int = different
         self.failure: int = failure
 
