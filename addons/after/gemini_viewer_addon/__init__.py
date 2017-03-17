@@ -29,6 +29,7 @@ def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
         "title": report.title,
         "one_host": report.summary.one.host,
         "other_host": report.summary.other.host,
+        "paths": set(report.summary.paths),
         "same_count": Decimal(report.summary.status.same),
         "different_count": Decimal(report.summary.status.different),
         "failure_count": Decimal(report.summary.status.failure),
