@@ -302,6 +302,63 @@ class TestChallenge:
         assert actual.to_dict() == expected
 
 
+class TestCreateConfig:
+
+    def test(self):
+        actual: Config = gemini.create_config("tests/config.yaml")
+        expected = {
+            "base": "base_config.yaml",
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy"
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "responses"
+            },
+            "addons": {
+                "log": {
+                    "name": "addons.log.csv-addon",
+                    "command": "exec",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "request": [],
+                "dump": [],
+                "after": []
+            }
+        }
+
+        assert actual.to_dict() == expected
+
+    def test_no_base(self):
+        actual: Config = gemini.create_config("tests/config_no_base.yaml")
+
+        expected = {
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy"
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "responses"
+            },
+        }
+
+        assert actual.to_dict() == expected
+
+
 @patch('gemini.now')
 @patch('gemini.challenge')
 @patch('gemini.hash_from_args')
@@ -396,7 +453,31 @@ class TestExec:
             "title": "Report title",
             "config": "tests/config.yaml"
         })
-        actual: Report = gemini.exec(args, DUMMY_HASH)
+        config: Config = Config.from_dict({
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy"
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "tmpdir"
+            },
+            "addons": {
+                "log": {
+                    "name": "addons.log.csv-addon",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                }
+            }
+        })
+
+        actual: Report = gemini.exec(args, config, DUMMY_HASH)
 
         expected = {
             "key": DUMMY_HASH,

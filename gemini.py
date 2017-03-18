@@ -20,6 +20,7 @@ Options:
 Config file definition
 =======================
 
+# base: base_config.yaml
 title: test  # Ignore if you specified `--title`
 one:
   name: total
@@ -72,7 +73,7 @@ import logging.config
 import requests
 import urllib.parse as urlparser
 from owlmixin.owlcollections import TList
-from owlmixin.util import O
+from owlmixin.util import O, load_yamlf
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 from multiprocessing import Pool
@@ -285,21 +286,21 @@ def challenge(arg: ChallengeArg) -> Trial:
     })
 
 
-def exec(args: Args, key: str) -> Report:
+def exec(args: Args, config: Config, key: str) -> Report:
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
 
-    origin_logs = (args.files or args.config.input_files).flat_map(
-        lambda f: apply_log_addon(f, args.config.addons.log)
+    origin_logs = (args.files or config.input_files).flat_map(
+        lambda f: apply_log_addon(f, config.addons.log)
     )
 
-    logs = O(args.config.addons).then(_.request).or_(TList()) \
+    logs = O(config.addons).then(_.request).or_(TList()) \
         .reduce(apply_request_addon, origin_logs)
 
-    make_dir(f'{args.config.output.response_dir}/{key}/one')
-    make_dir(f'{args.config.output.response_dir}/{key}/other')
+    make_dir(f'{config.output.response_dir}/{key}/one')
+    make_dir(f'{config.output.response_dir}/{key}/other')
 
     # Parse inputs to args of multi-thread executor.
     ex_args = TList(enumerate(logs)).map(lambda x: {
@@ -308,15 +309,15 @@ def exec(args: Args, key: str) -> Report:
         "key": key,
         "name": x[1].name or str(x[0] + 1),
         "session": s,
-        "host_one": args.config.one.host,
-        "host_other": args.config.other.host,
+        "host_one": config.one.host,
+        "host_other": config.other.host,
         "path": x[1].path,
         "qs": x[1].qs,
         "headers": x[1].headers,
-        "proxy_one": Proxy.from_host(args.config.one.proxy),
-        "proxy_other": Proxy.from_host(args.config.other.proxy),
-        "res_dir": args.config.output.response_dir,
-        "addons": args.config.addons
+        "proxy_one": Proxy.from_host(config.one.proxy),
+        "proxy_other": Proxy.from_host(config.other.proxy),
+        "res_dir": config.output.response_dir,
+        "addons": config.addons
     })
 
     # Challenge
@@ -327,14 +328,14 @@ def exec(args: Args, key: str) -> Report:
 
     summary = Summary.from_dict({
         "one": {
-            "name": args.config.one.name,
-            "host": args.config.one.host,
-            "proxy": args.config.one.proxy
+            "name": config.one.name,
+            "host": config.one.host,
+            "proxy": config.one.proxy
         },
         "other": {
-            "name": args.config.other.name,
-            "host": args.config.other.host,
-            "proxy": args.config.other.proxy
+            "name": config.other.name,
+            "host": config.other.host,
+            "proxy": config.other.proxy
         },
         "status": trials.group_by(_.status.value).map_values(len).to_dict(),
         "paths": trials.group_by(_.path).map_values(len).to_dict(),
@@ -347,7 +348,7 @@ def exec(args: Args, key: str) -> Report:
 
     return Report.from_dict({
         "key": key,
-        "title": args.title or args.config.title or "No title",
+        "title": args.title or config.title or "No title",
         "summary": summary.to_dict(),
         "trials": trials.to_dicts()
     })
@@ -357,18 +358,32 @@ def hash_from_args(args: Args) -> str:
     return hashlib.sha256((str(now()) + args.to_json()).encode()).hexdigest()
 
 
+def create_config(config_path: str):
+    origin_config = load_yamlf(config_path, 'utf8')
+    base_config_path = origin_config.get('base')
+
+    if not base_config_path:
+        return Config.from_dict(origin_config)
+
+    base_config = load_yamlf(f'{os.path.dirname(config_path)}/{base_config_path}', 'utf8')
+    base_config.update(origin_config)
+    return Config.from_dict(base_config)
+
+
 if __name__ == '__main__':
     args: Args = Args.from_dict(docopt(__doc__, version=VERSION))
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=args.config.output.encoding)
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=args.config.output.encoding)
+    config: Config = create_config(args.config)
+
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=config.output.encoding)
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=config.output.encoding)
 
     # Logging settings load
-    logger_config = args.config.output.logger
+    logger_config = config.output.logger
     if logger_config:
         logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
 
-    report: Report = O(args.config.addons).then(_.after).or_(TList()) \
-        .reduce(lambda t, x: apply_after_addon(t, x, args.config.output), exec(args, hash_from_args(args)))
+    report: Report = O(config.addons).then(_.after).or_(TList()) \
+        .reduce(lambda t, x: apply_after_addon(t, x, config.output), exec(args, config, hash_from_args(args)))
 
     print(report.to_pretty_json())

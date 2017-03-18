@@ -1,4 +1,3 @@
-base: base_config.yaml
 one:
   name: name_one
   host: http://host/one

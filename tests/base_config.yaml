@@ -1,0 +1,8 @@
+output:
+  encoding: utf8
+  response_dir: tmpdir
+addons:
+  log:
+    name: addons.log.csv-addon
+    config:
+      encoding: utf8
