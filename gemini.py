@@ -7,7 +7,7 @@ Usage
 =======================
 
 Usage:
-  gemini.py --title=<title> [--threads=<threads>] [--config=<yaml>] <files>...
+  gemini.py [--title=<title>] [--threads=<threads>] [--config=<yaml>] [<files>...]
 
 Options:
   <files>...
@@ -20,6 +20,7 @@ Options:
 Config file definition
 =======================
 
+title: test  # Ignore if you specified `--title`
 one:
   name: total
   host: http://api.navitime.jp/v1/00001014
@@ -28,6 +29,8 @@ other:
   name: transfer
   host: http://api.navitime.jp/v1/00002005
   # proxy: null
+input_files:  # Ignore if you specified `<files>...`
+  - resource/requests.csv
 output:
   encoding: utf8
   response_dir: response
@@ -288,7 +291,7 @@ def exec(args: Args, key: str) -> Report:
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
 
-    origin_logs = args.files.flat_map(
+    origin_logs = (args.files or args.config.input_files).flat_map(
         lambda f: apply_log_addon(f, args.config.addons.log)
     )
 
@@ -344,7 +347,7 @@ def exec(args: Args, key: str) -> Report:
 
     return Report.from_dict({
         "key": key,
-        "title": args.title,
+        "title": args.title or args.config.title or "No title",
         "summary": summary.to_dict(),
         "trials": trials.to_dicts()
     })
