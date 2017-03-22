@@ -286,13 +286,13 @@ def challenge(arg: ChallengeArg) -> Trial:
     })
 
 
-def exec(args: Args, config: Config, key: str) -> Report:
+def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Report:
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
 
-    origin_logs = (args.files or config.input_files).flat_map(
+    origin_logs = log_file_paths.flat_map(
         lambda f: apply_log_addon(f, config.addons.log)
     )
 
@@ -383,7 +383,11 @@ if __name__ == '__main__':
         logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
 
+    input_paths = args.files or config.input_files.map(
+        lambda f: f'{os.path.dirname(args.config)}/{f}'
+    )
+
     report: Report = O(config.addons).then(_.after).or_(TList()) \
-        .reduce(lambda t, x: apply_after_addon(t, x, config.output), exec(args, config, hash_from_args(args)))
+        .reduce(lambda t, x: apply_after_addon(t, x, config.output), exec(args, config, input_paths, hash_from_args(args)))
 
     print(report.to_pretty_json())

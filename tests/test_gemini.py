@@ -477,7 +477,7 @@ class TestExec:
             }
         })
 
-        actual: Report = gemini.exec(args, config, DUMMY_HASH)
+        actual: Report = gemini.exec(args, config, TList(["dummay_file1", "dummay_file2"]), DUMMY_HASH)
 
         expected = {
             "key": DUMMY_HASH,
