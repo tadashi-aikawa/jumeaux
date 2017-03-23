@@ -138,7 +138,8 @@ class TestChallenge:
             },
             "proxy_one": None,
             "proxy_other": None,
-            "addons": None
+            "addons": None,
+            "interval_sec": 0
         })
 
         actual = gemini.challenge(args)
@@ -217,7 +218,8 @@ class TestChallenge:
             },
             "proxy_one": None,
             "proxy_other": None,
-            "addons": None
+            "addons": None,
+            "interval_sec": 0
         })
         actual = gemini.challenge(args)
 
@@ -275,7 +277,8 @@ class TestChallenge:
             },
             "proxy_one": None,
             "proxy_other": None,
-            "addons": None
+            "addons": None,
+            "interval_sec": 0
         })
         actual = gemini.challenge(args)
 
@@ -451,6 +454,7 @@ class TestExec:
             "files": ['line1', 'line2'],
             "threads": 1,
             "title": "Report title",
+            "interval_sec": 0,
             "config": "tests/config.yaml"
         })
         config: Config = Config.from_dict({

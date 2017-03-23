@@ -7,13 +7,14 @@ Usage
 =======================
 
 Usage:
-  gemini.py [--title=<title>] [--threads=<threads>] [--config=<yaml>] [<files>...]
+  gemini.py [--title=<title>] [--threads=<threads>] [--config=<yaml>] [--interval-sec=<interval_sec>] [<files>...]
 
 Options:
   <files>...
-  --title = <title>      The title of report
-  --threads = <threads>  The number of threads in challenge [default: 1]
-  --config = <yaml>      Configuration file(see below) [default: config.yaml]
+  --title = <title>                The title of report
+  --threads = <threads>            The number of threads in challenge [default: 1]
+  --interval-sec = <interval_sec>  Interval in seconds between trials [default: 0]
+  --config = <yaml>                Configuration file(see below) [default: config.yaml]
 
 
 =======================
@@ -72,6 +73,7 @@ import logging.config
 
 import requests
 import urllib.parse as urlparser
+import time
 from owlmixin.owlcollections import TList
 from owlmixin.util import O, load_yamlf
 from requests.adapters import HTTPAdapter
@@ -201,6 +203,8 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
 
 
 def challenge(arg: ChallengeArg) -> Trial:
+    logger.debug(f"Sleep:  {arg.interval_sec} sec")
+    time.sleep(arg.interval_sec)
     logger.info(f"Challenge:  {arg.seq} / {arg.number_of_request} -- {arg.name}")
 
     qs_str = urlparser.urlencode(arg.qs, doseq=True)
@@ -317,7 +321,8 @@ def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Re
         "proxy_one": Proxy.from_host(config.one.proxy),
         "proxy_other": Proxy.from_host(config.other.proxy),
         "res_dir": config.output.response_dir,
-        "addons": config.addons
+        "addons": config.addons,
+        "interval_sec": args.interval_sec
     })
 
     # Challenge

@@ -56,11 +56,12 @@ class Config(OwlMixin):
 
 
 class Args(OwlMixin):
-    def __init__(self, files, title: str, config: str, threads):
+    def __init__(self, files, title: str, config: str, threads: str, interval_sec: str):
         self.files: TList[str] = TList(files)
         self.title: str = title
         self.config: str = config
         self.threads: int = int(threads)
+        self.interval_sec: float = float(interval_sec)
 
 
 class Request(OwlMixin):
@@ -90,7 +91,7 @@ class ChallengeArg(OwlMixin):
     def __init__(self, seq: int, number_of_request: int, key: str, name: str,
                  session: object, host_one: str, host_other: str, path: str, res_dir: str,
                  qs: TDict[TList[str]], headers: TDict[str], proxy_one: Proxy, proxy_other: Proxy,
-                 addons: Addons):
+                 addons: Addons, interval_sec: float):
         self.seq: int = seq
         self.number_of_request: int = number_of_request
         self.key: str = key
@@ -105,6 +106,7 @@ class ChallengeArg(OwlMixin):
         self.proxy_one: Optional[Proxy] = proxy_one
         self.proxy_other: Optional[Proxy] = proxy_other
         self.addons: Optional[Addons] = addons
+        self.interval_sec: float = interval_sec
 
 
 # --------
