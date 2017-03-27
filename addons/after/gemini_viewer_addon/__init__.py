@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import os
+import shutil
 import logging
 from decimal import Decimal
 
@@ -12,10 +13,11 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, table, bucket, cache_max_age=0):
+    def __init__(self, table, bucket, cache_max_age=0, with_zip=True):
         self.table: str = table
         self.bucket: str = bucket
         self.cache_max_age: int = cache_max_age
+        self.with_zip = with_zip
 
 
 def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
@@ -34,7 +36,8 @@ def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
         "different_count": Decimal(report.summary.status.different),
         "failure_count": Decimal(report.summary.status.failure),
         "begin_time": report.summary.time.start,
-        "end_time": report.summary.time.end
+        "end_time": report.summary.time.end,
+        "with_zip": config.with_zip
     }
     table.put_item(Item=item)
 
@@ -59,5 +62,19 @@ def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
     # details
     upload_responses("one")
     upload_responses("other")
+
+    # zip (${hashkey}.zip)
+    if config.with_zip:
+        base_name = f'{output_summary.response_dir}/{report.key}'
+        shutil.make_archive(base_name, 'zip', f'{output_summary.response_dir}/{report.key}')
+
+        zip_fullpath = f'{base_name}.zip'
+        with open(zip_fullpath, 'rb') as f:
+            logger.info(f'Put {zip_fullpath}')
+            s3.put_object(Bucket=config.bucket,
+                          Key=f'{report.key}/{report.key[0:6]}.zip',
+                          Body=f.read(),
+                          CacheControl=f'max-age={config.cache_max_age}')
+        os.remove(zip_fullpath)
 
     return report
