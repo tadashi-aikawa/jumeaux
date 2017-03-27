@@ -221,6 +221,7 @@ def challenge(arg: ChallengeArg) -> Trial:
     except ConnectionError:
         # TODO: Integrate logic into create_trial
         return Trial.from_dict({
+            "seq": arg.seq,
             "name": arg.name,
             "request_time": req_time.strftime("%Y/%m/%d %X"),
             "status": Status.FAILURE,
@@ -259,12 +260,13 @@ def challenge(arg: ChallengeArg) -> Trial:
     file_one = file_other = None
     if status != Status.SAME:
         dir = f'{arg.res_dir}/{arg.key}'
-        file_one = f'one/{arg.seq}'
-        file_other = f'other/{arg.seq}'
+        file_one = f'one/({arg.seq}){arg.name}'
+        file_other = f'other/({arg.seq}){arg.name}'
         write_to_file(file_one, dir, pretty(res_one))
         write_to_file(file_other, dir, pretty(res_other))
 
     return Trial.from_dict({
+        "seq": arg.seq,
         "name": arg.name,
         "request_time": req_time.strftime("%Y/%m/%d %X"),
         "status": status,
