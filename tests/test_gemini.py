@@ -145,6 +145,7 @@ class TestChallenge:
         actual = gemini.challenge(args)
 
         expected = {
+            "seq": 1,
             "name": "name1",
             "request_time": '2000/01/01 00:00:00',
             "status": Status.DIFFERENT,
@@ -158,7 +159,7 @@ class TestChallenge:
                 "header2": "2",
             },
             "one": {
-                "file": "one/1",
+                "file": "one/(1)name1",
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 20,
@@ -166,7 +167,7 @@ class TestChallenge:
                 "content_type": 'application/json;utf-8'
             },
             "other": {
-                "file": "other/1",
+                "file": "other/(1)name1",
                 "url": 'URL_OTHER',
                 "status_code": 400,
                 "byte": 23,
@@ -224,6 +225,7 @@ class TestChallenge:
         actual = gemini.challenge(args)
 
         expected = {
+            "seq": 1,
             "name": "name2",
             "request_time": '2000/01/01 00:00:00',
             "status": Status.SAME,
@@ -259,7 +261,7 @@ class TestChallenge:
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
 
         args: ChallengeArg = ChallengeArg.from_dict({
-            "seq": "1",
+            "seq": 1,
             "name": "name3",
             "number_of_request": 10,
             "key": "hash_key",
@@ -283,6 +285,7 @@ class TestChallenge:
         actual = gemini.challenge(args)
 
         expected = {
+            "seq": 1,
             "name": "name3",
             "request_time": '2000/01/01 00:00:00',
             "status": Status.FAILURE,
@@ -389,7 +392,8 @@ class TestExec:
         hash_from_args.return_value = DUMMY_HASH
         challenge.side_effect = Trial.from_dicts([
             {
-                "name": "1",
+                "seq": 1,
+                "name": "name1",
                 "request_time": '2000/01/01 00:00:01',
                 "status": 'different',
                 "path": '/challenge1',
@@ -402,14 +406,14 @@ class TestExec:
                     "header2": "2",
                 },
                 "one": {
-                    "file": "one/1",
+                    "file": "one/(1)name1",
                     "url": 'URL_ONE',
                     "status_code": 200,
                     "byte": 20,
                     "response_sec": 1.23
                 },
                 "other": {
-                    "file": "other/1",
+                    "file": "other/(1)name1",
                     "url": 'URL_OTHER',
                     "status_code": 400,
                     "byte": 23,
@@ -417,7 +421,8 @@ class TestExec:
                 }
             },
             {
-                "name": "2",
+                "seq": 2,
+                "name": "name2",
                 "request_time": '2000/01/01 00:00:02',
                 "status": 'same',
                 "path": '/challenge2',
@@ -430,14 +435,14 @@ class TestExec:
                     "header2": "2",
                 },
                 "one": {
-                    "file": "one/2",
+                    "file": "one/(2)name2",
                     "url": 'URL_ONE',
                     "status_code": 200,
                     "byte": 1,
                     "response_sec": 1.00
                 },
                 "other": {
-                    "file": "other/2",
+                    "file": "other/(2)name2",
                     "url": 'URL_OTHER',
                     "status_code": 200,
                     "byte": 1,
@@ -513,7 +518,8 @@ class TestExec:
             },
             "trials": [
                 {
-                    "name": "1",
+                    "seq": 1,
+                    "name": "name1",
                     "request_time": '2000/01/01 00:00:01',
                     "status": Status.DIFFERENT,
                     "path": '/challenge1',
@@ -526,14 +532,14 @@ class TestExec:
                         "header2": "2",
                     },
                     "one": {
-                        "file": "one/1",
+                        "file": "one/(1)name1",
                         "url": 'URL_ONE',
                         "status_code": 200,
                         "byte": 20,
                         "response_sec": 1.23
                     },
                     "other": {
-                        "file": "other/1",
+                        "file": "other/(1)name1",
                         "url": 'URL_OTHER',
                         "status_code": 400,
                         "byte": 23,
@@ -541,7 +547,8 @@ class TestExec:
                     }
                 },
                 {
-                    "name": "2",
+                    "seq": 2,
+                    "name": "name2",
                     "request_time": '2000/01/01 00:00:02',
                     "status": Status.SAME,
                     "path": '/challenge2',
@@ -554,14 +561,14 @@ class TestExec:
                         "header2": "2",
                     },
                     "one": {
-                        "file": "one/2",
+                        "file": "one/(2)name2",
                         "url": 'URL_ONE',
                         "status_code": 200,
                         "byte": 1,
                         "response_sec": 1.00
                     },
                     "other": {
-                        "file": "other/2",
+                        "file": "other/(2)name2",
                         "url": 'URL_OTHER',
                         "status_code": 200,
                         "byte": 1,
