@@ -66,6 +66,8 @@ def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
     # zip (${hashkey}.zip)
     if config.with_zip:
         base_name = f'{output_summary.response_dir}/{report.key}'
+        with open(f'{base_name}/report.json', 'w', encoding=output_summary.encoding) as f:
+            f.write(report.to_pretty_json())
         shutil.make_archive(base_name, 'zip', f'{output_summary.response_dir}/{report.key}')
 
         zip_fullpath = f'{base_name}.zip'
