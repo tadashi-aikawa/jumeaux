@@ -270,7 +270,7 @@ def challenge(arg: ChallengeArg) -> Trial:
         "name": arg.name,
         "request_time": req_time.strftime("%Y/%m/%d %X"),
         "status": status,
-        "path": arg.path,
+        "path": arg.path or "No path",
         "queries": arg.qs,
         "headers": arg.headers,
         "one": {
