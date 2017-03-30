@@ -491,6 +491,18 @@ class TestExec:
         expected = {
             "key": DUMMY_HASH,
             "title": "Report title",
+            "addons": {
+                "log": {
+                    "name": "addons.log.csv-addon",
+                    "command": "exec",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "dump": [],
+                "after": [],
+                "request": []
+            },
             "summary": {
                 "time": {
                     "start": '2000/01/01 23:50:30',

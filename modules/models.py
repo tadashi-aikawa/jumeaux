@@ -112,11 +112,12 @@ class ChallengeArg(OwlMixin):
 # --------
 
 class Report(OwlMixin):
-    def __init__(self, key: str, title: str, summary: dict, trials: list):
+    def __init__(self, key: str, title: str, summary: dict, trials: list, addons: Addons=None):
         self.key: str = key
         self.title: str = title
         self.summary: Summary = Summary.from_dict(summary)
         self.trials: TList[Trial] = Trial.from_dicts(trials)
+        self.addons: Optional[Addons] = Addons.from_optional_dict(addons)
 
 
 class Summary(OwlMixin):

@@ -357,7 +357,8 @@ def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Re
         "key": key,
         "title": args.title or config.title or "No title",
         "summary": summary.to_dict(),
-        "trials": trials.to_dicts()
+        "trials": trials.to_dicts(),
+        "addons": config.addons.to_dict()
     })
 
 
