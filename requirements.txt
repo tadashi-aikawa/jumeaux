@@ -3,6 +3,6 @@ docopt
 schema
 xmltodict
 pyyaml
-owlmixin
+owlmixin==1.2.0a1
 fn
 boto3
