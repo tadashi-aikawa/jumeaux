@@ -59,6 +59,6 @@ def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
             "icon_url": c.payload.icon_url,
             "link_names": 1
         })
-        requests.post(os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json())
+        requests.post(os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json().encode('utf8'))
 
     return report
