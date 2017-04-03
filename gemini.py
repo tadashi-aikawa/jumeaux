@@ -71,11 +71,13 @@ from importlib import import_module
 from logging import getLogger
 import logging.config
 
+
 import requests
 import urllib.parse as urlparser
 import time
 from owlmixin.owlcollections import TList
 from owlmixin.util import O, load_yamlf
+from deepdiff import DeepDiff
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 from multiprocessing import Pool
@@ -121,6 +123,9 @@ def apply_log_addon(file: str, a: Addon):
 def apply_request_addon(requests: TList[Request], a: Addon):
     return getattr(import_module(a.name), a.command)(requests, a.config)
 
+@addon_log
+def apply_res2dict_addon(payload: Res2DictAddOnPayload, a: Addon):
+    return getattr(import_module(a.name), a.command)(payload, a.config)
 
 @addon_log
 def apply_dump_addon(payload: ResponseAddOnPayload, a: Addon):
@@ -130,37 +135,6 @@ def apply_dump_addon(payload: ResponseAddOnPayload, a: Addon):
 @addon_log
 def apply_after_addon(r: Report, a: Addon, summary: OutputSummary):
     return getattr(import_module(a.name), a.command)(r, a.config, summary)
-
-
-def create_diff(text1, text2, ignore_properties, ignore_order=False):
-    """
-    Arguments:
-       (str) text1                    -- Target one
-       (str) text2                    -- Target other
-       (list(str)) ignore_properties  -- Ignore properties
-       (bool) ignore_order            -- Ignore order in array
-
-    Returns:
-       (list(str)) --- Diff string (Empty list if same. None if cannot be analyzed and different.)
-    """
-    if text1 == text2:
-        return []
-
-    try:
-        return DictUtils.diff(json.loads(text1), json.loads(text2),
-                              ignore_properties=ignore_properties,
-                              ignore_order=ignore_order)
-    except:
-        pass
-
-    try:
-        return DictUtils.diff(xmltodict.parse(text1), xmltodict.parse(text2),
-                              ignore_properties=ignore_properties,
-                              ignore_order=ignore_order)
-    except:
-        pass
-
-    return None
 
 
 def write_to_file(name, dir, body):
@@ -236,11 +210,30 @@ def challenge(arg: ChallengeArg) -> Trial:
             }
         })
 
+    def res2dict(res) -> Optional[dict]:
+        payload = Res2DictAddOnPayload.from_dict({
+            "response": res,
+            "result": None
+        })
+        return O(arg.addons).then(_.res2dict).or_(TList()) \
+            .reduce(apply_res2dict_addon, payload) \
+            .result
+
+    dict_one = res2dict(res_one)
+    dict_other = res2dict(res_other)
+
     # Create diff
-    diff = create_diff(res_one.text, res_other.text, None)
+    ddiff = DeepDiff(dict_one, dict_other) \
+        if dict_one is not None and dict_other is not None \
+        else None
+    diff_keys: Optional[DiffKeys] = DiffKeys.from_dict({
+        "changed": sorted(list(ddiff.get('type_changes', {}).keys() | ddiff.get('values_changed', {}).keys())),
+        "added": sorted(list(ddiff.get('dictionary_item_added', {}) | ddiff.get('iterable_item_added', {}).keys())),
+        "removed": sorted(list(ddiff.get('dictionary_item_removed', {}) | ddiff.get('iterable_item_removed', {}).keys()))
+    }) if ddiff is not None else None
 
     # Judgement
-    if diff is not None and len(diff) == 0:
+    if res_one.content == res_other.content:
         status: Status = Status.SAME
     else:
         status: Status = Status.DIFFERENT
@@ -273,6 +266,7 @@ def challenge(arg: ChallengeArg) -> Trial:
         "path": arg.path or "No path",
         "queries": arg.qs,
         "headers": arg.headers,
+        "diff_keys": O(diff_keys).then_or_none(lambda x: x.to_dict()),
         "one": {
             "url": res_one.url,
             "status_code": res_one.status_code,

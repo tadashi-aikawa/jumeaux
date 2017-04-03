@@ -34,8 +34,9 @@ class Addon(OwlMixin):
 
 
 class Addons(OwlMixin):
-    def __init__(self, log, dump=None, after=None, request=None):
+    def __init__(self, log, res2dict=None, dump=None, after=None, request=None):
         self.log: Addon = Addon.from_dict(log)
+        self.res2dict: TList[Addon] = Addon.from_optional_dicts(res2dict) or TList()
         self.dump: TList[Addon] = Addon.from_optional_dicts(dump) or TList()
         self.after: TList[Addon] = Addon.from_optional_dicts(after) or TList()
         self.request: TList[Addon] = Addon.from_optional_dicts(request) or TList()
@@ -143,9 +144,16 @@ class Time(OwlMixin):
         self.elapsed_sec: int = elapsed_sec
 
 
+class DiffKeys(OwlMixin):
+    def __init__(self, changed: List[str], added: List[str], removed: List[str]):
+        self.changed: TList[str] = changed
+        self.added: TList[str] = added
+        self.removed: TList[str] = removed
+
+
 class Trial(OwlMixin):
     def __init__(self, seq: int, name: str, headers: dict, queries: dict, one: dict, other: dict,
-                 path: str, request_time: str, status: str):
+                 path: str, request_time: str, status: str, diff_keys: dict=None):
         self.seq: int = seq
         self.name: str = name
         self.headers: Dict[str, str] = headers
@@ -155,6 +163,8 @@ class Trial(OwlMixin):
         self.path: str = path
         self.request_time: str = request_time
         self.status: Status = Status(status)
+        # `None` is not same as `{}`. `{}` means no diffs, None means unknown
+        self.diff_keys: Optional[DiffKeys] = DiffKeys.from_optional_dict(diff_keys)
 
 
 class ResponseSummary(OwlMixin):
@@ -175,3 +185,9 @@ class ResponseAddOnPayload(OwlMixin):
         self.response = response  # requests style
         self.body = body
         self.encoding = encoding
+
+
+class Res2DictAddOnPayload(OwlMixin):
+    def __init__(self, response, result: Optional[dict]):
+        self.response = response  # requests style
+        self.result: Optional[dict] = result

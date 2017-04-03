@@ -6,3 +6,4 @@ pyyaml
 owlmixin==1.2.0a1
 fn
 boto3
+deepdiff
