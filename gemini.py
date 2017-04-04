@@ -234,17 +234,26 @@ def challenge(arg: ChallengeArg) -> Trial:
         if dict_one is not None and dict_other is not None \
         else None
     diff_keys: Optional[DiffKeys] = DiffKeys.from_dict({
-        "changed": sorted(list(ddiff.get('type_changes', {}).keys() | ddiff.get('values_changed', {}).keys())),
-        "added": sorted(list(ddiff.get('dictionary_item_added', {}) | ddiff.get('iterable_item_added', {}).keys())),
-        "removed": sorted(list(ddiff.get('dictionary_item_removed', {}) | ddiff.get('iterable_item_removed', {}).keys()))
+        "changed": TList(ddiff.get('type_changes', {}).keys() | ddiff.get('values_changed', {}).keys())
+            .map(lambda x: x.replace('[', '<').replace(']', '>'))
+            .order_by(_),
+        "added": TList(ddiff.get('dictionary_item_added', {}) | ddiff.get('iterable_item_added', {}).keys())
+            .map(lambda x: x.replace('[', '<').replace(']', '>'))
+            .order_by(_),
+        "removed": TList(ddiff.get('dictionary_item_removed', {}) | ddiff.get('iterable_item_removed', {}).keys())
+            .map(lambda x: x.replace('[', '<').replace(']', '>'))
+            .order_by(_)
     }) if ddiff is not None else None
 
-    def judge(res_one, res_other) -> Status:
+    def judge(r_one, r_other) -> Status:
         payload = JudgementAddOnPayload.from_dict({
-            "res_one": res_one,
-            "res_other": res_other,
+            "path": arg.path,
+            "qs": arg.qs,
+            "headers": arg.headers,
+            "res_one": r_one,
+            "res_other": r_other,
             "diff_keys": O(diff_keys).then_or_none(lambda x: x.to_dict()),
-            "regard_as_same": False
+            "regard_as_same": r_one.content == r_other.content
         })
         regard_as_same: bool = O(arg.addons).then(_.judgement).or_(TList()) \
             .reduce(apply_judgement_addon, payload) \
