@@ -196,11 +196,12 @@ class Res2DictAddOnPayload(OwlMixin):
 
 class JudgementAddOnPayload(OwlMixin):
     def __init__(self, path, qs: TDict[TList[str]], headers: TDict[str],
-                 res_one, res_other, diff_keys: dict, regard_as_same: bool):
+                 res_one, res_other, diff_keys: Optional[dict], regard_as_same: bool):
         self.path: str = path
         self.qs: TDict[TList[str]] = qs
         self.headers: TDict[str] = headers
         self.res_one = res_one  # requests style
         self.res_other = res_other  # requests style
+        # None if unknown
         self.diff_keys: Optional[DiffKeys] = DiffKeys.from_optional_dict(diff_keys)
         self.regard_as_same: bool = regard_as_same

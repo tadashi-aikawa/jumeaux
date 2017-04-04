@@ -4,6 +4,7 @@ import re
 from typing import Optional, List
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
+from owlmixin.util import O
 from modules.models import JudgementAddOnPayload, DiffKeys
 
 
@@ -26,7 +27,7 @@ class Config(OwlMixin):
 
 
 def exec(payload: JudgementAddOnPayload, config_dict: dict):
-    if payload.regard_as_same:
+    if payload.regard_as_same or payload.diff_keys is None:
         return payload
 
     config: Config = Config.from_dict(config_dict or {})
