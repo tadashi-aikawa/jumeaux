@@ -1,5 +1,17 @@
 # -*- coding:utf-8 -*-
 
+"""For example of config
+judgement:
+  - name: addons.judgement.ignore_property_addon
+    config:
+      ignores:
+        - path:
+            pattern: '/route'
+            changed:
+              - root['items'][0]
+              - root['unit']
+"""
+
 import re
 from typing import Optional, List
 from owlmixin import OwlMixin

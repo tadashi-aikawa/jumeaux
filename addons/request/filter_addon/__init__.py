@@ -3,20 +3,20 @@
 """For example of config
 
 request:
-- name: addons.request.filter_addon
-  config:
-    filters:
-      - path:
-          matchers:
-            - value: list
-            - value: route
-              kind: suffix
-          and_or: or
-      - name:
-          matchers:
-            - value: 一覧
-              negative: true
-    and_or: and
+  - name: addons.request.filter_addon
+    config:
+      filters:
+        - path:
+            matchers:
+              - value: list
+              - value: route
+                kind: suffix
+            and_or: or
+        - name:
+            matchers:
+              - value: 一覧
+                negative: true
+      and_or: and
 """
 
 import logging
