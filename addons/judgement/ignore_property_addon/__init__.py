@@ -8,24 +8,32 @@ judgement:
         - path:
             pattern: '/route'
             changed:
-              - root['items'][0]
+              - pattern: root['items'][0]
+                note: reason
               - root['unit']
 """
 
 import re
 from typing import Optional, List
+
+from fn import _
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
-from owlmixin.util import O
 from modules.models import JudgementAddOnPayload, DiffKeys
+
+
+class RegMatcher(OwlMixin):
+    def __init__(self, pattern: str, note: Optional[str]=None):
+        self.pattern: str = pattern
+        self.note: Optional[str] = note
 
 
 class Path(OwlMixin):
     def __init__(self, pattern: str, added: Optional[List[str]]=None, removed: Optional[List[str]]=None, changed: Optional[List[str]]=None):
         self.pattern: str = pattern
-        self.added: TList[str] = TList(added) if added is not None else TList()
-        self.removed: TList[str] = TList(removed) if removed is not None else TList()
-        self.changed: TList[str] = TList(changed) if changed is not None else TList()
+        self.added: TList[RegMatcher] = RegMatcher.from_optional_dicts(added) if added is not None else TList()
+        self.removed: TList[RegMatcher] = RegMatcher.from_optional_dicts(removed) if removed is not None else TList()
+        self.changed: TList[RegMatcher] = RegMatcher.from_optional_dicts(changed) if changed is not None else TList()
 
 
 class Ignore(OwlMixin):
@@ -50,13 +58,13 @@ def exec(payload: JudgementAddOnPayload, config_dict: dict):
 
         return DiffKeys.from_dict({
             "added": payload.diff_keys.added.reject(
-                lambda dk: ignore.path.added.any(lambda ig: re.search(ig, dk))
+                lambda dk: ignore.path.added.map(_.pattern).any(lambda ig: re.search(ig, dk))
             ),
             "removed": payload.diff_keys.removed.reject(
-                lambda dk: ignore.path.removed.any(lambda ig: re.search(ig, dk))
+                lambda dk: ignore.path.removed.map(_.pattern).any(lambda ig: re.search(ig, dk))
             ),
             "changed": payload.diff_keys.changed.reject(
-                lambda dk: ignore.path.changed.any(lambda ig: re.search(ig, dk))
+                lambda dk: ignore.path.changed.map(_.pattern).any(lambda ig: re.search(ig, dk))
             )
         })
 
