@@ -34,12 +34,13 @@ class Addon(OwlMixin):
 
 
 class Addons(OwlMixin):
-    def __init__(self, log, res2dict=None, dump=None, after=None, request=None):
+    def __init__(self, log, res2dict=None, dump=None, after=None, request=None, judgement=None):
         self.log: Addon = Addon.from_dict(log)
         self.res2dict: TList[Addon] = Addon.from_optional_dicts(res2dict) or TList()
         self.dump: TList[Addon] = Addon.from_optional_dicts(dump) or TList()
         self.after: TList[Addon] = Addon.from_optional_dicts(after) or TList()
         self.request: TList[Addon] = Addon.from_optional_dicts(request) or TList()
+        self.judgement: TList[Addon] = Addon.from_optional_dicts(judgement) or TList()
 
 
 class Config(OwlMixin):
@@ -146,9 +147,9 @@ class Time(OwlMixin):
 
 class DiffKeys(OwlMixin):
     def __init__(self, changed: List[str], added: List[str], removed: List[str]):
-        self.changed: TList[str] = changed
-        self.added: TList[str] = added
-        self.removed: TList[str] = removed
+        self.changed: TList[str] = TList(changed)
+        self.added: TList[str] = TList(added)
+        self.removed: TList[str] = TList(removed)
 
 
 class Trial(OwlMixin):
@@ -191,3 +192,11 @@ class Res2DictAddOnPayload(OwlMixin):
     def __init__(self, response, result: Optional[dict]):
         self.response = response  # requests style
         self.result: Optional[dict] = result
+
+
+class JudgementAddOnPayload(OwlMixin):
+    def __init__(self, res_one, res_other, diff_keys: dict, regard_as_same: bool):
+        self.res_one = res_one  # requests style
+        self.res_other = res_other  # requests style
+        self.diff_keys: Optional[DiffKeys] = DiffKeys.from_optional_dict(diff_keys)
+        self.regard_as_same: bool = regard_as_same

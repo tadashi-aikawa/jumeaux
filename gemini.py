@@ -123,9 +123,16 @@ def apply_log_addon(file: str, a: Addon):
 def apply_request_addon(requests: TList[Request], a: Addon):
     return getattr(import_module(a.name), a.command)(requests, a.config)
 
+
 @addon_log
 def apply_res2dict_addon(payload: Res2DictAddOnPayload, a: Addon):
     return getattr(import_module(a.name), a.command)(payload, a.config)
+
+
+@addon_log
+def apply_judgement_addon(payload: JudgementAddOnPayload, a: Addon):
+    return getattr(import_module(a.name), a.command)(payload, a.config)
+
 
 @addon_log
 def apply_dump_addon(payload: ResponseAddOnPayload, a: Addon):
@@ -232,11 +239,20 @@ def challenge(arg: ChallengeArg) -> Trial:
         "removed": sorted(list(ddiff.get('dictionary_item_removed', {}) | ddiff.get('iterable_item_removed', {}).keys()))
     }) if ddiff is not None else None
 
+    def judge(res_one, res_other) -> Status:
+        payload = JudgementAddOnPayload.from_dict({
+            "res_one": res_one,
+            "res_other": res_other,
+            "diff_keys": O(diff_keys).then_or_none(lambda x: x.to_dict()),
+            "regard_as_same": False
+        })
+        regard_as_same: bool = O(arg.addons).then(_.judgement).or_(TList()) \
+            .reduce(apply_judgement_addon, payload) \
+            .regard_as_same
+        return Status.SAME if regard_as_same else Status.DIFFERENT
+
     # Judgement
-    if res_one.content == res_other.content:
-        status: Status = Status.SAME
-    else:
-        status: Status = Status.DIFFERENT
+    status: Status = judge(res_one, res_other)
     logger.info(f"Status:   {status.value}")
 
     # Write response body to file
