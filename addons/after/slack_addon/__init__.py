@@ -52,7 +52,7 @@ def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
 
     for c in config.conditions:  # type: Condition
         p = SlackPayload.from_dict({
-            "text": c.payload.message_format.format(report.to_dict()),
+            "text": c.payload.message_format.format(**report.to_dict()),
             "channel": c.payload.channel,
             "username": c.payload.username,
             "icon_emoji": c.payload.icon_emoji,
