@@ -27,20 +27,20 @@ class OutputSummary(OwlMixin):
 
 
 class Addon(OwlMixin):
-    def __init__(self, name, command: str = 'Executor', config: dict = None):
+    def __init__(self, name, cls_name: str = 'Executor', config: dict = None):
         self.name: str = name
-        self.command: str = command
+        self.cls_name: str = cls_name
         self.config: dict = config
 
 
 class Addons(OwlMixin):
-    def __init__(self, log, res2dict=None, dump=None, after=None, request=None, judgement=None):
-        self.log: Addon = Addon.from_dict(log)
+    def __init__(self, log2reqs, reqs2reqs=None, res2dict=None, judgement=None, dump=None, final=None):
+        self.log2reqs: Addon = Addon.from_dict(log2reqs)
+        self.reqs2reqs: TList[Addon] = Addon.from_optional_dicts(reqs2reqs) or TList()
         self.res2dict: TList[Addon] = Addon.from_optional_dicts(res2dict) or TList()
-        self.dump: TList[Addon] = Addon.from_optional_dicts(dump) or TList()
-        self.after: TList[Addon] = Addon.from_optional_dicts(after) or TList()
-        self.request: TList[Addon] = Addon.from_optional_dicts(request) or TList()
         self.judgement: TList[Addon] = Addon.from_optional_dicts(judgement) or TList()
+        self.dump: TList[Addon] = Addon.from_optional_dicts(dump) or TList()
+        self.final: TList[Addon] = Addon.from_optional_dicts(final) or TList()
 
 
 class Config(OwlMixin):
@@ -181,18 +181,12 @@ class ResponseSummary(OwlMixin):
 
 # ---
 
-class AfterAddOnPayload(OwlMixin):
-    def __init__(self, report: Report, output_summary: OutputSummary):
-        self.report: Report = report
-        self.output_summary: OutputSummary = output_summary
-
-
-class LogAddOnPayload(OwlMixin):
+class Log2ReqsAddOnPayload(OwlMixin):
     def __init__(self, file: str):
         self.file: str = file
 
 
-class RequestAddOnPayload(OwlMixin):
+class Reqs2ReqsAddOnPayload(OwlMixin):
     def __init__(self, requests: TList[Request]):
         self.requests: TList[Request] = requests
 
@@ -221,3 +215,9 @@ class JudgementAddOnPayload(OwlMixin):
         # None if unknown
         self.diff_keys: Optional[DiffKeys] = DiffKeys.from_optional_dict(diff_keys)
         self.regard_as_same: bool = regard_as_same
+
+
+class FinalAddOnPayload(OwlMixin):
+    def __init__(self, report: Report, output_summary: OutputSummary):
+        self.report: Report = report
+        self.output_summary: OutputSummary = output_summary

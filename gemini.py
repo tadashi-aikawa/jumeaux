@@ -51,12 +51,12 @@ output:
 #     level: INFO
 #     handlers: [console]
 addons:
-  log:
-    name: addons.log.csv_addon
+  log2reqs:
+    name: addons.log2reqs.csv
     config:
       encoding: utf8
-# after:
-#   - name: addons.after.gemini_viewer_addon
+# final:
+#   - name: addons.final.aws
 #     config:
 #       table:  dynamo-db-table-name
 #       bucket: s3-bucket-name
@@ -265,8 +265,8 @@ def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Re
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
 
-    logs: TList[Request] = global_addon_excutor.apply_request(RequestAddOnPayload.from_dict({
-        'requests': log_file_paths.flat_map(lambda f: global_addon_excutor.apply_log(LogAddOnPayload.from_dict({
+    logs: TList[Request] = global_addon_excutor.apply_reqs2reqs(Reqs2ReqsAddOnPayload.from_dict({
+        'requests': log_file_paths.flat_map(lambda f: global_addon_excutor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({
             'file': f
         })))
     })).requests
@@ -364,7 +364,7 @@ if __name__ == '__main__':
         lambda f: f'{os.path.dirname(args.config)}/{f}'
     )
 
-    report: Report = global_addon_excutor.apply_after(AfterAddOnPayload.from_dict({
+    report: Report = global_addon_excutor.apply_final(FinalAddOnPayload.from_dict({
         'report': exec(args, config, input_paths, hash_from_args(args)),
         'output_summary': config.output
     })).report
