@@ -4,7 +4,7 @@ import logging
 
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
-from modules.models import Request
+from modules.models import Request, RequestAddOnPayload
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +14,11 @@ class Config(OwlMixin):
         self.size: int = size
 
 
-def exec(requests: TList[Request], config_dict: dict) -> TList[Request]:
-    config: Config = Config.from_dict(config_dict or {})
-    return requests[0:config.size]
+class Executor:
+    def __init__(self, config: dict):
+        self.config: Config = Config.from_dict(config or {})
+
+    def exec(self, payload: RequestAddOnPayload) -> RequestAddOnPayload:
+        return RequestAddOnPayload.from_dict({
+            'requests': payload.requests[0:self.config.size]
+        })

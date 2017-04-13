@@ -6,7 +6,7 @@ import logging
 from decimal import Decimal
 
 from owlmixin import OwlMixin
-from modules.models import Report, OutputSummary
+from modules.models import Report, OutputSummary, AfterAddOnPayload
 import boto3
 
 logger = logging.getLogger(__name__)
@@ -20,63 +20,68 @@ class Config(OwlMixin):
         self.with_zip = with_zip
 
 
-def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
-    config: Config = Config.from_dict(config_dict or {})
+class Executor:
+    def __init__(self, config: dict):
+        self.config: Config = Config.from_dict(config or {})
 
-    # dynamo
-    dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table(config.table)
-    item = {
-        "hashkey": report.key,
-        "title": report.title,
-        "one_host": report.summary.one.host,
-        "other_host": report.summary.other.host,
-        "paths": set(report.summary.paths),
-        "same_count": Decimal(report.summary.status.same),
-        "different_count": Decimal(report.summary.status.different),
-        "failure_count": Decimal(report.summary.status.failure),
-        "begin_time": report.summary.time.start,
-        "end_time": report.summary.time.end,
-        "with_zip": config.with_zip
-    }
-    table.put_item(Item=item)
+    def exec(self, payload: AfterAddOnPayload) -> AfterAddOnPayload:
+        report: Report = payload.report
+        output_summary: OutputSummary = payload.output_summary
 
-    # s3
-    s3 = boto3.client('s3')
+        # dynamo
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table(self.config.table)
+        item = {
+            "hashkey": report.key,
+            "title": report.title,
+            "one_host": report.summary.one.host,
+            "other_host": report.summary.other.host,
+            "paths": set(report.summary.paths),
+            "same_count": Decimal(report.summary.status.same),
+            "different_count": Decimal(report.summary.status.different),
+            "failure_count": Decimal(report.summary.status.failure),
+            "begin_time": report.summary.time.start,
+            "end_time": report.summary.time.end,
+            "with_zip": self.config.with_zip
+        }
+        table.put_item(Item=item)
 
-    def upload_responses(which: str):
-        dir = f'{output_summary.response_dir}/{report.key}'
-        for file in os.listdir(f'{dir}/{which}'):
-            with open(f'{dir}/{which}/{file}', 'rb') as f:
-                logger.info(f'Put {dir}/{which}/{file}')
-                s3.put_object(Bucket=config.bucket,
-                              Key=f'{report.key}/{which}/{file}',
+        # s3
+        s3 = boto3.client('s3')
+
+        def upload_responses(which: str):
+            dir = f'{output_summary.response_dir}/{report.key}'
+            for file in os.listdir(f'{dir}/{which}'):
+                with open(f'{dir}/{which}/{file}', 'rb') as f:
+                    logger.info(f'Put {dir}/{which}/{file}')
+                    s3.put_object(Bucket=self.config.bucket,
+                                  Key=f'{report.key}/{which}/{file}',
+                                  Body=f.read(),
+                                  CacheControl=f'max-age={self.config.cache_max_age}')
+
+        # report
+        s3.put_object(Bucket=self.config.bucket,
+                      Key=f'{report.key}/report.json',
+                      Body=report.to_json())
+
+        # details
+        upload_responses("one")
+        upload_responses("other")
+
+        # zip (${hashkey}.zip)
+        if self.config.with_zip:
+            base_name = f'{output_summary.response_dir}/{report.key}'
+            with open(f'{base_name}/report.json', 'w', encoding=output_summary.encoding) as f:
+                f.write(report.to_pretty_json())
+            shutil.make_archive(base_name, 'zip', f'{output_summary.response_dir}/{report.key}')
+
+            zip_fullpath = f'{base_name}.zip'
+            with open(zip_fullpath, 'rb') as f:
+                logger.info(f'Put {zip_fullpath}')
+                s3.put_object(Bucket=self.config.bucket,
+                              Key=f'{report.key}/{report.key[0:6]}.zip',
                               Body=f.read(),
-                              CacheControl=f'max-age={config.cache_max_age}')
+                              CacheControl=f'max-age={self.config.cache_max_age}')
+            os.remove(zip_fullpath)
 
-    # report
-    s3.put_object(Bucket=config.bucket,
-                  Key=f'{report.key}/report.json',
-                  Body=report.to_json())
-
-    # details
-    upload_responses("one")
-    upload_responses("other")
-
-    # zip (${hashkey}.zip)
-    if config.with_zip:
-        base_name = f'{output_summary.response_dir}/{report.key}'
-        with open(f'{base_name}/report.json', 'w', encoding=output_summary.encoding) as f:
-            f.write(report.to_pretty_json())
-        shutil.make_archive(base_name, 'zip', f'{output_summary.response_dir}/{report.key}')
-
-        zip_fullpath = f'{base_name}.zip'
-        with open(zip_fullpath, 'rb') as f:
-            logger.info(f'Put {zip_fullpath}')
-            s3.put_object(Bucket=config.bucket,
-                          Key=f'{report.key}/{report.key[0:6]}.zip',
-                          Body=f.read(),
-                          CacheControl=f'max-age={config.cache_max_age}')
-        os.remove(zip_fullpath)
-
-    return report
+        return payload

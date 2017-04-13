@@ -11,7 +11,7 @@ from typing import Optional
 
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
-from modules.models import Report, OutputSummary
+from modules.models import Report, OutputSummary, AfterAddOnPayload
 import requests
 
 logger = logging.getLogger(__name__)
@@ -47,18 +47,22 @@ class Config(OwlMixin):
         self.conditions: TList[Condition] = Condition.from_dicts(conditions)
 
 
-def exec(report: Report, config_dict: dict, output_summary: OutputSummary):
-    config: Config = Config.from_dict(config_dict or {})
+class Executor:
+    def __init__(self, config: dict):
+        self.config: Config = Config.from_dict(config or {})
 
-    for c in config.conditions:  # type: Condition
-        p = SlackPayload.from_dict({
-            "text": c.payload.message_format.format(**report.to_dict()),
-            "channel": c.payload.channel,
-            "username": c.payload.username,
-            "icon_emoji": c.payload.icon_emoji,
-            "icon_url": c.payload.icon_url,
-            "link_names": 1
-        })
-        requests.post(os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json().encode('utf8'))
+    def exec(self, payload: AfterAddOnPayload) -> AfterAddOnPayload:
+        report: Report = payload.report
 
-    return report
+        for c in self.config.conditions:  # type: Condition
+            p = SlackPayload.from_dict({
+                "text": c.payload.message_format.format(**report.to_dict()),
+                "channel": c.payload.channel,
+                "username": c.payload.username,
+                "icon_emoji": c.payload.icon_emoji,
+                "icon_url": c.payload.icon_url,
+                "link_names": 1
+            })
+            requests.post(os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json().encode('utf8'))
+
+        return payload

@@ -14,12 +14,16 @@ judgement:
 """
 
 import re
+import logging
 from typing import Optional, List
 
 from fn import _
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
 from modules.models import JudgementAddOnPayload, DiffKeys
+
+
+logger = logging.getLogger(__name__)
 
 
 class RegMatcher(OwlMixin):
@@ -46,36 +50,38 @@ class Config(OwlMixin):
         self.ignores: TList[Ignore] = Ignore.from_dicts(ignores)
 
 
-def exec(payload: JudgementAddOnPayload, config_dict: dict):
-    if payload.regard_as_same or payload.diff_keys is None:
-        return payload
+class Executor:
+    def __init__(self, config: dict):
+        self.config: Config = Config.from_dict(config or {})
 
-    config: Config = Config.from_dict(config_dict or {})
+    def exec(self, payload: JudgementAddOnPayload):
+        if payload.regard_as_same or payload.diff_keys is None:
+            return payload
 
-    def filter_diff_keys(diff_keys: DiffKeys, ignore: Ignore) -> DiffKeys:
-        if not re.search(ignore.path.pattern, payload.path):
-            return diff_keys
+        def filter_diff_keys(diff_keys: DiffKeys, ignore: Ignore) -> DiffKeys:
+            if not re.search(ignore.path.pattern, payload.path):
+                return diff_keys
 
-        return DiffKeys.from_dict({
-            "added": payload.diff_keys.added.reject(
-                lambda dk: ignore.path.added.map(_.pattern).any(lambda ig: re.search(ig, dk))
-            ),
-            "removed": payload.diff_keys.removed.reject(
-                lambda dk: ignore.path.removed.map(_.pattern).any(lambda ig: re.search(ig, dk))
-            ),
-            "changed": payload.diff_keys.changed.reject(
-                lambda dk: ignore.path.changed.map(_.pattern).any(lambda ig: re.search(ig, dk))
-            )
+            return DiffKeys.from_dict({
+                "added": payload.diff_keys.added.reject(
+                    lambda dk: ignore.path.added.map(_.pattern).any(lambda ig: re.search(ig, dk))
+                ),
+                "removed": payload.diff_keys.removed.reject(
+                    lambda dk: ignore.path.removed.map(_.pattern).any(lambda ig: re.search(ig, dk))
+                ),
+                "changed": payload.diff_keys.changed.reject(
+                    lambda dk: ignore.path.changed.map(_.pattern).any(lambda ig: re.search(ig, dk))
+                )
+            })
+
+        filtered_diff_keys = self.config.ignores.reduce(filter_diff_keys, payload.diff_keys)
+
+        return JudgementAddOnPayload.from_dict({
+            "path": payload.path,
+            "qs": payload.qs,
+            "headers": payload.headers,
+            "res_one": payload.res_one,
+            "res_other": payload.res_other,
+            "diff_keys": payload.diff_keys.to_dict(),
+            "regard_as_same": not (filtered_diff_keys.added or filtered_diff_keys.removed or filtered_diff_keys.changed)
         })
-
-    filtered_diff_keys = config.ignores.reduce(filter_diff_keys, payload.diff_keys)
-
-    return JudgementAddOnPayload.from_dict({
-        "path": payload.path,
-        "qs": payload.qs,
-        "headers": payload.headers,
-        "res_one": payload.res_one,
-        "res_other": payload.res_other,
-        "diff_keys": payload.diff_keys.to_dict(),
-        "regard_as_same": not (filtered_diff_keys.added or filtered_diff_keys.removed or filtered_diff_keys.changed)
-    })

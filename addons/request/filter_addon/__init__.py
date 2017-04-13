@@ -26,7 +26,7 @@ from typing import Optional
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
 from owlmixin.owlenum import OwlObjectEnum
-from modules.models import Request
+from modules.models import Request, RequestAddOnPayload
 
 logger = logging.getLogger(__name__)
 
@@ -78,21 +78,24 @@ class Config(OwlMixin):
         self.and_or: AndOr = AndOr.from_symbol(and_or)
 
 
-def exec(requests: TList[Request], config_dict: dict) -> TList[Request]:
-    config: Config = Config.from_dict(config_dict or {})
+class Executor:
+    def __init__(self, config: dict):
+        self.config: Config = Config.from_dict(config or {})
 
-    def is_fulfilled_matcher(value: str, m: Matcher) -> bool:
-        return m.negative ^ bool(m.kind.judge(value, m.value))
+    def exec(self, payload: RequestAddOnPayload) -> RequestAddOnPayload:
+        def is_fulfilled_matcher(value: str, m: Matcher) -> bool:
+            return m.negative ^ bool(m.kind.judge(value, m.value))
 
-    def is_fulfilled_condition(value: str, c: Condition) -> bool:
-        return c.and_or.check(c.matchers.map(lambda m: is_fulfilled_matcher(value, m)))
+        def is_fulfilled_condition(value: str, c: Condition) -> bool:
+            return c.and_or.check(c.matchers.map(lambda m: is_fulfilled_matcher(value, m)))
 
-    def is_fulfilled_filter(r: Request, f: Filter) -> bool:
-        return f.and_or.check([
-            is_fulfilled_condition(r.name, f.name) if f.name else True,
-            is_fulfilled_condition(r.path, f.path) if f.path else True
-        ])
+        def is_fulfilled_filter(r: Request, f: Filter) -> bool:
+            return f.and_or.check([
+                is_fulfilled_condition(r.name, f.name) if f.name else True,
+                is_fulfilled_condition(r.path, f.path) if f.path else True
+            ])
 
-    return requests.filter(lambda r: config.and_or.check(
-        config.filters.map(lambda f: is_fulfilled_filter(r, f)))
-    )
+        return RequestAddOnPayload.from_dict({
+            'requests': payload.requests.filter(lambda r: self.config.and_or.check(
+                self.config.filters.map(lambda f: is_fulfilled_filter(r, f))))
+        })

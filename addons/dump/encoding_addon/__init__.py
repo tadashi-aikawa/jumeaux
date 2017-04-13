@@ -1,22 +1,24 @@
 # -*- coding:utf-8 -*-
 
 from owlmixin import OwlMixin
-from modules.models import ResponseAddOnPayload
+from modules.models import DumpAddOnPayload
 import logging
 
 logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, encoding):
+    def __init__(self, encoding: str):
         self.encoding: str = encoding
 
 
-def exec(payload: ResponseAddOnPayload, config_dict: dict):
-    config: Config = Config.from_dict(config_dict or {})
+class Executor:
+    def __init__(self, config: dict):
+        self.config: Config = Config.from_dict(config or {})
 
-    return ResponseAddOnPayload.from_dict({
-        "response": payload.response,
-        "body": payload.body.decode(payload.encoding).encode(config.encoding),
-        "encoding": config.encoding
-    })
+    def exec(self, payload: DumpAddOnPayload):
+        return DumpAddOnPayload.from_dict({
+            "response": payload.response,
+            "body": payload.body.decode(payload.encoding).encode(self.config.encoding),
+            "encoding": self.config.encoding
+        })

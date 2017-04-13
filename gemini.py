@@ -67,7 +67,6 @@ import io
 import json
 import os
 import hashlib
-from importlib import import_module
 from logging import getLogger
 import logging.config
 
@@ -84,17 +83,15 @@ from multiprocessing import Pool
 from concurrent import futures
 from datetime import datetime
 from fn import _
-
-import xmltodict
 from docopt import docopt
-
-from modules.dictutils import DictUtils
+from addons import AddOnExecutor
 from modules.models import *
 
 
 VERSION = "0.9.5"
 MAX_RETRIES = 3
 logger = getLogger(__name__)
+global_addon_excutor: AddOnExecutor = None
 
 
 def now():
@@ -102,46 +99,6 @@ def now():
     For test
     """
     return datetime.today()
-
-
-def addon_log(func):
-    def wrapper(*args, **kwargs):
-        addon_name = TList(args).find(lambda x: isinstance(x, Addon)).name
-        logger.debug(f'********** Start {addon_name} **********')
-        result = func(*args, **kwargs)
-        logger.debug(f'********** End   {addon_name} **********')
-        return result
-    return wrapper
-
-
-@addon_log
-def apply_log_addon(file: str, a: Addon):
-    return getattr(import_module(a.name), a.command)(file, a.config)
-
-
-@addon_log
-def apply_request_addon(requests: TList[Request], a: Addon):
-    return getattr(import_module(a.name), a.command)(requests, a.config)
-
-
-@addon_log
-def apply_res2dict_addon(payload: Res2DictAddOnPayload, a: Addon):
-    return getattr(import_module(a.name), a.command)(payload, a.config)
-
-
-@addon_log
-def apply_judgement_addon(payload: JudgementAddOnPayload, a: Addon):
-    return getattr(import_module(a.name), a.command)(payload, a.config)
-
-
-@addon_log
-def apply_dump_addon(payload: ResponseAddOnPayload, a: Addon):
-    return getattr(import_module(a.name), a.command)(payload, a.config)
-
-
-@addon_log
-def apply_after_addon(r: Report, a: Addon, summary: OutputSummary):
-    return getattr(import_module(a.name), a.command)(r, a.config, summary)
 
 
 def write_to_file(name, dir, body):
@@ -218,13 +175,10 @@ def challenge(arg: ChallengeArg) -> Trial:
         })
 
     def res2dict(res) -> Optional[dict]:
-        payload = Res2DictAddOnPayload.from_dict({
+        return global_addon_excutor.apply_res2dict(Res2DictAddOnPayload.from_dict({
             "response": res,
             "result": None
-        })
-        return O(arg.addons).then(_.res2dict).or_(TList()) \
-            .reduce(apply_res2dict_addon, payload) \
-            .result
+        })).result
 
     dict_one = res2dict(res_one)
     dict_other = res2dict(res_other)
@@ -246,7 +200,7 @@ def challenge(arg: ChallengeArg) -> Trial:
     }) if ddiff is not None else None
 
     def judge(r_one, r_other) -> Status:
-        payload = JudgementAddOnPayload.from_dict({
+        regard_as_same: bool = global_addon_excutor.apply_judgement(JudgementAddOnPayload.from_dict({
             "path": arg.path,
             "qs": arg.qs,
             "headers": arg.headers,
@@ -254,10 +208,7 @@ def challenge(arg: ChallengeArg) -> Trial:
             "res_other": r_other,
             "diff_keys": O(diff_keys).then_or_none(lambda x: x.to_dict()),
             "regard_as_same": r_one.content == r_other.content
-        })
-        regard_as_same: bool = O(arg.addons).then(_.judgement).or_(TList()) \
-            .reduce(apply_judgement_addon, payload) \
-            .regard_as_same
+        })).regard_as_same
         return Status.SAME if regard_as_same else Status.DIFFERENT
 
     # Judgement
@@ -266,14 +217,11 @@ def challenge(arg: ChallengeArg) -> Trial:
 
     # Write response body to file
     def pretty(res):
-        payload = ResponseAddOnPayload.from_dict({
+        return global_addon_excutor.apply_dump(DumpAddOnPayload.from_dict({
             "response": res,
             "body": res.content,
             "encoding": res.encoding
-        })
-        return O(arg.addons).then(_.dump).or_(TList()) \
-            .reduce(apply_dump_addon, payload) \
-            .body
+        })).body
 
     file_one = file_other = None
     if status != Status.SAME:
@@ -317,12 +265,11 @@ def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Re
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
 
-    origin_logs = log_file_paths.flat_map(
-        lambda f: apply_log_addon(f, config.addons.log)
-    )
-
-    logs = O(config.addons).then(_.request).or_(TList()) \
-        .reduce(apply_request_addon, origin_logs)
+    logs: TList[Request] = global_addon_excutor.apply_request(RequestAddOnPayload.from_dict({
+        'requests': log_file_paths.flat_map(lambda f: global_addon_excutor.apply_log(LogAddOnPayload.from_dict({
+            'file': f
+        })))
+    })).requests
 
     make_dir(f'{config.output.response_dir}/{key}/one')
     make_dir(f'{config.output.response_dir}/{key}/other')
@@ -410,11 +357,16 @@ if __name__ == '__main__':
         logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
 
+    # Addon excutor
+    global_addon_excutor = AddOnExecutor(config.addons)
+
     input_paths = args.files or config.input_files.map(
         lambda f: f'{os.path.dirname(args.config)}/{f}'
     )
 
-    report: Report = O(config.addons).then(_.after).or_(TList()) \
-        .reduce(lambda t, x: apply_after_addon(t, x, config.output), exec(args, config, input_paths, hash_from_args(args)))
+    report: Report = global_addon_excutor.apply_after(AfterAddOnPayload.from_dict({
+        'report': exec(args, config, input_paths, hash_from_args(args)),
+        'output_summary': config.output
+    })).report
 
     print(report.to_pretty_json())

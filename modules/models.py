@@ -27,7 +27,7 @@ class OutputSummary(OwlMixin):
 
 
 class Addon(OwlMixin):
-    def __init__(self, name, command: str = 'exec', config: dict = None):
+    def __init__(self, name, command: str = 'Executor', config: dict = None):
         self.name: str = name
         self.command: str = command
         self.config: dict = config
@@ -181,7 +181,23 @@ class ResponseSummary(OwlMixin):
 
 # ---
 
-class ResponseAddOnPayload(OwlMixin):
+class AfterAddOnPayload(OwlMixin):
+    def __init__(self, report: Report, output_summary: OutputSummary):
+        self.report: Report = report
+        self.output_summary: OutputSummary = output_summary
+
+
+class LogAddOnPayload(OwlMixin):
+    def __init__(self, file: str):
+        self.file: str = file
+
+
+class RequestAddOnPayload(OwlMixin):
+    def __init__(self, requests: TList[Request]):
+        self.requests: TList[Request] = requests
+
+
+class DumpAddOnPayload(OwlMixin):
     def __init__(self, response, body: bytes, encoding: str):
         self.response = response  # requests style
         self.body = body
