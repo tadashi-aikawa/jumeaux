@@ -10,6 +10,8 @@ from unittest.mock import patch
 import gemini
 import datetime
 from requests.exceptions import ConnectionError
+
+from addons import AddOnExecutor
 from modules.models import *
 
 
@@ -90,6 +92,7 @@ class TestChallenge:
     def setup_class(cls):
         os.makedirs(os.path.join("tmpdir", "hash_key", "one"))
         os.makedirs(os.path.join("tmpdir", "hash_key", "other"))
+        gemini.global_addon_executor = AddOnExecutor(Addons.from_dict({'log2reqs': {'name': 'addons.log2reqs.csv'}}))
 
     @classmethod
     def teardown_class(cls):
@@ -138,7 +141,6 @@ class TestChallenge:
             },
             "proxy_one": None,
             "proxy_other": None,
-            "addons": None,
             "interval_sec": 0
         })
 
@@ -219,7 +221,6 @@ class TestChallenge:
             },
             "proxy_one": None,
             "proxy_other": None,
-            "addons": None,
             "interval_sec": 0
         })
         actual = gemini.challenge(args)
@@ -279,7 +280,6 @@ class TestChallenge:
             },
             "proxy_one": None,
             "proxy_other": None,
-            "addons": None,
             "interval_sec": 0
         })
         actual = gemini.challenge(args)
@@ -328,16 +328,18 @@ class TestCreateConfig:
                 "response_dir": "responses"
             },
             "addons": {
-                "log": {
-                    "name": "addons.log.csv-addon",
-                    "command": "exec",
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
                     "config": {
                         "encoding": "utf8"
                     }
                 },
-                "request": [],
+                "reqs2reqs": [],
+                "res2dict": [],
+                "judgement": [],
                 "dump": [],
-                "after": []
+                "final": []
             }
         }
 
@@ -368,7 +370,6 @@ class TestCreateConfig:
 @patch('gemini.now')
 @patch('gemini.challenge')
 @patch('gemini.hash_from_args')
-@patch('gemini.apply_log_addon')
 class TestExec:
     @classmethod
     def setup_class(cls):
@@ -379,16 +380,9 @@ class TestExec:
     def teardown_class(cls):
         shutil.rmtree("tmpdir")
 
-    def test(self, apply_log_addon, hash_from_args, challenge, now):
+    def test(self, hash_from_args, challenge, now):
         DUMMY_HASH = "dummy hash"
 
-        apply_log_addon.return_value = Request.from_dicts([
-            {
-                'path': '/path',
-                'qs': {'q': ["v"]},
-                'headers': {}
-            }
-        ])
         hash_from_args.return_value = DUMMY_HASH
         challenge.side_effect = Trial.from_dicts([
             {
@@ -477,8 +471,8 @@ class TestExec:
                 "response_dir": "tmpdir"
             },
             "addons": {
-                "log": {
-                    "name": "addons.log.csv-addon",
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
                     "config": {
                         "encoding": "utf8"
                     }
@@ -486,22 +480,24 @@ class TestExec:
             }
         })
 
-        actual: Report = gemini.exec(args, config, TList(["dummay_file1", "dummay_file2"]), DUMMY_HASH)
+        actual: Report = gemini.exec(args, config, TList(["tests/testlog1.csv", "tests/testlog2.csv"]), DUMMY_HASH)
 
         expected = {
             "key": DUMMY_HASH,
             "title": "Report title",
             "addons": {
-                "log": {
-                    "name": "addons.log.csv-addon",
-                    "command": "exec",
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
                     "config": {
                         "encoding": "utf8"
                     }
                 },
+                "reqs2reqs": [],
+                "res2dict": [],
+                "judgement": [],
                 "dump": [],
-                "after": [],
-                "request": []
+                "final": []
             },
             "summary": {
                 "time": {

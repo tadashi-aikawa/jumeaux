@@ -91,7 +91,7 @@ from modules.models import *
 VERSION = "0.9.5"
 MAX_RETRIES = 3
 logger = getLogger(__name__)
-global_addon_excutor: AddOnExecutor = None
+global_addon_executor: AddOnExecutor = None
 
 
 def now():
@@ -175,7 +175,7 @@ def challenge(arg: ChallengeArg) -> Trial:
         })
 
     def res2dict(res) -> Optional[dict]:
-        return global_addon_excutor.apply_res2dict(Res2DictAddOnPayload.from_dict({
+        return global_addon_executor.apply_res2dict(Res2DictAddOnPayload.from_dict({
             "response": res,
             "result": None
         })).result
@@ -200,7 +200,7 @@ def challenge(arg: ChallengeArg) -> Trial:
     }) if ddiff is not None else None
 
     def judge(r_one, r_other) -> Status:
-        regard_as_same: bool = global_addon_excutor.apply_judgement(JudgementAddOnPayload.from_dict({
+        regard_as_same: bool = global_addon_executor.apply_judgement(JudgementAddOnPayload.from_dict({
             "path": arg.path,
             "qs": arg.qs,
             "headers": arg.headers,
@@ -217,7 +217,7 @@ def challenge(arg: ChallengeArg) -> Trial:
 
     # Write response body to file
     def pretty(res):
-        return global_addon_excutor.apply_dump(DumpAddOnPayload.from_dict({
+        return global_addon_executor.apply_dump(DumpAddOnPayload.from_dict({
             "response": res,
             "body": res.content,
             "encoding": res.encoding
@@ -265,8 +265,8 @@ def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Re
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
 
-    logs: TList[Request] = global_addon_excutor.apply_reqs2reqs(Reqs2ReqsAddOnPayload.from_dict({
-        'requests': log_file_paths.flat_map(lambda f: global_addon_excutor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({
+    logs: TList[Request] = global_addon_executor.apply_reqs2reqs(Reqs2ReqsAddOnPayload.from_dict({
+        'requests': log_file_paths.flat_map(lambda f: global_addon_executor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({
             'file': f
         })))
     })).requests
@@ -289,7 +289,6 @@ def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Re
         "proxy_one": Proxy.from_host(config.one.proxy),
         "proxy_other": Proxy.from_host(config.other.proxy),
         "res_dir": config.output.response_dir,
-        "addons": config.addons,
         "interval_sec": args.interval_sec
     })
 
@@ -358,13 +357,13 @@ if __name__ == '__main__':
         logging.config.dictConfig(logger_config)
 
     # Addon excutor
-    global_addon_excutor = AddOnExecutor(config.addons)
+    global_addon_executor = AddOnExecutor(config.addons)
 
     input_paths = args.files or config.input_files.map(
         lambda f: f'{os.path.dirname(args.config)}/{f}'
     )
 
-    report: Report = global_addon_excutor.apply_final(FinalAddOnPayload.from_dict({
+    report: Report = global_addon_executor.apply_final(FinalAddOnPayload.from_dict({
         'report': exec(args, config, input_paths, hash_from_args(args)),
         'output_summary': config.output
     })).report
