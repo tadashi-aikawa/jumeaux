@@ -125,17 +125,14 @@ def to_sec(elapsed):
 
 
 def concurrent_request(session, headers, url_one, url_other, proxies_one, proxies_other):
-    pool = Pool(2)
     fs = ((session, url_one, headers, proxies_one),
           (session, url_other, headers, proxies_other))
-    try:
+    with futures.ThreadPoolExecutor(max_workers=2) as ex:
         logger.info(f"Request one:   {url_one}")
         logger.info(f"Request other: {url_other}")
-        res_one, res_other = pool.imap(http_get, fs)
+        res_one, res_other = ex.map(http_get, fs)
         logger.info(f"Response one:   {res_one.status_code} / {to_sec(res_one.elapsed)}s / {len(res_one.content)}b / {res_one.headers.get('content-type')}")
         logger.info(f"Response other: {res_other.status_code} / {to_sec(res_other.elapsed)}s / {len(res_other.content)}b / {res_other.headers.get('content-type')}")
-    finally:
-        pool.close()
 
     return res_one, res_other
 
