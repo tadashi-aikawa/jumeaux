@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from owlmixin.util import O
 from typing import Optional, Any, Dict, List
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList, TDict
@@ -44,7 +44,7 @@ class Addons(OwlMixin):
 
 
 class Config(OwlMixin):
-    def __init__(self, one, other, output, title=None, input_files=None, addons=None, base=None):
+    def __init__(self, one, other, output, title=None, input_files=None, addons=None, base=None, threads=1):
         self.one: AccessPoint = AccessPoint.from_dict(one)
         self.other: AccessPoint = AccessPoint.from_dict(other)
         self.output: OutputSummary = OutputSummary.from_dict(output)
@@ -52,6 +52,7 @@ class Config(OwlMixin):
         self.input_files: Optional[TList[str]] = TList(input_files) if input_files else None
         self.addons: Optional[Addons] = Addons.from_optional_dict(addons)
         self.base: Optional[str] = base
+        self.threads: int = threads
 
 
 # --------
@@ -62,7 +63,7 @@ class Args(OwlMixin):
         self.files: TList[str] = TList(files)
         self.title: str = title
         self.config: str = config
-        self.threads: int = int(threads)
+        self.threads: Optional[int] = O(threads).then_or_none(int)
         self.interval_sec: float = float(interval_sec)
 
 

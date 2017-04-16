@@ -12,7 +12,7 @@ Usage:
 Options:
   <files>...
   --title = <title>                The title of report
-  --threads = <threads>            The number of threads in challenge [default: 1]
+  --threads = <threads>            The number of threads in challenge
   --interval-sec = <interval_sec>  Interval in seconds between trials [default: 0]
   --config = <yaml>                Configuration file(see below) [default: config.yaml]
 
@@ -23,6 +23,7 @@ Config file definition
 
 # base: base_config.yaml
 title: test  # Ignore if you specified `--title`
+threads: 2  # Ignore if you specified `--threads`
 one:
   name: total
   host: http://api.navitime.jp/v1/00001014
@@ -291,7 +292,7 @@ def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Re
 
     # Challenge
     start_time = now()
-    with futures.ThreadPoolExecutor(max_workers=args.threads) as ex:
+    with futures.ThreadPoolExecutor(max_workers=args.threads or config.threads) as ex:
         trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))])
     end_time = now()
 
