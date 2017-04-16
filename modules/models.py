@@ -44,15 +44,16 @@ class Addons(OwlMixin):
 
 
 class Config(OwlMixin):
-    def __init__(self, one, other, output, title=None, input_files=None, addons=None, base=None, threads=1):
+    def __init__(self, one, other, output, threads=1,
+                 title=None, input_files=None, addons=None, base=None):
         self.one: AccessPoint = AccessPoint.from_dict(one)
         self.other: AccessPoint = AccessPoint.from_dict(other)
         self.output: OutputSummary = OutputSummary.from_dict(output)
+        self.threads: int = threads
         self.title: Optional[str] = title
         self.input_files: Optional[TList[str]] = TList(input_files) if input_files else None
         self.addons: Optional[Addons] = Addons.from_optional_dict(addons)
         self.base: Optional[str] = base
-        self.threads: int = threads
 
 
 # --------

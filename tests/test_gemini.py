@@ -327,6 +327,7 @@ class TestCreateConfig:
                 "encoding": "utf8",
                 "response_dir": "responses"
             },
+            "threads": 3,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -362,6 +363,7 @@ class TestCreateConfig:
                 "encoding": "utf8",
                 "response_dir": "responses"
             },
+            "threads": 1
         }
 
         assert actual.to_dict() == expected

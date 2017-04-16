@@ -1,3 +1,4 @@
+threads: 3
 output:
   encoding: utf8
   response_dir: tmpdir
