@@ -7,14 +7,16 @@ Usage
 =======================
 
 Usage:
-  gemini.py [--title=<title>] [--threads=<threads>] [--config=<yaml>] [--interval-sec=<interval_sec>] [<files>...]
+  gemini.py --config=<yaml> [--title=<title>] [--threads=<threads>] [--interval-sec=<interval_sec>] [<files>...]
+  gemini.py retry <report>
 
 Options:
   <files>...
+  --config = <yaml>                Configuration file(see below)
   --title = <title>                The title of report
   --threads = <threads>            The number of threads in challenge
   --interval-sec = <interval_sec>  Interval in seconds between trials [default: 0]
-  --config = <yaml>                Configuration file(see below) [default: config.yaml]
+  <report>                         Report for retry
 
 
 =======================
@@ -257,17 +259,11 @@ def challenge(arg: ChallengeArg) -> Trial:
     })
 
 
-def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Report:
+def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash: str) -> Report:
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
     s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
-
-    logs: TList[Request] = global_addon_executor.apply_reqs2reqs(Reqs2ReqsAddOnPayload.from_dict({
-        'requests': log_file_paths.flat_map(lambda f: global_addon_executor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({
-            'file': f
-        })))
-    })).requests
 
     make_dir(f'{config.output.response_dir}/{key}/one')
     make_dir(f'{config.output.response_dir}/{key}/other')
@@ -313,7 +309,8 @@ def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Re
             "start": start_time.strftime("%Y/%m/%d %X"),
             "end": end_time.strftime("%Y/%m/%d %X"),
             "elapsed_sec": (end_time - start_time).seconds
-        }
+        },
+        "output": config.output.to_dict()
     })
 
     return Report.from_dict({
@@ -321,7 +318,8 @@ def exec(args: Args, config: Config, log_file_paths: TList[str], key: str) -> Re
         "title": args.title or config.title or "No title",
         "summary": summary.to_dict(),
         "trials": trials.to_dicts(),
-        "addons": config.addons.to_dict()
+        "addons": config.addons.to_dict(),
+        "retry_hash": retry_hash
     })
 
 
@@ -329,7 +327,7 @@ def hash_from_args(args: Args) -> str:
     return hashlib.sha256((str(now()) + args.to_json()).encode()).hexdigest()
 
 
-def create_config(config_path: str):
+def create_config(config_path: str) -> Config:
     origin_config = load_yamlf(config_path, 'utf8')
     base_config_path = origin_config.get('base')
 
@@ -341,9 +339,41 @@ def create_config(config_path: str):
     return Config.from_dict(base_config)
 
 
+def create_config_from_report(report: Report) -> Config:
+    return Config.from_dict({
+        "one": report.summary.one.to_dict(),
+        "other": report.summary.other.to_dict(),
+        "output": report.summary.output.to_dict(),
+        "threads": 1,
+        "title": report.title,
+        "addons": report.addons.to_dict()
+    })
+
+
 if __name__ == '__main__':
     args: Args = Args.from_dict(docopt(__doc__, version=VERSION))
-    config: Config = create_config(args.config)
+    # TODO: refactoring
+    if args.retry:
+        report: Report = Report.from_jsonf(args.report)
+        config: Config = create_config_from_report(report)
+        global_addon_executor = AddOnExecutor(config.addons)
+        origin_logs: TList[Request] = report.trials.map(lambda x: Request.from_dict({
+            'path': x.path,
+            'qs': x.queries,
+            'headers': x.headers,
+            'name': x.name
+        }))
+        retry_hash: str = report.key
+    else:
+        config: Config = create_config(args.config)
+        global_addon_executor = AddOnExecutor(config.addons)
+        input_paths = args.files or config.input_files.map(
+            lambda f: f'{os.path.dirname(args.config)}/{f}'
+        )
+        origin_logs: TList[Request] = input_paths.flat_map(lambda f: global_addon_executor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({
+            'file': f
+        })))
+        retry_hash: str = None
 
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=config.output.encoding)
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=config.output.encoding)
@@ -354,15 +384,13 @@ if __name__ == '__main__':
         logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
 
-    # Addon excutor
-    global_addon_executor = AddOnExecutor(config.addons)
-
-    input_paths = args.files or config.input_files.map(
-        lambda f: f'{os.path.dirname(args.config)}/{f}'
-    )
+    # Requests
+    logs: TList[Request] = global_addon_executor.apply_reqs2reqs(Reqs2ReqsAddOnPayload.from_dict({
+        'requests': origin_logs
+    })).requests
 
     report: Report = global_addon_executor.apply_final(FinalAddOnPayload.from_dict({
-        'report': exec(args, config, input_paths, hash_from_args(args)),
+        'report': exec(args, config, logs, hash_from_args(args), retry_hash),
         'output_summary': config.output
     })).report
 

@@ -60,12 +60,14 @@ class Config(OwlMixin):
 
 
 class Args(OwlMixin):
-    def __init__(self, files, title: str, config: str, threads: str, interval_sec: str):
+    def __init__(self, files, title: str, config: str, threads: str, interval_sec: str, retry: bool, report: str):
         self.files: TList[str] = TList(files)
         self.title: str = title
         self.config: str = config
         self.threads: Optional[int] = O(threads).then_or_none(int)
         self.interval_sec: float = float(interval_sec)
+        self.retry: bool = retry
+        self.report: str = report
 
 
 class Request(OwlMixin):
@@ -115,21 +117,23 @@ class ChallengeArg(OwlMixin):
 # --------
 
 class Report(OwlMixin):
-    def __init__(self, key: str, title: str, summary: dict, trials: list, addons: Addons=None):
+    def __init__(self, key: str, title: str, summary: dict, trials: list, addons: Addons=None, retry_hash: str=None):
         self.key: str = key
         self.title: str = title
         self.summary: Summary = Summary.from_dict(summary)
         self.trials: TList[Trial] = Trial.from_dicts(trials)
         self.addons: Optional[Addons] = Addons.from_optional_dict(addons)
+        self.retry_hash: str = retry_hash
 
 
 class Summary(OwlMixin):
-    def __init__(self, one: dict, other: dict, status: TDict[str], paths: TDict[str], time: dict):
+    def __init__(self, one: dict, other: dict, status: TDict[str], paths: TDict[str], time: dict, output: dict):
         self.one: AccessPoint = AccessPoint.from_dict(one)
         self.other: AccessPoint = AccessPoint.from_dict(other)
         self.status: StatusCounts = StatusCounts.from_dict(status)
         self.paths: TDict[str] = paths
         self.time: Time = Time.from_dict(time)
+        self.output: OutputSummary = OutputSummary.from_dict(output)
 
 
 class StatusCounts(OwlMixin):
