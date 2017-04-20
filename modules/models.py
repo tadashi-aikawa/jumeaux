@@ -175,12 +175,13 @@ class Trial(OwlMixin):
 
 class ResponseSummary(OwlMixin):
     def __init__(self, url: str, status_code: int = None, byte: int = None, response_sec: int = None,
-                 content_type: str = None, file: Optional[str] = None):
+                 content_type: str = None, encoding: str = None, file: Optional[str] = None):
         self.url: str = url
         self.status_code: Optional[int] = status_code
         self.byte: Optional[int] = byte
         self.response_sec: Optional[int] = response_sec
         self.content_type: Optional[str] = content_type
+        self.encoding: Optional[str] = encoding
         self.file: Optional[str] = file
 
 

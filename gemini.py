@@ -246,6 +246,7 @@ def challenge(arg: ChallengeArg) -> Trial:
             "byte": len(res_one.content),
             "response_sec": to_sec(res_one.elapsed),
             "content_type": res_one.headers.get("content-type"),
+            "encoding": res_one.encoding,
             "file": file_one
         },
         "other": {
@@ -254,6 +255,7 @@ def challenge(arg: ChallengeArg) -> Trial:
             "byte": len(res_other.content),
             "response_sec": to_sec(res_other.elapsed),
             "content_type": res_other.headers.get("content-type"),
+            "encoding": res_other.encoding,
             "file": file_other
         }
     })
