@@ -166,7 +166,8 @@ class TestChallenge:
                 "status_code": 200,
                 "byte": 20,
                 "response_sec": 1.23,
-                "content_type": 'application/json;utf-8'
+                "content_type": 'application/json;utf-8',
+                'encoding': 'utf8'
             },
             "other": {
                 "file": "other/(1)name1",
@@ -174,7 +175,8 @@ class TestChallenge:
                 "status_code": 400,
                 "byte": 23,
                 "response_sec": 9.88,
-                "content_type": 'application/json;utf-8'
+                "content_type": 'application/json;utf-8',
+                'encoding': 'utf8'
             }
         }
 
@@ -244,14 +246,16 @@ class TestChallenge:
                 "status_code": 200,
                 "byte": 1,
                 "response_sec": 1.23,
-                "content_type": 'text/plain;utf-8'
+                "content_type": 'text/plain;utf-8',
+                'encoding': 'utf8'
             },
             "other": {
                 "url": 'URL_OTHER',
                 "status_code": 200,
                 "byte": 1,
                 "response_sec": 9.88,
-                "content_type": 'text/plain'
+                "content_type": 'text/plain',
+                'encoding': 'utf8'
             }
         }
 
@@ -406,14 +410,18 @@ class TestExec:
                     "url": 'URL_ONE',
                     "status_code": 200,
                     "byte": 20,
-                    "response_sec": 1.23
+                    "response_sec": 1.23,
+                    "content_type": 'application/json; charset=sjis',
+                    "encoding": "sjis"
                 },
                 "other": {
                     "file": "other/(1)name1",
                     "url": 'URL_OTHER',
                     "status_code": 400,
                     "byte": 23,
-                    "response_sec": 9.88
+                    "response_sec": 9.88,
+                    "content_type": 'application/json; charset=utf8',
+                    "encoding": "utf8"
                 }
             },
             {
@@ -456,7 +464,9 @@ class TestExec:
             "threads": 1,
             "title": "Report title",
             "interval_sec": 0,
-            "config": "tests/config.yaml"
+            "config": "tests/config.yaml",
+            "retry": False,
+            "report": None
         })
         config: Config = Config.from_dict({
             "one": {
@@ -481,8 +491,12 @@ class TestExec:
                 }
             }
         })
+        reqs: TList[Request] = Request.from_dicts([
+            {"path": "/dummy"},
+            {"path": "/dummy"}
+        ])
 
-        actual: Report = gemini.exec(args, config, TList(["tests/testlog1.csv", "tests/testlog2.csv"]), DUMMY_HASH)
+        actual: Report = gemini.exec(args, config, reqs, DUMMY_HASH, None)
 
         expected = {
             "key": DUMMY_HASH,
@@ -524,6 +538,10 @@ class TestExec:
                     "same": 1,
                     "different": 1,
                     "failure": 0
+                },
+                "output": {
+                    "encoding": "utf8",
+                    "response_dir": "tmpdir"
                 }
             },
             "trials": [
@@ -546,14 +564,18 @@ class TestExec:
                         "url": 'URL_ONE',
                         "status_code": 200,
                         "byte": 20,
-                        "response_sec": 1.23
+                        "response_sec": 1.23,
+                        "content_type": 'application/json; charset=sjis',
+                        "encoding": "sjis"
                     },
                     "other": {
                         "file": "other/(1)name1",
                         "url": 'URL_OTHER',
                         "status_code": 400,
                         "byte": 23,
-                        "response_sec": 9.88
+                        "response_sec": 9.88,
+                        "content_type": 'application/json; charset=utf8',
+                        "encoding": "utf8"
                     }
                 },
                 {
