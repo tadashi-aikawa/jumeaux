@@ -21,43 +21,26 @@ Requirement
 ===========
 
 * Python3.6 and uppper
+
+
 Installation
 ============
 
-First, Clone this repository.
-
-
-Install requisite packages
---------------------------
-
 .. sourcecode:: bash
 
-    $ pip install -r requirements.txt
+    $ pip install jumeaux
+    $ jumeaux --version
+    0.1.0
 
 
-Check operation
----------------
-
-.. sourcecode:: bash
-
-    $ python jumeaux.py --version
-    0.9.5
-
-
-Usage
-=====
-
-Exec following command to show.
-
-.. sourcecode:: bash
-
-    $ python jumeaux.py -h
+Run
+===
 
 For example
 
 .. sourcecode:: bash
 
-    $ python jumeaux.py --config config.yaml accesslog.txt
+    $ jumeaux --config config.yaml accesslog.csv
 
 
 Test Result
