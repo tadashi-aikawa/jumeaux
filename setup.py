@@ -29,7 +29,7 @@ setup(
     author='tadashi-aikawa',
     author_email='syou.maman@gmail.com',
     maintainer='tadashi-aikawa',
-    maintainer_email='tadashi-aikawa',
+    maintainer_email='syou.maman@gmail.com',
     url='https://github.com/tadashi-aikawa/jumeaux.git',
     keywords='diff rest api response two one other',
     packages=find_packages(exclude=['tests*']),
