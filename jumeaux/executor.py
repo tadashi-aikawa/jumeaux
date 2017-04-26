@@ -7,8 +7,8 @@ Usage
 =======================
 
 Usage:
-  excutor.py --config=<yaml> [--title=<title>] [--threads=<threads>] [--interval-sec=<interval_sec>] [<files>...]
-  excutor.py retry <report>
+  jumeaux --config=<yaml> [--title=<title>] [--threads=<threads>] [--interval-sec=<interval_sec>] [<files>...]
+  jumeaux retry <report>
 
 Options:
   <files>...
@@ -55,11 +55,11 @@ output:
 #     handlers: [console]
 addons:
   log2reqs:
-    name: addons.log2reqs.csv
+    name: jumeaux.addons.log2reqs.csv
     config:
       encoding: utf8
 # final:
-#   - name: addons.final.aws
+#   - name: jumeaux.addons.final.aws
 #     config:
 #       table:  dynamo-db-table-name
 #       bucket: s3-bucket-name
@@ -349,8 +349,9 @@ def create_config_from_report(report: Report) -> Config:
     })
 
 
-if __name__ == '__main__':
+def main():
     args: Args = Args.from_dict(docopt(__doc__, version=__version__))
+    global global_addon_executor
     # TODO: refactoring
     if args.retry:
         report: Report = Report.from_jsonf(args.report)
@@ -394,3 +395,7 @@ if __name__ == '__main__':
     })).report
 
     print(report.to_pretty_json())
+
+
+if __name__ == '__main__':
+    main()
