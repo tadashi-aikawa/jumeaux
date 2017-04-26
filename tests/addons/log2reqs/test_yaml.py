@@ -3,8 +3,9 @@
 
 import os
 import pytest
-from addons.log2reqs.yaml import Executor
-from modules.models import Log2ReqsAddOnPayload
+
+from jumeaux.addons.log2reqs.yaml import Executor
+from jumeaux.models import Log2ReqsAddOnPayload
 
 
 class TestFromFormat:

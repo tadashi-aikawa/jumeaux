@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import pytest
-from modules.models import Proxy
+from jumeaux.models import Proxy
 
 
 class TestProxy:

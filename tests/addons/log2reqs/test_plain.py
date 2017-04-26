@@ -2,8 +2,9 @@
 # -*- coding:utf-8 -*-
 
 import os
-from addons.log2reqs.plain import Executor
-from modules.models import Log2ReqsAddOnPayload
+
+from jumeaux.addons.log2reqs.plain import Executor
+from jumeaux.models import Log2ReqsAddOnPayload
 
 
 class TestFromFormat:
