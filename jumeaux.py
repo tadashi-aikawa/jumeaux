@@ -7,8 +7,8 @@ Usage
 =======================
 
 Usage:
-  gemini.py --config=<yaml> [--title=<title>] [--threads=<threads>] [--interval-sec=<interval_sec>] [<files>...]
-  gemini.py retry <report>
+  jumeaux.py --config=<yaml> [--title=<title>] [--threads=<threads>] [--interval-sec=<interval_sec>] [<files>...]
+  jumeaux.py retry <report>
 
 Options:
   <files>...

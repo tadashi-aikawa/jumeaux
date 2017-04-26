@@ -30,7 +30,7 @@ class SlackPayload(OwlMixin):
 
 
 class Payload(OwlMixin):
-    def __init__(self, message_format, channel, username='gemini', icon_emoji=None, icon_url=None):
+    def __init__(self, message_format, channel, username='jumeaux', icon_emoji=None, icon_url=None):
         self.message_format: str = message_format
         self.channel: str = channel
         self.username: str = username

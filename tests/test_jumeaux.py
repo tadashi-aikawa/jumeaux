@@ -7,7 +7,7 @@ import shutil
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
-import gemini
+import jumeaux
 import datetime
 from requests.exceptions import ConnectionError
 
@@ -80,11 +80,11 @@ class ResponseBuilder():
         return m
 
 
-@patch('gemini.now')
-@patch('gemini.concurrent_request')
+@patch('jumeaux.now')
+@patch('jumeaux.concurrent_request')
 class TestChallenge:
     """
-    Only make mock for gemini.concurrent_request.
+    Only make mock for jumeaux.concurrent_request.
     Because it uses http requests.
     """
 
@@ -92,7 +92,7 @@ class TestChallenge:
     def setup_class(cls):
         os.makedirs(os.path.join("tmpdir", "hash_key", "one"))
         os.makedirs(os.path.join("tmpdir", "hash_key", "other"))
-        gemini.global_addon_executor = AddOnExecutor(Addons.from_dict({'log2reqs': {'name': 'addons.log2reqs.csv'}}))
+        jumeaux.global_addon_executor = AddOnExecutor(Addons.from_dict({'log2reqs': {'name': 'addons.log2reqs.csv'}}))
 
     @classmethod
     def teardown_class(cls):
@@ -144,7 +144,7 @@ class TestChallenge:
             "interval_sec": 0
         })
 
-        actual = gemini.challenge(args)
+        actual = jumeaux.challenge(args)
 
         expected = {
             "seq": 1,
@@ -225,7 +225,7 @@ class TestChallenge:
             "proxy_other": None,
             "interval_sec": 0
         })
-        actual = gemini.challenge(args)
+        actual = jumeaux.challenge(args)
 
         expected = {
             "seq": 1,
@@ -286,7 +286,7 @@ class TestChallenge:
             "proxy_other": None,
             "interval_sec": 0
         })
-        actual = gemini.challenge(args)
+        actual = jumeaux.challenge(args)
 
         expected = {
             "seq": 1,
@@ -315,7 +315,7 @@ class TestChallenge:
 class TestCreateConfig:
 
     def test(self):
-        actual: Config = gemini.create_config("tests/config.yaml")
+        actual: Config = jumeaux.create_config("tests/config.yaml")
         expected = {
             "base": "base_config.yaml",
             "one": {
@@ -351,7 +351,7 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
     def test_no_base(self):
-        actual: Config = gemini.create_config("tests/config_no_base.yaml")
+        actual: Config = jumeaux.create_config("tests/config_no_base.yaml")
 
         expected = {
             "one": {
@@ -373,9 +373,9 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
 
-@patch('gemini.now')
-@patch('gemini.challenge')
-@patch('gemini.hash_from_args')
+@patch('jumeaux.now')
+@patch('jumeaux.challenge')
+@patch('jumeaux.hash_from_args')
 class TestExec:
     @classmethod
     def setup_class(cls):
@@ -496,7 +496,7 @@ class TestExec:
             {"path": "/dummy"}
         ])
 
-        actual: Report = gemini.exec(args, config, reqs, DUMMY_HASH, None)
+        actual: Report = jumeaux.exec(args, config, reqs, DUMMY_HASH, None)
 
         expected = {
             "key": DUMMY_HASH,

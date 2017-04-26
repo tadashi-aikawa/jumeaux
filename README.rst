@@ -1,5 +1,5 @@
-Gemini
-******
+Jumeaux
+*******
 
 |travis| |coverage| |complexity| |license|
 
@@ -40,7 +40,7 @@ Check operation
 
 .. sourcecode:: bash
 
-    $ python gemini.py --version
+    $ python jumeaux.py --version
     0.9.5
 
 
@@ -51,13 +51,13 @@ Exec following command to show.
 
 .. sourcecode:: bash
 
-    $ python gemini.py -h
+    $ python jumeaux.py -h
 
 For example
 
 .. sourcecode:: bash
 
-    $ python gemini.py accesslog.txt
+    $ python jumeaux.py --config config.yaml accesslog.txt
 
 
 Test Result
@@ -66,14 +66,14 @@ Test Result
 Master
 ------
 
-.. image:: https://api.travis-ci.org/tadashi-aikawa/gemini.png?branch=master
-    :target: https://travis-ci.org/tadashi-aikawa/gemini
+.. image:: https://api.travis-ci.org/tadashi-aikawa/jumeaux.png?branch=master
+    :target: https://travis-ci.org/tadashi-aikawa/jumeaux
 
 Current
 -------
 
-.. image:: https://api.travis-ci.org/tadashi-aikawa/gemini.png?
-    :target: https://travis-ci.org/tadashi-aikawa/gemini
+.. image:: https://api.travis-ci.org/tadashi-aikawa/jumeaux.png?
+    :target: https://travis-ci.org/tadashi-aikawa/jumeaux
 
 
 Licence
@@ -85,13 +85,13 @@ MIT
 This software is released under the MIT License, see LICENSE.txt.
 
 
-.. |travis| image:: https://api.travis-ci.org/tadashi-aikawa/gemini.svg?branch=master
-    :target: https://travis-ci.org/tadashi-aikawa/gemini/builds
+.. |travis| image:: https://api.travis-ci.org/tadashi-aikawa/jumeaux.svg?branch=master
+    :target: https://travis-ci.org/tadashi-aikawa/jumeaux/builds
     :alt: Build Status
-.. |coverage| image:: https://codeclimate.com/github/tadashi-aikawa/gemini/badges/coverage.svg
-    :target: https://codeclimate.com/github/tadashi-aikawa/gemini/coverage
+.. |coverage| image:: https://codeclimate.com/github/tadashi-aikawa/jumeaux/badges/coverage.svg
+    :target: https://codeclimate.com/github/tadashi-aikawa/jumeaux/coverage
     :alt: Test Coverage
-.. |complexity| image:: https://codeclimate.com/github/tadashi-aikawa/gemini/badges/gpa.svg
-    :target: https://codeclimate.com/github/tadashi-aikawa/gemini
+.. |complexity| image:: https://codeclimate.com/github/tadashi-aikawa/jumeaux/badges/gpa.svg
+    :target: https://codeclimate.com/github/tadashi-aikawa/jumeaux
     :alt: Code Climate
 .. |license| image:: https://img.shields.io/github/license/mashape/apistatus.svg
