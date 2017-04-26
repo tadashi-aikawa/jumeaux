@@ -37,6 +37,11 @@ setup(
     extras_require={
         'test': ['pytest', 'pytest-cov']
     },
+    entry_points={
+        'console_scripts': [
+            'jumeaux = jumeaux.executor:main'
+        ],
+    },
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
