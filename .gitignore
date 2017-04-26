@@ -57,6 +57,7 @@ target/
 
 # IntelliJ
 .idea/
+*.iml
 
 resource
 response
