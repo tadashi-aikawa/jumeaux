@@ -112,7 +112,7 @@ def challenge(arg: ChallengeArg) -> Trial:
         return Trial.from_dict({
             "seq": arg.seq,
             "name": arg.name,
-            "request_time": req_time.strftime("%Y/%m/%d %X"),
+            "request_time": req_time.strftime("%Y/%m/%d %H:%M:%S.%f"),
             "status": Status.FAILURE,
             "path": arg.path,
             "queries": arg.qs,
@@ -185,7 +185,7 @@ def challenge(arg: ChallengeArg) -> Trial:
     return Trial.from_dict({
         "seq": arg.seq,
         "name": arg.name,
-        "request_time": req_time.strftime("%Y/%m/%d %X"),
+        "request_time": req_time.strftime("%Y/%m/%d %H:%M:%S.%f"),
         "status": status,
         "path": arg.path or "No path",
         "queries": arg.qs,

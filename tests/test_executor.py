@@ -150,7 +150,7 @@ class TestChallenge:
         expected = {
             "seq": 1,
             "name": "name1",
-            "request_time": '2000/01/01 00:00:00',
+            "request_time": '2000/01/01 00:00:00.000000',
             "status": Status.DIFFERENT,
             "path": '/challenge',
             "queries": {
@@ -231,7 +231,7 @@ class TestChallenge:
         expected = {
             "seq": 1,
             "name": "name2",
-            "request_time": '2000/01/01 00:00:00',
+            "request_time": '2000/01/01 00:00:00.000000',
             "status": Status.SAME,
             "path": '/challenge',
             "queries": {
@@ -292,7 +292,7 @@ class TestChallenge:
         expected = {
             "seq": 1,
             "name": "name3",
-            "request_time": '2000/01/01 00:00:00',
+            "request_time": '2000/01/01 00:00:00.000000',
             "status": Status.FAILURE,
             "path": '/challenge',
             "queries": {
@@ -395,7 +395,7 @@ class TestExec:
             {
                 "seq": 1,
                 "name": "name1",
-                "request_time": '2000/01/01 00:00:01',
+                "request_time": '2000/01/01 00:00:01.000000',
                 "status": 'different',
                 "path": '/challenge1',
                 "queries": {
@@ -428,7 +428,7 @@ class TestExec:
             {
                 "seq": 2,
                 "name": "name2",
-                "request_time": '2000/01/01 00:00:02',
+                "request_time": '2000/01/01 00:00:02.000000',
                 "status": 'same',
                 "path": '/challenge2',
                 "queries": {
@@ -549,7 +549,7 @@ class TestExec:
                 {
                     "seq": 1,
                     "name": "name1",
-                    "request_time": '2000/01/01 00:00:01',
+                    "request_time": '2000/01/01 00:00:01.000000',
                     "status": Status.DIFFERENT,
                     "path": '/challenge1',
                     "queries": {
@@ -582,7 +582,7 @@ class TestExec:
                 {
                     "seq": 2,
                     "name": "name2",
-                    "request_time": '2000/01/01 00:00:02',
+                    "request_time": '2000/01/01 00:00:02.000000',
                     "status": Status.SAME,
                     "path": '/challenge2',
                     "queries": {
