@@ -1,4 +1,5 @@
-title: DEMO
+title: DEMO  # Ignore if you specified `--title` [default: no title]
+threads: 1  # Ignore if you specified `--threads` [default: 1]
 one:
   name: jumeaux
   host: https://api.github.com/repos/tadashi-aikawa/jumeaux
