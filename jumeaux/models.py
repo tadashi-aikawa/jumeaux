@@ -34,12 +34,14 @@ class Addon(OwlMixin):
 
 
 class Addons(OwlMixin):
-    def __init__(self, log2reqs, reqs2reqs=None, res2dict=None, judgement=None, dump=None, final=None):
+    def __init__(self, log2reqs, reqs2reqs=None, res2dict=None, judgement=None,
+                 dump=None, did_challenge=None, final=None):
         self.log2reqs: Addon = Addon.from_dict(log2reqs)
         self.reqs2reqs: TList[Addon] = Addon.from_optional_dicts(reqs2reqs) or TList()
         self.res2dict: TList[Addon] = Addon.from_optional_dicts(res2dict) or TList()
         self.judgement: TList[Addon] = Addon.from_optional_dicts(judgement) or TList()
         self.dump: TList[Addon] = Addon.from_optional_dicts(dump) or TList()
+        self.did_challenge: TList[Addon] = Addon.from_optional_dicts(did_challenge) or TList()
         self.final: TList[Addon] = Addon.from_optional_dicts(final) or TList()
 
 
@@ -208,6 +210,11 @@ class Res2DictAddOnPayload(OwlMixin):
     def __init__(self, response, result: Optional[dict]):
         self.response = response  # requests style
         self.result: Optional[dict] = result
+
+
+class DidChallengeAddOnPayload(OwlMixin):
+    def __init__(self, trial: Trial):
+        self.trial: Trial = trial
 
 
 class JudgementAddOnPayload(OwlMixin):

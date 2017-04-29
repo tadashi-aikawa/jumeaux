@@ -2,7 +2,7 @@
 
 """For example of config
 judgement:
-  - name: addons.judgement.ignore_property_addon
+  - name: jumeaux.addons.judgement.ignore_properties
     config:
       ignores:
         - path:

@@ -19,6 +19,7 @@ class AddOnExecutor:
         self.res2dict = O(addons).then(_.res2dict).or_(TList()).map(lambda x: create_addon(x))
         self.judgement = O(addons).then(_.judgement).or_(TList()).map(lambda x: create_addon(x))
         self.dump = O(addons).then(_.dump).or_(TList()).map(lambda x: create_addon(x))
+        self.did_challenge = O(addons).then(_.did_challenge).or_(TList()).map(lambda x: create_addon(x))
         self.final = O(addons).then(_.final).or_(TList()).map(lambda x: create_addon(x))
 
     def apply_log2reqs(self, payload: Log2ReqsAddOnPayload) -> TList[Request]:
@@ -35,6 +36,9 @@ class AddOnExecutor:
 
     def apply_dump(self, payload: DumpAddOnPayload) -> DumpAddOnPayload:
         return self.dump.reduce(lambda p, a: a.exec(p), payload)
+
+    def apply_did_challenge(self, payload: DidChallengeAddOnPayload) -> DidChallengeAddOnPayload:
+        return self.did_challenge.reduce(lambda p, a: a.exec(p), payload)
 
     def apply_final(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
         return self.final.reduce(lambda p, a: a.exec(p), payload)

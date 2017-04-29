@@ -345,6 +345,7 @@ class TestCreateConfig:
                 "res2dict": [],
                 "judgement": [],
                 "dump": [],
+                "did_challenge": [],
                 "final": []
             }
         }
@@ -514,6 +515,7 @@ class TestExec:
                 "res2dict": [],
                 "judgement": [],
                 "dump": [],
+                "did_challenge": [],
                 "final": []
             },
             "summary": {

@@ -92,8 +92,6 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
 
 
 def challenge(arg: ChallengeArg) -> Trial:
-    logger.debug(f"Sleep:  {arg.interval_sec} sec")
-    time.sleep(arg.interval_sec)
     logger.info(f"Challenge:  {arg.seq} / {arg.number_of_request} -- {arg.name}")
 
     qs_str = urlparser.urlencode(arg.qs, doseq=True)
@@ -182,34 +180,36 @@ def challenge(arg: ChallengeArg) -> Trial:
         write_to_file(file_one, dir, pretty(res_one))
         write_to_file(file_other, dir, pretty(res_other))
 
-    return Trial.from_dict({
-        "seq": arg.seq,
-        "name": arg.name,
-        "request_time": req_time.strftime("%Y/%m/%d %H:%M:%S.%f"),
-        "status": status,
-        "path": arg.path or "No path",
-        "queries": arg.qs,
-        "headers": arg.headers,
-        "diff_keys": O(diff_keys).then_or_none(lambda x: x.to_dict()),
-        "one": {
-            "url": res_one.url,
-            "status_code": res_one.status_code,
-            "byte": len(res_one.content),
-            "response_sec": to_sec(res_one.elapsed),
-            "content_type": res_one.headers.get("content-type"),
-            "encoding": res_one.encoding,
-            "file": file_one
-        },
-        "other": {
-            "url": res_other.url,
-            "status_code": res_other.status_code,
-            "byte": len(res_other.content),
-            "response_sec": to_sec(res_other.elapsed),
-            "content_type": res_other.headers.get("content-type"),
-            "encoding": res_other.encoding,
-            "file": file_other
-        }
-    })
+    return global_addon_executor.apply_did_challenge(DidChallengeAddOnPayload.from_dict({
+        "trial": Trial.from_dict({
+            "seq": arg.seq,
+            "name": arg.name,
+            "request_time": req_time.strftime("%Y/%m/%d %H:%M:%S.%f"),
+            "status": status,
+            "path": arg.path or "No path",
+            "queries": arg.qs,
+            "headers": arg.headers,
+            "diff_keys": O(diff_keys).then_or_none(lambda x: x.to_dict()),
+            "one": {
+                "url": res_one.url,
+                "status_code": res_one.status_code,
+                "byte": len(res_one.content),
+                "response_sec": to_sec(res_one.elapsed),
+                "content_type": res_one.headers.get("content-type"),
+                "encoding": res_one.encoding,
+                "file": file_one
+            },
+            "other": {
+                "url": res_other.url,
+                "status_code": res_other.status_code,
+                "byte": len(res_other.content),
+                "response_sec": to_sec(res_other.elapsed),
+                "content_type": res_other.headers.get("content-type"),
+                "encoding": res_other.encoding,
+                "file": file_other
+            }
+        })
+    })).trial
 
 
 def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash: str) -> Report:
