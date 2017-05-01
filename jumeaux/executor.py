@@ -7,15 +7,14 @@ Usage
 =======================
 
 Usage:
-  jumeaux --config=<yaml> [--title=<title>] [--threads=<threads>] [--interval-sec=<interval_sec>] [<files>...]
-  jumeaux retry <report>
+  jumeaux --config=<yaml> [--title=<title>] [--threads=<threads>] [<files>...]
+  jumeaux retry  [--title=<title>] [--threads=<threads>] <report>
 
 Options:
   <files>...
   --config = <yaml>                Configuration file(see below)
   --title = <title>                The title of report
   --threads = <threads>            The number of threads in challenge
-  --interval-sec = <interval_sec>  Interval in seconds between trials [default: 0]
   <report>                         Report for retry
 """
 
@@ -24,7 +23,6 @@ import hashlib
 import io
 import logging.config
 import sys
-import time
 import urllib.parse as urlparser
 from datetime import datetime
 
@@ -39,6 +37,8 @@ from owlmixin.util import load_yamlf
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(PROJECT_ROOT)
 from jumeaux import __version__
 from jumeaux.addons import AddOnExecutor
 from jumeaux.models import *
@@ -212,7 +212,7 @@ def challenge(arg: ChallengeArg) -> Trial:
     })).trial
 
 
-def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash: str) -> Report:
+def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
@@ -235,8 +235,7 @@ def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash:
         "headers": x[1].headers,
         "proxy_one": Proxy.from_host(config.one.proxy),
         "proxy_other": Proxy.from_host(config.other.proxy),
-        "res_dir": config.output.response_dir,
-        "interval_sec": args.interval_sec
+        "res_dir": config.output.response_dir
     })
 
     # Challenge
@@ -317,7 +316,7 @@ def main():
             'headers': x.headers,
             'name': x.name
         }))
-        retry_hash: str = report.key
+        retry_hash: Optional[str] = report.key
     else:
         config: Config = create_config(args.config)
         global_addon_executor = AddOnExecutor(config.addons)
@@ -327,7 +326,7 @@ def main():
         origin_logs: TList[Request] = input_paths.flat_map(lambda f: global_addon_executor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({
             'file': f
         })))
-        retry_hash: str = None
+        retry_hash: Optional[str] = None
 
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=config.output.encoding)
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=config.output.encoding)

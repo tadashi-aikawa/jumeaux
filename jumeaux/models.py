@@ -62,12 +62,11 @@ class Config(OwlMixin):
 
 
 class Args(OwlMixin):
-    def __init__(self, files, title: str, config: str, threads: str, interval_sec: str, retry: bool, report: str):
+    def __init__(self, files, title: str, config: str, threads: str, retry: bool, report: str):
         self.files: TList[str] = TList(files)
         self.title: str = title
         self.config: str = config
         self.threads: Optional[int] = O(threads).then_or_none(int)
-        self.interval_sec: float = float(interval_sec)
         self.retry: bool = retry
         self.report: str = report
 
@@ -98,8 +97,7 @@ class Proxy(OwlMixin):
 class ChallengeArg(OwlMixin):
     def __init__(self, seq: int, number_of_request: int, key: str, name: str,
                  session: object, host_one: str, host_other: str, path: str, res_dir: str,
-                 qs: TDict[TList[str]], headers: TDict[str], proxy_one: Proxy, proxy_other: Proxy,
-                 interval_sec: float):
+                 qs: TDict[TList[str]], headers: TDict[str], proxy_one: Proxy, proxy_other: Proxy):
         self.seq: int = seq
         self.number_of_request: int = number_of_request
         self.key: str = key
@@ -113,19 +111,19 @@ class ChallengeArg(OwlMixin):
         self.headers: TDict[str] = headers
         self.proxy_one: Optional[Proxy] = proxy_one
         self.proxy_other: Optional[Proxy] = proxy_other
-        self.interval_sec: float = interval_sec
 
 
 # --------
 
 class Report(OwlMixin):
-    def __init__(self, key: str, title: str, summary: dict, trials: list, addons: Addons=None, retry_hash: str=None):
+    def __init__(self, key: str, title: str, summary: dict, trials: list,
+                 addons: Addons=None, retry_hash: str=None):
         self.key: str = key
         self.title: str = title
         self.summary: Summary = Summary.from_dict(summary)
         self.trials: TList[Trial] = Trial.from_dicts(trials)
         self.addons: Optional[Addons] = Addons.from_optional_dict(addons)
-        self.retry_hash: str = retry_hash
+        self.retry_hash: Optional[str] = retry_hash
 
 
 class Summary(OwlMixin):

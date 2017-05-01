@@ -141,8 +141,7 @@ class TestChallenge:
                 "header2": "2",
             },
             "proxy_one": None,
-            "proxy_other": None,
-            "interval_sec": 0
+            "proxy_other": None
         })
 
         actual = executor.challenge(args)
@@ -223,8 +222,7 @@ class TestChallenge:
                 "header2": "2",
             },
             "proxy_one": None,
-            "proxy_other": None,
-            "interval_sec": 0
+            "proxy_other": None
         })
         actual = executor.challenge(args)
 
@@ -284,8 +282,7 @@ class TestChallenge:
                 "header2": "2",
             },
             "proxy_one": None,
-            "proxy_other": None,
-            "interval_sec": 0
+            "proxy_other": None
         })
         actual = executor.challenge(args)
 
@@ -465,7 +462,6 @@ class TestExec:
             "files": ['line1', 'line2'],
             "threads": 1,
             "title": "Report title",
-            "interval_sec": 0,
             "config": "tests/config.yaml",
             "retry": False,
             "report": None
