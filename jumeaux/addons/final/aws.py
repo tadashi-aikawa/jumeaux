@@ -44,7 +44,8 @@ class Executor(FinalExecutor):
             "failure_count": Decimal(report.summary.status.failure),
             "begin_time": report.summary.time.start,
             "end_time": report.summary.time.end,
-            "with_zip": self.config.with_zip
+            "with_zip": self.config.with_zip,
+            "retry_hash": report.retry_hash
         }
         table.put_item(Item=item)
 
