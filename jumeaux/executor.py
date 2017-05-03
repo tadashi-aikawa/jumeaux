@@ -286,7 +286,7 @@ def create_config(config_path: str) -> Config:
     if not base_config_path:
         return Config.from_dict(origin_config)
 
-    base_config = load_yamlf(f'{os.path.dirname(config_path)}/{base_config_path}', 'utf8')
+    base_config = load_yamlf(os.path.join(os.path.dirname(config_path), base_config_path), 'utf8')
     base_config.update(origin_config)
     return Config.from_dict(base_config)
 
@@ -321,7 +321,7 @@ def main():
         config: Config = create_config(args.config)
         global_addon_executor = AddOnExecutor(config.addons)
         input_paths = args.files or config.input_files.map(
-            lambda f: f'{os.path.dirname(args.config)}/{f}'
+            lambda f: os.path.join(os.path.dirname(args.config), f)
         )
         origin_logs: TList[Request] = input_paths.flat_map(lambda f: global_addon_executor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({
             'file': f
