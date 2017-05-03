@@ -82,7 +82,7 @@ class Executor(FinalExecutor):
             with open(zip_fullpath, 'rb') as f:
                 logger.info(f'Put {zip_fullpath}')
                 s3.put_object(Bucket=self.config.bucket,
-                              Key=f'{report.key}/{report.key[0:6]}.zip',
+                              Key=f'{report.key}/{report.key[0:7]}.zip',
                               Body=f.read(),
                               CacheControl=f'max-age={self.config.cache_max_age}')
             os.remove(zip_fullpath)
