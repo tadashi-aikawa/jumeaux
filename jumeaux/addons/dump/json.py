@@ -19,7 +19,8 @@ class Executor(DumpExecutor):
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: DumpAddOnPayload):
-        mime_type = payload.response.headers.get('content-type').split(';')[0]
+        content_type = payload.response.headers.get('content-type')
+        mime_type = content_type.split(';')[0] if content_type else None
         encoding = payload.encoding or self.config.default_encoding
 
         return DumpAddOnPayload.from_dict({

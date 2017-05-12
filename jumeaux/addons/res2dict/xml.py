@@ -22,7 +22,8 @@ class Executor(Res2DictExecutor):
         if payload.result and not self.config.force:
             return payload
 
-        mime_type = payload.response.headers.get('content-type').split(';')[0]
+        content_type = payload.response.headers.get('content-type')
+        mime_type = content_type.split(';')[0] if content_type else None
         encoding = self.config.force_encoding or payload.response.encoding
 
         return Res2DictAddOnPayload.from_dict({
