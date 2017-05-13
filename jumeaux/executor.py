@@ -91,6 +91,18 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
     return res_one, res_other
 
 
+def judge_to_be_stored(status: Status, path: str, qs: TDict[TList[str]], headers: TDict[str], r_one, r_other):
+    return global_addon_executor.apply_store_criterion(StoreCriterionAddOnPayload.from_dict({
+        "status": status,
+        "path": path,
+        "qs": qs,
+        "headers": headers,
+        "res_one": r_one,
+        "res_other": r_other,
+        "stored": False,
+    })).stored
+
+
 def challenge(arg: ChallengeArg) -> Trial:
     logger.info(f"Challenge:  {arg.seq} / {arg.number_of_request} -- {arg.name}")
 
@@ -173,7 +185,7 @@ def challenge(arg: ChallengeArg) -> Trial:
         })).body
 
     file_one = file_other = None
-    if status != Status.SAME:
+    if judge_to_be_stored(status, arg.path, arg.qs, arg.headers, res_one, res_other):
         dir = f'{arg.res_dir}/{arg.key}'
         file_one = f'one/({arg.seq}){arg.name}'
         file_other = f'other/({arg.seq}){arg.name}'

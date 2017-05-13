@@ -79,6 +79,7 @@ class ResponseBuilder():
         return m
 
 
+@patch('jumeaux.executor.judge_to_be_stored')
 @patch('jumeaux.executor.now')
 @patch('jumeaux.executor.concurrent_request')
 class TestChallenge:
@@ -99,7 +100,7 @@ class TestChallenge:
     def teardown_class(cls):
         shutil.rmtree("tmpdir")
 
-    def test_different(self, concurrent_request, now):
+    def test_different(self, concurrent_request, now, judge_to_be_stored):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
             .json({"items": [1, 2, 3]}) \
             .url('URL_ONE') \
@@ -121,6 +122,7 @@ class TestChallenge:
             .build()
         concurrent_request.return_value = res_one, res_other
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
+        judge_to_be_stored.return_value = True
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
@@ -182,7 +184,7 @@ class TestChallenge:
 
         assert actual.to_dict() == expected
 
-    def test_same(self, concurrent_request, now):
+    def test_same(self, concurrent_request, now, judge_to_be_stored):
         res_one = ResponseBuilder().text('a') \
             .url('URL_ONE') \
             .status_code(200) \
@@ -202,6 +204,7 @@ class TestChallenge:
             .build()
         concurrent_request.return_value = res_one, res_other
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
+        judge_to_be_stored.return_value = False
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
@@ -260,9 +263,10 @@ class TestChallenge:
 
         assert actual.to_dict() == expected
 
-    def test_failure(self, concurrent_request, now):
+    def test_failure(self, concurrent_request, now, judge_to_be_stored):
         concurrent_request.side_effect = ConnectionError
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
+        judge_to_be_stored.return_value = False
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
@@ -341,6 +345,7 @@ class TestCreateConfig:
                 "reqs2reqs": [],
                 "res2dict": [],
                 "judgement": [],
+                "store_criterion": [],
                 "dump": [],
                 "did_challenge": [],
                 "final": []
@@ -486,7 +491,17 @@ class TestExec:
                     "config": {
                         "encoding": "utf8"
                     }
-                }
+                },
+                "store_criterion": [
+                    {
+                        "name": "addons.store_criterion.general",
+                        "config": {
+                            "statuses": [
+                                "different"
+                            ]
+                        }
+                    }
+                ]
             }
         })
         reqs: TList[Request] = Request.from_dicts([
@@ -510,6 +525,17 @@ class TestExec:
                 "reqs2reqs": [],
                 "res2dict": [],
                 "judgement": [],
+                "store_criterion": [
+                    {
+                        "name": "addons.store_criterion.general",
+                        "cls_name": "Executor",
+                        "config": {
+                            "statuses": [
+                                "different"
+                            ]
+                        }
+                    }
+                ],
                 "dump": [],
                 "did_challenge": [],
                 "final": []

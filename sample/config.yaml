@@ -30,5 +30,10 @@ addons:
     name: jumeaux.addons.log2reqs.csv
     config:
       encoding: utf8
+  store_criterion:
+    - name: jumeaux.addons.store_criterion.general
+      config:
+        statuses:
+          - different
   dump:
     - name: jumeaux.addons.dump.json

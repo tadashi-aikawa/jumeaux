@@ -18,6 +18,7 @@ class AddOnExecutor:
         self.reqs2reqs = O(addons).then(_.reqs2reqs).or_(TList()).map(lambda x: create_addon(x))
         self.res2dict = O(addons).then(_.res2dict).or_(TList()).map(lambda x: create_addon(x))
         self.judgement = O(addons).then(_.judgement).or_(TList()).map(lambda x: create_addon(x))
+        self.store_criterion = O(addons).then(_.store_criterion).or_(TList()).map(lambda x: create_addon(x))
         self.dump = O(addons).then(_.dump).or_(TList()).map(lambda x: create_addon(x))
         self.did_challenge = O(addons).then(_.did_challenge).or_(TList()).map(lambda x: create_addon(x))
         self.final = O(addons).then(_.final).or_(TList()).map(lambda x: create_addon(x))
@@ -33,6 +34,9 @@ class AddOnExecutor:
 
     def apply_judgement(self, payload: JudgementAddOnPayload) -> JudgementAddOnPayload:
         return self.judgement.reduce(lambda p, a: a.exec(p), payload)
+
+    def apply_store_criterion(self, payload: StoreCriterionAddOnPayload) -> StoreCriterionAddOnPayload:
+        return self.store_criterion.reduce(lambda p, a: a.exec(p), payload)
 
     def apply_dump(self, payload: DumpAddOnPayload) -> DumpAddOnPayload:
         return self.dump.reduce(lambda p, a: a.exec(p), payload)

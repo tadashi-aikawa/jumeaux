@@ -35,11 +35,12 @@ class Addon(OwlMixin):
 
 class Addons(OwlMixin):
     def __init__(self, log2reqs, reqs2reqs=None, res2dict=None, judgement=None,
-                 dump=None, did_challenge=None, final=None):
+                 store_criterion=None, dump=None, did_challenge=None, final=None):
         self.log2reqs: Addon = Addon.from_dict(log2reqs)
         self.reqs2reqs: TList[Addon] = Addon.from_optional_dicts(reqs2reqs) or TList()
         self.res2dict: TList[Addon] = Addon.from_optional_dicts(res2dict) or TList()
         self.judgement: TList[Addon] = Addon.from_optional_dicts(judgement) or TList()
+        self.store_criterion: TList[Addon] = Addon.from_optional_dicts(store_criterion) or TList()
         self.dump: TList[Addon] = Addon.from_optional_dicts(dump) or TList()
         self.did_challenge: TList[Addon] = Addon.from_optional_dicts(did_challenge) or TList()
         self.final: TList[Addon] = Addon.from_optional_dicts(final) or TList()
@@ -216,7 +217,7 @@ class DidChallengeAddOnPayload(OwlMixin):
 
 
 class JudgementAddOnPayload(OwlMixin):
-    def __init__(self, path, qs: TDict[TList[str]], headers: TDict[str],
+    def __init__(self, path: str, qs: TDict[TList[str]], headers: TDict[str],
                  res_one, res_other, diff_keys: Optional[dict], regard_as_same: bool):
         self.path: str = path
         self.qs: TDict[TList[str]] = qs
@@ -226,6 +227,18 @@ class JudgementAddOnPayload(OwlMixin):
         # None if unknown
         self.diff_keys: Optional[DiffKeys] = DiffKeys.from_optional_dict(diff_keys)
         self.regard_as_same: bool = regard_as_same
+
+
+class StoreCriterionAddOnPayload(OwlMixin):
+    def __init__(self, status: Status, path: str, qs: TDict[TList[str]], headers: TDict[str],
+                 res_one, res_other, stored: bool):
+        self.status: Status = status
+        self.path: str = path
+        self.qs: TDict[TList[str]] = qs
+        self.headers: TDict[str] = headers
+        self.res_one = res_one  # requests style
+        self.res_other = res_other  # requests style
+        self.stored: bool = stored
 
 
 class FinalAddOnPayload(OwlMixin):
