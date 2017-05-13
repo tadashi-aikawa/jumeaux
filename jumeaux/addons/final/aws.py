@@ -58,13 +58,13 @@ class Executor(FinalExecutor):
                 with open(f'{dir}/{which}/{file}', 'rb') as f:
                     logger.info(f'Put {dir}/{which}/{file}')
                     s3.put_object(Bucket=self.config.bucket,
-                                  Key=f'{report.key}/{which}/{file}',
+                                  Key=f'jumeaux-results/{report.key}/{which}/{file}',
                                   Body=f.read(),
                                   CacheControl=f'max-age={self.config.cache_max_age}')
 
         # report
         s3.put_object(Bucket=self.config.bucket,
-                      Key=f'{report.key}/report.json',
+                      Key=f'jumeaux-results/{report.key}/report.json',
                       Body=report.to_json())
 
         # details
@@ -82,7 +82,7 @@ class Executor(FinalExecutor):
             with open(zip_fullpath, 'rb') as f:
                 logger.info(f'Put {zip_fullpath}')
                 s3.put_object(Bucket=self.config.bucket,
-                              Key=f'{report.key}/{report.key[0:7]}.zip',
+                              Key=f'jumeaux-results/{report.key}/{report.key[0:7]}.zip',
                               Body=f.read(),
                               CacheControl=f'max-age={self.config.cache_max_age}')
             os.remove(zip_fullpath)
