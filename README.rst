@@ -1,7 +1,7 @@
 Jumeaux
 *******
 
-|travis| |coverage| |complexity| |license|
+|pypi| |travis| |coverage| |complexity| |versions| |license|
 
 Check difference between two responses of API.
 
@@ -273,3 +273,5 @@ This software is released under the MIT License, see LICENSE.txt.
     :target: https://codeclimate.com/github/tadashi-aikawa/jumeaux
     :alt: Code Climate
 .. |license| image:: https://img.shields.io/github/license/mashape/apistatus.svg
+.. |pypi| image:: https://img.shields.io/pypi/v/jumeaux.svg
+.. |versions| image:: https://img.shields.io/pypi/pyversions/jumeaux.svg
