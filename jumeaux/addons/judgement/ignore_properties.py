@@ -5,12 +5,19 @@ judgement:
   - name: jumeaux.addons.judgement.ignore_properties
     config:
       ignores:
-        - note: reason
+        - title: reason
+          image: https://......png
+          link: https://......
           conditions:
             - path: '/route'
               changed:
                 - root['items'][0]  
                 - root['unit']
+            - path: '/repositories'
+              added:
+                - root['items'][\d+]
+              removed:
+                - root['items']
 """
 
 import logging
