@@ -5,12 +5,12 @@ judgement:
   - name: jumeaux.addons.judgement.ignore_properties
     config:
       ignores:
-        - path:
-            pattern: '/route'
-            changed:
-              - pattern: root['items'][0]
-                note: reason
-              - root['unit']
+        - note: reason
+          conditions:
+            - path: '/route'
+              changed:
+                - root['items'][0]  
+                - root['unit']
 """
 
 import logging
@@ -27,38 +27,30 @@ from jumeaux.models import JudgementAddOnPayload, DiffKeys
 logger = logging.getLogger(__name__)
 
 
-class RegMatcher(OwlMixin):
-    pattern: Optional[str]
-    note: Optional[str]
-    image: Optional[str]
-    link: Optional[str]
+class Condition(OwlMixin):
+    path: Optional[str]
+    added: TList[str]
+    removed: TList[str]
+    changed: TList[str]
 
-    def __init__(self, pattern: Optional[str]=None, note: Optional[str]=None,
-                 image: Optional[str]=None, link: Optional[str]=None):
-        self.pattern = pattern
-        self.note = note
-        self.image = image
-        self.link = link
-
-
-class Path(OwlMixin):
-    pattern: str
-    added: TList[RegMatcher]
-    removed: TList[RegMatcher]
-    changed: TList[RegMatcher]
-
-    def __init__(self, pattern: str, added: Optional[List[str]]=None, removed: Optional[List[str]]=None, changed: Optional[List[str]]=None):
-        self.pattern = pattern
-        self.added = RegMatcher.from_optional_dicts(added) if added is not None else TList()
-        self.removed = RegMatcher.from_optional_dicts(removed) if removed is not None else TList()
-        self.changed = RegMatcher.from_optional_dicts(changed) if changed is not None else TList()
+    def __init__(self, path: Optional[str]=None, added: Optional[List[str]]=None, removed: Optional[List[str]]=None, changed: Optional[List[str]]=None):
+        self.path = path
+        self.added = TList(added) if added is not None else TList()
+        self.removed = TList(removed) if removed is not None else TList()
+        self.changed = TList(changed) if changed is not None else TList()
 
 
 class Ignore(OwlMixin):
-    path: Path
+    title: Optional[str]
+    conditions: TList[Condition]
+    image: Optional[str]
+    link: Optional[str]
 
-    def __init__(self, path: dict):
-        self.path = Path.from_dict(path)
+    def __init__(self, title: str, conditions: TList[Condition], image: Optional[str]=None, link: Optional[str]=None):
+        self.title = title
+        self.conditions = Condition.from_dicts(conditions)
+        self.image = image
+        self.link = link
 
 
 class Config(OwlMixin):
@@ -78,23 +70,23 @@ class Executor(JudgementExecutor):
         if payload.regard_as_same or payload.diff_keys is None:
             return payload
 
-        def filter_diff_keys(diff_keys: DiffKeys, ignore: Ignore) -> DiffKeys:
-            if not re.search(ignore.path.pattern, payload.path):
+        def filter_diff_keys(diff_keys: DiffKeys, condition: Condition) -> DiffKeys:
+            if not re.search(condition.path, payload.path):
                 return diff_keys
 
             return DiffKeys.from_dict({
                 "added": payload.diff_keys.added.reject(
-                    lambda dk: ignore.path.added.map(_.pattern).any(lambda ig: re.search(ig, dk))
+                    lambda dk: condition.added.any(lambda ig: re.search(ig, dk))
                 ),
                 "removed": payload.diff_keys.removed.reject(
-                    lambda dk: ignore.path.removed.map(_.pattern).any(lambda ig: re.search(ig, dk))
+                    lambda dk: condition.removed.any(lambda ig: re.search(ig, dk))
                 ),
                 "changed": payload.diff_keys.changed.reject(
-                    lambda dk: ignore.path.changed.map(_.pattern).any(lambda ig: re.search(ig, dk))
+                    lambda dk: condition.changed.any(lambda ig: re.search(ig, dk))
                 )
             })
 
-        filtered_diff_keys = self.config.ignores.reduce(filter_diff_keys, payload.diff_keys)
+        filtered_diff_keys = self.config.ignores.flat_map(_.conditions).reduce(filter_diff_keys, payload.diff_keys)
 
         return JudgementAddOnPayload.from_dict({
             "path": payload.path,
