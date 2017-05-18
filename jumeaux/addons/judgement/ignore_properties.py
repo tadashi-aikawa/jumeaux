@@ -78,7 +78,7 @@ class Executor(JudgementExecutor):
             return payload
 
         def filter_diff_keys(diff_keys: DiffKeys, condition: Condition) -> DiffKeys:
-            if not re.search(condition.path, payload.path):
+            if condition.path and not re.search(condition.path, payload.path):
                 return diff_keys
 
             return DiffKeys.from_dict({
