@@ -48,7 +48,7 @@ class Condition(OwlMixin):
 
 
 class Ignore(OwlMixin):
-    title: Optional[str]
+    title: str
     conditions: TList[Condition]
     image: Optional[str]
     link: Optional[str]
@@ -73,7 +73,7 @@ class Executor(JudgementExecutor):
     def __init__(self, config: dict):
         self.config = Config.from_dict(config or {})
 
-    def exec(self, payload: JudgementAddOnPayload):
+    def exec(self, payload: JudgementAddOnPayload) -> JudgementAddOnPayload:
         if payload.regard_as_same or payload.diff_keys is None:
             return payload
 
