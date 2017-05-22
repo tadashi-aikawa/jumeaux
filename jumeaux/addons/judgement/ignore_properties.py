@@ -11,7 +11,7 @@ judgement:
           conditions:
             - path: '/route'
               changed:
-                - root['items'][0]  
+                - root['items'][0]
                 - root['unit']
             - path: '/repositories'
               added:
@@ -82,13 +82,13 @@ class Executor(JudgementExecutor):
                 return diff_keys
 
             return DiffKeys.from_dict({
-                "added": payload.diff_keys.added.reject(
+                "added": diff_keys.added.reject(
                     lambda dk: condition.added.any(lambda ig: re.search(ig, dk))
                 ),
-                "removed": payload.diff_keys.removed.reject(
+                "removed": diff_keys.removed.reject(
                     lambda dk: condition.removed.any(lambda ig: re.search(ig, dk))
                 ),
-                "changed": payload.diff_keys.changed.reject(
+                "changed": diff_keys.changed.reject(
                     lambda dk: condition.changed.any(lambda ig: re.search(ig, dk))
                 )
             })
