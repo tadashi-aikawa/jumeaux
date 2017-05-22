@@ -94,6 +94,10 @@ class Executor(JudgementExecutor):
             })
 
         filtered_diff_keys = self.config.ignores.flat_map(_.conditions).reduce(filter_diff_keys, payload.diff_keys)
+        logger.debug('-'*80)
+        logger.debug('filter_diff_keys')
+        logger.debug('-'*80)
+        logger.debug(filtered_diff_keys.to_pretty_json())
 
         return JudgementAddOnPayload.from_dict({
             "path": payload.path,
