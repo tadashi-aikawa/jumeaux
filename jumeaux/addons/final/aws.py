@@ -15,11 +15,12 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, table, bucket, cache_max_age=0, with_zip=True):
+    def __init__(self, table, bucket, cache_max_age=0, with_zip=True, assumed_role_arn=None):
         self.table: str = table
         self.bucket: str = bucket
         self.cache_max_age: int = cache_max_age
         self.with_zip = with_zip
+        self.assumed_role_arn = assumed_role_arn
 
 
 class Executor(FinalExecutor):
@@ -30,8 +31,18 @@ class Executor(FinalExecutor):
         report: Report = payload.report
         output_summary: OutputSummary = payload.output_summary
 
+        tmp_credential = boto3.client('sts').assume_role(
+            RoleArn=self.config.assumed_role_arn,
+            RoleSessionName='jumeaux_with_aws_add-on'
+        ) if self.config.assumed_role_arn else None
+
         # dynamo
-        dynamodb = boto3.resource('dynamodb')
+        dynamodb = boto3.resource('dynamodb', **({
+            'aws_access_key_id': tmp_credential['Credentials']['AccessKeyId'],
+            'aws_secret_access_key': tmp_credential['Credentials']['SecretAccessKey'],
+            'aws_session_token': tmp_credential['Credentials']['SessionToken']
+        } if tmp_credential else {}))
+
         table = dynamodb.Table(self.config.table)
         item = {
             "hashkey": report.key,
@@ -50,7 +61,11 @@ class Executor(FinalExecutor):
         table.put_item(Item=item)
 
         # s3
-        s3 = boto3.client('s3')
+        s3 = boto3.client('s3', **({
+            'aws_access_key_id': tmp_credential['Credentials']['AccessKeyId'],
+            'aws_secret_access_key': tmp_credential['Credentials']['SecretAccessKey'],
+            'aws_session_token': tmp_credential['Credentials']['SessionToken']
+        } if tmp_credential else {}))
 
         def upload_responses(which: str):
             dir = f'{output_summary.response_dir}/{report.key}'
