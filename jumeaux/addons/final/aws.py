@@ -31,8 +31,7 @@ class Executor(FinalExecutor):
         report: Report = payload.report
         output_summary: OutputSummary = payload.output_summary
 
-        sts = boto3.client('sts')
-        tmp_credential = sts.assume_role(
+        tmp_credential = boto3.client('sts').assume_role(
             RoleArn=self.config.assumed_role_arn,
             RoleSessionName='jumeaux_with_aws_add-on'
         ) if self.config.assumed_role_arn else None
