@@ -38,9 +38,9 @@ class Executor(FinalExecutor):
 
         # dynamo
         dynamodb = boto3.resource('dynamodb', **({
-            'aws_access_key_id': tmp_credential.Credentials.AccessKeyId,
-            'aws_secret_access_key': tmp_credential.Credentials.SecretAccessKey,
-            'aws_session_token': tmp_credential.Credentials.SessionToken
+            'aws_access_key_id': tmp_credential['Credentials']['AccessKeyId'],
+            'aws_secret_access_key': tmp_credential['Credentials']['SecretAccessKey'],
+            'aws_session_token': tmp_credential['Credentials']['SessionToken']
         } if tmp_credential else {}))
 
         table = dynamodb.Table(self.config.table)
@@ -62,9 +62,9 @@ class Executor(FinalExecutor):
 
         # s3
         s3 = boto3.client('s3', **({
-            'aws_access_key_id': tmp_credential.Credentials.AccessKeyId,
-            'aws_secret_access_key': tmp_credential.Credentials.SecretAccessKey,
-            'aws_session_token': tmp_credential.Credentials.SessionToken
+            'aws_access_key_id': tmp_credential['Credentials']['AccessKeyId'],
+            'aws_secret_access_key': tmp_credential['Credentials']['SecretAccessKey'],
+            'aws_session_token': tmp_credential['Credentials']['SessionToken']
         } if tmp_credential else {}))
 
         def upload_responses(which: str):
