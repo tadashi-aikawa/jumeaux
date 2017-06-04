@@ -48,12 +48,13 @@ class Addons(OwlMixin):
 
 class Config(OwlMixin):
     def __init__(self, one, other, output, threads=1,
-                 title=None, input_files=None, addons=None, base=None):
+                 title=None, description=None, input_files=None, addons=None, base=None):
         self.one: AccessPoint = AccessPoint.from_dict(one)
         self.other: AccessPoint = AccessPoint.from_dict(other)
         self.output: OutputSummary = OutputSummary.from_dict(output)
         self.threads: int = threads
         self.title: Optional[str] = title
+        self.description: Optional[str] = description
         self.input_files: Optional[TList[str]] = TList(input_files) if input_files else None
         self.addons: Optional[Addons] = Addons.from_optional_dict(addons)
         self.base: Optional[str] = base
@@ -63,9 +64,10 @@ class Config(OwlMixin):
 
 
 class Args(OwlMixin):
-    def __init__(self, files, title: str, config: str, threads: str, retry: bool, report: str):
+    def __init__(self, files, title: str, description: str, config: str, threads: str, retry: bool, report: str):
         self.files: TList[str] = TList(files)
         self.title: str = title
+        self.description: str = description
         self.config: str = config
         self.threads: Optional[int] = O(threads).then_or_none(int)
         self.retry: bool = retry
@@ -118,9 +120,10 @@ class ChallengeArg(OwlMixin):
 
 class Report(OwlMixin):
     def __init__(self, key: str, title: str, summary: dict, trials: list,
-                 addons: Addons=None, retry_hash: str=None):
+                 addons: Addons=None, retry_hash: str=None, description: str=None):
         self.key: str = key
         self.title: str = title
+        self.description: Optional[str] = description
         self.summary: Summary = Summary.from_dict(summary)
         self.trials: TList[Trial] = Trial.from_dicts(trials)
         self.addons: Optional[Addons] = Addons.from_optional_dict(addons)

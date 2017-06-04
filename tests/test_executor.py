@@ -467,6 +467,7 @@ class TestExec:
             "files": ['line1', 'line2'],
             "threads": 1,
             "title": "Report title",
+            "description": "Report description",
             "config": "tests/config.yaml",
             "retry": False,
             "report": None
@@ -514,6 +515,7 @@ class TestExec:
         expected = {
             "key": DUMMY_HASH,
             "title": "Report title",
+            "description": "Report description",
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",

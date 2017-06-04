@@ -47,6 +47,7 @@ class Executor(FinalExecutor):
         item = {
             "hashkey": report.key,
             "title": report.title,
+            "description": report.description,
             "one_host": report.summary.one.host,
             "other_host": report.summary.other.host,
             "paths": set(report.summary.paths),

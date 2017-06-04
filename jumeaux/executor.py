@@ -7,13 +7,14 @@ Usage
 =======================
 
 Usage:
-  jumeaux --config=<yaml> [--title=<title>] [--threads=<threads>] [<files>...]
+  jumeaux --config=<yaml> [--title=<title>] [--description=<description>] [--threads=<threads>] [<files>...]
   jumeaux retry  [--title=<title>] [--threads=<threads>] <report>
 
 Options:
   <files>...
   --config = <yaml>                Configuration file(see below)
   --title = <title>                The title of report
+  --description = <description>    The description of report
   --threads = <threads>            The number of threads in challenge
   <report>                         Report for retry
 """
@@ -280,6 +281,7 @@ def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash:
     return Report.from_dict({
         "key": key,
         "title": args.title or config.title or "No title",
+        "description": args.description or config.description or "No description",
         "summary": summary.to_dict(),
         "trials": trials.to_dicts(),
         "addons": config.addons.to_dict(),
@@ -310,6 +312,7 @@ def create_config_from_report(report: Report) -> Config:
         "output": report.summary.output.to_dict(),
         "threads": 1,
         "title": report.title,
+        "description": report.description,
         "addons": report.addons.to_dict()
     })
 
