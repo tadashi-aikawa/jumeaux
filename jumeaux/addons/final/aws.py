@@ -15,12 +15,13 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, table, bucket, cache_max_age=0, with_zip=True, assumed_role_arn=None):
+    def __init__(self, table, bucket, cache_max_age=0, with_zip=True, assumed_role_arn=None, checklist=None):
         self.table: str = table
         self.bucket: str = bucket
         self.cache_max_age: int = cache_max_age
         self.with_zip = with_zip
         self.assumed_role_arn = assumed_role_arn
+        self.checklist = checklist
 
 
 class Executor(FinalExecutor):
@@ -47,7 +48,6 @@ class Executor(FinalExecutor):
         item = {
             "hashkey": report.key,
             "title": report.title,
-            "description": report.description,
             "one_host": report.summary.one.host,
             "other_host": report.summary.other.host,
             "paths": set(report.summary.paths),
@@ -59,6 +59,10 @@ class Executor(FinalExecutor):
             "with_zip": self.config.with_zip,
             "retry_hash": report.retry_hash
         }
+        if report.description:
+            item['description'] = report.description
+        if self.config.checklist:
+            item['checklist'] = self.config.checklist
         table.put_item(Item=item)
 
         # s3

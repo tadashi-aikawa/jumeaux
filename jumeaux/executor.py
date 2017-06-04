@@ -281,7 +281,7 @@ def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash:
     return Report.from_dict({
         "key": key,
         "title": args.title or config.title or "No title",
-        "description": args.description or config.description or "No description",
+        "description": args.description or config.description or None,
         "summary": summary.to_dict(),
         "trials": trials.to_dicts(),
         "addons": config.addons.to_dict(),
