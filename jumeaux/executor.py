@@ -226,6 +226,23 @@ def challenge(arg: ChallengeArg) -> Trial:
 
 
 def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
+    title = args.title or config.title or "No title"
+    description = args.description or config.description or None
+    logger.info(f"""
+--------------------------------------------------------------------------------
+| >>> Start processing !!
+|
+| [Key]
+| {key}
+|
+| [Title]
+| {title}
+|
+| [Description]
+| {description}
+--------------------------------------------------------------------------------
+    """)
+
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
@@ -280,8 +297,8 @@ def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash:
 
     return Report.from_dict({
         "key": key,
-        "title": args.title or config.title or "No title",
-        "description": args.description or config.description or None,
+        "title": title,
+        "description": description,
         "summary": summary.to_dict(),
         "trials": trials.to_dicts(),
         "addons": config.addons.to_dict(),
