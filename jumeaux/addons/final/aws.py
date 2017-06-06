@@ -1,5 +1,14 @@
 # -*- coding:utf-8 -*-
 
+"""For example of config
+final:
+- name: jumeaux.addons.final.aws
+  config:
+    table:  jumeaux-report
+    bucket: jumeaux-report
+    cache_max_age: 600
+"""
+
 import logging
 import shutil
 from decimal import Decimal
