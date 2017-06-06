@@ -6,6 +6,7 @@ from decimal import Decimal
 
 import boto3
 import os
+import json
 from owlmixin import OwlMixin
 
 from jumeaux.addons.final import FinalExecutor
@@ -83,9 +84,15 @@ class Executor(FinalExecutor):
                                   CacheControl=f'max-age={self.config.cache_max_age}')
 
         # report
+        # TODO: Immutable...
+        d = report.to_dict()
+        del d['trials']
         s3.put_object(Bucket=self.config.bucket,
-                      Key=f'jumeaux-results/{report.key}/report.json',
-                      Body=report.to_json())
+                      Key=f'jumeaux-results/{report.key}/report-without-trials.json',
+                      Body=json.dumps(d, ensure_ascii=False))
+        s3.put_object(Bucket=self.config.bucket,
+                      Key=f'jumeaux-results/{report.key}/trials.json',
+                      Body=report.trials.to_json())
 
         # details
         upload_responses("one")
