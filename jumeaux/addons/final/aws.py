@@ -67,7 +67,8 @@ class Executor(FinalExecutor):
             "begin_time": report.summary.time.start,
             "end_time": report.summary.time.end,
             "with_zip": self.config.with_zip,
-            "retry_hash": report.retry_hash
+            "retry_hash": report.retry_hash,
+            "check_status": 'todo'
         }
         if report.description:
             item['description'] = report.description
