@@ -163,6 +163,7 @@ def challenge(arg: ChallengeArg) -> Trial:
 
     def judge(r_one, r_other) -> Status:
         regard_as_same: bool = global_addon_executor.apply_judgement(JudgementAddOnPayload.from_dict({
+            "name": arg.name,
             "path": arg.path,
             "qs": arg.qs,
             "headers": arg.headers,

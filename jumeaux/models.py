@@ -220,8 +220,9 @@ class DidChallengeAddOnPayload(OwlMixin):
 
 
 class JudgementAddOnPayload(OwlMixin):
-    def __init__(self, path: str, qs: TDict[TList[str]], headers: TDict[str],
+    def __init__(self, name: str, path: str, qs: TDict[TList[str]], headers: TDict[str],
                  res_one, res_other, diff_keys: Optional[dict], regard_as_same: bool):
+        self.name: str = name
         self.path: str = path
         self.qs: TDict[TList[str]] = qs
         self.headers: TDict[str] = headers

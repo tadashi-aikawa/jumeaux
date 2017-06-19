@@ -40,7 +40,9 @@ class Condition(OwlMixin):
     removed: TList[str]
     changed: TList[str]
 
-    def __init__(self, path: Optional[str]=None, added: Optional[List[str]]=None, removed: Optional[List[str]]=None, changed: Optional[List[str]]=None):
+    def __init__(self, name: Optional[str]=None, path: Optional[str]=None,
+                 added: Optional[List[str]]=None, removed: Optional[List[str]]=None, changed: Optional[List[str]]=None):
+        self.name = name
         self.path = path
         self.added = TList(added) if added is not None else TList()
         self.removed = TList(removed) if removed is not None else TList()
@@ -82,7 +84,8 @@ class Executor(JudgementExecutor):
             return payload
 
         def filter_diff_keys(diff_keys: DiffKeys, condition: Condition) -> DiffKeys:
-            if condition.path and not exact_match(condition.path, payload.path):
+            if any([condition.path and not exact_match(condition.path, payload.path),
+                    condition.name and not exact_match(condition.name, payload.name)]):
                 return diff_keys
 
             return DiffKeys.from_dict({
@@ -104,6 +107,7 @@ class Executor(JudgementExecutor):
         logger.debug(filtered_diff_keys.to_pretty_json())
 
         return JudgementAddOnPayload.from_dict({
+            "name": payload.name,
             "path": payload.path,
             "qs": payload.qs,
             "headers": payload.headers,
