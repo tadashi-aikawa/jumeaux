@@ -30,7 +30,7 @@ Installation
 
     $ pip install jumeaux
     $ jumeaux --version
-    0.10.0
+    0.11.0
 
 
 Run
@@ -56,27 +56,71 @@ Then you can see
 
 .. sourcecode::
 
+    INFO
+    --------------------------------------------------------------------------------
+    | >>> Start processing !!
+    |
+    | [Key]
+    | cf87ecc6d0925914d0deede431f44d0d3f11b390edde53e9147cb52ff6964e38
+    |
+    | [Title]
+    | DEMO
+    |
+    | [Description]
+    | None
+    --------------------------------------------------------------------------------
+
     INFO Challenge:  1 / 3 -- README
     INFO Request one:   https://api.github.com/repos/tadashi-aikawa/jumeaux/readme?
     INFO Request other: https://api.github.com/repos/tadashi-aikawa/owlmixin/readme?
-    INFO Response one:   200 / 1.33s / 2843b / application/json; charset=utf-8
-    INFO Response other: 200 / 1.33s / 8814b / application/json; charset=utf-8
+    INFO Response one:   200 / 0.89s / 13143b / application/json; charset=utf-8
+    INFO Response other: 200 / 0.85s / 7632b / application/json; charset=utf-8
     INFO Status:   different
     INFO Challenge:  2 / 3 -- commit
     INFO Request one:   https://api.github.com/repos/tadashi-aikawa/jumeaux/commits?path=README.md
     INFO Request other: https://api.github.com/repos/tadashi-aikawa/owlmixin/commits?path=README.md
-    INFO Response one:   200 / 1.02s / 4083b / application/json; charset=utf-8
-    INFO Response other: 200 / 1.02s / 43634b / application/json; charset=utf-8
+    INFO Response one:   200 / 0.84s / 4083b / application/json; charset=utf-8
+    INFO Response other: 200 / 0.86s / 43634b / application/json; charset=utf-8
     INFO Status:   different
     INFO Challenge:  3 / 3 -- wrong path
     INFO Request one:   https://api.github.com/repos/tadashi-aikawa/jumeaux/hogehoge?
     INFO Request other: https://api.github.com/repos/tadashi-aikawa/owlmixin/hogehoge?
-    INFO Response one:   404 / 0.97s / 77b / application/json; charset=utf-8
-    INFO Response other: 404 / 0.96s / 77b / application/json; charset=utf-8
+    INFO Response one:   404 / 0.8s / 77b / application/json; charset=utf-8
+    INFO Response other: 404 / 0.83s / 77b / application/json; charset=utf-8
     INFO Status:   same
     {
-        "key": "d986a822e0dfab08bfdf833094817b40995653734f2086e304a9af6723fcb124",
-        "title": "DEMO",
+        "addons": {
+            "did_challenge": [],
+            "dump": [
+                {
+                    "cls_name": "Executor",
+                    "name": "jumeaux.addons.dump.json"
+                }
+            ],
+            "final": [],
+            "judgement": [],
+            "log2reqs": {
+                "cls_name": "Executor",
+                "config": {
+                    "encoding": "utf8"
+                },
+                "name": "jumeaux.addons.log2reqs.csv"
+            },
+            "reqs2reqs": [],
+            "res2dict": [],
+            "store_criterion": [
+                {
+                    "cls_name": "Executor",
+                    "config": {
+                        "statuses": [
+                            "different"
+                        ]
+                    },
+                    "name": "jumeaux.addons.store_criterion.general"
+                }
+            ]
+        },
+        "key": "cf87ecc6d0925914d0deede431f44d0d3f11b390edde53e9147cb52ff6964e38",
         "summary": {
             "one": {
                 "host": "https://api.github.com/repos/tadashi-aikawa/jumeaux",
@@ -124,55 +168,37 @@ Then you can see
                 "same": 1
             },
             "time": {
-                "elapsed_sec": 3,
-                "end": "2017/04/28 23:35:50",
-                "start": "2017/04/28 23:35:46"
+                "elapsed_sec": 2,
+                "end": "2017/06/19 12:46:38",
+                "start": "2017/06/19 12:46:35"
             }
         },
-        "addons": {
-            "dump": [
-                {
-                    "cls_name": "Executor",
-                    "name": "jumeaux.addons.dump.json"
-                }
-            ],
-            "final": [],
-            "judgement": [],
-            "log2reqs": {
-                "cls_name": "Executor",
-                "config": {
-                    "encoding": "utf8"
-                },
-                "name": "jumeaux.addons.log2reqs.csv"
-            },
-            "reqs2reqs": [],
-            "res2dict": []
-        },
+        "title": "DEMO",
         "trials": [
             {
                 "headers": {},
                 "name": "README",
                 "one": {
-                    "byte": 2843,
+                    "byte": 13143,
                     "content_type": "application/json; charset=utf-8",
                     "encoding": "utf-8",
                     "file": "one/(1)README",
-                    "response_sec": 1.33,
+                    "response_sec": 0.89,
                     "status_code": 200,
                     "url": "https://api.github.com/repos/tadashi-aikawa/jumeaux/readme"
                 },
                 "other": {
-                    "byte": 8814,
+                    "byte": 7632,
                     "content_type": "application/json; charset=utf-8",
                     "encoding": "utf-8",
                     "file": "other/(1)README",
-                    "response_sec": 1.33,
+                    "response_sec": 0.85,
                     "status_code": 200,
                     "url": "https://api.github.com/repos/tadashi-aikawa/owlmixin/readme"
                 },
                 "path": "/readme",
                 "queries": {},
-                "request_time": "2017/04/28 23:35:46",
+                "request_time": "2017/06/19 12:46:35.996800",
                 "seq": 1,
                 "status": "different"
             },
@@ -184,7 +210,7 @@ Then you can see
                     "content_type": "application/json; charset=utf-8",
                     "encoding": "utf-8",
                     "file": "one/(2)commit",
-                    "response_sec": 1.02,
+                    "response_sec": 0.84,
                     "status_code": 200,
                     "url": "https://api.github.com/repos/tadashi-aikawa/jumeaux/commits?path=README.md"
                 },
@@ -193,7 +219,7 @@ Then you can see
                     "content_type": "application/json; charset=utf-8",
                     "encoding": "utf-8",
                     "file": "other/(2)commit",
-                    "response_sec": 1.02,
+                    "response_sec": 0.86,
                     "status_code": 200,
                     "url": "https://api.github.com/repos/tadashi-aikawa/owlmixin/commits?path=README.md"
                 },
@@ -203,7 +229,7 @@ Then you can see
                         "README.md"
                     ]
                 },
-                "request_time": "2017/04/28 23:35:48",
+                "request_time": "2017/06/19 12:46:36.923595",
                 "seq": 2,
                 "status": "different"
             },
@@ -214,7 +240,7 @@ Then you can see
                     "byte": 77,
                     "content_type": "application/json; charset=utf-8",
                     "encoding": "utf-8",
-                    "response_sec": 0.97,
+                    "response_sec": 0.8,
                     "status_code": 404,
                     "url": "https://api.github.com/repos/tadashi-aikawa/jumeaux/hogehoge"
                 },
@@ -222,13 +248,13 @@ Then you can see
                     "byte": 77,
                     "content_type": "application/json; charset=utf-8",
                     "encoding": "utf-8",
-                    "response_sec": 0.96,
+                    "response_sec": 0.83,
                     "status_code": 404,
                     "url": "https://api.github.com/repos/tadashi-aikawa/owlmixin/hogehoge"
                 },
                 "path": "/hogehoge",
                 "queries": {},
-                "request_time": "2017/04/28 23:35:49",
+                "request_time": "2017/06/19 12:46:37.807953",
                 "seq": 3,
                 "status": "same"
             }
