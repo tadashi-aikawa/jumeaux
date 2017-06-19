@@ -81,6 +81,38 @@ class TestExec:
             'regard_as_same': True
         }
 
+    def test_only_condition_partial_same_is_false(self):
+
+        payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict({
+            'path': '/test1',
+            'qs': {},
+            'headers': [],
+            'res_one': 'res_one_dummy',
+            'res_other': 'res_other_dummy',
+            'diff_keys': {
+                'added': ['<add><0><extra>', '<add><1><extra>', '<add><2><extra>'],
+                'changed': [],
+                'removed': []
+            },
+            'regard_as_same': False
+        })
+
+        actual: JudgementAddOnPayload = Executor(CONFIG).exec(payload)
+
+        assert actual.to_dict() == {
+            'path': '/test1',
+            'qs': {},
+            'headers': [],
+            'res_one': 'res_one_dummy',
+            'res_other': 'res_other_dummy',
+            'diff_keys': {
+                'added': ['<add><0><extra>', '<add><1><extra>', '<add><2><extra>'],
+                'changed': [],
+                'removed': []
+            },
+            'regard_as_same': False
+        }
+
     def test_over_conditions_same(self):
 
         payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict({

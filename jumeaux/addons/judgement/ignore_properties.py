@@ -67,6 +67,10 @@ class Config(OwlMixin):
         self.ignores = Ignore.from_dicts(ignores)
 
 
+def exact_match(regexp: str, target: str):
+    return re.search(f'^{regexp}$', target)
+
+
 class Executor(JudgementExecutor):
     config: Config
 
@@ -78,18 +82,18 @@ class Executor(JudgementExecutor):
             return payload
 
         def filter_diff_keys(diff_keys: DiffKeys, condition: Condition) -> DiffKeys:
-            if condition.path and not re.search(condition.path, payload.path):
+            if condition.path and not exact_match(condition.path, payload.path):
                 return diff_keys
 
             return DiffKeys.from_dict({
                 "added": diff_keys.added.reject(
-                    lambda dk: condition.added.any(lambda ig: re.search(ig, dk))
+                    lambda dk: condition.added.any(lambda ig: exact_match(ig, dk))
                 ),
                 "removed": diff_keys.removed.reject(
-                    lambda dk: condition.removed.any(lambda ig: re.search(ig, dk))
+                    lambda dk: condition.removed.any(lambda ig: exact_match(ig, dk))
                 ),
                 "changed": diff_keys.changed.reject(
-                    lambda dk: condition.changed.any(lambda ig: re.search(ig, dk))
+                    lambda dk: condition.changed.any(lambda ig: exact_match(ig, dk))
                 )
             })
 
