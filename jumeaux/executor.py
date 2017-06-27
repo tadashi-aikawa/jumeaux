@@ -8,7 +8,7 @@ Usage
 
 Usage:
   jumeaux --config=<yaml> [--title=<title>] [--description=<description>] [--threads=<threads>] [<files>...]
-  jumeaux retry  [--title=<title>] [--threads=<threads>] <report>
+  jumeaux retry  [--title=<title>] [--description=<description>] [--threads=<threads>] <report>
 
 Options:
   <files>...
