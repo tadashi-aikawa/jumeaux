@@ -8,3 +8,8 @@ other:
 output:
   encoding: utf8
   response_dir: responses
+addons:
+  log2reqs:
+    name: addons.log2reqs.csv
+    config:
+      encoding: utf8

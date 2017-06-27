@@ -2,10 +2,10 @@
 
 """For example of config
 did_challenge:
-- name: jumeaux.addons.did_challenge.sleep
-  config:
-    min: 0.1
-    max: 1.0
+  - name: jumeaux.addons.did_challenge.sleep
+    config:
+      min: 0.1
+      max: 1.0
 """
 
 import logging
@@ -22,16 +22,15 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, max: float, min: float):
-        self.max: float = max
-        self.min: float = min
+    max: float
+    min: float
 
 
 class Executor(DidChallengeExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
 
-    def exec(self, payload: DidChallengeAddOnPayload):
+    def exec(self, payload: DidChallengeAddOnPayload) -> DidChallengeAddOnPayload:
         sec: float = random.uniform(self.config.min, self.config.max)
 
         logger.info(f"Sleep:  {sec:.2f} sec")

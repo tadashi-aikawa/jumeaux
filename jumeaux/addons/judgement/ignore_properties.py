@@ -24,9 +24,8 @@ import logging
 import re
 
 from fn import _
-from owlmixin import OwlMixin
+from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
-from typing import Optional, List
 
 from jumeaux.addons.judgement import JudgementExecutor
 from jumeaux.models import JudgementAddOnPayload, DiffKeys
@@ -35,38 +34,22 @@ logger = logging.getLogger(__name__)
 
 
 class Condition(OwlMixin):
-    path: Optional[str]
-    added: TList[str]
-    removed: TList[str]
-    changed: TList[str]
-
-    def __init__(self, name: Optional[str]=None, path: Optional[str]=None,
-                 added: Optional[List[str]]=None, removed: Optional[List[str]]=None, changed: Optional[List[str]]=None):
-        self.name = name
-        self.path = path
-        self.added = TList(added) if added is not None else TList()
-        self.removed = TList(removed) if removed is not None else TList()
-        self.changed = TList(changed) if changed is not None else TList()
+    name: TOption[str]
+    path: TOption[str]
+    added: TList[str] = []
+    removed: TList[str] = []
+    changed: TList[str] = []
 
 
 class Ignore(OwlMixin):
     title: str
     conditions: TList[Condition]
-    image: Optional[str]
-    link: Optional[str]
-
-    def __init__(self, title: str, conditions: TList[Condition], image: Optional[str]=None, link: Optional[str]=None):
-        self.title = title
-        self.conditions = Condition.from_dicts(conditions)
-        self.image = image
-        self.link = link
+    image: TOption[str]
+    link: TOption[str]
 
 
 class Config(OwlMixin):
     ignores: TList[Ignore]
-
-    def __init__(self, ignores):
-        self.ignores = Ignore.from_dicts(ignores)
 
 
 def exact_match(regexp: str, target: str):
@@ -77,15 +60,15 @@ class Executor(JudgementExecutor):
     config: Config
 
     def __init__(self, config: dict):
-        self.config = Config.from_dict(config or {})
+        self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: JudgementAddOnPayload) -> JudgementAddOnPayload:
-        if payload.regard_as_same or payload.diff_keys is None:
+        if payload.regard_as_same or payload.diff_keys.is_none():
             return payload
 
         def filter_diff_keys(diff_keys: DiffKeys, condition: Condition) -> DiffKeys:
-            if any([condition.path and not exact_match(condition.path, payload.path),
-                    condition.name and not exact_match(condition.name, payload.name)]):
+            if any([condition.path.get() and not exact_match(condition.path.get(), payload.path),
+                    condition.name.get() and not exact_match(condition.name.get(), payload.name)]):
                 return diff_keys
 
             return DiffKeys.from_dict({
@@ -100,7 +83,7 @@ class Executor(JudgementExecutor):
                 )
             })
 
-        filtered_diff_keys = self.config.ignores.flat_map(_.conditions).reduce(filter_diff_keys, payload.diff_keys)
+        filtered_diff_keys = self.config.ignores.flat_map(_.conditions).reduce(filter_diff_keys, payload.diff_keys.get())
         logger.debug('-'*80)
         logger.debug('filter_diff_keys')
         logger.debug('-'*80)
@@ -113,6 +96,6 @@ class Executor(JudgementExecutor):
             "headers": payload.headers,
             "res_one": payload.res_one,
             "res_other": payload.res_other,
-            "diff_keys": payload.diff_keys.to_dict(),
+            "diff_keys": payload.diff_keys,
             "regard_as_same": not (filtered_diff_keys.added or filtered_diff_keys.removed or filtered_diff_keys.changed)
         })

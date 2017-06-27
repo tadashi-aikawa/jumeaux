@@ -1,27 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from fn import _
 from importlib import import_module
-from owlmixin.util import O
 
 from jumeaux.models import *
 
 
 def create_addon(a: Addon):
-    return getattr(import_module(a.name), a.cls_name)(a.config)
+    return getattr(import_module(a.name), a.cls_name)(a.config.get())
 
 
 class AddOnExecutor:
     def __init__(self, addons: Addons):
         self.log2reqs = create_addon(addons.log2reqs)
-        self.reqs2reqs = O(addons).then(_.reqs2reqs).or_(TList()).map(lambda x: create_addon(x))
-        self.res2dict = O(addons).then(_.res2dict).or_(TList()).map(lambda x: create_addon(x))
-        self.judgement = O(addons).then(_.judgement).or_(TList()).map(lambda x: create_addon(x))
-        self.store_criterion = O(addons).then(_.store_criterion).or_(TList()).map(lambda x: create_addon(x))
-        self.dump = O(addons).then(_.dump).or_(TList()).map(lambda x: create_addon(x))
-        self.did_challenge = O(addons).then(_.did_challenge).or_(TList()).map(lambda x: create_addon(x))
-        self.final = O(addons).then(_.final).or_(TList()).map(lambda x: create_addon(x))
+        self.reqs2reqs = addons.reqs2reqs.map(lambda x: create_addon(x)) if addons else TList()
+        self.res2dict = addons.res2dict.map(lambda x: create_addon(x)) if addons else TList()
+        self.judgement = addons.judgement.map(lambda x: create_addon(x)) if addons else TList()
+        self.store_criterion = addons.store_criterion.map(lambda x: create_addon(x)) if addons else TList()
+        self.dump = addons.dump.map(lambda x: create_addon(x)) if addons else TList()
+        self.did_challenge = addons.did_challenge.map(lambda x: create_addon(x)) if addons else TList()
+        self.final = addons.final.map(lambda x: create_addon(x)) if addons else TList()
 
     def apply_log2reqs(self, payload: Log2ReqsAddOnPayload) -> TList[Request]:
         return self.log2reqs.exec(payload)

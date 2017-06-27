@@ -3,5 +3,5 @@ from jumeaux.models import Res2DictAddOnPayload
 
 
 class Res2DictExecutor:
-    def exec(self, payload: Res2DictAddOnPayload):
+    def exec(self, payload: Res2DictAddOnPayload) -> Res2DictAddOnPayload:
         raise NotImplementedError()

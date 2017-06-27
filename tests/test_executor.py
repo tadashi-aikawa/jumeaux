@@ -129,9 +129,9 @@ class TestChallenge:
             "name": "name1",
             "number_of_request": 10,
             "key": "hash_key",
-            "session": None,
-            "host_one": None,
-            "host_other": None,
+            "session": 'dummy',
+            "host_one": 'hoge_one',
+            "host_other": 'hoge_other',
             "path": "/challenge",
             "res_dir": "tmpdir",
             "qs": {
@@ -152,7 +152,7 @@ class TestChallenge:
             "seq": 1,
             "name": "name1",
             "request_time": '2000/01/01 00:00:00.000000',
-            "status": Status.DIFFERENT,
+            "status": 'different',
             "path": '/challenge',
             "queries": {
                 "q1": ["1"],
@@ -211,9 +211,9 @@ class TestChallenge:
             "name": "name2",
             "number_of_request": 10,
             "key": "hash_key",
-            "session": None,
-            "host_one": None,
-            "host_other": None,
+            "session": 'dummy',
+            "host_one": 'hoge_one',
+            "host_other": 'hoge_other',
             "path": "/challenge",
             "res_dir": "tmpdir",
             "qs": {
@@ -233,7 +233,7 @@ class TestChallenge:
             "seq": 1,
             "name": "name2",
             "request_time": '2000/01/01 00:00:00.000000',
-            "status": Status.SAME,
+            "status": 'same',
             "path": '/challenge',
             "queries": {
                 'q1': ['1'],
@@ -273,7 +273,7 @@ class TestChallenge:
             "name": "name3",
             "number_of_request": 10,
             "key": "hash_key",
-            "session": None,
+            "session": 'dummy',
             "host_one": "http://one",
             "host_other": "http://other",
             "path": "/challenge",
@@ -294,7 +294,7 @@ class TestChallenge:
             "seq": 1,
             "name": "name3",
             "request_time": '2000/01/01 00:00:00.000000',
-            "status": Status.FAILURE,
+            "status": 'failure',
             "path": '/challenge',
             "queries": {
                 'q1': ['1']
@@ -371,7 +371,23 @@ class TestCreateConfig:
                 "encoding": "utf8",
                 "response_dir": "responses"
             },
-            "threads": 1
+            "threads": 1,
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "reqs2reqs": [],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [],
+                "dump": [],
+                "did_challenge": [],
+                "final": []
+            }
         }
 
         assert actual.to_dict() == expected
@@ -576,7 +592,7 @@ class TestExec:
                     "seq": 1,
                     "name": "name1",
                     "request_time": '2000/01/01 00:00:01.000000',
-                    "status": Status.DIFFERENT,
+                    "status": 'different',
                     "path": '/challenge1',
                     "queries": {
                         "q1": ["1"],
@@ -609,7 +625,7 @@ class TestExec:
                     "seq": 2,
                     "name": "name2",
                     "request_time": '2000/01/01 00:00:02.000000',
-                    "status": Status.SAME,
+                    "status": 'same',
                     "path": '/challenge2',
                     "queries": {
                         "q1": ["1"],

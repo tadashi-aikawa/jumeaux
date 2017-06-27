@@ -56,7 +56,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test1',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -73,7 +73,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test1',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -90,7 +90,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test1',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -107,7 +107,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test1',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -124,7 +124,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test1',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -141,7 +141,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test1',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -158,7 +158,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test1',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -175,7 +175,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test1',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -192,7 +192,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test1',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -209,7 +209,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test1',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -226,7 +226,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test2',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -243,7 +243,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test2',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -260,7 +260,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test2',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -277,7 +277,7 @@ class TestExec:
             'name': 'no title',
             'path': '/test2',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -294,7 +294,7 @@ class TestExec:
             'name': 'title',
             'path': '/test2',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {
@@ -311,7 +311,7 @@ class TestExec:
             'name': 'title',
             'path': '/test2',
             'qs': {},
-            'headers': [],
+            'headers': {},
             'res_one': 'res_one_dummy',
             'res_other': 'res_other_dummy',
             'diff_keys': {

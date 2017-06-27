@@ -11,8 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, size):
-        self.size: int = size
+    size: int
 
 
 class Executor(Reqs2ReqsExecutor):

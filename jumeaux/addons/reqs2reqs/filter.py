@@ -22,10 +22,9 @@ reqs2reqs:
 import logging
 import re
 
-from owlmixin import OwlMixin
+from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 from owlmixin.owlenum import OwlObjectEnum
-from typing import Optional
 
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
 from jumeaux.models import Request, Reqs2ReqsAddOnPayload
@@ -55,29 +54,25 @@ class AndOr(OwlObjectEnum):
 
 
 class Matcher(OwlMixin):
-    def __init__(self, value: str, kind: str = "partial", negative: bool = False):
-        self.value: str = value
-        self.kind: Kind = Kind.from_symbol(kind)
-        self.negative: bool = negative
+    value: str
+    kind: Kind = 'partial'
+    negative: bool = False
 
 
 class Condition(OwlMixin):
-    def __init__(self, matchers: list, and_or: str = "or"):
-        self.matchers: TList[Matcher] = Matcher.from_dicts(matchers)
-        self.and_or: AndOr = AndOr.from_symbol(and_or)
+    matchers: TList[Matcher]
+    and_or: AndOr = 'or'
 
 
 class Filter(OwlMixin):
-    def __init__(self, and_or: str = "and", name=None, path=None):
-        self.and_or: AndOr = AndOr.from_symbol(and_or)
-        self.name: Optional[Condition] = Condition.from_optional_dict(name)
-        self.path: Optional[Condition] = Condition.from_optional_dict(path)
+    and_or: AndOr = 'and'
+    name: TOption[Condition]
+    path: TOption[Condition]
 
 
 class Config(OwlMixin):
-    def __init__(self, filters: list, and_or: str = "or"):
-        self.filters: TList[Filter] = Filter.from_dicts(filters)
-        self.and_or: AndOr = AndOr.from_symbol(and_or)
+    filters: TList[Filter]
+    and_or: AndOr
 
 
 class Executor(Reqs2ReqsExecutor):
@@ -93,8 +88,8 @@ class Executor(Reqs2ReqsExecutor):
 
         def is_fulfilled_filter(r: Request, f: Filter) -> bool:
             return f.and_or.check([
-                is_fulfilled_condition(r.name, f.name) if f.name else True,
-                is_fulfilled_condition(r.path, f.path) if f.path else True
+                is_fulfilled_condition(r.name, f.name.get()) if f.name.get() else True,
+                is_fulfilled_condition(r.path, f.path.get()) if f.path.get() else True
             ])
 
         return Reqs2ReqsAddOnPayload.from_dict({

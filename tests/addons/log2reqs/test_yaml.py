@@ -97,5 +97,5 @@ class TestFromFormat:
 
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        with pytest.raises(ValueError):
+        with pytest.raises(AttributeError):
             Executor({"encoding": "utf8"}).exec(Log2ReqsAddOnPayload.from_dict({'file': 'tmp'}))

@@ -13,7 +13,6 @@ import logging
 
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
-from typing import Optional, List
 
 from jumeaux.addons.store_criterion import StoreCriterionExecutor
 from jumeaux.models import StoreCriterionAddOnPayload, Status
@@ -22,8 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, statuses: List[str] = None):
-        self.statuses: TList[Status] = TList(statuses).map(lambda x: Status(x)) if statuses else TList()
+    statuses: TList[Status]
 
 
 class Executor(StoreCriterionExecutor):

@@ -9,14 +9,14 @@ final:
     cache_max_age: 600
 """
 
+import json
 import logging
+import os
 import shutil
 from decimal import Decimal
 
 import boto3
-import os
-import json
-from owlmixin import OwlMixin
+from owlmixin import OwlMixin, TOption
 
 from jumeaux.addons.final import FinalExecutor
 from jumeaux.models import Report, OutputSummary, FinalAddOnPayload
@@ -25,13 +25,12 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, table, bucket, cache_max_age=0, with_zip=True, assumed_role_arn=None, checklist=None):
-        self.table: str = table
-        self.bucket: str = bucket
-        self.cache_max_age: int = cache_max_age
-        self.with_zip = with_zip
-        self.assumed_role_arn = assumed_role_arn
-        self.checklist = checklist
+    table: str
+    bucket: str
+    cache_max_age: int = 0
+    with_zip: bool = True
+    assumed_role_arn: TOption[str]
+    checklist: TOption[str]
 
 
 class Executor(FinalExecutor):
@@ -43,9 +42,9 @@ class Executor(FinalExecutor):
         output_summary: OutputSummary = payload.output_summary
 
         tmp_credential = boto3.client('sts').assume_role(
-            RoleArn=self.config.assumed_role_arn,
+            RoleArn=self.config.assumed_role_arn.get(),
             RoleSessionName='jumeaux_with_aws_add-on'
-        ) if self.config.assumed_role_arn else None
+        ) if not self.config.assumed_role_arn.is_none() else None
 
         # dynamo
         dynamodb = boto3.resource('dynamodb', **({
@@ -67,13 +66,13 @@ class Executor(FinalExecutor):
             "begin_time": report.summary.time.start,
             "end_time": report.summary.time.end,
             "with_zip": self.config.with_zip,
-            "retry_hash": report.retry_hash,
+            "retry_hash": report.retry_hash.get(),
             "check_status": 'todo'
         }
-        if report.description:
-            item['description'] = report.description
-        if self.config.checklist:
-            item['checklist'] = self.config.checklist
+        if not report.description.is_none():
+            item['description'] = report.description.get()
+        if not self.config.checklist.is_none():
+            item['checklist'] = self.config.checklist.get()
         table.put_item(Item=item)
 
         # s3

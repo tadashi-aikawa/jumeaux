@@ -12,8 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, encoding='utf8'):
-        self.encoding: str = encoding
+    encoding: str = 'utf8'
 
 
 class Executor(Log2ReqsExecutor):
@@ -22,7 +21,7 @@ class Executor(Log2ReqsExecutor):
 
     def exec(self, payload: Log2ReqsAddOnPayload) -> TList[Request]:
         """Transform from json to Request
-    
+
         Exception:
             ValueError: If path does not exist.
         """

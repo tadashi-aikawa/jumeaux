@@ -14,9 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, encoding='utf8', dialect='excel'):
-        self.encoding: str = encoding
-        self.dialect: str = dialect
+    encoding: str = 'utf8'
+    dialect: str = 'excel'
 
 
 class Executor(Log2ReqsExecutor):
@@ -29,7 +28,7 @@ class Executor(Log2ReqsExecutor):
             "title2","/path2","c=1"
             "title3","/path3",,"header1=1&header2=2"
             "title4","/path4"
-    
+
         Exception:
             ValueError: If fomat is invalid.
         """

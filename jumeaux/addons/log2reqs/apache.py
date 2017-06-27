@@ -14,8 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, encoding='utf8'):
-        self.encoding: str = encoding
+    encoding: str = 'utf8'
 
 
 class Executor(Log2ReqsExecutor):
@@ -26,7 +25,7 @@ class Executor(Log2ReqsExecutor):
         """Transform apache access_log as below.
             000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=1" "header2=2"
             000.000.000.000 - - [30/Oct/2014:16:11:10 +0900] "GET /path2?q1=1 HTTP/1.1" 200 - "-" "Mozilla/4.0 (compatible;)" "header1=-" "header2=-"
-    
+
         Exception:
             ValueError: If url is invalid.
         """

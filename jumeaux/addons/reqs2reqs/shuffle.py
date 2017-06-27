@@ -11,14 +11,9 @@ from jumeaux.models import Reqs2ReqsAddOnPayload
 logger = logging.getLogger(__name__)
 
 
-class Config(OwlMixin):
-    def __init__(self):
-        pass
-
-
 class Executor(Reqs2ReqsExecutor):
     def __init__(self, config: dict):
-        self.config: Config = Config.from_dict(config or {})
+        pass
 
     def exec(self, payload: Reqs2ReqsAddOnPayload) -> Reqs2ReqsAddOnPayload:
         random.shuffle(payload.requests)

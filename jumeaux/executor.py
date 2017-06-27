@@ -38,6 +38,8 @@ from owlmixin.util import load_yamlf
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 
+from jumeaux.models import Args
+
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 from jumeaux import __version__
@@ -117,7 +119,7 @@ def challenge(arg: ChallengeArg) -> Trial:
     try:
         res_one, res_other = concurrent_request(arg.session, arg.headers,
                                                 url_one, url_other,
-                                                arg.proxy_one, arg.proxy_other)
+                                                arg.proxy_one.get(), arg.proxy_other.get())
     except ConnectionError:
         # TODO: Integrate logic into create_trial
         return Trial.from_dict({
@@ -136,7 +138,7 @@ def challenge(arg: ChallengeArg) -> Trial:
             }
         })
 
-    def res2dict(res) -> Optional[dict]:
+    def res2dict(res) -> TOption[dict]:
         return global_addon_executor.apply_res2dict(Res2DictAddOnPayload.from_dict({
             "response": res,
             "result": None
@@ -146,8 +148,8 @@ def challenge(arg: ChallengeArg) -> Trial:
     dict_other = res2dict(res_other)
 
     # Create diff
-    ddiff = DeepDiff(dict_one, dict_other) \
-        if dict_one is not None and dict_other is not None \
+    ddiff = DeepDiff(dict_one.get(), dict_other.get()) \
+        if not dict_one.is_none() and not dict_other.is_none() \
         else None
     diff_keys: Optional[DiffKeys] = DiffKeys.from_dict({
         "changed": TList(ddiff.get('type_changes', {}).keys() | ddiff.get('values_changed', {}).keys())
@@ -169,7 +171,7 @@ def challenge(arg: ChallengeArg) -> Trial:
             "headers": arg.headers,
             "res_one": r_one,
             "res_other": r_other,
-            "diff_keys": O(diff_keys).then_or_none(lambda x: x.to_dict()),
+            "diff_keys": diff_keys,
             "regard_as_same": r_one.content == r_other.content
         })).regard_as_same
         return Status.SAME if regard_as_same else Status.DIFFERENT
@@ -203,7 +205,7 @@ def challenge(arg: ChallengeArg) -> Trial:
             "path": arg.path or "No path",
             "queries": arg.qs,
             "headers": arg.headers,
-            "diff_keys": O(diff_keys).then_or_none(lambda x: x.to_dict()),
+            "diff_keys": diff_keys,
             "one": {
                 "url": res_one.url,
                 "status_code": res_one.status_code,
@@ -227,8 +229,8 @@ def challenge(arg: ChallengeArg) -> Trial:
 
 
 def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
-    title = args.title or config.title or "No title"
-    description = args.description or config.description or None
+    title = args.title.get() or config.title.get() or "No title"
+    description = args.description.get() or config.description.get() or None
     logger.info(f"""
 --------------------------------------------------------------------------------
 | >>> Start processing !!
@@ -257,7 +259,7 @@ def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash:
         "seq": x[0] + 1,
         "number_of_request": len(logs),
         "key": key,
-        "name": x[1].name or str(x[0] + 1),
+        "name": x[1].name.get_or(str(x[0] + 1)),
         "session": s,
         "host_one": config.one.host,
         "host_other": config.other.host,
@@ -271,7 +273,7 @@ def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash:
 
     # Challenge
     start_time = now()
-    with futures.ThreadPoolExecutor(max_workers=args.threads or config.threads) as ex:
+    with futures.ThreadPoolExecutor(max_workers=args.threads.get() or config.threads) as ex:
         trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))])
     end_time = now()
 
@@ -353,19 +355,23 @@ def main():
     else:
         config: Config = create_config(args.config)
         global_addon_executor = AddOnExecutor(config.addons)
-        input_paths = args.files or config.input_files.map(
+        input_paths = args.files.get() or config.input_files.get().map(
             lambda f: os.path.join(os.path.dirname(args.config), f)
         )
-        origin_logs: TList[Request] = input_paths.flat_map(lambda f: global_addon_executor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({
-            'file': f
-        })))
+        origin_logs: TList[Request] = input_paths.flat_map(
+            lambda f: global_addon_executor.apply_log2reqs(
+                Log2ReqsAddOnPayload.from_dict({
+                    'file': f
+                })
+            )
+        )
         retry_hash: Optional[str] = None
 
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=config.output.encoding)
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=config.output.encoding)
 
     # Logging settings load
-    logger_config = config.output.logger
+    logger_config = config.output.logger.get()
     if logger_config:
         logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)

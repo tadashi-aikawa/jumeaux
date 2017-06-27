@@ -13,8 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):
-    def __init__(self, encoding='utf8'):
-        self.encoding: str = encoding
+    encoding: str = 'utf8'
 
 
 class Executor(Log2ReqsExecutor):

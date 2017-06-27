@@ -3,5 +3,5 @@ from jumeaux.models import Reqs2ReqsAddOnPayload
 
 
 class Reqs2ReqsExecutor:
-    def exec(self, payload: Reqs2ReqsAddOnPayload):
+    def exec(self, payload: Reqs2ReqsAddOnPayload) -> Reqs2ReqsAddOnPayload:
         raise NotImplementedError()

@@ -3,5 +3,5 @@ from jumeaux.models import DumpAddOnPayload
 
 
 class DumpExecutor:
-    def exec(self, payload: DumpAddOnPayload):
+    def exec(self, payload: DumpAddOnPayload) -> DumpAddOnPayload:
         raise NotImplementedError()
