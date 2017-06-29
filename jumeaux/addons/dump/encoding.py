@@ -21,6 +21,6 @@ class Executor(DumpExecutor):
     def exec(self, payload: DumpAddOnPayload) -> DumpAddOnPayload:
         return DumpAddOnPayload.from_dict({
             "response": payload.response,
-            "body": payload.body.decode(payload.encoding).encode(self.config.encoding),
+            "body": payload.body.decode(payload.encoding.get()).encode(self.config.encoding),
             "encoding": self.config.encoding
         })

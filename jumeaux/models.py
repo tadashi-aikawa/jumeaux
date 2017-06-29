@@ -184,7 +184,7 @@ class Reqs2ReqsAddOnPayload(OwlMixin):
 class DumpAddOnPayload(OwlMixin):
     response: any  # requests style
     body: bytes
-    encoding: str
+    encoding: TOption[str]
 
 
 class Res2DictAddOnPayload(OwlMixin):

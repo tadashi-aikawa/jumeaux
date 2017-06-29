@@ -38,8 +38,6 @@ from owlmixin.util import load_yamlf
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 
-from jumeaux.models import Args
-
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 from jumeaux import __version__
