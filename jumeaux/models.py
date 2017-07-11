@@ -60,7 +60,7 @@ class Args(OwlMixin):
     files: TOption[TList[str]]
     title: TOption[str]
     description: TOption[str]
-    config: str
+    config: TOption[str]
     threads: TOption[int]
     retry: bool
     report: TOption[str]  # Only case in which retry is True

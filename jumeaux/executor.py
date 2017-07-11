@@ -331,7 +331,7 @@ def create_config_from_report(report: Report) -> Config:
         "threads": 1,
         "title": report.title,
         "description": report.description,
-        "addons": report.addons.to_dict()
+        "addons": report.addons.get().to_dict()
     })
 
 
@@ -340,7 +340,7 @@ def main():
     global global_addon_executor
     # TODO: refactoring
     if args.retry:
-        report: Report = Report.from_jsonf(args.report)
+        report: Report = Report.from_jsonf(args.report.get())
         config: Config = create_config_from_report(report)
         global_addon_executor = AddOnExecutor(config.addons)
         origin_logs: TList[Request] = report.trials.map(lambda x: Request.from_dict({
@@ -351,10 +351,10 @@ def main():
         }))
         retry_hash: Optional[str] = report.key
     else:
-        config: Config = create_config(args.config)
+        config: Config = create_config(args.config.get())
         global_addon_executor = AddOnExecutor(config.addons)
         input_paths = args.files.get() or config.input_files.get().map(
-            lambda f: os.path.join(os.path.dirname(args.config), f)
+            lambda f: os.path.join(os.path.dirname(args.config.get()), f)
         )
         origin_logs: TList[Request] = input_paths.flat_map(
             lambda f: global_addon_executor.apply_log2reqs(
