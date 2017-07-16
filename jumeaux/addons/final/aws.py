@@ -24,6 +24,11 @@ from jumeaux.models import Report, OutputSummary, FinalAddOnPayload
 logger = logging.getLogger(__name__)
 
 
+class LocalStack(OwlMixin):
+    use: bool
+    endpoint: str = 'http://localhost'
+
+
 class Config(OwlMixin):
     table: str
     bucket: str
@@ -31,6 +36,7 @@ class Config(OwlMixin):
     with_zip: bool = True
     assumed_role_arn: TOption[str]
     checklist: TOption[str]
+    local_stack: TOption[LocalStack]
 
 
 class Executor(FinalExecutor):
@@ -46,12 +52,17 @@ class Executor(FinalExecutor):
             RoleSessionName='jumeaux_with_aws_add-on'
         ) if not self.config.assumed_role_arn.is_none() else None
 
+        def create_endpoint_url(port_as_localstack: int):
+            return f'{self.config.local_stack.get().endpoint}:{port_as_localstack}'\
+                if not self.config.local_stack.is_none() and self.config.local_stack.get().use else None
+
         # dynamo
         dynamodb = boto3.resource('dynamodb', **({
             'aws_access_key_id': tmp_credential['Credentials']['AccessKeyId'],
             'aws_secret_access_key': tmp_credential['Credentials']['SecretAccessKey'],
-            'aws_session_token': tmp_credential['Credentials']['SessionToken']
-        } if tmp_credential else {}))
+            'aws_session_token': tmp_credential['Credentials']['SessionToken'],
+            'endpoint_url': create_endpoint_url(4569)
+        } if tmp_credential else {'endpoint_url': create_endpoint_url(4569)}))
 
         table = dynamodb.Table(self.config.table)
         item = {
@@ -79,8 +90,9 @@ class Executor(FinalExecutor):
         s3 = boto3.client('s3', **({
             'aws_access_key_id': tmp_credential['Credentials']['AccessKeyId'],
             'aws_secret_access_key': tmp_credential['Credentials']['SecretAccessKey'],
-            'aws_session_token': tmp_credential['Credentials']['SessionToken']
-        } if tmp_credential else {}))
+            'aws_session_token': tmp_credential['Credentials']['SessionToken'],
+            'endpoint_url': create_endpoint_url(4572)
+        } if tmp_credential else {'endpoint_url': create_endpoint_url(4572)}))
 
         def upload_responses(which: str):
             dir = f'{output_summary.response_dir}/{report.key}'
