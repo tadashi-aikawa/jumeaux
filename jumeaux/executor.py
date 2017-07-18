@@ -7,12 +7,12 @@ Usage
 =======================
 
 Usage:
-  jumeaux --config=<yaml> [--title=<title>] [--description=<description>] [--threads=<threads>] [<files>...]
+  jumeaux --config=<yaml>... [--title=<title>] [--description=<description>] [--threads=<threads>] [<files>...]
   jumeaux retry  [--title=<title>] [--description=<description>] [--threads=<threads>] <report>
 
 Options:
   <files>...
-  --config = <yaml>                Configuration file(see below)
+  --config = <yaml>...             Configuration files(see below)
   --title = <title>                The title of report
   --description = <description>    The description of report
   --threads = <threads>            The number of threads in challenge
@@ -311,16 +311,16 @@ def hash_from_args(args: Args) -> str:
     return hashlib.sha256((str(now()) + args.to_json()).encode()).hexdigest()
 
 
-def create_config(config_path: str) -> Config:
-    origin_config = load_yamlf(config_path, 'utf8')
-    base_config_path = origin_config.get('base')
+def create_config(config_path: TList[str]) -> Config:
+    def reducer(merged: dict, config_path: str) -> dict:
+        d = load_yamlf(config_path, 'utf8')
+        if 'addons' in d and 'addons' in merged:
+            merged['addons'].update(d['addons'])
+            del d['addons']
+        merged.update(d)
+        return merged
 
-    if not base_config_path:
-        return Config.from_dict(origin_config)
-
-    base_config = load_yamlf(os.path.join(os.path.dirname(config_path), base_config_path), 'utf8')
-    base_config.update(origin_config)
-    return Config.from_dict(base_config)
+    return Config.from_dict(config_path.reduce(reducer, {}))
 
 
 def create_config_from_report(report: Report) -> Config:

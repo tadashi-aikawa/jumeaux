@@ -315,11 +315,9 @@ class TestChallenge:
 
 
 class TestCreateConfig:
-
-    def test(self):
-        actual: Config = executor.create_config("tests/config.yaml")
+    def test(self, config_only_access_points, config_without_access_points):
+        actual: Config = executor.create_config(TList([config_only_access_points, config_without_access_points]))
         expected = {
-            "base": "base_config.yaml",
             "one": {
                 "name": "name_one",
                 "host": "http://host/one",
@@ -331,7 +329,7 @@ class TestCreateConfig:
             },
             "output": {
                 "encoding": "utf8",
-                "response_dir": "responses"
+                "response_dir": "tmpdir"
             },
             "threads": 3,
             "addons": {
@@ -354,8 +352,8 @@ class TestCreateConfig:
 
         assert actual.to_dict() == expected
 
-    def test_no_base(self):
-        actual: Config = executor.create_config("tests/config_no_base.yaml")
+    def test_no_base(self, config_minimum):
+        actual: Config = executor.create_config(TList([config_minimum]))
 
         expected = {
             "one": {
@@ -383,6 +381,107 @@ class TestCreateConfig:
                 "reqs2reqs": [],
                 "res2dict": [],
                 "judgement": [],
+                "store_criterion": [
+                    {
+                        "name": "addons.store_criterion.general",
+                        "cls_name": "Executor",
+                        "config": {
+                            "statuses": [
+                                "different"
+                            ]
+                        }
+                    }
+                ],
+                "dump": [],
+                "did_challenge": [],
+                "final": []
+            }
+        }
+
+        assert actual.to_dict() == expected
+
+    def test_mergecase1then2(self, config_only_access_points, config_mergecase_1, config_mergecase_2):
+        actual: Config = executor.create_config(TList([config_only_access_points, config_mergecase_1, config_mergecase_2]))
+
+        expected = {
+            "title": 'mergecase_2',
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy"
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "mergecase2"
+            },
+            "threads": 1,
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "reqs2reqs": [
+                    {
+                        "name": "addons.reqs2reqs.random",
+                        "cls_name": "Executor"
+                    }
+                ],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [],
+                "dump": [],
+                "did_challenge": [],
+                "final": []
+            }
+        }
+
+        assert actual.to_dict() == expected
+
+    def test_mergecase2then1(self, config_only_access_points, config_mergecase_1, config_mergecase_2):
+        actual: Config = executor.create_config(TList([config_only_access_points, config_mergecase_2, config_mergecase_1]))
+
+        expected = {
+            "title": 'mergecase_2',
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy"
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "mergecase1"
+            },
+            "threads": 1,
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "reqs2reqs": [
+                    {
+                        "name": "addons.reqs2reqs.head",
+                        "cls_name": "Executor",
+                        "config": {
+                            "size": 5
+                        }
+                    }
+                ],
+                "res2dict": [],
+                "judgement": [],
                 "store_criterion": [],
                 "dump": [],
                 "did_challenge": [],
@@ -406,10 +505,10 @@ class TestExec:
     def teardown_class(cls):
         shutil.rmtree("tmpdir")
 
-    def test(self, hash_from_args, challenge, now):
-        DUMMY_HASH = "dummy hash"
+    def test(self, hash_from_args, challenge, now, config_minimum):
+        dummy_hash = "dummy hash"
 
-        hash_from_args.return_value = DUMMY_HASH
+        hash_from_args.return_value = dummy_hash
         challenge.side_effect = Trial.from_dicts([
             {
                 "seq": 1,
@@ -484,7 +583,7 @@ class TestExec:
             "threads": 1,
             "title": "Report title",
             "description": "Report description",
-            "config": "tests/config.yaml",
+            "config": [config_minimum],
             "retry": False,
             "report": None
         })
@@ -500,7 +599,7 @@ class TestExec:
             },
             "output": {
                 "encoding": "utf8",
-                "response_dir": "tmpdir"
+                "response_dir": "responses"
             },
             "addons": {
                 "log2reqs": {
@@ -526,10 +625,10 @@ class TestExec:
             {"path": "/dummy"}
         ])
 
-        actual: Report = executor.exec(args, config, reqs, DUMMY_HASH, None)
+        actual: Report = executor.exec(args, config, reqs, dummy_hash, None)
 
         expected = {
-            "key": DUMMY_HASH,
+            "key": dummy_hash,
             "title": "Report title",
             "description": "Report description",
             "addons": {
@@ -584,7 +683,7 @@ class TestExec:
                 },
                 "output": {
                     "encoding": "utf8",
-                    "response_dir": "tmpdir"
+                    "response_dir": "responses"
                 }
             },
             "trials": [

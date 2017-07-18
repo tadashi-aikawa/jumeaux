@@ -1,9 +1,0 @@
-threads: 3
-output:
-  encoding: utf8
-  response_dir: tmpdir
-addons:
-  log2reqs:
-    name: addons.log2reqs.csv
-    config:
-      encoding: utf8

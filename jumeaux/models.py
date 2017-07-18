@@ -50,7 +50,6 @@ class Config(OwlMixin):
     description: TOption[str]
     input_files: TOption[TList[str]]
     addons: Addons
-    base: TOption[str]
 
 
 # --------
@@ -60,7 +59,7 @@ class Args(OwlMixin):
     files: TOption[TList[str]]
     title: TOption[str]
     description: TOption[str]
-    config: TOption[str]
+    config: TOption[TList[str]]
     threads: TOption[int]
     retry: bool
     report: TOption[str]  # Only case in which retry is True
