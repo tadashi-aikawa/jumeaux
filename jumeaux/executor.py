@@ -353,9 +353,7 @@ def main():
     else:
         config: Config = create_config(args.config.get())
         global_addon_executor = AddOnExecutor(config.addons)
-        input_paths = args.files.get() or config.input_files.get().map(
-            lambda f: os.path.join(os.path.dirname(args.config.get()), f)
-        )
+        input_paths = args.files.get() or config.input_files.get()
         origin_logs: TList[Request] = input_paths.flat_map(
             lambda f: global_addon_executor.apply_log2reqs(
                 Log2ReqsAddOnPayload.from_dict({
