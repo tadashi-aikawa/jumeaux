@@ -3,7 +3,9 @@ Jumeaux
 
 |pypi| |travis| |coverage| |complexity| |versions| |license|
 
-|logo|
+.. image:: logo.png
+    :height: 400
+    :width: 400
 
 Check difference between two responses of API.
 
@@ -291,9 +293,6 @@ MIT
 This software is released under the MIT License, see LICENSE.txt.
 
 
-.. |logo| image:: ./logo.png
-    :width: 500px
-    :height: 500px
 .. |travis| image:: https://api.travis-ci.org/tadashi-aikawa/jumeaux.svg?branch=master
     :target: https://travis-ci.org/tadashi-aikawa/jumeaux/builds
     :alt: Build Status
