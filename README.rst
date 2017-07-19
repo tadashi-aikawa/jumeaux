@@ -292,6 +292,8 @@ This software is released under the MIT License, see LICENSE.txt.
 
 
 .. |logo| image:: ./logo.png
+    :width: 500px
+    :height: 500px
 .. |travis| image:: https://api.travis-ci.org/tadashi-aikawa/jumeaux.svg?branch=master
     :target: https://travis-ci.org/tadashi-aikawa/jumeaux/builds
     :alt: Build Status
