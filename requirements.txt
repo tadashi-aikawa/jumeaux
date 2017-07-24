@@ -3,7 +3,7 @@ docopt
 schema
 xmltodict
 pyyaml
-owlmixin==2.0.0a7
+owlmixin==2.0.0a10
 fn
 boto3
 deepdiff
