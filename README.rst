@@ -34,7 +34,7 @@ Installation
 
     $ pip install jumeaux
     $ jumeaux --version
-    0.16.0
+    0.17.0
 
 
 Run
