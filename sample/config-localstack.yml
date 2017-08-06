@@ -7,4 +7,5 @@ addons:
         cache_max_age: 120
         checklist: sample
         local_stack:
+          endpoint: 'http://localstack'
           use: true
