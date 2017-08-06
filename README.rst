@@ -44,13 +44,13 @@ For example
 
 .. sourcecode:: bash
 
-    $ jumeaux --config sample/config.yaml sample/requests.csv
+    $ jumeaux --config sample/config.yml sample/requests.csv
 
-It is case if you don't want to specify input logs. This is same as above because `config.yaml` can specify input files.
+It is case if you don't want to specify input logs. This is same as above because `config.yml` can specify input files.
 
 .. sourcecode:: bash
 
-    $ jumeaux --config sample/config.yaml
+    $ jumeaux --config sample/config.yml
 
 
 Then you can see

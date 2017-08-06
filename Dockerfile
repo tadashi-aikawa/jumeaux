@@ -1,5 +1,6 @@
-FROM python:3-onbuild
+FROM python:3.6
 
-RUN pip install -U setuptools pip wheel twine
+RUN pip install jumeaux
+WORKDIR tmp
 
-CMD ["sh", "release.sh"]
+ENTRYPOINT ["jumeaux"]

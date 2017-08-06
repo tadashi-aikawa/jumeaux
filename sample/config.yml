@@ -6,8 +6,6 @@ one:
 other:
   name: owlmixin
   host: https://api.github.com/repos/tadashi-aikawa/owlmixin
-input_files:
-  - requests.csv
 output:
   encoding: utf8
   response_dir: response

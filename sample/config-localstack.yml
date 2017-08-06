@@ -1,0 +1,10 @@
+addons:
+  final:
+    - name: jumeaux.addons.final.aws
+      config:
+        table: jumeaux-viewer
+        bucket: mamansoft-jumeaux-viewer
+        cache_max_age: 120
+        checklist: sample
+        local_stack:
+          use: true

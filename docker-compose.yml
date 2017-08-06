@@ -1,0 +1,6 @@
+version: '2'
+services:
+  jumeaux:
+    image: tadashi-aikawa/jumeaux
+    volumes:
+      - "$PWD:/tmp"
