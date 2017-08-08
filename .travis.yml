@@ -6,12 +6,12 @@ python:
   - "3.6"
 install:
   - pip install -r requirements.txt
-  - pip install pytest coverage
+  - pip install pytest pytest-cov
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
 script:
-  - py.test -v tests/
+  - py.test -v --cov=. tests/
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 notifications:
   slack:
