@@ -1,3 +1,6 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=1561686e6399317b53a92aaad0550f8b91fe5af312e1f2852ab803ff6fcb6fa9
 language: python
 python:
   - "3.6"
@@ -11,4 +14,3 @@ after_success:
 notifications:
   slack:
     secure: QPq14naOvUQjnVZJrSRo6K5oRIBOHiZC7bfEKJxGEYa4Xi0x3o9maNLYtcgw5ZLgkv15e31yb/MeLF1F0DiNTBc9j4mn7a0PYALhn5kaeXel+J+xgrm2FGx+uF7BK0zQeWGTZAdX1WO8S00Ri7PjqMsSFyMAlHqoqWHONrb2fuU=
-
