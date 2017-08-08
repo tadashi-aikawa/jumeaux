@@ -6,11 +6,14 @@ python:
   - "3.6"
 install:
   - pip install -r requirements.txt
-  - pip install pytest pytest-cov codeclimate-test-reporter
+  - pip install pytest
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
 script:
-  - py.test -v --cov=. tests/
+  - py.test -v tests/
 after_success:
-  - codeclimate-test-reporter
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 notifications:
   slack:
     secure: QPq14naOvUQjnVZJrSRo6K5oRIBOHiZC7bfEKJxGEYa4Xi0x3o9maNLYtcgw5ZLgkv15e31yb/MeLF1F0DiNTBc9j4mn7a0PYALhn5kaeXel+J+xgrm2FGx+uF7BK0zQeWGTZAdX1WO8S00Ri7PjqMsSFyMAlHqoqWHONrb2fuU=
