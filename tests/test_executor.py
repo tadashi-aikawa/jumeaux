@@ -367,7 +367,7 @@ class TestCreateConfig:
             },
             "output": {
                 "encoding": "utf8",
-                "response_dir": "responses"
+                "response_dir": "tmpdir"
             },
             "threads": 1,
             "addons": {
@@ -599,7 +599,7 @@ class TestExec:
             },
             "output": {
                 "encoding": "utf8",
-                "response_dir": "responses"
+                "response_dir": "tmpdir"
             },
             "addons": {
                 "log2reqs": {
@@ -683,7 +683,7 @@ class TestExec:
                 },
                 "output": {
                     "encoding": "utf8",
-                    "response_dir": "responses"
+                    "response_dir": "tmpdir"
                 }
             },
             "trials": [

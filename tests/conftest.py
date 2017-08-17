@@ -18,7 +18,7 @@ other:
   host: http://host/other
 output:
   encoding: utf8
-  response_dir: responses
+  response_dir: tmpdir
 addons:
   log2reqs:
     name: addons.log2reqs.csv
