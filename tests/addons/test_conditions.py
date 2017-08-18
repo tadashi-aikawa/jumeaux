@@ -15,6 +15,31 @@ class TestRequestCondition:
             (False, {"name": "This is OK but invalid", "path": "/invalid"}),
         ]
     )
+    def test_all_default(self, expected, req):
+        condition: RequestCondition = RequestCondition.from_dict({
+            "name": {
+                "items": [
+                    {"regexp": ".*OK.*"},
+                    {"regexp": ".*NG.*", "negative": True},
+                ]
+            },
+            "path": {
+                "items": [
+                    {"regexp": "/valid"},
+                ]
+            }
+        })
+
+        assert condition.fulfill(Request.from_dict(req)) is expected
+
+    @pytest.mark.parametrize(
+        'expected, req', [
+            (True, {"name": "This is OK", "path": "/valid"}),
+            (False, {"name": "This is NG", "path": "/valid"}),
+            (False, {"name": "This is OK or NG?", "path": "/valid"}),
+            (False, {"name": "This is OK but invalid", "path": "/invalid"}),
+        ]
+    )
     def test_all_and(self, expected, req):
         condition: RequestCondition = RequestCondition.from_dict({
             "name": {

@@ -31,7 +31,7 @@ class Matcher(OwlMixin):
 
 class Matchers(OwlMixin):
     items: TList[Matcher]
-    and_or: AndOr
+    and_or: AndOr = "and"
     negative: bool = False
 
     def fulfill(self, v: str) -> bool:
@@ -41,7 +41,7 @@ class Matchers(OwlMixin):
 class RequestCondition(OwlMixin):
     name: TOption[Matchers]
     path: TOption[Matchers]
-    and_or: AndOr
+    and_or: AndOr = "and"
     negative: bool = False
 
     def fulfill(self, r: Request) -> bool:
