@@ -8,7 +8,7 @@ node {
 
         try {
             stage('Build') {
-                sh "sudo docker build -t $IMAGE_NAME -f Dockerfile.release"
+                sh "sudo docker build -t $IMAGE_NAME -f Dockerfile.release ."
             }
 
             stage('Packaging and upload') {
