@@ -5,7 +5,7 @@ Jumeaux
 
 .. raw:: html
 
-   <img src="./logo.png" width=500 height=500 />
+   <img src="./logo.png" width=400 height=400 />
 
 Check difference between two responses of API.
 
@@ -34,7 +34,7 @@ Installation
 
     $ pip install jumeaux
     $ jumeaux --version
-    0.17.0
+    0.18.0
 
 
 Run
