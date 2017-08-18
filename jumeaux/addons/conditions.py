@@ -1,0 +1,51 @@
+# -*- coding:utf-8 -*-
+
+
+import re
+
+from owlmixin import OwlMixin, TOption, TList, OwlObjectEnum
+
+from jumeaux.models import Request
+
+
+def _exact_match(regexp: str, target: str):
+    return bool(re.search(f'^{regexp}$', target))
+
+
+class AndOr(OwlObjectEnum):
+    AND = ("and", all)
+    OR = ("or", any)
+
+    @property
+    def check(self):
+        return self.object
+
+
+class Matcher(OwlMixin):
+    regexp: str
+    negative: bool = False
+
+    def fulfill(self, v: str) -> bool:
+        return self.negative ^ _exact_match(self.regexp, v)
+
+
+class Matchers(OwlMixin):
+    items: TList[Matcher]
+    and_or: AndOr
+    negative: bool = False
+
+    def fulfill(self, v: str) -> bool:
+        return self.negative ^ (self.and_or.check(self.items.map(lambda x: x.fulfill(v))))
+
+
+class RequestCondition(OwlMixin):
+    name: TOption[Matchers]
+    path: TOption[Matchers]
+    and_or: AndOr
+    negative: bool = False
+
+    def fulfill(self, r: Request) -> bool:
+        return self.negative ^ (self.and_or.check([
+            self.name.get().fulfill(r.name.get()) if self.name.get() else True,
+            self.path.get().fulfill(r.path) if self.path.get() else True,
+        ]))
