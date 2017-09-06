@@ -3,7 +3,7 @@
 """For example of config
 
 reqs2reqs:
-  - name: addons.reqs2reqs.replace_queries
+  - name: addons.reqs2reqs.replace
     config:
       items:
         - conditions:
@@ -34,7 +34,8 @@ class Replacer(OwlMixin):
     conditions: TList[RequestCondition]
     and_or: AndOr = "and"
     negative: bool = False
-    queries: TDict[TList[str]]
+    queries: TDict[TList[str]] = {}
+    headers: TDict[str] = {}
 
     def fulfill(self, req: Request) -> bool:
         return self.negative ^ (self.and_or.check(self.conditions.map(lambda x: x.fulfill(req))))
@@ -57,8 +58,19 @@ def replace_queries(req: Request, queries: TDict[TList[str]]) -> Request:
     return req
 
 
+def replace_headers(req: Request, headers: TDict[str]) -> Request:
+    copied = copy.deepcopy(req.headers)
+    copied.update(headers)
+    req.headers = copied
+    return req
+
+
+def replace(req: Request, replacer: Replacer) -> Request:
+    return replace_headers(replace_queries(req, replacer.queries), replacer.headers)
+
+
 def apply_replacers(req: Request, replacers: TList[Replacer]) -> Request:
-    return replacers.reduce(lambda t, x: replace_queries(t, x.queries) if x.fulfill(t) else t, req)
+    return replacers.reduce(lambda req, rep: replace(req, rep) if rep.fulfill(req) else req, req)
 
 
 class Executor(Reqs2ReqsExecutor):

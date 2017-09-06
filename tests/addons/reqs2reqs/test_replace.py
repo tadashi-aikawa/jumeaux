@@ -3,7 +3,7 @@
 import freezegun
 import pytest
 
-from jumeaux.addons.reqs2reqs.replace_queries import Executor
+from jumeaux.addons.reqs2reqs.replace import Executor
 from jumeaux.models import Reqs2ReqsAddOnPayload
 from owlmixin.util import load_yaml
 
@@ -16,9 +16,10 @@ class TestRequestCondition:
                 [{'name': 'hoge', 'path': '/api', 'qs': {'q1': ['v99'], 'q2': ['v999']}, 'headers': {}}],
             ),
             (
-                [{'name': 'hoge', 'path': '/hogehoge', 'qs': {'q1': ['v11'], 'q2': ['v21', 'v22']}, 'headers': {}}],
+                [{'name': 'hoge', 'path': '/hogehoge', 'qs': {'q1': ['v11'], 'q2': ['v21', 'v22']},
+                  'headers': {'h2': 'header2', 'h3': 'header3'}}],
                 [{'name': 'hoge', 'path': '/hogehoge', 'qs': {'q1': ['v77'], 'q2': ['v21', 'v22'], 'q3': ['v777']},
-                  'headers': {}}],
+                  'headers': {'h1': 'H1', 'h2': 'H2', 'h3': 'header3'}}],
             ),
         ]
     )
@@ -42,6 +43,9 @@ items:
     queries:
       q1: ['v77']
       q3: ['v777']
+    headers:
+      h1: H1
+      h2: H2
         """)
 
         payload: Reqs2ReqsAddOnPayload = Reqs2ReqsAddOnPayload.from_dict({
