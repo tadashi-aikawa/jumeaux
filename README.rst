@@ -15,12 +15,6 @@ Outline
 .. contents::
 
 
-Features
-========
-
-todo
-
-
 Requirement
 ===========
 
