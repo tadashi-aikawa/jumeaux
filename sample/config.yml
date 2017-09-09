@@ -8,7 +8,7 @@ other:
   host: https://api.github.com/repos/tadashi-aikawa/owlmixin
 output:
   encoding: utf8
-  response_dir: response
+  response_dir: responses
   logger:  # (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
     version: 1
     formatters:

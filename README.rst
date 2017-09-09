@@ -49,7 +49,7 @@ It is case if you don't want to specify input logs. This is same as above becaus
 
 Then you can see
 
-* API responses in `response/d986a822e0dfab08bfdf833094817b40995653734f2086e304a9af6723fcb124`
+* API responses in `responses/d986a822e0dfab08bfdf833094817b40995653734f2086e304a9af6723fcb124`
 * INFO logs and report(json) as following
 
 .. sourcecode::
@@ -153,7 +153,7 @@ Then you can see
                     },
                     "version": 1
                 },
-                "response_dir": "response"
+                "response_dir": "responses"
             },
             "paths": {
                 "/commits": 1,
