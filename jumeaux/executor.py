@@ -25,7 +25,7 @@ import io
 import logging.config
 import sys
 import urllib.parse as urlparser
-from datetime import datetime
+import datetime
 
 import os
 import requests
@@ -53,7 +53,7 @@ def now():
     """
     For test
     """
-    return datetime.today()
+    return datetime.datetime.today()
 
 
 def write_to_file(name, dir, body):
@@ -92,7 +92,37 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
     return res_one, res_other
 
 
-def judge_to_be_stored(status: Status, path: str, qs: TDict[TList[str]], headers: TDict[str], r_one, r_other):
+def res2res(res: Response):
+    return global_addon_executor.apply_res2res(Res2ResAddOnPayload.from_dict({
+        "response": res
+    })).response
+
+
+def res2dict(res: Response) -> TOption[dict]:
+    return global_addon_executor.apply_res2dict(Res2DictAddOnPayload.from_dict({
+        "response": res,
+        "result": None
+    })).result
+
+
+def judgement(r_one: Response, r_other: Response,
+          name: str, path: str, qs: TDict[TList[str]], headers: TList[str],
+          diff_keys: Optional[DiffKeys]) -> Status:
+    regard_as_same: bool = global_addon_executor.apply_judgement(JudgementAddOnPayload.from_dict({
+        "name": name,
+        "path": path,
+        "qs": qs,
+        "headers": headers,
+        "res_one": r_one,
+        "res_other": r_other,
+        "diff_keys": diff_keys,
+        "regard_as_same": r_one.body == r_other.body
+    })).regard_as_same
+    return Status.SAME if regard_as_same else Status.DIFFERENT
+
+
+def store_criterion(status: Status, path: str, qs: TDict[TList[str]], headers: TDict[str],
+                    r_one: Response, r_other: Response):
     return global_addon_executor.apply_store_criterion(StoreCriterionAddOnPayload.from_dict({
         "status": status,
         "path": path,
@@ -102,6 +132,14 @@ def judge_to_be_stored(status: Status, path: str, qs: TDict[TList[str]], headers
         "res_other": r_other,
         "stored": False,
     })).stored
+
+
+def dump(res: Response):
+    return global_addon_executor.apply_dump(DumpAddOnPayload.from_dict({
+        "response": res,
+        "body": res.body,
+        "encoding": res.encoding
+    })).body
 
 
 def challenge(arg: ChallengeArg) -> Trial:
@@ -115,7 +153,7 @@ def challenge(arg: ChallengeArg) -> Trial:
     # Get two responses
     req_time = now()
     try:
-        res_one, res_other = concurrent_request(arg.session, arg.headers,
+        r_one, r_other = concurrent_request(arg.session, arg.headers,
                                                 url_one, url_other,
                                                 arg.proxy_one.get(), arg.proxy_other.get())
     except ConnectionError:
@@ -136,11 +174,8 @@ def challenge(arg: ChallengeArg) -> Trial:
             }
         })
 
-    def res2dict(res) -> TOption[dict]:
-        return global_addon_executor.apply_res2dict(Res2DictAddOnPayload.from_dict({
-            "response": res,
-            "result": None
-        })).result
+    res_one = res2res(Response.from_requests(r_one))
+    res_other = res2res(Response.from_requests(r_other))
 
     dict_one = res2dict(res_one)
     dict_other = res2dict(res_other)
@@ -161,38 +196,17 @@ def challenge(arg: ChallengeArg) -> Trial:
             .order_by(_)
     }) if ddiff is not None else None
 
-    def judge(r_one, r_other) -> Status:
-        regard_as_same: bool = global_addon_executor.apply_judgement(JudgementAddOnPayload.from_dict({
-            "name": arg.name,
-            "path": arg.path,
-            "qs": arg.qs,
-            "headers": arg.headers,
-            "res_one": r_one,
-            "res_other": r_other,
-            "diff_keys": diff_keys,
-            "regard_as_same": r_one.content == r_other.content
-        })).regard_as_same
-        return Status.SAME if regard_as_same else Status.DIFFERENT
-
     # Judgement
-    status: Status = judge(res_one, res_other)
+    status: Status = judgement(res_one, res_other, arg.name, arg.path, arg.qs, arg.headers, diff_keys)
     logger.info(f"Status:   {status.value}")
 
-    # Write response body to file
-    def pretty(res):
-        return global_addon_executor.apply_dump(DumpAddOnPayload.from_dict({
-            "response": res,
-            "body": res.content,
-            "encoding": res.encoding
-        })).body
-
     file_one = file_other = None
-    if judge_to_be_stored(status, arg.path, arg.qs, arg.headers, res_one, res_other):
+    if store_criterion(status, arg.path, arg.qs, arg.headers, res_one, res_other):
         dir = f'{arg.res_dir}/{arg.key}'
         file_one = f'one/({arg.seq}){arg.name}'
         file_other = f'other/({arg.seq}){arg.name}'
-        write_to_file(file_one, dir, pretty(res_one))
-        write_to_file(file_other, dir, pretty(res_other))
+        write_to_file(file_one, dir, dump(res_one))
+        write_to_file(file_other, dir, dump(res_other))
 
     return global_addon_executor.apply_did_challenge(DidChallengeAddOnPayload.from_dict({
         "trial": Trial.from_dict({
@@ -207,7 +221,7 @@ def challenge(arg: ChallengeArg) -> Trial:
             "one": {
                 "url": res_one.url,
                 "status_code": res_one.status_code,
-                "byte": len(res_one.content),
+                "byte": len(res_one.body),
                 "response_sec": to_sec(res_one.elapsed),
                 "content_type": res_one.headers.get("content-type"),
                 "encoding": res_one.encoding,
@@ -216,7 +230,7 @@ def challenge(arg: ChallengeArg) -> Trial:
             "other": {
                 "url": res_other.url,
                 "status_code": res_other.status_code,
-                "byte": len(res_other.content),
+                "byte": len(res_other.body),
                 "response_sec": to_sec(res_other.elapsed),
                 "content_type": res_other.headers.get("content-type"),
                 "encoding": res_other.encoding,

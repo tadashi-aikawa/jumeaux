@@ -1,15 +1,10 @@
 # -*- coding:utf-8 -*-
 
 
-import re
-
 from owlmixin import OwlMixin, TOption, TList, OwlObjectEnum
 
+from jumeaux.addons.utils import exact_match
 from jumeaux.models import Request
-
-
-def _exact_match(regexp: str, target: str):
-    return bool(re.search(f'^{regexp}$', target))
 
 
 class AndOr(OwlObjectEnum):
@@ -26,7 +21,7 @@ class Matcher(OwlMixin):
     negative: bool = False
 
     def fulfill(self, v: str) -> bool:
-        return self.negative ^ _exact_match(self.regexp, v)
+        return self.negative ^ exact_match(self.regexp, v)
 
 
 class Matchers(OwlMixin):

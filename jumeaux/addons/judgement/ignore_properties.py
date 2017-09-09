@@ -21,13 +21,13 @@ judgement:
 """
 
 import logging
-import re
 
 from fn import _
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.judgement import JudgementExecutor
+from jumeaux.addons.utils import exact_match
 from jumeaux.models import JudgementAddOnPayload, DiffKeys
 
 logger = logging.getLogger(__name__)
@@ -50,10 +50,6 @@ class Ignore(OwlMixin):
 
 class Config(OwlMixin):
     ignores: TList[Ignore]
-
-
-def exact_match(regexp: str, target: str):
-    return re.search(f'^{regexp}$', target)
 
 
 class Executor(JudgementExecutor):
@@ -83,10 +79,11 @@ class Executor(JudgementExecutor):
                 )
             })
 
-        filtered_diff_keys = self.config.ignores.flat_map(_.conditions).reduce(filter_diff_keys, payload.diff_keys.get())
-        logger.debug('-'*80)
+        filtered_diff_keys = self.config.ignores.flat_map(_.conditions).reduce(filter_diff_keys,
+                                                                               payload.diff_keys.get())
+        logger.debug('-' * 80)
         logger.debug('filter_diff_keys')
-        logger.debug('-'*80)
+        logger.debug('-' * 80)
         logger.debug(filtered_diff_keys.to_pretty_json())
 
         return JudgementAddOnPayload.from_dict({

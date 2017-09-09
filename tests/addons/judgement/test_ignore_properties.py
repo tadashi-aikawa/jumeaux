@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
+import datetime
 
-import pytest
-
-from jumeaux.addons.judgement.ignore_properties import Executor, Config
-from jumeaux.models import JudgementAddOnPayload, DiffKeys
-
+from jumeaux.addons.judgement.ignore_properties import Executor
+from jumeaux.models import JudgementAddOnPayload, Response, CaseInsensitiveDict
 
 CONFIG = {
     'ignores': [
@@ -47,18 +45,34 @@ CONFIG = {
     ]
 }
 
+RES_ONE = Response.from_dict({
+    'body': b'a',
+    'text': 'a',
+    'headers': CaseInsensitiveDict({}),
+    'url': 'url',
+    'status_code': 200,
+    'elapsed': datetime.timedelta(seconds=1)
+})
+
+RES_OTHER = Response.from_dict({
+    'body': b'b',
+    'text': 'b',
+    'headers': CaseInsensitiveDict({}),
+    'url': 'url',
+    'status_code': 200,
+    'elapsed': datetime.timedelta(seconds=2)
+})
+
 
 class TestExec:
-
     def test_only_condition_same(self):
-
         payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict({
             'name': 'no title',
             'path': '/test1',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE,
+            'res_other': RES_OTHER,
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>'],
                 'changed': [],
@@ -74,8 +88,8 @@ class TestExec:
             'path': '/test1',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE.to_dict(),
+            'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>'],
                 'changed': [],
@@ -85,14 +99,13 @@ class TestExec:
         }
 
     def test_only_condition_partial_same_is_false(self):
-
         payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict({
             'name': 'no title',
             'path': '/test1',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE,
+            'res_other': RES_OTHER,
             'diff_keys': {
                 'added': ['<add><0><extra>', '<add><1><extra>', '<add><2><extra>'],
                 'changed': [],
@@ -108,8 +121,8 @@ class TestExec:
             'path': '/test1',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE.to_dict(),
+            'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': ['<add><0><extra>', '<add><1><extra>', '<add><2><extra>'],
                 'changed': [],
@@ -119,14 +132,13 @@ class TestExec:
         }
 
     def test_over_conditions_same(self):
-
         payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict({
             'name': 'no title',
             'path': '/test1',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE,
+            'res_other': RES_OTHER,
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>'],
                 'changed': [],
@@ -142,8 +154,8 @@ class TestExec:
             'path': '/test1',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE.to_dict(),
+            'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>'],
                 'changed': [],
@@ -153,16 +165,15 @@ class TestExec:
         }
 
     def test_over_ignores_same(self):
-
         payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict({
             'name': 'no title',
             'path': '/test1',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE,
+            'res_other': RES_OTHER,
             'diff_keys': {
-                'added':  ['<add><0>', '<add><1>', '<add><2>', '<add><3>', '<add><99>'],
+                'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>', '<add><99>'],
                 'changed': [],
                 'removed': []
             },
@@ -176,10 +187,10 @@ class TestExec:
             'path': '/test1',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE.to_dict(),
+            'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
-                'added':  ['<add><0>', '<add><1>', '<add><2>', '<add><3>', '<add><99>'],
+                'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>', '<add><99>'],
                 'changed': [],
                 'removed': []
             },
@@ -187,14 +198,13 @@ class TestExec:
         }
 
     def test_over_ignores_different(self):
-
         payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict({
             'name': 'no title',
             'path': '/test1',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE,
+            'res_other': RES_OTHER,
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>', '<add><4>', '<add><99>'],
                 'changed': [],
@@ -210,8 +220,8 @@ class TestExec:
             'path': '/test1',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE.to_dict(),
+            'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>', '<add><4>', '<add><99>'],
                 'changed': [],
@@ -221,14 +231,13 @@ class TestExec:
         }
 
     def test_path_specified_same(self):
-
         payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict({
             'name': 'no title',
             'path': '/test2',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE,
+            'res_other': RES_OTHER,
             'diff_keys': {
                 'added': [],
                 'changed': ['<change><0>', '<change><1>', '<change><2>'],
@@ -244,8 +253,8 @@ class TestExec:
             'path': '/test2',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE.to_dict(),
+            'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': [],
                 'changed': ['<change><0>', '<change><1>', '<change><2>'],
@@ -255,14 +264,13 @@ class TestExec:
         }
 
     def test_path_specified_different(self):
-
         payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict({
             'name': 'no title',
             'path': '/test2',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE,
+            'res_other': RES_OTHER,
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>'],
                 'changed': [],
@@ -278,8 +286,8 @@ class TestExec:
             'path': '/test2',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE.to_dict(),
+            'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>'],
                 'changed': [],
@@ -289,14 +297,13 @@ class TestExec:
         }
 
     def test_name_specified_different(self):
-
         payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict({
             'name': 'title',
             'path': '/test2',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE,
+            'res_other': RES_OTHER,
             'diff_keys': {
                 'added': [],
                 'changed': ['<change><0>', '<change><1>', '<change><2>'],
@@ -312,8 +319,8 @@ class TestExec:
             'path': '/test2',
             'qs': {},
             'headers': {},
-            'res_one': 'res_one_dummy',
-            'res_other': 'res_other_dummy',
+            'res_one': RES_ONE.to_dict(),
+            'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': [],
                 'changed': ['<change><0>', '<change><1>', '<change><2>'],

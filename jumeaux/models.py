@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
+import datetime
 from typing import Optional, Any, Dict, List
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList, TDict
 from owlmixin.owlenum import OwlEnum
+from requests.structures import CaseInsensitiveDict as RequestsCaseInsensitiveDict
+
+
+class CaseInsensitiveDict(RequestsCaseInsensitiveDict):
+    pass
 
 
 class Status(OwlEnum):
@@ -33,6 +39,7 @@ class Addon(OwlMixin):
 class Addons(OwlMixin):
     log2reqs: Addon
     reqs2reqs: TList[Addon] = []
+    res2res: TList[Addon] = []
     res2dict: TList[Addon] = []
     judgement: TList[Addon] = []
     store_criterion: TList[Addon] = []
@@ -87,6 +94,32 @@ class Proxy(OwlMixin):
             'http': f"http://{host.get()}",
             'https': f"https://{host.get()}",
         }) if not host.is_none() else None
+
+
+class Response(OwlMixin):
+    body: bytes
+    encoding: TOption[str]
+    text: str
+    headers: CaseInsensitiveDict
+    url: str
+    status_code: int
+    elapsed: datetime.timedelta
+
+    @classmethod
+    def ___headers(cls, v):
+        return CaseInsensitiveDict(v)
+
+    @classmethod
+    def from_requests(cls, res: any) -> 'Response':
+        return Response.from_dict({
+            'body': res.content,
+            'encoding': res.encoding,
+            'text': res.text,
+            'headers': res.headers,
+            'url': res.url,
+            'status_code': res.status_code,
+            'elapsed': res.elapsed,
+        })
 
 
 # --------
@@ -181,13 +214,17 @@ class Reqs2ReqsAddOnPayload(OwlMixin):
 
 
 class DumpAddOnPayload(OwlMixin):
-    response: any  # requests style
+    response: Response
     body: bytes
     encoding: TOption[str]
 
 
+class Res2ResAddOnPayload(OwlMixin):
+    response: Response
+
+
 class Res2DictAddOnPayload(OwlMixin):
-    response: any  # requests style
+    response: Response
     result: TOption[dict]
 
 
@@ -200,8 +237,8 @@ class JudgementAddOnPayload(OwlMixin):
     path: str
     qs: TDict[TList[str]]
     headers: TDict[str]
-    res_one: any  # requests style
-    res_other: any  # requests style
+    res_one: Response
+    res_other: Response
     # None if unknown
     diff_keys: TOption[DiffKeys]
     regard_as_same: bool
@@ -212,8 +249,8 @@ class StoreCriterionAddOnPayload(OwlMixin):
     path: str
     qs: TDict[TList[str]]
     headers: TDict[str]
-    res_one: any  # requests style
-    res_other: any  # requests style
+    res_one: Response
+    res_other: Response
     stored: bool
 
 

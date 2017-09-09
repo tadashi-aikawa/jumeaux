@@ -14,6 +14,7 @@ class AddOnExecutor:
     def __init__(self, addons: Addons):
         self.log2reqs = create_addon(addons.log2reqs)
         self.reqs2reqs = addons.reqs2reqs.map(lambda x: create_addon(x)) if addons else TList()
+        self.res2res = addons.res2res.map(lambda x: create_addon(x)) if addons else TList()
         self.res2dict = addons.res2dict.map(lambda x: create_addon(x)) if addons else TList()
         self.judgement = addons.judgement.map(lambda x: create_addon(x)) if addons else TList()
         self.store_criterion = addons.store_criterion.map(lambda x: create_addon(x)) if addons else TList()
@@ -26,6 +27,9 @@ class AddOnExecutor:
 
     def apply_reqs2reqs(self, payload: Reqs2ReqsAddOnPayload) -> Reqs2ReqsAddOnPayload:
         return self.reqs2reqs.reduce(lambda p, a: a.exec(p), payload)
+
+    def apply_res2res(self, payload: Res2ResAddOnPayload) -> Res2ResAddOnPayload:
+        return self.res2res.reduce(lambda p, a: a.exec(p), payload)
 
     def apply_res2dict(self, payload: Res2DictAddOnPayload) -> Res2DictAddOnPayload:
         return self.res2dict.reduce(lambda p, a: a.exec(p), payload)

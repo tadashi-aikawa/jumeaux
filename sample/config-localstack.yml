@@ -1,3 +1,9 @@
+one:
+  name: one
+  host: http://localhost/api/simple/one
+other:
+  name: other
+  host: http://localhost/api/simple/other
 addons:
   final:
     - name: jumeaux.addons.final.aws
@@ -7,5 +13,4 @@ addons:
         cache_max_age: 120
         checklist: sample
         local_stack:
-          endpoint: 'http://localstack'
           use: true

@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import datetime
+import os
 import shutil
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
-import os
 from requests.exceptions import ConnectionError
 
 from jumeaux import executor
@@ -68,18 +67,17 @@ class ResponseBuilder():
         m.text = self._text
         m.url = self._url
         m.status_code = self._status_code
-        m.headers = {
+        m.headers = CaseInsensitiveDict({
             "content-type": self._content_type
-        }
+        })
         m.content = self._content
         m.encoding = self._encoding
-        m.elapsed.seconds = self._seconds
-        m.elapsed.microseconds = self._microseconds
+        m.elapsed = datetime.timedelta(seconds=self._seconds, microseconds=self._microseconds)
         m.json.return_value = self._json
         return m
 
 
-@patch('jumeaux.executor.judge_to_be_stored')
+@patch('jumeaux.executor.store_criterion')
 @patch('jumeaux.executor.now')
 @patch('jumeaux.executor.concurrent_request')
 class TestChallenge:
@@ -100,7 +98,7 @@ class TestChallenge:
     def teardown_class(cls):
         shutil.rmtree("tmpdir")
 
-    def test_different(self, concurrent_request, now, judge_to_be_stored):
+    def test_different(self, concurrent_request, now, store_criterion):
         res_one = ResponseBuilder().text('{"items": [1, 2, 3]}') \
             .json({"items": [1, 2, 3]}) \
             .url('URL_ONE') \
@@ -122,7 +120,7 @@ class TestChallenge:
             .build()
         concurrent_request.return_value = res_one, res_other
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
-        judge_to_be_stored.return_value = True
+        store_criterion.return_value = True
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
@@ -184,7 +182,7 @@ class TestChallenge:
 
         assert actual.to_dict() == expected
 
-    def test_same(self, concurrent_request, now, judge_to_be_stored):
+    def test_same(self, concurrent_request, now, store_criterion):
         res_one = ResponseBuilder().text('a') \
             .url('URL_ONE') \
             .status_code(200) \
@@ -204,7 +202,7 @@ class TestChallenge:
             .build()
         concurrent_request.return_value = res_one, res_other
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
-        judge_to_be_stored.return_value = False
+        store_criterion.return_value = False
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
@@ -263,10 +261,10 @@ class TestChallenge:
 
         assert actual.to_dict() == expected
 
-    def test_failure(self, concurrent_request, now, judge_to_be_stored):
+    def test_failure(self, concurrent_request, now, store_criterion):
         concurrent_request.side_effect = ConnectionError
         now.return_value = datetime.datetime(2000, 1, 1, 0, 0, 0)
-        judge_to_be_stored.return_value = False
+        store_criterion.return_value = False
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
@@ -341,6 +339,7 @@ class TestCreateConfig:
                     }
                 },
                 "reqs2reqs": [],
+                "res2res": [],
                 "res2dict": [],
                 "judgement": [],
                 "store_criterion": [],
@@ -379,6 +378,7 @@ class TestCreateConfig:
                     }
                 },
                 "reqs2reqs": [],
+                "res2res": [],
                 "res2dict": [],
                 "judgement": [],
                 "store_criterion": [
@@ -433,6 +433,7 @@ class TestCreateConfig:
                         "cls_name": "Executor"
                     }
                 ],
+                "res2res": [],
                 "res2dict": [],
                 "judgement": [],
                 "store_criterion": [],
@@ -480,6 +481,7 @@ class TestCreateConfig:
                         }
                     }
                 ],
+                "res2res": [],
                 "res2dict": [],
                 "judgement": [],
                 "store_criterion": [],
@@ -640,6 +642,7 @@ class TestExec:
                     }
                 },
                 "reqs2reqs": [],
+                "res2res": [],
                 "res2dict": [],
                 "judgement": [],
                 "store_criterion": [
