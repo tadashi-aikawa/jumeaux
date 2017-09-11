@@ -124,22 +124,25 @@ class TestChallenge:
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
-            "name": "name1",
+
             "number_of_request": 10,
             "key": "hash_key",
             "session": 'dummy',
+            "req": {
+                "name": "name1",
+                "path": "/challenge",
+                "qs": {
+                    "q1": ["1"],
+                    "q2": ["2-1", "2-2"]
+                },
+                "headers": {
+                    "header1": "1",
+                    "header2": "2",
+                },
+            },
             "host_one": 'hoge_one',
             "host_other": 'hoge_other',
-            "path": "/challenge",
             "res_dir": "tmpdir",
-            "qs": {
-                "q1": ["1"],
-                "q2": ["2-1", "2-2"]
-            },
-            "headers": {
-                "header1": "1",
-                "header2": "2",
-            },
             "proxy_one": None,
             "proxy_other": None
         })
@@ -206,22 +209,24 @@ class TestChallenge:
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
-            "name": "name2",
             "number_of_request": 10,
             "key": "hash_key",
             "session": 'dummy',
+            "req": {
+                "name": "name2",
+                "path": "/challenge",
+                "qs": {
+                    "q1": ["1"],
+                    "q2": ["2-1", "2-2"]
+                },
+                "headers": {
+                    "header1": "1",
+                    "header2": "2",
+                },
+            },
             "host_one": 'hoge_one',
             "host_other": 'hoge_other',
-            "path": "/challenge",
             "res_dir": "tmpdir",
-            "qs": {
-                "q1": ["1"],
-                "q2": ["2-1", "2-2"]
-            },
-            "headers": {
-                "header1": "1",
-                "header2": "2",
-            },
             "proxy_one": None,
             "proxy_other": None
         })
@@ -268,21 +273,23 @@ class TestChallenge:
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
-            "name": "name3",
             "number_of_request": 10,
             "key": "hash_key",
             "session": 'dummy',
+            "req": {
+                "name": "name3",
+                "path": "/challenge",
+                "qs": {
+                    "q1": ["1"]
+                },
+                "headers": {
+                    "header1": "1",
+                    "header2": "2",
+                },
+            },
             "host_one": "http://one",
             "host_other": "http://other",
-            "path": "/challenge",
             "res_dir": "tmpdir",
-            "qs": {
-                "q1": ["1"]
-            },
-            "headers": {
-                "header1": "1",
-                "header2": "2",
-            },
             "proxy_one": None,
             "proxy_other": None
         })

@@ -128,16 +128,13 @@ class ChallengeArg(OwlMixin):
     seq: int
     number_of_request: int
     key: str
-    name: str
     session: object
+    req: Request
     host_one: str
     host_other: str
-    path: str
-    res_dir: str
-    qs: TDict[TList[str]]
-    headers: TDict[str]
     proxy_one: TOption[Proxy]
     proxy_other: TOption[Proxy]
+    res_dir: str
 
 # --------
 

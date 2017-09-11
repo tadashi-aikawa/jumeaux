@@ -143,29 +143,31 @@ def dump(res: Response):
 
 
 def challenge(arg: ChallengeArg) -> Trial:
-    logger.info(f"Challenge:  {arg.seq} / {arg.number_of_request} -- {arg.name}")
+    name: str = arg.req.name.get_or(str(arg.seq))
 
-    qs_str = urlparser.urlencode(arg.qs, doseq=True)
+    logger.info(f"Challenge:  {arg.seq} / {arg.number_of_request} -- {name}")
 
-    url_one = f'{arg.host_one}{arg.path}?{qs_str}'
-    url_other = f'{arg.host_other}{arg.path}?{qs_str}'
+    qs_str = urlparser.urlencode(arg.req.qs, doseq=True)
+
+    url_one = f'{arg.host_one}{arg.req.path}?{qs_str}'
+    url_other = f'{arg.host_other}{arg.req.path}?{qs_str}'
 
     # Get two responses
     req_time = now()
     try:
-        r_one, r_other = concurrent_request(arg.session, arg.headers,
+        r_one, r_other = concurrent_request(arg.session, arg.req.headers,
                                                 url_one, url_other,
                                                 arg.proxy_one.get(), arg.proxy_other.get())
     except ConnectionError:
         # TODO: Integrate logic into create_trial
         return Trial.from_dict({
             "seq": arg.seq,
-            "name": arg.name,
+            "name": name,
             "request_time": req_time.strftime("%Y/%m/%d %H:%M:%S.%f"),
             "status": Status.FAILURE,
-            "path": arg.path,
-            "queries": arg.qs,
-            "headers": arg.headers,
+            "path": arg.req.path,
+            "queries": arg.req.qs,
+            "headers": arg.req.headers,
             "one": {
                 "url": url_one
             },
@@ -197,26 +199,26 @@ def challenge(arg: ChallengeArg) -> Trial:
     }) if ddiff is not None else None
 
     # Judgement
-    status: Status = judgement(res_one, res_other, arg.name, arg.path, arg.qs, arg.headers, diff_keys)
+    status: Status = judgement(res_one, res_other, name, arg.req.path, arg.req.qs, arg.req.headers, diff_keys)
     logger.info(f"Status:   {status.value}")
 
     file_one = file_other = None
-    if store_criterion(status, arg.path, arg.qs, arg.headers, res_one, res_other):
+    if store_criterion(status, arg.req.path, arg.req.qs, arg.req.headers, res_one, res_other):
         dir = f'{arg.res_dir}/{arg.key}'
-        file_one = f'one/({arg.seq}){arg.name}'
-        file_other = f'other/({arg.seq}){arg.name}'
+        file_one = f'one/({arg.seq}){name}'
+        file_other = f'other/({arg.seq}){name}'
         write_to_file(file_one, dir, dump(res_one))
         write_to_file(file_other, dir, dump(res_other))
 
     return global_addon_executor.apply_did_challenge(DidChallengeAddOnPayload.from_dict({
         "trial": Trial.from_dict({
             "seq": arg.seq,
-            "name": arg.name,
+            "name": name,
             "request_time": req_time.strftime("%Y/%m/%d %H:%M:%S.%f"),
             "status": status,
-            "path": arg.path or "No path",
-            "queries": arg.qs,
-            "headers": arg.headers,
+            "path": arg.req.path or "No path",
+            "queries": arg.req.qs,
+            "headers": arg.req.headers,
             "diff_keys": diff_keys,
             "one": {
                 "url": res_one.url,
@@ -240,7 +242,7 @@ def challenge(arg: ChallengeArg) -> Trial:
     })).trial
 
 
-def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
+def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
     title = args.title.get() or config.title.get() or "No title"
     description = args.description.get() or config.description.get() or None
     logger.info(f"""
@@ -267,17 +269,14 @@ def exec(args: Args, config: Config, logs: TList[Request], key: str, retry_hash:
     make_dir(f'{config.output.response_dir}/{key}/other')
 
     # Parse inputs to args of multi-thread executor.
-    ex_args = TList(enumerate(logs)).map(lambda x: {
-        "seq": x[0] + 1,
-        "number_of_request": len(logs),
+    ex_args = TList(reqs).emap(lambda x, i: {
+        "seq": i + 1,
+        "number_of_request": len(reqs),
         "key": key,
-        "name": x[1].name.get_or(str(x[0] + 1)),
         "session": s,
+        "req": x,
         "host_one": config.one.host,
         "host_other": config.other.host,
-        "path": x[1].path,
-        "qs": x[1].qs,
-        "headers": x[1].headers,
         "proxy_one": Proxy.from_host(config.one.proxy),
         "proxy_other": Proxy.from_host(config.other.proxy),
         "res_dir": config.output.response_dir
