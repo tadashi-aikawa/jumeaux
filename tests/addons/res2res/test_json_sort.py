@@ -146,9 +146,19 @@ class TestExec:
     )
     def test_normal(self, title, config_yml, expected_text):
         payload: Res2ResAddOnPayload = Res2ResAddOnPayload.from_dict({
-            'response': make_response(TEXT)
+            'response': make_response(TEXT),
+            'req': {
+                "path": "/filter",
+                "qs": {},
+                "headers": {},
+            }
         })
 
         assert Executor(load_yaml(config_yml)).exec(payload).to_dict() == {
-            'response': make_response(json.dumps(expected_text)).to_dict()
+            'response': make_response(json.dumps(expected_text)).to_dict(),
+            'req': {
+                "path": "/filter",
+                "qs": {},
+                "headers": {},
+            }
         }

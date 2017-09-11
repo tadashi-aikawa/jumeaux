@@ -92,9 +92,10 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
     return res_one, res_other
 
 
-def res2res(res: Response):
+def res2res(res: Response, req: Request):
     return global_addon_executor.apply_res2res(Res2ResAddOnPayload.from_dict({
-        "response": res
+        "response": res,
+        "req": req,
     })).response
 
 
@@ -176,8 +177,8 @@ def challenge(arg: ChallengeArg) -> Trial:
             }
         })
 
-    res_one = res2res(Response.from_requests(r_one))
-    res_other = res2res(Response.from_requests(r_other))
+    res_one = res2res(Response.from_requests(r_one), arg.req)
+    res_other = res2res(Response.from_requests(r_other), arg.req)
 
     dict_one = res2dict(res_one)
     dict_other = res2dict(res_other)

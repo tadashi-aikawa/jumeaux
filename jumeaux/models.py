@@ -218,6 +218,7 @@ class DumpAddOnPayload(OwlMixin):
 
 class Res2ResAddOnPayload(OwlMixin):
     response: Response
+    req: Request
 
 
 class Res2DictAddOnPayload(OwlMixin):
