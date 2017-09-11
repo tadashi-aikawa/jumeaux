@@ -4,18 +4,24 @@
 res2res:
   - name: jumeaux.addons.res2res.json_sort
     config:
-      targets:
-        - path: root<'list1'><\d+><'favorite'>
-          sort_keys: [name]
+      - items
+          - conditions:
+              - path:
+                  items:
+                    - regexp: /filter
+            targets:
+              - path: root<'list1'><\d+><'favorite'>
+                sort_keys: [name]
 """
 
 import logging
 import json
-from owlmixin import OwlMixin, TList, TOption
+from owlmixin import OwlMixin, TList, TOption, TDict
 
+from jumeaux.addons.conditions import RequestCondition, AndOr
 from jumeaux.addons.res2res import Res2ResExecutor
 from jumeaux.addons.utils import exact_match
-from jumeaux.models import Res2ResAddOnPayload, Response
+from jumeaux.models import Res2ResAddOnPayload, Response, Request
 
 logger = logging.getLogger(__name__)
 
@@ -25,8 +31,18 @@ class Target(OwlMixin):
     sort_keys: TOption[TList[str]]
 
 
-class Config(OwlMixin):
+class Sorter(OwlMixin):
+    conditions: TList[RequestCondition]
+    and_or: AndOr = "and"
+    negative: bool = False
     targets: TList[Target]
+
+    def fulfill(self, req: Request) -> bool:
+        return self.negative ^ (self.and_or.check(self.conditions.map(lambda x: x.fulfill(req))))
+
+
+class Config(OwlMixin):
+    items: TList[Sorter]
     default_encoding: str = 'utf8'
 
 
@@ -39,11 +55,11 @@ def traverse(value: any, location: str, targets: TList[Target]):
         return value
 
 
-def _dict_sort(dict_obj: dict, targets: TList[Target], location: str = 'root'):
+def _dict_sort(dict_obj: dict, targets: TList[Target], location: str = 'root') -> dict:
     return {k: traverse(v, f"{location}<'{k}'>", targets) for k, v in dict_obj.items()}
 
 
-def _list_sort(list_obj: list, targets: TList[Target], location: str = 'root'):
+def _list_sort(list_obj: list, targets: TList[Target], location: str = 'root') -> list:
     target: Target = targets.find(lambda t: exact_match(t.path, location))
 
     traversed = [traverse(v, f"{location}<{i}>", targets) for i, v in enumerate(list_obj)]
@@ -71,9 +87,11 @@ class Executor(Res2ResExecutor):
 
         res_json = json.loads(res.text, encoding=res.encoding)
         sorted_res = json.dumps(
-            _dict_sort(res_json, self.config.targets) \
-                if isinstance(res_json, dict) \
-                else _list_sort(res_json, self.config.targets),
+            self.config.items.reduce(lambda t, s:
+                                     (_dict_sort(t, s.targets)
+                                      if isinstance(t, dict)
+                                      else _list_sort(t, s.targets))
+                                     if s.fulfill(payload.req) else t, res_json),
             ensure_ascii=False
         )
 

@@ -48,8 +48,13 @@ class TestExec:
             (
                 "dict -> list(str)",
                 """
-                targets:
-                  - path: root<'dict1'><'list1-1'> 
+                items:
+                  - conditions:
+                      - path:
+                          items:
+                            - regexp: /filter
+                    targets:
+                      - path: root<'dict1'><'list1-1'> 
                 """,
                 {
                     "int1": 1,
@@ -72,8 +77,13 @@ class TestExec:
             (
                 "list(str)",
                 """
-                targets:
-                  - path: root<'list1'>
+                items:
+                  - conditions:
+                      - path:
+                          items:
+                            - regexp: /filter
+                    targets:
+                      - path: root<'list1'>
                 """,
                 {
                     "int1": 1,
@@ -96,9 +106,14 @@ class TestExec:
             (
                 "list(dict)",
                 """
-                targets:
-                  - path: root<'list2'>
-                    sort_keys: [id, name]
+                items:
+                  - conditions:
+                      - path:
+                          items:
+                            - regexp: /filter
+                    targets:
+                      - path: root<'list2'>
+                        sort_keys: [id, name]
                 """,
                 {
                     "int1": 1,
@@ -121,8 +136,13 @@ class TestExec:
             (
                 "list -> dict -> list(str)",
                 """
-                targets:
-                  - path: root<'list3'><\d+><'list3-2'>
+                items:
+                  - conditions:
+                      - path:
+                          items:
+                            - regexp: /filter
+                    targets:
+                      - path: root<'list3'><\d+><'list3-2'>
                 """,
                 {
                     "int1": 1,
