@@ -260,11 +260,11 @@ Then you can see
     }
 
 
-System structure
-================
+Documentation
+=============
 
-.. image:: https://cacoo.com/diagrams/9606d6pSveEhBPoH-89A6C.png
-    :target: https://cacoo.com/diagrams/9606d6pSveEhBPoH#89A6C
+https://github.com/tadashi-aikawa/jumeaux/wiki
+
 
 
 Test Result
