@@ -640,6 +640,7 @@ class TestExec:
             "key": dummy_hash,
             "title": "Report title",
             "description": "Report description",
+            "ignores": [],
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",

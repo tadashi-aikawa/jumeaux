@@ -28,24 +28,9 @@ from owlmixin.owlcollections import TList
 
 from jumeaux.addons.judgement import JudgementExecutor
 from jumeaux.addons.utils import exact_match
-from jumeaux.models import JudgementAddOnPayload, DiffKeys
+from jumeaux.models import JudgementAddOnPayload, DiffKeys, Ignore, Condition
 
 logger = logging.getLogger(__name__)
-
-
-class Condition(OwlMixin):
-    name: TOption[str]
-    path: TOption[str]
-    added: TList[str] = []
-    removed: TList[str] = []
-    changed: TList[str] = []
-
-
-class Ignore(OwlMixin):
-    title: str
-    conditions: TList[Condition]
-    image: TOption[str]
-    link: TOption[str]
 
 
 class Config(OwlMixin):

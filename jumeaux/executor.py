@@ -317,7 +317,10 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
         "summary": summary.to_dict(),
         "trials": trials.to_dicts(),
         "addons": config.addons.to_dict(),
-        "retry_hash": retry_hash
+        "retry_hash": retry_hash,
+        "ignores": config.addons.judgement \
+            .filter(_.name == 'jumeaux.addons.judgement.ignore_properties') \
+            .flat_map(lambda x: x.config.map(_["ignores"]).get_or([]))
     })
 
 
