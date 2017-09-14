@@ -78,6 +78,11 @@ class TestExec:
                 'changed': [],
                 'removed': []
             },
+            'remaining_diff_keys': {
+                'added': ['<add><0>', '<add><1>', '<add><2>'],
+                'changed': [],
+                'removed': []
+            },
             'regard_as_same': False
         })
 
@@ -92,6 +97,11 @@ class TestExec:
             'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>'],
+                'changed': [],
+                'removed': []
+            },
+            'remaining_diff_keys': {
+                'added': [],
                 'changed': [],
                 'removed': []
             },
@@ -111,6 +121,11 @@ class TestExec:
                 'changed': [],
                 'removed': []
             },
+            'remaining_diff_keys': {
+                'added': ['<add><0><extra>', '<add><1><extra>', '<add><2><extra>'],
+                'changed': [],
+                'removed': []
+            },
             'regard_as_same': False
         })
 
@@ -124,6 +139,11 @@ class TestExec:
             'res_one': RES_ONE.to_dict(),
             'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
+                'added': ['<add><0><extra>', '<add><1><extra>', '<add><2><extra>'],
+                'changed': [],
+                'removed': []
+            },
+            'remaining_diff_keys': {
                 'added': ['<add><0><extra>', '<add><1><extra>', '<add><2><extra>'],
                 'changed': [],
                 'removed': []
@@ -144,6 +164,11 @@ class TestExec:
                 'changed': [],
                 'removed': []
             },
+            'remaining_diff_keys': {
+                'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>'],
+                'changed': [],
+                'removed': []
+            },
             'regard_as_same': False
         })
 
@@ -158,6 +183,11 @@ class TestExec:
             'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>'],
+                'changed': [],
+                'removed': []
+            },
+            'remaining_diff_keys': {
+                'added': [],
                 'changed': [],
                 'removed': []
             },
@@ -177,6 +207,11 @@ class TestExec:
                 'changed': [],
                 'removed': []
             },
+            'remaining_diff_keys': {
+                'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>', '<add><99>'],
+                'changed': [],
+                'removed': []
+            },
             'regard_as_same': False
         })
 
@@ -191,6 +226,11 @@ class TestExec:
             'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>', '<add><99>'],
+                'changed': [],
+                'removed': []
+            },
+            'remaining_diff_keys': {
+                'added': [],
                 'changed': [],
                 'removed': []
             },
@@ -210,6 +250,11 @@ class TestExec:
                 'changed': [],
                 'removed': []
             },
+            'remaining_diff_keys': {
+                'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>', '<add><4>', '<add><99>'],
+                'changed': [],
+                'removed': []
+            },
             'regard_as_same': False
         })
 
@@ -224,6 +269,11 @@ class TestExec:
             'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>', '<add><3>', '<add><4>', '<add><99>'],
+                'changed': [],
+                'removed': []
+            },
+            'remaining_diff_keys': {
+                'added': ['<add><4>'],
                 'changed': [],
                 'removed': []
             },
@@ -243,6 +293,11 @@ class TestExec:
                 'changed': ['<change><0>', '<change><1>', '<change><2>'],
                 'removed': ['<remove><0>', '<remove><1>', '<remove><2>']
             },
+            'remaining_diff_keys': {
+                'added': [],
+                'changed': ['<change><0>', '<change><1>', '<change><2>'],
+                'removed': ['<remove><0>', '<remove><1>', '<remove><2>']
+            },
             'regard_as_same': False
         })
 
@@ -260,6 +315,11 @@ class TestExec:
                 'changed': ['<change><0>', '<change><1>', '<change><2>'],
                 'removed': ['<remove><0>', '<remove><1>', '<remove><2>']
             },
+            'remaining_diff_keys': {
+                'added': [],
+                'changed': [],
+                'removed': []
+            },
             'regard_as_same': True
         }
 
@@ -272,6 +332,11 @@ class TestExec:
             'res_one': RES_ONE,
             'res_other': RES_OTHER,
             'diff_keys': {
+                'added': ['<add><0>', '<add><1>', '<add><2>'],
+                'changed': [],
+                'removed': []
+            },
+            'remaining_diff_keys': {
                 'added': ['<add><0>', '<add><1>', '<add><2>'],
                 'changed': [],
                 'removed': []
@@ -289,6 +354,11 @@ class TestExec:
             'res_one': RES_ONE.to_dict(),
             'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
+                'added': ['<add><0>', '<add><1>', '<add><2>'],
+                'changed': [],
+                'removed': []
+            },
+            'remaining_diff_keys':  {
                 'added': ['<add><0>', '<add><1>', '<add><2>'],
                 'changed': [],
                 'removed': []
@@ -309,6 +379,11 @@ class TestExec:
                 'changed': ['<change><0>', '<change><1>', '<change><2>'],
                 'removed': ['<remove><0>', '<remove><1>', '<remove><2>']
             },
+            'remaining_diff_keys': {
+                'added': [],
+                'changed': ['<change><0>', '<change><1>', '<change><2>'],
+                'removed': ['<remove><0>', '<remove><1>', '<remove><2>']
+            },
             'regard_as_same': False
         })
 
@@ -322,6 +397,11 @@ class TestExec:
             'res_one': RES_ONE.to_dict(),
             'res_other': RES_OTHER.to_dict(),
             'diff_keys': {
+                'added': [],
+                'changed': ['<change><0>', '<change><1>', '<change><2>'],
+                'removed': ['<remove><0>', '<remove><1>', '<remove><2>']
+            },
+            'remaining_diff_keys': {
                 'added': [],
                 'changed': ['<change><0>', '<change><1>', '<change><2>'],
                 'removed': ['<remove><0>', '<remove><1>', '<remove><2>']

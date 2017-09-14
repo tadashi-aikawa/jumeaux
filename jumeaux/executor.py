@@ -117,6 +117,7 @@ def judgement(r_one: Response, r_other: Response,
         "res_one": r_one,
         "res_other": r_other,
         "diff_keys": diff_keys,
+        "remaining_diff_keys": diff_keys,
         "regard_as_same": r_one.body == r_other.body
     })).regard_as_same
     return Status.SAME if regard_as_same else Status.DIFFERENT

@@ -44,7 +44,7 @@ class Executor(JudgementExecutor):
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: JudgementAddOnPayload) -> JudgementAddOnPayload:
-        if payload.regard_as_same or payload.diff_keys.is_none():
+        if payload.regard_as_same or payload.remaining_diff_keys.is_none():
             return payload
 
         def filter_diff_keys(diff_keys: DiffKeys, condition: Condition) -> DiffKeys:
@@ -65,7 +65,7 @@ class Executor(JudgementExecutor):
             })
 
         filtered_diff_keys = self.config.ignores.flat_map(_.conditions).reduce(filter_diff_keys,
-                                                                               payload.diff_keys.get())
+                                                                               payload.remaining_diff_keys.get())
         logger.debug('-' * 80)
         logger.debug('filter_diff_keys')
         logger.debug('-' * 80)
@@ -79,5 +79,6 @@ class Executor(JudgementExecutor):
             "res_one": payload.res_one,
             "res_other": payload.res_other,
             "diff_keys": payload.diff_keys,
+            "remaining_diff_keys": filtered_diff_keys,
             "regard_as_same": not (filtered_diff_keys.added or filtered_diff_keys.removed or filtered_diff_keys.changed)
         })

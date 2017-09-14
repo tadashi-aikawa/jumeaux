@@ -255,6 +255,7 @@ class JudgementAddOnPayload(OwlMixin):
     res_other: Response
     # None if unknown
     diff_keys: TOption[DiffKeys]
+    remaining_diff_keys: TOption[DiffKeys]
     regard_as_same: bool
 
 
