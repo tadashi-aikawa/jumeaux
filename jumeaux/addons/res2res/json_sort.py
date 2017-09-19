@@ -1,19 +1,5 @@
 # -*- coding:utf-8 -*-
 
-"""For example of config
-res2res:
-  - name: jumeaux.addons.res2res.json_sort
-    config:
-      - items
-          - conditions:
-              - path:
-                  items:
-                    - regexp: /filter
-            targets:
-              - path: root<'list1'><\d+><'favorite'>
-                sort_keys: [name]
-"""
-
 import logging
 import json
 from owlmixin import OwlMixin, TList, TOption, TDict
@@ -66,7 +52,8 @@ def _list_sort(list_obj: list, targets: TList[Target], location: str = 'root') -
     if not target:
         return traversed
 
-    sort_func = target.sort_keys.map(lambda keys: lambda x: [x[k] for k in keys]).get_or(lambda x: x)
+    sort_func = target.sort_keys.map(lambda keys: lambda x: [x[k] for k in keys]) \
+        .get_or(lambda x: json.dumps(x, ensure_ascii=False) if isinstance(x, (dict, list)) else x)
 
     return sorted(traversed, key=sort_func)
 

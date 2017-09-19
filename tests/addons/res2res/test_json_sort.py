@@ -24,6 +24,19 @@ TEXT = json.dumps({
     "list3": [
         {"list3-1": ["o", "w", "l"]},
         {"list3-2": ["o", "w", "l"]}
+    ],
+    "list4": [
+        {
+            "list4-2": [
+                {"id": 1, "names": ["o", "w", "l"]}
+            ]
+        },
+        {
+            "list4-1": [
+                {"id": 2, "names": ["o", "w", "l"]},
+                {"id": 1, "names": ["o", "w", "l"]}
+            ]
+        }
     ]
 })
 
@@ -46,7 +59,7 @@ class TestExec:
     @pytest.mark.parametrize(
         'title, config_yml, expected_text', [
             (
-                "dict -> list(str)",
+                "dict -> list(str) (string sorting)",
                 """
                 items:
                   - conditions:
@@ -71,11 +84,24 @@ class TestExec:
                     "list3": [
                         {"list3-1": ["o", "w", "l"]},
                         {"list3-2": ["o", "w", "l"]}
+                    ],
+                    "list4": [
+                        {
+                            "list4-2": [
+                                {"id": 1, "names": ["o", "w", "l"]}
+                            ]
+                        },
+                        {
+                            "list4-1": [
+                                {"id": 2, "names": ["o", "w", "l"]},
+                                {"id": 1, "names": ["o", "w", "l"]}
+                            ]
+                        }
                     ]
                 }
             ),
             (
-                "list(str)",
+                "list(str) (string sorting)",
                 """
                 items:
                   - conditions:
@@ -100,11 +126,24 @@ class TestExec:
                     "list3": [
                         {"list3-1": ["o", "w", "l"]},
                         {"list3-2": ["o", "w", "l"]}
+                    ],
+                    "list4": [
+                        {
+                            "list4-2": [
+                                {"id": 1, "names": ["o", "w", "l"]}
+                            ]
+                        },
+                        {
+                            "list4-1": [
+                                {"id": 2, "names": ["o", "w", "l"]},
+                                {"id": 1, "names": ["o", "w", "l"]}
+                            ]
+                        }
                     ]
                 }
             ),
             (
-                "list(dict)",
+                "list(dict) (dict sorting with specified keys)",
                 """
                 items:
                   - conditions:
@@ -130,11 +169,24 @@ class TestExec:
                     "list3": [
                         {"list3-1": ["o", "w", "l"]},
                         {"list3-2": ["o", "w", "l"]}
+                    ],
+                    "list4": [
+                        {
+                            "list4-2": [
+                                {"id": 1, "names": ["o", "w", "l"]}
+                            ]
+                        },
+                        {
+                            "list4-1": [
+                                {"id": 2, "names": ["o", "w", "l"]},
+                                {"id": 1, "names": ["o", "w", "l"]}
+                            ]
+                        }
                     ]
                 }
             ),
             (
-                "list -> dict -> list(str)",
+                "list -> dict -> list(str) (string sorting)",
                 """
                 items:
                   - conditions:
@@ -159,6 +211,61 @@ class TestExec:
                     "list3": [
                         {"list3-1": ["o", "w", "l"]},
                         {"list3-2": ["l", "o", "w"]}
+                    ],
+                    "list4": [
+                        {
+                            "list4-2": [
+                                {"id": 1, "names": ["o", "w", "l"]}
+                            ]
+                        },
+                        {
+                            "list4-1": [
+                                {"id": 2, "names": ["o", "w", "l"]},
+                                {"id": 1, "names": ["o", "w", "l"]}
+                            ]
+                        }
+                    ]
+                }
+            ),
+            (
+                "list -> * (dict sorting without keys)",
+                """
+                items:
+                  - conditions:
+                      - path:
+                          items:
+                            - regexp: /filter
+                    targets:
+                      - path: root<'list4'>
+                """,
+                {
+                    "int1": 1,
+                    "str1": "1",
+                    "dict1": {
+                        "list1-1": ["o", "w", "l"]
+                    },
+                    "list1": ["o", "w", "l"],
+                    "list2": [
+                        {"id": 2, "name": "ccc"},
+                        {"id": 1, "name": "bbb"},
+                        {"id": 2, "name": "aaa"}
+                    ],
+                    "list3": [
+                        {"list3-1": ["o", "w", "l"]},
+                        {"list3-2": ["o", "w", "l"]}
+                    ],
+                    "list4": [
+                        {
+                            "list4-1": [
+                                {"id": 2, "names": ["o", "w", "l"]},
+                                {"id": 1, "names": ["o", "w", "l"]}
+                            ]
+                        },
+                        {
+                            "list4-2": [
+                                {"id": 1, "names": ["o", "w", "l"]}
+                            ]
+                        }
                     ]
                 }
             )
