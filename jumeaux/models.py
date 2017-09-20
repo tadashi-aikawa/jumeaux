@@ -33,6 +33,7 @@ class Addon(OwlMixin):
     name: str
     cls_name: str = 'Executor'
     config: TOption[dict]
+    include: TOption[str]
 
 
 # List is None...

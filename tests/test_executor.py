@@ -500,6 +500,61 @@ class TestCreateConfig:
 
         assert actual.to_dict() == expected
 
+    def test_includecase1(self, config_only_access_points, config_includecase_1):
+        actual: Config = executor.create_config(TList([config_only_access_points, config_includecase_1]))
+
+        expected = {
+            "title": 'includecase_1',
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy"
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "includecase1"
+            },
+            "threads": 1,
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "reqs2reqs": [
+                    {
+                        "name": "addons.reqs2reqs.head",
+                        "cls_name": "Executor",
+                        "config": {
+                            "size": 5
+                        }
+                    },
+                    {
+                        "name": "addons.reqs2reqs.head",
+                        "cls_name": "Executor",
+                        "config": {
+                            "size": 999
+                        }
+                    }
+                ],
+                "res2res": [],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [],
+                "dump": [],
+                "did_challenge": [],
+                "final": []
+            }
+        }
+
+        assert actual.to_dict() == expected
+
 
 @patch('jumeaux.executor.now')
 @patch('jumeaux.executor.challenge')

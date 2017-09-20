@@ -329,16 +329,37 @@ def hash_from_args(args: Args) -> str:
     return hashlib.sha256((str(now()) + args.to_json()).encode()).hexdigest()
 
 
-def create_config(config_path: TList[str]) -> Config:
+def create_config(config_paths: TList[str]) -> Config:
+    def apply_include(addon: dict, config_path: str) -> dict:
+        return load_yamlf(os.path.join(os.path.dirname(config_path), addon['include']), 'utf8') \
+            if 'include' in addon else addon
+
+    def apply_include_addons(addons: dict, config_path: str) -> dict:
+        def apply_includes(name: str):
+            return [apply_include(a, config_path) for a in addons.get(name, [])]
+
+        return {k: v for k, v in {
+            "log2reqs": apply_include(addons["log2reqs"], config_path) \
+                   if "log2reqs" in addons else None,
+            "reqs2reqs": apply_includes("reqs2reqs"),
+            "res2res": apply_includes("res2res"),
+            "res2dict": apply_includes("res2dict"),
+            "judgement": apply_includes("judgement"),
+            "store_criterion": apply_includes("store_criterion"),
+            "dump": apply_includes("dump"),
+            "did_challenge": apply_includes("did_challenge"),
+            "final": apply_includes("final"),
+        }.items() if v}
+
     def reducer(merged: dict, config_path: str) -> dict:
         d = load_yamlf(config_path, 'utf8')
         if 'addons' in d and 'addons' in merged:
-            merged['addons'].update(d['addons'])
+            merged['addons'].update(apply_include_addons(d["addons"], config_path))
             del d['addons']
         merged.update(d)
         return merged
 
-    return Config.from_dict(config_path.reduce(reducer, {}))
+    return Config.from_dict(config_paths.reduce(reducer, {}))
 
 
 def create_config_from_report(report: Report) -> Config:

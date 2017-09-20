@@ -121,3 +121,39 @@ addons:
     yield str(tmpfile)
 
     tmpfile.remove()
+
+
+@pytest.fixture
+def config_includecase_1(tmpdir) -> str:
+    tmpfile = tmpdir.join('config_includecase_1.yml')
+
+    with tmpfile.open('w') as f:
+        f.write(f'''
+title: includecase_1
+output:
+  encoding: utf8
+  response_dir: includecase1
+addons:
+  log2reqs:
+    name: addons.log2reqs.csv
+    config:
+      encoding: utf8
+  reqs2reqs:
+    - include: config_head.yml
+    - name: addons.reqs2reqs.head
+      config:
+        size: 5
+        ''')
+
+    tmpfile2 = tmpdir.join('config_head.yml')
+    with tmpfile2.open('w') as f:
+        f.write(f'''
+    name: addons.reqs2reqs.head
+    config:
+      size: 999 
+            ''')
+
+    yield str(tmpfile)
+
+    tmpfile.remove()
+    tmpfile2.remove()
