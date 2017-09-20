@@ -532,14 +532,14 @@ class TestCreateConfig:
                         "name": "addons.reqs2reqs.head",
                         "cls_name": "Executor",
                         "config": {
-                            "size": 5
+                            "size": 999
                         }
                     },
                     {
                         "name": "addons.reqs2reqs.head",
                         "cls_name": "Executor",
                         "config": {
-                            "size": 999
+                            "size": 5
                         }
                     }
                 ],

@@ -354,9 +354,11 @@ def create_config(config_paths: TList[str]) -> Config:
     def reducer(merged: dict, config_path: str) -> dict:
         d = load_yamlf(config_path, 'utf8')
         if 'addons' in d and 'addons' in merged:
-            merged['addons'].update(apply_include_addons(d["addons"], config_path))
+            merged['addons'].update(d['addons'])
             del d['addons']
         merged.update(d)
+        if 'addons' in merged:
+            merged['addons'].update(apply_include_addons(merged["addons"], config_path))
         return merged
 
     return Config.from_dict(config_paths.reduce(reducer, {}))
