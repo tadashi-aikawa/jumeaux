@@ -312,6 +312,7 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
     })
 
     return Report.from_dict({
+        "version": __version__,
         "key": key,
         "title": title,
         "description": description,

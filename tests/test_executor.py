@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 from requests.exceptions import ConnectionError
 
-from jumeaux import executor
+from jumeaux import executor, __version__
 from jumeaux.addons import AddOnExecutor
 from jumeaux.models import *
 
@@ -692,6 +692,7 @@ class TestExec:
         actual: Report = executor.exec(args, config, reqs, dummy_hash, None)
 
         expected = {
+            "version": __version__,
             "key": dummy_hash,
             "title": "Report title",
             "description": "Report description",

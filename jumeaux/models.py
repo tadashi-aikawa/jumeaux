@@ -207,6 +207,7 @@ class Trial(OwlMixin):
 
 
 class Report(OwlMixin):
+    version: str
     key: str
     title: str
     description: TOption[str]
