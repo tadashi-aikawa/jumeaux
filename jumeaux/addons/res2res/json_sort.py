@@ -72,7 +72,7 @@ class Executor(Res2ResExecutor):
             logger.info("Skipped because mime type is not json.")
             return payload
 
-        res_json = json.loads(res.text, encoding=res.encoding)
+        res_json = json.loads(res.text, encoding=res.encoding.get())
         sorted_res = json.dumps(
             self.config.items.reduce(lambda t, s:
                                      (_dict_sort(t, s.targets)
