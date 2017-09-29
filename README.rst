@@ -15,6 +15,12 @@ Outline
 .. contents::
 
 
+Documentation
+=============
+
+https://github.com/tadashi-aikawa/jumeaux
+
+
 Requirement
 ===========
 
@@ -259,13 +265,6 @@ Then you can see
             }
         ]
     }
-
-
-Documentation
-=============
-
-https://github.com/tadashi-aikawa/jumeaux/wiki
-
 
 
 Test Result
