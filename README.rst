@@ -18,7 +18,7 @@ Outline
 Documentation
 =============
 
-https://github.com/tadashi-aikawa/jumeaux
+https://tadashi-aikawa.github.io/jumeaux/
 
 
 Requirement
