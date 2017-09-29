@@ -35,7 +35,8 @@ setup(
     packages=find_packages(exclude=['tests*']),
     install_requires=load_required_modules(),
     extras_require={
-        'test': ['pytest', 'pytest-cov']
+        'test': ['pytest', 'pytest-cov'],
+        'doc': ['mkdocs', 'mkdocs-material', 'pymdown-extensions', 'fontawesome-markdown'],
     },
     entry_points={
         'console_scripts': [

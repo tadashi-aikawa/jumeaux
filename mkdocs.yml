@@ -1,0 +1,64 @@
+site_name: Jumeaux
+site_author: tadashi-aikawa
+repo_name: tadashi-aikawa/jumeaux
+repo_url: https://github.com/tadashi-aikawa/jumeaux
+
+pages:
+  - Home: index.md
+  - Addons:
+    - Summary: ja/addons/index.md
+    - log2reqs: ja/addons/log2reqs.md
+    - reqs2reqs(TODO): todo.md
+    - res2res(TODO): todo.md
+    - res2dict(TODO): todo.md
+    - judgement(TODO): todo.md
+    - store_criterion(TODO): todo.md
+    - dump(TODO): todo.md
+    - did_challenge(TODO): todo.md
+    - final(TODO): todo.md
+
+theme: material
+
+extra:
+  logo:
+    icon: 'book'
+  i18n:
+    prev: 'Previous'
+    next: 'Next'
+  author:
+    github: tadashi-aikawa
+  social:
+    - type: github-alt
+      link: https://github.com/tadashi-aikawa
+  feature:
+    tabs: true
+
+
+markdown_extensions:
+    - meta
+    # fontawesomeのアイコン
+    - fontawesome_markdown
+    # 内部参照
+    - wikilinks
+    # 改行が2spaceじゃなくてもOK
+    - nl2br
+    # warningとか
+    - admonition
+    # 注釈
+    - footnotes
+    # コードのsyntax
+    - markdown.extensions.codehilite(guess_lang=false)
+    # 見出しに逆リンクを貼れる
+    - markdown.extensions.toc(permalink=true)
+    # expandableにする
+    - pymdownx.details
+    # 絵文字対応
+    - pymdownx.emoji
+    # HTMLやemailをリンク化
+    - pymdownx.magiclink
+    # 別のmarkdownファイルを埋め込み可能
+    - pymdownx.snippets:
+        base_path: docs
+
+extra_css:
+    - "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
