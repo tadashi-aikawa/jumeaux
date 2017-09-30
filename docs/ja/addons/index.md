@@ -28,7 +28,7 @@ Add-on specifications
 | reqs2reqs        | リクエスト形式を同し形式の別の値に変換する      |
 | res2res          | APIレスポンスを同じ形式の別の値に変換する       |
 | [res2dict]       | APIレスポンスを差分比較で利用するdictに変換する |
-| judgement        | dict同士を比較して判定ステータスを決定する      |
+| [judgement]      | dict同士を比較して判定ステータスを決定する      |
 | store_criterion  | APIレスポンスを保存する基準を決定する           |
 | dump             | APIレスポンスを保存前に加工する                 |
 | did_challenge    | 次のchallengeに移る前に処理をする               |

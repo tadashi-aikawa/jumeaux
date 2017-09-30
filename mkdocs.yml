@@ -14,7 +14,7 @@ pages:
     - reqs2reqs(TODO): todo.md
     - res2res(TODO): todo.md
     - res2dict: ja/addons/res2dict.md
-    - judgement(TODO): todo.md
+    - judgement: ja/addons/judgement.md
     - store_criterion(TODO): todo.md
     - dump(TODO): todo.md
     - did_challenge(TODO): todo.md
