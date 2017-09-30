@@ -2,6 +2,7 @@ site_name: Jumeaux
 site_author: tadashi-aikawa
 repo_name: tadashi-aikawa/jumeaux
 repo_url: https://github.com/tadashi-aikawa/jumeaux
+edit_uri: edit/master/docs/
 site_favicon: 'images/favicon.ico'
 
 pages:
