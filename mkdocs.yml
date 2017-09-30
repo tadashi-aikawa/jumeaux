@@ -4,6 +4,7 @@ repo_name: tadashi-aikawa/jumeaux
 repo_url: https://github.com/tadashi-aikawa/jumeaux
 edit_uri: edit/master/docs/
 site_favicon: 'images/favicon.ico'
+strict: true
 
 pages:
   - Home: index.md
@@ -63,3 +64,4 @@ markdown_extensions:
 
 extra_css:
     - "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
+    - 'css/custom.css'

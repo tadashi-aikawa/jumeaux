@@ -6,8 +6,8 @@ res2dict [:fa-github:][s1]
 APIレスポンスを差分比較に必要なdictへ変換します。
 
 
-json  [:fa-github:][s2]
------------------------
+[:fa-github:][s2] json
+----------------------
 
 [s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/json.py
 
@@ -54,8 +54,8 @@ JSONレスポンスをdictに変換します。
 ```
 
 
-xml  [:fa-github:][s3]
-----------------------
+[:fa-github:][s3] xml
+---------------------
 
 [s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/xml.py
 

@@ -6,8 +6,8 @@ log2reqs [:fa-github:][s1]
 任意のFormatで記載されたリクエストを、Jumeaux内部で使用する形式(Request型)に変換します。
 
 
-plain  [:fa-github:][s2]
-------------------------
+[:fa-github:][s2] plain
+-----------------------
 
 [s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/plain.py
 
@@ -54,8 +54,8 @@ plain  [:fa-github:][s2]
 ```
 
 
-csv  [:fa-github:][s3]
-----------------------
+[:fa-github:][s3] csv
+---------------------
 
 [s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/csv.py
 
@@ -122,8 +122,8 @@ CSV入力形式に対応しています。
 ```
 
 
-json  [:fa-github:][s4]
------------------------
+[:fa-github:][s4] json
+----------------------
 
 [s4]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/json.py
 
@@ -190,8 +190,8 @@ JSON入力形式に対応しています。
 ```
 
 
-yaml  [:fa-github:][s5]
------------------------
+[:fa-github:][s5] yaml
+----------------------
 
 [s5]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/yaml.py
 
