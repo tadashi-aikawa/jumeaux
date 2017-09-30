@@ -283,6 +283,17 @@ Current
     :target: https://travis-ci.org/tadashi-aikawa/jumeaux
 
 
+Documentation
+=============
+
+.. sourcecode::
+
+    # Local
+    $ mkdocs serve
+    # Deploy to github pages
+    $ mkdocs gh-deploy
+
+
 Licence
 =======
 
