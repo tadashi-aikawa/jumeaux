@@ -8,6 +8,9 @@ strict: true
 
 pages:
   - Home: index.md
+  - Quickstart: quickstart.md
+  - Report: report.md
+  - Configuration: configuration.md
   - Addons:
     - Summary: ja/addons/index.md
     - log2reqs: ja/addons/log2reqs.md
@@ -61,6 +64,8 @@ markdown_extensions:
     # 別のmarkdownファイルを埋め込み可能
     - pymdownx.snippets:
         base_path: docs
+    # indentされた中でのcode blockとか
+    - pymdownx.superfences
 
 extra_css:
     - "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
