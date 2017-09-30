@@ -27,7 +27,7 @@ Add-on specifications
 | [log2reqs]       | 任意のFormatをリクエスト形式に変換する          |
 | reqs2reqs        | リクエスト形式を同し形式の別の値に変換する      |
 | res2res          | APIレスポンスを同じ形式の別の値に変換する       |
-| res2dict         | APIレスポンスを差分比較で利用するdictに変換する |
+| [res2dict]       | APIレスポンスを差分比較で利用するdictに変換する |
 | judgement        | dict同士を比較して判定ステータスを決定する      |
 | store_criterion  | APIレスポンスを保存する基準を決定する           |
 | dump             | APIレスポンスを保存前に加工する                 |
