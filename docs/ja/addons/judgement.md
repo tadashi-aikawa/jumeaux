@@ -15,7 +15,7 @@ judgement [:fa-github:][s1]
 
 * configで指定したプロパティを無視した上で判定したステータス
 * 無視したプロパティのキー と 無視するために参照した設定
-  * Reportの`ignores`に出力されます
+    * Reportの`ignores`に出力されます
 
 !!! warning
 
