@@ -8,9 +8,10 @@ strict: true
 
 pages:
   - Home: index.md
-  - Quickstart: quickstart.md
-  - Report: report.md
-  - Configuration: configuration.md
+  - Get Started:
+    - Quickstart: getstarted/quickstart.md
+    - Report: getstarted/report.md
+    - Configuration: getstarted/configuration.md
   - Addons:
     - Summary: ja/addons/index.md
     - log2reqs: ja/addons/log2reqs.md
