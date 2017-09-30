@@ -2,6 +2,7 @@ site_name: Jumeaux
 site_author: tadashi-aikawa
 repo_name: tadashi-aikawa/jumeaux
 repo_url: https://github.com/tadashi-aikawa/jumeaux
+site_favicon: 'images/favicon.ico'
 
 pages:
   - Home: index.md
@@ -20,8 +21,7 @@ pages:
 theme: material
 
 extra:
-  logo:
-    icon: 'book'
+  logo: 'images/logo.png'
   i18n:
     prev: 'Previous'
     next: 'Next'
