@@ -11,7 +11,7 @@ APIレスポンスを保存する基準を決定します。
 
 [s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/store_criterion/general.py
 
-レスポンス基準を決める標準アドオンです。
+レスポンスの保存基準を決める標準アドオンです。
 
 
 ### Config
