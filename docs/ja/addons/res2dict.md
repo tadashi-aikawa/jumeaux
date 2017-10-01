@@ -18,10 +18,10 @@ JSONレスポンスをdictに変換します。
 
 #### Definitions
 
-|      Key       |   Type   |                             Description                              | Example | Default |
-| -------------- | -------- | -------------------------------------------------------------------- | ------- | ------- |
+|      Key       |   Type   |                           Description                            | Example | Default |
+| -------------- | -------- | ---------------------------------------------------------------- | ------- | ------- |
 | force          | (bool)   | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
-| force_encoding | (string) | レスポンスヘッダを無視してエンコーディングを強制する                 | euc-jp  |         |
+| force_encoding | (string) | レスポンスヘッダを無視してエンコーディングを強制する             | euc-jp  |         |
 
 ??? info "`force` 変換する必要がないケース"
 
@@ -66,10 +66,10 @@ XMLレスポンスをdictに変換します。
 
 #### Definitions
 
-|      Key       |   Type   |                             Description                              | Example | Default |
-| -------------- | -------- | -------------------------------------------------------------------- | ------- | ------- |
+|      Key       |   Type   |                           Description                            | Example | Default |
+| -------------- | -------- | ---------------------------------------------------------------- | ------- | ------- |
 | force          | (bool)   | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
-| force_encoding | (string) | レスポンスヘッダを無視してエンコーディングを強制する                 | euc-jp  |         |
+| force_encoding | (string) | レスポンスヘッダを無視してエンコーディングを強制する             | euc-jp  |         |
 
 ??? info "`force` 変換する必要がないケース"
 
