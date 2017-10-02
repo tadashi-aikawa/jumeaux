@@ -16,13 +16,16 @@ pages:
     - Summary: ja/addons/index.md
     - log2reqs: ja/addons/log2reqs.md
     - reqs2reqs(TODO): todo.md
-    - res2res(TODO): todo.md
+    - res2res: ja/addons/res2res.md
     - res2dict: ja/addons/res2dict.md
     - judgement: ja/addons/judgement.md
     - store_criterion: ja/addons/store_criterion.md
     - dump(TODO): todo.md
     - did_challenge(TODO): todo.md
     - final(TODO): todo.md
+  - Models:
+    - RequestCondition: models/request-condition.md
+    - AndOr: models/and_or.md
 
 theme: material
 
