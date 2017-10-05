@@ -56,6 +56,7 @@ class Config(OwlMixin):
     threads: int = 1
     title: TOption[str]
     description: TOption[str]
+    tags: TOption[TList[str]]
     input_files: TOption[TList[str]]
     addons: Addons
 
@@ -68,6 +69,7 @@ class Args(OwlMixin):
     title: TOption[str]
     description: TOption[str]
     config: TOption[TList[str]]
+    tag: TOption[TList[str]]
     threads: TOption[int]
     retry: bool
     report: TOption[str]  # Only case in which retry is True
@@ -157,6 +159,7 @@ class Summary(OwlMixin):
     other: AccessPoint
     status: StatusCounts
     paths: TDict[int]
+    tags: TList[str]
     time: Time
     output: OutputSummary
 

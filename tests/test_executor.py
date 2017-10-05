@@ -647,6 +647,7 @@ class TestExec:
             "threads": 1,
             "title": "Report title",
             "description": "Report description",
+            "tag": ["tag1", "tag2"],
             "config": [config_minimum],
             "retry": False,
             "report": None
@@ -743,6 +744,7 @@ class TestExec:
                     "/challenge1": 1,
                     "/challenge2": 1
                 },
+                "tags": ["tag1", "tag2"],
                 "status": {
                     "same": 1,
                     "different": 1,

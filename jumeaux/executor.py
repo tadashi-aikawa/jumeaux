@@ -7,14 +7,15 @@ Usage
 =======================
 
 Usage:
-  jumeaux --config=<yaml>... [--title=<title>] [--description=<description>] [--threads=<threads>] [<files>...]
-  jumeaux retry  [--title=<title>] [--description=<description>] [--threads=<threads>] <report>
+  jumeaux --config=<yaml>... [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [<files>...]
+  jumeaux retry  [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] <report>
 
 Options:
   <files>...
   --config = <yaml>...             Configuration files(see below)
   --title = <title>                The title of report
   --description = <description>    The description of report
+  --tag = <tag>...                 Tags
   --threads = <threads>            The number of threads in challenge
   <report>                         Report for retry
 """
@@ -25,7 +26,6 @@ import io
 import logging.config
 import sys
 import urllib.parse as urlparser
-import datetime
 
 import os
 import requests
@@ -247,6 +247,7 @@ def challenge(arg: ChallengeArg) -> Trial:
 def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
     title = args.title.get() or config.title.get() or "No title"
     description = args.description.get() or config.description.get() or None
+    tags = args.tag.get() or config.tags.get() or []
     logger.info(f"""
 --------------------------------------------------------------------------------
 | >>> Start processing !!
@@ -303,6 +304,7 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
         },
         "status": trials.group_by(_.status.value).map_values(len).to_dict(),
         "paths": trials.group_by(_.path).map_values(len).to_dict(),
+        "tags": tags,
         "time": {
             "start": start_time.strftime("%Y/%m/%d %X"),
             "end": end_time.strftime("%Y/%m/%d %X"),

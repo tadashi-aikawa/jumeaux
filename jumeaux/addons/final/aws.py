@@ -84,6 +84,8 @@ class Executor(FinalExecutor):
             item['description'] = report.description.get()
         if not self.config.checklist.is_none():
             item['checklist'] = self.config.checklist.get()
+        if report.summary.tags:
+            item['tags'] = set(report.summary.tags)
         table.put_item(Item=item)
 
         # s3
