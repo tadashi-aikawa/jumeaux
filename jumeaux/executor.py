@@ -303,7 +303,6 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
             "proxy": config.other.proxy
         },
         "status": trials.group_by(_.status.value).map_values(len).to_dict(),
-        "paths": trials.group_by(_.path).map_values(len).to_dict(),
         "tags": tags,
         "time": {
             "start": start_time.strftime("%Y/%m/%d %X"),

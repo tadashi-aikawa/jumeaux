@@ -158,7 +158,6 @@ class Summary(OwlMixin):
     one: AccessPoint
     other: AccessPoint
     status: StatusCounts
-    paths: TDict[int]
     tags: TList[str]
     time: Time
     output: OutputSummary

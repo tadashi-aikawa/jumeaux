@@ -740,10 +740,6 @@ class TestExec:
                     "host": "http://host/other",
                     "name": "name_other"
                 },
-                "paths": {
-                    "/challenge1": 1,
-                    "/challenge2": 1
-                },
                 "tags": ["tag1", "tag2"],
                 "status": {
                     "same": 1,

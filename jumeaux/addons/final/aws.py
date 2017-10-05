@@ -70,7 +70,6 @@ class Executor(FinalExecutor):
             "title": report.title,
             "one_host": report.summary.one.host,
             "other_host": report.summary.other.host,
-            "paths": set(report.summary.paths),
             "same_count": Decimal(report.summary.status.same),
             "different_count": Decimal(report.summary.status.different),
             "failure_count": Decimal(report.summary.status.failure),
