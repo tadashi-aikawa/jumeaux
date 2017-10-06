@@ -34,9 +34,15 @@ JSONレスポンスの並び順をソートします。
 |    Key     |                  Type                   |             Description              | Example | Default |
 | ---------- | --------------------------------------- | ------------------------------------ | ------- | ------- |
 | conditions | [RequestCondition[]][request-condition] | 本設定を反映させるRequestの条件      |         |         |
-| and_or     | [(AndOr)][and-or]                       | conditionsをAND/ORどちらで判定するか |         | and     |
+| and_or     | (AndOr) :fa-info-circle:                | conditionsをAND/ORどちらで判定するか |         | and     |
 | negative   | (bool)                                  | 否定条件とするか                     | true    | false   |
 | targets    | [Target[]](#target)                     |                                      |         |         |
+
+??? info "AndOr"
+
+    --8<--
+    constants/and_or.md
+    --8<--
 
 ##### Target
 
@@ -81,4 +87,3 @@ JSONレスポンスの並び順をソートします。
 ```
 
 [request-condition]: /models/request-condition
-[and-or]: /models/and_or

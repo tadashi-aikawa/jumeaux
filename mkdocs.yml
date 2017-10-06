@@ -25,7 +25,6 @@ pages:
     - final(TODO): todo.md
   - Models:
     - RequestCondition: models/request-condition.md
-    - AndOr: models/and_or.md
 
 theme: material
 

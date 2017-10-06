@@ -8,20 +8,31 @@ Definitions
 
 ### RequestCondition
 
-|  Key   |         Type          |                     Description                      | Example | Default |
-| ------ | --------------------- | ---------------------------------------------------- | ------- | ------- |
-| name   | [Matchers](#matchers) | nameの検索条件                                       |         |         |
-| path   | [Matchers](#matchers) | pathの検索条件                                       |         |         |
-| and_or | [(AndOr)][and-or]     | `name`と`path`の組み合わせをAND/ORどちらで判定するか |         | and     |
+|  Key   |           Type           |                     Description                      | Example | Default |
+| ------ | ------------------------ | ---------------------------------------------------- | ------- | ------- |
+| name   | [Matchers](#matchers)    | nameの検索条件                                       |         |         |
+| path   | [Matchers](#matchers)    | pathの検索条件                                       |         |         |
+| and_or | (AndOr) :fa-info-circle: | `name`と`path`の組み合わせをAND/ORどちらで判定するか |         | and     |
 
+??? info "AndOr"
+
+    --8<--
+    constants/and_or.md
+    --8<--
 
 ### Matchers
 
-|   Key    |         Type          |            Description             | Example | Default |
-| -------- | --------------------- | ---------------------------------- | ------- | ------- |
-| items    | [Matcher[]](#matcher) | マッチング条件のリスト             |         |         |
-| and_or   | [(AndOr)][and-or]     | `items` をAND/ORどちらで判定するか |         | and     |
-| negative | (bool)                | 否定条件とするか                   | true    | false   |
+|   Key    |           Type           |            Description             | Example | Default |
+| -------- | ------------------------ | ---------------------------------- | ------- | ------- |
+| items    | [Matcher[]](#matcher)    | マッチング条件のリスト             |         |         |
+| and_or   | (AndOr) :fa-info-circle: | `items` をAND/ORどちらで判定するか |         | and     |
+| negative | (bool)                   | 否定条件とするか                   | true    | false   |
+
+??? info "AndOr"
+
+    --8<--
+    constants/and_or.md
+    --8<--
 
 ### Matcher
 
@@ -63,5 +74,3 @@ path:
       negative: true
 and_or: or
 ```
-
-[and-or]: /models/and_or
