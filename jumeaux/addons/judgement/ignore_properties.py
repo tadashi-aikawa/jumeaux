@@ -1,25 +1,5 @@
 # -*- coding:utf-8 -*-
 
-"""For example of config
-judgement:
-  - name: jumeaux.addons.judgement.ignore_properties
-    config:
-      ignores:
-        - title: reason
-          image: https://......png
-          link: https://......
-          conditions:
-            - path: '/route'
-              changed:
-                - root['items'][0]
-                - root['unit']
-            - path: '/repositories'
-              added:
-                - root['items'][\d+]
-              removed:
-                - root['items']
-"""
-
 import logging
 
 from fn import _

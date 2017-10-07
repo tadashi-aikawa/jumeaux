@@ -1,14 +1,5 @@
 # -*- coding:utf-8 -*-
 
-"""For example of config
-store_criterion:
-  - name: jumeaux.addons.store_criterion.general
-    config:
-      statuses:
-        - status
-        - different
-"""
-
 import logging
 
 from owlmixin import OwlMixin
