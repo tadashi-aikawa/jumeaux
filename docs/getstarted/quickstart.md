@@ -76,7 +76,7 @@ Create `requests` and write paths you want to test as following
 :fa-play-circle: Execute
 ------------------------
 
-Finally, you can exec jumeaux with specifying `config.yml` and `requests`.
+Finally, you can execute jumeaux with specifying `config.yml` and `requests`.
 [Report :fa-sticky-note:](report.md) shows you what the output means
 
 
