@@ -39,10 +39,10 @@ judgement [:fa-github:][s1]
 | ---------- | ------------------------- | ------------------------------- | ---------------------- | ------- |
 | title      | (string)                  | タイトル                        | IDは毎回変わるので無視 |         |
 | conditions | [Condition[]](#condition) | 本設定を反映させるRequestの条件 |                        |         |
-| image      | (string)                  | 画像のURL :fa-info-circle:      | https://hoge.png       |         |
-| link       | (string)                  | 参考URL :fa-info-circle:        | https://reference.html |         |
+| image      | (string)                  | 画像のURL                       | https://hoge.png       |         |
+| link       | (string)                  | 参考URL                         | https://reference.html |         |
 
-??? info "`image`と`link`について"
+!!! note "`image`と`link`について"
 
     画像のURLと参考URLはViewerなどで利用されることを想定しています。
 
@@ -50,13 +50,13 @@ judgement [:fa-github:][s1]
 
 |   Key   |    Type    |                                 Description                                  |                    Example                    | Default |
 | ------- | ---------- | ---------------------------------------------------------------------------- | --------------------------------------------- | ------- |
-| name    | (string)   | nameの正規表現                                                               | `api.+`                                       |         |
-| path    | (string)   | pathの正規表現                                                               | `/api.*`                                      |         |
+| name    | (string)   | nameの正規表現 :fa-exclamation-triangle:                                     | `api.+`                                       |         |
+| path    | (string)   | pathの正規表現 :fa-exclamation-triangle:                                     | `/api.*`                                      |         |
 | added   | (string[]) | 追加されていても無視するプロパティの正規表現リスト :fa-exclamation-triangle: | `- root<'id'>`<br>`- root<'items'><d+><'id'>` |         |
 | changed | (string[]) | 変更されていても無視するプロパティの正規表現リスト :fa-exclamation-triangle: | `- root<'id'>`<br>`- root<'items'><d+><'id'>` |         |
 | removed | (string[]) | 削除されていても無視するプロパティの正規表現リスト :fa-exclamation-triangle: | `- root<'id'>`<br>`- root<'items'><d+><'id'>` |         |
 
-!!! note "正規表現について"
+!!! warning "正規表現について"
 
     Descriptionの正規表現は完全一致正規表現を意味します。
     例えば 完全正規表現`hoge`は`ahoge` に一致しません。

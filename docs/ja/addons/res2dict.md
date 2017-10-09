@@ -23,7 +23,7 @@ JSONレスポンスをdictに変換します。
 | force          | (bool)   | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
 | force_encoding | (string) | レスポンスヘッダを無視してエンコーディングを強制する             | euc-jp  |         |
 
-??? info "`force` 変換する必要がないケース"
+!!! info "`force` 変換する必要がないケース"
 
     * `content-type` が `text/json` や `application/json` でない場合
     * 既にアドオンでdict型に変換済みの場合
@@ -71,7 +71,7 @@ XMLレスポンスをdictに変換します。
 | force          | (bool)   | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
 | force_encoding | (string) | レスポンスヘッダを無視してエンコーディングを強制する             | euc-jp  |         |
 
-??? info "`force` 変換する必要がないケース"
+!!! info "`force` 変換する必要がないケース"
 
     * `content-type` が `text/xml` や `application/xml` でない場合
     * 既にアドオンでdict型に変換済みの場合

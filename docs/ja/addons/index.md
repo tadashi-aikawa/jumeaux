@@ -1,7 +1,7 @@
 Addons
 ======
 
-!!! info
+!!! warning
 
     Sorry, Now this page supports for Japanese only. (TODO: English)
 

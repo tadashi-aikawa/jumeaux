@@ -23,7 +23,7 @@ log2reqs [:fa-github:][s1]
 /api/path2?key=hoge
 ```
 
-!!! note
+!!! warning
 
     pathとquery以外のパラメータは設定できません
 
@@ -83,7 +83,7 @@ CSV入力形式に対応しています。
 "title4","/path4"
 ```
 
-!!! note
+!!! info
 
     後方のカラムは省略することができます
 
@@ -95,7 +95,7 @@ CSV入力形式に対応しています。
 |   Key    |   Type   |            Description             |  Example  | Default |
 | -------- | -------- | ---------------------------------- | --------- | ------- |
 | encoding | (string) | 読みこみファイルのエンコーディング | euc-jp    | utf-8   |
-| dialect  | (string) | csv読みこみの方言                  | excel-tab | excel   |
+| dialect  | (string) | csv読みこみの方言 :fa-info-circle: | excel-tab | excel   |
 
 ??? info "dialectの有効値"
 

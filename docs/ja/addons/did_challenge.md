@@ -18,10 +18,10 @@ did_challenge [:fa-github:][s1]
 
 #### Definitions
 
-| Key | Type  |   Description    | Example | Default |
-| --- | ----- | ---------------- | ------- | ------- |
-| min | float | 待機時間の下限値 | 0.1     |         |
-| max | float | 待機時間の上限値 | 1.0     |         |
+| Key | Type  |            Description             | Example | Default |
+| --- | ----- | ---------------------------------- | ------- | ------- |
+| min | float | 待機時間 :fa-info-circle: の下限値 | 0.1     |         |
+| max | float | 待機時間 :fa-info-circle: の上限値 | 1.0     |         |
 
 !!! info "待機時間について"
 
