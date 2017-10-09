@@ -1,13 +1,5 @@
 # -*- coding:utf-8 -*-
 
-"""For example of config
-did_challenge:
-  - name: jumeaux.addons.did_challenge.sleep
-    config:
-      min: 0.1
-      max: 1.0
-"""
-
 import logging
 import random
 

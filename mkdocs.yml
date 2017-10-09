@@ -21,7 +21,7 @@ pages:
     - judgement: ja/addons/judgement.md
     - store_criterion: ja/addons/store_criterion.md
     - dump(TODO): todo.md
-    - did_challenge(TODO): todo.md
+    - did_challenge: ja/addons/did_challenge.md
     - final(TODO): todo.md
   - Models:
     - RequestCondition: models/request-condition.md

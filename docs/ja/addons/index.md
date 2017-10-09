@@ -31,7 +31,7 @@ Add-on specifications
 | [judgement]       | dict同士を比較して判定ステータスを決定する      |
 | [store_criterion] | APIレスポンスを保存する基準を決定する           |
 | dump              | APIレスポンスを保存前に加工する                 |
-| did_challenge     | 次のchallengeに移る前に処理をする               |
+| [did_challenge]   | 次のchallengeに移る前に処理をする               |
 | final             | jumeauxの処理が完了する前に処理をする           |
 
 
@@ -40,3 +40,4 @@ Add-on specifications
 [res2dict]: /ja/addons/res2dict
 [judgement]: /ja/addons/judgement
 [store_criterion]: /ja/addons/store_criterion
+[did_challenge]: /ja/addons/did_challenge
