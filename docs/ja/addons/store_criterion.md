@@ -25,7 +25,7 @@ APIレスポンスを保存する基準を決定します。
 ??? info "Status"
 
     --8<--
-    models/status.md
+    constants/status.md
     --8<--
 
 #### Examples
