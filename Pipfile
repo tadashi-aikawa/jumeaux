@@ -1,0 +1,28 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[dev-packages]
+
+
+
+[packages]
+
+requests = "*"
+docopt = "*"
+schema = "*"
+xmltodict = "*"
+PyYAML = "*"
+owlmixin = "==2.0.0a11"
+fn = "*"
+"boto3" = "*"
+deepdiff = "*"
+freezegun = "*"
+
+
+[requires]
+
+python_version = "3.6"
