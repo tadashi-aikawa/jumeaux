@@ -24,7 +24,7 @@ $ jumeaux --version
 ### Docker
 
 ```
-$ docker build -t tadashi-aikawa/jumeaux
+$ docker build -t tadashi-aikawa/jumeaux .
 ```
 
 ### Vagrant and Virtualbox
