@@ -33,17 +33,19 @@ did_challenge [:fa-github:][s1]
 ##### ランダムで0.1～1.0秒待機する
 
 ```yml
-- name: jumeaux.addons.did_challenge.sleep
-  config:
-    min: 0.1
-    max: 1.0
+did_challenge:
+  - name: sleep
+    config:
+      min: 0.1
+      max: 1.0
 ```
 
 ##### 0.5秒待機する
 
 ```yml
-- name: jumeaux.addons.did_challenge.sleep
-  config:
-    min: 0.5
-    max: 0.5
+did_challenge:
+  - name: sleep
+    config:
+      min: 0.5
+      max: 0.5
 ```

@@ -60,30 +60,32 @@ JSONレスポンスの並び順をソートします。
 ##### pathが`/filter`である場合 `dict1.list1-1` のリストをソートする
 
 ```yml
-- name: jumeaux.addons.res2res.json_sort
-  config:
-    items:
-      - conditions:
-          - path:
-              items:
-                - regexp: /filter
-        targets:
-          - path: root<'dict1'><'list1-1'> 
+res2res:
+  - name: json_sort
+    config:
+      items:
+        - conditions:
+            - path:
+                items:
+                  - regexp: /filter
+          targets:
+            - path: root<'dict1'><'list1-1'> 
 ```
 
 ##### pathが`/filter`である場合 `list2` のリストをid, nameの優先順にソートする
 
 ```yml
-- name: jumeaux.addons.res2res.json_sort
-  config:
-    items:
-      - conditions:
-          - path:
-              items:
-                - regexp: /filter
-        targets:
-          - path: root<'list2'>
-            sort_keys: [id, name]
+res2res:
+  - name: json_sort
+    config:
+      items:
+        - conditions:
+            - path:
+                items:
+                  - regexp: /filter
+          targets:
+            - path: root<'list2'>
+              sort_keys: [id, name]
 ```
 
 [request-condition]: /models/request-condition

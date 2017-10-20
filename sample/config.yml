@@ -25,13 +25,13 @@ output:
       handlers: [console]
 addons:
   log2reqs:
-    name: jumeaux.addons.log2reqs.csv
+    name: csv
     config:
       encoding: utf8
   store_criterion:
-    - name: jumeaux.addons.store_criterion.general
+    - name: general
       config:
         statuses:
           - different
   dump:
-    - name: jumeaux.addons.dump.json
+    - name: json

@@ -42,13 +42,15 @@ log2reqs [:fa-github:][s1]
 ##### 最もシンプルな例
 
 ```yml
-- name: jumeaux.addons.log2reqs.plain
+log2reqs:
+  name: plain
 ```
 
 ##### 入力ファイルのエンコーディングはEUC-JP
 
 ```yml
-- name: jumeaux.addons.log2reqs.plain
+log2reqs:
+  name: plain
   config:
     encoding: euc-jp
 ```
@@ -109,13 +111,15 @@ CSV入力形式に対応しています。
 ##### 最もシンプルな例
 
 ```yml
-- name: jumeaux.addons.log2reqs.csv
+log2reqs:
+  name: csv
 ```
 
 ##### 入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP
 
 ```yml
-- name: jumeaux.addons.log2reqs.csv
+log2reqs:
+  name: csv
   config:
     encoding: euc-jp
     dialect: excel-tab
@@ -178,13 +182,15 @@ JSON入力形式に対応しています。
 ##### 最もシンプルな例
 
 ```yml
-- name: jumeaux.addons.log2reqs.json
+log2reqs:
+  name: json
 ```
 
 ##### 入力ファイルのエンコーディングはEUC-JP
 
 ```yml
-- name: jumeaux.addons.log2reqs.json
+log2reqs:
+  name: json
   config:
     encoding: euc-jp
 ```
@@ -240,13 +246,15 @@ YAML入力形式に対応しています。
 ##### 最もシンプルな例
 
 ```yml
-- name: jumeaux.addons.log2reqs.yaml
+log2reqs:
+  name: yaml
 ```
 
 ##### 入力ファイルのエンコーディングはEUC-JP
 
 ```yml
-- name: jumeaux.addons.log2reqs.yaml
+log2reqs:
+  name: yaml
   config:
     encoding: euc-jp
 ```

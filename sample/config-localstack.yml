@@ -6,7 +6,7 @@ other:
   host: http://localhost/api/simple/other
 addons:
   final:
-    - name: jumeaux.addons.final.aws
+    - name: aws
       config:
         table: jumeaux-viewer
         bucket: mamansoft-jumeaux-viewer

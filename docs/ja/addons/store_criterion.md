@@ -33,18 +33,20 @@ APIレスポンスを保存する基準を決定します。
 ##### 差分のあるレスポンスだけを保存する
 
 ```yml
-- name: jumeaux.addons.store_criterion.general
-  config:
-    statuses:
-      - different
+store_criterion:
+  - name: general
+    config:
+      statuses:
+        - different
 ```
 
 ##### 成功したリクエスト結果だけを保存する
 
 ```yml
-- name: jumeaux.addons.store_criterion.general
-  config:
-    statuses:
-      - same
-      - different
+store_criterion:
+  - name: general
+    config:
+      statuses:
+        - same
+        - different
 ```

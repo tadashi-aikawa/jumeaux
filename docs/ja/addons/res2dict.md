@@ -33,15 +33,17 @@ JSONレスポンスをdictに変換します。
 ##### レスポンスがJSONの場合 dictに変換する
 
 ```yml
-- name: jumeaux.addons.res2dict.json
+res2dict:
+  - name: json
 ```
 
 ##### 変換する必要がないケースでも強制的に変換する
 
 ```yml
-- name: jumeaux.addons.res2dict.json
-  config:
-    force: True
+res2dict:
+  - name: json
+    config:
+      force: True
 ```
 
 
@@ -72,13 +74,15 @@ XMLレスポンスをdictに変換します。
 ##### レスポンスがXMLの場合 dictに変換する
 
 ```yml
-- name: jumeaux.addons.res2dict.xml
+res2dict:
+  - name: xml
 ```
 
 ##### 変換する必要がないケースでも強制的に変換する
 
 ```yml
-- name: jumeaux.addons.res2dict.xml
-  config:
-    force: True
+res2dict:
+  - name: xml
+    config:
+      force: True
 ```

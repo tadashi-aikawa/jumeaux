@@ -40,23 +40,26 @@ APIレスポンスを保存前に加工します。
 ##### レスポンスがJSONの場合 JSON形式でフォーマットする
 
 ```yml
-- name: jumeaux.addons.dump.json
+dump:
+  - name: json
 ```
 
 ##### レスポンスがJSONの場合 JSON形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
 
 ```yml
-- name: jumeaux.addons.dump.json
-  config:
-    default_encoding: euc-jp
+dump:
+  - name: json
+    config:
+      default_encoding: euc-jp
 ```
 
 ##### レスポンスがJSONで無い場合も JSON形式でフォーマットする
 
 ```yml
-- name: jumeaux.addons.dump.json
-  config:
-    force: True
+dump:
+  - name: json
+    config:
+      force: True
 ```
 
 
@@ -90,23 +93,26 @@ APIレスポンスを保存前に加工します。
 ##### レスポンスがXMLの場合 XML形式でフォーマットする
 
 ```yml
-- name: jumeaux.addons.dump.xml
+dump:
+  - name: xml
 ```
 
 ##### レスポンスがXMLの場合 XML形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
 
 ```yml
-- name: jumeaux.addons.dump.xml
-  config:
-    default_encoding: euc-jp
+dump:
+  - name: xml
+    config:
+      default_encoding: euc-jp
 ```
 
 ##### レスポンスがXMLで無い場合も XML形式でフォーマットする
 
 ```yml
-- name: jumeaux.addons.dump.xml
-  config:
-    force: True
+dump:
+  - name: xml
+    config:
+      force: True
 ```
 
 
@@ -132,5 +138,6 @@ APIレスポンスを保存前に加工します。
 ##### UTF8に変換する
 
 ```yml
-- name: jumeaux.addons.dump.encoding
+dump:
+  - name: encoding
 ```

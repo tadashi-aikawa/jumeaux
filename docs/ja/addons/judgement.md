@@ -72,14 +72,15 @@ judgement [:fa-github:][s1]
 ##### path `/api1` の `items[].id` は値が変更されていても無視する
 
 ```yml
-- name: jumeaux.addons.judgement.ignore_properties
-  config:
-    ignores:
-      - title: API1のitems[].idの値は無視
-        conditions:
-          - path: /api1
-            changed:
-              - root<'items'><\d+><'id'>
+judgement:
+  - name: ignore_properties
+    config:
+      ignores:
+        - title: API1のitems[].idの値は無視
+          conditions:
+            - path: /api1
+              changed:
+                - root<'items'><\d+><'id'>
 ```
 
 ##### 複雑な条件
@@ -90,19 +91,20 @@ judgement [:fa-github:][s1]
 * nameに ``check`` を含む ``debug`` または ``url`` は削除されている場合
 
 ```yml
-- name: jumeaux.addons.judgement.ignore_properties
-  config:
-    ignores:
-      - title: /apiから始まるidは無視
-        conditions:
-          - path: /api.*
-            added:
-              - root<'id'>
-      - title: タイトルにcheckを含む場合は全階層のdebugとurlを無視
-        conditions:
-          - name: .*check.*
-            image: http://hoge.png
-            link: http://hoge.html
-            removed:
-              - .*<'(debug|url)'>.*
+judgement:
+  - name: ignore_properties
+    config:
+      ignores:
+        - title: /apiから始まるidは無視
+          conditions:
+            - path: /api.*
+              added:
+                - root<'id'>
+        - title: タイトルにcheckを含む場合は全階層のdebugとurlを無視
+          conditions:
+            - name: .*check.*
+              image: http://hoge.png
+              link: http://hoge.html
+              removed:
+                - .*<'(debug|url)'>.*
 ```
