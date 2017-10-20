@@ -10,7 +10,6 @@ from jumeaux.models import Res2DictAddOnPayload
 
 class Config(OwlMixin):
     force: bool = False
-    force_encoding: TOption[str]
 
 
 class Executor(Res2DictExecutor):
@@ -23,11 +22,10 @@ class Executor(Res2DictExecutor):
 
         content_type = payload.response.headers.get('content-type')
         mime_type = content_type.split(';')[0] if content_type else None
-        encoding = self.config.force_encoding.get_or(payload.response.encoding.get())
 
         return Res2DictAddOnPayload.from_dict({
             "response": payload.response,
-            "result": json.loads(payload.response.text, encoding=encoding) \
+            "result": json.loads(payload.response.text) \
                 if self.config.force or mime_type in ('text/json', 'application/json') \
                 else None
         })

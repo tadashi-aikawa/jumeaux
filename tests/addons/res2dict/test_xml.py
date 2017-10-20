@@ -16,8 +16,8 @@ NORMAL_BODY = """<?xml version="1.0"?>
         <title>Ichiro55</title>
     </book>
     <book id="bk002">
-        <author>Jiro</author>
-        <title>Jiro22</title>
+        <author>次郎</author>
+        <title>次郎22</title>
     </book>
 </catalog>
 """
@@ -27,8 +27,8 @@ NORMAL_CASE = ("Normal",
                force: False 
                """,
                Response.from_dict({
-                   "body": NORMAL_BODY.encode('utf-8'),
-                   "encoding": 'utf-8',
+                   "body": NORMAL_BODY.encode('euc-jp'),
+                   "encoding": 'euc-jp',
                    "text": NORMAL_BODY,
                    "headers": {
                        "content-type": "application/xml"
@@ -41,7 +41,7 @@ NORMAL_CASE = ("Normal",
                    "catalog": {
                        "book": [
                            {"@id": "bk001", "author": "Ichiro", "title": "Ichiro55"},
-                           {"@id": "bk002", "author": "Jiro", "title": "Jiro22"}
+                           {"@id": "bk002", "author": "次郎", "title": "次郎22"}
                        ]
                    }
                }
@@ -52,7 +52,7 @@ EMPTY_ENCODING_CASE = ("Encoding is empty",
                        force: False 
                        """,
                        Response.from_dict({
-                           "body": NORMAL_BODY.encode('utf-8'),
+                           "body": NORMAL_BODY.encode('euc-jp'),
                            "text": NORMAL_BODY,
                            "headers": {
                                "content-type": "application/xml"
@@ -65,17 +65,62 @@ EMPTY_ENCODING_CASE = ("Encoding is empty",
                            "catalog": {
                                "book": [
                                    {"@id": "bk001", "author": "Ichiro", "title": "Ichiro55"},
-                                   {"@id": "bk002", "author": "Jiro", "title": "Jiro22"}
+                                   {"@id": "bk002", "author": "次郎", "title": "次郎22"}
                                ]
                            }
                        }
                        )
 
+INVALID_CONTENT_TYPE_CASE = ("Content type is invalid",
+               """
+               force: False 
+               """,
+               Response.from_dict({
+                   "body": NORMAL_BODY.encode('euc-jp'),
+                   "encoding": 'euc-jp',
+                   "text": NORMAL_BODY,
+                   "headers": {
+                       "content-type": "hogehoge"
+                   },
+                   "url": "http://test",
+                   "status_code": 200,
+                   "elapsed": datetime.timedelta(seconds=1)
+               }),
+               None
+               )
+
+INVALID_CONTENT_TYPE_BUT_FORCE_CASE = ("Content type is invalid but force",
+               """
+               force: True 
+               """,
+               Response.from_dict({
+                   "body": NORMAL_BODY.encode('euc-jp'),
+                   "encoding": 'euc-jp',
+                   "text": NORMAL_BODY,
+                   "headers": {
+                       "content-type": "hogehoge"
+                   },
+                   "url": "http://test",
+                   "status_code": 200,
+                   "elapsed": datetime.timedelta(seconds=1)
+               }),
+               {
+                   "catalog": {
+                       "book": [
+                           {"@id": "bk001", "author": "Ichiro", "title": "Ichiro55"},
+                           {"@id": "bk002", "author": "次郎", "title": "次郎22"}
+                       ]
+                   }
+               }
+               )
 
 class TestExec:
     @pytest.mark.parametrize(
         'title, config_yml, response, expected_result', [
-            NORMAL_CASE, EMPTY_ENCODING_CASE
+            NORMAL_CASE,
+            EMPTY_ENCODING_CASE,
+            INVALID_CONTENT_TYPE_CASE,
+            INVALID_CONTENT_TYPE_BUT_FORCE_CASE,
         ]
     )
     def test(self, title, config_yml, response, expected_result):

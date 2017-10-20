@@ -21,7 +21,6 @@ JSONレスポンスをdictに変換します。
 |      Key       |   Type   |                           Description                            | Example | Default |
 | -------------- | -------- | ---------------------------------------------------------------- | ------- | ------- |
 | force          | (bool)   | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
-| force_encoding | (string) | レスポンスヘッダを無視してエンコーディングを強制する             | euc-jp  |         |
 
 !!! info "`force` 変換する必要がないケース"
 
@@ -35,14 +34,6 @@ JSONレスポンスをdictに変換します。
 
 ```yml
 - name: jumeaux.addons.res2dict.json
-```
-
-##### レスポンスをEUC-JPと決めつけて dictに変換する
-
-```yml
-- name: jumeaux.addons.res2dict.json
-  config:
-    force_encoding: euc-jp
 ```
 
 ##### 変換する必要がないケースでも強制的に変換する
@@ -69,7 +60,6 @@ XMLレスポンスをdictに変換します。
 |      Key       |   Type   |                           Description                            | Example | Default |
 | -------------- | -------- | ---------------------------------------------------------------- | ------- | ------- |
 | force          | (bool)   | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
-| force_encoding | (string) | レスポンスヘッダを無視してエンコーディングを強制する             | euc-jp  |         |
 
 !!! info "`force` 変換する必要がないケース"
 
@@ -83,14 +73,6 @@ XMLレスポンスをdictに変換します。
 
 ```yml
 - name: jumeaux.addons.res2dict.xml
-```
-
-##### レスポンスをEUC-JPと決めつけて dictに変換する
-
-```yml
-- name: jumeaux.addons.res2dict.xml
-  config:
-    force_encoding: euc-jp
 ```
 
 ##### 変換する必要がないケースでも強制的に変換する
