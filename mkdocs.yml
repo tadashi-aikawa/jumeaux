@@ -22,7 +22,7 @@ pages:
     - store_criterion: ja/addons/store_criterion.md
     - dump: ja/addons/dump.md
     - did_challenge: ja/addons/did_challenge.md
-    - final(TODO): todo.md
+    - final: ja/addons/final.md
   - Models:
     - RequestCondition: models/request-condition.md
 

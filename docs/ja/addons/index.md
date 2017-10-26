@@ -32,7 +32,7 @@ Add-on specifications
 | [store_criterion] | APIレスポンスを保存する基準を決定する           |
 | [dump]            | APIレスポンスを保存前に加工する                 |
 | [did_challenge]   | 次のchallengeに移る前に処理をする               |
-| final             | jumeauxの処理が完了する前に処理をする           |
+| [final]           | jumeauxの処理が完了する前に処理をする           |
 
 
 [log2reqs]: /ja/addons/log2reqs
@@ -42,3 +42,4 @@ Add-on specifications
 [store_criterion]: /ja/addons/store_criterion
 [dump]: /ja/addons/dump
 [did_challenge]: /ja/addons/did_challenge
+[final]: /ja/addons/final
