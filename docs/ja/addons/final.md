@@ -65,3 +65,78 @@ final:
       local_stack:
         use: true
 ```
+
+
+
+[:fa-github:][s3] slack
+-----------------------
+
+[s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/slack.py
+
+実行結果をSlackに転送します。
+
+### Prerequirements
+
+環境変数 `SLACK_INCOMING_WEBHOOKS_URL` に[Incoming webhook]のURIを設定して下さい
+
+[Incoming webhook]: https://api.slack.com/incoming-webhooks
+
+
+### Config
+
+#### Definitions
+
+#### Root
+
+|    Key     |           Type            |    Description     | Example | Default |
+| ---------- | ------------------------- | ------------------ | ------- | ------- |
+| conditions | [Condition](#condition)[] | 送信条件と送信内容 |         |         |
+
+#### Condition
+
+|   Key   |        Type         |      Description      | Example | Default |
+| ------- | ------------------- | --------------------- | ------- | ------- |
+| payload | [Payload](#payload) | Slack送信に関する情報 |         |         |
+
+##### Payload
+
+|      Key       |   Type   |              Description              |        Example        | Default |
+| -------------- | -------- | ------------------------------------- | --------------------- | ------- |
+| message_format | string   | フォーマット付き本文 :fa-info-circle: |                       |         |
+| channel        | string   | 送信先channel                         | #hoge                 |         |
+| username       | string   | 投稿ユーザ名                          | Jumeaux man           | jumeaux |
+| icon_emoji     | (string) | アイコン(絵文字表記)                  | `:smile:`             |         |
+| icon_url       | (string) | アイコン(URL)                         | http://hoge/image.jpg |         |
+
+!!! info "フォーマットについて"
+
+    [Report](/getstarted/report.md)で定義されたプロパティを使用する事ができます。
+
+#### Examples
+
+##### `#jumeaux` channelに終了時通知する
+
+```yml
+final:
+  - name: slack
+    config:
+      conditions:
+        - payload:
+            message_format: Finish Jumeaux!!
+            channel: "#jumeaux"
+            icon_emoji: ":innocent:"
+```
+
+##### メッセージフォーマットを利用して通知する
+
+```yml
+  final:
+    - name: slack
+      config:
+        conditions:
+          - payload:
+              message_format: "Version {version}, Title: {title}, -- {summary[status][different]} diffs"
+              channel: "#jumeaux"
+```
+
+通知本文は `Version 0.24.1, Title: DEMO, -- 2 diffs` のようになります。
