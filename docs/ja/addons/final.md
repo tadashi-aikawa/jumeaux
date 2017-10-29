@@ -86,13 +86,13 @@ final:
 
 #### Definitions
 
-#### Root
+##### Root
 
 |    Key     |           Type            |    Description     | Example | Default |
 | ---------- | ------------------------- | ------------------ | ------- | ------- |
 | conditions | [Condition](#condition)[] | 送信条件と送信内容 |         |         |
 
-#### Condition
+##### Condition
 
 |   Key   |        Type         |      Description      | Example | Default |
 | ------- | ------------------- | --------------------- | ------- | ------- |
