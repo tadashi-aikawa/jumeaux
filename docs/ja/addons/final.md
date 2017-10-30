@@ -140,3 +140,80 @@ final:
 ```
 
 通知本文は `Version 0.24.1, Title: DEMO, -- 2 diffs` のようになります。
+
+
+[:fa-github:][s4] csv
+---------------------
+
+[s4]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/csv.py
+
+レポートの`trials`をCSVファイル形式で追加出力します。
+
+
+### Config
+
+#### Definitions
+
+|     Key      |   Type   |               Description                |        Example        | Default |
+| ------------ | -------- | ---------------------------------------- | --------------------- | ------- |
+| column_names | string[] | 出力する要素名のリスト  :fa-info-circle: | `[seq, name, status]` |         |
+| output_path  | string   | 出力するCSVファイルのパス                | result.csv            |         |
+| with_header  | (bool)   | ヘッダ行を出力するか                     | true                  | false   |
+
+??? info "column_names"
+
+    以下の要素が有効です。
+
+    |        Name        |            Description            |
+    | ------------------ | --------------------------------- |
+    | seq                | シーケンス                        |
+    | name               | 名称                              |
+    | path               | パス                              |
+    | headers            | ヘッダ(JSON文字列)                |
+    | queries            | クエリ(JSON文字列)                |
+    | request_time       | リクエスト日時                    |
+    | status             | ステータス                        |
+    | one.url            | oneのリクエストURL                |
+    | one.status         | oneのステータスコード             |
+    | one.byte           | oneのレスポンスサイズ             |
+    | one.response_sec   | oneのレスポンスタイム(秒)         |
+    | one.content_type   | oneのコンテントタイプ             |
+    | one.encoding       | oneのレスポンスエンコーディング   |
+    | other.url          | otherのリクエストURL              |
+    | other.status       | otherのステータスコード           |
+    | other.byte         | otherのレスポンスサイズ           |
+    | other.response_sec | otherのレスポンスタイム(秒)       |
+    | other.content_type | otherのコンテントタイプ           |
+    | other.encoding     | otherのレスポンスエンコーディング |
+
+
+#### Examples
+
+##### `seq` `name` `status` の要素を出力する
+
+```yml
+final:
+  - name: csv
+    config:
+      column_names:
+        - seq
+        - name
+        - status
+      output_path: result.csv
+```
+
+##### `seq` `name` `status`, `one.response_sec`, `other.response_sec` の要素をヘッダ付きで出力する
+
+```yml
+final:
+  - name: csv
+    config:
+      with_header: true
+      column_names:
+        - seq
+        - name
+        - status
+        - one.response_sec
+        - other.response_sec
+      output_path: result.csv
+```

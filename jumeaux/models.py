@@ -195,6 +195,8 @@ class Ignore(OwlMixin):
 
 
 class Trial(OwlMixin):
+    """ Affect `final/csv` config specifications,
+    """
     seq: int
     name: str
     headers: TDict[str]
@@ -209,6 +211,8 @@ class Trial(OwlMixin):
 
 
 class Report(OwlMixin):
+    """ Affect `final/slack` config specifications,
+    """
     version: str
     key: str
     title: str

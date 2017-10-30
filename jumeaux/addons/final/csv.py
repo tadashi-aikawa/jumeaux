@@ -1,13 +1,5 @@
 # -*- coding:utf-8 -*-
 
-"""For example of config
-final:
-- name: jumeaux.addons.final.csv
-  config:
-    column_names: ["seq", "name", "path", "one.status", "other.status"]
-    output_path: out.csv
-"""
-
 import logging
 
 from owlmixin import OwlMixin, TList
