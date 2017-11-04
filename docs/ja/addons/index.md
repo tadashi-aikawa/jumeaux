@@ -25,7 +25,7 @@ Add-on specifications
 | アドオンレイヤー  |             アドオンレイヤーの概要              |
 | ----------------- | ----------------------------------------------- |
 | [log2reqs]        | 任意のFormatをリクエスト形式に変換する          |
-| reqs2reqs         | リクエスト形式を同し形式の別の値に変換する      |
+| [reqs2reqs]       | リクエスト形式を同し形式の別の値に変換する      |
 | [res2res]         | APIレスポンスを形式を変えずに変換する           |
 | [res2dict]        | APIレスポンスを差分比較で利用するdictに変換する |
 | [judgement]       | dict同士を比較して判定ステータスを決定する      |
@@ -37,6 +37,7 @@ Add-on specifications
 
 [log2reqs]: /ja/addons/log2reqs
 [res2res]: /ja/addons/res2res
+[reqs2reqs]: /ja/addons/reqs2reqs
 [res2dict]: /ja/addons/res2dict
 [judgement]: /ja/addons/judgement
 [store_criterion]: /ja/addons/store_criterion

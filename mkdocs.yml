@@ -15,7 +15,7 @@ pages:
   - Addons:
     - Summary: ja/addons/index.md
     - log2reqs: ja/addons/log2reqs.md
-    - reqs2reqs(TODO): todo.md
+    - reqs2reqs: ja/addons/reqs2reqs.md
     - res2res: ja/addons/res2res.md
     - res2dict: ja/addons/res2dict.md
     - judgement: ja/addons/judgement.md
