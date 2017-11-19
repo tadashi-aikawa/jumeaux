@@ -41,7 +41,7 @@ class Executor(FinalExecutor):
 
         tmp_credential = boto3.client('sts').assume_role(
             RoleArn=self.config.assumed_role_arn.get(),
-            RoleSessionName='jumeaux_with_aws_add-on'
+            RoleSessionName='jumeaux_with_miroir_add-on'
         ) if not self.config.assumed_role_arn.is_none() else None
 
         def create_endpoint_url(port_as_localstack: int):
@@ -86,7 +86,7 @@ class Executor(FinalExecutor):
             'aws_session_token': tmp_credential['Credentials']['SessionToken'],
             'endpoint_url': create_endpoint_url(4572)
         } if tmp_credential else {'endpoint_url': create_endpoint_url(4572)}))
-        base_key = self.config.prefix.map(lambda x: f'{x}/jumeaux-results').get_or('jumeaux-results')
+        base_key = self.config.prefix.map(lambda x: f'{x}/results').get_or('results')
 
         def upload_responses(which: str):
             dir = f'{output_summary.response_dir}/{report.key}'

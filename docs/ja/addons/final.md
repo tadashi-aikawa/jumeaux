@@ -6,15 +6,16 @@ final [:fa-github:][s1]
 Jumeauxの処理が完了する直前処理を行う事ができます。
 
 
-[:fa-github:][s2] aws
----------------------
+[:fa-github:][s2] miroir
+------------------------
 
-[s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/aws.py
+[s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/miroir.py
 
-AWSに結果を転送します。
-転送した結果は[Jumeaux Viewer]などで参照するために利用します。
+Miroir参照用にデータをAWSに登録します。
 
-[Jumeaux Viewer]: https://github.com/tadashi-aikawa/jumeaux-viewer
+!!! todo
+
+    Miroirについての記載。現段階ではJumeaux Viewerのことです。
 
 ### Config
 
@@ -22,16 +23,16 @@ AWSに結果を転送します。
 
 ##### Root
 
-|       Key        |           Type            |                     Description                     |         Example          | Default |
-| ---------------- | ------------------------- | --------------------------------------------------- | ------------------------ | ------- |
-| table            | string                    | 転送先DynamoDBのテーブル名                          | jumeaux-result           |         |
-| bucket           | string                    | 転送先S3のBucket名                                  | mamansoft-jumeaux-result |         |
-| prefix           | (string)                  | 転送先S3のkey prefix                                | test                     |         |
-| cache_max_age    | (int)                     | S3に転送したレスポンスのキャッシュ生存期間(秒)      | 3600                     | 0       |
-| with_zip         | (bool)                    | ReportとレスポンスをzipしたファイルをS3に転送するか | false                    | true    |
-| assumed_role_arn | (string)                  | Assumed roleで認証を行う場合はarnを指定する         | TODO:                    |         |
-| checklist        | (string)                  | 今はまだ使用していません                            |                          |         |
-| local_stack      | [LocalStack](#localstack) | LocalStackを使用する場合に設定する                  |                          |         |
+|       Key        |           Type            |                     Description                     |     Example      | Default |
+| ---------------- | ------------------------- | --------------------------------------------------- | ---------------- | ------- |
+| table            | string                    | 転送先DynamoDBのテーブル名                          | miroir           |         |
+| bucket           | string                    | 転送先S3のBucket名                                  | mamansoft-miroir |         |
+| prefix           | (string)                  | 転送先S3のkey prefix                                | test             |         |
+| cache_max_age    | (int)                     | S3に転送したレスポンスのキャッシュ生存期間(秒)      | 3600             | 0       |
+| with_zip         | (bool)                    | ReportとレスポンスをzipしたファイルをS3に転送するか | false            | true    |
+| assumed_role_arn | (string)                  | Assumed roleで認証を行う場合はarnを指定する         | TODO:            |         |
+| checklist        | (string)                  | 今はまだ使用していません                            |                  |         |
+| local_stack      | [LocalStack](#localstack) | LocalStackを使用する場合に設定する                  |                  |         |
 
 ##### LocalStack
 
@@ -43,35 +44,35 @@ AWSに結果を転送します。
 
 #### Examples
 
-##### AWSに保存する (キャッシュ1時間)
+##### キャッシュ1時間で保存する
 
 ```yml
 final:
-  - name: aws
+  - name: miroir
     config:
       table: jumeaux-viewer
       bucket: mamansoft-jumeaux-viewer
       cache_max_age: 3600
 ```
 
-##### prefixを指定してAWSに保存する (キャッシュなし)
+##### キャッシュなしでprefixを指定して保存する
 
 Bucketの`test/`配下にデータが保存されます。
 
 ```yml
 final:
-  - name: aws
+  - name: miroir
     config:
       table: jumeaux-viewer
       bucket: mamansoft-jumeaux-viewer
       prefix: test
 ```
 
-##### LocalStackを使う (キャッシュ2分)
+##### LocalStackを使ってキャッシュ2分で保存する
 
 ```yml
 final:
-  - name: aws
+  - name: miroir
     config:
       table: jumeaux-viewer
       bucket: mamansoft-jumeaux-viewer
