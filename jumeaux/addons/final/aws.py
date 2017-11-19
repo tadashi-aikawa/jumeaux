@@ -1,14 +1,5 @@
 # -*- coding:utf-8 -*-
 
-"""For example of config
-final:
-- name: jumeaux.addons.final.aws
-  config:
-    table:  jumeaux-report
-    bucket: jumeaux-report
-    cache_max_age: 600
-"""
-
 import json
 import logging
 import os
@@ -32,6 +23,7 @@ class LocalStack(OwlMixin):
 class Config(OwlMixin):
     table: str
     bucket: str
+    prefix: TOption[str]
     cache_max_age: int = 0
     with_zip: bool = True
     assumed_role_arn: TOption[str]
@@ -94,6 +86,7 @@ class Executor(FinalExecutor):
             'aws_session_token': tmp_credential['Credentials']['SessionToken'],
             'endpoint_url': create_endpoint_url(4572)
         } if tmp_credential else {'endpoint_url': create_endpoint_url(4572)}))
+        base_key = self.config.prefix.map(lambda x: f'{x}/jumeaux-results').get_or('jumeaux-results')
 
         def upload_responses(which: str):
             dir = f'{output_summary.response_dir}/{report.key}'
@@ -101,7 +94,7 @@ class Executor(FinalExecutor):
                 with open(f'{dir}/{which}/{file}', 'rb') as f:
                     logger.info(f'Put {dir}/{which}/{file}')
                     s3.put_object(Bucket=self.config.bucket,
-                                  Key=f'jumeaux-results/{report.key}/{which}/{file}',
+                                  Key=f'{base_key}/{report.key}/{which}/{file}',
                                   Body=f.read(),
                                   CacheControl=f'max-age={self.config.cache_max_age}')
 
@@ -110,10 +103,10 @@ class Executor(FinalExecutor):
         d = report.to_dict()
         del d['trials']
         s3.put_object(Bucket=self.config.bucket,
-                      Key=f'jumeaux-results/{report.key}/report-without-trials.json',
+                      Key=f'{base_key}/{report.key}/report-without-trials.json',
                       Body=json.dumps(d, ensure_ascii=False))
         s3.put_object(Bucket=self.config.bucket,
-                      Key=f'jumeaux-results/{report.key}/trials.json',
+                      Key=f'{base_key}/{report.key}/trials.json',
                       Body=report.trials.to_json())
 
         # details
@@ -131,7 +124,7 @@ class Executor(FinalExecutor):
             with open(zip_fullpath, 'rb') as f:
                 logger.info(f'Put {zip_fullpath}')
                 s3.put_object(Bucket=self.config.bucket,
-                              Key=f'jumeaux-results/{report.key}/{report.key[0:7]}.zip',
+                              Key=f'{base_key}/{report.key}/{report.key[0:7]}.zip',
                               Body=f.read(),
                               CacheControl=f'max-age={self.config.cache_max_age}')
             os.remove(zip_fullpath)

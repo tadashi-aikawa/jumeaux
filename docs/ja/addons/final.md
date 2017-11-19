@@ -26,6 +26,7 @@ AWSに結果を転送します。
 | ---------------- | ------------------------- | --------------------------------------------------- | ------------------------ | ------- |
 | table            | string                    | 転送先DynamoDBのテーブル名                          | jumeaux-result           |         |
 | bucket           | string                    | 転送先S3のBucket名                                  | mamansoft-jumeaux-result |         |
+| prefix           | (string)                  | 転送先S3のkey prefix                                | test                     |         |
 | cache_max_age    | (int)                     | S3に転送したレスポンスのキャッシュ生存期間(秒)      | 3600                     | 0       |
 | with_zip         | (bool)                    | ReportとレスポンスをzipしたファイルをS3に転送するか | false                    | true    |
 | assumed_role_arn | (string)                  | Assumed roleで認証を行う場合はarnを指定する         | TODO:                    |         |
@@ -42,7 +43,7 @@ AWSに結果を転送します。
 
 #### Examples
 
-##### LocalStackを使わない (キャッシュ1時間)
+##### AWSに保存する (キャッシュ1時間)
 
 ```yml
 final:
@@ -51,6 +52,19 @@ final:
       table: jumeaux-viewer
       bucket: mamansoft-jumeaux-viewer
       cache_max_age: 3600
+```
+
+##### prefixを指定してAWSに保存する (キャッシュなし)
+
+Bucketの`test/`配下にデータが保存されます。
+
+```yml
+final:
+  - name: aws
+    config:
+      table: jumeaux-viewer
+      bucket: mamansoft-jumeaux-viewer
+      prefix: test
 ```
 
 ##### LocalStackを使う (キャッシュ2分)
@@ -65,7 +79,6 @@ final:
       local_stack:
         use: true
 ```
-
 
 
 [:fa-github:][s3] slack
