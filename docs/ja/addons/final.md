@@ -50,8 +50,8 @@ Miroir参照用にデータをAWSに登録します。
 final:
   - name: miroir
     config:
-      table: jumeaux-viewer
-      bucket: mamansoft-jumeaux-viewer
+      table: miroir
+      bucket: mamansoft-miroir
       cache_max_age: 3600
 ```
 
@@ -63,8 +63,8 @@ Bucketの`test/`配下にデータが保存されます。
 final:
   - name: miroir
     config:
-      table: jumeaux-viewer
-      bucket: mamansoft-jumeaux-viewer
+      table: miroir
+      bucket: mamansoft-miroir
       prefix: test
 ```
 
@@ -74,8 +74,8 @@ final:
 final:
   - name: miroir
     config:
-      table: jumeaux-viewer
-      bucket: mamansoft-jumeaux-viewer
+      table: miroir
+      bucket: mamansoft-miroir
       cache_max_age: 120
       local_stack:
         use: true
