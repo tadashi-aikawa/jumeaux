@@ -108,6 +108,14 @@ class Response(OwlMixin):
     status_code: int
     elapsed: datetime.timedelta
 
+    @property
+    def content_type(self) -> TOption[str]:
+        return TOption(self.headers.get('content-type'))
+
+    @property
+    def mime_type(self) -> TOption[str]:
+        return self.content_type.map(lambda x: x.split(';')[0])
+
     @classmethod
     def ___headers(cls, v):
         return CaseInsensitiveDict(v)

@@ -22,9 +22,7 @@ class Executor(Res2DictExecutor):
         if not payload.result.is_none() and not self.config.force:
             return payload
 
-        content_type = payload.response.headers.get('content-type')
-        mime_type = content_type.split(';')[0] if content_type else None
-
+        mime_type: str = payload.response.mime_type.get()
         return Res2DictAddOnPayload.from_dict({
             "response": payload.response,
             "result": xmltodict.parse(payload.response.text) \

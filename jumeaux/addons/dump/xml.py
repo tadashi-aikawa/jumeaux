@@ -38,9 +38,8 @@ class Executor(DumpExecutor):
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: DumpAddOnPayload) -> DumpAddOnPayload:
-        content_type = payload.response.headers.get('content-type')
-        mime_type = content_type.split(';')[0] if content_type else None
-        encoding = payload.encoding.get_or(self.config.default_encoding)
+        mime_type: str = payload.response.mime_type.get()
+        encoding: str = payload.encoding.get_or(self.config.default_encoding)
 
         if self.config.force:
             logger.debug(f"Forced to xml -- mime_type: {mime_type} -- encoding: {encoding}")

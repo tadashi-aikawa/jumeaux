@@ -65,10 +65,7 @@ class Executor(Res2ResExecutor):
     def exec(self, payload: Res2ResAddOnPayload) -> Res2ResAddOnPayload:
         res: Response = payload.response
 
-        content_type = res.headers.get('content-type')
-        mime_type = content_type.split(';')[0] if content_type else None
-
-        if mime_type not in ('text/json', 'application/json'):
+        if res.mime_type.get() not in ('text/json', 'application/json'):
             logger.info("Skipped because mime type is not json.")
             return payload
 
