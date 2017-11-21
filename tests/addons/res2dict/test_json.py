@@ -27,7 +27,7 @@ NORMAL_CASE = ("Normal",
         "encoding": 'euc-jp',
         "text": NORMAL_BODY,
         "headers": {
-            "content-type": "application/json"
+            "content-type": "application/json; charset=utf-8"
         },
         "url": "http://test",
         "status_code": 200,
@@ -57,7 +57,7 @@ EMPTY_ENCODING_CASE = ("Encoding is empty",
         "body": NORMAL_BODY.encode('euc-jp'),
         "text": NORMAL_BODY,
         "headers": {
-            "content-type": "application/json"
+            "content-type": "application/json; charset=utf-8"
         },
         "url": "http://test",
         "status_code": 200,
