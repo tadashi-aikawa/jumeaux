@@ -18,13 +18,14 @@ JSONレスポンスをdictに変換します。
 
 #### Definitions
 
-|      Key       |   Type   |                           Description                            | Example | Default |
-| -------------- | -------- | ---------------------------------------------------------------- | ------- | ------- |
-| force          | (bool)   | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
+|    Key     |    Type    |                           Description                            |   Example   |              Default               |
+| ---------- | ---------- | ---------------------------------------------------------------- | ----------- | ---------------------------------- |
+| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true        | false                              |
+| mime_types | (string[]) | 変換に対応するMIMEタイプ                                         | - text/json | - text/json<br/>- application/json |
 
-!!! info "`force` 変換する必要がないケース"
+!!! info "`force` 変換する必要がないケース は以下のいずれか"
 
-    * `content-type` が `text/json` や `application/json` でない場合
+    * MIMEタイプ が `mime_types` のいずれにも一致しない場合
     * 既にアドオンでdict型に変換済みの場合
 
 
@@ -46,6 +47,16 @@ res2dict:
       force: True
 ```
 
+##### MIMEタイプが `application/json` のときだけ変換する
+
+```yml
+res2dict:
+  - name: json
+    config:
+      mime_types:
+        - application/json
+```
+
 
 [:fa-github:][s3] xml
 ---------------------
@@ -59,13 +70,14 @@ XMLレスポンスをdictに変換します。
 
 #### Definitions
 
-|      Key       |   Type   |                           Description                            | Example | Default |
-| -------------- | -------- | ---------------------------------------------------------------- | ------- | ------- |
-| force          | (bool)   | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
+|    Key     |    Type    |                           Description                            |  Example   |             Default              |
+| ---------- | ---------- | ---------------------------------------------------------------- | ---------- | -------------------------------- |
+| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true       | false                            |
+| mime_types | (string[]) | 変換に対応するMIMEタイプ                                         | - text/xml | - text/xml<br/>- application/xml |
 
-!!! info "`force` 変換する必要がないケース"
+!!! info "`force` 変換する必要がないケース は以下のいずれか"
 
-    * `content-type` が `text/xml` や `application/xml` でない場合
+    * MIMEタイプ が `mime_types` のいずれにも一致しない場合
     * 既にアドオンでdict型に変換済みの場合
 
 
@@ -85,4 +97,14 @@ res2dict:
   - name: xml
     config:
       force: True
+```
+
+##### MIMEタイプが `application/xml` のときだけ変換する
+
+```yml
+res2dict:
+  - name: xml
+    config:
+      mime_types:
+        - application/xml
 ```

@@ -114,6 +114,56 @@ INVALID_CONTENT_TYPE_BUT_FORCE_CASE = ("Content type is invalid but force",
                }
                )
 
+SPECIFY_CONTENT_TYPES_CASE_MATCHED = ("Specify content-types matched",
+               """
+               force: False 
+               mime_types:
+                 - good/xml
+                 - great/xml
+               """,
+               Response.from_dict({
+                   "body": NORMAL_BODY.encode('euc-jp'),
+                   "encoding": 'euc-jp',
+                   "text": NORMAL_BODY,
+                   "headers": {
+                       "content-type": "great/xml; charset=utf-8"
+                   },
+                   "url": "http://test",
+                   "status_code": 200,
+                   "elapsed": datetime.timedelta(seconds=1)
+               }),
+               {
+                   "catalog": {
+                       "book": [
+                           {"@id": "bk001", "author": "Ichiro", "title": "Ichiro55"},
+                           {"@id": "bk002", "author": "次郎", "title": "次郎22"}
+                       ]
+                   }
+               }
+               )
+
+SPECIFY_CONTENT_TYPES_CASE_NOT_MATCHED = ("Specify content-types not matched",
+                                          """
+                                          force: False
+                                          mime_types:
+                                            - good/json
+                                            - great/json
+                                          """,
+                                          Response.from_dict({
+                                              "body": NORMAL_BODY.encode('euc-jp'),
+                                              "encoding": 'euc-jp',
+                                              "text": NORMAL_BODY,
+                                              "headers": {
+                                                  "content-type": "bad/xml; charset=utf-8"
+                                              },
+                                              "url": "http://test",
+                                              "status_code": 200,
+                                              "elapsed": datetime.timedelta(seconds=1)
+                                          }),
+                                          None
+                                          )
+
+
 class TestExec:
     @pytest.mark.parametrize(
         'title, config_yml, response, expected_result', [
@@ -121,6 +171,8 @@ class TestExec:
             EMPTY_ENCODING_CASE,
             INVALID_CONTENT_TYPE_CASE,
             INVALID_CONTENT_TYPE_BUT_FORCE_CASE,
+            SPECIFY_CONTENT_TYPES_CASE_MATCHED,
+            SPECIFY_CONTENT_TYPES_CASE_NOT_MATCHED,
         ]
     )
     def test(self, title, config_yml, response, expected_result):
