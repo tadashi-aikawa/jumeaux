@@ -18,10 +18,10 @@ JSONレスポンスをdictに変換します。
 
 #### Definitions
 
-|    Key     |    Type    |                           Description                            |   Example   |              Default               |
-| ---------- | ---------- | ---------------------------------------------------------------- | ----------- | ---------------------------------- |
-| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true        | false                              |
-| mime_types | (string[]) | 対応MIMEタイプ                                                   | - text/json | - text/json<br/>- application/json |
+|    Key     |    Type    |                           Description                            |        Example         |                    Default                    |
+| ---------- | ---------- | ---------------------------------------------------------------- | ---------------------- | --------------------------------------------- |
+| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true                   | false                                         |
+| mime_types | (string[]) | 対応MIMEタイプ                                                   | <pre>- text/json</pre> | <pre>- text/json<br/>- application/json</pre> |
 
 !!! info "`force` 変換する必要がないケース"
 
@@ -72,10 +72,10 @@ XMLレスポンスをdictに変換します。
 
 #### Definitions
 
-|    Key     |    Type    |                           Description                            |  Example   |             Default              |
-| ---------- | ---------- | ---------------------------------------------------------------- | ---------- | -------------------------------- |
-| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true       | false                            |
-| mime_types | (string[]) | 対応MIMEタイプ                                                   | - text/xml | - text/xml<br/>- application/xml |
+|    Key     |    Type    |                           Description                            |        Example        |                   Default                   |
+| ---------- | ---------- | ---------------------------------------------------------------- | --------------------- | ------------------------------------------- |
+| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true                  | false                                       |
+| mime_types | (string[]) | 対応MIMEタイプ                                                   | <pre>- text/xml</pre> | <pre>- text/xml<br/>- application/xml</pre> |
 
 !!! info "`force` 変換する必要がないケース"
 

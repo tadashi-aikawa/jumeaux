@@ -25,11 +25,11 @@ APIレスポンスを保存前に加工します。
 
 #### Definitions
 
-|       Key        |    Type    |                              Description                               |   Example   |              Default               |
-| ---------------- | ---------- | ---------------------------------------------------------------------- | ----------- | ---------------------------------- |
-| default_encoding | (string)   | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp      | utf8                               |
-| mime_types       | (string[]) | 対応MIMEタイプ                                                         | - text/json | - text/json<br/>- application/json |
-| force            | (bool)     | MIMEタイプが未対応の場合でも強制的に変換するか                         | true        | false                              |
+|       Key        |    Type    |                              Description                               |        Example         |                    Default                    |
+| ---------------- | ---------- | ---------------------------------------------------------------------- | ---------------------- | --------------------------------------------- |
+| default_encoding | (string)   | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                 | utf8                                          |
+| mime_types       | (string[]) | 対応MIMEタイプ                                                         | <pre>- text/json</pre> | <pre>- text/json<br/>- application/json</pre> |
+| force            | (bool)     | MIMEタイプが未対応の場合でも強制的に変換するか                         | true                   | false                                         |
 
 
 #### Examples
@@ -85,11 +85,11 @@ dump:
 
 #### Definitions
 
-|       Key        |    Type    |                              Description                               |  Example   |             Default              |
-| ---------------- | ---------- | ---------------------------------------------------------------------- | ---------- | -------------------------------- |
-| default_encoding | (string)   | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp     | utf8                             |
-| mime_types       | (string[]) | 対応MIMEタイプ                                                         | - text/xml | - text/xml<br/>- application/xml |
-| force            | (bool)     | MIMEタイプが未対応の場合でも強制的に変換するか                         | true       | false                            |
+|       Key        |    Type    |                              Description                               |        Example        |                   Default                   |
+| ---------------- | ---------- | ---------------------------------------------------------------------- | --------------------- | ------------------------------------------- |
+| default_encoding | (string)   | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                | utf8                                        |
+| mime_types       | (string[]) | 対応MIMEタイプ                                                         | <pre>- text/xml</pre> | <pre>- text/xml<br/>- application/xml</pre> |
+| force            | (bool)     | MIMEタイプが未対応の場合でも強制的に変換するか                         | true                  | false                                       |
 
 
 #### Examples
