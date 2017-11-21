@@ -69,9 +69,15 @@ Finally, you can execute jumeaux with specifying `config.yml` and `requests`.
 $ jumeaux --config config.yml requests
 ```
 
-!!! todo
+or
 
-    I want to make `--config config.yml` default.
+```
+$ jumeaux requests
+```
+
+!!! note
+
+    Default value of `--config` is `config.yml`.
 
 
 [Jumeaux Toolbox]: https://github.com/tadashi-aikawa/jumeaux-toolbox

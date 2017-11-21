@@ -8,7 +8,7 @@ Usage
 
 Usage:
   jumeaux init <name>
-  jumeaux --config=<yaml>... [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [<files>...]
+  jumeaux [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [<files>...]
   jumeaux retry  [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] <report>
 
 Options:
@@ -412,7 +412,7 @@ Valid names are... {os.listdir(sample_dir)}
         }))
         retry_hash: Optional[str] = report.key
     else:
-        config: Config = create_config(args.config.get())
+        config: Config = create_config(args.config.get_or(TList(['config.yml'])))
         global_addon_executor = AddOnExecutor(config.addons)
         input_paths = args.files.get() or config.input_files.get()
         origin_logs: TList[Request] = input_paths.flat_map(
