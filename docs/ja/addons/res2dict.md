@@ -21,9 +21,11 @@ JSONレスポンスをdictに変換します。
 |    Key     |    Type    |                           Description                            |   Example   |              Default               |
 | ---------- | ---------- | ---------------------------------------------------------------- | ----------- | ---------------------------------- |
 | force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true        | false                              |
-| mime_types | (string[]) | 変換に対応するMIMEタイプ                                         | - text/json | - text/json<br/>- application/json |
+| mime_types | (string[]) | 対応MIMEタイプ                                                   | - text/json | - text/json<br/>- application/json |
 
-!!! info "`force` 変換する必要がないケース は以下のいずれか"
+!!! info "`force` 変換する必要がないケース"
+
+    以下のいずれかに一致する場合
 
     * MIMEタイプ が `mime_types` のいずれにも一致しない場合
     * 既にアドオンでdict型に変換済みの場合
@@ -73,9 +75,11 @@ XMLレスポンスをdictに変換します。
 |    Key     |    Type    |                           Description                            |  Example   |             Default              |
 | ---------- | ---------- | ---------------------------------------------------------------- | ---------- | -------------------------------- |
 | force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true       | false                            |
-| mime_types | (string[]) | 変換に対応するMIMEタイプ                                         | - text/xml | - text/xml<br/>- application/xml |
+| mime_types | (string[]) | 対応MIMEタイプ                                                   | - text/xml | - text/xml<br/>- application/xml |
 
-!!! info "`force` 変換する必要がないケース は以下のいずれか"
+!!! info "`force` 変換する必要がないケース"
+
+    以下のいずれかに一致する場合
 
     * MIMEタイプ が `mime_types` のいずれにも一致しない場合
     * 既にアドオンでdict型に変換済みの場合
@@ -99,12 +103,12 @@ res2dict:
       force: True
 ```
 
-##### MIMEタイプが `application/xml` のときだけ変換する
+##### MIMEタイプが `text/xml` のときだけ変換する
 
 ```yml
 res2dict:
   - name: xml
     config:
       mime_types:
-        - application/xml
+        - text/xml
 ```
