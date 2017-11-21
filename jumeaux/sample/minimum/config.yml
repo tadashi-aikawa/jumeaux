@@ -1,0 +1,25 @@
+# One endpoint settings
+one:
+  name: version 0.20.0
+  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux/0.24.0
+
+# The other endpoint settings
+other:
+  name: version 0.26.0
+  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux/0.26.0
+
+# Output path for API responses
+output:
+  response_dir: responses
+
+# Add-ons to use. See https://tadashi-aikawa.github.io/jumeaux/ja/addons
+addons:
+  log2reqs:
+    name: plain
+
+  store_criterion:
+    # Store different responses
+    - name: general
+      config:
+        statuses:
+          - different

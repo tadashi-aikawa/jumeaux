@@ -1,0 +1,36 @@
+# One endpoint settings
+one:
+  name: master
+  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-viewer/master
+
+# The other endpoint settings
+other:
+  name: 22 Jun 2017
+  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-viewer/93ae84fc5bc38a91b1b1457b52d2d3afc550e321
+
+# Output path for API responses
+output:
+  response_dir: responses
+
+# Add-ons to use. See https://tadashi-aikawa.github.io/jumeaux/ja/addons
+addons:
+  log2reqs:
+    name: plain
+
+  res2dict:
+    - name: json
+      config:
+        # Usually, we don't need to set `mime_types`
+        # In this case, `raw.githubusercontent.com` always return `mime-type: text/plain` even if response is json.
+        # So we need to specify `mime_types` as following now.
+        mime_types: [text/plain]
+
+  dump:
+    - name: json
+
+  store_criterion:
+    # Store different responses
+    - name: general
+      config:
+        statuses:
+          - different

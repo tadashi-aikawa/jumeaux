@@ -654,7 +654,9 @@ class TestExec:
             "tag": ["tag1", "tag2"],
             "config": [config_minimum],
             "retry": False,
-            "report": None
+            "report": None,
+            "init": False,
+            "name": None,
         })
         config: Config = Config.from_dict({
             "one": {

@@ -24,7 +24,7 @@ class AccessPoint(OwlMixin):
 
 
 class OutputSummary(OwlMixin):
-    response_dir: str = 'response'
+    response_dir: str
     encoding: str = 'utf8'
     logger: TOption[any]
 
@@ -73,6 +73,8 @@ class Args(OwlMixin):
     threads: TOption[int]
     retry: bool
     report: TOption[str]  # Only case in which retry is True
+    init: bool
+    name: TOption[str]  # Only case in which init is True
 
     @classmethod
     def ___threads(cls, v: Optional[str]) -> int:

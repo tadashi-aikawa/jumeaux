@@ -25,7 +25,13 @@ $ jumeaux --version
 
 ```
 $ docker build -t tadashi-aikawa/jumeaux .
+$ docker run -it tadashi-aikawa/jumeaux --version
 ```
+
+!!! warning
+
+    After that, please complement python case to docker command.
+    It means `jumeaux` => `docker run -it tadashi-aikawa/jumeaux`.
 
 ### Vagrant and Virtualbox
 
@@ -37,40 +43,20 @@ See [Jumeaux Toolbox] .
 
 Before executing jumeaux, you need to create two files.
 
-### config.yml
+* config.yml
+* requests
 
-Create `config.yml` as following.
+You can create these files by using below command.
 
-!!! summary "config.yml"
+```
+$ jumeaux init minimum
+```
 
-    ```yml
-    title: DEMO
-    one:
-        name: one
-        host: https://one
-    other:
-        name: other
-        host: https://other
-    output:
-        response_dir: responses
-    addons:
-        log2reqs:
-            name: jumeaux.addons.log2reqs.plain
-    ```
+or
 
-Above is minimal configuration which can works. (It is not useable :sweat:)
-So if you use jumeaux for production, see [Configuration :fa-sticky-note:](configuration.md).
-
-### requests
-
-Create `requests` and write paths you want to test as following
-
-!!! summary "requests"
-
-    ```
-    /res/1.json
-    /res/2.json
-    ```
+```
+$ jumeaux init json
+```
 
 
 :fa-play-circle: Execute
@@ -79,22 +65,13 @@ Create `requests` and write paths you want to test as following
 Finally, you can execute jumeaux with specifying `config.yml` and `requests`.
 [Report :fa-sticky-note:](report.md) shows you what the output means
 
-
-### Python3.6 and upper
-
 ```
 $ jumeaux --config config.yml requests
 ```
 
-### Docker
+!!! todo
 
-```
-$ docker run -it tadashi-aikawa/jumeaux --config config.yml requests
-```
-
-### Vagrant and Virtualbox
-
-See [Jumeaux Toolbox] .
+    I want to make `--config config.yml` default.
 
 
 [Jumeaux Toolbox]: https://github.com/tadashi-aikawa/jumeaux-toolbox

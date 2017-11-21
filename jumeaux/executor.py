@@ -7,21 +7,24 @@ Usage
 =======================
 
 Usage:
+  jumeaux init <name>
   jumeaux --config=<yaml>... [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [<files>...]
   jumeaux retry  [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] <report>
 
 Options:
-  <files>...
-  --config = <yaml>...             Configuration files(see below)
-  --title = <title>                The title of report
+  <name>                           Initialize template name [def: minimum]
+  <files>...                       Files written requests
+  --config = <yaml>...             Configuration files(see below) [def: config.yml]
+  --title = <title>                The title of report [def: No title]
   --description = <description>    The description of report
   --tag = <tag>...                 Tags
-  --threads = <threads>            The number of threads in challenge
+  --threads = <threads>            The number of threads in challenge [def: 1]
   <report>                         Report for retry
 """
 
 
 import hashlib
+import shutil
 import io
 import logging.config
 import sys
@@ -384,6 +387,19 @@ def main():
     args: Args = Args.from_dict(docopt(__doc__, version=__version__))
     global global_addon_executor
     # TODO: refactoring
+    if args.init:
+        sample_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample'
+        target_dir = f'{sample_dir}/{args.name.get()}'
+        if not os.path.exists(target_dir):
+            exit(f'''
+`{args.name.get()}` is invalid name!!
+            
+Valid names are... {os.listdir(sample_dir)}
+            '''.strip())
+        for f in os.listdir(target_dir):
+            shutil.copy(f'{target_dir}/{f}', '.')
+        return
+
     if args.retry:
         report: Report = Report.from_jsonf(args.report.get())
         config: Config = create_config_from_report(report)
