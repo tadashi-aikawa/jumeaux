@@ -227,7 +227,8 @@ def challenge(arg: ChallengeArg) -> Trial:
                 "status_code": res_one.status_code,
                 "byte": len(res_one.body),
                 "response_sec": to_sec(res_one.elapsed),
-                "content_type": res_one.headers.get("content-type"),
+                "content_type": res_one.content_type,
+                "mime_type": res_one.mime_type,
                 "encoding": res_one.encoding,
                 "file": file_one
             },
@@ -236,7 +237,8 @@ def challenge(arg: ChallengeArg) -> Trial:
                 "status_code": res_other.status_code,
                 "byte": len(res_other.body),
                 "response_sec": to_sec(res_other.elapsed),
-                "content_type": res_other.headers.get("content-type"),
+                "content_type": res_other.content_type,
+                "mime_type": res_other.mime_type,
                 "encoding": res_other.encoding,
                 "file": file_other
             }

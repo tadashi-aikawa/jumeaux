@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
-from typing import Optional, Any, Dict, List
+from typing import Optional
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList, TDict
 from owlmixin.owlenum import OwlEnum
@@ -183,6 +183,7 @@ class ResponseSummary(OwlMixin):
     byte: TOption[int]
     response_sec: TOption[float]
     content_type: TOption[str]
+    mime_type: TOption[str]
     encoding: TOption[str]
     file: TOption[str]
 
