@@ -2,7 +2,7 @@
 
 import logging
 
-from owlmixin import OwlMixin
+from owlmixin import OwlMixin, TList
 from xml.dom import minidom
 from xml.etree import ElementTree
 
@@ -15,6 +15,9 @@ logger = logging.getLogger(__name__)
 class Config(OwlMixin):
     default_encoding: str = 'utf8'
     force: bool = False
+    mime_types: TList[str] = [
+        'text/xml', 'application/xml'
+    ]
 
 
 def pretty(xmls: str) -> str:
@@ -35,17 +38,17 @@ class Executor(DumpExecutor):
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: DumpAddOnPayload) -> DumpAddOnPayload:
-        content_type = payload.response.headers.get('content-type')
-        mime_type = content_type.split(';')[0] if content_type else None
-        encoding = payload.encoding.get_or(self.config.default_encoding)
+        mime_type: str = payload.response.mime_type.get()
+        encoding: str = payload.encoding.get_or(self.config.default_encoding)
 
         if self.config.force:
             logger.debug(f"Forced to xml -- mime_type: {mime_type} -- encoding: {encoding}")
             body = pretty(payload.body.decode(encoding)).encode(encoding)
-        elif mime_type in ('text/xml', 'application/xml'):
+        elif mime_type in self.config.mime_types:
             logger.debug(f"Parse as xml -- mime_type: {mime_type} -- encoding: {encoding}")
             body = pretty(payload.body.decode(encoding)).encode(encoding)
         else:
+            logger.debug(f"Don't Parse as xml -- mime_type: {mime_type} -- encoding: {encoding}")
             body = payload.body
 
         return DumpAddOnPayload.from_dict({

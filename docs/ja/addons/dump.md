@@ -25,26 +25,23 @@ APIレスポンスを保存前に加工します。
 
 #### Definitions
 
-|       Key        |   Type   |                              Description                               | Example | Default |
-| ---------------- | -------- | ---------------------------------------------------------------------- | ------- | ------- |
-| default_encoding | (string) | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp  | utf8    |
-| force            | (bool)   | JSONでない場合 :fa-info-circle: でも強制的に変換するか                 | true    | false   |
-
-!!! info "`force` JSONでない場合"
-
-    `content-type` が `text/json` や `application/json` でない場合
+|       Key        |    Type    |                              Description                               |        Example         |                    Default                    |
+| ---------------- | ---------- | ---------------------------------------------------------------------- | ---------------------- | --------------------------------------------- |
+| default_encoding | (string)   | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                 | utf8                                          |
+| mime_types       | (string[]) | 対応MIMEタイプ                                                         | <pre>- text/json</pre> | <pre>- text/json<br/>- application/json</pre> |
+| force            | (bool)     | MIMEタイプが未対応の場合でも強制的に変換するか                         | true                   | false                                         |
 
 
 #### Examples
 
-##### レスポンスがJSONの場合 JSON形式でフォーマットする
+##### JSON形式でフォーマットする
 
 ```yml
 dump:
   - name: json
 ```
 
-##### レスポンスがJSONの場合 JSON形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
+##### JSON形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
 
 ```yml
 dump:
@@ -53,7 +50,17 @@ dump:
       default_encoding: euc-jp
 ```
 
-##### レスポンスがJSONで無い場合も JSON形式でフォーマットする
+##### MIMEタイプが `application/json` の時だけJSON形式でフォーマットする
+
+```yml
+dump:
+  - name: json
+    config:
+      mime_types:
+        - application/json
+```
+
+##### MIMEタイプに関係なく JSON形式でフォーマットする
 
 ```yml
 dump:
@@ -78,26 +85,23 @@ dump:
 
 #### Definitions
 
-|       Key        |   Type   |                              Description                               | Example | Default |
-| ---------------- | -------- | ---------------------------------------------------------------------- | ------- | ------- |
-| default_encoding | (string) | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp  | utf8    |
-| force            | (bool)   | XMLでない場合 :fa-info-circle: でも強制的に変換するか                  | true    | false   |
-
-!!! info "`force` XMLでない場合"
-
-    `content-type` が `text/xml` や `application/xml` でない場合
+|       Key        |    Type    |                              Description                               |        Example        |                   Default                   |
+| ---------------- | ---------- | ---------------------------------------------------------------------- | --------------------- | ------------------------------------------- |
+| default_encoding | (string)   | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                | utf8                                        |
+| mime_types       | (string[]) | 対応MIMEタイプ                                                         | <pre>- text/xml</pre> | <pre>- text/xml<br/>- application/xml</pre> |
+| force            | (bool)     | MIMEタイプが未対応の場合でも強制的に変換するか                         | true                  | false                                       |
 
 
 #### Examples
 
-##### レスポンスがXMLの場合 XML形式でフォーマットする
+##### XML形式でフォーマットする
 
 ```yml
 dump:
   - name: xml
 ```
 
-##### レスポンスがXMLの場合 XML形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
+##### XML形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
 
 ```yml
 dump:
@@ -106,7 +110,17 @@ dump:
       default_encoding: euc-jp
 ```
 
-##### レスポンスがXMLで無い場合も XML形式でフォーマットする
+##### MIMEタイプが `text/xml` の時だけXML形式でフォーマットする
+
+```yml
+dump:
+  - name: xml
+    config:
+      mime_types:
+        - text/xml
+```
+
+##### MIMEタイプに関係なく XML形式でフォーマットする
 
 ```yml
 dump:

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
-from typing import Optional, Any, Dict, List
+from typing import Optional
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList, TDict
 from owlmixin.owlenum import OwlEnum
@@ -24,7 +24,7 @@ class AccessPoint(OwlMixin):
 
 
 class OutputSummary(OwlMixin):
-    response_dir: str = 'response'
+    response_dir: str
     encoding: str = 'utf8'
     logger: TOption[any]
 
@@ -73,6 +73,8 @@ class Args(OwlMixin):
     threads: TOption[int]
     retry: bool
     report: TOption[str]  # Only case in which retry is True
+    init: bool
+    name: TOption[str]  # Only case in which init is True
 
     @classmethod
     def ___threads(cls, v: Optional[str]) -> int:
@@ -107,6 +109,14 @@ class Response(OwlMixin):
     url: str
     status_code: int
     elapsed: datetime.timedelta
+
+    @property
+    def content_type(self) -> TOption[str]:
+        return TOption(self.headers.get('content-type'))
+
+    @property
+    def mime_type(self) -> TOption[str]:
+        return self.content_type.map(lambda x: x.split(';')[0])
 
     @classmethod
     def ___headers(cls, v):
@@ -175,6 +185,7 @@ class ResponseSummary(OwlMixin):
     byte: TOption[int]
     response_sec: TOption[float]
     content_type: TOption[str]
+    mime_type: TOption[str]
     encoding: TOption[str]
     file: TOption[str]
 

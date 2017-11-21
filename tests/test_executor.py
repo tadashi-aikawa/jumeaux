@@ -170,6 +170,7 @@ class TestChallenge:
                 "byte": 20,
                 "response_sec": 1.23,
                 "content_type": 'application/json;utf-8',
+                "mime_type": 'application/json',
                 'encoding': 'utf8'
             },
             "other": {
@@ -179,6 +180,7 @@ class TestChallenge:
                 "byte": 23,
                 "response_sec": 9.88,
                 "content_type": 'application/json;utf-8',
+                "mime_type": 'application/json',
                 'encoding': 'utf8'
             }
         }
@@ -252,6 +254,7 @@ class TestChallenge:
                 "byte": 1,
                 "response_sec": 1.23,
                 "content_type": 'text/plain;utf-8',
+                "mime_type": 'text/plain',
                 'encoding': 'utf8'
             },
             "other": {
@@ -260,6 +263,7 @@ class TestChallenge:
                 "byte": 1,
                 "response_sec": 9.88,
                 "content_type": 'text/plain',
+                "mime_type": 'text/plain',
                 'encoding': 'utf8'
             }
         }
@@ -650,7 +654,9 @@ class TestExec:
             "tag": ["tag1", "tag2"],
             "config": [config_minimum],
             "retry": False,
-            "report": None
+            "report": None,
+            "init": False,
+            "name": None,
         })
         config: Config = Config.from_dict({
             "one": {
