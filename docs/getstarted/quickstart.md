@@ -52,11 +52,9 @@ You can create these files by using below command.
 $ jumeaux init minimum
 ```
 
-or
+!!! note
 
-```
-$ jumeaux init json
-```
+    `jumeaux init help` shows all targets.
 
 
 :fa-play-circle: Execute
@@ -66,18 +64,17 @@ Finally, you can execute jumeaux with specifying `config.yml` and `requests`.
 [Report :fa-sticky-note:](report.md) shows you what the output means
 
 ```
-$ jumeaux --config config.yml requests
-```
-
-or
-
-```
 $ jumeaux requests
 ```
 
 !!! note
 
     Default value of `--config` is `config.yml`.
+    So `jumeaux requests` equals below actually.
+    
+    ```
+    $ jumeaux --config config.yml requests
+    ```
 
 
 [Jumeaux Toolbox]: https://github.com/tadashi-aikawa/jumeaux-toolbox
