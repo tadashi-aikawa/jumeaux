@@ -3,7 +3,6 @@ site_author: tadashi-aikawa
 repo_name: tadashi-aikawa/jumeaux
 repo_url: https://github.com/tadashi-aikawa/jumeaux
 edit_uri: edit/master/docs/
-site_favicon: 'images/favicon.ico'
 strict: true
 
 pages:
@@ -26,10 +25,14 @@ pages:
   - Models:
     - RequestCondition: models/request-condition.md
 
-theme: material
+theme:
+  name: material
+  logo: 'img/logo.png'
+  favicon: 'img/favicon.ico'
+  feature:
+    tabs: true
 
 extra:
-  logo: 'images/logo.png'
   i18n:
     prev: 'Previous'
     next: 'Next'
@@ -38,8 +41,8 @@ extra:
   social:
     - type: github-alt
       link: https://github.com/tadashi-aikawa
-  feature:
-    tabs: true
+  search:
+    language: 'en, jp'
 
 
 markdown_extensions:
@@ -55,7 +58,8 @@ markdown_extensions:
     # 注釈
     - footnotes
     # コードのsyntax
-    - markdown.extensions.codehilite(guess_lang=false)
+    - codehilite:
+        guess_lang: false
     # 見出しに逆リンクを貼れる
     - markdown.extensions.toc(permalink=true)
     # expandableにする
