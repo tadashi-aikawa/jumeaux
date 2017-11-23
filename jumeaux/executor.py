@@ -8,7 +8,7 @@ Usage
 
 Usage:
   jumeaux init <name>
-  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>]
+  jumeaux [run] <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>]
   jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] <report>
 
 Options:
