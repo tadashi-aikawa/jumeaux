@@ -33,6 +33,7 @@ setup(
     url='https://github.com/tadashi-aikawa/jumeaux.git',
     keywords='diff rest api response two one other',
     packages=find_packages(exclude=['tests*']),
+    package_data={'jumeaux': ['sample/**/*']},
     install_requires=load_required_modules(),
     extras_require={
         'test': ['pytest', 'pytest-cov'],
