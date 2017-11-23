@@ -647,6 +647,7 @@ class TestExec:
         ]
 
         args: Args = Args.from_dict({
+            "run": True,
             "files": ['line1', 'line2'],
             "threads": 1,
             "title": "Report title",

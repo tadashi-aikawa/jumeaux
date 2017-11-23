@@ -8,8 +8,8 @@ Usage
 
 Usage:
   jumeaux init <name>
-  jumeaux [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [<files>...]
-  jumeaux retry  [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] <report>
+  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>]
+  jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] <report>
 
 Options:
   <name>                           Initialize template name [def: minimum]

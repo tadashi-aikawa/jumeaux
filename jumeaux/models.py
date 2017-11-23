@@ -65,6 +65,7 @@ class Config(OwlMixin):
 
 
 class Args(OwlMixin):
+    run: bool
     files: TOption[TList[str]]
     title: TOption[str]
     description: TOption[str]

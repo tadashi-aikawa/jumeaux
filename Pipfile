@@ -6,7 +6,12 @@ name = "pypi"
 
 
 [dev-packages]
-
+pytest = "*"
+pytest-cov = "*"
+mkdocs = "==0.16.3"
+mkdocs-material = "*"
+pymdown-extensions = "*"
+fontawesome-markdown = "*"
 
 
 [packages]

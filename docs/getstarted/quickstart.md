@@ -64,16 +64,16 @@ Finally, you can execute jumeaux with specifying `config.yml` and `requests`.
 [Report :fa-sticky-note:](report.md) shows you what the output means
 
 ```
-$ jumeaux requests
+$ jumeaux run requests
 ```
 
 !!! note
 
     Default value of `--config` is `config.yml`.
-    So `jumeaux requests` equals below actually.
+    So `jumeaux run requests` equals below actually.
     
     ```
-    $ jumeaux --config config.yml requests
+    $ jumeaux run requests --config config.yml
     ```
 
 
