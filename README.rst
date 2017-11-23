@@ -27,15 +27,6 @@ Documentation
 
 https://tadashi-aikawa.github.io/jumeaux/
 
-For developer
-
-.. sourcecode::
-
-    # Local
-    $ mkdocs serve
-    # Deploy to github pages
-    $ mkdocs gh-deploy
-
 
 Test Result
 ===========
@@ -51,6 +42,22 @@ Current
 
 .. image:: https://api.travis-ci.org/tadashi-aikawa/jumeaux.png?
     :target: https://travis-ci.org/tadashi-aikawa/jumeaux
+
+
+For developer
+=============
+
+.. sourcecode::
+
+    # Create env
+    $ pipenv install --dev --skip-lock
+    # Check
+    $ pipenv run python jumeaux/executor.py --help
+
+    # Build documentation and run server locally
+    $ pipenv run mkdocs serve
+    # Deploy documentation to github pages
+    $ pipenv run mkdocs gh-deploy
 
 
 Licence
