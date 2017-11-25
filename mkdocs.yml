@@ -23,6 +23,7 @@ pages:
     - did_challenge: ja/addons/did_challenge.md
     - final: ja/addons/final.md
   - Models:
+    - Request: models/request.md
     - RequestCondition: models/request-condition.md
 
 theme:

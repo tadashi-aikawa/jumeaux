@@ -49,9 +49,42 @@ reqs2reqs:
 
 [add]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/add.py
 
-!!! todo
+先頭または末尾にリクエストを追加します。
 
-    Comming soon...
+### Config
+
+#### Definitions
+
+##### root
+
+|   Key    |          Type           |           Description           | Example | Default |
+| -------- | ----------------------- | ------------------------------- | ------- | ------- |
+| reqs     | [Request[]][request]    | 本設定を反映させるRequestの条件 |         |         |
+| location | ([Location](#location)) | 先頭と末尾どちらに追加するか    | tail    | head    |
+
+[request]: /models/request
+
+##### Location
+
+| Name | Description |
+| ---- | ----------- |
+| head | 先頭        |
+| tail | 末尾        |
+
+
+#### Examples
+
+##### 末尾に`/rest/sample?word=hoge`というリクエストを追加する
+
+```yml
+reqs2reqs:
+  - name: add
+    config:
+      reqs:
+        - path: /rest/sample
+          qs: {word: [hoge]}
+      location: tail
+```
 
 
 [:fa-github:][replace] replace

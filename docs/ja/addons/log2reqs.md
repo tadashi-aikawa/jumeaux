@@ -209,13 +209,12 @@ YAML入力形式に対応しています。
 
 #### Definitions
 
-
-|   Key   |     Type     | Description |         Example          | Default |
-| ------- | ------------ | ----------- | ------------------------ | ------- |
-| name    | (string)     | 名前        | title                    |         |
-| path    | string       | path        | /api                     |         |
-| qs      | (dict[list]) | query       | a: [1]<br>b: [2]         |         |
-| headers | (dict)       | header      | header1: 1<br>header2: 2 |         |
+|   Key   |       Type       | Description |               Example               | Default |
+| ------- | ---------------- | ----------- | ----------------------------------- | ------- |
+| name    | (string)         | 名前        | title                               |         |
+| path    | string           | path        | /api                                |         |
+| qs      | (dict[string[]]) | query       | <pre>a: [1]<br>b: [2]</pre>         |         |
+| headers | (dict[string])   | header      | <pre>header1: 1<br>header2: 2</pre> |         |
 
 
 #### Examples
