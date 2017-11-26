@@ -56,8 +56,8 @@ For developer
 
     # Build documentation and run server locally
     $ pipenv run mkdocs serve
-    # Deploy documentation to github pages
-    $ pipenv run mkdocs gh-deploy
+    # Build documentation (then you can deploy by git push)
+    $ pipenv run mkdocs build
 
 
 Licence
