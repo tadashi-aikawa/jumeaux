@@ -1,9 +1,13 @@
 site_name: Jumeaux
 site_author: tadashi-aikawa
+
+docs_dir: mkdocs
+site_dir: docs
+strict: true
+
 repo_name: tadashi-aikawa/jumeaux
 repo_url: https://github.com/tadashi-aikawa/jumeaux
 edit_uri: edit/master/docs/
-strict: true
 
 pages:
   - Home: index.md

@@ -1,0 +1,1698 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+        <meta name="author" content="tadashi-aikawa">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en, jp">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.0">
+    
+    
+      
+        <title>log2reqs - Jumeaux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.5d3fffba.css">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../../../css/custom.css">
+    
+    
+  </head>
+  
+    <body>
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="Jumeaux" class="md-header-nav__button md-logo">
+          
+            <img src="../../../img/logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Jumeaux
+              </span>
+              <span class="md-header-nav__topic">
+                log2reqs
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/tadashi-aikawa/jumeaux/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      tadashi-aikawa/jumeaux
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../getstarted/quickstart/" title="Get Started" class="md-tabs__link">
+          Get Started
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../" title="Addons" class="md-tabs__link md-tabs__link--active">
+          Addons
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../models/request/" title="Models" class="md-tabs__link">
+          Models
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <img src="../../../img/logo.png" width="24" height="24">
+      
+    </span>
+    Jumeaux
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/tadashi-aikawa/jumeaux/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      tadashi-aikawa/jumeaux
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Get Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Get Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getstarted/quickstart/" title="Quickstart" class="md-nav__link">
+      Quickstart
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getstarted/report/" title="Report" class="md-nav__link">
+      Report
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../getstarted/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Addons
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Addons
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Summary" class="md-nav__link">
+      Summary
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        log2reqs
+      </label>
+    
+    <a href="./" title="log2reqs" class="md-nav__link md-nav__link--active">
+      log2reqs
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#plain" title="plain" class="md-nav__link">
+    plain
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-file-format" title="Input file format" class="md-nav__link">
+    Input file format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="最もシンプルな例" class="md-nav__link">
+    最もシンプルな例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euc-jp" title="入力ファイルのエンコーディングはEUC-JP" class="md-nav__link">
+    入力ファイルのエンコーディングはEUC-JP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv" title="csv" class="md-nav__link">
+    csv
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-file-format_1" title="Input file format" class="md-nav__link">
+    Input file format
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_1" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config_1" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_2" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_2" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="最もシンプルな例" class="md-nav__link">
+    最もシンプルな例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabcsveuc-jp" title="入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP" class="md-nav__link">
+    入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json" title="json" class="md-nav__link">
+    json
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-file-format_2" title="Input file format" class="md-nav__link">
+    Input file format
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_3" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_3" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config_2" title="config" class="md-nav__link">
+    config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_4" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_4" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="最もシンプルな例" class="md-nav__link">
+    最もシンプルな例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euc-jp_1" title="入力ファイルのエンコーディングはEUC-JP" class="md-nav__link">
+    入力ファイルのエンコーディングはEUC-JP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yaml" title="yaml" class="md-nav__link">
+    yaml
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-file-format_3" title="Input file format" class="md-nav__link">
+    Input file format
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_5" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_5" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config_3" title="config" class="md-nav__link">
+    config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_6" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_6" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="最もシンプルな例" class="md-nav__link">
+    最もシンプルな例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euc-jp_2" title="入力ファイルのエンコーディングはEUC-JP" class="md-nav__link">
+    入力ファイルのエンコーディングはEUC-JP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reqs2reqs/" title="reqs2reqs" class="md-nav__link">
+      reqs2reqs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../res2res/" title="res2res" class="md-nav__link">
+      res2res
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../res2dict/" title="res2dict" class="md-nav__link">
+      res2dict
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../judgement/" title="judgement" class="md-nav__link">
+      judgement
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../store_criterion/" title="store_criterion" class="md-nav__link">
+      store_criterion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dump/" title="dump" class="md-nav__link">
+      dump
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../did_challenge/" title="did_challenge" class="md-nav__link">
+      did_challenge
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../final/" title="final" class="md-nav__link">
+      final
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Models
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Models
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../models/request/" title="Request" class="md-nav__link">
+      Request
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../models/request-condition/" title="RequestCondition" class="md-nav__link">
+      RequestCondition
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#plain" title="plain" class="md-nav__link">
+    plain
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-file-format" title="Input file format" class="md-nav__link">
+    Input file format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="最もシンプルな例" class="md-nav__link">
+    最もシンプルな例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euc-jp" title="入力ファイルのエンコーディングはEUC-JP" class="md-nav__link">
+    入力ファイルのエンコーディングはEUC-JP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv" title="csv" class="md-nav__link">
+    csv
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-file-format_1" title="Input file format" class="md-nav__link">
+    Input file format
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_1" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config_1" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_2" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_2" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="最もシンプルな例" class="md-nav__link">
+    最もシンプルな例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabcsveuc-jp" title="入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP" class="md-nav__link">
+    入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json" title="json" class="md-nav__link">
+    json
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-file-format_2" title="Input file format" class="md-nav__link">
+    Input file format
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_3" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_3" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config_2" title="config" class="md-nav__link">
+    config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_4" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_4" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="最もシンプルな例" class="md-nav__link">
+    最もシンプルな例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euc-jp_1" title="入力ファイルのエンコーディングはEUC-JP" class="md-nav__link">
+    入力ファイルのエンコーディングはEUC-JP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yaml" title="yaml" class="md-nav__link">
+    yaml
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input-file-format_3" title="Input file format" class="md-nav__link">
+    Input file format
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_5" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_5" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config_3" title="config" class="md-nav__link">
+    config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_6" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_6" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="最もシンプルな例" class="md-nav__link">
+    最もシンプルな例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euc-jp_2" title="入力ファイルのエンコーディングはEUC-JP" class="md-nav__link">
+    入力ファイルのエンコーディングはEUC-JP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/tadashi-aikawa/jumeaux/edit/master/docs/ja/addons/log2reqs.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="log2reqs">log2reqs <a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs"><i class="fa fa-github"></i></a><a class="headerlink" href="#log2reqs" title="Permanent link">&para;</a></h1>
+<p>任意のFormatで記載されたリクエストを、Jumeaux内部で使用する形式(Request型)に変換します。</p>
+<h2 id="plain"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/plain.py"><i class="fa fa-github"></i></a> plain<a class="headerlink" href="#plain" title="Permanent link">&para;</a></h2>
+<p>最もシンプルな入力形式に対応しています。<br />
+要件が単純な場合に適しています。</p>
+<h3 id="input-file-format">Input file format<a class="headerlink" href="#input-file-format" title="Permanent link">&para;</a></h3>
+<p>各行にリクエストURLのpathとqueryを記載します。</p>
+<div class="codehilite"><pre><span></span>/api/path
+/api/path2?key=hoge
+</pre></div>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>pathとquery以外のパラメータは設定できません</p>
+</div>
+<h3 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
+<h4 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encoding</td>
+<td>(string)</td>
+<td>読みこみファイルのエンコーディング</td>
+<td>euc-jp</td>
+<td>utf-8</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
+<h5 id="_1">最もシンプルな例<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>log2reqs:
+  name: plain
+</pre></div>
+
+<h5 id="euc-jp">入力ファイルのエンコーディングはEUC-JP<a class="headerlink" href="#euc-jp" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>log2reqs:
+  name: plain
+  config:
+    encoding: euc-jp
+</pre></div>
+
+<h2 id="csv"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/csv.py"><i class="fa fa-github"></i></a> csv<a class="headerlink" href="#csv" title="Permanent link">&para;</a></h2>
+<p>CSV入力形式に対応しています。<br />
+ほぼ全ての項目を指定することができます。</p>
+<h3 id="input-file-format_1">Input file format<a class="headerlink" href="#input-file-format_1" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_1">Definitions<a class="headerlink" href="#definitions_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Col</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>(string)</td>
+<td>名前</td>
+<td>ex1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>string</td>
+<td>path</td>
+<td>/api</td>
+</tr>
+<tr>
+<td>3</td>
+<td>(string)</td>
+<td>query</td>
+<td>a=1&amp;b=2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>(string)</td>
+<td>header</td>
+<td>header1=1&amp;header2=2</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>&quot;title1&quot;,&quot;/path1&quot;,&quot;a=1&amp;b=2&quot;,&quot;header1=1&amp;header2=2&quot;
+&quot;title2&quot;,&quot;/path2&quot;,&quot;c=1&quot;
+&quot;title3&quot;,&quot;/path3&quot;,,&quot;header1=1&amp;header2=2&quot;
+&quot;title4&quot;,&quot;/path4&quot;
+</pre></div>
+
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>後方のカラムは省略することができます</p>
+</div>
+<h3 id="config_1">Config<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_2">Definitions<a class="headerlink" href="#definitions_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encoding</td>
+<td>(string)</td>
+<td>読みこみファイルのエンコーディング</td>
+<td>euc-jp</td>
+<td>utf-8</td>
+</tr>
+<tr>
+<td>dialect</td>
+<td>(string)</td>
+<td>csv読みこみの方言 <i class="fa fa-info-circle"></i></td>
+<td>excel-tab</td>
+<td>excel</td>
+</tr>
+</tbody>
+</table>
+<details class="info"><summary>dialectの有効値</summary><ul><li>excel</li><li>excel-tab</li><li>unix</li></ul></details><h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
+<h5 id="_2">最もシンプルな例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>log2reqs:
+  name: csv
+</pre></div>
+
+<h5 id="tabcsveuc-jp">入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP<a class="headerlink" href="#tabcsveuc-jp" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>log2reqs:
+  name: csv
+  config:
+    encoding: euc-jp
+    dialect: excel-tab
+</pre></div>
+
+<h2 id="json"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/json.py"><i class="fa fa-github"></i></a> json<a class="headerlink" href="#json" title="Permanent link">&para;</a></h2>
+<p>JSON入力形式に対応しています。<br />
+全ての項目を指定することができます。</p>
+<h3 id="input-file-format_2">Input file format<a class="headerlink" href="#input-file-format_2" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_3">Definitions<a class="headerlink" href="#definitions_3" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>(string)</td>
+<td>名前</td>
+<td>title</td>
+<td></td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>path</td>
+<td>/api</td>
+<td></td>
+</tr>
+<tr>
+<td>qs</td>
+<td>(dict[list])</td>
+<td>query</td>
+<td><code>{"a": [1], "b": [2, 3]}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>headers</td>
+<td>(dict)</td>
+<td>header</td>
+<td><code>{"header1": 1, "header2": 2}</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;title1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;qs&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="nt">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;header&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;header1&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;header2&quot;</span><span class="p">:</span> <span class="mi">2</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api2&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+<h3 id="config_2">config<a class="headerlink" href="#config_2" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_4">Definitions<a class="headerlink" href="#definitions_4" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encoding</td>
+<td>(string)</td>
+<td>読みこみファイルのエンコーディング</td>
+<td>euc-jp</td>
+<td>utf-8</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h4>
+<h5 id="_3">最もシンプルな例<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>log2reqs:
+  name: json
+</pre></div>
+
+<h5 id="euc-jp_1">入力ファイルのエンコーディングはEUC-JP<a class="headerlink" href="#euc-jp_1" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>log2reqs:
+  name: json
+  config:
+    encoding: euc-jp
+</pre></div>
+
+<h2 id="yaml"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/yaml.py"><i class="fa fa-github"></i></a> yaml<a class="headerlink" href="#yaml" title="Permanent link">&para;</a></h2>
+<p>YAML入力形式に対応しています。<br />
+全ての項目を指定することができます。</p>
+<h3 id="input-file-format_3">Input file format<a class="headerlink" href="#input-file-format_3" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_5">Definitions<a class="headerlink" href="#definitions_5" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>(string)</td>
+<td>名前</td>
+<td>title</td>
+<td></td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>path</td>
+<td>/api</td>
+<td></td>
+</tr>
+<tr>
+<td>qs</td>
+<td>(dict[string[]])</td>
+<td>query</td>
+<td><pre>a: [1]<br>b: [2]</pre></td>
+<td></td>
+</tr>
+<tr>
+<td>headers</td>
+<td>(dict[string])</td>
+<td>header</td>
+<td><pre>header1: 1<br>header2: 2</pre></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>- name: title1
+  path: /api1
+  qs:
+    a: [1]
+    b: [2, 3]
+  header:
+    header1: 1
+    header2: 2
+- path: /api2
+</pre></div>
+
+<h3 id="config_3">config<a class="headerlink" href="#config_3" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_6">Definitions<a class="headerlink" href="#definitions_6" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encoding</td>
+<td>(string)</td>
+<td>読みこみファイルのエンコーディング</td>
+<td>euc-jp</td>
+<td>utf-8</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples_6">Examples<a class="headerlink" href="#examples_6" title="Permanent link">&para;</a></h4>
+<h5 id="_4">最もシンプルな例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>log2reqs:
+  name: yaml
+</pre></div>
+
+<h5 id="euc-jp_2">入力ファイルのエンコーディングはEUC-JP<a class="headerlink" href="#euc-jp_2" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>log2reqs:
+  name: yaml
+  config:
+    encoding: euc-jp
+</pre></div>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../" title="Summary" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Summary
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../reqs2reqs/" title="reqs2reqs" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                reqs2reqs
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/tadashi-aikawa" class="md-footer-social__link fa fa-github-alt"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.6cdc17f0.js"></script>
+      
+        
+        
+          
+          <script src="../../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+          
+            
+              
+                <script src="../../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              <script src="../../../assets/javascripts/lunr/lunr.jp.js"></script>
+            
+          
+          
+            <script src="../../../assets/javascripts/lunr/lunr.multi.js"></script>
+          
+        
+      
+      <script>app.initialize({version:"0.17.2",url:{base:"../../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

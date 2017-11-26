@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+        
+    <url>
+     <loc>/getstarted/quickstart/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/getstarted/report/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/getstarted/configuration/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>/ja/addons/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/ja/addons/log2reqs/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/ja/addons/reqs2reqs/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/ja/addons/res2res/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/ja/addons/res2dict/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/ja/addons/judgement/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/ja/addons/store_criterion/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/ja/addons/dump/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/ja/addons/did_challenge/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/ja/addons/final/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>/models/request/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/models/request-condition/</loc>
+     <lastmod>2017-11-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+</urlset>
