@@ -7,12 +7,13 @@ Usage
 =======================
 
 Usage:
+  jumeaux init
   jumeaux init <name>
   jumeaux [run] <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>]
   jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] <report>
 
 Options:
-  <name>                           Initialize template name [def: minimum]
+  <name>                           Initialize template name
   <files>...                       Files written requests
   --config = <yaml>...             Configuration files(see below) [def: config.yml]
   --title = <title>                The title of report [def: No title]
@@ -392,9 +393,10 @@ def main():
         target_dir = f'{sample_dir}/{args.name.get()}'
         if not os.path.exists(target_dir):
             exit(f'''
-`{args.name.get()}` is invalid name!!
+Please specify a valid name.
             
-Valid names are... {os.listdir(sample_dir)}
+✨ [Valid names] ✨
+{os.linesep.join(os.listdir(sample_dir))}
             '''.strip())
         for f in os.listdir(target_dir):
             shutil.copy(f'{target_dir}/{f}', '.')
