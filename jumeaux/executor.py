@@ -148,7 +148,10 @@ def dump(res: Response):
     })).body
 
 
-def challenge(arg: ChallengeArg) -> Trial:
+def challenge(arg: ChallengeArg) -> dict:
+    """ Response is dict like `Trial` because Status(OwlEnum) can't be pickled.
+    """
+
     name: str = arg.req.name.get_or(str(arg.seq))
 
     logger.info(f"Challenge:  {arg.seq} / {arg.number_of_request} -- {name}")
@@ -166,11 +169,11 @@ def challenge(arg: ChallengeArg) -> Trial:
                                                 arg.proxy_one.get(), arg.proxy_other.get())
     except ConnectionError:
         # TODO: Integrate logic into create_trial
-        return Trial.from_dict({
+        return {
             "seq": arg.seq,
             "name": name,
             "request_time": req_time.strftime("%Y/%m/%d %H:%M:%S.%f"),
-            "status": Status.FAILURE,
+            "status": 'failure',
             "path": arg.req.path,
             "queries": arg.req.qs,
             "headers": arg.req.headers,
@@ -180,7 +183,7 @@ def challenge(arg: ChallengeArg) -> Trial:
             "other": {
                 "url": url_other
             }
-        })
+        }
 
     res_one = res2res(Response.from_requests(r_one), arg.req)
     res_other = res2res(Response.from_requests(r_other), arg.req)
@@ -247,7 +250,7 @@ def challenge(arg: ChallengeArg) -> Trial:
                 "file": file_other
             }
         })
-    })).trial
+    })).trial.to_dict()
 
 
 def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
@@ -293,8 +296,8 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
 
     # Challenge
     start_time = now()
-    with futures.ThreadPoolExecutor(max_workers=args.threads.get() or config.threads) as ex:
-        trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))])
+    with futures.ProcessPoolExecutor(max_workers=args.threads.get() or config.threads) as ex:
+        trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))]).map(lambda x: Trial.from_dict(x))
     end_time = now()
 
     summary = Summary.from_dict({

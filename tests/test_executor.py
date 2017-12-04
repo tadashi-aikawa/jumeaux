@@ -185,7 +185,7 @@ class TestChallenge:
             }
         }
 
-        assert actual.to_dict() == expected
+        assert actual == expected
 
     def test_same(self, concurrent_request, now, store_criterion):
         res_one = ResponseBuilder().text('a') \
@@ -268,7 +268,7 @@ class TestChallenge:
             }
         }
 
-        assert actual.to_dict() == expected
+        assert actual == expected
 
     def test_failure(self, concurrent_request, now, store_criterion):
         concurrent_request.side_effect = ConnectionError
@@ -320,7 +320,7 @@ class TestChallenge:
             }
         }
 
-        assert actual.to_dict() == expected
+        assert actual == expected
 
 
 class TestCreateConfig:
@@ -577,7 +577,7 @@ class TestExec:
         dummy_hash = "dummy hash"
 
         hash_from_args.return_value = dummy_hash
-        challenge.side_effect = Trial.from_dicts([
+        challenge.side_effect = [
             {
                 "seq": 1,
                 "name": "name1",
@@ -640,7 +640,7 @@ class TestExec:
                     "response_sec": 2.00
                 }
             }
-        ])
+        ]
         now.side_effect = [
             datetime.datetime(2000, 1, 1, 23, 50, 30),
             datetime.datetime(2000, 1, 2, 0, 0, 0)
