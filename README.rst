@@ -71,7 +71,8 @@ Version up
 3. Increment a version in `Dockerfile`
 4. Build documentation by `mkdocs build`
 5. Tags by `git tag x.y.z -m x.y.z`
-6. `git push`
+6. Staging and commit
+7. `git push`
 
 TODO: automation
 

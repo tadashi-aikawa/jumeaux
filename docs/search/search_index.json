@@ -277,7 +277,7 @@
         },
         {
             "location": "/ja/addons/reqs2reqs/",
-            "text": "reqs2reqs \n\u00b6\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u3092\u5909\u63db\u3057\u307e\u3059\u3002\n\n\n head\n\u00b6\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u306e\u5148\u982d\u90e8\u5206\u3092\u62bd\u51fa\u3057\u307e\u3059\u3002\n\n\nConfig\n\u00b6\n\n\nDefinitions\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nsize\n\n\nint\n\n\n\u62bd\u51fa\u3059\u308b\u30ea\u30af\u30a8\u30b9\u30c8\u306e\u6570\n\n\n10\n\n\n\n\n\n\n\n\n\n\nExamples\n\u00b6\n\n\n\u5148\u982d\u306e10\u30ea\u30af\u30a8\u30b9\u30c8\u3092\u62bd\u51fa\u3059\u308b\n\u00b6\n\n\nreqs2reqs:\n  - name: head\n    config:\n      size: 10\n\n\n\n\n filter\n\u00b6\n\n\n\n\nTodo\n\n\nComming soon...\n\n\n\n\n add\n\u00b6\n\n\n\u5148\u982d\u307e\u305f\u306f\u672b\u5c3e\u306b\u30ea\u30af\u30a8\u30b9\u30c8\u3092\u8ffd\u52a0\u3057\u307e\u3059\u3002\n\n\nConfig\n\u00b6\n\n\nDefinitions\n\u00b6\n\n\nroot\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nreqs\n\n\nRequest[]\n\n\n\u672c\u8a2d\u5b9a\u3092\u53cd\u6620\u3055\u305b\u308bRequest\u306e\u6761\u4ef6\n\n\n\n\n\n\n\n\n\n\nlocation\n\n\n(\nLocation\n)\n\n\n\u5148\u982d\u3068\u672b\u5c3e\u3069\u3061\u3089\u306b\u8ffd\u52a0\u3059\u308b\u304b\n\n\ntail\n\n\nhead\n\n\n\n\n\n\n\n\nLocation\n\u00b6\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nhead\n\n\n\u5148\u982d\n\n\n\n\n\n\ntail\n\n\n\u672b\u5c3e\n\n\n\n\n\n\n\n\nExamples\n\u00b6\n\n\n\u672b\u5c3e\u306b\n/rest/sample?word=hoge\n\u3068\u3044\u3046\u30ea\u30af\u30a8\u30b9\u30c8\u3092\u8ffd\u52a0\u3059\u308b\n\u00b6\n\n\nreqs2reqs:\n  - name: add\n    config:\n      reqs:\n        - path: /rest/sample\n          qs: {word: [hoge]}\n      location: tail\n\n\n\n\n replace\n\u00b6\n\n\n\n\nTodo\n\n\nComming soon...\n\n\n\n\n shuffle\n\u00b6\n\n\n\n\nTodo\n\n\nComming soon...",
+            "text": "reqs2reqs \n\u00b6\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u3092\u5909\u63db\u3057\u307e\u3059\u3002\n\n\n head\n\u00b6\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u306e\u5148\u982d\u90e8\u5206\u3092\u62bd\u51fa\u3057\u307e\u3059\u3002\n\n\nConfig\n\u00b6\n\n\nDefinitions\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nsize\n\n\nint\n\n\n\u62bd\u51fa\u3059\u308b\u30ea\u30af\u30a8\u30b9\u30c8\u306e\u6570\n\n\n10\n\n\n\n\n\n\n\n\n\n\nExamples\n\u00b6\n\n\n\u5148\u982d\u306e10\u30ea\u30af\u30a8\u30b9\u30c8\u3092\u62bd\u51fa\u3059\u308b\n\u00b6\n\n\nreqs2reqs:\n  - name: head\n    config:\n      size: 10\n\n\n\n\n filter\n\u00b6\n\n\n\n\nTodo\n\n\nComming soon...\n\n\n\n\n add\n\u00b6\n\n\n\u5148\u982d\u307e\u305f\u306f\u672b\u5c3e\u306b\u30ea\u30af\u30a8\u30b9\u30c8\u3092\u8ffd\u52a0\u3057\u307e\u3059\u3002\n\n\nConfig\n\u00b6\n\n\nDefinitions\n\u00b6\n\n\nroot\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nreqs\n\n\nRequest[]\n\n\n\u672c\u8a2d\u5b9a\u3092\u53cd\u6620\u3055\u305b\u308bRequest\u306e\u6761\u4ef6\n\n\n\n\n\n\n\n\n\n\nlocation\n\n\n(\nLocation\n)\n\n\n\u5148\u982d\u3068\u672b\u5c3e\u3069\u3061\u3089\u306b\u8ffd\u52a0\u3059\u308b\u304b\n\n\ntail\n\n\nhead\n\n\n\n\n\n\n\n\nLocation\n\u00b6\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nhead\n\n\n\u5148\u982d\n\n\n\n\n\n\ntail\n\n\n\u672b\u5c3e\n\n\n\n\n\n\n\n\nExamples\n\u00b6\n\n\n\u672b\u5c3e\u306b\n/rest/sample?word=hoge\n\u3068\u3044\u3046\u30ea\u30af\u30a8\u30b9\u30c8\u3092\u8ffd\u52a0\u3059\u308b\n\u00b6\n\n\nreqs2reqs:\n  - name: add\n    config:\n      reqs:\n        - path: /rest/sample\n          qs: {word: [hoge]}\n      location: tail\n\n\n\n\n replace\n\u00b6\n\n\n\n\nTodo\n\n\nComming soon...\n\n\n\n\n shuffle\n\u00b6\n\n\n\n\nTodo\n\n\nComming soon...\n\n\n\n\n repeat\n\u00b6\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u5168\u4f53\u3092\u6307\u5b9a\u56de\u6570\u3060\u3051\u8907\u88fd\u3057\u307e\u3059\u3002\n\n\nConfig\n\u00b6\n\n\nDefinitions\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\ntimes\n\n\nint\n\n\n\u8907\u88fd\u3059\u308b\u6570\n\n\n10\n\n\n\n\n\n\n\n\n\n\nExamples\n\u00b6\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u5168\u4f53\u309210\u56de\u8907\u88fd\u3059\u308b\n\u00b6\n\n\nreqs2reqs:\n  - name: repeat\n    config:\n      times: 10",
             "title": "reqs2reqs"
         },
         {
@@ -359,6 +359,31 @@
             "location": "/ja/addons/reqs2reqs/#shuffle",
             "text": "Todo  Comming soon...",
             "title": "shuffle"
+        },
+        {
+            "location": "/ja/addons/reqs2reqs/#repeat",
+            "text": "\u30ea\u30af\u30a8\u30b9\u30c8\u5168\u4f53\u3092\u6307\u5b9a\u56de\u6570\u3060\u3051\u8907\u88fd\u3057\u307e\u3059\u3002",
+            "title": "repeat"
+        },
+        {
+            "location": "/ja/addons/reqs2reqs/#config_2",
+            "text": "",
+            "title": "Config"
+        },
+        {
+            "location": "/ja/addons/reqs2reqs/#definitions_2",
+            "text": "Key  Type  Description  Example  Default      times  int  \u8907\u88fd\u3059\u308b\u6570  10",
+            "title": "Definitions"
+        },
+        {
+            "location": "/ja/addons/reqs2reqs/#examples_2",
+            "text": "",
+            "title": "Examples"
+        },
+        {
+            "location": "/ja/addons/reqs2reqs/#10_1",
+            "text": "reqs2reqs:\n  - name: repeat\n    config:\n      times: 10",
+            "title": "\u30ea\u30af\u30a8\u30b9\u30c8\u5168\u4f53\u309210\u56de\u8907\u88fd\u3059\u308b"
         },
         {
             "location": "/ja/addons/res2res/",
