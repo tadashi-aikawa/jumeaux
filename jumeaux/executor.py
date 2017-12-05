@@ -9,8 +9,8 @@ Usage
 Usage:
   jumeaux init
   jumeaux init <name>
-  jumeaux [run] <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>]
-  jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] <report>
+  jumeaux [run] <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
+  jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] <report>
 
 Options:
   <name>                           Initialize template name
@@ -20,6 +20,7 @@ Options:
   --description = <description>    The description of report
   --tag = <tag>...                 Tags
   --threads = <threads>            The number of threads in challenge [def: 1]
+  --processes = <processes>        The number of processes in challenge
   <report>                         Report for retry
 """
 
@@ -295,8 +296,17 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
     })
 
     # Challenge
+    executor = None
+    processes = args.processes.get() or config.processes.get()
+    if (processes):
+        logger.info('process')
+        executor = futures.ProcessPoolExecutor(max_workers=processes)
+    else:
+        logger.info('thread')
+        executor = futures.ThreadPoolExecutor(max_workers=args.threads.get() or config.threads)
+
     start_time = now()
-    with futures.ProcessPoolExecutor(max_workers=args.threads.get() or config.threads) as ex:
+    with executor as ex:
         trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))]).map(lambda x: Trial.from_dict(x))
     end_time = now()
 

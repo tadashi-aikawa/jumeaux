@@ -54,6 +54,7 @@ class Config(OwlMixin):
     other: AccessPoint
     output: OutputSummary
     threads: int = 1
+    processes: TOption[int]
     title: TOption[str]
     description: TOption[str]
     tags: TOption[TList[str]]
@@ -72,6 +73,7 @@ class Args(OwlMixin):
     config: TOption[TList[str]]
     tag: TOption[TList[str]]
     threads: TOption[int]
+    processes: TOption[int]
     retry: bool
     report: TOption[str]  # Only case in which retry is True
     init: bool
@@ -79,6 +81,10 @@ class Args(OwlMixin):
 
     @classmethod
     def ___threads(cls, v: Optional[str]) -> int:
+        return int(v) if v else None
+
+    @classmethod
+    def ___processes(cls, v: Optional[str]) -> int:
         return int(v) if v else None
 
 
