@@ -9,8 +9,8 @@ Usage
 Usage:
   jumeaux init
   jumeaux init <name>
-  jumeaux [run] <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>]
-  jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] <report>
+  jumeaux [run] <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
+  jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] <report>
 
 Options:
   <name>                           Initialize template name
@@ -20,6 +20,7 @@ Options:
   --description = <description>    The description of report
   --tag = <tag>...                 Tags
   --threads = <threads>            The number of threads in challenge [def: 1]
+  --processes = <processes>        The number of processes in challenge
   <report>                         Report for retry
 """
 
@@ -33,6 +34,7 @@ import urllib.parse as urlparser
 
 import os
 import requests
+from typing import Tuple
 from concurrent import futures
 from deepdiff import DeepDiff
 from docopt import docopt
@@ -148,7 +150,10 @@ def dump(res: Response):
     })).body
 
 
-def challenge(arg: ChallengeArg) -> Trial:
+def challenge(arg: ChallengeArg) -> dict:
+    """ Response is dict like `Trial` because Status(OwlEnum) can't be pickled.
+    """
+
     name: str = arg.req.name.get_or(str(arg.seq))
 
     logger.info(f"Challenge:  {arg.seq} / {arg.number_of_request} -- {name}")
@@ -166,11 +171,11 @@ def challenge(arg: ChallengeArg) -> Trial:
                                                 arg.proxy_one.get(), arg.proxy_other.get())
     except ConnectionError:
         # TODO: Integrate logic into create_trial
-        return Trial.from_dict({
+        return {
             "seq": arg.seq,
             "name": name,
             "request_time": req_time.strftime("%Y/%m/%d %H:%M:%S.%f"),
-            "status": Status.FAILURE,
+            "status": 'failure',
             "path": arg.req.path,
             "queries": arg.req.qs,
             "headers": arg.req.headers,
@@ -180,7 +185,7 @@ def challenge(arg: ChallengeArg) -> Trial:
             "other": {
                 "url": url_other
             }
-        })
+        }
 
     res_one = res2res(Response.from_requests(r_one), arg.req)
     res_other = res2res(Response.from_requests(r_other), arg.req)
@@ -247,28 +252,31 @@ def challenge(arg: ChallengeArg) -> Trial:
                 "file": file_other
             }
         })
-    })).trial
+    })).trial.to_dict()
+
+
+def create_concurrent_executor(args: Args, config: Config) -> Tuple[any, Concurrency]:
+    processes = args.processes.get() or config.processes.get()
+    if (processes):
+        return (
+            futures.ProcessPoolExecutor(max_workers=processes),
+            Concurrency.from_dict({
+                "processes": processes,
+                "threads": 1
+            })
+        )
+
+    threads = args.threads.get() or config.threads
+    return (
+        futures.ThreadPoolExecutor(max_workers=threads),
+        Concurrency.from_dict({
+            "processes": 1,
+            "threads": threads
+        })
+    )
 
 
 def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
-    title = args.title.get() or config.title.get() or "No title"
-    description = args.description.get() or config.description.get() or None
-    tags = args.tag.get() or config.tags.get() or []
-    logger.info(f"""
---------------------------------------------------------------------------------
-| >>> Start processing !!
-|
-| [Key]
-| {key}
-|
-| [Title]
-| {title}
-|
-| [Description]
-| {description}
---------------------------------------------------------------------------------
-    """)
-
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
@@ -291,10 +299,35 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
         "res_dir": config.output.response_dir
     })
 
+
     # Challenge
+    title = args.title.get() or config.title.get() or "No title"
+    description = args.description.get() or config.description.get() or None
+    tags = args.tag.get() or config.tags.get() or []
+    executor, concurrency = create_concurrent_executor(args, config)
+
+    logger.info(f"""
+--------------------------------------------------------------------------------
+| >>> Start processing !!
+|
+| [Key]
+| {key}
+|
+| [Title]
+| {title}
+|
+| [Description]
+| {description}
+|
+| [Concurrency]
+| {concurrency.processes} processes
+| {concurrency.threads} threads
+--------------------------------------------------------------------------------
+    """)
+
     start_time = now()
-    with futures.ThreadPoolExecutor(max_workers=args.threads.get() or config.threads) as ex:
-        trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))])
+    with executor as ex:
+        trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))]).map(lambda x: Trial.from_dict(x))
     end_time = now()
 
     summary = Summary.from_dict({
@@ -315,7 +348,8 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
             "end": end_time.strftime("%Y/%m/%d %X"),
             "elapsed_sec": (end_time - start_time).seconds
         },
-        "output": config.output.to_dict()
+        "output": config.output.to_dict(),
+        "concurrency": concurrency
     })
 
     return Report.from_dict({
