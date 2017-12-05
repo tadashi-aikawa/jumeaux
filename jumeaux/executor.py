@@ -254,25 +254,24 @@ def challenge(arg: ChallengeArg) -> dict:
     })).trial.to_dict()
 
 
-def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
-    title = args.title.get() or config.title.get() or "No title"
-    description = args.description.get() or config.description.get() or None
-    tags = args.tag.get() or config.tags.get() or []
-    logger.info(f"""
---------------------------------------------------------------------------------
-| >>> Start processing !!
-|
-| [Key]
-| {key}
-|
-| [Title]
-| {title}
-|
-| [Description]
-| {description}
---------------------------------------------------------------------------------
-    """)
+def create_concurrent_executor(args: Args, config: Config):
+    processes = args.processes.get() or config.processes.get()
+    if (processes):
+        return ConcurrentExecutor.from_dict({
+            "executor": futures.ProcessPoolExecutor(max_workers=processes),
+            "processes": processes,
+            "threads": 1
+        })
 
+    threads = args.threads.get() or config.threads
+    return ConcurrentExecutor.from_dict({
+        "executor": futures.ThreadPoolExecutor(max_workers=threads),
+        "processes": 1,
+        "threads": threads
+    })
+
+
+def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
@@ -295,18 +294,34 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
         "res_dir": config.output.response_dir
     })
 
+
     # Challenge
-    executor = None
-    processes = args.processes.get() or config.processes.get()
-    if (processes):
-        logger.info('process')
-        executor = futures.ProcessPoolExecutor(max_workers=processes)
-    else:
-        logger.info('thread')
-        executor = futures.ThreadPoolExecutor(max_workers=args.threads.get() or config.threads)
+    title = args.title.get() or config.title.get() or "No title"
+    description = args.description.get() or config.description.get() or None
+    tags = args.tag.get() or config.tags.get() or []
+    concurrent_executor = create_concurrent_executor(args, config)
+
+    logger.info(f"""
+--------------------------------------------------------------------------------
+| >>> Start processing !!
+|
+| [Key]
+| {key}
+|
+| [Title]
+| {title}
+|
+| [Description]
+| {description}
+|
+| [Concurrency]
+| {concurrent_executor.processes} processes
+| {concurrent_executor.threads} threads
+--------------------------------------------------------------------------------
+    """)
 
     start_time = now()
-    with executor as ex:
+    with concurrent_executor.executor as ex:
         trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))]).map(lambda x: Trial.from_dict(x))
     end_time = now()
 

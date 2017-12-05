@@ -29,6 +29,12 @@ class OutputSummary(OwlMixin):
     logger: TOption[any]
 
 
+class ConcurrentExecutor(OwlMixin):
+    executor: any
+    threads: int
+    processes: int
+
+
 class Addon(OwlMixin):
     name: str
     cls_name: str = 'Executor'
