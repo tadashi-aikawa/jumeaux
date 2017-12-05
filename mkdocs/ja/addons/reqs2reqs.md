@@ -105,3 +105,31 @@ reqs2reqs:
 !!! todo
 
     Comming soon...
+
+
+[:fa-github:][repeat] repeat
+----------------------------
+
+[repeat]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/repeat.py
+
+リクエスト全体を指定回数だけ複製します。
+
+### Config
+
+#### Definitions
+
+|  Key  | Type | Description | Example | Default |
+| ----- | ---- | ----------- | ------- | ------- |
+| times | int  | 複製する数  | 10      |         |
+
+
+#### Examples
+
+##### リクエスト全体を10回複製する
+
+```yml
+reqs2reqs:
+  - name: repeat
+    config:
+      times: 10
+```
