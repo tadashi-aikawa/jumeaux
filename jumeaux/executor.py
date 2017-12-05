@@ -34,6 +34,7 @@ import urllib.parse as urlparser
 
 import os
 import requests
+from typing import Tuple
 from concurrent import futures
 from deepdiff import DeepDiff
 from docopt import docopt
@@ -254,21 +255,25 @@ def challenge(arg: ChallengeArg) -> dict:
     })).trial.to_dict()
 
 
-def create_concurrent_executor(args: Args, config: Config):
+def create_concurrent_executor(args: Args, config: Config) -> Tuple[any, Concurrency]:
     processes = args.processes.get() or config.processes.get()
     if (processes):
-        return ConcurrentExecutor.from_dict({
-            "executor": futures.ProcessPoolExecutor(max_workers=processes),
-            "processes": processes,
-            "threads": 1
-        })
+        return (
+            futures.ProcessPoolExecutor(max_workers=processes),
+            Concurrency.from_dict({
+                "processes": processes,
+                "threads": 1
+            })
+        )
 
     threads = args.threads.get() or config.threads
-    return ConcurrentExecutor.from_dict({
-        "executor": futures.ThreadPoolExecutor(max_workers=threads),
-        "processes": 1,
-        "threads": threads
-    })
+    return (
+        futures.ThreadPoolExecutor(max_workers=threads),
+        Concurrency.from_dict({
+            "processes": 1,
+            "threads": threads
+        })
+    )
 
 
 def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
@@ -299,7 +304,7 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
     title = args.title.get() or config.title.get() or "No title"
     description = args.description.get() or config.description.get() or None
     tags = args.tag.get() or config.tags.get() or []
-    concurrent_executor = create_concurrent_executor(args, config)
+    executor, concurrency = create_concurrent_executor(args, config)
 
     logger.info(f"""
 --------------------------------------------------------------------------------
@@ -315,13 +320,13 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
 | {description}
 |
 | [Concurrency]
-| {concurrent_executor.processes} processes
-| {concurrent_executor.threads} threads
+| {concurrency.processes} processes
+| {concurrency.threads} threads
 --------------------------------------------------------------------------------
     """)
 
     start_time = now()
-    with concurrent_executor.executor as ex:
+    with executor as ex:
         trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))]).map(lambda x: Trial.from_dict(x))
     end_time = now()
 
@@ -343,7 +348,8 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
             "end": end_time.strftime("%Y/%m/%d %X"),
             "elapsed_sec": (end_time - start_time).seconds
         },
-        "output": config.output.to_dict()
+        "output": config.output.to_dict(),
+        "concurrency": concurrency
     })
 
     return Report.from_dict({

@@ -758,6 +758,10 @@ class TestExec:
                 "output": {
                     "encoding": "utf8",
                     "response_dir": "tmpdir"
+                },
+                "concurrency": {
+                    "threads": 1,
+                    "processes": 1
                 }
             },
             "trials": [

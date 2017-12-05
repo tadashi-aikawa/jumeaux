@@ -29,8 +29,7 @@ class OutputSummary(OwlMixin):
     logger: TOption[any]
 
 
-class ConcurrentExecutor(OwlMixin):
-    executor: any
+class Concurrency(OwlMixin):
     threads: int
     processes: int
 
@@ -183,6 +182,7 @@ class Summary(OwlMixin):
     status: StatusCounts
     tags: TList[str]
     time: Time
+    concurrency: Concurrency
     output: OutputSummary
 
 
