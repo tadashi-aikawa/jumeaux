@@ -535,13 +535,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#whennot" title="WhenNot" class="md-nav__link">
-    WhenNot
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -577,8 +570,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#same" title="全てのステータスがSameの時は保存しない" class="md-nav__link">
-    全てのステータスがSameの時は保存しない
+  <a href="#_1" title="結果が空でないときだけ保存する" class="md-nav__link">
+    結果が空でないときだけ保存する
   </a>
   
 </li>
@@ -671,7 +664,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_1" title="メッセージフォーマットを利用して通知する" class="md-nav__link">
+  <a href="#_2" title="メッセージフォーマットを利用して通知する" class="md-nav__link">
     メッセージフォーマットを利用して通知する
   </a>
   
@@ -872,13 +865,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#whennot" title="WhenNot" class="md-nav__link">
-    WhenNot
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -914,8 +900,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#same" title="全てのステータスがSameの時は保存しない" class="md-nav__link">
-    全てのステータスがSameの時は保存しない
+  <a href="#_1" title="結果が空でないときだけ保存する" class="md-nav__link">
+    結果が空でないときだけ保存する
   </a>
   
 </li>
@@ -1008,7 +994,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_1" title="メッセージフォーマットを利用して通知する" class="md-nav__link">
+  <a href="#_2" title="メッセージフォーマットを利用して通知する" class="md-nav__link">
     メッセージフォーマットを利用して通知する
   </a>
   
@@ -1103,7 +1089,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/tadashi-aikawa/jumeaux/edit/master/docs/ja/addons/final.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/tadashi-aikawa/jumeaux/edit/master/mkdocs/ja/addons/final.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <h1 id="final">final <a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final"><i class="fa fa-github"></i></a><a class="headerlink" href="#final" title="Permanent link">&para;</a></h1>
@@ -1185,19 +1171,15 @@
 <td></td>
 </tr>
 <tr>
-<td>when_not</td>
-<td><a href="#whennot">WhenNot</a></td>
-<td>Miroirへの転送を取りやめる条件 <i class="fa fa-info-circle"></i></td>
+<td>when</td>
+<td>(When[]) <i class="fa fa-info-circle"></i></td>
+<td>Miroirへ転送する条件</td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<div class="admonition info">
-<p class="admonition-title">when_not</p>
-<p>未指定の場合は全ての場合で転送します</p>
-</div>
-<h5 id="localstack">LocalStack<a class="headerlink" href="#localstack" title="Permanent link">&para;</a></h5>
+<details class="info"><summary>when</summary><table><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>not_empty</td><td>結果が空ではないとき</td></tr><tr><td>has_different</td><td>結果にdifferentが存在するとき</td></tr></tbody></table><ul><li>全ての条件を満たす場合のみ転送します</li><li>未指定の場合は必ず転送します</li></ul></details><h5 id="localstack">LocalStack<a class="headerlink" href="#localstack" title="Permanent link">&para;</a></h5>
 <table>
 <thead>
 <tr>
@@ -1222,34 +1204,6 @@
 <td>LocalStackのエンドポイント</td>
 <td>http://localstack</td>
 <td>http://localhost</td>
-</tr>
-</tbody>
-</table>
-<h5 id="whennot">WhenNot<a class="headerlink" href="#whennot" title="Permanent link">&para;</a></h5>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Type</th>
-<th>Description</th>
-<th>Example</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>empty</td>
-<td>bool</td>
-<td>結果が空のとき</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>all_same</td>
-<td>bool</td>
-<td>結果が全てSameのとき</td>
-<td>true</td>
-<td>false</td>
 </tr>
 </tbody>
 </table>
@@ -1284,14 +1238,14 @@
         use: true
 </pre></div>
 
-<h5 id="same">全てのステータスがSameの時は保存しない<a class="headerlink" href="#same" title="Permanent link">&para;</a></h5>
+<h5 id="_1">結果が空でないときだけ保存する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span>final:
   - name: miroir
     config:
       table: miroir
       bucket: mamansoft-miroir
-      when_not:
-              all_same: true
+      when:
+        - not_empty
 </pre></div>
 
 <h2 id="slack"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/slack.py"><i class="fa fa-github"></i></a> slack<a class="headerlink" href="#slack" title="Permanent link">&para;</a></h2>
@@ -1407,7 +1361,7 @@
             icon_emoji: &quot;:innocent:&quot;
 </pre></div>
 
-<h5 id="_1">メッセージフォーマットを利用して通知する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
+<h5 id="_2">メッセージフォーマットを利用して通知する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span>  final:
     - name: slack
       config:

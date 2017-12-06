@@ -7,7 +7,7 @@ strict: true
 
 repo_name: tadashi-aikawa/jumeaux
 repo_url: https://github.com/tadashi-aikawa/jumeaux
-edit_uri: edit/master/docs/
+edit_uri: edit/master/mkdocs/
 
 pages:
   - Home: index.md
@@ -75,7 +75,7 @@ markdown_extensions:
     - pymdownx.magiclink
     # 別のmarkdownファイルを埋め込み可能
     - pymdownx.snippets:
-        base_path: docs
+        base_path: mkdocs
     # indentされた中でのcode blockとか
     - pymdownx.superfences
 

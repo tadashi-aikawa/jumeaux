@@ -33,11 +33,17 @@ Miroir参照用にデータをAWSに登録します。
 | assumed_role_arn | (string)                  | Assumed roleで認証を行う場合はarnを指定する         | TODO:            |         |
 | checklist        | (string)                  | 今はまだ使用していません                            |                  |         |
 | local_stack      | [LocalStack](#localstack) | LocalStackを使用する場合に設定する                  |                  |         |
-| when_not         | [WhenNot](#whennot)       | Miroirへの転送を取りやめる条件 :fa-info-circle:     |                  |         |
+| when             | (When[]) :fa-info-circle: | Miroirへ転送する条件                                |                  |         |
 
-!!! info "when_not"
+??? info "when"
 
-    未指定の場合は全ての場合で転送します
+    |   Name        |               Description               |
+    | ------------- | --------------------------------------- |
+    | not_empty     | 結果が空ではないとき                    |
+    | has_different | 結果にdifferentが存在するとき           |
+
+    * 全ての条件を満たす場合のみ転送します
+    * 未指定の場合は必ず転送します
 
 ##### LocalStack
 
@@ -45,14 +51,6 @@ Miroir参照用にデータをAWSに登録します。
 | -------- | -------- | -------------------------- | ----------------- | ---------------- |
 | use      | bool     | LocalStackを使用するか     | true              |                  |
 | endpoint | (string) | LocalStackのエンドポイント | http://localstack | http://localhost |
-
-##### WhenNot
-
-|   Key      |   Type   |        Description         |      Example      |     Default      |
-| ---------- | -------- | -------------------------- | ----------------- | ---------------- |
-| empty      | bool     | 結果が空のとき             | true              | false            |
-| all_same   | bool     | 結果が全てSameのとき       | true              | false            |
-
 
 #### Examples
 
@@ -93,7 +91,7 @@ final:
         use: true
 ```
 
-##### 全てのステータスがSameの時は保存しない
+##### 結果が空でないときだけ保存する
 
 ```yml
 final:
@@ -101,8 +99,8 @@ final:
     config:
       table: miroir
       bucket: mamansoft-miroir
-      when_not:
-			  all_same: true
+      when:
+        - not_empty
 ```
 
 
