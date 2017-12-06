@@ -15,6 +15,11 @@ from jumeaux.models import Report, OutputSummary, FinalAddOnPayload
 logger = logging.getLogger(__name__)
 
 
+class When(OwlMixin):
+    not_empty: bool = False
+    no_different: bool = False
+
+
 class LocalStack(OwlMixin):
     use: bool
     endpoint: str = 'http://localhost'
@@ -29,6 +34,7 @@ class Config(OwlMixin):
     assumed_role_arn: TOption[str]
     checklist: TOption[str]
     local_stack: TOption[LocalStack]
+    when: TOption[When]
 
 
 class Executor(FinalExecutor):
@@ -36,6 +42,14 @@ class Executor(FinalExecutor):
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
+        if self.config.when.map(lambda x: x.not_empty and payload.report.trials.size() == 0).get():
+            logger.info('Skip sending results to Miroir because trials are empty.')
+            return payload
+
+        if self.config.when.map(lambda x: x.no_different and payload.report.summary.status.different == 0).get():
+            logger.info('Skip sending results to Miroir because there are no different status.')
+            return payload
+
         report: Report = payload.report
         output_summary: OutputSummary = payload.output_summary
 
