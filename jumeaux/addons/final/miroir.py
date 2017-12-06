@@ -15,9 +15,9 @@ from jumeaux.models import Report, OutputSummary, FinalAddOnPayload
 logger = logging.getLogger(__name__)
 
 
-class When(OwlMixin):
-    not_empty: bool = False
-    no_different: bool = False
+class WhenNot(OwlMixin):
+    empty: bool = False
+    all_same: bool = False
 
 
 class LocalStack(OwlMixin):
@@ -34,7 +34,7 @@ class Config(OwlMixin):
     assumed_role_arn: TOption[str]
     checklist: TOption[str]
     local_stack: TOption[LocalStack]
-    when: TOption[When]
+    when_not: TOption[WhenNot]
 
 
 class Executor(FinalExecutor):
@@ -42,12 +42,12 @@ class Executor(FinalExecutor):
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
-        if self.config.when.map(lambda x: x.not_empty and payload.report.trials.size() == 0).get():
+        if self.config.when_not.map(lambda x: x.empty and payload.report.trials.size() == 0).get():
             logger.info('Skip sending results to Miroir because trials are empty.')
             return payload
 
-        if self.config.when.map(lambda x: x.no_different and payload.report.summary.status.different == 0).get():
-            logger.info('Skip sending results to Miroir because there are no different status.')
+        if self.config.when_not.map(lambda x: x.all_same and payload.report.summary.status.same == payload.report.trials.size()).get():
+            logger.info('Skip sending results to Miroir because there are all same.')
             return payload
 
         report: Report = payload.report
