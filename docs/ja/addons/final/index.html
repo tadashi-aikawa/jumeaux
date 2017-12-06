@@ -535,6 +535,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#whennot" title="WhenNot" class="md-nav__link">
+    WhenNot
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -565,6 +572,13 @@
           <li class="md-nav__item">
   <a href="#localstack2" title="LocalStackを使ってキャッシュ2分で保存する" class="md-nav__link">
     LocalStackを使ってキャッシュ2分で保存する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#same" title="全てのステータスがSameの時は保存しない" class="md-nav__link">
+    全てのステータスがSameの時は保存しない
   </a>
   
 </li>
@@ -858,6 +872,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#whennot" title="WhenNot" class="md-nav__link">
+    WhenNot
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -888,6 +909,13 @@
           <li class="md-nav__item">
   <a href="#localstack2" title="LocalStackを使ってキャッシュ2分で保存する" class="md-nav__link">
     LocalStackを使ってキャッシュ2分で保存する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#same" title="全てのステータスがSameの時は保存しない" class="md-nav__link">
+    全てのステータスがSameの時は保存しない
   </a>
   
 </li>
@@ -1156,8 +1184,19 @@
 <td></td>
 <td></td>
 </tr>
+<tr>
+<td>when_not</td>
+<td><a href="#whennot">WhenNot</a></td>
+<td>Miroirへの転送を取りやめる条件 <i class="fa fa-info-circle"></i></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
+<div class="admonition info">
+<p class="admonition-title">when_not</p>
+<p>未指定の場合は全ての場合で転送します</p>
+</div>
 <h5 id="localstack">LocalStack<a class="headerlink" href="#localstack" title="Permanent link">&para;</a></h5>
 <table>
 <thead>
@@ -1183,6 +1222,34 @@
 <td>LocalStackのエンドポイント</td>
 <td>http://localstack</td>
 <td>http://localhost</td>
+</tr>
+</tbody>
+</table>
+<h5 id="whennot">WhenNot<a class="headerlink" href="#whennot" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>empty</td>
+<td>bool</td>
+<td>結果が空のとき</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>all_same</td>
+<td>bool</td>
+<td>結果が全てSameのとき</td>
+<td>true</td>
+<td>false</td>
 </tr>
 </tbody>
 </table>
@@ -1215,6 +1282,16 @@
       cache_max_age: 120
       local_stack:
         use: true
+</pre></div>
+
+<h5 id="same">全てのステータスがSameの時は保存しない<a class="headerlink" href="#same" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>final:
+  - name: miroir
+    config:
+      table: miroir
+      bucket: mamansoft-miroir
+      when_not:
+              all_same: true
 </pre></div>
 
 <h2 id="slack"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/slack.py"><i class="fa fa-github"></i></a> slack<a class="headerlink" href="#slack" title="Permanent link">&para;</a></h2>
