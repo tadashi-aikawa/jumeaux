@@ -75,6 +75,15 @@ Requires pipenv and make.
     $ git push
 
 
+After release by Jenkins...
+
+.. sourcecode::
+
+    $ git checkout master
+    $ git merge x.y.z --no-ff
+    $ git push
+
+
 Licence
 =======
 
