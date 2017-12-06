@@ -66,15 +66,13 @@ Commands
 Version up
 ----------
 
-1. Update master to current by `git checkout master && git pull`
-2. Increment a version in `jumeaux/__init__.py`
-3. Increment a version in `Dockerfile`
-4. Build documentation by `mkdocs build`
-5. Staging and commit with message `:package: Version x.y.z`
-6. Tags by `git tag x.y.z -m x.y.z`
-7. `git push`
+Requires pipenv and make.
 
-TODO: automation
+.. sourcecode::
+
+    $ make release version=x.y.z
+    # Check by git diff
+    $ git push
 
 
 Licence
