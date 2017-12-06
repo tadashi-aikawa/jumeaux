@@ -18,9 +18,9 @@ APIレスポンスを保存する基準を決定します。
 
 #### Definitions
 
-|   Key    |   Type   |                       Description                       |    Example    | Default |
-| -------- | -------- | ------------------------------------------------------- | ------------- | ------- |
-| statuses | Status[] | レスポンスを保存するステータスのリスト :fa-info-circle: | `[different]` |         |
+|   Key    |   Type                    |                       Description      |    Example    | Default |
+| -------- | ------------------------- | -------------------------------------- |-------------- | ------- |
+| statuses | Status[] :fa-info-circle: | レスポンスを保存するステータスのリスト | `[different]` |         |
 
 ??? info "Status"
 
