@@ -31,6 +31,16 @@ package-docs: _clean-package-docs ## Package documentation
 	@pipenv run mkdocs build
 	@echo End $@
 
+_clean-package: ## Clean package
+	@echo Start $@
+	@rm -rf build dist jumeaux.egg-info
+	@echo End $@
+
+_package: _clean-package ## Package OwlMixin
+	@echo Start $@
+	@pipenv run python setup.py bdist_wheel
+	@echo End $@
+
 test: ## Test
 	@echo Start $@
 	@pipenv run pytest
@@ -55,7 +65,7 @@ release: init test package-docs ## Release (set version) (Not push anywhere)
 	@echo 'Success All!!'
 	@echo 'Now you should only do `git push`!!'
 
-publish: init ## Publish to PyPI (set version and env TWINE_USERNAME, TWINE_PASSWORD)
+publish: _package ## Publish to PyPI (set version and env TWINE_USERNAME, TWINE_PASSWORD)
 	@echo Start $@
 	@pipenv run twine upload dist/jumeaux-$(version)-py3-none-any.whl
 	@echo End $@
