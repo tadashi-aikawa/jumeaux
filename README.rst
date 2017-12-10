@@ -47,26 +47,26 @@ Current
 For developer
 =============
 
+Requires pipenv and make.
+
 Commands
 --------
 
 .. sourcecode::
 
     # Create env
-    $ pipenv install --dev --skip-lock
+    $ make init
     # Check
     $ pipenv run python jumeaux/executor.py --help
 
     # Build documentation and run server locally
-    $ pipenv run mkdocs serve
+    $ make build-docs
     # Build documentation (then you can deploy by git push)
-    $ pipenv run mkdocs build
+    $ make package-docs
 
 
 Version up
 ----------
-
-Requires pipenv and make.
 
 .. sourcecode::
 
