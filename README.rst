@@ -71,17 +71,11 @@ Version up
 .. sourcecode::
 
     $ make release version=x.y.z
-    # Check by git diff
     $ git push
+    $ make publish RELEASE_VERSION=x.y.z
 
 
-After release by Jenkins...
-
-.. sourcecode::
-
-    $ git checkout master
-    $ git merge x.y.z --no-ff
-    $ git push
+Finally, create pull request and merge to master!!
 
 
 Licence
