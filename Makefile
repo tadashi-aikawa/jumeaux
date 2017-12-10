@@ -23,7 +23,10 @@ build-docs: ## Build documentation
 	@pipenv run mkdocs serve -a 0.0.0.0:8000
 	@echo End $@
 
-package-docs: ## Package documentation
+_clean-package-docs: ## Clean package documentation
+	@rm -rf docs/*
+
+package-docs: _clean-package-docs ## Package documentation
 	@echo Start $@
 	@pipenv run mkdocs build
 	@echo End $@
@@ -33,7 +36,7 @@ test: ## Test
 	@pipenv run pytest
 	@echo End $@
 
-release: init package-docs ## Release (Not push anywhere)
+release: init test package-docs ## Release (Not push anywhere)
 	@echo '1. Recreate `jumeaux/__init__.py`'
 	@echo "__version__ = '$(version)'" > jumeaux/__init__.py
 	
@@ -51,4 +54,9 @@ release: init package-docs ## Release (Not push anywhere)
 	
 	@echo 'Success All!!'
 	@echo 'Now you should only do `git push`!!'
+
+publish: init ## Publish to PyPI (set RELEASE_VERSION and env TWINE_USERNAME, TWINE_PASSWORD)
+	@echo Start $@
+	@pipenv run twine upload dist/jumeaux-$(RELEASE_VERSION)-py3-none-any.whl
+	@echo End $@
 

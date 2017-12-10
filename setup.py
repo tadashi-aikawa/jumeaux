@@ -5,17 +5,19 @@ import os
 import re
 from setuptools import setup, find_packages
 
+from pipenv.project import Project
+from pipenv.utils import convert_deps_to_pip
+
 here = os.path.abspath(os.path.dirname(__file__))
 
+
+pfile = Project(chdir=False).parsed_pipfile
+requirements = convert_deps_to_pip(pfile['packages'], r=False)
+test_requirements = convert_deps_to_pip(pfile['dev-packages'], r=False)
 
 def load_readme():
     with open(os.path.join(here, 'README.rst')) as f:
         return f.read()
-
-
-def load_required_modules():
-    with open(os.path.join(here, "requirements.txt")) as f:
-        return [line.strip() for line in f.readlines() if line.strip()]
 
 
 setup(
@@ -34,11 +36,8 @@ setup(
     keywords='diff rest api response two one other',
     packages=find_packages(exclude=['tests*']),
     package_data={'jumeaux': ['sample/**/*']},
-    install_requires=load_required_modules(),
-    extras_require={
-        'test': ['pytest', 'pytest-cov'],
-        'doc': ['mkdocs', 'mkdocs-material', 'pymdown-extensions', 'fontawesome-markdown'],
-    },
+    install_requires=requirements,
+    extras_require={'test': test_requirements},
     entry_points={
         'console_scripts': [
             'jumeaux = jumeaux.executor:main'
