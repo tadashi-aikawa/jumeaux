@@ -72,7 +72,7 @@ Version up
 
     $ make release version=x.y.z
     $ git push
-    $ make publish RELEASE_VERSION=x.y.z
+    $ make publish version=x.y.z
 
 
 Finally, create pull request and merge to master!!
