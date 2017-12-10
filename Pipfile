@@ -6,12 +6,16 @@ name = "pypi"
 
 
 [dev-packages]
+
 pytest = "*"
 pytest-cov = "*"
 mkdocs = "*"
 mkdocs-material = "*"
 pymdown-extensions = "*"
 fontawesome-markdown = "*"
+twine = "*"
+wheel = "*"
+pipenv = "*"
 
 
 [packages]
@@ -20,12 +24,12 @@ requests = "*"
 docopt = "*"
 schema = "*"
 xmltodict = "*"
-PyYAML = "*"
-owlmixin = "==2.0.0a12"
+pyyaml = "*"
 fn = "*"
 "boto3" = "*"
 deepdiff = "*"
 freezegun = "*"
+owlmixin = "*"
 
 
 [requires]

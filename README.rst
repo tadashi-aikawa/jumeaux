@@ -47,41 +47,35 @@ Current
 For developer
 =============
 
+Requires pipenv and make.
+
 Commands
 --------
 
 .. sourcecode::
 
     # Create env
-    $ pipenv install --dev --skip-lock
+    $ make init
     # Check
     $ pipenv run python jumeaux/executor.py --help
 
     # Build documentation and run server locally
-    $ pipenv run mkdocs serve
+    $ make build-docs
     # Build documentation (then you can deploy by git push)
-    $ pipenv run mkdocs build
+    $ make package-docs
 
 
 Version up
 ----------
 
-Requires pipenv and make.
-
 .. sourcecode::
 
     $ make release version=x.y.z
-    # Check by git diff
     $ git push
+    $ make publish version=x.y.z
 
 
-After release by Jenkins...
-
-.. sourcecode::
-
-    $ git checkout master
-    $ git merge x.y.z --no-ff
-    $ git push
+Finally, create pull request and merge to master!!
 
 
 Licence
