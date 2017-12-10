@@ -36,7 +36,7 @@ test: ## Test
 	@pipenv run pytest
 	@echo End $@
 
-release: init test package-docs ## Release (Not push anywhere)
+release: init test package-docs ## Release (set version) (Not push anywhere)
 	@echo '1. Recreate `jumeaux/__init__.py`'
 	@echo "__version__ = '$(version)'" > jumeaux/__init__.py
 	
@@ -55,8 +55,8 @@ release: init test package-docs ## Release (Not push anywhere)
 	@echo 'Success All!!'
 	@echo 'Now you should only do `git push`!!'
 
-publish: init ## Publish to PyPI (set RELEASE_VERSION and env TWINE_USERNAME, TWINE_PASSWORD)
+publish: init ## Publish to PyPI (set version and env TWINE_USERNAME, TWINE_PASSWORD)
 	@echo Start $@
-	@pipenv run twine upload dist/jumeaux-$(RELEASE_VERSION)-py3-none-any.whl
+	@pipenv run twine upload dist/jumeaux-$(version)-py3-none-any.whl
 	@echo End $@
 
