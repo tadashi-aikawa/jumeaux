@@ -15,6 +15,7 @@ pymdown-extensions = "*"
 fontawesome-markdown = "*"
 twine = "*"
 wheel = "*"
+pipenv = "*"
 
 
 [packages]

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0bbf390f09992646849acd18617ef7a88d1009fb53126af2abfd4a4251aa0411"
+            "sha256": "e35b0741a6f698b2b0a9e92c7f66cf3a7de7785ab2b1a685aad8188ce8256903"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -261,6 +261,13 @@
             ],
             "version": "==4.4.2"
         },
+        "flake8": {
+            "hashes": [
+                "sha256:c7841163e2b576d435799169b78703ad6ac1bbb0f199994fc05f700b2a90ea37",
+                "sha256:7253265f7abd8b313e3892944044a365e3f4ac3fcdcfb4298f55ee9ddf188ba0"
+            ],
+            "version": "==3.5.0"
+        },
         "fontawesome-markdown": {
             "hashes": [
                 "sha256:95a12f1629a595afc4aabc886ffdb8b5fa0ae8f77e8f3437b7b1942d91f91f4b"
@@ -300,6 +307,13 @@
             ],
             "version": "==1.0"
         },
+        "mccabe": {
+            "hashes": [
+                "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42",
+                "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"
+            ],
+            "version": "==0.6.1"
+        },
         "mkdocs": {
             "hashes": [
                 "sha256:150795179c32bde225a3596c57b677f856f544351e809048f654cab3fbac90bd",
@@ -313,6 +327,19 @@
                 "sha256:3ee113082324a5a43b6f7f4946d6473401ad8062bd555d9c85952a0b76c72012"
             ],
             "version": "==2.2.2"
+        },
+        "pew": {
+            "hashes": [
+                "sha256:f2d94e6266986372ea122654af7268357fe7a7c487156e6a0f3e86aaea946173",
+                "sha256:bcb7dce35b9fd05024b772094e54b44740d2a523dd0e199a6a1b336804e112c7"
+            ],
+            "version": "==1.1.1"
+        },
+        "pipenv": {
+            "hashes": [
+                "sha256:d1a4fc095d653142d8bb72d12acaffa2000ee35fbaf884e4ae9063b72e259d87"
+            ],
+            "version": "==9.0.0"
         },
         "pkginfo": {
             "hashes": [
@@ -333,6 +360,20 @@
                 "sha256:ca18943e28235417756316bfada6cd96b23ce60dd532642690dcfdaba988a76d"
             ],
             "version": "==1.5.2"
+        },
+        "pycodestyle": {
+            "hashes": [
+                "sha256:6c4245ade1edfad79c3446fadfc96b0de2759662dc29d07d80a6f27ad1ca6ba9",
+                "sha256:682256a5b318149ca0d2a9185d365d8864a768a28db66a84a2ea946bcc426766"
+            ],
+            "version": "==2.3.1"
+        },
+        "pyflakes": {
+            "hashes": [
+                "sha256:08bd6a50edf8cffa9fa09a463063c425ecaaf10d1eb0335a7e8b1401aef89e6f",
+                "sha256:8d616a382f243dbf19b54743f280b80198be0bca3a5396f1d2e1fca6223e8805"
+            ],
+            "version": "==1.6.0"
         },
         "pygments": {
             "hashes": [
@@ -432,6 +473,19 @@
                 "sha256:cc44da8e1145637334317feebd728bd869a35285b93cbb4cca2577da7e62db4f"
             ],
             "version": "==1.22"
+        },
+        "virtualenv": {
+            "hashes": [
+                "sha256:39d88b533b422825d644087a21e78c45cf5af0ef7a99a1fc9fbb7b481e5c85b0",
+                "sha256:02f8102c2436bb03b3ee6dede1919d1dac8a427541652e5ec95171ec8adbc93a"
+            ],
+            "version": "==15.1.0"
+        },
+        "virtualenv-clone": {
+            "hashes": [
+                "sha256:6b3be5cab59e455f08c9eda573d23006b7d6fb41fae974ddaa2b275c93cc4405"
+            ],
+            "version": "==0.2.6"
         },
         "wheel": {
             "hashes": [
