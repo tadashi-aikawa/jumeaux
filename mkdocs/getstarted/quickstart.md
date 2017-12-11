@@ -31,7 +31,7 @@ $ docker run -it tadashi-aikawa/jumeaux --version
 !!! warning
 
     After that, please complement python case to docker command.
-    It means `jumeaux` => `docker run -it tadashi-aikawa/jumeaux`.
+    It means `jumeaux` => `docker run -v (pwd):/tmp -it tadashi-aikawa/jumeaux`.
 
 ### Vagrant and Virtualbox
 
