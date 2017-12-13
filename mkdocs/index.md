@@ -5,7 +5,7 @@ Jumeaux Document
 
 This is document of [Jumeaux].
 
-<img src="/img/logo-large.png" width=480 />
+<img src="./img/logo-large.png" width=480 />
 
 [Jumeaux] is a tool which can checks difference between two responses of API.
 See [Jumeaux Viewer] if you want to check more graphical with GUI tools.
