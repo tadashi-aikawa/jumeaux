@@ -17,7 +17,7 @@ Definitions
 ??? info "AndOr"
 
     --8<--
-    constants/and_or.md
+    ja/constants/and_or.md
     --8<--
 
 ### Matchers
@@ -31,7 +31,7 @@ Definitions
 ??? info "AndOr"
 
     --8<--
-    constants/and_or.md
+    ja/constants/and_or.md
     --8<--
 
 ### Matcher
