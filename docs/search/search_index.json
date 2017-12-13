@@ -2,87 +2,87 @@
     "docs": [
         {
             "location": "/",
-            "text": "Jumeaux Document\n\u00b6\n\n\n \n \n \n \n \n\n\nThis is document of \nJumeaux\n.\n\n\nJumeaux\n is a tool which can checks difference between two responses of API.\n\nSee \nJumeaux Viewer\n if you want to check more graphical with GUI tools.",
+            "text": "Jumeaux Document\n\u00b6\n\n\n \n \n \n \n \n\n\nThis is document of \nJumeaux\n.\n\n\n\n\nJumeaux\n is a tool which can checks difference between two responses of API.\n\nSee \nJumeaux Viewer\n if you want to check more graphical with GUI tools.\n\n\n\n\nSupport languages\n\n\nNow we support only for japanese.",
             "title": "Home"
         },
         {
             "location": "/#jumeaux-document",
-            "text": "This is document of  Jumeaux .  Jumeaux  is a tool which can checks difference between two responses of API. \nSee  Jumeaux Viewer  if you want to check more graphical with GUI tools.",
+            "text": "This is document of  Jumeaux .   Jumeaux  is a tool which can checks difference between two responses of API. \nSee  Jumeaux Viewer  if you want to check more graphical with GUI tools.   Support languages  Now we support only for japanese.",
             "title": "Jumeaux Document"
         },
         {
-            "location": "/getstarted/quickstart/",
-            "text": "Quickstart\n\u00b6\n\n\n Requirements\n\u00b6\n\n\nIt is necessary to satisfy one of the following.\n\n\n\n\nPython3.6 and upper\n\n\nDocker\n\n\nVagrant and Virtualbox\n\n\n\n\n Installation\n\u00b6\n\n\nPython3.6 and upper\n\u00b6\n\n\n$ pip install jumeaux\n$ jumeaux --version\n\n\n\n\nDocker\n\u00b6\n\n\n$ docker build -t tadashi-aikawa/jumeaux .\n$ docker run -it tadashi-aikawa/jumeaux --version\n\n\n\n\n\n\nWarning\n\n\nAfter that, please complement python case to docker command.\n\nIt means \njumeaux\n => \ndocker run -it tadashi-aikawa/jumeaux\n.\n\n\n\n\nVagrant and Virtualbox\n\u00b6\n\n\nSee \nJumeaux Toolbox\n .\n\n\n Create files\n\u00b6\n\n\nBefore executing jumeaux, you need to create two files.\n\n\n\n\nconfig.yml\n\n\nrequests\n\n\n\n\nYou can create these files by using below command.\n\n\n$ jumeaux init minimum\n\n\n\n\n\n\nNote\n\n\njumeaux init help\n shows all targets.\n\n\n\n\n Execute\n\u00b6\n\n\nFinally, you can execute jumeaux with specifying \nconfig.yml\n and \nrequests\n.\n\n\nReport \n shows you what the output means\n\n\n$ jumeaux run requests\n\n\n\n\n\n\nNote\n\n\nDefault value of \n--config\n is \nconfig.yml\n.\n\nSo \njumeaux run requests\n equals below actually.\n\n\n$ jumeaux run requests --config config.yml",
+            "location": "/ja/getstarted/quickstart/",
+            "text": "Quickstart\n\u00b6\n\n\n Requirements\n\u00b6\n\n\n\u4ee5\u4e0b\u306e\u74b0\u5883\u3044\u305a\u308c\u304b\u304c\u5fc5\u8981\u3067\u3059\u3002\n\n\n\n\nPython3.6\u4ee5\u4e0a(\u63a8\u5968)\n\n\nDocker\n\n\nVagrant\u3068Virtualbox\n\n\n\n\n Installation\n\u00b6\n\n\nPython3.6\u4ee5\u4e0a(\u63a8\u5968)\n\u00b6\n\n\n$ pip install jumeaux\n$ jumeaux --version\n\n\n\n\nDocker\n\u00b6\n\n\n$ docker build -t tadashi-aikawa/jumeaux .\n$ docker run -it tadashi-aikawa/jumeaux --version\n\n\n\n\n\n\nWarning\n\n\n\u4ee5\u964d\u306fPython\u306e\u5834\u5408\u3092\u60f3\u5b9a\u3057\u3066\u8aac\u660e\u3057\u307e\u3059\u3002\n\n\u3064\u307e\u308a \njumeaux\n => \ndocker run -v (pwd):/tmp -it tadashi-aikawa/jumeaux\n \u3068\u30b3\u30de\u30f3\u30c9\u3092\u7f6e\u304d\u63db\u3048\u3066\u304f\u3060\u3055\u3044\u3002\n\n\n\n\nVagrant\u3068Virtualbox\n\u00b6\n\n\nJumeaux Toolbox\n\u306fJumeaux\u3092\u5229\u7528\u3059\u308b\u74b0\u5883\u4e00\u5f0f\u3092\u4f5c\u6210/\u5229\u7528\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002\n\n\u305d\u306e\u4e2d\u306bJumeaux\u3082\u542b\u307e\u308c\u308b\u305f\u3081\u3001\u305d\u308c\u3092\u4f7f\u7528\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002\n\n\n\n\nWarning\n\n\n\u30b5\u30f3\u30c9\u30dc\u30c3\u30af\u30b9\u74b0\u5883\u4ee5\u5916\u3067\u306e\u4f7f\u7528\u306f\u3042\u307e\u308a\u304a\u3059\u3059\u3081\u3057\u307e\u305b\u3093\u3002\n\n\n\n\n Create files\n\u00b6\n\n\nJumeaux\u3092\u5b9f\u884c\u3059\u308b\u306b\u306f\u3001\u4ee5\u4e0b2\u3064\u306e\u30d5\u30a1\u30a4\u30eb\u3092\u7528\u610f\u3059\u308b\u5fc5\u8981\u304c\u3042\u308a\u307e\u3059\u3002\n\n\n\n\n\n\n\n\n\u30d5\u30a1\u30a4\u30eb\u540d\n\n\n\u5f79\u5272\n\n\n\u5099\u8003\n\n\n\n\n\n\n\n\n\n\nconfig.yml\n\n\n\u8a2d\u5b9a\u30d5\u30a1\u30a4\u30eb\n\n\n\u4efb\u610f\u306e\u30d5\u30a1\u30a4\u30eb\u30921\u3064\u4ee5\u4e0a\u6307\u5b9a\u53ef\u80fd\n\n\n\n\n\n\nrequests\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u30d5\u30a1\u30a4\u30eb\n\n\n\u4efb\u610f\u306e\u30d5\u30a1\u30a4\u30eb\u30921\u3064\u4ee5\u4e0a\u6307\u5b9a\u53ef\u80fd\n\n\n\n\n\n\n\n\n\u4e0a\u8a18\u30d5\u30a1\u30a4\u30eb\u306e\u4f5c\u6210\u306b\njumeaux init\n\u30b3\u30de\u30f3\u30c9\u3092\u4f7f\u7528\u3067\u304d\u307e\u3059\u3002\n\n\n$ jumeaux init minimum\n\n\n\n\nminimum\n\u306f\u4f5c\u6210\u3059\u308b\u30d5\u30a1\u30a4\u30eb\u306e\u7a2e\u985e\u3067\u3059\u3002\n\n\n\n\nNote\n\n\njumeaux init help\n\u30b3\u30de\u30f3\u30c9\u3067\nminimum\n\u4ee5\u5916\u306e\u6709\u52b9\u306a\u5024\u3092\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002\n\n\n\n\n Execute\n\u00b6\n\n\nconfig.yml\n\u3068\nrequests\n\u3092\u6307\u5b9a\u3057\u3066\u5b9f\u884c\u3057\u307e\u3057\u3087\u3046\u3002\n\n\u51fa\u529b\u7d50\u679c\u306e\u610f\u5473\u306f\nReport \n\u3092\u3054\u89a7\u304f\u3060\u3055\u3044\u3002\n\n\n$ jumeaux run requests\n\n\n\n\n\n\nNote\n\n\n--config\n\u3092\u6307\u5b9a\u3057\u306a\u3044\u3068\nconfig.yml\n\u304c\u8a2d\u5b9a\u3055\u308c\u305f\u3053\u3068\u306b\u306a\u308a\u307e\u3059\u3002\n\n\u3064\u307e\u308a\u3001\njumeaux run requests\n\u306f\u4ee5\u4e0b\u306e\u30b3\u30de\u30f3\u30c9\u3068\u7b49\u4fa1\u3067\u3059\u3002\n\n\n$ jumeaux run requests --config config.yml",
             "title": "Quickstart"
         },
         {
-            "location": "/getstarted/quickstart/#quickstart",
+            "location": "/ja/getstarted/quickstart/#quickstart",
             "text": "",
             "title": "Quickstart"
         },
         {
-            "location": "/getstarted/quickstart/#requirements",
-            "text": "It is necessary to satisfy one of the following.   Python3.6 and upper  Docker  Vagrant and Virtualbox",
+            "location": "/ja/getstarted/quickstart/#requirements",
+            "text": "\u4ee5\u4e0b\u306e\u74b0\u5883\u3044\u305a\u308c\u304b\u304c\u5fc5\u8981\u3067\u3059\u3002   Python3.6\u4ee5\u4e0a(\u63a8\u5968)  Docker  Vagrant\u3068Virtualbox",
             "title": "Requirements"
         },
         {
-            "location": "/getstarted/quickstart/#installation",
+            "location": "/ja/getstarted/quickstart/#installation",
             "text": "",
             "title": "Installation"
         },
         {
-            "location": "/getstarted/quickstart/#python36-and-upper",
+            "location": "/ja/getstarted/quickstart/#python36",
             "text": "$ pip install jumeaux\n$ jumeaux --version",
-            "title": "Python3.6 and upper"
+            "title": "Python3.6\u4ee5\u4e0a(\u63a8\u5968)"
         },
         {
-            "location": "/getstarted/quickstart/#docker",
-            "text": "$ docker build -t tadashi-aikawa/jumeaux .\n$ docker run -it tadashi-aikawa/jumeaux --version   Warning  After that, please complement python case to docker command. \nIt means  jumeaux  =>  docker run -it tadashi-aikawa/jumeaux .",
+            "location": "/ja/getstarted/quickstart/#docker",
+            "text": "$ docker build -t tadashi-aikawa/jumeaux .\n$ docker run -it tadashi-aikawa/jumeaux --version   Warning  \u4ee5\u964d\u306fPython\u306e\u5834\u5408\u3092\u60f3\u5b9a\u3057\u3066\u8aac\u660e\u3057\u307e\u3059\u3002 \n\u3064\u307e\u308a  jumeaux  =>  docker run -v (pwd):/tmp -it tadashi-aikawa/jumeaux  \u3068\u30b3\u30de\u30f3\u30c9\u3092\u7f6e\u304d\u63db\u3048\u3066\u304f\u3060\u3055\u3044\u3002",
             "title": "Docker"
         },
         {
-            "location": "/getstarted/quickstart/#vagrant-and-virtualbox",
-            "text": "See  Jumeaux Toolbox  .",
-            "title": "Vagrant and Virtualbox"
+            "location": "/ja/getstarted/quickstart/#vagrantvirtualbox",
+            "text": "Jumeaux Toolbox \u306fJumeaux\u3092\u5229\u7528\u3059\u308b\u74b0\u5883\u4e00\u5f0f\u3092\u4f5c\u6210/\u5229\u7528\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002 \n\u305d\u306e\u4e2d\u306bJumeaux\u3082\u542b\u307e\u308c\u308b\u305f\u3081\u3001\u305d\u308c\u3092\u4f7f\u7528\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002   Warning  \u30b5\u30f3\u30c9\u30dc\u30c3\u30af\u30b9\u74b0\u5883\u4ee5\u5916\u3067\u306e\u4f7f\u7528\u306f\u3042\u307e\u308a\u304a\u3059\u3059\u3081\u3057\u307e\u305b\u3093\u3002",
+            "title": "Vagrant\u3068Virtualbox"
         },
         {
-            "location": "/getstarted/quickstart/#create-files",
-            "text": "Before executing jumeaux, you need to create two files.   config.yml  requests   You can create these files by using below command.  $ jumeaux init minimum   Note  jumeaux init help  shows all targets.",
+            "location": "/ja/getstarted/quickstart/#create-files",
+            "text": "Jumeaux\u3092\u5b9f\u884c\u3059\u308b\u306b\u306f\u3001\u4ee5\u4e0b2\u3064\u306e\u30d5\u30a1\u30a4\u30eb\u3092\u7528\u610f\u3059\u308b\u5fc5\u8981\u304c\u3042\u308a\u307e\u3059\u3002     \u30d5\u30a1\u30a4\u30eb\u540d  \u5f79\u5272  \u5099\u8003      config.yml  \u8a2d\u5b9a\u30d5\u30a1\u30a4\u30eb  \u4efb\u610f\u306e\u30d5\u30a1\u30a4\u30eb\u30921\u3064\u4ee5\u4e0a\u6307\u5b9a\u53ef\u80fd    requests  \u30ea\u30af\u30a8\u30b9\u30c8\u30d5\u30a1\u30a4\u30eb  \u4efb\u610f\u306e\u30d5\u30a1\u30a4\u30eb\u30921\u3064\u4ee5\u4e0a\u6307\u5b9a\u53ef\u80fd     \u4e0a\u8a18\u30d5\u30a1\u30a4\u30eb\u306e\u4f5c\u6210\u306b jumeaux init \u30b3\u30de\u30f3\u30c9\u3092\u4f7f\u7528\u3067\u304d\u307e\u3059\u3002  $ jumeaux init minimum  minimum \u306f\u4f5c\u6210\u3059\u308b\u30d5\u30a1\u30a4\u30eb\u306e\u7a2e\u985e\u3067\u3059\u3002   Note  jumeaux init help \u30b3\u30de\u30f3\u30c9\u3067 minimum \u4ee5\u5916\u306e\u6709\u52b9\u306a\u5024\u3092\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002",
             "title": "Create files"
         },
         {
-            "location": "/getstarted/quickstart/#execute",
-            "text": "Finally, you can execute jumeaux with specifying  config.yml  and  requests .  Report   shows you what the output means  $ jumeaux run requests   Note  Default value of  --config  is  config.yml . \nSo  jumeaux run requests  equals below actually.  $ jumeaux run requests --config config.yml",
+            "location": "/ja/getstarted/quickstart/#execute",
+            "text": "config.yml \u3068 requests \u3092\u6307\u5b9a\u3057\u3066\u5b9f\u884c\u3057\u307e\u3057\u3087\u3046\u3002 \n\u51fa\u529b\u7d50\u679c\u306e\u610f\u5473\u306f Report  \u3092\u3054\u89a7\u304f\u3060\u3055\u3044\u3002  $ jumeaux run requests   Note  --config \u3092\u6307\u5b9a\u3057\u306a\u3044\u3068 config.yml \u304c\u8a2d\u5b9a\u3055\u308c\u305f\u3053\u3068\u306b\u306a\u308a\u307e\u3059\u3002 \n\u3064\u307e\u308a\u3001 jumeaux run requests \u306f\u4ee5\u4e0b\u306e\u30b3\u30de\u30f3\u30c9\u3068\u7b49\u4fa1\u3067\u3059\u3002  $ jumeaux run requests --config config.yml",
             "title": "Execute"
         },
         {
-            "location": "/getstarted/report/",
+            "location": "/ja/getstarted/report/",
             "text": "This page doesn't have written yet\n\u00b6\n\n\nPlease wait a little more",
             "title": "Report"
         },
         {
-            "location": "/getstarted/report/#this-page-doesnt-have-written-yet",
+            "location": "/ja/getstarted/report/#this-page-doesnt-have-written-yet",
             "text": "Please wait a little more",
             "title": "This page doesn't have written yet"
         },
         {
-            "location": "/getstarted/configuration/",
+            "location": "/ja/getstarted/configuration/",
             "text": "This page doesn't have written yet\n\u00b6\n\n\nPlease wait a little more",
             "title": "Configuration"
         },
         {
-            "location": "/getstarted/configuration/#this-page-doesnt-have-written-yet",
+            "location": "/ja/getstarted/configuration/#this-page-doesnt-have-written-yet",
             "text": "Please wait a little more",
             "title": "This page doesn't have written yet"
         },
         {
             "location": "/ja/addons/",
-            "text": "Addons\n\u00b6\n\n\n\n\nWarning\n\n\nSorry, Now this page supports for Japanese only. (TODO: English)\n\n\n\n\nJumeaux\u3067\u306f\u30a2\u30c9\u30aa\u30f3\u3092\u5229\u7528\u3057\u3066\u51e6\u7406\u3092\u30ab\u30b9\u30bf\u30de\u30a4\u30ba\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002\n\n\u30a2\u30c9\u30aa\u30f3\u306f\u81ea\u4f5c\u3059\u308b\u3053\u3068\u3082\u53ef\u80fd\u3067\u3059\u3002\n\n\nSystem structure\n\u00b6\n\n\n\u4ee5\u4e0b\u306fJumeaux\u306e\u51e6\u7406\u3092\u56f3\u3067\u8868\u3057\u305f\u3082\u306e\u3067\u3059\u3002\n\n\u753b\u50cf\u306e\u9752\u8272\u306e\u90e8\u5206\u304c\u30a2\u30c9\u30aa\u30f3\u30ec\u30a4\u30e4\u30fc\u3067\u3059\u3002\n\n\n\n\nAdd-on specifications\n\u00b6\n\n\n\u5404\u30a2\u30c9\u30aa\u30f3\u30ec\u30a4\u30e4\u30fc\u306b\u5c5e\u3059\u308b\u30a2\u30c9\u30aa\u30f3\u306e\u4ed5\u69d8\u306f\u4ee5\u4e0b\u306e\u30da\u30fc\u30b8\u306b\u8a18\u8f09\u3057\u3066\u3044\u307e\u3059\u3002\n\n\n\n\n\n\n\n\n\u30a2\u30c9\u30aa\u30f3\u30ec\u30a4\u30e4\u30fc\n\n\n\u30a2\u30c9\u30aa\u30f3\u30ec\u30a4\u30e4\u30fc\u306e\u6982\u8981\n\n\n\n\n\n\n\n\n\n\nlog2reqs\n\n\n\u4efb\u610f\u306eFormat\u3092\u30ea\u30af\u30a8\u30b9\u30c8\u5f62\u5f0f\u306b\u5909\u63db\u3059\u308b\n\n\n\n\n\n\nreqs2reqs\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u5f62\u5f0f\u3092\u540c\u3057\u5f62\u5f0f\u306e\u5225\u306e\u5024\u306b\u5909\u63db\u3059\u308b\n\n\n\n\n\n\nres2res\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u5f62\u5f0f\u3092\u5909\u3048\u305a\u306b\u5909\u63db\u3059\u308b\n\n\n\n\n\n\nres2dict\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u5dee\u5206\u6bd4\u8f03\u3067\u5229\u7528\u3059\u308bdict\u306b\u5909\u63db\u3059\u308b\n\n\n\n\n\n\njudgement\n\n\ndict\u540c\u58eb\u3092\u6bd4\u8f03\u3057\u3066\u5224\u5b9a\u30b9\u30c6\u30fc\u30bf\u30b9\u3092\u6c7a\u5b9a\u3059\u308b\n\n\n\n\n\n\nstore_criterion\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u4fdd\u5b58\u3059\u308b\u57fa\u6e96\u3092\u6c7a\u5b9a\u3059\u308b\n\n\n\n\n\n\ndump\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u4fdd\u5b58\u524d\u306b\u52a0\u5de5\u3059\u308b\n\n\n\n\n\n\ndid_challenge\n\n\n\u6b21\u306echallenge\u306b\u79fb\u308b\u524d\u306b\u51e6\u7406\u3092\u3059\u308b\n\n\n\n\n\n\nfinal\n\n\njumeaux\u306e\u51e6\u7406\u304c\u5b8c\u4e86\u3059\u308b\u524d\u306b\u51e6\u7406\u3092\u3059\u308b",
+            "text": "Addons\n\u00b6\n\n\nJumeaux\u3067\u306f\u30a2\u30c9\u30aa\u30f3\u3092\u5229\u7528\u3057\u3066\u51e6\u7406\u3092\u30ab\u30b9\u30bf\u30de\u30a4\u30ba\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002\n\n\u30a2\u30c9\u30aa\u30f3\u306f\u81ea\u4f5c\u3059\u308b\u3053\u3068\u3082\u53ef\u80fd\u3067\u3059\u3002\n\n\nSystem structure\n\u00b6\n\n\n\u4ee5\u4e0b\u306fJumeaux\u306e\u51e6\u7406\u3092\u56f3\u3067\u8868\u3057\u305f\u3082\u306e\u3067\u3059\u3002\n\n\u753b\u50cf\u306e\u9752\u8272\u306e\u90e8\u5206\u304c\u30a2\u30c9\u30aa\u30f3\u30ec\u30a4\u30e4\u30fc\u3067\u3059\u3002\n\n\n\n\nAdd-on specifications\n\u00b6\n\n\n\u5404\u30a2\u30c9\u30aa\u30f3\u30ec\u30a4\u30e4\u30fc\u306b\u5c5e\u3059\u308b\u30a2\u30c9\u30aa\u30f3\u306e\u4ed5\u69d8\u306f\u4ee5\u4e0b\u306e\u30da\u30fc\u30b8\u306b\u8a18\u8f09\u3057\u3066\u3044\u307e\u3059\u3002\n\n\n\n\n\n\n\n\n\u30a2\u30c9\u30aa\u30f3\u30ec\u30a4\u30e4\u30fc\n\n\n\u30a2\u30c9\u30aa\u30f3\u30ec\u30a4\u30e4\u30fc\u306e\u6982\u8981\n\n\n\n\n\n\n\n\n\n\nlog2reqs\n\n\n\u4efb\u610f\u306eFormat\u3092\u30ea\u30af\u30a8\u30b9\u30c8\u5f62\u5f0f\u306b\u5909\u63db\u3059\u308b\n\n\n\n\n\n\nreqs2reqs\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u5f62\u5f0f\u3092\u540c\u3057\u5f62\u5f0f\u306e\u5225\u306e\u5024\u306b\u5909\u63db\u3059\u308b\n\n\n\n\n\n\nres2res\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u5f62\u5f0f\u3092\u5909\u3048\u305a\u306b\u5909\u63db\u3059\u308b\n\n\n\n\n\n\nres2dict\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u5dee\u5206\u6bd4\u8f03\u3067\u5229\u7528\u3059\u308bdict\u306b\u5909\u63db\u3059\u308b\n\n\n\n\n\n\njudgement\n\n\ndict\u540c\u58eb\u3092\u6bd4\u8f03\u3057\u3066\u5224\u5b9a\u30b9\u30c6\u30fc\u30bf\u30b9\u3092\u6c7a\u5b9a\u3059\u308b\n\n\n\n\n\n\nstore_criterion\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u4fdd\u5b58\u3059\u308b\u57fa\u6e96\u3092\u6c7a\u5b9a\u3059\u308b\n\n\n\n\n\n\ndump\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u4fdd\u5b58\u524d\u306b\u52a0\u5de5\u3059\u308b\n\n\n\n\n\n\ndid_challenge\n\n\n\u6b21\u306echallenge\u306b\u79fb\u308b\u524d\u306b\u51e6\u7406\u3092\u3059\u308b\n\n\n\n\n\n\nfinal\n\n\njumeaux\u306e\u51e6\u7406\u304c\u5b8c\u4e86\u3059\u308b\u524d\u306b\u51e6\u7406\u3092\u3059\u308b",
             "title": "Summary"
         },
         {
             "location": "/ja/addons/#addons",
-            "text": "Warning  Sorry, Now this page supports for Japanese only. (TODO: English)   Jumeaux\u3067\u306f\u30a2\u30c9\u30aa\u30f3\u3092\u5229\u7528\u3057\u3066\u51e6\u7406\u3092\u30ab\u30b9\u30bf\u30de\u30a4\u30ba\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002 \n\u30a2\u30c9\u30aa\u30f3\u306f\u81ea\u4f5c\u3059\u308b\u3053\u3068\u3082\u53ef\u80fd\u3067\u3059\u3002",
+            "text": "Jumeaux\u3067\u306f\u30a2\u30c9\u30aa\u30f3\u3092\u5229\u7528\u3057\u3066\u51e6\u7406\u3092\u30ab\u30b9\u30bf\u30de\u30a4\u30ba\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002 \n\u30a2\u30c9\u30aa\u30f3\u306f\u81ea\u4f5c\u3059\u308b\u3053\u3068\u3082\u53ef\u80fd\u3067\u3059\u3002",
             "title": "Addons"
         },
         {
@@ -387,7 +387,7 @@
         },
         {
             "location": "/ja/addons/res2res/",
-            "text": "res2res \n\u00b6\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u5f62\u5f0f\u3092\u5909\u3048\u305a\u306b\u5909\u63db\u3057\u307e\u3059\u3002\n\n\n json_sort\n\u00b6\n\n\nJSON\u30ec\u30b9\u30dd\u30f3\u30b9\u306e\u4e26\u3073\u9806\u3092\u30bd\u30fc\u30c8\u3057\u307e\u3059\u3002\n\n\n\n\n\u51e6\u7406\u304c\u30b9\u30ad\u30c3\u30d7\u3055\u308c\u308b\u30b1\u30fc\u30b9\n\n\ncontent-type\n \u304c \ntext/json\n \u3084 \napplication/json\n \u3067\u306a\u3044\u5834\u5408\u306f\u30ec\u30b9\u30dd\u30f3\u30b9\u304cJSON\u3067\u306a\u3044\u3068\u307f\u306a\u3055\u308c\u51e6\u7406\u304c\u30b9\u30ad\u30c3\u30d7\u3055\u308c\u307e\u3059\u3002\n\n\n\n\nConfig\n\u00b6\n\n\nDefinitions\n\u00b6\n\n\nRoot\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nitems\n\n\nSorter[]\n\n\n\u30bd\u30fc\u30c8\u8a2d\u5b9a\u306e\u30ea\u30b9\u30c8\n\n\n\n\n\n\n\n\n\n\ndefault_encoding\n\n\n(string)\n\n\n\u30ec\u30b9\u30dd\u30f3\u30b9\u30d8\u30c3\u30c0\u306b\u6307\u5b9a\u304c\u306a\u3044\u5834\u5408\u306e\u30a8\u30f3\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0\n\n\neuc-jp\n\n\nurf8\n\n\n\n\n\n\n\n\nSorter\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nconditions\n\n\nRequestCondition[]\n\n\n\u672c\u8a2d\u5b9a\u3092\u53cd\u6620\u3055\u305b\u308bRequest\u306e\u6761\u4ef6\n\n\n\n\n\n\n\n\n\n\nand_or\n\n\n(AndOr) \n\n\nconditions\u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b\n\n\n\n\nand\n\n\n\n\n\n\nnegative\n\n\n(bool)\n\n\n\u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b\n\n\ntrue\n\n\nfalse\n\n\n\n\n\n\ntargets\n\n\nTarget[]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAndOr\nName\nDescription\nand\nLogical AND\nor\nLogical OR\nTarget\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\npath\n\n\nstring\n\n\n\u30bd\u30fc\u30c8\u5bfe\u8c61\u3068\u306a\u308b\u30d7\u30ed\u30d1\u30c6\u30a3\u306e\u6b63\u898f\u8868\u73fe\n\n\nroot<'dict1'><'list1-1'>\n\n\n\n\n\n\n\n\nsort_keys\n\n\n(string[])\n\n\npath\u3067\u6307\u5b9a\u3057\u305f\u30d7\u30ed\u30d1\u30c6\u30a3\u304cObject\u3060\u3063\u305f\u5834\u5408\u306e\u30bd\u30fc\u30c8\u30d7\u30ed\u30d1\u30c6\u30a3\u30ea\u30b9\u30c8\n\n\n[id, name]\n\n\n\n\n\n\n\n\n\n\n\n\nsort_keys\n\u304c\u672a\u6307\u5b9a\u306e\u5834\u5408\n\n\n\u6307\u5b9a\u30d7\u30ed\u30d1\u30c6\u30a3\u306e\u5024\u3067\u30bd\u30fc\u30c8\u3057\u307e\u3059\u3002Object\u306e\u5834\u5408\u306fJson Encode\u3057\u305f\u7d50\u679c\u3067\u30bd\u30fc\u30c8\u3057\u307e\u3059\u3002\n\n\n\n\nExamples\n\u00b6\n\n\npath\u304c\n/filter\n\u3067\u3042\u308b\u5834\u5408 \ndict1.list1-1\n \u306e\u30ea\u30b9\u30c8\u3092\u30bd\u30fc\u30c8\u3059\u308b\n\u00b6\n\n\nres2res:\n  - name: json_sort\n    config:\n      items:\n        - conditions:\n            - path:\n                items:\n                  - regexp: /filter\n          targets:\n            - path: root<'dict1'><'list1-1'> \n\n\n\n\npath\u304c\n/filter\n\u3067\u3042\u308b\u5834\u5408 \nlist2\n \u306e\u30ea\u30b9\u30c8\u3092id, name\u306e\u512a\u5148\u9806\u306b\u30bd\u30fc\u30c8\u3059\u308b\n\u00b6\n\n\nres2res:\n  - name: json_sort\n    config:\n      items:\n        - conditions:\n            - path:\n                items:\n                  - regexp: /filter\n          targets:\n            - path: root<'list2'>\n              sort_keys: [id, name]",
+            "text": "res2res \n\u00b6\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u5f62\u5f0f\u3092\u5909\u3048\u305a\u306b\u5909\u63db\u3057\u307e\u3059\u3002\n\n\n json_sort\n\u00b6\n\n\nJSON\u30ec\u30b9\u30dd\u30f3\u30b9\u306e\u4e26\u3073\u9806\u3092\u30bd\u30fc\u30c8\u3057\u307e\u3059\u3002\n\n\n\n\n\u51e6\u7406\u304c\u30b9\u30ad\u30c3\u30d7\u3055\u308c\u308b\u30b1\u30fc\u30b9\n\n\ncontent-type\n \u304c \ntext/json\n \u3084 \napplication/json\n \u3067\u306a\u3044\u5834\u5408\u306f\u30ec\u30b9\u30dd\u30f3\u30b9\u304cJSON\u3067\u306a\u3044\u3068\u307f\u306a\u3055\u308c\u51e6\u7406\u304c\u30b9\u30ad\u30c3\u30d7\u3055\u308c\u307e\u3059\u3002\n\n\n\n\nConfig\n\u00b6\n\n\nDefinitions\n\u00b6\n\n\nRoot\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nitems\n\n\nSorter[]\n\n\n\u30bd\u30fc\u30c8\u8a2d\u5b9a\u306e\u30ea\u30b9\u30c8\n\n\n\n\n\n\n\n\n\n\ndefault_encoding\n\n\n(string)\n\n\n\u30ec\u30b9\u30dd\u30f3\u30b9\u30d8\u30c3\u30c0\u306b\u6307\u5b9a\u304c\u306a\u3044\u5834\u5408\u306e\u30a8\u30f3\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0\n\n\neuc-jp\n\n\nurf8\n\n\n\n\n\n\n\n\nSorter\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nconditions\n\n\nRequestCondition[]\n\n\n\u672c\u8a2d\u5b9a\u3092\u53cd\u6620\u3055\u305b\u308bRequest\u306e\u6761\u4ef6\n\n\n\n\n\n\n\n\n\n\nand_or\n\n\n(AndOr) \n\n\nconditions\u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b\n\n\n\n\nand\n\n\n\n\n\n\nnegative\n\n\n(bool)\n\n\n\u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b\n\n\ntrue\n\n\nfalse\n\n\n\n\n\n\ntargets\n\n\nTarget[]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAndOr\nTarget\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\npath\n\n\nstring\n\n\n\u30bd\u30fc\u30c8\u5bfe\u8c61\u3068\u306a\u308b\u30d7\u30ed\u30d1\u30c6\u30a3\u306e\u6b63\u898f\u8868\u73fe\n\n\nroot<'dict1'><'list1-1'>\n\n\n\n\n\n\n\n\nsort_keys\n\n\n(string[])\n\n\npath\u3067\u6307\u5b9a\u3057\u305f\u30d7\u30ed\u30d1\u30c6\u30a3\u304cObject\u3060\u3063\u305f\u5834\u5408\u306e\u30bd\u30fc\u30c8\u30d7\u30ed\u30d1\u30c6\u30a3\u30ea\u30b9\u30c8\n\n\n[id, name]\n\n\n\n\n\n\n\n\n\n\n\n\nsort_keys\n\u304c\u672a\u6307\u5b9a\u306e\u5834\u5408\n\n\n\u6307\u5b9a\u30d7\u30ed\u30d1\u30c6\u30a3\u306e\u5024\u3067\u30bd\u30fc\u30c8\u3057\u307e\u3059\u3002Object\u306e\u5834\u5408\u306fJson Encode\u3057\u305f\u7d50\u679c\u3067\u30bd\u30fc\u30c8\u3057\u307e\u3059\u3002\n\n\n\n\nExamples\n\u00b6\n\n\npath\u304c\n/filter\n\u3067\u3042\u308b\u5834\u5408 \ndict1.list1-1\n \u306e\u30ea\u30b9\u30c8\u3092\u30bd\u30fc\u30c8\u3059\u308b\n\u00b6\n\n\nres2res:\n  - name: json_sort\n    config:\n      items:\n        - conditions:\n            - path:\n                items:\n                  - regexp: /filter\n          targets:\n            - path: root<'dict1'><'list1-1'> \n\n\n\n\npath\u304c\n/filter\n\u3067\u3042\u308b\u5834\u5408 \nlist2\n \u306e\u30ea\u30b9\u30c8\u3092id, name\u306e\u512a\u5148\u9806\u306b\u30bd\u30fc\u30c8\u3059\u308b\n\u00b6\n\n\nres2res:\n  - name: json_sort\n    config:\n      items:\n        - conditions:\n            - path:\n                items:\n                  - regexp: /filter\n          targets:\n            - path: root<'list2'>\n              sort_keys: [id, name]",
             "title": "res2res"
         },
         {
@@ -417,7 +417,7 @@
         },
         {
             "location": "/ja/addons/res2res/#sorter",
-            "text": "Key  Type  Description  Example  Default      conditions  RequestCondition[]  \u672c\u8a2d\u5b9a\u3092\u53cd\u6620\u3055\u305b\u308bRequest\u306e\u6761\u4ef6      and_or  (AndOr)   conditions\u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b   and    negative  (bool)  \u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b  true  false    targets  Target[]        AndOr Name Description and Logical AND or Logical OR",
+            "text": "Key  Type  Description  Example  Default      conditions  RequestCondition[]  \u672c\u8a2d\u5b9a\u3092\u53cd\u6620\u3055\u305b\u308bRequest\u306e\u6761\u4ef6      and_or  (AndOr)   conditions\u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b   and    negative  (bool)  \u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b  true  false    targets  Target[]        AndOr",
             "title": "Sorter"
         },
         {
@@ -577,7 +577,7 @@
         },
         {
             "location": "/ja/addons/store_criterion/",
-            "text": "store_criterion \n\u00b6\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u4fdd\u5b58\u3059\u308b\u57fa\u6e96\u3092\u6c7a\u5b9a\u3057\u307e\u3059\u3002\n\n\n general\n\u00b6\n\n\n\u30ec\u30b9\u30dd\u30f3\u30b9\u306e\u4fdd\u5b58\u57fa\u6e96\u3092\u6c7a\u3081\u308b\u6a19\u6e96\u30a2\u30c9\u30aa\u30f3\u3067\u3059\u3002\n\n\nConfig\n\u00b6\n\n\nDefinitions\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nstatuses\n\n\nStatus[] \n\n\n\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u4fdd\u5b58\u3059\u308b\u30b9\u30c6\u30fc\u30bf\u30b9\u306e\u30ea\u30b9\u30c8\n\n\n[different]\n\n\n\n\n\n\n\n\n\n\nStatus\nName\nDescription\nsame\nResponses are reagarded as the same\ndifferent\nResponses are reagarded as not the same\nfailure\nRequest is reagarded as failure\nExamples\n\u00b6\n\n\n\u5dee\u5206\u306e\u3042\u308b\u30ec\u30b9\u30dd\u30f3\u30b9\u3060\u3051\u3092\u4fdd\u5b58\u3059\u308b\n\u00b6\n\n\nstore_criterion:\n  - name: general\n    config:\n      statuses:\n        - different\n\n\n\n\n\u6210\u529f\u3057\u305f\u30ea\u30af\u30a8\u30b9\u30c8\u7d50\u679c\u3060\u3051\u3092\u4fdd\u5b58\u3059\u308b\n\u00b6\n\n\nstore_criterion:\n  - name: general\n    config:\n      statuses:\n        - same\n        - different",
+            "text": "store_criterion \n\u00b6\n\n\nAPI\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u4fdd\u5b58\u3059\u308b\u57fa\u6e96\u3092\u6c7a\u5b9a\u3057\u307e\u3059\u3002\n\n\n general\n\u00b6\n\n\n\u30ec\u30b9\u30dd\u30f3\u30b9\u306e\u4fdd\u5b58\u57fa\u6e96\u3092\u6c7a\u3081\u308b\u6a19\u6e96\u30a2\u30c9\u30aa\u30f3\u3067\u3059\u3002\n\n\nConfig\n\u00b6\n\n\nDefinitions\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nstatuses\n\n\nStatus[] \n\n\n\u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u4fdd\u5b58\u3059\u308b\u30b9\u30c6\u30fc\u30bf\u30b9\u306e\u30ea\u30b9\u30c8\n\n\n[different]\n\n\n\n\n\n\n\n\n\n\nStatus\nExamples\n\u00b6\n\n\n\u5dee\u5206\u306e\u3042\u308b\u30ec\u30b9\u30dd\u30f3\u30b9\u3060\u3051\u3092\u4fdd\u5b58\u3059\u308b\n\u00b6\n\n\nstore_criterion:\n  - name: general\n    config:\n      statuses:\n        - different\n\n\n\n\n\u6210\u529f\u3057\u305f\u30ea\u30af\u30a8\u30b9\u30c8\u7d50\u679c\u3060\u3051\u3092\u4fdd\u5b58\u3059\u308b\n\u00b6\n\n\nstore_criterion:\n  - name: general\n    config:\n      statuses:\n        - same\n        - different",
             "title": "store_criterion"
         },
         {
@@ -597,7 +597,7 @@
         },
         {
             "location": "/ja/addons/store_criterion/#definitions",
-            "text": "Key  Type  Description  Example  Default      statuses  Status[]   \u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u4fdd\u5b58\u3059\u308b\u30b9\u30c6\u30fc\u30bf\u30b9\u306e\u30ea\u30b9\u30c8  [different]      Status Name Description same Responses are reagarded as the same different Responses are reagarded as not the same failure Request is reagarded as failure",
+            "text": "Key  Type  Description  Example  Default      statuses  Status[]   \u30ec\u30b9\u30dd\u30f3\u30b9\u3092\u4fdd\u5b58\u3059\u308b\u30b9\u30c6\u30fc\u30bf\u30b9\u306e\u30ea\u30b9\u30c8  [different]      Status",
             "title": "Definitions"
         },
         {
@@ -911,84 +911,104 @@
             "title": "seq name status, one.response_sec, other.response_sec \u306e\u8981\u7d20\u3092\u30d8\u30c3\u30c0\u4ed8\u304d\u3067\u51fa\u529b\u3059\u308b"
         },
         {
-            "location": "/models/request/",
-            "text": "Request\n\u00b6\n\n\nrequest\u306e\u306e\u5b9a\u7fa9\u3067\u3059\u3002\n\n\nDefinitions\n\u00b6\n\n\nRequest\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\npath\n\n\nstring\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u306ePath\n\n\n/repositories\n\n\n\n\n\n\n\n\nname\n\n\n(string)\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u306e\u540d\u79f0\n\n\nrequest1\n\n\n\n\n\n\n\n\nqs\n\n\n(dict[string[]])\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u306e\u30af\u30a8\u30ea\n\n\na: [1]\nb: [2]\n\n\n{}\n\n\n\n\n\n\nheaders\n\n\n(dict[string])\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u30d8\u30c3\u30c0\n\n\nheader1: 1\nheader2: 2\n\n\n{}\n\n\n\n\n\n\n\n\nExamples\n\u00b6\n\n\n/sample/one?word=hoge&size=10\n \u76f8\u5f53\u306e \nhogehoge\n \u3068\u3044\u3046\u540d\u524d\u306e\u30ea\u30af\u30a8\u30b9\u30c8\n\u00b6\n\n\npath: /sample/one\nname: hogehoge\nqs:\n  word: [hoge]\n  size: [\"10\"]\n\n\n\n\n/sample/two\n \u76f8\u5f53\u3067 \u30ea\u30af\u30a8\u30b9\u30c8\u30d8\u30c3\u30c0\u304c \nx-header=\"1\", y-header=\"2\"\n \u3067\u3042\u308b\u540d\u3082\u7121\u304d\u30ea\u30af\u30a8\u30b9\u30c8\n\u00b6\n\n\npath: /sample/two\nheaders:\n  x-header: \"1\"\n  y-header: \"2\"",
+            "location": "/ja/models/request/",
+            "text": "Request\n\u00b6\n\n\nrequest\u306e\u5b9a\u7fa9\u3067\u3059\u3002\n\n\nDefinitions\n\u00b6\n\n\nRequest\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\npath\n\n\nstring\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u306ePath\n\n\n/repositories\n\n\n\n\n\n\n\n\nname\n\n\n(string)\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u306e\u540d\u79f0\n\n\nrequest1\n\n\n\n\n\n\n\n\nqs\n\n\n(dict[string[]])\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u306e\u30af\u30a8\u30ea\n\n\na: [1]\nb: [2]\n\n\n{}\n\n\n\n\n\n\nheaders\n\n\n(dict[string])\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u30d8\u30c3\u30c0\n\n\nheader1: 1\nheader2: 2\n\n\n{}\n\n\n\n\n\n\n\n\nExamples\n\u00b6\n\n\n/sample/one?word=hoge&size=10\n \u76f8\u5f53\u306e \nhogehoge\n \u3068\u3044\u3046\u540d\u524d\u306e\u30ea\u30af\u30a8\u30b9\u30c8\n\u00b6\n\n\npath: /sample/one\nname: hogehoge\nqs:\n  word: [hoge]\n  size: [\"10\"]\n\n\n\n\n/sample/two\n \u76f8\u5f53\u3067 \u30ea\u30af\u30a8\u30b9\u30c8\u30d8\u30c3\u30c0\u304c \nx-header=\"1\", y-header=\"2\"\n \u3067\u3042\u308b\u540d\u3082\u7121\u304d\u30ea\u30af\u30a8\u30b9\u30c8\n\u00b6\n\n\npath: /sample/two\nheaders:\n  x-header: \"1\"\n  y-header: \"2\"",
             "title": "Request"
         },
         {
-            "location": "/models/request/#request",
-            "text": "request\u306e\u306e\u5b9a\u7fa9\u3067\u3059\u3002",
+            "location": "/ja/models/request/#request",
+            "text": "request\u306e\u5b9a\u7fa9\u3067\u3059\u3002",
             "title": "Request"
         },
         {
-            "location": "/models/request/#definitions",
+            "location": "/ja/models/request/#definitions",
             "text": "",
             "title": "Definitions"
         },
         {
-            "location": "/models/request/#request_1",
+            "location": "/ja/models/request/#request_1",
             "text": "Key  Type  Description  Example  Default      path  string  \u30ea\u30af\u30a8\u30b9\u30c8\u306ePath  /repositories     name  (string)  \u30ea\u30af\u30a8\u30b9\u30c8\u306e\u540d\u79f0  request1     qs  (dict[string[]])  \u30ea\u30af\u30a8\u30b9\u30c8\u306e\u30af\u30a8\u30ea  a: [1] b: [2]  {}    headers  (dict[string])  \u30ea\u30af\u30a8\u30b9\u30c8\u30d8\u30c3\u30c0  header1: 1 header2: 2  {}",
             "title": "Request"
         },
         {
-            "location": "/models/request/#examples",
+            "location": "/ja/models/request/#examples",
             "text": "",
             "title": "Examples"
         },
         {
-            "location": "/models/request/#sampleonewordhogesize10-hogehoge",
+            "location": "/ja/models/request/#sampleonewordhogesize10-hogehoge",
             "text": "path: /sample/one\nname: hogehoge\nqs:\n  word: [hoge]\n  size: [\"10\"]",
             "title": "/sample/one?word=hoge&amp;size=10 \u76f8\u5f53\u306e hogehoge \u3068\u3044\u3046\u540d\u524d\u306e\u30ea\u30af\u30a8\u30b9\u30c8"
         },
         {
-            "location": "/models/request/#sampletwo-x-header1-y-header2",
+            "location": "/ja/models/request/#sampletwo-x-header1-y-header2",
             "text": "path: /sample/two\nheaders:\n  x-header: \"1\"\n  y-header: \"2\"",
             "title": "/sample/two \u76f8\u5f53\u3067 \u30ea\u30af\u30a8\u30b9\u30c8\u30d8\u30c3\u30c0\u304c x-header=\"1\", y-header=\"2\" \u3067\u3042\u308b\u540d\u3082\u7121\u304d\u30ea\u30af\u30a8\u30b9\u30c8"
         },
         {
-            "location": "/models/request-condition/",
-            "text": "RequestCondition\n\u00b6\n\n\nrequest\u306e\u7d5e\u8fbc\u3092\u8a2d\u5b9a\u3059\u308b\u305f\u3081\u5fc5\u8981\u306aRequestCondition\u306e\u5b9a\u7fa9\u3067\u3059\u3002\n\n\nDefinitions\n\u00b6\n\n\nRequestCondition\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nname\n\n\nMatchers\n\n\nname\u306e\u691c\u7d22\u6761\u4ef6\n\n\n\n\n\n\n\n\n\n\npath\n\n\nMatchers\n\n\npath\u306e\u691c\u7d22\u6761\u4ef6\n\n\n\n\n\n\n\n\n\n\nand_or\n\n\n(AndOr) \n\n\nname\n\u3068\npath\n\u306e\u7d44\u307f\u5408\u308f\u305b\u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b\n\n\n\n\nand\n\n\n\n\n\n\n\n\nAndOr\nName\nDescription\nand\nLogical AND\nor\nLogical OR\nMatchers\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nitems\n\n\nMatcher[]\n\n\n\u30de\u30c3\u30c1\u30f3\u30b0\u6761\u4ef6\u306e\u30ea\u30b9\u30c8\n\n\n\n\n\n\n\n\n\n\nand_or\n\n\n(AndOr) \n\n\nitems\n \u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b\n\n\n\n\nand\n\n\n\n\n\n\nnegative\n\n\n(bool)\n\n\n\u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b\n\n\ntrue\n\n\nfalse\n\n\n\n\n\n\n\n\nAndOr\nName\nDescription\nand\nLogical AND\nor\nLogical OR\nMatcher\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nregexp\n\n\nstring\n\n\n\u5b8c\u5168\u4e00\u81f4\u306e\u6b63\u898f\u8868\u73fe\n\n\nsame\\d{0-2}.*\n\n\n\n\n\n\n\n\nnegative\n\n\n(bool)\n\n\n\u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b\n\n\ntrue\n\n\nfalse\n\n\n\n\n\n\n\n\nExamples\n\u00b6\n\n\npath\n\u304c\n/traffic\n\u3068\u4e00\u81f4\u3059\u308b\u3082\u306e\n\u00b6\n\n\npath:\n  items:\n    - regexp: /traffic\n\n\n\n\n\u8907\u96d1\u306a\u6761\u4ef6\n\u00b6\n\n\n\u4ee5\u4e0b\u306e\u3044\u305a\u308c\u304b\u3092\u6e80\u305f\u3059\u3082\u306e\n\n\n\n\nname\n\u306bignore\u3092\u542b\u307e\u306a\u3044 \u3082\u3057\u304f\u306f \nname\n\u304cignore\u3092\u542b\u3093\u3067\u3082jumeaux\u304b\u3089\u59cb\u307e\u308b\u3082\u306e\n\n\npath\n\u306bjumeaux\u3092\u542b\u307f\u3001ignore\u3092\u542b\u307e\u306a\u3044\u3082\u306e\n\n\n\n\nname:\n  items:\n    - regexp: .*ignore.*\n      negative: true\n    - regexp: jumeaux.+\n  and_or: or\npath:\n  items:\n    - regexp: .*jumeaux.*\n    - regexp: .*ignore.*\n      negative: true\nand_or: or",
+            "location": "/ja/models/request-condition/",
+            "text": "RequestCondition\n\u00b6\n\n\nrequest\u306e\u7d5e\u8fbc\u3092\u8a2d\u5b9a\u3059\u308b\u305f\u3081\u5fc5\u8981\u306aRequestCondition\u306e\u5b9a\u7fa9\u3067\u3059\u3002\n\n\nDefinitions\n\u00b6\n\n\nRequestCondition\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nname\n\n\nMatchers\n\n\nname\u306e\u691c\u7d22\u6761\u4ef6\n\n\n\n\n\n\n\n\n\n\npath\n\n\nMatchers\n\n\npath\u306e\u691c\u7d22\u6761\u4ef6\n\n\n\n\n\n\n\n\n\n\nand_or\n\n\n(AndOr) \n\n\nname\n\u3068\npath\n\u306e\u7d44\u307f\u5408\u308f\u305b\u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b\n\n\n\n\nand\n\n\n\n\n\n\n\n\nAndOr\nName\nDescription\nand\nAND\u6761\u4ef6\nor\nOR\u6761\u4ef6\nMatchers\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nitems\n\n\nMatcher[]\n\n\n\u30de\u30c3\u30c1\u30f3\u30b0\u6761\u4ef6\u306e\u30ea\u30b9\u30c8\n\n\n\n\n\n\n\n\n\n\nand_or\n\n\n(AndOr) \n\n\nitems\n \u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b\n\n\n\n\nand\n\n\n\n\n\n\nnegative\n\n\n(bool)\n\n\n\u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b\n\n\ntrue\n\n\nfalse\n\n\n\n\n\n\n\n\nAndOr\nName\nDescription\nand\nAND\u6761\u4ef6\nor\nOR\u6761\u4ef6\nMatcher\n\u00b6\n\n\n\n\n\n\n\n\nKey\n\n\nType\n\n\nDescription\n\n\nExample\n\n\nDefault\n\n\n\n\n\n\n\n\n\n\nregexp\n\n\nstring\n\n\n\u5b8c\u5168\u4e00\u81f4\u306e\u6b63\u898f\u8868\u73fe\n\n\nsame\\d{0-2}.*\n\n\n\n\n\n\n\n\nnegative\n\n\n(bool)\n\n\n\u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b\n\n\ntrue\n\n\nfalse\n\n\n\n\n\n\n\n\nExamples\n\u00b6\n\n\npath\n\u304c\n/traffic\n\u3068\u4e00\u81f4\u3059\u308b\u3082\u306e\n\u00b6\n\n\npath:\n  items:\n    - regexp: /traffic\n\n\n\n\n\u8907\u96d1\u306a\u6761\u4ef6\n\u00b6\n\n\n\u4ee5\u4e0b\u306e\u3044\u305a\u308c\u304b\u3092\u6e80\u305f\u3059\u3082\u306e\n\n\n\n\nname\n\u306bignore\u3092\u542b\u307e\u306a\u3044 \u3082\u3057\u304f\u306f \nname\n\u304cignore\u3092\u542b\u3093\u3067\u3082jumeaux\u304b\u3089\u59cb\u307e\u308b\u3082\u306e\n\n\npath\n\u306bjumeaux\u3092\u542b\u307f\u3001ignore\u3092\u542b\u307e\u306a\u3044\u3082\u306e\n\n\n\n\nname:\n  items:\n    - regexp: .*ignore.*\n      negative: true\n    - regexp: jumeaux.+\n  and_or: or\npath:\n  items:\n    - regexp: .*jumeaux.*\n    - regexp: .*ignore.*\n      negative: true\nand_or: or",
             "title": "RequestCondition"
         },
         {
-            "location": "/models/request-condition/#requestcondition",
+            "location": "/ja/models/request-condition/#requestcondition",
             "text": "request\u306e\u7d5e\u8fbc\u3092\u8a2d\u5b9a\u3059\u308b\u305f\u3081\u5fc5\u8981\u306aRequestCondition\u306e\u5b9a\u7fa9\u3067\u3059\u3002",
             "title": "RequestCondition"
         },
         {
-            "location": "/models/request-condition/#definitions",
+            "location": "/ja/models/request-condition/#definitions",
             "text": "",
             "title": "Definitions"
         },
         {
-            "location": "/models/request-condition/#requestcondition_1",
-            "text": "Key  Type  Description  Example  Default      name  Matchers  name\u306e\u691c\u7d22\u6761\u4ef6      path  Matchers  path\u306e\u691c\u7d22\u6761\u4ef6      and_or  (AndOr)   name \u3068 path \u306e\u7d44\u307f\u5408\u308f\u305b\u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b   and     AndOr Name Description and Logical AND or Logical OR",
+            "location": "/ja/models/request-condition/#requestcondition_1",
+            "text": "Key  Type  Description  Example  Default      name  Matchers  name\u306e\u691c\u7d22\u6761\u4ef6      path  Matchers  path\u306e\u691c\u7d22\u6761\u4ef6      and_or  (AndOr)   name \u3068 path \u306e\u7d44\u307f\u5408\u308f\u305b\u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b   and     AndOr Name Description and AND\u6761\u4ef6 or OR\u6761\u4ef6",
             "title": "RequestCondition"
         },
         {
-            "location": "/models/request-condition/#matchers",
-            "text": "Key  Type  Description  Example  Default      items  Matcher[]  \u30de\u30c3\u30c1\u30f3\u30b0\u6761\u4ef6\u306e\u30ea\u30b9\u30c8      and_or  (AndOr)   items  \u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b   and    negative  (bool)  \u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b  true  false     AndOr Name Description and Logical AND or Logical OR",
+            "location": "/ja/models/request-condition/#matchers",
+            "text": "Key  Type  Description  Example  Default      items  Matcher[]  \u30de\u30c3\u30c1\u30f3\u30b0\u6761\u4ef6\u306e\u30ea\u30b9\u30c8      and_or  (AndOr)   items  \u3092AND/OR\u3069\u3061\u3089\u3067\u5224\u5b9a\u3059\u308b\u304b   and    negative  (bool)  \u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b  true  false     AndOr Name Description and AND\u6761\u4ef6 or OR\u6761\u4ef6",
             "title": "Matchers"
         },
         {
-            "location": "/models/request-condition/#matcher",
+            "location": "/ja/models/request-condition/#matcher",
             "text": "Key  Type  Description  Example  Default      regexp  string  \u5b8c\u5168\u4e00\u81f4\u306e\u6b63\u898f\u8868\u73fe  same\\d{0-2}.*     negative  (bool)  \u5426\u5b9a\u6761\u4ef6\u3068\u3059\u308b\u304b  true  false",
             "title": "Matcher"
         },
         {
-            "location": "/models/request-condition/#examples",
+            "location": "/ja/models/request-condition/#examples",
             "text": "",
             "title": "Examples"
         },
         {
-            "location": "/models/request-condition/#pathtraffic",
+            "location": "/ja/models/request-condition/#pathtraffic",
             "text": "path:\n  items:\n    - regexp: /traffic",
             "title": "path\u304c/traffic\u3068\u4e00\u81f4\u3059\u308b\u3082\u306e"
         },
         {
-            "location": "/models/request-condition/#_1",
+            "location": "/ja/models/request-condition/#_1",
             "text": "\u4ee5\u4e0b\u306e\u3044\u305a\u308c\u304b\u3092\u6e80\u305f\u3059\u3082\u306e   name \u306bignore\u3092\u542b\u307e\u306a\u3044 \u3082\u3057\u304f\u306f  name \u304cignore\u3092\u542b\u3093\u3067\u3082jumeaux\u304b\u3089\u59cb\u307e\u308b\u3082\u306e  path \u306bjumeaux\u3092\u542b\u307f\u3001ignore\u3092\u542b\u307e\u306a\u3044\u3082\u306e   name:\n  items:\n    - regexp: .*ignore.*\n      negative: true\n    - regexp: jumeaux.+\n  and_or: or\npath:\n  items:\n    - regexp: .*jumeaux.*\n    - regexp: .*ignore.*\n      negative: true\nand_or: or",
             "title": "\u8907\u96d1\u306a\u6761\u4ef6"
+        },
+        {
+            "location": "/ja/releases/",
+            "text": "Releases\n\u00b6\n\n\n\u4e3b\u306a\u30ea\u30ea\u30fc\u30b9\u60c5\u5831\u3092\u8a18\u8f09\u3057\u307e\u3059\u3002\n\n\u5168\u3066\u306e\u5909\u66f4\u306fGitHub\u306e\u30b3\u30df\u30c3\u30c8\u30ed\u30b0\u3092\u3054\u89a7\u304f\u3060\u3055\u3044\u3002\n\n\n 0.31.0\n\u00b6\n\n\n \n2017/12/14\n\n\n\u30ea\u30af\u30a8\u30b9\u30c8\u7d50\u679c\u304c\u8fd4\u5374\u3055\u308c\u305f\u5f8c\u306e\u51e6\u7406\u3092\u9ad8\u901f\u5316\u3057\u307e\u3057\u305f\n\u30ec\u30b9\u30dd\u30f3\u30b9\u30b5\u30a4\u30ba\u304c\u5927\u304d\u304f\u3001\u7d50\u679c\u304c\u307b\u307cSame\u306e\u5834\u5408\u306f10\u500d\u4ee5\u4e0a\u901f\u304f\u306a\u308b\u30b1\u30fc\u30b9\u3082\u3042\u308a\u307e\u3059\n 0.30.1\n\u00b6\n\n\n \n2017/12/06\n\n\n\n\nwhen_not\u30d7\u30ed\u30d1\u30c6\u30a3\u3092when\u306b\u5909\u66f4\u3057\u307e\u3057\u305f (\nfinal/miroir\n)",
+            "title": "Releases"
+        },
+        {
+            "location": "/ja/releases/#releases",
+            "text": "\u4e3b\u306a\u30ea\u30ea\u30fc\u30b9\u60c5\u5831\u3092\u8a18\u8f09\u3057\u307e\u3059\u3002 \n\u5168\u3066\u306e\u5909\u66f4\u306fGitHub\u306e\u30b3\u30df\u30c3\u30c8\u30ed\u30b0\u3092\u3054\u89a7\u304f\u3060\u3055\u3044\u3002",
+            "title": "Releases"
+        },
+        {
+            "location": "/ja/releases/#0310",
+            "text": "2017/12/14  \u30ea\u30af\u30a8\u30b9\u30c8\u7d50\u679c\u304c\u8fd4\u5374\u3055\u308c\u305f\u5f8c\u306e\u51e6\u7406\u3092\u9ad8\u901f\u5316\u3057\u307e\u3057\u305f \u30ec\u30b9\u30dd\u30f3\u30b9\u30b5\u30a4\u30ba\u304c\u5927\u304d\u304f\u3001\u7d50\u679c\u304c\u307b\u307cSame\u306e\u5834\u5408\u306f10\u500d\u4ee5\u4e0a\u901f\u304f\u306a\u308b\u30b1\u30fc\u30b9\u3082\u3042\u308a\u307e\u3059",
+            "title": "0.31.0"
+        },
+        {
+            "location": "/ja/releases/#0301",
+            "text": "2017/12/06   when_not\u30d7\u30ed\u30d1\u30c6\u30a3\u3092when\u306b\u5909\u66f4\u3057\u307e\u3057\u305f ( final/miroir )",
+            "title": "0.30.1"
         }
     ]
 }
