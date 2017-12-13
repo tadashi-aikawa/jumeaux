@@ -146,7 +146,7 @@ final:
 
 !!! info "フォーマットについて"
 
-    [Report](/getstarted/report.md)で定義されたプロパティを使用する事ができます。
+    [Report](../getstarted/report.md)で定義されたプロパティを使用する事ができます。
 
 #### Examples
 

@@ -1,10 +1,6 @@
 Addons
 ======
 
-!!! warning
-
-    Sorry, Now this page supports for Japanese only. (TODO: English)
-
 Jumeauxではアドオンを利用して処理をカスタマイズすることができます。  
 アドオンは自作することも可能です。
 

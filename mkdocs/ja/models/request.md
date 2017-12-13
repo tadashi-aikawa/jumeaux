@@ -1,7 +1,7 @@
 Request
 =======
 
-requestのの定義です。
+requestの定義です。
 
 Definitions
 -----------

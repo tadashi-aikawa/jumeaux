@@ -4,7 +4,7 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,20 +12,20 @@
     
         
     <url>
-     <loc>/getstarted/quickstart/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <loc>/ja/getstarted/quickstart/</loc>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/getstarted/report/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <loc>/ja/getstarted/report/</loc>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/getstarted/configuration/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <loc>/ja/getstarted/configuration/</loc>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -35,61 +35,61 @@
         
     <url>
      <loc>/ja/addons/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/ja/addons/log2reqs/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/ja/addons/reqs2reqs/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/ja/addons/res2res/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/ja/addons/res2dict/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/ja/addons/judgement/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/ja/addons/store_criterion/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/ja/addons/dump/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/ja/addons/did_challenge/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/ja/addons/final/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -98,17 +98,25 @@
     
         
     <url>
-     <loc>/models/request/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <loc>/ja/models/request/</loc>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/models/request-condition/</loc>
-     <lastmod>2017-12-11</lastmod>
+     <loc>/ja/models/request-condition/</loc>
+     <lastmod>2017-12-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
+    
+
+    
+    <url>
+     <loc>/ja/releases/</loc>
+     <lastmod>2017-12-14</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
     
 
 </urlset>

@@ -12,9 +12,9 @@ edit_uri: edit/master/mkdocs/
 pages:
   - Home: index.md
   - Get Started:
-    - Quickstart: getstarted/quickstart.md
-    - Report: getstarted/report.md
-    - Configuration: getstarted/configuration.md
+    - Quickstart: ja/getstarted/quickstart.md
+    - Report: ja/getstarted/report.md
+    - Configuration: ja/getstarted/configuration.md
   - Addons:
     - Summary: ja/addons/index.md
     - log2reqs: ja/addons/log2reqs.md
@@ -27,15 +27,16 @@ pages:
     - did_challenge: ja/addons/did_challenge.md
     - final: ja/addons/final.md
   - Models:
-    - Request: models/request.md
-    - RequestCondition: models/request-condition.md
+    - Request: ja/models/request.md
+    - RequestCondition: ja/models/request-condition.md
+  - Releases: ja/releases/index.md
 
 theme:
   name: material
   logo: 'img/logo.png'
   favicon: 'img/favicon.ico'
   feature:
-    tabs: true
+    tabs: false
 
 extra:
   i18n:
