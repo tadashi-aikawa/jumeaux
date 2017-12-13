@@ -187,16 +187,18 @@ def challenge(arg: ChallengeArg) -> dict:
             }
         }
 
-    res_one = res2res(Response.from_requests(r_one), arg.req)
-    res_other = res2res(Response.from_requests(r_other), arg.req)
+    res_one: Response = res2res(Response.from_requests(r_one), arg.req)
+    res_other: Response = res2res(Response.from_requests(r_other), arg.req)
 
-    dict_one = res2dict(res_one)
-    dict_other = res2dict(res_other)
+    dict_one: TOption[dict] = res2dict(res_one)
+    dict_other: TOption[dict] = res2dict(res_other)
 
     # Create diff
-    ddiff = DeepDiff(dict_one.get(), dict_other.get()) \
-        if not dict_one.is_none() and not dict_other.is_none() \
-        else None
+    # Either dict_one or dic_other is None, it means that it can't be analyzed, therefore return None
+    ddiff = None if dict_one.is_none() or dict_other.is_none() \
+        else {} if res_one.body == res_other.body \
+        else DeepDiff(dict_one.get(), dict_other.get())
+
     diff_keys: Optional[DiffKeys] = DiffKeys.from_dict({
         "changed": TList(ddiff.get('type_changes', {}).keys() | ddiff.get('values_changed', {}).keys())
             .map(lambda x: x.replace('[', '<').replace(']', '>'))
