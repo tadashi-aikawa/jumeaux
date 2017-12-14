@@ -668,14 +668,16 @@
 <h2 id="installation"><i class="fa fa-download"></i> Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <h3 id="python36">Python3.6以上(推奨)<a class="headerlink" href="#python36" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>$ pip install jumeaux
-$ jumeaux --version
 </pre></div>
 
+<p><code>jumeaux --version</code>でバージョンが表示されればOKです。</p>
 <h3 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>$ docker build -t tadashi-aikawa/jumeaux .
-$ docker run -it tadashi-aikawa/jumeaux --version
+<div class="codehilite"><pre><span></span>$ git clone https://github.com/tadashi-aikawa/jumeaux.git
+$ cd jumeaux
+$ docker build -t tadashi-aikawa/jumeaux .
 </pre></div>
 
+<p><code>docker run -it tadashi-aikawa/jumeaux --version</code>でバージョンが表示されればOKです。</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>以降はPythonの場合を想定して説明します。<br />
@@ -706,7 +708,7 @@ $ docker run -it tadashi-aikawa/jumeaux --version
 </tr>
 <tr>
 <td>requests</td>
-<td>リクエストファイル</td>
+<td>リクエストが記載されたファイル</td>
 <td>任意のファイルを1つ以上指定可能</td>
 </tr>
 </tbody>
