@@ -1,6 +1,10 @@
 Jumeaux Document
 ================
 
+!!! danger "Support languages"
+
+    Now we support only for japanese.
+
 ![](https://img.shields.io/pypi/pyversions/jumeaux.svg) [![](https://img.shields.io/pypi/v/jumeaux.svg)][pypi] [![](https://api.travis-ci.org/tadashi-aikawa/jumeaux.svg?branch=master)][travis] [![](https://codeclimate.com/github/tadashi-aikawa/jumeaux/badges/coverage.svg)][coverage] [![](https://codeclimate.com/github/tadashi-aikawa/jumeaux/badges/gpa.svg)][complexity] ![](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 This is document of [Jumeaux].
@@ -9,10 +13,6 @@ This is document of [Jumeaux].
 
 [Jumeaux] is a tool which can checks difference between two responses of API.
 See [Jumeaux Viewer] if you want to check more graphical with GUI tools.
-
-!!! danger "Support languages"
-
-    Now we support only for japanese.
 
 [Jumeaux]: https://github.com/tadashi-aikawa/jumeaux
 [Jumeaux Viewer]: https://github.com/tadashi-aikawa/jumeaux-viewer

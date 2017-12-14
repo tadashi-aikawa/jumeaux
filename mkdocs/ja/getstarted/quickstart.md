@@ -18,15 +18,19 @@ Quickstart
 
 ```
 $ pip install jumeaux
-$ jumeaux --version
 ```
+
+`jumeaux --version`でバージョンが表示されればOKです。
 
 ### Docker
 
 ```
+$ git clone https://github.com/tadashi-aikawa/jumeaux.git
+$ cd jumeaux
 $ docker build -t tadashi-aikawa/jumeaux .
-$ docker run -it tadashi-aikawa/jumeaux --version
 ```
+
+`docker run -it tadashi-aikawa/jumeaux --version`でバージョンが表示されればOKです。
 
 !!! warning
 
@@ -48,10 +52,10 @@ $ docker run -it tadashi-aikawa/jumeaux --version
 
 Jumeauxを実行するには、以下2つのファイルを用意する必要があります。
 
-| ファイル名 |        役割        |              備考               |
-| ---------- | ------------------ | ------------------------------- |
-| config.yml | 設定ファイル       | 任意のファイルを1つ以上指定可能 |
-| requests   | リクエストファイル | 任意のファイルを1つ以上指定可能 |
+| ファイル名 |              役割              |              備考               |
+| ---------- | ------------------------------ | ------------------------------- |
+| config.yml | 設定ファイル                   | 任意のファイルを1つ以上指定可能 |
+| requests   | リクエストが記載されたファイル | 任意のファイルを1つ以上指定可能 |
 
 上記ファイルの作成に`jumeaux init`コマンドを使用できます。
 
