@@ -15,12 +15,12 @@ class Config(OwlMixin):
     ]
 
 
-def config_generator(plain):
+def config_generator(blockstr):
     key = None
     d = {}
 
     # XXX: [""] means for the case which last line break is nothing
-    for l in plain.splitlines() + [""]:
+    for l in blockstr.splitlines() + [""]:
         if not l:
             if d:
                 yield key, d
@@ -36,8 +36,8 @@ def config_generator(plain):
         d[k] = v
 
 
-def to_dict(plain: str):
-    return {k: v for k, v in config_generator(plain)}
+def to_dict(blockstr: str):
+    return {k: v for k, v in config_generator(blockstr)}
 
 
 class Executor(Res2DictExecutor):

@@ -5,7 +5,7 @@ import pytest
 
 from owlmixin.util import load_yaml
 
-from jumeaux.addons.res2dict.richplain import Executor
+from jumeaux.addons.res2dict.block import Executor
 from jumeaux.models import Response, Res2DictAddOnPayload
 
 NORMAL_BODY = """

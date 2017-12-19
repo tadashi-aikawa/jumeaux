@@ -114,10 +114,10 @@ res2dict:
 ```
 
 
-[:fa-github:][s3] richplain
----------------------------
+[:fa-github:][s3] block
+-----------------------
 
-[s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/richplain.py
+[s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/block.py
 
 以下のような特殊な形式のレスポンスをdictに変換します。
 
@@ -174,14 +174,14 @@ Name Tatsuwo Aikawa
 
 ```yml
 res2dict:
-  - name: richplain
+  - name: block
 ```
 
 ##### 変換する必要がないケースでも強制的に変換する
 
 ```yml
 res2dict:
-  - name: richplain
+  - name: block
     config:
       force: true
 ```
@@ -190,7 +190,7 @@ res2dict:
 
 ```yml
 res2dict:
-  - name: richplain
+  - name: block
     config:
       mime_types:
         - text/xml
