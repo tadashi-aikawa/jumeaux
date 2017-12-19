@@ -4,6 +4,16 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.32.0
+
+:fa-calendar: `2017/12/19`
+
+??? info "richplainアドオンを追加しました ([res2dict/richplain])"
+    
+    * 特殊な形式で記載されたテキストをdictに変換することができます
+    * 詳細は [res2dict/richplain] をご覧ください
+
+
 ## :package: 0.31.1
 
 :fa-calendar: `2017/12/19`
@@ -29,4 +39,5 @@ Releases
 !!! hint "when_notプロパティをwhenに変更しました ([final/miroir])"
 
 
+[res2dict/richplain]: /ja/addons/res2dict#richplain
 [final/miroir]: /ja/addons/final#miroir
