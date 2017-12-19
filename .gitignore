@@ -65,3 +65,5 @@ responses
 
 .activate.bat
 .vscode
+
+.env
