@@ -139,7 +139,7 @@ class Response(OwlMixin):
         return Response.from_dict({
             'body': res.content,
             'encoding': res.encoding,
-            'text': res.content.decode(res.encoding or 'utf8'),
+            'text': res.content.decode(res.encoding) if res.encoding else res.text,
             'headers': res.headers,
             'url': res.url,
             'status_code': res.status_code,
