@@ -119,23 +119,84 @@ res2dict:
 
 [s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/block.py
 
-以下のような特殊な形式のレスポンスをdictに変換します。
+ブロック単位(空行で区切られた)のレスポンスをdictに変換します。
+ブロック単位の定義は下記セクションを参照してください。
 
-### 特殊な形式とは
 
-#### 変換前の形式
+### Config
+
+#### Definitions
+
+|      Key      |    Type    |                            Description                            |        Example        |         Default         |
+| ------------- | ---------- | ----------------------------------------------------------------- | --------------------- | ----------------------- |
+| header_regexp | (string)   | ヘッダ行のキーを抽出する正規表現 :fa-exclamation-triangle:        | `^\d+\)(.+)`          | `\[(.+)\]`              |
+| record_regexp | (string)   | レコード行のkey/valueを抽出する正規表現 :fa-exclamation-triangle: | `([^ ]+) (.+)`        | `([^:]+): (.+)`         |
+| force         | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか  | true                  | false                   |
+| mime_types    | (string[]) | 対応MIMEタイプ                                                    | <pre>- text/xml</pre> | <pre>- text/plain</pre> |
+
+!!! warning "header_regexpの正規表現について"
+
+    * グループを1つ定義してください
+    * yamlにダブルクォートで記載する際は`\`を`\\\\`と記載してください (yamlのルール)
+
+!!! warning "record_regexpの正規表現について"
+
+    * グループを2つ定義してください. 1つ目がkey 2つ目がvalueになります
+    * yamlにダブルクォートで記載する際は`\`を`\\\\`と記載してください (yamlのルール)
+
+!!! info "`force` 変換する必要がないケース"
+
+    以下のいずれかに一致する場合
+
+    * MIMEタイプ が `mime_types` のいずれにも一致しない場合
+    * 既にアドオンでdict型に変換済みの場合
+
+
+#### Examples
+
+##### MIMEタイプが `text/xml` のときだけブロック形式に変換する
+
+```yml
+res2dict:
+  - name: block
+    config:
+      mime_types:
+        - text/xml
+```
+
+##### ヘッダとレコードの正規表現を指定する
+
+```yml
+res2dict:
+  - name: block
+    config:
+      force: true
+      header_regexp: "^\\\\d+\\\\)(.+)"
+      record_regexp: "([^ ]+) (.+)"
+```
+
+
+### ブロック単位のルール
+
+* 1つ以上の空行で区切られた単位をブロック単位とする
+* ブロックの1行目はヘッダである
+* ブロックの2行目以降はレコードである
+
+#### ヘッダとレコードの抽出条件がデフォルトの場合
+
+##### 変換前
 
 ```
-1)Mimizou
-ID 001
-Name Mimizou Aikawa
+[Mimizou]
+ID: 001
+Name: Mimizou Aikawa
 
-2)Tatsuwo(GOD)
-ID 002
-Name Tatsuwo Aikawa
+[Tatsuwo(GOD)]
+ID: 002
+Name: Tatsuwo Aikawa
 ```
 
-#### 変換後のdict
+##### 変換後
 
 ```
 {
@@ -150,48 +211,38 @@ Name Tatsuwo Aikawa
 }
 ```
 
+#### ヘッダとレコードの抽出条件をカスタムした場合
 
-### Config
+下記のように条件を設定した場合
 
-#### Definitions
-
-|    Key     |    Type    |                           Description                            |        Example        |         Default         |
-| ---------- | ---------- | ---------------------------------------------------------------- | --------------------- | ----------------------- |
-| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true                  | false                   |
-| mime_types | (string[]) | 対応MIMEタイプ                                                   | <pre>- text/xml</pre> | <pre>- text/plain</pre> |
-
-!!! info "`force` 変換する必要がないケース"
-
-    以下のいずれかに一致する場合
-
-    * MIMEタイプ が `mime_types` のいずれにも一致しない場合
-    * 既にアドオンでdict型に変換済みの場合
-
-
-#### Examples
-
-##### レスポンスが特殊形式の場合 dictに変換する
-
-```yml
-res2dict:
-  - name: block
+```
+header_regexp: "^\\\\d+\\\\)(.+)"
+record_regexp: "([^ ]+) (.+)"
 ```
 
-##### 変換する必要がないケースでも強制的に変換する
+##### 変換前
 
-```yml
-res2dict:
-  - name: block
-    config:
-      force: true
+```
+1)Mimizou
+ID 001
+Name Mimizou Aikawa
+
+12)Tatsuwo(GOD)
+ID 002
+Name Tatsuwo Aikawa
 ```
 
-##### MIMEタイプが `text/xml` のときだけ変換する
+##### 変換後
 
-```yml
-res2dict:
-  - name: block
-    config:
-      mime_types:
-        - text/xml
+```
+{
+  "Mimizou": {
+    "ID": "001",
+    "Name": "Mimizou Aikawa"
+  },
+  "Tatsuwo(GOD)": {
+    "ID": "002",
+    "Name": "Tatsuwo Aikawa"
+  }
+}
 ```
