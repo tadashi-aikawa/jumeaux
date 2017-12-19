@@ -41,7 +41,7 @@ JSONレスポンスの並び順をソートします。
 ??? info "AndOr"
 
     --8<--
-    constants/and_or.md
+    ja/constants/and_or.md
     --8<--
 
 ##### Target
