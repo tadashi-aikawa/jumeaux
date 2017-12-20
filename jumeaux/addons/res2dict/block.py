@@ -10,34 +10,37 @@ from jumeaux.models import Res2DictAddOnPayload
 
 class Config(OwlMixin):
     force: bool = False
+    header_regexp: str
+    record_regexp: str
     mime_types: TList[str] = [
         'text/plain'
     ]
 
 
-def config_generator(plain):
+def config_generator(blockstr: str, header_regexp: str, record_regexp: str):
     key = None
     d = {}
 
     # XXX: [""] means for the case which last line break is nothing
-    for l in plain.splitlines() + [""]:
+    for l in blockstr.splitlines() + [""]:
         if not l:
             if d:
                 yield key, d
                 d = {}
             continue
 
-        r = re.findall('^\d+\)(.+)', l)
-        if r and r[0]:
+        r = re.findall(header_regexp, l)
+        if r and len(r) == 1:
             key = r[0]
             continue
 
-        k, v = l.split(' ', 1)
-        d[k] = v
+        b = re.findall(record_regexp, l)
+        if b and len(b) == 1:
+            d[b[0][0]] = b[0][1] if len(b[0]) > 1 else None
 
 
-def to_dict(plain: str):
-    return {k: v for k, v in config_generator(plain)}
+def to_dict(blockstr: str, header_regexp: str, record_regexp: str):
+    return {k: v for k, v in config_generator(blockstr, header_regexp, record_regexp)}
 
 
 class Executor(Res2DictExecutor):
@@ -51,7 +54,7 @@ class Executor(Res2DictExecutor):
         mime_type: str = payload.response.mime_type.get()
         return Res2DictAddOnPayload.from_dict({
             "response": payload.response,
-            "result": to_dict(payload.response.text) \
+            "result": to_dict(payload.response.text, self.config.header_regexp, self.config.record_regexp) \
                 if self.config.force or mime_type in self.config.mime_types \
                 else None
         })

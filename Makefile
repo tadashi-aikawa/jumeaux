@@ -1,5 +1,6 @@
 MAKEFLAGS += --warn-undefined-variables
 SHELL := /bin/bash
+ARGS :=
 .SHELLFLAGS := -eu -o pipefail -c
 .DEFAULT_GOAL := help
 
@@ -43,7 +44,7 @@ _package: _clean-package ## Package OwlMixin
 
 test: ## Test
 	@echo Start $@
-	@pipenv run pytest
+	@pipenv run pytest $(ARGS)
 	@echo End $@
 
 release: init test package-docs ## Release (set version) (Not push anywhere)

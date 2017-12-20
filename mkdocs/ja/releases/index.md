@@ -4,6 +4,17 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+
+## :package: 0.33.0
+
+:fa-calendar: `2017/12/20`
+
+??? danger "richplainアドオンの名称をblockアドオンに変更し、機能を追加しました ([res2dict/block])"
+
+    * 空行区切りのテキストをブロックとして扱い、任意のパターンで変換することができます
+    * 詳細は [res2dict/block] をご覧ください
+
+
 ## :package: 0.32.0
 
 :fa-calendar: `2017/12/19`
@@ -39,5 +50,6 @@ Releases
 !!! hint "when_notプロパティをwhenに変更しました ([final/miroir])"
 
 
-[res2dict/richplain]: /ja/addons/res2dict#richplain
+[res2dict/richplain]: /ja/addons/res2dict#block
+[res2dict/block]: /ja/addons/res2dict#block
 [final/miroir]: /ja/addons/final#miroir
