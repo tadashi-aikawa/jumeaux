@@ -127,12 +127,12 @@ res2dict:
 
 #### Definitions
 
-|      Key      |    Type    |                            Description                            |         Example         |         Default          |
-| ------------- | ---------- | ----------------------------------------------------------------- | ----------------------- | ------------------------ |
-| header_regexp | (string)   | ヘッダ行のキーを抽出する正規表現 :fa-exclamation-triangle:        | <pre>^\d+\)(.+)</pre>   | <pre>\[(.+)\]</pre>      |
-| record_regexp | (string)   | レコード行のkey/valueを抽出する正規表現 :fa-exclamation-triangle: | <pre>([^ ]+) (.+)</pre> | <pre>([^:]+): (.+)</pre> |
-| force         | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか  | true                    | false                    |
-| mime_types    | (string[]) | 対応MIMEタイプ                                                    | <pre>- text/xml</pre>   | <pre>- text/plain</pre>  |
+|      Key      |    Type    |                            Description                            |         Example         |         Default         |
+| ------------- | ---------- | ----------------------------------------------------------------- | ----------------------- | ----------------------- |
+| header_regexp | string     | ヘッダ行のキーを抽出する正規表現 :fa-exclamation-triangle:        | <pre>^\d+\)(.+)</pre>   |                         |
+| record_regexp | string     | レコード行のkey/valueを抽出する正規表現 :fa-exclamation-triangle: | <pre>([^ ]+) (.+)</pre> |                         |
+| force         | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか  | true                    | false                   |
+| mime_types    | (string[]) | 対応MIMEタイプ                                                    | <pre>- text/xml</pre>   | <pre>- text/plain</pre> |
 
 !!! warning "header_regexpの正規表現について"
 
@@ -152,7 +152,7 @@ res2dict:
 
 #### Examples
 
-##### MIMEタイプが `text/xml` のときだけブロック形式に変換する
+##### MIMEタイプが `text/xml` のときだけINIファイルっぽい形式に変換する
 
 ```yml
 res2dict:
@@ -160,17 +160,8 @@ res2dict:
     config:
       mime_types:
         - text/xml
-```
-
-##### ヘッダとレコードの正規表現を指定する
-
-```yml
-res2dict:
-  - name: block
-    config:
-      force: true
-      header_regexp: '^\d+\)(.+)'
-      record_regexp: '([^ ]+) (.+)'
+      header_regexp: '\[(.+)\]'
+      record_regexp: '([^:]+): (.+)'
 ```
 
 
@@ -180,9 +171,9 @@ res2dict:
 * ブロックは1行のヘッダと1行以上のレコードで構成される
 
 
-#### ヘッダとレコードの抽出条件がデフォルトの場合
+#### パターン1
 
-##### 変換前
+##### 変換対象
 
 ```
 [Mimizou]
@@ -192,6 +183,13 @@ Name: Mimizou Aikawa
 [Tatsuwo(GOD)]
 ID: 002
 Name: Tatsuwo Aikawa
+```
+
+##### configの設定
+
+```
+header_regexp: '\[(.+)\]'
+record_regexp: '([^:]+): (.+)'
 ```
 
 ##### 変換後
@@ -209,16 +207,9 @@ Name: Tatsuwo Aikawa
 }
 ```
 
-#### ヘッダとレコードの抽出条件をカスタムした場合
+#### パターン2
 
-下記のように条件を設定した場合
-
-```
-header_regexp: '^\d+\)(.+)'
-record_regexp: '([^ ]+) (.+)'
-```
-
-##### 変換前
+##### 変換対象
 
 ```
 1)Mimizou
@@ -228,6 +219,13 @@ Name Mimizou Aikawa
 12)Tatsuwo(GOD)
 ID 002
 Name Tatsuwo Aikawa
+```
+
+##### configの設定
+
+```
+header_regexp: '^\d+\)(.+)'
+record_regexp: '([^ ]+) (.+)'
 ```
 
 ##### 変換後

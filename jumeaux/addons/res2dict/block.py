@@ -10,8 +10,8 @@ from jumeaux.models import Res2DictAddOnPayload
 
 class Config(OwlMixin):
     force: bool = False
-    header_regexp: str = '\\[(.+)\\]'
-    record_regexp: str = '([^:]+): (.+)'
+    header_regexp: str
+    record_regexp: str
     mime_types: TList[str] = [
         'text/plain'
     ]

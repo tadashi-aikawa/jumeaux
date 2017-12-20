@@ -8,7 +8,7 @@ from owlmixin.util import load_yaml
 from jumeaux.addons.res2dict.block import Executor
 from jumeaux.models import Response, Res2DictAddOnPayload
 
-NORMAL_BODY = """
+PATTERN1_BODY = """
 [Module1]
 Name: Jumeaux
 License: MIT
@@ -19,7 +19,7 @@ Name: Jumeaux Viewer
 Version: 1.0.0 (r: 1585:1586)
 """.lstrip()
 
-CUSTOM_PATTERN_BODY = """
+PATTERN2_BODY = """
 1)Module1
 Name Jumeaux
 License MIT
@@ -41,104 +41,108 @@ Name: Jumeaux Viewer
 Version: 1.0.0 (r1585)
 """.strip()
 
-NORMAL_CASE = ("Normal",
-               """
-               force: False 
-               mime_types:
-                 - text/plain
-               """,
-               Response.from_dict({
-                   "body": NORMAL_BODY.encode('utf-8'),
-                   "encoding": 'utf-8',
-                   "text": NORMAL_BODY,
-                   "headers": {
-                       "content-type": "text/plain; charset=utf-8"
-                   },
-                   "url": "http://test",
-                   "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
-               }),
-               {
-                   "Module1": {
-                       "Name": "Jumeaux",
-                       "License": "MIT",
-                       "Version": "0.33.0"
-                   },
-                   "Module2 alpha": {
-                       "Name": "Jumeaux Viewer",
-                       "Version": "1.0.0 (r: 1585:1586)"
-                   }
-               }
-               )
+PATTERN1 = ("Normal",
+            """
+            force: False 
+            mime_types:
+              - text/plain
+            header_regexp: '\\[(.+)\\]'
+            record_regexp: '([^:]+): (.+)'
+            """,
+            Response.from_dict({
+                "body": PATTERN1_BODY.encode('utf-8'),
+                "encoding": 'utf-8',
+                "text": PATTERN1_BODY,
+                "headers": {
+                    "content-type": "text/plain; charset=utf-8"
+                },
+                "url": "http://test",
+                "status_code": 200,
+                "elapsed": datetime.timedelta(seconds=1)
+            }),
+            {
+                "Module1": {
+                    "Name": "Jumeaux",
+                    "License": "MIT",
+                    "Version": "0.33.0"
+                },
+                "Module2 alpha": {
+                    "Name": "Jumeaux Viewer",
+                    "Version": "1.0.0 (r: 1585:1586)"
+                }
+            }
+            )
 
-CUSTOM_PATTERN = ("Normal",
-               """
-               force: False 
-               mime_types:
-                 - text/plain
-               header_regexp: '^\\d+\\)(.+)'
-               record_regexp: '([^ ]+) (.+)'
-               """,
-               Response.from_dict({
-                   "body": CUSTOM_PATTERN_BODY.encode('utf-8'),
-                   "encoding": 'utf-8',
-                   "text": CUSTOM_PATTERN_BODY,
-                   "headers": {
-                       "content-type": "text/plain; charset=utf-8"
-                   },
-                   "url": "http://test",
-                   "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
-               }),
-               {
-                   "Module1": {
-                       "Name": "Jumeaux",
-                       "License": "MIT",
-                       "Version": "0.33.0"
-                   },
-                   "Module2 alpha": {
-                       "Name": "Jumeaux Viewer",
-                       "Version": "1.0.0 (r1585)"
-                   }
-               }
-               )
+PATTERN2 = ("Normal",
+            """
+            force: False 
+            mime_types:
+              - text/plain
+            header_regexp: '^\\d+\\)(.+)'
+            record_regexp: '([^ ]+) (.+)'
+            """,
+            Response.from_dict({
+                "body": PATTERN2_BODY.encode('utf-8'),
+                "encoding": 'utf-8',
+                "text": PATTERN2_BODY,
+                "headers": {
+                    "content-type": "text/plain; charset=utf-8"
+                },
+                "url": "http://test",
+                "status_code": 200,
+                "elapsed": datetime.timedelta(seconds=1)
+            }),
+            {
+                "Module1": {
+                    "Name": "Jumeaux",
+                    "License": "MIT",
+                    "Version": "0.33.0"
+                },
+                "Module2 alpha": {
+                    "Name": "Jumeaux Viewer",
+                    "Version": "1.0.0 (r1585)"
+                }
+            }
+            )
 
 NO_END_LINEBREAK = ("No end linebreak",
-                         """
-                         force: False 
-                         mime_types:
-                           - text/plain
-                         """,
-                         Response.from_dict({
-                             "body": NO_END_LINEBREAK_BODY.encode('utf-8'),
-                             "encoding": 'utf-8',
-                             "text": NO_END_LINEBREAK_BODY,
-                             "headers": {
-                                 "content-type": "text/plain; charset=utf-8"
-                             },
-                             "url": "http://test",
-                             "status_code": 200,
-                             "elapsed": datetime.timedelta(seconds=1)
-                         }),
-                         {
-                             "Module1": {
-                                 "Name": "Jumeaux",
-                                 "License": "MIT",
-                                 "Version": "0.33.0"
-                             },
-                             "Module2 alpha": {
-                                 "Name": "Jumeaux Viewer",
-                                 "Version": "1.0.0 (r1585)"
-                             }
-                         }
-                         )
+                    """
+                    force: False 
+                    mime_types:
+                      - text/plain
+                    header_regexp: '\\[(.+)\\]'
+                    record_regexp: '([^:]+): (.+)'
+                    """,
+                    Response.from_dict({
+                        "body": NO_END_LINEBREAK_BODY.encode('utf-8'),
+                        "encoding": 'utf-8',
+                        "text": NO_END_LINEBREAK_BODY,
+                        "headers": {
+                            "content-type": "text/plain; charset=utf-8"
+                        },
+                        "url": "http://test",
+                        "status_code": 200,
+                        "elapsed": datetime.timedelta(seconds=1)
+                    }),
+                    {
+                        "Module1": {
+                            "Name": "Jumeaux",
+                            "License": "MIT",
+                            "Version": "0.33.0"
+                        },
+                        "Module2 alpha": {
+                            "Name": "Jumeaux Viewer",
+                            "Version": "1.0.0 (r1585)"
+                        }
+                    }
+                    )
 
 
 class TestExec:
     @pytest.mark.parametrize(
         'title, config_yml, response, expected_result', [
-            NORMAL_CASE,
-            CUSTOM_PATTERN,
+            PATTERN1,
+            PATTERN2,
             NO_END_LINEBREAK,
         ]
     )
