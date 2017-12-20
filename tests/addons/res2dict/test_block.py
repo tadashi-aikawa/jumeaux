@@ -76,8 +76,8 @@ CUSTOM_PATTERN = ("Normal",
                force: False 
                mime_types:
                  - text/plain
-               header_regexp: "^\\\\d+\\\\)(.+)"
-               record_regexp: "([^ ]+) (.+)"
+               header_regexp: '^\\d+\\)(.+)'
+               record_regexp: '([^ ]+) (.+)'
                """,
                Response.from_dict({
                    "body": CUSTOM_PATTERN_BODY.encode('utf-8'),

@@ -127,22 +127,22 @@ res2dict:
 
 #### Definitions
 
-|      Key      |    Type    |                            Description                            |        Example        |         Default         |
-| ------------- | ---------- | ----------------------------------------------------------------- | --------------------- | ----------------------- |
-| header_regexp | (string)   | ヘッダ行のキーを抽出する正規表現 :fa-exclamation-triangle:        | `^\d+\)(.+)`          | `\[(.+)\]`              |
-| record_regexp | (string)   | レコード行のkey/valueを抽出する正規表現 :fa-exclamation-triangle: | `([^ ]+) (.+)`        | `([^:]+): (.+)`         |
-| force         | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか  | true                  | false                   |
-| mime_types    | (string[]) | 対応MIMEタイプ                                                    | <pre>- text/xml</pre> | <pre>- text/plain</pre> |
+|      Key      |    Type    |                            Description                            |         Example         |         Default          |
+| ------------- | ---------- | ----------------------------------------------------------------- | ----------------------- | ------------------------ |
+| header_regexp | (string)   | ヘッダ行のキーを抽出する正規表現 :fa-exclamation-triangle:        | <pre>^\\d+\\)(.+)</pre> | <pre>\\[(.+)\\]</pre>    |
+| record_regexp | (string)   | レコード行のkey/valueを抽出する正規表現 :fa-exclamation-triangle: | <pre>([^ ]+) (.+)</pre> | <pre>([^:]+): (.+)</pre> |
+| force         | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか  | true                    | false                    |
+| mime_types    | (string[]) | 対応MIMEタイプ                                                    | <pre>- text/xml</pre>   | <pre>- text/plain</pre>  |
 
 !!! warning "header_regexpの正規表現について"
 
     * グループを1つ定義してください
-    * yamlにダブルクォートで記載する際は`\`を`\\\\`と記載してください (yamlのルール)
+    * yamlにダブルクォートで記載する際は`\\`を`\\\\`と記載してください (yamlのルール)
 
 !!! warning "record_regexpの正規表現について"
 
     * グループを2つ定義してください. 1つ目がkey 2つ目がvalueになります
-    * yamlにダブルクォートで記載する際は`\`を`\\\\`と記載してください (yamlのルール)
+    * yamlにダブルクォートで記載する際は`\\`を`\\\\`と記載してください (yamlのルール)
 
 !!! info "`force` 変換する必要がないケース"
 
@@ -171,16 +171,16 @@ res2dict:
   - name: block
     config:
       force: true
-      header_regexp: "^\\\\d+\\\\)(.+)"
-      record_regexp: "([^ ]+) (.+)"
+      header_regexp: '^\\d+\\)(.+)'
+      record_regexp: '([^ ]+) (.+)'
 ```
 
 
 ### ブロック単位のルール
 
 * 1つ以上の空行で区切られた単位をブロック単位とする
-* ブロックの1行目はヘッダである
-* ブロックの2行目以降はレコードである
+* ブロックは1行のヘッダと1行以上のレコードで構成される
+
 
 #### ヘッダとレコードの抽出条件がデフォルトの場合
 
@@ -216,8 +216,8 @@ Name: Tatsuwo Aikawa
 下記のように条件を設定した場合
 
 ```
-header_regexp: "^\\\\d+\\\\)(.+)"
-record_regexp: "([^ ]+) (.+)"
+header_regexp: '^\\d+\\)(.+)'
+record_regexp: '([^ ]+) (.+)'
 ```
 
 ##### 変換前
