@@ -129,20 +129,18 @@ res2dict:
 
 |      Key      |    Type    |                            Description                            |         Example         |         Default          |
 | ------------- | ---------- | ----------------------------------------------------------------- | ----------------------- | ------------------------ |
-| header_regexp | (string)   | ヘッダ行のキーを抽出する正規表現 :fa-exclamation-triangle:        | <pre>^\\d+\\)(.+)</pre> | <pre>\\[(.+)\\]</pre>    |
+| header_regexp | (string)   | ヘッダ行のキーを抽出する正規表現 :fa-exclamation-triangle:        | <pre>^\d+\)(.+)</pre>   | <pre>\[(.+)\]</pre>      |
 | record_regexp | (string)   | レコード行のkey/valueを抽出する正規表現 :fa-exclamation-triangle: | <pre>([^ ]+) (.+)</pre> | <pre>([^:]+): (.+)</pre> |
 | force         | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか  | true                    | false                    |
 | mime_types    | (string[]) | 対応MIMEタイプ                                                    | <pre>- text/xml</pre>   | <pre>- text/plain</pre>  |
 
 !!! warning "header_regexpの正規表現について"
 
-    * グループを1つ定義してください
-    * yamlにダブルクォートで記載する際は`\\`を`\\\\`と記載してください (yamlのルール)
+    グループを1つ定義してください
 
 !!! warning "record_regexpの正規表現について"
 
-    * グループを2つ定義してください. 1つ目がkey 2つ目がvalueになります
-    * yamlにダブルクォートで記載する際は`\\`を`\\\\`と記載してください (yamlのルール)
+    グループを2つ定義してください. 1つ目がkey 2つ目がvalueになります
 
 !!! info "`force` 変換する必要がないケース"
 
@@ -171,7 +169,7 @@ res2dict:
   - name: block
     config:
       force: true
-      header_regexp: '^\\d+\\)(.+)'
+      header_regexp: '^\d+\)(.+)'
       record_regexp: '([^ ]+) (.+)'
 ```
 
@@ -216,7 +214,7 @@ Name: Tatsuwo Aikawa
 下記のように条件を設定した場合
 
 ```
-header_regexp: '^\\d+\\)(.+)'
+header_regexp: '^\d+\)(.+)'
 record_regexp: '([^ ]+) (.+)'
 ```
 
