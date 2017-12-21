@@ -472,9 +472,10 @@ Please specify a valid name.
         logging.config.dictConfig(logger_config)
 
     # Requests
-    logs: TList[Request] = global_addon_executor.apply_reqs2reqs(Reqs2ReqsAddOnPayload.from_dict({
-        'requests': origin_logs
-    })).requests
+    logs: TList[Request] = global_addon_executor.apply_reqs2reqs(
+        Reqs2ReqsAddOnPayload.from_dict({'requests': origin_logs}),
+        config
+    ).requests
 
     report: Report = global_addon_executor.apply_final(FinalAddOnPayload.from_dict({
         'report': exec(args, config, logs, hash_from_args(args), retry_hash),

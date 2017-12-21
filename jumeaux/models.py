@@ -11,6 +11,10 @@ class CaseInsensitiveDict(RequestsCaseInsensitiveDict):
     pass
 
 
+class NotifierType(OwlEnum):
+    SLACK = "slack"
+
+
 class Status(OwlEnum):
     SAME = "same"
     DIFFERENT = "different"
@@ -54,6 +58,18 @@ class Addons(OwlMixin):
     final: TList[Addon] = []
 
 
+class Notifier(OwlMixin):
+    type: NotifierType
+    channel: str
+    username: str = 'jumeaux'
+    icon_emoji: TOption[str]
+    icon_url: TOption[str]
+
+    @property
+    def logging_message(self) -> str:
+        return f'Send to {self.channel} by slack'
+
+
 class Config(OwlMixin):
     one: AccessPoint
     other: AccessPoint
@@ -64,6 +80,7 @@ class Config(OwlMixin):
     description: TOption[str]
     tags: TOption[TList[str]]
     input_files: TOption[TList[str]]
+    notifiers: TOption[TDict[Notifier]]
     addons: Addons
 
 
@@ -129,6 +146,10 @@ class Response(OwlMixin):
     @property
     def mime_type(self) -> TOption[str]:
         return self.content_type.map(lambda x: x.split(';')[0])
+
+    @property
+    def ok(self) -> bool:
+        return self.status_code == 200
 
     @classmethod
     def ___headers(cls, v):

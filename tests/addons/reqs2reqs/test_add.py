@@ -19,7 +19,7 @@ class TestExec:
                 {'path': '/added1', 'qs': {'q2': ['query2']}},
                 {'path': '/added2', 'headers': {'h2': 'header2'}},
             ]
-        }).exec(payload)
+        }).exec(payload, None)
 
         assert actual.to_dict() == {
             'requests': [
@@ -40,7 +40,7 @@ class TestExec:
             'reqs': [
                 {'path': '/added'}
             ]
-        }).exec(payload)
+        }).exec(payload, None)
 
         assert actual.to_dict() == {
             'requests': [
@@ -61,7 +61,7 @@ class TestExec:
             'reqs': [
                 {'path': '/added'}
             ]
-        }).exec(payload)
+        }).exec(payload, None)
 
         assert actual.to_dict() == {
             'requests': [

@@ -52,7 +52,7 @@ items:
             'requests': reqs
         })
 
-        assert Executor(config).exec(payload).to_dict() == {
+        assert Executor(config).exec(payload, None).to_dict() == {
             'requests': expected
         }
 
@@ -87,6 +87,6 @@ items:
             'requests': reqs
         })
 
-        assert Executor(config).exec(payload).to_dict() == {
+        assert Executor(config).exec(payload, None).to_dict() == {
             'requests': expected
         }
