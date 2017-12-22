@@ -35,7 +35,7 @@ class SlackNotificationHandler(NotificationHandler):
             "text": message,
             "channel": self.channel,
             "username": self.username,
-            "icon_emoji": self.icon_emoji.get(),
+            "icon_emoji": self.icon_emoji.map(lambda x: f':{x}:').get(),
             "icon_url": self.icon_url.get(),
             "link_names": 1
         })
