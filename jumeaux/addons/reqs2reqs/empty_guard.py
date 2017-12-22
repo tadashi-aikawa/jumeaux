@@ -22,7 +22,7 @@ class Config(OwlMixin):
     notifies: TList[Notify] = []
 
 
-def send(message: str, notifier: Notifier):
+def send(message: str, notifier: Notifier) -> TOption[str]:
     logger.info(notifier.logging_message)
     return create_notification_handler(notifier).notify(message)
 
