@@ -70,7 +70,7 @@ Version up
 
 .. sourcecode::
 
-    # Update release note and ...
+    # Update release note and ADD !!!!
     $ make release version=x.y.z
     $ git push
     $ make publish version=x.y.z

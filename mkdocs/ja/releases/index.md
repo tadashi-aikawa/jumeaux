@@ -5,6 +5,18 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.34.0
+
+:fa-calendar: `2017/12/22`
+
+??? info "empty_guardアドオンを追加しました ([reqs2reqs/empty_guard])"
+
+    * `reqs2reqs`のレイヤーでリクエストを確認し、0件の場合は処理を中断させることができます
+    * 中断した場合は任意の方法で通知することができます (今はSlackのみ)
+    * 詳細は [reqs2reqs/empty_guard] をご覧ください
+    * ステータスコードは1を返却します。正常終了にしたいケースもあると思いますのでオプション追加で検討しています
+
+
 ## :package: 0.33.0
 
 :fa-calendar: `2017/12/20`
@@ -50,6 +62,7 @@ Releases
 !!! hint "when_notプロパティをwhenに変更しました ([final/miroir])"
 
 
+[reqs2reqs/empty_guard]: /ja/addons/reqs2reqs#empty_guard
 [res2dict/richplain]: /ja/addons/res2dict#block
 [res2dict/block]: /ja/addons/res2dict#block
 [final/miroir]: /ja/addons/final#miroir
