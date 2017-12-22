@@ -142,6 +142,12 @@ reqs2reqs:
 
 リクエストが空の場合に処理を中断します。
 
+
+### Prerequirements
+
+--8<-- "ja/notify-prerequirements.md"
+
+
 ### Config
 
 #### Definitions
