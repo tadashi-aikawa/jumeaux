@@ -552,6 +552,93 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#empty_guard" title="empty_guard" class="md-nav__link">
+    empty_guard
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequirements" title="Prerequirements" class="md-nav__link">
+    Prerequirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config_3" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_3" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root_1" title="root" class="md-nav__link">
+    root
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notify" title="Notify" class="md-nav__link">
+    Notify
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_3" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="リクエストが空の場合に処理を中断する" class="md-nav__link">
+    リクエストが空の場合に処理を中断する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notifier-jumeaux" title="リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする" class="md-nav__link">
+    リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -930,6 +1017,93 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#empty_guard" title="empty_guard" class="md-nav__link">
+    empty_guard
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequirements" title="Prerequirements" class="md-nav__link">
+    Prerequirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#config_3" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_3" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root_1" title="root" class="md-nav__link">
+    root
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notify" title="Notify" class="md-nav__link">
+    Notify
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_3" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" title="リクエストが空の場合に処理を中断する" class="md-nav__link">
+    リクエストが空の場合に処理を中断する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notifier-jumeaux" title="リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする" class="md-nav__link">
+    リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
     </ul>
@@ -1089,6 +1263,99 @@
     config:
       times: 10
 </pre></div>
+
+<h2 id="empty_guard"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/empty_guard.py"><i class="fa fa-github"></i></a> empty_guard<a class="headerlink" href="#empty_guard" title="Permanent link">&para;</a></h2>
+<p>リクエストが空の場合に処理を中断します。</p>
+<h3 id="prerequirements">Prerequirements<a class="headerlink" href="#prerequirements" title="Permanent link">&para;</a></h3>
+<p><i class="fa fa-slack"></i> Slackの場合</p>
+<p>環境変数 <code>SLACK_INCOMING_WEBHOOKS_URL</code> に<a href="https://api.slack.com/incoming-webhooks">Incoming webhook</a>のURIを設定して下さい</p>
+<h3 id="config_3">Config<a class="headerlink" href="#config_3" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_3">Definitions<a class="headerlink" href="#definitions_3" title="Permanent link">&para;</a></h4>
+<h5 id="root_1">root<a class="headerlink" href="#root_1" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>notifies</td>
+<td>(<a href="#notify">Notify[]</a>)</td>
+<td>処理を中断する時の通知設定</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="notify">Notify<a class="headerlink" href="#notify" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>notifier</td>
+<td>string</td>
+<td>使用する通知設定の名前  <i class="fa fa-info-circle"></i></td>
+<td>jumeaux</td>
+<td></td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>送信するメッセージ <i class="fa fa-info-circle"></i></td>
+<td><pre>{title}を中断しました</pre></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition todo">
+<p class="admonition-title">notifierについて</p>
+<p>TODO: 後日マニュアルに記載します。<br />
+それまでの間、設定例はテストコード<a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/tests/addons/reqs2reqs/test_empty_guard.py">test_empty_guard</a>を参考にしてください。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">送信するメッセージについて</p>
+<p><a href="../../getstarted/configuration/">Report</a>で定義されたプロパティを使用する事ができます。</p>
+</div>
+<h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
+<h5 id="_1">リクエストが空の場合に処理を中断する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>reqs2reqs:
+  - name: empty_guard
+</pre></div>
+
+<h5 id="notifier-jumeaux">リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする<a class="headerlink" href="#notifier-jumeaux" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>reqs2reqs:
+  - name: empty_guard
+    config:
+      notifies:
+        - notifier: jumeaux
+          message: &quot;{title} notify!&quot;
+</pre></div>
+
+<div class="admonition hint">
+<p class="admonition-title"><code>notifier: jumeaux</code>について</p>
+<p>Jumeauxのconfigに以下のような設定が必要です。</p>
+<div class="codehilite"><pre><span></span>notifiers:
+  jumeaux:
+    type: slack
+    channel: &quot;#jumeaux&quot;
+    username: jumeaux
+    icon_emoji: &quot;jumeaux&quot;
+</pre></div>
+
+</div>
                 
                   
                 

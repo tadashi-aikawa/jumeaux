@@ -113,9 +113,7 @@ final:
 
 ### Prerequirements
 
-環境変数 `SLACK_INCOMING_WEBHOOKS_URL` に[Incoming webhook]のURIを設定して下さい
-
-[Incoming webhook]: https://api.slack.com/incoming-webhooks
+--8<-- "ja/notify-prerequirements.md"
 
 
 ### Config

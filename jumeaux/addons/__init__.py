@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
 from importlib import import_module
 from importlib.util import find_spec
 
@@ -43,8 +42,8 @@ class AddOnExecutor:
     def apply_log2reqs(self, payload: Log2ReqsAddOnPayload) -> TList[Request]:
         return self.log2reqs.exec(payload)
 
-    def apply_reqs2reqs(self, payload: Reqs2ReqsAddOnPayload) -> Reqs2ReqsAddOnPayload:
-        return self.reqs2reqs.reduce(lambda p, a: a.exec(p), payload)
+    def apply_reqs2reqs(self, payload: Reqs2ReqsAddOnPayload, config: Config) -> Reqs2ReqsAddOnPayload:
+        return self.reqs2reqs.reduce(lambda p, a: a.exec(p, config), payload)
 
     def apply_res2res(self, payload: Res2ResAddOnPayload) -> Res2ResAddOnPayload:
         return self.res2res.reduce(lambda p, a: a.exec(p), payload)

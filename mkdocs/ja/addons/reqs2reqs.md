@@ -133,3 +133,79 @@ reqs2reqs:
     config:
       times: 10
 ```
+
+
+[:fa-github:][empty_guard] empty_guard
+--------------------------------------
+
+[empty_guard]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/empty_guard.py
+
+リクエストが空の場合に処理を中断します。
+
+
+### Prerequirements
+
+--8<-- "ja/notify-prerequirements.md"
+
+
+### Config
+
+#### Definitions
+
+##### root
+
+|   Key    |         Type          |        Description         | Example | Default |
+| -------- | --------------------- | -------------------------- | ------- | ------- |
+| notifies | ([Notify[]](#notify)) | 処理を中断する時の通知設定 |         |         |
+
+##### Notify
+
+|   Key    |  Type  |               Description                |             Example              | Default |
+| -------- | ------ | ---------------------------------------- | -------------------------------- | ------- |
+| notifier | string | 使用する通知設定の名前  :fa-info-circle: | jumeaux                          |         |
+| message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{title}を中断しました</pre> |         |
+
+!!! todo "notifierについて"
+
+    TODO: 後日マニュアルに記載します。
+    それまでの間、設定例はテストコード[test_empty_guard]を参考にしてください。
+
+
+!!! info "送信するメッセージについて"
+
+    [Report](../getstarted/configuration.md)で定義されたプロパティを使用する事ができます。
+
+[test_empty_guard]: https://github.com/tadashi-aikawa/jumeaux/tree/master/tests/addons/reqs2reqs/test_empty_guard.py
+
+#### Examples
+
+##### リクエストが空の場合に処理を中断する
+
+```yml
+reqs2reqs:
+  - name: empty_guard
+```
+
+##### リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする
+
+```yml
+reqs2reqs:
+  - name: empty_guard
+    config:
+      notifies:
+        - notifier: jumeaux
+          message: "{title} notify!"
+```
+
+!!! hint "`notifier: jumeaux`について"
+
+    Jumeauxのconfigに以下のような設定が必要です。
+
+    ```yml
+    notifiers:
+      jumeaux:
+        type: slack
+        channel: "#jumeaux"
+        username: jumeaux
+        icon_emoji: "jumeaux"
+    ```
