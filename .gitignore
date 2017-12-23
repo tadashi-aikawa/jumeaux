@@ -60,6 +60,8 @@ target/
 .idea/
 *.iml
 
+config.yml
+requests
 resource
 responses
 
