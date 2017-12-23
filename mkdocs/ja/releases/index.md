@@ -5,6 +5,18 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.34.1
+
+:fa-calendar: `2017/12/23`
+
+??? bug "CLIの引数で指定した値が通知メッセージに反映されない不具合を修正しました ([reqs2reqs/empty_guard])"
+
+    例: `notifies[].message`に`"{hoge} is End"`と設定し、jumeauxの実行引数に`--title TITLE`を指定した場合
+
+    * 0.34.1未満 => `None is End`
+    * 0.34.1     => `TITLE is End`
+
+
 ## :package: 0.34.0
 
 :fa-calendar: `2017/12/22`

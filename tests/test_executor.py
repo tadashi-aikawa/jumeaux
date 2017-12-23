@@ -10,6 +10,7 @@ from requests.exceptions import ConnectionError
 
 from jumeaux import executor, __version__
 from jumeaux.addons import AddOnExecutor
+from jumeaux.executor import merge_args2config
 from jumeaux.models import *
 
 
@@ -412,7 +413,8 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
     def test_mergecase1then2(self, config_only_access_points, config_mergecase_1, config_mergecase_2):
-        actual: Config = executor.create_config(TList([config_only_access_points, config_mergecase_1, config_mergecase_2]))
+        actual: Config = executor.create_config(
+            TList([config_only_access_points, config_mergecase_1, config_mergecase_2]))
 
         expected = {
             "title": 'mergecase_2',
@@ -457,7 +459,8 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
     def test_mergecase2then1(self, config_only_access_points, config_mergecase_1, config_mergecase_2):
-        actual: Config = executor.create_config(TList([config_only_access_points, config_mergecase_2, config_mergecase_1]))
+        actual: Config = executor.create_config(
+            TList([config_only_access_points, config_mergecase_2, config_mergecase_1]))
 
         expected = {
             "title": 'mergecase_2',
@@ -560,12 +563,230 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
 
+class TestMergeArgs2Config:
+    def test_full_args(self):
+        args: Args = Args.from_dict({
+            'run': True,
+            'files': ['file1', 'file2'],
+            'title': 'test_full_args',
+            'description': 'Description for test_full_args',
+            'config': ['config.yml'],
+            'tag': ['tag1', 'tag2'],
+            'threads': 3,
+            'processes': 2,
+            'retry': False,
+            'init': False
+        })
+
+        config: Config = Config.from_dict({
+            "title": "Config title",
+            "description": "Config description",
+            "tags": ["tag3", "tag4"],
+            "threads": 1,
+            "processes": 4,
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "tmpdir"
+            },
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                }
+            }
+        })
+
+        assert merge_args2config(args, config).to_dict() == {
+            "title": "test_full_args",
+            "description": "Description for test_full_args",
+            "tags": ["tag1", "tag2"],
+            "threads": 3,
+            "processes": 2,
+            "input_files": ['file1', 'file2'],
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "tmpdir"
+            },
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "reqs2reqs": [],
+                "res2res": [],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [],
+                "dump": [],
+                "did_challenge": [],
+                "final": []
+            }
+        }
+
+    def test_empty_args(self):
+        args: Args = Args.from_dict({
+            'run': True,
+            'retry': False,
+            'init': False
+        })
+
+        config: Config = Config.from_dict({
+            "title": "Config title",
+            "description": "Config description",
+            "tags": ["tag3", "tag4"],
+            "threads": 1,
+            "processes": 4,
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "tmpdir"
+            },
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                }
+            }
+        })
+
+        assert merge_args2config(args, config).to_dict() == {
+            "title": "Config title",
+            "description": "Config description",
+            "tags": ["tag3", "tag4"],
+            "threads": 1,
+            "processes": 4,
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "tmpdir"
+            },
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "reqs2reqs": [],
+                "res2res": [],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [],
+                "dump": [],
+                "did_challenge": [],
+                "final": []
+            }
+        }
+
+    def test_empty_args_and_config(self):
+        args: Args = Args.from_dict({
+            'run': True,
+            'retry': False,
+            'init': False
+        })
+
+        config: Config = Config.from_dict({
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "tmpdir"
+            },
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                }
+            }
+        })
+
+        assert merge_args2config(args, config).to_dict() == {
+            "threads": 1,
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "tmpdir"
+            },
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "reqs2reqs": [],
+                "res2res": [],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [],
+                "dump": [],
+                "did_challenge": [],
+                "final": []
+            }
+        }
+
+
 @patch('jumeaux.executor.now')
 @patch('jumeaux.executor.challenge')
 @patch('jumeaux.executor.hash_from_args')
 class TestExec:
     """TODO: Multi process test to fix dead lock!!!
     """
+
     @classmethod
     def setup_class(cls):
         os.makedirs(os.path.join("tmpdir", "hash_key", "one"))
@@ -575,7 +796,7 @@ class TestExec:
     def teardown_class(cls):
         shutil.rmtree("tmpdir")
 
-    def test(self, hash_from_args, challenge, now, config_minimum):
+    def test(self, hash_from_args, challenge, now):
         dummy_hash = "dummy hash"
 
         hash_from_args.return_value = dummy_hash
@@ -648,20 +869,11 @@ class TestExec:
             datetime.datetime(2000, 1, 2, 0, 0, 0)
         ]
 
-        args: Args = Args.from_dict({
-            "run": True,
-            "files": ['line1', 'line2'],
-            "threads": 1,
+        config: Config = Config.from_dict({
             "title": "Report title",
             "description": "Report description",
-            "tag": ["tag1", "tag2"],
-            "config": [config_minimum],
-            "retry": False,
-            "report": None,
-            "init": False,
-            "name": None,
-        })
-        config: Config = Config.from_dict({
+            "tags": ["tag1", "tag2"],
+            "threads": 1,
             "one": {
                 "name": "name_one",
                 "host": "http://host/one",
@@ -699,7 +911,7 @@ class TestExec:
             {"path": "/dummy"}
         ])
 
-        actual: Report = executor.exec(args, config, reqs, dummy_hash, None)
+        actual: Report = executor.exec(config, reqs, dummy_hash, None)
 
         expected = {
             "version": __version__,
