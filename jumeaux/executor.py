@@ -257,9 +257,9 @@ def challenge(arg: ChallengeArg) -> dict:
     })).trial.to_dict()
 
 
-def create_concurrent_executor(args: Args, config: Config) -> Tuple[any, Concurrency]:
-    processes = args.processes.get() or config.processes.get()
-    if (processes):
+def create_concurrent_executor(config: Config) -> Tuple[any, Concurrency]:
+    processes = config.processes.get()
+    if processes:
         return (
             futures.ProcessPoolExecutor(max_workers=processes),
             Concurrency.from_dict({
@@ -268,7 +268,7 @@ def create_concurrent_executor(args: Args, config: Config) -> Tuple[any, Concurr
             })
         )
 
-    threads = args.threads.get() or config.threads
+    threads = config.threads
     return (
         futures.ThreadPoolExecutor(max_workers=threads),
         Concurrency.from_dict({
@@ -278,7 +278,7 @@ def create_concurrent_executor(args: Args, config: Config) -> Tuple[any, Concurr
     )
 
 
-def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
+def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
     # Provision
     s = requests.Session()
     s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
@@ -303,10 +303,10 @@ def exec(args: Args, config: Config, reqs: TList[Request], key: str, retry_hash:
 
 
     # Challenge
-    title = args.title.get() or config.title.get() or "No title"
-    description = args.description.get() or config.description.get() or None
-    tags = args.tag.get() or config.tags.get() or []
-    executor, concurrency = create_concurrent_executor(args, config)
+    title = config.title.get_or("No title")
+    description = config.description.get()
+    tags = config.tags.get_or([])
+    executor, concurrency = create_concurrent_executor(config)
 
     logger.info(f"""
 --------------------------------------------------------------------------------
@@ -373,6 +373,22 @@ def hash_from_args(args: Args) -> str:
     return hashlib.sha256((str(now()) + args.to_json()).encode()).hexdigest()
 
 
+def merge_args2config(args: Args, config: Config) -> Config:
+    return Config.from_dict({
+        "one": config.one,
+        "other": config.other,
+        "output": config.output,
+        "threads": args.threads.get_or(config.threads),
+        "processes": args.processes if args.processes.get() else config.processes,
+        "title": args.title if args.title.get() else config.title,
+        "description": args.description if args.description.get() else config.description,
+        "tags": args.tag if args.tag.get() else config.tags,
+        "input_files": args.files if args.files.get() else config.input_files,
+        "notifiers": config.notifiers,
+        "addons": config.addons
+    })
+
+
 def create_config(config_paths: TList[str]) -> Config:
     def apply_include(addon: dict, config_path: str) -> dict:
         return load_yamlf(os.path.join(os.path.dirname(config_path), addon['include']), 'utf8') \
@@ -421,7 +437,9 @@ def create_config_from_report(report: Report) -> Config:
 
 
 def main():
+    # We can use args only in `main()`
     args: Args = Args.from_dict(docopt(__doc__, version=__version__))
+
     global global_addon_executor
     # TODO: refactoring
     if args.init:
@@ -440,7 +458,7 @@ Please specify a valid name.
 
     if args.retry:
         report: Report = Report.from_jsonf(args.report.get())
-        config: Config = create_config_from_report(report)
+        config: Config = merge_args2config(args, create_config_from_report(report))
         global_addon_executor = AddOnExecutor(config.addons)
         origin_logs: TList[Request] = report.trials.map(lambda x: Request.from_dict({
             'path': x.path,
@@ -450,10 +468,9 @@ Please specify a valid name.
         }))
         retry_hash: Optional[str] = report.key
     else:
-        config: Config = create_config(args.config.get_or(TList(['config.yml'])))
+        config: Config = merge_args2config(args, create_config(args.config.get_or(TList(['config.yml']))))
         global_addon_executor = AddOnExecutor(config.addons)
-        input_paths = args.files.get() or config.input_files.get()
-        origin_logs: TList[Request] = input_paths.flat_map(
+        origin_logs: TList[Request] = config.input_files.get().flat_map(
             lambda f: global_addon_executor.apply_log2reqs(
                 Log2ReqsAddOnPayload.from_dict({
                     'file': f
@@ -478,7 +495,7 @@ Please specify a valid name.
     ).requests
 
     report: Report = global_addon_executor.apply_final(FinalAddOnPayload.from_dict({
-        'report': exec(args, config, logs, hash_from_args(args), retry_hash),
+        'report': exec(config, logs, hash_from_args(args), retry_hash),
         'output_summary': config.output
     })).report
 
