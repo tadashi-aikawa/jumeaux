@@ -19,7 +19,7 @@ init: ## Intialize develop environment
 	@pipenv install -d
 	@echo End $@
 
-build-docs: ## Build documentation
+serve-docs: ## Build and serve documentation
 	@echo Start $@
 	@pipenv run mkdocs serve -a 0.0.0.0:8000
 	@echo End $@

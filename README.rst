@@ -60,7 +60,7 @@ Commands
     $ pipenv run python jumeaux/executor.py --help
 
     # Build documentation and run server locally
-    $ make build-docs
+    $ make serve-docs
     # Build documentation (then you can deploy by git push)
     $ make package-docs
 
