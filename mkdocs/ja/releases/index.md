@@ -4,6 +4,19 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.35.0
+
+:fa-calendar: `2017/12/26`
+
+??? danger "replaceアドオンのconfig仕様に破壊的変更があります ([reqs2reqs/replace])"
+
+    * 新しい仕様を [reqs2reqs/replace] でご確認の上、設定を移行してください
+
+??? hint "アドオンのドキュメントが完成しました"
+
+    * [addons] TODOのアドオンが無くなりました
+    * 部分的にTODOの項目は今後対応していきます
+
 
 ## :package: 0.34.1
 
@@ -74,7 +87,9 @@ Releases
 !!! hint "when_notプロパティをwhenに変更しました ([final/miroir])"
 
 
+[addons]: /ja/addons
 [reqs2reqs/empty_guard]: /ja/addons/reqs2reqs#empty_guard
+[reqs2reqs/replace]: /ja/addons/reqs2reqs#replace
 [res2dict/richplain]: /ja/addons/res2dict#block
 [res2dict/block]: /ja/addons/res2dict#block
 [final/miroir]: /ja/addons/final#miroir
