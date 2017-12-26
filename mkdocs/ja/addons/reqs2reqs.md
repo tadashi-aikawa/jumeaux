@@ -39,6 +39,8 @@ reqs2reqs:
 
 [filter]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/filter.py
 
+条件に一致するリクエストのみを抽出します。
+
 ### Config
 
 #### Definitions
@@ -151,9 +153,22 @@ reqs2reqs:
 
 [shuffle]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/shuffle.py
 
-!!! todo
+リクエストの順序をシャッフルします。
 
-    Comming soon...
+### Config
+
+#### Definitions
+
+Config設定はありません。
+
+#### Examples
+
+##### リクエストをシャッフルする
+
+```yml
+reqs2reqs:
+  - name: shuffle
+```
 
 
 [:fa-github:][repeat] repeat
