@@ -88,4 +88,4 @@ res2res:
               sort_keys: [id, name]
 ```
 
-[request-condition]: /models/request-condition
+[request-condition]: /ja/models/request-condition

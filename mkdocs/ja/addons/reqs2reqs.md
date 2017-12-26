@@ -39,9 +39,58 @@ reqs2reqs:
 
 [filter]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/filter.py
 
-!!! todo
+### Config
 
-    Comming soon...
+#### Definitions
+
+##### Root
+
+|   Key    |                  Type                   |             Description              | Example | Default |
+| -------- | --------------------------------------- | ------------------------------------ | ------- | ------- |
+| filters  | [RequestCondition[]][request-condition] | 本設定を反映させるRequestの条件      |         |         |
+| and_or   | (AndOr) :fa-info-circle:                | conditionsをAND/ORどちらで判定するか |         | and     |
+| negative | (bool)                                  | 否定条件とするか                     | true    | false   |
+
+
+??? info "AndOr"
+
+    --8<--
+    ja/constants/and_or.md
+    --8<--
+
+#### Examples
+
+##### pathに`ok`が含まれ かつ nameに`OK`が含まれるリクエストのみ抽出する
+
+```yml
+res2res:
+  - name: filter
+    config:
+       and_or: and
+       filters:
+         - path:
+             items:
+               - regexp: .*ok.*
+         - name:
+             items:
+               - regexp: .*OK.*
+```
+
+!!! hint "1つのfilter内でpathとnameをAND検索することもできます"
+
+    ```yml
+    res2res:
+      - name: filter
+        config:
+          and_or: and
+          filters:
+            - path:
+                items:
+                  - regexp: .*ok.*
+              name:
+                items:
+                  - regexp: .*OK.*    
+    ```
 
 
 [:fa-github:][add] add
@@ -209,3 +258,6 @@ reqs2reqs:
         username: jumeaux
         icon_emoji: "jumeaux"
     ```
+
+
+[request-condition]: /ja/models/request-condition
