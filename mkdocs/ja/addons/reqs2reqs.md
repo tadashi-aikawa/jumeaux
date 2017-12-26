@@ -39,9 +39,60 @@ reqs2reqs:
 
 [filter]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/filter.py
 
-!!! todo
+条件に一致するリクエストのみを抽出します。
 
-    Comming soon...
+### Config
+
+#### Definitions
+
+##### Root
+
+|   Key    |                  Type                   |             Description              | Example | Default |
+| -------- | --------------------------------------- | ------------------------------------ | ------- | ------- |
+| filters  | [RequestCondition[]][request-condition] | 本設定を反映させるRequestの条件      |         |         |
+| and_or   | (AndOr) :fa-info-circle:                | conditionsをAND/ORどちらで判定するか |         | and     |
+| negative | (bool)                                  | 否定条件とするか                     | true    | false   |
+
+
+??? info "AndOr"
+
+    --8<--
+    ja/constants/and_or.md
+    --8<--
+
+#### Examples
+
+##### pathに`ok`が含まれ かつ nameに`OK`が含まれるリクエストのみ抽出する
+
+```yml
+res2res:
+  - name: filter
+    config:
+       and_or: and
+       filters:
+         - path:
+             items:
+               - regexp: .*ok.*
+         - name:
+             items:
+               - regexp: .*OK.*
+```
+
+!!! hint "1つのfilter内でpathとnameをAND検索することもできます"
+
+    ```yml
+    res2res:
+      - name: filter
+        config:
+          and_or: and
+          filters:
+            - path:
+                items:
+                  - regexp: .*ok.*
+              name:
+                items:
+                  - regexp: .*OK.*    
+    ```
 
 
 [:fa-github:][add] add
@@ -92,19 +143,77 @@ reqs2reqs:
 
 [replace]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/replace.py
 
-!!! todo
+条件に一致するリクエストを置換します。
 
-    Comming soon...
+### Config
 
+#### Definitions
+
+##### Root
+
+|  Key  |          Type           |   Description    | Example | Default |
+| ----- | ----------------------- | ---------------- | ------- | ------- |
+| items | [Replacer[]](#replacer) | 置換設定のリスト |         |         |
+
+##### Replacer
+
+|    Key     |                  Type                   |             Description              |                 Example                 | Default |
+| ---------- | --------------------------------------- | ------------------------------------ | --------------------------------------- | ------- |
+| conditions | [RequestCondition[]][request-condition] | 置換するRequestの条件                |                                         |         |
+| and_or     | (AndOr) :fa-info-circle:                | conditionsをAND/ORどちらで判定するか |                                         | and     |
+| negative   | (bool)                                  | 否定条件とするか                     | true                                    | false   |
+| qs         | dict[str[]])                            | 置換するクエリ                       | <pre>{"a": [1], "b": [2, 3]}</pre>      |         |
+| headers    | dict[str]                               | 置換するヘッダ                       | <pre>{"header1": 1, "header2": 2}</pre> |         |
+
+??? info "AndOr"
+
+    --8<--
+    ja/constants/and_or.md
+    --8<--
+
+!!! info "`qs`と`headers`について"
+
+    リクエストに存在しないクエリやヘッダの場合は、設定した値が追加されます
+
+#### Examples
+
+##### pathが`/target`と一致するリクエストのクエリを置換する (`id=dummay_id`, `time=dummy_date`)
+
+```yml
+reqs2reqs:
+  - name: replace
+    config:
+      items:
+        - conditions:
+            - path:
+                items:
+                  - regexp: /target
+          queries:
+            id: "dummy_id"
+            time: "dummy_date"
+```
 
 [:fa-github:][shuffle] shuffle
 ------------------------------
 
 [shuffle]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/shuffle.py
 
-!!! todo
+リクエストの順序をシャッフルします。
 
-    Comming soon...
+### Config
+
+#### Definitions
+
+Config設定はありません。
+
+#### Examples
+
+##### リクエストをシャッフルする
+
+```yml
+reqs2reqs:
+  - name: shuffle
+```
 
 
 [:fa-github:][repeat] repeat
@@ -209,3 +318,6 @@ reqs2reqs:
         username: jumeaux
         icon_emoji: "jumeaux"
     ```
+
+
+[request-condition]: /ja/models/request-condition

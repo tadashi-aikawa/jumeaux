@@ -1,20 +1,5 @@
 # -*- coding:utf-8 -*-
 
-"""For example of config
-
-reqs2reqs:
-  - name: addons.reqs2reqs.replace
-    config:
-      items:
-        - conditions:
-            - path:
-                items:
-                  - regexp: /traffic
-          queries:
-            id: "dummy"
-            time: "hogehoge"
-"""
-
 import copy
 import logging
 import re
