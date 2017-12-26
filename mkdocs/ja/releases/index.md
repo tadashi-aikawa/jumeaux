@@ -8,9 +8,9 @@ Releases
 
 :fa-calendar: `2017/12/26`
 
-??? danger "replaceアドオンのconfig仕様に破壊的変更があります ([reqs2reqs/replace])"
+??? danger "filterアドオンのconfig仕様に破壊的変更があります ([reqs2reqs/filter])"
 
-    * 新しい仕様を [reqs2reqs/replace] でご確認の上、設定を移行してください
+    * 新しい仕様を [reqs2reqs/filter] でご確認の上、設定を移行してください
 
 ??? hint "アドオンのドキュメントが完成しました"
 
@@ -89,6 +89,7 @@ Releases
 
 [addons]: /ja/addons
 [reqs2reqs/empty_guard]: /ja/addons/reqs2reqs#empty_guard
+[reqs2reqs/filter]: /ja/addons/reqs2reqs#filter
 [reqs2reqs/replace]: /ja/addons/reqs2reqs#replace
 [res2dict/richplain]: /ja/addons/res2dict#block
 [res2dict/block]: /ja/addons/res2dict#block
