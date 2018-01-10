@@ -9,7 +9,7 @@ Usage
 Usage:
   jumeaux init
   jumeaux init <name>
-  jumeaux [run] <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
+  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
   jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] <report>
 
 Options:
