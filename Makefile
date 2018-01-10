@@ -19,6 +19,16 @@ init: ## Intialize develop environment
 	@pipenv install -d
 	@echo End $@
 
+run: ## Run jumeaux
+	@echo Start $@
+	@pipenv run python jumeaux/executor.py run $(ARGS)
+	@echo End $@
+
+retry: ## Retry jumeaux
+	@echo Start $@
+	@pipenv run python jumeaux/executor.py retry $(ARGS)
+	@echo End $@
+
 serve-docs: ## Build and serve documentation
 	@echo Start $@
 	@pipenv run mkdocs serve -a 0.0.0.0:8000
