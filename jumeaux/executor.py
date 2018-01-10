@@ -488,6 +488,14 @@ Please specify a valid name.
         logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
 
+    logger.info(f"""[Config (from yaml files or report and args)]
+----
+
+{config.to_yaml()}
+
+----
+""")
+
     # Requests
     logs: TList[Request] = global_addon_executor.apply_reqs2reqs(
         Reqs2ReqsAddOnPayload.from_dict({'requests': origin_logs}),
