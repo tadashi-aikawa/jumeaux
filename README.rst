@@ -57,7 +57,7 @@ Commands
     # Create env
     $ make init
     # Check
-    $ pipenv run python jumeaux/executor.py --help
+    $ make run ARGS="--help"
 
     # Build documentation and run server locally
     $ make serve-docs

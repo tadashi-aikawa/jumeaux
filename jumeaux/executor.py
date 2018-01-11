@@ -9,7 +9,7 @@ Usage
 Usage:
   jumeaux init
   jumeaux init <name>
-  jumeaux [run] <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
+  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
   jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] <report>
 
 Options:
@@ -487,6 +487,14 @@ Please specify a valid name.
     if logger_config:
         logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
+
+    logger.info(f"""[Config (from yaml files or report and args)]
+----
+
+{config.to_yaml()}
+
+----
+""")
 
     # Requests
     logs: TList[Request] = global_addon_executor.apply_reqs2reqs(
