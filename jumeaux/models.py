@@ -150,6 +150,10 @@ class Response(OwlMixin):
         return self.content_type.map(lambda x: x.split(';')[0])
 
     @property
+    def charset(self) -> TOption[str]:
+        return self.content_type.map(lambda x: x.split(';')[1] if x.split(';') > 1 else None)
+
+    @property
     def ok(self) -> bool:
         return self.status_code == 200
 
@@ -159,7 +163,11 @@ class Response(OwlMixin):
 
     @classmethod
     def from_requests(cls, res: any) -> 'Response':
-        encoding: str = res.encoding
+        content_type = res.headers.get('content-type')
+        # XXX: See 2.2 in https://tools.ietf.org/html/rfc2616#section-2.2
+        encoding: str = None if 'text' in content_type and 'charset=' not in content_type and res.encoding == 'ISO-8859-1' \
+            else res.encoding
+
         if not encoding:
             meta_encodings: list[str] = requests.utils.get_encodings_from_content(res.text)
             encoding = meta_encodings[0] if meta_encodings else res.apparent_encoding
