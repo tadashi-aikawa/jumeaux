@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import datetime
 from typing import Optional
+
+import requests
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList, TDict
 from owlmixin.owlenum import OwlEnum
@@ -157,10 +159,15 @@ class Response(OwlMixin):
 
     @classmethod
     def from_requests(cls, res: any) -> 'Response':
+        encoding: str = res.encoding
+        if not encoding:
+            meta_encodings: list[str] = requests.utils.get_encodings_from_content(res.text)
+            encoding = meta_encodings[0] if meta_encodings else res.apparent_encoding
+
         return Response.from_dict({
             'body': res.content,
-            'encoding': res.encoding,
-            'text': res.content.decode(res.encoding) if res.encoding else res.text,
+            'encoding': encoding,
+            'text': res.content.decode(encoding),
             'headers': res.headers,
             'url': res.url,
             'status_code': res.status_code,
