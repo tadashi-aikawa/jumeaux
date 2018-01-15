@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import datetime
-from typing import Optional
+from typing import Optional, List
+
+import requests
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList, TDict
 from owlmixin.owlenum import OwlEnum
@@ -148,6 +150,10 @@ class Response(OwlMixin):
         return self.content_type.map(lambda x: x.split(';')[0])
 
     @property
+    def charset(self) -> TOption[str]:
+        return self.content_type.map(lambda x: x.split(';')[1] if x.split(';') > 1 else None)
+
+    @property
     def ok(self) -> bool:
         return self.status_code == 200
 
@@ -156,11 +162,22 @@ class Response(OwlMixin):
         return CaseInsensitiveDict(v)
 
     @classmethod
+    def _decide_encoding(cls, res: any) -> str:
+        content_type = res.headers.get('content-type')
+        # XXX: See 2.2 in https://tools.ietf.org/html/rfc2616#section-2.2
+        if res.encoding and not ('text' in content_type and res.encoding == 'ISO-8859-1'):
+            return res.encoding
+
+        meta_encodings: List[str] = requests.utils.get_encodings_from_content(res.text)
+        return meta_encodings[0] if meta_encodings else res.apparent_encoding
+
+    @classmethod
     def from_requests(cls, res: any) -> 'Response':
+        encoding: str = cls._decide_encoding(res)
         return Response.from_dict({
             'body': res.content,
-            'encoding': res.encoding,
-            'text': res.content.decode(res.encoding) if res.encoding else res.text,
+            'encoding': encoding,
+            'text': res.content.decode(encoding),
             'headers': res.headers,
             'url': res.url,
             'status_code': res.status_code,
