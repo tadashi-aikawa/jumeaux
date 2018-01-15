@@ -4,6 +4,23 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.36.1
+
+:fa-calendar: `2018/01/15`
+
+??? bug "特定のケースで不適切なencodingによるdecode/encodeされていた不具合を修正しました"
+
+    content-typeのcharsetが指定されていない場合にdefault-encodingを使用していましたが、以下の順で判断するよう変更しました。
+
+    1. xmlなどbodyにエンコーディング情報が含まれる場合はそれを採用する
+    2. 1が存在しない場合はbodyの内容からエンコーディングを推測する
+
+    !!! danger "default_encodingについて"
+
+        * 一部アドオンの設定に定義されている`default_encoding`は機能しなくなります
+        * 次のマイナーバージョンアップで`default_encoding`を削除します
+
+
 ## :package: 0.36.0
 
 :fa-calendar: `2018/01/11`
