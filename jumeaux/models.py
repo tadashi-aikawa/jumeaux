@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
-from typing import Optional
+from typing import Optional, List
 
 import requests
 from owlmixin import OwlMixin, TOption
@@ -162,16 +162,18 @@ class Response(OwlMixin):
         return CaseInsensitiveDict(v)
 
     @classmethod
-    def from_requests(cls, res: any) -> 'Response':
+    def _decide_encoding(cls, res: any) -> str:
         content_type = res.headers.get('content-type')
         # XXX: See 2.2 in https://tools.ietf.org/html/rfc2616#section-2.2
-        encoding: str = None if 'text' in content_type and 'charset=' not in content_type and res.encoding == 'ISO-8859-1' \
-            else res.encoding
+        if res.encoding and not ('text' in content_type and res.encoding == 'ISO-8859-1'):
+            return res.encoding
 
-        if not encoding:
-            meta_encodings: list[str] = requests.utils.get_encodings_from_content(res.text)
-            encoding = meta_encodings[0] if meta_encodings else res.apparent_encoding
+        meta_encodings: List[str] = requests.utils.get_encodings_from_content(res.text)
+        return meta_encodings[0] if meta_encodings else res.apparent_encoding
 
+    @classmethod
+    def from_requests(cls, res: any) -> 'Response':
+        encoding: str = cls._decide_encoding(res)
         return Response.from_dict({
             'body': res.content,
             'encoding': encoding,
