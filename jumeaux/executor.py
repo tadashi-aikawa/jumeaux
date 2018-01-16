@@ -489,6 +489,8 @@ Please specify a valid name.
         logging.config.dictConfig(logger_config)
 
     logger.info(f"""[Config (from yaml files or report and args)]
+
+Version: {__version__}
 ----
 
 {config.to_yaml()}

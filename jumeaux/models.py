@@ -135,11 +135,15 @@ class Proxy(OwlMixin):
 class Response(OwlMixin):
     body: bytes
     encoding: TOption[str]
-    text: str
     headers: CaseInsensitiveDict
     url: str
     status_code: int
     elapsed: datetime.timedelta
+
+    @property
+    def text(self) -> str:
+        # Refer https://github.com/requests/requests/blob/e4fc3539b43416f9e9ba6837d73b1b7392d4b242/requests/models.py#L831
+        return self.body.decode(self.encoding.get_or('utf8'), errors='replace')
 
     @property
     def content_type(self) -> TOption[str]:
@@ -177,7 +181,6 @@ class Response(OwlMixin):
         return Response.from_dict({
             'body': res.content,
             'encoding': encoding,
-            'text': res.content.decode(encoding),
             'headers': res.headers,
             'url': res.url,
             'status_code': res.status_code,
