@@ -45,7 +45,6 @@ def make_response(text: str) -> Response:
     return Response.from_dict({
         "body": text.encode('utf-8'),
         "encoding": 'utf-8',
-        "text": text,
         "headers": {
             "content-type": "application/json"
         },

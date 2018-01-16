@@ -52,7 +52,6 @@ PATTERN1 = ("Normal",
             Response.from_dict({
                 "body": PATTERN1_BODY.encode('utf-8'),
                 "encoding": 'utf-8',
-                "text": PATTERN1_BODY,
                 "headers": {
                     "content-type": "text/plain; charset=utf-8"
                 },
@@ -84,7 +83,6 @@ PATTERN2 = ("Normal",
             Response.from_dict({
                 "body": PATTERN2_BODY.encode('utf-8'),
                 "encoding": 'utf-8',
-                "text": PATTERN2_BODY,
                 "headers": {
                     "content-type": "text/plain; charset=utf-8"
                 },
@@ -116,7 +114,6 @@ NO_END_LINEBREAK = ("No end linebreak",
                     Response.from_dict({
                         "body": NO_END_LINEBREAK_BODY.encode('utf-8'),
                         "encoding": 'utf-8',
-                        "text": NO_END_LINEBREAK_BODY,
                         "headers": {
                             "content-type": "text/plain; charset=utf-8"
                         },

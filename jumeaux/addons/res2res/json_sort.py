@@ -83,7 +83,6 @@ class Executor(Res2ResExecutor):
             "response": {
                 "body": sorted_res.encode(res.encoding.get_or(self.config.default_encoding)),
                 "encoding": res.encoding.get(),
-                "text": sorted_res,
                 "headers": res.headers,
                 "url": res.url,
                 "status_code": res.status_code,
