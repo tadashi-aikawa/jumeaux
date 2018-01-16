@@ -500,6 +500,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0362" title="0.36.2" class="md-nav__link">
+    0.36.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0361" title="0.36.1" class="md-nav__link">
     0.36.1
   </a>
@@ -599,6 +606,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0362" title="0.36.2" class="md-nav__link">
+    0.36.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0361" title="0.36.1" class="md-nav__link">
     0.36.1
   </a>
@@ -688,7 +702,9 @@
                 <h1 id="releases">Releases<a class="headerlink" href="#releases" title="Permanent link">&para;</a></h1>
 <p>主なリリース情報を記載します。<br />
 全ての変更はGitHubのコミットログをご覧ください。</p>
-<h2 id="0361"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/3.1/png/64/1f4e6.png" title=":package:" /> 0.36.1<a class="headerlink" href="#0361" title="Permanent link">&para;</a></h2>
+<h2 id="0362"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/3.1/png/64/1f4e6.png" title=":package:" /> 0.36.2<a class="headerlink" href="#0362" title="Permanent link">&para;</a></h2>
+<p><i class="fa fa-calendar"></i> <code>2018/01/17</code></p>
+<details class="bug"><summary>バイナリなどencodingの推測が不可能な場合に強制終了する不具合を修正しました</summary><ul><li>encodingの予測すら不可能な場合はUTF-8でdecodeします</li><li>decodeできない文字が出現した場合は文字化けとして扱います</li><li>バイナリをTextとして扱うアドオンなどを使用していなければdecodeはされません</li></ul></details><details class="hint"><summary>Jumeauxのバージョンを開始ログに追記しました</summary><ul><li>実行時の設定が出力される直前に表示されます</li><li>動作確認や不具合問い合わせ時にご利用ください</li></ul></details><h2 id="0361"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/3.1/png/64/1f4e6.png" title=":package:" /> 0.36.1<a class="headerlink" href="#0361" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018/01/15</code></p>
 <details class="bug"><summary>特定のケースで不適切なencodingによるdecode/encodeされていた不具合を修正しました</summary><p>content-typeのcharsetが指定されていない場合にdefault-encodingを使用していましたが、以下の順で判断するよう変更しました。</p><ol><li>xmlなどbodyにエンコーディング情報が含まれる場合はそれを採用する</li><li>1が存在しない場合はbodyの内容からエンコーディングを推測する</li></ol><div class="admonition danger"><p class="admonition-title">default_encodingについて</p><ul><li>一部アドオンの設定に定義されている<code>default_encoding</code>は機能しなくなります</li><li>次のマイナーバージョンアップで<code>default_encoding</code>を削除します</li></ul></div></details><h2 id="0360"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/3.1/png/64/1f4e6.png" title=":package:" /> 0.36.0<a class="headerlink" href="#0360" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018/01/11</code></p>
