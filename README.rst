@@ -47,7 +47,11 @@ Current
 For developer
 =============
 
-Requires pipenv and make.
+Requirements
+------------
+
+* pipenv
+* make
 
 Commands
 --------
