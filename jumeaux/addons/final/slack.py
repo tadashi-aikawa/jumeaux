@@ -53,6 +53,14 @@ class Executor(FinalExecutor):
     def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
         report: Report = payload.report
 
+        logger.info("""
+        ____  _            _           
+__/\__ / ___|| | __ _  ___| | __ __/\__
+\    / \___ \| |/ _` |/ __| |/ / \    /
+/_  _\  ___) | | (_| | (__|   <  /_  _\\
+  \/   |____/|_|\__,_|\___|_|\_\   \/  
+""")
+
         for c in self.config.conditions:  # type: Condition
             p = SlackPayload.from_dict({
                 "text": c.payload.message_format.format(**report.to_dict()),
@@ -63,5 +71,6 @@ class Executor(FinalExecutor):
                 "link_names": 1
             })
             requests.post(os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json().encode('utf8'))
+            logger.info(f"Send to {p.channel}")
 
         return payload

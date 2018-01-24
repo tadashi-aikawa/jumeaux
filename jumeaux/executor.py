@@ -488,14 +488,29 @@ Please specify a valid name.
         logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
 
-    logger.info(f"""[Config (from yaml files or report and args)]
+    logger.info(f"""
+        ____  _             _         _                                              
+__/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ __/\__
+\    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
+/_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\\
+  \/   |____/ \__\__,_|_|   \__|  \___/ \__,_|_| |_| |_|\___|\__,_|\__,_/_/\_\   \/
 
-Version: {__version__}
+Version: {__version__}  
+    """)
+
+    logger.info(f"""
+         ____             __ _              
+__/\__  / ___|___  _ __  / _(_) __ _  __/\__
+\    / | |   / _ \| '_ \| |_| |/ _` | \    /
+/_  _\ | |__| (_) | | | |  _| | (_| | /_  _\\
+  \/    \____\___/|_| |_|_| |_|\__, |   \/  
+                               |___/        
+(Merge with yaml files or report, and args)
+
 ----
 
 {config.to_yaml()}
 
-----
 """)
 
     # Requests
