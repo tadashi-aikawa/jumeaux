@@ -9,6 +9,7 @@ import logging
 
 import os
 import requests
+import sys
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
@@ -46,6 +47,8 @@ class Config(OwlMixin):
 class Executor(FinalExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
+        if not "SLACK_INCOMING_WEBHOOKS_URL" in os.environ:
+            sys.exit('Environment variable SLACK_INCOMING_WEBHOOKS_URL is not specified. You need to set it.')
 
     def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
         report: Report = payload.report
