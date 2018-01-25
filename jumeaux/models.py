@@ -82,6 +82,7 @@ class Config(OwlMixin):
     title: TOption[str]
     description: TOption[str]
     tags: TOption[TList[str]]
+    # TODO: remove
     input_files: TOption[TList[str]]
     notifiers: TOption[TDict[Notifier]]
     addons: Addons

@@ -27,6 +27,8 @@ pages:
     - did_challenge: ja/addons/did_challenge.md
     - final: ja/addons/final.md
   - Models:
+    - AccessPoint: ja/models/access-point.md
+    - Notifier: ja/models/notifier.md
     - Request: ja/models/request.md
     - RequestCondition: ja/models/request-condition.md
   - Releases: ja/releases/index.md
