@@ -43,6 +43,7 @@ def config_without_access_points(tmpdir) -> str:
     with tmpfile.open('w') as f:
         f.write(f'''
 threads: 3
+max_retries: 2
 output:
   encoding: utf8
   response_dir: tmpdir

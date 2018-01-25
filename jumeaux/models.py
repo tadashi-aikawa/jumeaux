@@ -78,6 +78,7 @@ class Config(OwlMixin):
     output: OutputSummary
     threads: int = 1
     processes: TOption[int]
+    max_retries: int = 3
     title: TOption[str]
     description: TOption[str]
     tags: TOption[TList[str]]
@@ -98,6 +99,7 @@ class Args(OwlMixin):
     tag: TOption[TList[str]]
     threads: TOption[int]
     processes: TOption[int]
+    max_retries: TOption[int]
     retry: bool
     report: TOption[str]  # Only case in which retry is True
     init: bool
@@ -109,6 +111,10 @@ class Args(OwlMixin):
 
     @classmethod
     def ___processes(cls, v: Optional[str]) -> int:
+        return int(v) if v else None
+
+    @classmethod
+    def ___max_retries(cls, v: Optional[str]) -> int:
         return int(v) if v else None
 
 

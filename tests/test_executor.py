@@ -342,6 +342,7 @@ class TestCreateConfig:
                 "response_dir": "tmpdir"
             },
             "threads": 3,
+            "max_retries": 2,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -381,6 +382,7 @@ class TestCreateConfig:
                 "response_dir": "tmpdir"
             },
             "threads": 1,
+            "max_retries": 3,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -432,6 +434,7 @@ class TestCreateConfig:
                 "response_dir": "mergecase2"
             },
             "threads": 1,
+            "max_retries": 3,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -478,6 +481,7 @@ class TestCreateConfig:
                 "response_dir": "mergecase1"
             },
             "threads": 1,
+            "max_retries": 3,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -526,6 +530,7 @@ class TestCreateConfig:
                 "response_dir": "includecase1"
             },
             "threads": 1,
+            "max_retries": 3,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -574,6 +579,7 @@ class TestMergeArgs2Config:
             'tag': ['tag1', 'tag2'],
             'threads': 3,
             'processes': 2,
+            'max_retries': 5,
             'retry': False,
             'init': False
         })
@@ -584,6 +590,7 @@ class TestMergeArgs2Config:
             "tags": ["tag3", "tag4"],
             "threads": 1,
             "processes": 4,
+            "max_retries": 7,
             "one": {
                 "name": "name_one",
                 "host": "http://host/one",
@@ -612,6 +619,7 @@ class TestMergeArgs2Config:
             "tags": ["tag1", "tag2"],
             "threads": 3,
             "processes": 2,
+            "max_retries": 5,
             "input_files": ['file1', 'file2'],
             "one": {
                 "name": "name_one",
@@ -657,6 +665,7 @@ class TestMergeArgs2Config:
             "tags": ["tag3", "tag4"],
             "threads": 1,
             "processes": 4,
+            "max_retries": 5,
             "one": {
                 "name": "name_one",
                 "host": "http://host/one",
@@ -685,6 +694,7 @@ class TestMergeArgs2Config:
             "tags": ["tag3", "tag4"],
             "threads": 1,
             "processes": 4,
+            "max_retries": 5,
             "one": {
                 "name": "name_one",
                 "host": "http://host/one",
@@ -748,6 +758,7 @@ class TestMergeArgs2Config:
 
         assert merge_args2config(args, config).to_dict() == {
             "threads": 1,
+            "max_retries": 3,
             "one": {
                 "name": "name_one",
                 "host": "http://host/one",

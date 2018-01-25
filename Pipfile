@@ -29,7 +29,7 @@ fn = "*"
 "boto3" = "*"
 deepdiff = "*"
 freezegun = "*"
-owlmixin = "*"
+owlmixin = ">=2.1.2"
 
 
 [requires]
