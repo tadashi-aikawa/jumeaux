@@ -5,6 +5,21 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.37.0
+
+:fa-calendar: `2018/01/26`
+
+??? info "リクエストの接続失敗最大数を指定できるようにしました"
+    
+    * 対応前の接続失敗最大数は3
+    * 引数の場合は `--max-retries` を指定します
+    * 設定の詳細は [configuration] をご覧ください
+
+!!! hint "SLACK_INCOMING_WEBHOOKS_URLが環境変数に設定されていないとき実行前にエラーで終了するようにしました ([final/slack])"
+
+!!! hint "実行ログの出力を改善しました"
+
+
 ## :package: 0.36.2
 
 :fa-calendar: `2018/01/17`
@@ -137,6 +152,7 @@ Releases
 !!! hint "when_notプロパティをwhenに変更しました ([final/miroir])"
 
 
+[configuration]: /ja/getstarted/configuration
 [addons]: /ja/addons
 [reqs2reqs/empty_guard]: /ja/addons/reqs2reqs#empty_guard
 [reqs2reqs/filter]: /ja/addons/reqs2reqs#filter
@@ -144,3 +160,4 @@ Releases
 [res2dict/richplain]: /ja/addons/res2dict#block
 [res2dict/block]: /ja/addons/res2dict#block
 [final/miroir]: /ja/addons/final#miroir
+[final/slack]: /ja/addons/final#slack
