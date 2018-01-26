@@ -50,6 +50,14 @@ class Executor(FinalExecutor):
             logger.info('Skip sending results to Miroir because there are different status.')
             return payload
 
+        logger.info("""
+        __  __ _           _             
+__/\__ |  \/  (_)_ __ ___ (_)_ __  __/\__
+\    / | |\/| | | '__/ _ \| | '__| \    /
+/_  _\ | |  | | | | | (_) | | |    /_  _\\
+  \/   |_|  |_|_|_|  \___/|_|_|      \/  
+""")
+
         report: Report = payload.report
         output_summary: OutputSummary = payload.output_summary
 

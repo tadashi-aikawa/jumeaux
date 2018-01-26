@@ -9,6 +9,7 @@ import logging
 
 import os
 import requests
+import sys
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
@@ -46,9 +47,19 @@ class Config(OwlMixin):
 class Executor(FinalExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
+        if not "SLACK_INCOMING_WEBHOOKS_URL" in os.environ:
+            sys.exit('Environment variable SLACK_INCOMING_WEBHOOKS_URL is not specified. You need to set it.')
 
     def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
         report: Report = payload.report
+
+        logger.info("""
+        ____  _            _           
+__/\__ / ___|| | __ _  ___| | __ __/\__
+\    / \___ \| |/ _` |/ __| |/ / \    /
+/_  _\  ___) | | (_| | (__|   <  /_  _\\
+  \/   |____/|_|\__,_|\___|_|\_\   \/  
+""")
 
         for c in self.config.conditions:  # type: Condition
             p = SlackPayload.from_dict({
@@ -60,5 +71,6 @@ class Executor(FinalExecutor):
                 "link_names": 1
             })
             requests.post(os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json().encode('utf8'))
+            logger.info(f"Send to {p.channel}")
 
         return payload

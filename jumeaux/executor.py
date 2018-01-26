@@ -9,8 +9,8 @@ Usage
 Usage:
   jumeaux init
   jumeaux init <name>
-  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
-  jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] <report>
+  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>]
+  jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>] <report>
 
 Options:
   <name>                           Initialize template name
@@ -21,6 +21,7 @@ Options:
   --tag = <tag>...                 Tags
   --threads = <threads>            The number of threads in challenge [def: 1]
   --processes = <processes>        The number of processes in challenge
+  --max-retries = <max_retries>    The max number of retries which accesses to API
   <report>                         Report for retry
 """
 
@@ -50,7 +51,6 @@ from jumeaux import __version__
 from jumeaux.addons import AddOnExecutor
 from jumeaux.models import *
 
-MAX_RETRIES = 3
 logger = getLogger(__name__)
 global_addon_executor: AddOnExecutor = None
 
@@ -281,8 +281,8 @@ def create_concurrent_executor(config: Config) -> Tuple[any, Concurrency]:
 def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
     # Provision
     s = requests.Session()
-    s.mount('http://', HTTPAdapter(max_retries=MAX_RETRIES))
-    s.mount('https://', HTTPAdapter(max_retries=MAX_RETRIES))
+    s.mount('http://', HTTPAdapter(max_retries=config.max_retries))
+    s.mount('https://', HTTPAdapter(max_retries=config.max_retries))
 
     make_dir(f'{config.output.response_dir}/{key}/one')
     make_dir(f'{config.output.response_dir}/{key}/other')
@@ -380,6 +380,7 @@ def merge_args2config(args: Args, config: Config) -> Config:
         "output": config.output,
         "threads": args.threads.get_or(config.threads),
         "processes": args.processes if args.processes.get() else config.processes,
+        "max_retries": args.max_retries.get() if args.max_retries.get() is not None else config.max_retries,
         "title": args.title if args.title.get() else config.title,
         "description": args.description if args.description.get() else config.description,
         "tags": args.tag if args.tag.get() else config.tags,
@@ -468,7 +469,7 @@ Please specify a valid name.
         }))
         retry_hash: Optional[str] = report.key
     else:
-        config: Config = merge_args2config(args, create_config(args.config.get_or(TList(['config.yml']))))
+        config: Config = merge_args2config(args, create_config(args.config.get() or TList(['config.yml'])))
         global_addon_executor = AddOnExecutor(config.addons)
         origin_logs: TList[Request] = config.input_files.get().flat_map(
             lambda f: global_addon_executor.apply_log2reqs(
@@ -488,14 +489,29 @@ Please specify a valid name.
         logger_config.update({'disable_existing_loggers': False})
         logging.config.dictConfig(logger_config)
 
-    logger.info(f"""[Config (from yaml files or report and args)]
+    logger.info(f"""
+        ____  _             _         _                                              
+__/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ __/\__
+\    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
+/_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\\
+  \/   |____/ \__\__,_|_|   \__|  \___/ \__,_|_| |_| |_|\___|\__,_|\__,_/_/\_\   \/
 
-Version: {__version__}
+Version: {__version__}  
+    """)
+
+    logger.info(f"""
+         ____             __ _              
+__/\__  / ___|___  _ __  / _(_) __ _  __/\__
+\    / | |   / _ \| '_ \| |_| |/ _` | \    /
+/_  _\ | |__| (_) | | | |  _| | (_| | /_  _\\
+  \/    \____\___/|_| |_|_| |_|\__, |   \/  
+                               |___/        
+(Merge with yaml files or report, and args)
+
 ----
 
 {config.to_yaml()}
 
-----
 """)
 
     # Requests
