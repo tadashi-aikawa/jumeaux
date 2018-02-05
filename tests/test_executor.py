@@ -581,7 +581,8 @@ class TestMergeArgs2Config:
             'processes': 2,
             'max_retries': 5,
             'retry': False,
-            'init': False
+            'init': False,
+            'v': 0,
         })
 
         config: Config = Config.from_dict({
@@ -656,7 +657,8 @@ class TestMergeArgs2Config:
         args: Args = Args.from_dict({
             'run': True,
             'retry': False,
-            'init': False
+            'init': False,
+            'v': 0,
         })
 
         config: Config = Config.from_dict({
@@ -730,7 +732,8 @@ class TestMergeArgs2Config:
         args: Args = Args.from_dict({
             'run': True,
             'retry': False,
-            'init': False
+            'init': False,
+            'v': 0,
         })
 
         config: Config = Config.from_dict({
