@@ -493,6 +493,10 @@ __/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ _
 Version: {__version__}  
     """)
 
+    if config.output.logger.get():
+        logger.warning('`output.logger` is no longer works.')
+        logger.warning('And this will be removed soon! You need to remove this property not to stop!')
+
     logger.info_lv3(f"""
          ____             __ _              
 __/\__  / ___|___  _ __  / _(_) __ _  __/\__

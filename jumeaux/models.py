@@ -32,6 +32,7 @@ class AccessPoint(OwlMixin):
 class OutputSummary(OwlMixin):
     response_dir: str
     encoding: str = 'utf8'
+    logger: TOption[any]
 
 
 class Concurrency(OwlMixin):
