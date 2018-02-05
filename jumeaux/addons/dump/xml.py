@@ -8,8 +8,9 @@ from xml.etree import ElementTree
 
 from jumeaux.addons.dump import DumpExecutor
 from jumeaux.models import DumpAddOnPayload
+from jumeaux.logger import Logger
 
-logger = logging.getLogger(__name__)
+logger: Logger = Logger(__name__)
 
 
 class Config(OwlMixin):

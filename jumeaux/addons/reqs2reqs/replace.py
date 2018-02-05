@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 
 import copy
-import logging
 import re
 from datetime import datetime, timedelta
 
@@ -12,8 +11,6 @@ from jumeaux.addons.conditions import RequestCondition, AndOr
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
 from jumeaux.models import Config as JumeauxConfig
 from jumeaux.models import Request, Reqs2ReqsAddOnPayload
-
-logger = logging.getLogger(__name__)
 
 
 class Replacer(OwlMixin):

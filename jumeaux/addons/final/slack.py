@@ -5,18 +5,18 @@
 * SLACK_INCOMING_WEBHOOKS_URL
 """
 
-import logging
-
 import os
-import requests
 import sys
+
+import requests
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.final import FinalExecutor
+from jumeaux.logger import Logger
 from jumeaux.models import Report, FinalAddOnPayload
 
-logger = logging.getLogger(__name__)
+logger: Logger = Logger(__name__)
 
 
 class SlackPayload(OwlMixin):
@@ -53,7 +53,7 @@ class Executor(FinalExecutor):
     def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
         report: Report = payload.report
 
-        logger.info("""
+        logger.info_lv1("""
         ____  _            _           
 __/\__ / ___|| | __ _  ___| | __ __/\__
 \    / \___ \| |/ _` |/ __| |/ / \    /
@@ -71,6 +71,6 @@ __/\__ / ___|| | __ _  ___| | __ __/\__
                 "link_names": 1
             })
             requests.post(os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json().encode('utf8'))
-            logger.info(f"Send to {p.channel}")
+            logger.info_lv1(f"Send to {p.channel}")
 
         return payload

@@ -1,16 +1,15 @@
 # -*- coding:utf-8 -*-
 
-import logging
-
 from fn import _
-from owlmixin import OwlMixin, TOption
+from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.judgement import JudgementExecutor
 from jumeaux.addons.utils import exact_match
+from jumeaux.logger import Logger
 from jumeaux.models import JudgementAddOnPayload, DiffKeys, Ignore, Condition
 
-logger = logging.getLogger(__name__)
+logger: Logger = Logger(__name__)
 
 
 class Config(OwlMixin):

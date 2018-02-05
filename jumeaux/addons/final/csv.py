@@ -6,8 +6,9 @@ from owlmixin import OwlMixin, TList
 
 from jumeaux.addons.final import FinalExecutor
 from jumeaux.models import FinalAddOnPayload
+from jumeaux.logger import Logger
 
-logger = logging.getLogger(__name__)
+logger: Logger = Logger(__name__)
 
 
 class Config(OwlMixin):

@@ -1,14 +1,10 @@
 # -*- coding:utf-8 -*-
 
-import logging
-
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.log2reqs import Log2ReqsExecutor
 from jumeaux.models import Request, Log2ReqsAddOnPayload
-
-logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):

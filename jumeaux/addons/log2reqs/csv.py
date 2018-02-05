@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 
 import csv
-import logging
 import urllib.parse as urlparser
 
 from owlmixin import OwlMixin
@@ -9,8 +8,6 @@ from owlmixin.owlcollections import TList
 
 from jumeaux.addons.log2reqs import Log2ReqsExecutor
 from jumeaux.models import Request, Log2ReqsAddOnPayload
-
-logger = logging.getLogger(__name__)
 
 
 class Config(OwlMixin):

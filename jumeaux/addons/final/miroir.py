@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 
 import json
-import logging
 import os
 import shutil
 from decimal import Decimal
@@ -11,8 +10,9 @@ from owlmixin import OwlMixin, TOption, TList, OwlEnum
 
 from jumeaux.addons.final import FinalExecutor
 from jumeaux.models import Report, OutputSummary, FinalAddOnPayload
+from jumeaux.logger import Logger
 
-logger = logging.getLogger(__name__)
+logger: Logger = Logger(__name__)
 
 
 class When(OwlEnum):
@@ -43,14 +43,14 @@ class Executor(FinalExecutor):
 
     def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
         if When.NOT_EMPTY in self.config.when and payload.report.trials.size() == 0:
-            logger.info('Skip sending results to Miroir because trials are empty.')
+            logger.info_lv1('Skip sending results to Miroir because trials are empty.')
             return payload
 
         if When.HAS_DIFFERENT in self.config.when and payload.report.summary.status.different == 0:
-            logger.info('Skip sending results to Miroir because there are different status.')
+            logger.info_lv1('Skip sending results to Miroir because there are different status.')
             return payload
 
-        logger.info("""
+        logger.info_lv1("""
         __  __ _           _             
 __/\__ |  \/  (_)_ __ ___ (_)_ __  __/\__
 \    / | |\/| | | '__/ _ \| | '__| \    /
@@ -112,9 +112,11 @@ __/\__ |  \/  (_)_ __ ___ (_)_ __  __/\__
 
         def upload_responses(which: str):
             dir = f'{output_summary.response_dir}/{report.key}'
+
+            logger.info_lv1(f"Uploading {len(os.listdir(f'{dir}/{which}'))} {which} responses...")
             for file in os.listdir(f'{dir}/{which}'):
                 with open(f'{dir}/{which}/{file}', 'rb') as f:
-                    logger.info(f'Put {dir}/{which}/{file}')
+                    logger.info_lv3(f'Put {dir}/{which}/{file}')
                     s3.put_object(Bucket=self.config.bucket,
                                   Key=f'{base_key}/{report.key}/{which}/{file}',
                                   Body=f.read(),
@@ -144,7 +146,7 @@ __/\__ |  \/  (_)_ __ ___ (_)_ __  __/\__
 
             zip_fullpath = f'{base_name}.zip'
             with open(zip_fullpath, 'rb') as f:
-                logger.info(f'Put {zip_fullpath}')
+                logger.info_lv3(f'Put {zip_fullpath}')
                 s3.put_object(Bucket=self.config.bucket,
                               Key=f'{base_key}/{report.key}/{report.key[0:7]}.zip',
                               Body=f.read(),

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import logging
 import sys
 
+from jumeaux.logger import Logger
 from jumeaux.models import Notifier, NotifierType
 from jumeaux.notification_handlers.base import NotificationHandler
 from jumeaux.notification_handlers.slack import SlackNotificationHandler
 
-logger = logging.getLogger(__name__)
+logger: Logger = Logger(__name__)
 
 
 def create_notification_handler(notifier: Notifier) -> NotificationHandler:

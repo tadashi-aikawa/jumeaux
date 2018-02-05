@@ -9,8 +9,8 @@ Usage
 Usage:
   jumeaux init
   jumeaux init <name>
-  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>]
-  jumeaux retry [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>] <report>
+  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>] [-vvv]
+  jumeaux retry <report> [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>] [-vvv]
 
 Options:
   <name>                           Initialize template name
@@ -23,13 +23,13 @@ Options:
   --processes = <processes>        The number of processes in challenge
   --max-retries = <max_retries>    The max number of retries which accesses to API
   <report>                         Report for retry
+  -vvv                             Logger level (`-v` or `-vv` or `-vvv`)
 """
 
 
 import hashlib
 import shutil
 import io
-import logging.config
 import sys
 import urllib.parse as urlparser
 
@@ -40,7 +40,6 @@ from concurrent import futures
 from deepdiff import DeepDiff
 from docopt import docopt
 from fn import _
-from logging import getLogger
 from owlmixin.util import load_yamlf
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
@@ -50,8 +49,9 @@ sys.path.append(PROJECT_ROOT)
 from jumeaux import __version__
 from jumeaux.addons import AddOnExecutor
 from jumeaux.models import *
+from jumeaux.logger import Logger, init_logger
 
-logger = getLogger(__name__)
+logger: Logger = Logger(__name__)
 global_addon_executor: AddOnExecutor = None
 
 
@@ -89,11 +89,7 @@ def concurrent_request(session, headers, url_one, url_other, proxies_one, proxie
     fs = ((session, url_one, headers, proxies_one),
           (session, url_other, headers, proxies_other))
     with futures.ThreadPoolExecutor(max_workers=2) as ex:
-        logger.info(f"Request one:   {url_one}")
-        logger.info(f"Request other: {url_other}")
         res_one, res_other = ex.map(http_get, fs)
-        logger.info(f"Response one:   {res_one.status_code} / {to_sec(res_one.elapsed)}s / {len(res_one.content)}b / {res_one.headers.get('content-type')}")
-        logger.info(f"Response other: {res_other.status_code} / {to_sec(res_other.elapsed)}s / {len(res_other.content)}b / {res_other.headers.get('content-type')}")
 
     return res_one, res_other
 
@@ -155,8 +151,11 @@ def challenge(arg: ChallengeArg) -> dict:
     """
 
     name: str = arg.req.name.get_or(str(arg.seq))
+    log_prefix = f"[{arg.seq} / {arg.number_of_request}]"
 
-    logger.info(f"Challenge:  {arg.seq} / {arg.number_of_request} -- {name}")
+    logger.info_lv3(f"{log_prefix} {'-'*80}")
+    logger.info_lv3(f"{log_prefix}  {arg.seq}. {arg.req.name.get_or(arg.req.path)}")
+    logger.info_lv3(f"{log_prefix} {'-'*80}")
 
     qs_str = urlparser.urlencode(arg.req.qs, doseq=True)
 
@@ -166,10 +165,15 @@ def challenge(arg: ChallengeArg) -> dict:
     # Get two responses
     req_time = now()
     try:
+        logger.info_lv3(f"{log_prefix} One:   {url_one}")
+        logger.info_lv3(f"{log_prefix} Other: {url_other}")
         r_one, r_other = concurrent_request(arg.session, arg.req.headers,
                                                 url_one, url_other,
                                                 arg.proxy_one.get(), arg.proxy_other.get())
+        logger.info_lv3(f"{log_prefix} One:   {r_one.status_code} / {to_sec(r_one.elapsed)}s / {len(r_one.content)}b / {r_one.headers.get('content-type')}")
+        logger.info_lv3(f"{log_prefix} Other: {r_other.status_code} / {to_sec(r_other.elapsed)}s / {len(r_other.content)}b / {r_other.headers.get('content-type')}")
     except ConnectionError:
+        logger.info_lv1(f"{log_prefix} 💀 {arg.req.name.get()}")
         # TODO: Integrate logic into create_trial
         return {
             "seq": arg.seq,
@@ -213,7 +217,9 @@ def challenge(arg: ChallengeArg) -> dict:
 
     # Judgement
     status: Status = judgement(res_one, res_other, name, arg.req.path, arg.req.qs, arg.req.headers, diff_keys)
-    logger.info(f"Status:   {status.value}")
+    status_symbol = "O" if status == Status.SAME else "X"
+    log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{to_sec(res_one.elapsed):.2f}s - {to_sec(res_other.elapsed):.2f}s> {arg.req.name.get_or(arg.req.path)}"
+    (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
 
     file_one = file_other = None
     if store_criterion(status, arg.req.path, arg.req.qs, arg.req.headers, res_one, res_other):
@@ -308,22 +314,15 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
     tags = config.tags.get_or([])
     executor, concurrency = create_concurrent_executor(config)
 
-    logger.info(f"""
+    logger.info_lv1(f"""
 --------------------------------------------------------------------------------
-| >>> Start processing !!
-|
-| [Key]
-| {key}
-|
-| [Title]
 | {title}
-|
-| [Description]
+| ({key})
+--------------------------------------------------------------------------------
 | {description}
-|
-| [Concurrency]
-| {concurrency.processes} processes
-| {concurrency.threads} threads
+--------------------------------------------------------------------------------
+| - {concurrency.processes} processes
+| - {concurrency.threads} threads
 --------------------------------------------------------------------------------
     """)
 
@@ -440,6 +439,7 @@ def create_config_from_report(report: Report) -> Config:
 def main():
     # We can use args only in `main()`
     args: Args = Args.from_dict(docopt(__doc__, version=__version__))
+    init_logger(args.v)
 
     global global_addon_executor
     # TODO: refactoring
@@ -483,13 +483,7 @@ Please specify a valid name.
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=config.output.encoding)
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=config.output.encoding)
 
-    # Logging settings load
-    logger_config = config.output.logger.get()
-    if logger_config:
-        logger_config.update({'disable_existing_loggers': False})
-        logging.config.dictConfig(logger_config)
-
-    logger.info(f"""
+    logger.info_lv1(f"""
         ____  _             _         _                                              
 __/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ __/\__
 \    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
@@ -499,7 +493,7 @@ __/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ _
 Version: {__version__}  
     """)
 
-    logger.info(f"""
+    logger.info_lv3(f"""
          ____             __ _              
 __/\__  / ___|___  _ __  / _(_) __ _  __/\__
 \    / | |   / _ \| '_ \| |_| |/ _` | \    /
