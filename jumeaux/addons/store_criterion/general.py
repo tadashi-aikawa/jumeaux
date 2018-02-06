@@ -1,14 +1,13 @@
 # -*- coding:utf-8 -*-
 
-import logging
-
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.store_criterion import StoreCriterionExecutor
+from jumeaux.logger import Logger
 from jumeaux.models import StoreCriterionAddOnPayload, Status
 
-logger = logging.getLogger(__name__)
+logger: Logger = Logger(__name__)
 
 
 class Config(OwlMixin):

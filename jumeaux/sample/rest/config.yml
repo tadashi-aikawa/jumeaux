@@ -11,20 +11,6 @@ other:
 # Output path for API responses
 output:
   response_dir: responses
-  logger:  # (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
-    version: 1
-    formatters:
-      simple:
-        format: '%(levelname)s %(message)s'
-    handlers:
-      console:
-        class : logging.StreamHandler
-        formatter: simple
-        level   : INFO
-        stream  : ext://sys.stderr
-    root:
-      level: INFO
-      handlers: [console]
 
 # Add-ons to use. See https://tadashi-aikawa.github.io/jumeaux/ja/addons
 addons:

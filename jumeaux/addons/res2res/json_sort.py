@@ -1,15 +1,16 @@
 # -*- coding:utf-8 -*-
 
-import logging
 import json
-from owlmixin import OwlMixin, TList, TOption, TDict
+
+from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.conditions import RequestCondition, AndOr
 from jumeaux.addons.res2res import Res2ResExecutor
 from jumeaux.addons.utils import exact_match
 from jumeaux.models import Res2ResAddOnPayload, Response, Request
+from jumeaux.logger import Logger
 
-logger = logging.getLogger(__name__)
+logger: Logger = Logger(__name__)
 
 
 class Target(OwlMixin):
@@ -66,7 +67,7 @@ class Executor(Res2ResExecutor):
         res: Response = payload.response
 
         if res.mime_type.get() not in ('text/json', 'application/json'):
-            logger.info("Skipped because mime type is not json.")
+            logger.info_lv3("Skipped because mime type is not json.")
             return payload
 
         res_json = json.loads(res.text, encoding=res.encoding.get())

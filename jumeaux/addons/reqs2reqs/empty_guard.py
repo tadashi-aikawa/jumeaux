@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 
-import logging
 import sys
 
 from owlmixin import OwlMixin, TList, TOption
@@ -9,8 +8,9 @@ from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
 from jumeaux.models import Config as JumeauxConfig
 from jumeaux.models import Reqs2ReqsAddOnPayload, Notifier
 from jumeaux.notification_handlers import create_notification_handler
+from jumeaux.logger import Logger
 
-logger = logging.getLogger(__name__)
+logger: Logger = Logger(__name__)
 
 
 class Notify(OwlMixin):
@@ -23,7 +23,7 @@ class Config(OwlMixin):
 
 
 def send(message: str, notifier: Notifier) -> TOption[str]:
-    logger.info(notifier.logging_message)
+    logger.info_lv1(notifier.logging_message)
     return create_notification_handler(notifier).notify(message)
 
 

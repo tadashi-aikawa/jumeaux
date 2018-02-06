@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 
-import logging
 import random
 
 import time
@@ -8,9 +7,9 @@ from owlmixin import OwlMixin
 
 from jumeaux.addons.did_challenge import DidChallengeExecutor
 from jumeaux.models import DidChallengeAddOnPayload
+from jumeaux.logger import Logger
 
-
-logger = logging.getLogger(__name__)
+logger: Logger = Logger(__name__)
 
 
 class Config(OwlMixin):
@@ -25,7 +24,7 @@ class Executor(DidChallengeExecutor):
     def exec(self, payload: DidChallengeAddOnPayload) -> DidChallengeAddOnPayload:
         sec: float = random.uniform(self.config.min, self.config.max)
 
-        logger.info(f"Sleep:  {sec:.2f} sec")
+        logger.info_lv3(f"Sleep:  {sec:.2f} sec")
         time.sleep(sec)
 
         return payload

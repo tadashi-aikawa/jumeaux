@@ -105,6 +105,7 @@ class Args(OwlMixin):
     report: TOption[str]  # Only case in which retry is True
     init: bool
     name: TOption[str]  # Only case in which init is True
+    v: int
 
     @classmethod
     def ___threads(cls, v: Optional[str]) -> int:
