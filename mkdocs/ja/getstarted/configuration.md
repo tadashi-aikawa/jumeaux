@@ -35,19 +35,11 @@ Configuration
 
 ### OutputSummary
 
-!!! danger
-
-    `logger`の仕様は近いうちに破壊的変更があります。
 
 |     Key      |       Type       |              Description               |    Example     | Default |
 | ------------ | ---------------- | -------------------------------------- | -------------- | ------- |
 | response_dir | string           | レスポンスを格納するディレクトリのパス | test/responses |         |
 | encoding     | (string)         | 出力するレポートのエンコーディング     | euc-jp         | utf8    |
-| logger       | :fa-info-circle: | ロガー設定                             |                |         |
-
-!!! info "logger"
-
-    [pythonのlogging設定](http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)に準拠します。
 
 
 ## Examples
@@ -74,20 +66,6 @@ notifiers:
 
 output:
   response_dir: responses
-  logger:  # (See http://wingware.com/psupport/python-manual/3.4/library/logging.config.html#logging-config-dictschema)
-    version: 1
-    formatters:
-      simple:
-        format: '%(levelname)s %(message)s'
-    handlers:
-      console:
-        class : logging.StreamHandler
-        formatter: simple
-        level   : INFO
-        stream  : ext://sys.stderr
-    root:
-      level: INFO
-      handlers: [console]
 
 addons:
   log2reqs:
