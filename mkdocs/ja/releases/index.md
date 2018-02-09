@@ -4,6 +4,12 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.38.1
+
+:fa-calendar: `2018/02/09`
+
+!!! bug "Dockerfileで作成したイメージが起動しない不具合修正"
+
 
 ## :package: 0.38.0
 
