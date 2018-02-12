@@ -22,7 +22,7 @@ init: ## Intialize develop environment
 
 run: ## Run jumeaux
 	@echo Start $@
-	@pipenv run jumeaux run $(ARGS)
+	@PYTHONPATH=`pwd` pipenv run jumeaux run $(ARGS)
 	@echo End $@
 
 test: ## Test
