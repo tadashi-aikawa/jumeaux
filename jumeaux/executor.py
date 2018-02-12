@@ -444,7 +444,7 @@ def main():
     global global_addon_executor
     # TODO: refactoring
     if args.init:
-        sample_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample'
+        sample_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/config'
         target_dir = f'{sample_dir}/{args.name.get()}'
         if not os.path.exists(target_dir):
             exit(f'''

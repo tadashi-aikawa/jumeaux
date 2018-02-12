@@ -19,7 +19,7 @@ Outline
 Requirement
 ===========
 
-* Python3.6 and uppper
+* Python3.6
 
 
 Documentation
