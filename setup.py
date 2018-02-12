@@ -19,6 +19,12 @@ def load_readme():
     with open(os.path.join(here, 'README.rst')) as f:
         return f.read()
 
+target_files = []
+for root, dirs, files in os.walk(f'{here}/jumeaux/sample'):
+    targets = [os.path.join(root, f) for f in files]
+    target_files.extend(targets)
+
+print(target_files)
 
 setup(
     name='jumeaux',
@@ -35,7 +41,7 @@ setup(
     url='https://github.com/tadashi-aikawa/jumeaux.git',
     keywords='diff rest api response two one other',
     packages=find_packages(exclude=['tests*']),
-    package_data={'jumeaux': ['sample/**/*']},
+    package_data={'jumeaux': target_files},
     install_requires=requirements,
     extras_require={'test': test_requirements},
     entry_points={
