@@ -4,6 +4,12 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.39.1
+
+:fa-calendar: `2018/02/12`
+
+!!! bug "`jumeaux init`が動作しない不具合修正"
+
 ## :package: 0.39.0
 
 :fa-calendar: `2018/02/12`
