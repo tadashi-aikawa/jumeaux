@@ -4,6 +4,16 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.40.0
+
+:fa-calendar: `2018/02/13`
+
+!!! info "`jumeaux init addon`でアドオンサンプルプロジェクトを作成できるようにしました"
+
+    !!! warning "この機能はβ版です。予告なく削除される可能性があります"
+
+!!! hint "`jumeaux init`で作成されたファイルをログ出力するようにしました"
+
 ## :package: 0.39.1
 
 :fa-calendar: `2018/02/12`
