@@ -443,6 +443,7 @@ def handle_init(name: TOption[str]):
         addon_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/addon'
         for f in os.listdir(addon_dir):
             (shutil.copytree if os.path.isdir(f'{addon_dir}/{f}') else shutil.copy)(f'{addon_dir}/{f}', f)
+            logger.info_lv1(f'✨ [Create] {f}')
         return
 
     sample_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/config'
@@ -451,6 +452,7 @@ def handle_init(name: TOption[str]):
     if os.path.exists(target_dir):
         for f in os.listdir(target_dir):
             shutil.copy(f'{target_dir}/{f}', '.')
+            logger.info_lv1(f'✨ [Create] {f}')
         return
 
     if not os.path.exists(target_dir):
