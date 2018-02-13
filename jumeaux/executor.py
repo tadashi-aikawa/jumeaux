@@ -436,6 +436,34 @@ def create_config_from_report(report: Report) -> Config:
     })
 
 
+def handle_init(name: TOption[str]):
+    # XXX: Beta: jumeaux init addon
+    # TODO: refactoring
+    if name.get() == 'addon':
+        addon_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/addon'
+        for f in os.listdir(addon_dir):
+            (shutil.copytree if os.path.isdir(f'{addon_dir}/{f}') else shutil.copy)(f'{addon_dir}/{f}', f)
+            logger.info_lv1(f'✨ [Create] {f}')
+        return
+
+    sample_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/config'
+    target_dir = f'{sample_dir}/{name.get()}'
+
+    if os.path.exists(target_dir):
+        for f in os.listdir(target_dir):
+            shutil.copy(f'{target_dir}/{f}', '.')
+            logger.info_lv1(f'✨ [Create] {f}')
+        return
+
+    if not os.path.exists(target_dir):
+        exit(f'''
+Please specify a valid name.
+        
+✨ [Valid names] ✨
+{os.linesep.join(os.listdir(sample_dir))}
+        '''.strip())
+
+
 def main():
     # We can use args only in `main()`
     args: Args = Args.from_dict(docopt(__doc__, version=__version__))
@@ -444,17 +472,7 @@ def main():
     global global_addon_executor
     # TODO: refactoring
     if args.init:
-        sample_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/config'
-        target_dir = f'{sample_dir}/{args.name.get()}'
-        if not os.path.exists(target_dir):
-            exit(f'''
-Please specify a valid name.
-            
-✨ [Valid names] ✨
-{os.linesep.join(os.listdir(sample_dir))}
-            '''.strip())
-        for f in os.listdir(target_dir):
-            shutil.copy(f'{target_dir}/{f}', '.')
+        handle_init(args.name)
         return
 
     if args.retry:
