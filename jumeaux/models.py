@@ -328,6 +328,11 @@ class DidChallengeAddOnPayload(OwlMixin):
 
 
 class JudgementAddOnPayload(OwlMixin):
+    remaining_diff_keys: TOption[DiffKeys]
+    regard_as_same: bool
+
+
+class JudgementAddOnReference(OwlMixin):
     name: str
     path: str
     qs: TDict[TList[str]]
@@ -336,8 +341,6 @@ class JudgementAddOnPayload(OwlMixin):
     res_other: Response
     # None if unknown
     diff_keys: TOption[DiffKeys]
-    remaining_diff_keys: TOption[DiffKeys]
-    regard_as_same: bool
 
 
 class StoreCriterionAddOnPayload(OwlMixin):
