@@ -69,3 +69,5 @@ responses
 .vscode
 
 .env
+
+.pytest_cache
