@@ -339,6 +339,8 @@ class JudgementAddOnReference(OwlMixin):
     headers: TDict[str]
     res_one: Response
     res_other: Response
+    dict_one: TOption[dict]
+    dict_other: TOption[dict]
     # None if unknown
     diff_keys: TOption[DiffKeys]
 

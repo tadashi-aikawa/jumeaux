@@ -108,6 +108,7 @@ def res2dict(res: Response) -> TOption[dict]:
 
 
 def judgement(r_one: Response, r_other: Response,
+              d_one: TOption[dict], d_other: TOption[dict],
               name: str, path: str, qs: TDict[TList[str]], headers: TList[str],
               diff_keys: Optional[DiffKeys]) -> Status:
     regard_as_same: bool = global_addon_executor.apply_judgement(
@@ -120,6 +121,8 @@ def judgement(r_one: Response, r_other: Response,
             "path": path,
             "qs": qs,
             "headers": headers,
+            "dict_one": d_one,
+            "dict_other": d_other,
             "res_one": r_one,
             "res_other": r_other,
             "diff_keys": diff_keys,
@@ -221,7 +224,8 @@ def challenge(arg: ChallengeArg) -> dict:
     }) if ddiff is not None else None
 
     # Judgement
-    status: Status = judgement(res_one, res_other, name, arg.req.path, arg.req.qs, arg.req.headers, diff_keys)
+    status: Status = judgement(res_one, res_other, dict_one, dict_other,
+                               name, arg.req.path, arg.req.qs, arg.req.headers, diff_keys)
     status_symbol = "O" if status == Status.SAME else "X"
     log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{to_sec(res_one.elapsed):.2f}s - {to_sec(res_other.elapsed):.2f}s> {arg.req.name.get_or(arg.req.path)}"
     (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
