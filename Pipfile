@@ -24,12 +24,13 @@ requests = "*"
 docopt = "*"
 schema = "*"
 xmltodict = "*"
-PyYAML = "*"
+pyyaml = "*"
 fn = "*"
 "boto3" = "*"
 deepdiff = "*"
 freezegun = "*"
 owlmixin = ">=2.1.2"
+pydash = "*"
 
 
 [requires]
