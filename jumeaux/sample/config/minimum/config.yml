@@ -1,0 +1,25 @@
+# One endpoint settings
+one:
+  name: One
+  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/simple/one
+
+# The other endpoint settings
+other:
+  name: Other
+  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/simple/other
+
+# Output path for API responses
+output:
+  response_dir: responses
+
+# Add-ons to use. See https://tadashi-aikawa.github.io/jumeaux/ja/addons
+addons:
+  log2reqs:
+    name: plain
+
+  store_criterion:
+    # Store different responses
+    - name: general
+      config:
+        statuses:
+          - different

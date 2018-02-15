@@ -19,7 +19,12 @@ init: ## Intialize develop environment
 	@pipenv install -d
 	@echo End $@
 
-run: ## Run jumeaux
+run-init: ## Run jumeaux init
+	@echo Start $@
+	@pipenv run python jumeaux/executor.py init $(ARGS)
+	@echo End $@
+
+run: ## Run jumeaux run
 	@echo Start $@
 	@pipenv run python jumeaux/executor.py run $(ARGS)
 	@echo End $@

@@ -26,7 +26,6 @@ Options:
   -vvv                             Logger level (`-v` or `-vv` or `-vvv`)
 """
 
-
 import hashlib
 import shutil
 import io
@@ -109,19 +108,26 @@ def res2dict(res: Response) -> TOption[dict]:
 
 
 def judgement(r_one: Response, r_other: Response,
-          name: str, path: str, qs: TDict[TList[str]], headers: TList[str],
-          diff_keys: Optional[DiffKeys]) -> Status:
-    regard_as_same: bool = global_addon_executor.apply_judgement(JudgementAddOnPayload.from_dict({
-        "name": name,
-        "path": path,
-        "qs": qs,
-        "headers": headers,
-        "res_one": r_one,
-        "res_other": r_other,
-        "diff_keys": diff_keys,
-        "remaining_diff_keys": diff_keys,
-        "regard_as_same": r_one.body == r_other.body
-    })).regard_as_same
+              d_one: TOption[dict], d_other: TOption[dict],
+              name: str, path: str, qs: TDict[TList[str]], headers: TList[str],
+              diff_keys: Optional[DiffKeys]) -> Status:
+    regard_as_same: bool = global_addon_executor.apply_judgement(
+        JudgementAddOnPayload.from_dict({
+            "remaining_diff_keys": diff_keys,
+            "regard_as_same": r_one.body == r_other.body,
+        }),
+        JudgementAddOnReference.from_dict({
+            "name": name,
+            "path": path,
+            "qs": qs,
+            "headers": headers,
+            "dict_one": d_one,
+            "dict_other": d_other,
+            "res_one": r_one,
+            "res_other": r_other,
+            "diff_keys": diff_keys,
+        })
+    ).regard_as_same
     return Status.SAME if regard_as_same else Status.DIFFERENT
 
 
@@ -168,10 +174,12 @@ def challenge(arg: ChallengeArg) -> dict:
         logger.info_lv3(f"{log_prefix} One:   {url_one}")
         logger.info_lv3(f"{log_prefix} Other: {url_other}")
         r_one, r_other = concurrent_request(arg.session, arg.req.headers,
-                                                url_one, url_other,
-                                                arg.proxy_one.get(), arg.proxy_other.get())
-        logger.info_lv3(f"{log_prefix} One:   {r_one.status_code} / {to_sec(r_one.elapsed)}s / {len(r_one.content)}b / {r_one.headers.get('content-type')}")
-        logger.info_lv3(f"{log_prefix} Other: {r_other.status_code} / {to_sec(r_other.elapsed)}s / {len(r_other.content)}b / {r_other.headers.get('content-type')}")
+                                            url_one, url_other,
+                                            arg.proxy_one.get(), arg.proxy_other.get())
+        logger.info_lv3(
+            f"{log_prefix} One:   {r_one.status_code} / {to_sec(r_one.elapsed)}s / {len(r_one.content)}b / {r_one.headers.get('content-type')}")
+        logger.info_lv3(
+            f"{log_prefix} Other: {r_other.status_code} / {to_sec(r_other.elapsed)}s / {len(r_other.content)}b / {r_other.headers.get('content-type')}")
     except ConnectionError:
         logger.info_lv1(f"{log_prefix} 💀 {arg.req.name.get()}")
         # TODO: Integrate logic into create_trial
@@ -216,7 +224,8 @@ def challenge(arg: ChallengeArg) -> dict:
     }) if ddiff is not None else None
 
     # Judgement
-    status: Status = judgement(res_one, res_other, name, arg.req.path, arg.req.qs, arg.req.headers, diff_keys)
+    status: Status = judgement(res_one, res_other, dict_one, dict_other,
+                               name, arg.req.path, arg.req.qs, arg.req.headers, diff_keys)
     status_symbol = "O" if status == Status.SAME else "X"
     log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{to_sec(res_one.elapsed):.2f}s - {to_sec(res_other.elapsed):.2f}s> {arg.req.name.get_or(arg.req.path)}"
     (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
@@ -307,7 +316,6 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "res_dir": config.output.response_dir
     })
 
-
     # Challenge
     title = config.title.get_or("No title")
     description = config.description.get()
@@ -328,7 +336,8 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
 
     start_time = now()
     with executor as ex:
-        trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))]).map(lambda x: Trial.from_dict(x))
+        trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))]).map(
+            lambda x: Trial.from_dict(x))
     end_time = now()
 
     summary = Summary.from_dict({
@@ -400,7 +409,7 @@ def create_config(config_paths: TList[str]) -> Config:
 
         return {k: v for k, v in {
             "log2reqs": apply_include(addons["log2reqs"], config_path) \
-                   if "log2reqs" in addons else None,
+                if "log2reqs" in addons else None,
             "reqs2reqs": apply_includes("reqs2reqs"),
             "res2res": apply_includes("res2res"),
             "res2dict": apply_includes("res2dict"),

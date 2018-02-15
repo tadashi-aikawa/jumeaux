@@ -51,8 +51,8 @@ class AddOnExecutor:
     def apply_res2dict(self, payload: Res2DictAddOnPayload) -> Res2DictAddOnPayload:
         return self.res2dict.reduce(lambda p, a: a.exec(p), payload)
 
-    def apply_judgement(self, payload: JudgementAddOnPayload) -> JudgementAddOnPayload:
-        return self.judgement.reduce(lambda p, a: a.exec(p), payload)
+    def apply_judgement(self, payload: JudgementAddOnPayload, reference: JudgementAddOnReference) -> JudgementAddOnPayload:
+        return self.judgement.reduce(lambda p, a: a.exec(p, reference), payload)
 
     def apply_store_criterion(self, payload: StoreCriterionAddOnPayload) -> StoreCriterionAddOnPayload:
         return self.store_criterion.reduce(lambda p, a: a.exec(p), payload)

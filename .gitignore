@@ -60,12 +60,15 @@ target/
 .idea/
 *.iml
 
-config.yml
-requests
-resource
-responses
+/config.yml
+/requests
+/resource
+/responses
+/jumeaux/responses
 
 .activate.bat
 .vscode
 
 .env
+
+.pytest_cache

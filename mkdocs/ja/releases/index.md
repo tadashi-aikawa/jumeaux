@@ -4,6 +4,19 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+
+## :package: 0.41.0
+
+:fa-calendar: `2018/02/15`
+
+!!! bug "`jumeaux init`が動作しない不具合を修正しました"
+
+??? hint "アドオンの引数にoneとotherのdictを追加しました ([judgement/ignore_properties])"
+
+    * アドオン作成者以外は影響ありません
+    * 詳細は [addons] の設計図をご覧ください
+
+
 ## :package: 0.40.0
 
 :fa-calendar: `2018/02/13`
@@ -14,11 +27,13 @@ Releases
 
 !!! hint "`jumeaux init`で作成されたファイルをログ出力するようにしました"
 
+
 ## :package: 0.39.1
 
 :fa-calendar: `2018/02/12`
 
 !!! bug "`jumeaux init`が動作しない不具合修正"
+
 
 ## :package: 0.39.0
 
@@ -204,5 +219,6 @@ Releases
 [reqs2reqs/replace]: /ja/addons/reqs2reqs#replace
 [res2dict/richplain]: /ja/addons/res2dict#block
 [res2dict/block]: /ja/addons/res2dict#block
+[judgement/ignore_properties]: /ja/addons/judgement#ignore_properties
 [final/miroir]: /ja/addons/final#miroir
 [final/slack]: /ja/addons/final#slack
