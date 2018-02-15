@@ -3,6 +3,7 @@ import datetime
 from typing import Optional, List
 
 import requests
+from requests_toolbelt.utils import deprecated
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList, TDict
 from owlmixin.owlenum import OwlEnum
@@ -180,7 +181,7 @@ class Response(OwlMixin):
         if res.encoding and not ('text' in content_type and res.encoding == 'ISO-8859-1'):
             return res.encoding
 
-        meta_encodings: List[str] = requests.utils.get_encodings_from_content(res.text)
+        meta_encodings: List[str] = deprecated.get_encodings_from_content(res.content)
         return meta_encodings[0] if meta_encodings else res.apparent_encoding
 
     @classmethod
