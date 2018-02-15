@@ -13,7 +13,7 @@ logger: Logger = Logger(__name__)
 
 
 class Config(OwlMixin):
-    value: str
+    values: TList[str]
 
 
 class Executor(JudgementExecutor):
@@ -29,9 +29,7 @@ class Executor(JudgementExecutor):
         def reject_apple(key: str):
             one = get_by_diff_key(reference.dict_one.get(), key)
             other = get_by_diff_key(reference.dict_other.get(), key)
-            logger.info_lv1(str(one))
-            logger.info_lv1(str(other))
-            return self.config.value in str(one) or self.config.value in str(other)
+            return self.config.values.any(lambda x: x in str(one) or x in str(other))
 
         keys: DiffKeys = payload.remaining_diff_keys.get()
         filtered_diff_keys: DiffKeys = DiffKeys.from_dict({

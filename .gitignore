@@ -63,6 +63,7 @@ target/
 /config.yml
 /requests
 /resource
+/responses
 /jumeaux/responses
 
 .activate.bat
