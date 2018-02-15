@@ -45,7 +45,7 @@ Add to a `addons` section in config.yml
           path: /hogehoge
 
     # Don't replace but add below
-    judgements:
+    judgement:
       - name: addon_sample.judgement.ignore_values
         config:
           values:
