@@ -60,10 +60,10 @@ target/
 .idea/
 *.iml
 
-config.yml
-requests
-resource
-responses
+/config.yml
+/requests
+/resource
+/jumeaux/responses
 
 .activate.bat
 .vscode
