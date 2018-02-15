@@ -5,6 +5,13 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.41.1
+
+:fa-calendar: `2018/02/16`
+
+!!! note "requestsライブラリのwarningを消しました"
+
+
 ## :package: 0.41.0
 
 :fa-calendar: `2018/02/15`

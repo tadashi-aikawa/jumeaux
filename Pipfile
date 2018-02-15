@@ -31,6 +31,7 @@ deepdiff = "*"
 freezegun = "*"
 owlmixin = ">=2.1.2"
 pydash = "*"
+requests-toolbelt = "*"
 
 
 [requires]
