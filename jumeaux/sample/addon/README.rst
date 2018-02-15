@@ -44,6 +44,14 @@ Add to a `addons` section in config.yml
         config:
           path: /hogehoge
 
+    # Don't replace but add below
+    judgements:
+      - name: addon_sample.judgement.ignore_values
+        config:
+          values:
+            - apple
+            - orange
+
     final:
       - name: addon_sample.final.table
         config:
