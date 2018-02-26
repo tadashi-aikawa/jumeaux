@@ -15,7 +15,7 @@ NORMAL_BODY = json.dumps({
         {"id": 1, "name": "Ichiro", "favorites": ["apple", "orange"]},
         {"id": 2, "name": "次郎"}
     ]
-})
+}, ensure_ascii=False)
 
 
 NORMAL_CASE = ("Normal",
@@ -48,7 +48,7 @@ NORMAL_CASE = ("Normal",
     }
 )
 
-EMPTY_ENCODING_CASE = ("Encoding is empty",
+EMPTY_ENCODING_CASE = ("Encoding is empty (Decode as utf8)",
     """
     force: False 
     """,
@@ -71,7 +71,7 @@ EMPTY_ENCODING_CASE = ("Encoding is empty",
             },
             {
                 "id": 2,
-                "name": "次郎"
+                "name": "��Ϻ"
             }
         ]
     }
