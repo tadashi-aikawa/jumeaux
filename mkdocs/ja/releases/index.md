@@ -9,7 +9,7 @@ Releases
 
 :fa-calendar: `2018/02/27`
 
-!!! hint " 文字化けしたレスポンスをdumpできるようにしました([dump/xml][dump/json])"
+??? hint " 文字化けしたレスポンスをdumpできるようにしました([dump/xml])([dump/json])"
 
     * 化けている文字は`?`に置換されます
     * 0.41.1までは強制終了していました
@@ -237,5 +237,7 @@ Releases
 [res2dict/richplain]: /ja/addons/res2dict#block
 [res2dict/block]: /ja/addons/res2dict#block
 [judgement/ignore_properties]: /ja/addons/judgement#ignore_properties
+[dump/xml]: /ja/addons/dump#xml
+[dump/json]: /ja/addons/dump#json
 [final/miroir]: /ja/addons/final#miroir
 [final/slack]: /ja/addons/final#slack
