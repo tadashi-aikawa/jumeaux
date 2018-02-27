@@ -17,6 +17,8 @@ NORMAL_BODY = json.dumps({
     ]
 }, ensure_ascii=False)
 
+CORRUPTION_BODY_BYTES: bytes = '{"normal": "次郎", '.encode('euc-jp') + '"corruption": "三郎"}'.encode('utf8')
+
 NORMAL_CASE = ("Normal",
                """
                force: False 
@@ -61,7 +63,7 @@ CORRUPTION_CASE = ("Corruption",
                force: False 
                """,
                Response.from_dict({
-                   "body": NORMAL_BODY.encode('utf8'),
+                   "body": CORRUPTION_BODY_BYTES,
                    "encoding": 'euc-jp',
                    "headers": {
                        "content-type": "application/json; charset=euc-jp"
@@ -70,27 +72,14 @@ CORRUPTION_CASE = ("Corruption",
                    "status_code": 200,
                    "elapsed": datetime.timedelta(seconds=1)
                }),
-               NORMAL_BODY.encode('utf8'),
+               CORRUPTION_BODY_BYTES,
                'euc-jp',
                """
 {
-    "items": [
-        {
-            "favorites": [
-                "apple",
-                "orange"
-            ],
-            "id": 1,
-            "name": "Ichiro"
-        },
-        {
-            "id": 2,
-            "name": "次郎"
-        }
-    ],
-    "total": 10
+    "corruption": "筝����",
+    "normal": "次郎"
 }
-""".strip().encode('euc-jp'),
+""".strip().encode('euc-jp', errors='replace'),
                'euc-jp'
                )
 
