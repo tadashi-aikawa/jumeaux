@@ -72,12 +72,16 @@ Commands
 Version up
 ----------
 
+Before release, you need to
+
+1. Update release note (mkdocs/ja/releases/index.md)
+2. Confirm that your branch name equals release version
+
+Then
+
 .. sourcecode::
 
-    # Update release note and ADD !!!!
     $ make release version=x.y.z
-    $ git push
-    $ make publish version=x.y.z
 
 
 Finally, create pull request and merge to master!!
