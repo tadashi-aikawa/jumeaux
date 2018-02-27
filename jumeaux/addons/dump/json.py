@@ -27,9 +27,9 @@ class Executor(DumpExecutor):
         return DumpAddOnPayload.from_dict({
             "response": payload.response,
             "body": json.dumps(
-                json.loads(payload.body.decode(encoding)),
+                json.loads(payload.body.decode(encoding, errors='replace')),
                 ensure_ascii=False, indent=4, sort_keys=True
-            ).encode(encoding) \
+            ).encode(encoding, errors='replace') \
                 if self.config.force or mime_type in self.config.mime_types \
                 else payload.body,
             "encoding": encoding

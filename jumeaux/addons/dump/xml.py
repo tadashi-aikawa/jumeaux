@@ -1,14 +1,13 @@
 # -*- coding:utf-8 -*-
 
-import logging
-
-from owlmixin import OwlMixin, TList
 from xml.dom import minidom
 from xml.etree import ElementTree
 
+from owlmixin import OwlMixin, TList
+
 from jumeaux.addons.dump import DumpExecutor
-from jumeaux.models import DumpAddOnPayload
 from jumeaux.logger import Logger
+from jumeaux.models import DumpAddOnPayload
 
 logger: Logger = Logger(__name__)
 
@@ -44,10 +43,10 @@ class Executor(DumpExecutor):
 
         if self.config.force:
             logger.debug(f"Forced to xml -- mime_type: {mime_type} -- encoding: {encoding}")
-            body = pretty(payload.body.decode(encoding)).encode(encoding)
+            body = pretty(payload.body.decode(encoding, errors='replace')).encode(encoding, errors='replace')
         elif mime_type in self.config.mime_types:
             logger.debug(f"Parse as xml -- mime_type: {mime_type} -- encoding: {encoding}")
-            body = pretty(payload.body.decode(encoding)).encode(encoding)
+            body = pretty(payload.body.decode(encoding, errors='replace')).encode(encoding, errors='replace')
         else:
             logger.debug(f"Don't Parse as xml -- mime_type: {mime_type} -- encoding: {encoding}")
             body = payload.body
