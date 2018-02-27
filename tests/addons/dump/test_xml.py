@@ -22,6 +22,9 @@ NORMAL_BODY = """<?xml version="1.0"?>
 </catalog>
 """.replace(os.linesep, '').replace('    ', '')
 
+CORRUPTION_BODY_BYTES: bytes = '<?xml version="1.0"?><catalog><book><title>ゆーてぃーえふ</title></book>'.encode(
+    'utf8') + '<book><title>いーゆーしー</title></book></catalog>'.encode('euc-jp')
+
 NORMAL_CASE = ("Normal",
                """
                force: False 
@@ -53,11 +56,41 @@ NORMAL_CASE = ("Normal",
                'euc-jp'
                )
 
+CORRUPTION_CASE = ("Corruption",
+                   """
+                   force: False 
+                   """,
+                   Response.from_dict({
+                       "body": CORRUPTION_BODY_BYTES,
+                       "encoding": 'euc-jp',
+                       "headers": {
+                           "content-type": "application/xml; charset=euc-jp"
+                       },
+                       "url": "http://test",
+                       "status_code": 200,
+                       "elapsed": datetime.timedelta(seconds=1)
+                   }),
+                   CORRUPTION_BODY_BYTES,
+                   'euc-jp',
+                   """<?xml version="1.0" ?>
+<catalog>
+    <book>
+        <title>�����若�������若�����</title>
+    </book>
+    <book>
+        <title>いーゆーしー</title>
+    </book>
+</catalog>
+""".encode('euc-jp', errors='replace'),
+                   'euc-jp'
+                   )
+
 
 class TestExec:
     @pytest.mark.parametrize(
         'title, config_yml, response, body, encoding, expected_body, expected_encoding', [
             NORMAL_CASE,
+            CORRUPTION_CASE,
         ]
     )
     def test(self, title, config_yml, response, body, encoding, expected_body, expected_encoding):
