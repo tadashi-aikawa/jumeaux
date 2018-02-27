@@ -79,7 +79,7 @@ release: init test package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWOR
 	git commit -m ':package: Version $(version)'
 
 	@echo '4. Tags'
-	git tag $(version) -m $(version)
+	git tag $(version) -m v$(version)
 
 	@echo '5. Push'
 	git push
@@ -91,5 +91,4 @@ release: init test package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWOR
 	@pipenv run twine upload dist/jumeaux-$(version)-py3-none-any.whl
 
 	@echo 'Success All!!'
-	@echo 'Now you should only do `git push`!!'
 
