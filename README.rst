@@ -81,7 +81,7 @@ Then
 
 .. sourcecode::
 
-    $ make release version=x.y.z
+    $ make release
 
 
 Finally, create pull request and merge to master!!
