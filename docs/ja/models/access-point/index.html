@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.2">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
     
     
       
@@ -42,13 +42,14 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/application.9b572555.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.78aab2dc.css">
       
     
     
       <script src="../../../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
@@ -542,6 +543,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#euc_jpproduction" title="レスポンスが不明な場合にeuc_jpと解釈させるProduction環境のアクセス先情報" class="md-nav__link">
+    レスポンスが不明な場合にeuc_jpと解釈させるProduction環境のアクセス先情報
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -673,6 +681,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#euc_jpproduction" title="レスポンスが不明な場合にeuc_jpと解釈させるProduction環境のアクセス先情報" class="md-nav__link">
+    レスポンスが不明な場合にeuc_jpと解釈させるProduction環境のアクセス先情報
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -733,12 +748,25 @@
 <td><code>proxy-host</code></td>
 <td></td>
 </tr>
+<tr>
+<td>default_response_encoding</td>
+<td>(string)</td>
+<td>レスポンスのエンコーディングが不明な場合の値 <i class="fa fa-info-circle"></i></td>
+<td>utf8</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <div class="admonition warning">
 <p class="admonition-title">proxy</p>
 <p>スキーム(<code>http://</code>など)は設定しないでください。<br />
 内部でhttpとhttpsを割り当てます。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">default_response_encoding</p>
+<p>未指定の場合はレスポンスボディの中身を解析してencodingを推測します。<br />
+推測はボディが大きい場合にパフォーマンスが著しく劣化するので可能な限り指定して下さい。</p>
+<p>content-typeにcharsetが指定されていれば本パラメータは無関係です。</p>
 </div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="production">Production環境のアクセス先情報<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
@@ -750,6 +778,12 @@ host: &quot;http://jumeaux/production&quot;
 <div class="codehilite"><pre><span></span>name: Production
 host: &quot;http://jumeaux/production&quot;
 proxy: proxy-host
+</pre></div>
+
+<h3 id="euc_jpproduction">レスポンスが不明な場合にeuc_jpと解釈させるProduction環境のアクセス先情報<a class="headerlink" href="#euc_jpproduction" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>name: Production
+host: &quot;http://jumeaux/production&quot;
+default_response_encoding: euc_jp
 </pre></div>
                 
                   
@@ -828,7 +862,7 @@ proxy: proxy-host
       
     </div>
     
-      <script src="../../../assets/javascripts/application.abd7b172.js"></script>
+      <script src="../../../assets/javascripts/application.02434462.js"></script>
       
         
         
