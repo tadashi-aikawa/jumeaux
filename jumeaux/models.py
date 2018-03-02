@@ -28,6 +28,7 @@ class AccessPoint(OwlMixin):
     name: str
     host: str
     proxy: TOption[str]
+    default_response_encoding: TOption[str]
 
 
 class OutputSummary(OwlMixin):
@@ -175,18 +176,17 @@ class Response(OwlMixin):
         return CaseInsensitiveDict(v)
 
     @classmethod
-    def _decide_encoding(cls, res: any) -> str:
+    def _decide_encoding(cls, res: any, default_encoding: TOption[str] = TOption(None)) -> str:
         content_type = res.headers.get('content-type')
         # XXX: See 2.2 in https://tools.ietf.org/html/rfc2616#section-2.2
         if res.encoding and not ('text' in content_type and res.encoding == 'ISO-8859-1'):
             return res.encoding
-
         meta_encodings: List[str] = deprecated.get_encodings_from_content(res.content)
-        return meta_encodings[0] if meta_encodings else res.apparent_encoding
+        return meta_encodings[0] if meta_encodings else default_encoding.get() or res.apparent_encoding
 
     @classmethod
-    def from_requests(cls, res: any) -> 'Response':
-        encoding: str = cls._decide_encoding(res)
+    def from_requests(cls, res: any, default_encoding: TOption[str] = TOption(None)) -> 'Response':
+        encoding: str = cls._decide_encoding(res, default_encoding)
         return Response.from_dict({
             'body': res.content,
             'encoding': encoding,
@@ -209,6 +209,8 @@ class ChallengeArg(OwlMixin):
     host_other: str
     proxy_one: TOption[Proxy]
     proxy_other: TOption[Proxy]
+    default_response_encoding_one: TOption[str]
+    default_response_encoding_other: TOption[str]
     res_dir: str
 
 # --------
@@ -234,6 +236,7 @@ class Summary(OwlMixin):
     time: Time
     concurrency: Concurrency
     output: OutputSummary
+    default_encoding: TOption[str]
 
 
 class DiffKeys(OwlMixin):
@@ -296,6 +299,7 @@ class Report(OwlMixin):
     addons: TOption[Addons]
     retry_hash: TOption[str]
     ignores: TList[Ignore] = []
+
 
 # ---
 

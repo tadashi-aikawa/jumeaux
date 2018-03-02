@@ -29,7 +29,7 @@ fn = "*"
 "boto3" = "*"
 deepdiff = "*"
 freezegun = "*"
-owlmixin = ">=2.1.2"
+owlmixin = ">=2.3.0"
 pydash = "*"
 requests-toolbelt = "*"
 

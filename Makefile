@@ -27,9 +27,7 @@ run-init: ## Run jumeaux init
 	@echo End $@
 
 run: ## Run jumeaux run
-	@echo Start $@
 	@pipenv run python jumeaux/executor.py run $(ARGS)
-	@echo End $@
 
 retry: ## Retry jumeaux
 	@echo Start $@

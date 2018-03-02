@@ -199,8 +199,8 @@ def challenge(arg: ChallengeArg) -> dict:
             }
         }
 
-    res_one: Response = res2res(Response.from_requests(r_one), arg.req)
-    res_other: Response = res2res(Response.from_requests(r_other), arg.req)
+    res_one: Response = res2res(Response.from_requests(r_one, arg.default_response_encoding_one), arg.req)
+    res_other: Response = res2res(Response.from_requests(r_other, arg.default_response_encoding_other), arg.req)
 
     dict_one: TOption[dict] = res2dict(res_one)
     dict_other: TOption[dict] = res2dict(res_other)
@@ -313,7 +313,9 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "host_other": config.other.host,
         "proxy_one": Proxy.from_host(config.one.proxy),
         "proxy_other": Proxy.from_host(config.other.proxy),
-        "res_dir": config.output.response_dir
+        "default_response_encoding_one": config.one.default_response_encoding,
+        "default_response_encoding_other": config.other.default_response_encoding,
+        "res_dir": config.output.response_dir,
     })
 
     # Challenge
@@ -344,12 +346,14 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "one": {
             "name": config.one.name,
             "host": config.one.host,
-            "proxy": config.one.proxy
+            "proxy": config.one.proxy,
+            "default_response_encoding": config.one.default_response_encoding,
         },
         "other": {
             "name": config.other.name,
             "host": config.other.host,
-            "proxy": config.other.proxy
+            "proxy": config.other.proxy,
+            "default_response_encoding": config.other.default_response_encoding,
         },
         "status": trials.group_by(_.status.value).map_values(len).to_dict(),
         "tags": tags,
@@ -359,7 +363,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
             "elapsed_sec": (end_time - start_time).seconds
         },
         "output": config.output.to_dict(),
-        "concurrency": concurrency
+        "concurrency": concurrency,
     })
 
     return Report.from_dict({
