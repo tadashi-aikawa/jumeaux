@@ -595,10 +595,14 @@ class TestMergeArgs2Config:
             "one": {
                 "name": "name_one",
                 "host": "http://host/one",
+                "proxy": "http://proxy-one",
+                "default_response_encoding": "euc-jp",
             },
             "other": {
                 "name": "name_other",
-                "host": "http://host/other"
+                "host": "http://host/other",
+                "proxy": "http://proxy-other",
+                "default_response_encoding": "euc-jp",
             },
             "output": {
                 "encoding": "utf8",
@@ -625,10 +629,14 @@ class TestMergeArgs2Config:
             "one": {
                 "name": "name_one",
                 "host": "http://host/one",
+                "proxy": "http://proxy-one",
+                "default_response_encoding": "euc-jp",
             },
             "other": {
                 "name": "name_other",
-                "host": "http://host/other"
+                "host": "http://host/other",
+                "proxy": "http://proxy-other",
+                "default_response_encoding": "euc-jp",
             },
             "output": {
                 "encoding": "utf8",

@@ -21,39 +21,58 @@ class TestProxy:
 
 class TestModels:
     @pytest.mark.parametrize(
-        'title, headers, text, content, encoding, apparent_encoding, expected', [
+        'title, headers, text, content, encoding, apparent_encoding, default_encoding, expected', [
             ('Use encoding if charset exists.',
              {'content-type': 'application/xml;charset=UTF-8'},
              '<?xml version="1.0" encoding="Shift_JIS" ?>',
              '<?xml version="1.0" encoding="Shift_JIS" ?>'.encode('Shift_JIS'),
-             'UTF-8', 'EUC_JP', 'UTF-8'),
+             'UTF-8', 'EUC_JP', None,
+             'UTF-8'),
             ('Use encoding if charset exists even if it is ISO-8859-1.',
              {'content-type': 'application/xml;charset=ISO-8859-1'},
              '<?xml version="1.0" encoding="Shift_JIS" ?>',
              '<?xml version="1.0" encoding="Shift_JIS" ?>'.encode('EUC_JP'),
-             'ISO-8859-1', 'EUC_JP', 'ISO-8859-1'),
-            ('Use encoding if charset does not exists.',
+             'ISO-8859-1', 'EUC_JP', None,
+             'ISO-8859-1'),
+            ('Use meta-encoding if charset does not exists but content encoding exists.',
              {'content-type': 'application/xml'},
              '<?xml version="1.0" encoding="Shift_JIS" ?>',
              '<?xml version="1.0" encoding="Shift_JIS" ?>'.encode('EUC_JP'),
-             None, 'EUC_JP', 'Shift_JIS'),
+             None, 'EUC_JP', None,
+             'Shift_JIS'),
+            ('Use apparent-encoding if charset and content encoding does not exists.',
+             {'content-type': 'application/xml'},
+             'hoge',
+             'hoge'.encode('Shift_JIS'),
+             None, 'EUC_JP', None,
+             'EUC_JP'),
+            ('Use default-encoding if charset and content encoding does not exists and default encoding is specified.',
+             {'content-type': 'application/xml'},
+             'hoge',
+             'hoge'.encode('Shift_JIS'),
+             None, 'EUC_JP', 'UTF-8',
+             'UTF-8'),
             ('Use meta-encoding if charset does not exists and mime-type is text/* and encoding is ISO-8859-1',
              {'content-type': 'text/xml'},
              '<?xml version="1.0" encoding="Shift_JIS" ?>',
              '<?xml version="1.0" encoding="Shift_JIS" ?>'.encode('EUC_JP'),
-             'ISO-8859-1', 'EUC_JP', 'Shift_JIS'),
+             'ISO-8859-1', 'EUC_JP', None,
+             'Shift_JIS'),
             ('Use apparent-encoding if charset does not exists and mime-type is text/* and encoding is ISO-8859-1 but meta-encoding does not exists',
              {'content-type': 'text/xml'},
              '<?xml version="1.0"?>',
              '<?xml version="1.0"?>'.encode('EUC_JP'),
-             'ISO-8859-1', 'EUC_JP', 'EUC_JP'),
+             'ISO-8859-1', 'EUC_JP', None,
+             'EUC_JP'),
         ]
     )
-    def test_from_requests_decide_encoding(self, title, headers, text, content, encoding, apparent_encoding, expected):
+    def test_from_requests_decide_encoding(self, title, headers, text, content,
+                                           encoding, apparent_encoding, default_encoding, expected):
         Requests = namedtuple('Requests', ('headers', 'text', 'content', 'encoding', 'apparent_encoding'))
 
         actual = Response._decide_encoding(
-            Requests(headers, text, content, encoding, apparent_encoding)
+            Requests(headers, text, content, encoding, apparent_encoding),
+            TOption(default_encoding)
         )
 
         assert actual == expected

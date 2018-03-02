@@ -5,6 +5,18 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.42.0
+
+:fa-calendar: `2018/03/02`
+
+??? info "レスポンスの文字コードが不明なとき任意のエンコーディングを指定するオプションを追加しました"
+
+    * OneとOtherそれぞれに対して1つずつ設定できます
+    * 未指定の場合はレスポンスボディからエンコーディングを推測します
+        * 推測の場合、パフォーマンスが著しく低下します
+    * 設定の詳細は [configuration] から AccessPoint の`default_response_encoding`をご覧ください
+
+
 ## :package: 0.41.2
 
 :fa-calendar: `2018/02/27`

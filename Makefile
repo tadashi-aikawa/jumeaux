@@ -27,9 +27,7 @@ run-init: ## Run jumeaux init
 	@echo End $@
 
 run: ## Run jumeaux run
-	@echo Start $@
 	@pipenv run python jumeaux/executor.py run $(ARGS)
-	@echo End $@
 
 retry: ## Retry jumeaux
 	@echo Start $@
@@ -79,7 +77,7 @@ release: init test package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWOR
 	git commit -m ':package: Version $(version)'
 
 	@echo '4. Tags'
-	git tag $(version) -m v$(version)
+	git tag v$(version) -m v$(version)
 
 	@echo '5. Push'
 	git push
