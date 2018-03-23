@@ -47,6 +47,7 @@ class Addon(OwlMixin):
     cls_name: str = 'Executor'
     config: TOption[dict]
     include: TOption[str]
+    tags: TList[str]
 
 
 # List is None...
@@ -100,6 +101,7 @@ class Args(OwlMixin):
     description: TOption[str]
     config: TOption[TList[str]]
     tag: TOption[TList[str]]
+    skip_add_on_tags: TOption[TList[str]]
     threads: TOption[int]
     processes: TOption[int]
     max_retries: TOption[int]

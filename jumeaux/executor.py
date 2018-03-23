@@ -9,33 +9,33 @@ Usage
 Usage:
   jumeaux init
   jumeaux init <name>
-  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>] [-vvv]
+  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--skip-add-on-tags=<skip_add_on_tags>] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>] [-vvv]
   jumeaux retry <report> [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>] [-vvv]
 
 Options:
-  <name>                           Initialize template name
-  <files>...                       Files written requests
-  --config = <yaml>...             Configuration files(see below) [def: config.yml]
-  --title = <title>                The title of report [def: No title]
-  --description = <description>    The description of report
-  --tag = <tag>...                 Tags
-  --threads = <threads>            The number of threads in challenge [def: 1]
-  --processes = <processes>        The number of processes in challenge
-  --max-retries = <max_retries>    The max number of retries which accesses to API
-  <report>                         Report for retry
-  -vvv                             Logger level (`-v` or `-vv` or `-vvv`)
+  <name>                                        Initialize template name
+  <files>...                                    Files written requests
+  --config = <yaml>...                          Configuration files(see below) [def: config.yml]
+  --title = <title>                             The title of report [def: No title]
+  --description = <description>                 The description of report
+  --tag = <tag>...                              Tags
+  --skip-add-on-tags = <skip_add_on_tag>...     Skip add-ons loading whose tags have one of this
+  --threads = <threads>                         The number of threads in challenge [def: 1]
+  --processes = <processes>                     The number of processes in challenge
+  --max-retries = <max_retries>                 The max number of retries which accesses to API
+  <report>                                      Report for retry
+  -vvv                                          Logger level (`-v` or `-vv` or `-vvv`)
 """
 
 import hashlib
-import shutil
 import io
+import os
+import shutil
 import sys
 import urllib.parse as urlparser
-
-import os
-import requests
-from typing import Tuple
 from concurrent import futures
+from typing import Tuple
+
 from deepdiff import DeepDiff
 from docopt import docopt
 from fn import _
@@ -402,7 +402,7 @@ def merge_args2config(args: Args, config: Config) -> Config:
     })
 
 
-def create_config(config_paths: TList[str]) -> Config:
+def create_config(config_paths: TList[str], skip_tags: TOption[TList[str]]) -> Config:
     def apply_include(addon: dict, config_path: str) -> dict:
         return load_yamlf(os.path.join(os.path.dirname(config_path), addon['include']), 'utf8') \
             if 'include' in addon else addon
@@ -500,7 +500,8 @@ def main():
         }))
         retry_hash: Optional[str] = report.key
     else:
-        config: Config = merge_args2config(args, create_config(args.config.get() or TList(['config.yml'])))
+        config: Config = merge_args2config(args, create_config(args.config.get() or TList(['config.yml']),
+                                                               args.skip_add_on_tags))
         global_addon_executor = AddOnExecutor(config.addons)
         origin_logs: TList[Request] = config.input_files.get().flat_map(
             lambda f: global_addon_executor.apply_log2reqs(
