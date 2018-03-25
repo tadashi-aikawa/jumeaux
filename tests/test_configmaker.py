@@ -138,6 +138,13 @@ class TestCreateConfig:
                         "config": {
                             "size": 1
                         }
+                    },
+                    {
+                        "name": "addons.reqs2reqs.head",
+                        "cls_name": "Executor",
+                        "config": {
+                            "size": 3
+                        }
                     }
                 ],
                 "res2res": [],

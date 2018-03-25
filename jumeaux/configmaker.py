@@ -35,7 +35,7 @@ def apply_include_addons(addons: dict, config_path: str) -> dict:
 
 def create_config(config_paths: TList[str], skip_tags: TOption[TList[str]]) -> Config:
     def filter_by_tags(addons: List[dict]) -> List[dict]:
-        return [x for x in addons if skip_tags.map(lambda y: not y.intersection(x.get('tags'))).get_or(True)]
+        return [x for x in addons if skip_tags.map(lambda y: not y.intersection(x.get('tags', []))).get_or(True)]
 
     def reducer(merged: dict, config_path: str) -> dict:
         d = load_yamlf(config_path, 'utf8')

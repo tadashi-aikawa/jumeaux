@@ -66,7 +66,6 @@ addons:
       config:
         size: 2
     - name: addons.reqs2reqs.head
-      tags: ['hoge', 'skip']
       config:
         size: 3
     - name: addons.reqs2reqs.head
