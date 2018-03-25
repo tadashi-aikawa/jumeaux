@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from owlmixin import TList
+from owlmixin import TList, TOption
 
 from jumeaux import configmaker
 from jumeaux.models import Config
@@ -9,7 +9,10 @@ from jumeaux.models import Config
 
 class TestCreateConfig:
     def test(self, config_only_access_points, config_without_access_points):
-        actual: Config = configmaker.create_config(TList([config_only_access_points, config_without_access_points]), ['TODO'])
+        actual: Config = configmaker.create_config(
+            TList([config_only_access_points, config_without_access_points]),
+            TOption(None)
+        )
         expected = {
             "one": {
                 "name": "name_one",
@@ -48,7 +51,7 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
     def test_no_base(self, config_minimum):
-        actual: Config = configmaker.create_config(TList([config_minimum]), ['TODO'])
+        actual: Config = configmaker.create_config(TList([config_minimum]), TOption(None))
 
         expected = {
             "one": {
@@ -97,9 +100,63 @@ class TestCreateConfig:
 
         assert actual.to_dict() == expected
 
+    def test_no_base_skip_tags(self, config_with_tags):
+        actual: Config = configmaker.create_config(
+            TList([config_with_tags]),
+            TOption(TList(['skip', 'skip2'])),
+        )
+
+        expected = {
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy"
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "tmpdir"
+            },
+            "threads": 1,
+            "max_retries": 3,
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "reqs2reqs": [
+                    {
+                        "name": "addons.reqs2reqs.head",
+                        "cls_name": "Executor",
+                        "tags": ["no-skip"],
+                        "config": {
+                            "size": 1
+                        }
+                    }
+                ],
+                "res2res": [],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [],
+                "dump": [],
+                "did_challenge": [],
+                "final": []
+            }
+        }
+
+        assert actual.to_dict() == expected
+
     def test_mergecase1then2(self, config_only_access_points, config_mergecase_1, config_mergecase_2):
         actual: Config = configmaker.create_config(
-            TList([config_only_access_points, config_mergecase_1, config_mergecase_2]), ['TODO'])
+            TList([config_only_access_points, config_mergecase_1, config_mergecase_2]),
+            TOption(None)
+        )
 
         expected = {
             "title": 'mergecase_2',
@@ -146,7 +203,9 @@ class TestCreateConfig:
 
     def test_mergecase2then1(self, config_only_access_points, config_mergecase_1, config_mergecase_2):
         actual: Config = configmaker.create_config(
-            TList([config_only_access_points, config_mergecase_2, config_mergecase_1]), ['TODO'])
+            TList([config_only_access_points, config_mergecase_2, config_mergecase_1]),
+            TOption(None)
+        )
 
         expected = {
             "title": 'mergecase_2',
@@ -194,8 +253,73 @@ class TestCreateConfig:
 
         assert actual.to_dict() == expected
 
+    def test_mergecase_with_tags(self, config_with_tags, config_mergecase_with_tags):
+        actual: Config = configmaker.create_config(
+            TList([config_with_tags, config_mergecase_with_tags]),
+            TOption(TList(['skip']))
+        )
+
+        expected = {
+            "title": "mergecase_with_tags",
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy"
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other"
+            },
+            "output": {
+                "encoding": "utf8",
+                "response_dir": "mergecase_with_tags"
+            },
+            "threads": 1,
+            "max_retries": 3,
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {
+                        "encoding": "utf8"
+                    }
+                },
+                "reqs2reqs": [
+                    {
+                        "name": "addons.reqs2reqs.head",
+                        "cls_name": "Executor",
+                        "tags": ["no-skip"],
+                        "config": {
+                            "size": 2
+                        }
+                    }
+                ],
+                "res2res": [],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [
+                    {
+                        "name": "addons.store_criterion.general",
+                        "cls_name": "Executor",
+                        "tags": ["skip2"],
+                        "config": {
+                            "statuses": ["different"]
+                        }
+                    }
+                ],
+                "dump": [],
+                "did_challenge": [],
+                "final": []
+            }
+        }
+
+        assert actual.to_dict() == expected
+
     def test_includecase1(self, config_only_access_points, config_includecase_1):
-        actual: Config = configmaker.create_config(TList([config_only_access_points, config_includecase_1]), ['TODO'])
+        actual: Config = configmaker.create_config(
+            TList([config_only_access_points, config_includecase_1]),
+            TOption(None)
+        )
 
         expected = {
             "title": 'includecase_1',

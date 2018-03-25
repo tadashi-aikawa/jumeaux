@@ -54,7 +54,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 from jumeaux import __version__
 from jumeaux.addons import AddOnExecutor
-from jumeaux.configmaker import create_config
+from jumeaux.configmaker import create_config, create_config_from_report
 from jumeaux.models import (
     Config,
     Report,
@@ -391,8 +391,8 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "status": trials.group_by(_.status.value).map_values(len).to_dict(),
         "tags": tags,
         "time": {
-            "start": start_time.strftime("%Y/%m/%d %X"),
-            "end": end_time.strftime("%Y/%m/%d %X"),
+            "start": start_time.strftime("%Y/%m/%d %T"),
+            "end": end_time.strftime("%Y/%m/%d %T"),
             "elapsed_sec": (end_time - start_time).seconds
         },
         "output": config.output.to_dict(),

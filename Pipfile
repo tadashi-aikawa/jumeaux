@@ -16,6 +16,8 @@ pipenv = "*"
 mypy = "*"
 "flake8" = "*"
 python-language-server = "*"
+pudb = "*"
+pytest-pudb = "*"
 
 [packages]
 requests = "*"
