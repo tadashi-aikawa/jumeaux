@@ -3,15 +3,25 @@
 
 import os
 import shutil
+import datetime
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
 from requests.exceptions import ConnectionError
+from owlmixin import TList
 
 from jumeaux import executor, __version__
 from jumeaux.addons import AddOnExecutor
 from jumeaux.executor import merge_args2config
-from jumeaux.models import *
+from jumeaux.models import (
+    CaseInsensitiveDict,
+    Addons,
+    ChallengeArg,
+    Config,
+    Args,
+    Request,
+    Report,
+)
 
 
 class ResponseBuilder():
@@ -326,7 +336,7 @@ class TestChallenge:
 
 class TestCreateConfig:
     def test(self, config_only_access_points, config_without_access_points):
-        actual: Config = executor.create_config(TList([config_only_access_points, config_without_access_points]))
+        actual: Config = executor.create_config(TList([config_only_access_points, config_without_access_points]), ['TODO'])
         expected = {
             "one": {
                 "name": "name_one",
@@ -365,7 +375,7 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
     def test_no_base(self, config_minimum):
-        actual: Config = executor.create_config(TList([config_minimum]))
+        actual: Config = executor.create_config(TList([config_minimum]), ['TODO'])
 
         expected = {
             "one": {
@@ -416,7 +426,7 @@ class TestCreateConfig:
 
     def test_mergecase1then2(self, config_only_access_points, config_mergecase_1, config_mergecase_2):
         actual: Config = executor.create_config(
-            TList([config_only_access_points, config_mergecase_1, config_mergecase_2]))
+            TList([config_only_access_points, config_mergecase_1, config_mergecase_2]), ['TODO'])
 
         expected = {
             "title": 'mergecase_2',
@@ -463,7 +473,7 @@ class TestCreateConfig:
 
     def test_mergecase2then1(self, config_only_access_points, config_mergecase_1, config_mergecase_2):
         actual: Config = executor.create_config(
-            TList([config_only_access_points, config_mergecase_2, config_mergecase_1]))
+            TList([config_only_access_points, config_mergecase_2, config_mergecase_1]), ['TODO'])
 
         expected = {
             "title": 'mergecase_2',
@@ -512,7 +522,7 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
     def test_includecase1(self, config_only_access_points, config_includecase_1):
-        actual: Config = executor.create_config(TList([config_only_access_points, config_includecase_1]))
+        actual: Config = executor.create_config(TList([config_only_access_points, config_includecase_1]), ['TODO'])
 
         expected = {
             "title": 'includecase_1',

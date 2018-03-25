@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
-from typing import Optional, List
+from typing import Optional, List, Any
 
-import requests
 from requests_toolbelt.utils import deprecated
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList, TDict
@@ -47,7 +46,7 @@ class Addon(OwlMixin):
     cls_name: str = 'Executor'
     config: TOption[dict]
     include: TOption[str]
-    tags: TList[str]
+    tags: TOption[TList[str]]
 
 
 # List is None...
@@ -178,7 +177,7 @@ class Response(OwlMixin):
         return CaseInsensitiveDict(v)
 
     @classmethod
-    def _decide_encoding(cls, res: any, default_encoding: TOption[str] = TOption(None)) -> str:
+    def _decide_encoding(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> str:
         content_type = res.headers.get('content-type')
         # XXX: See 2.2 in https://tools.ietf.org/html/rfc2616#section-2.2
         if res.encoding and not ('text' in content_type and res.encoding == 'ISO-8859-1'):
@@ -187,7 +186,7 @@ class Response(OwlMixin):
         return meta_encodings[0] if meta_encodings else default_encoding.get() or res.apparent_encoding
 
     @classmethod
-    def from_requests(cls, res: any, default_encoding: TOption[str] = TOption(None)) -> 'Response':
+    def from_requests(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> 'Response':
         encoding: str = cls._decide_encoding(res, default_encoding)
         return Response.from_dict({
             'body': res.content,

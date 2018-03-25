@@ -1,12 +1,9 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [dev-packages]
-
 pytest = "*"
 pytest-cov = "*"
 mkdocs = "*"
@@ -16,15 +13,16 @@ fontawesome-markdown = "*"
 twine = "*"
 wheel = "*"
 pipenv = "*"
-
+mypy = "*"
+"flake8" = "*"
+python-language-server = "*"
 
 [packages]
-
 requests = "*"
 docopt = "*"
 schema = "*"
 xmltodict = "*"
-pyyaml = "*"
+PyYAML = "*"
 fn = "*"
 "boto3" = "*"
 deepdiff = "*"
@@ -33,7 +31,5 @@ owlmixin = ">=2.3.0"
 pydash = "*"
 requests-toolbelt = "*"
 
-
 [requires]
-
 python_version = "3.6"
