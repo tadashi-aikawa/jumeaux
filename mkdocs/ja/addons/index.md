@@ -45,7 +45,7 @@ Add-on specifications
 Configration Definitions
 ------------------------
 
-設定ファイルの構成定義です。
+アドオンを使用する場合は以下の定義に従って、[設定ファイル](/ja/getstarted/configuration)に追加してください。
 
 ### Addons
 
@@ -65,10 +65,7 @@ Configration Definitions
 
 ### Addon
 
-!!! todo
-
-    詳細な説明
-
+アドオン単位での設定です。
 
 | Key      | Type       | Description                | Example      | Default  |
 |----------|------------|----------------------------|--------------|----------|
@@ -78,4 +75,50 @@ Configration Definitions
 | include  | (string)   | 読み込む設定ファイルのパス |              |          |
 | tags     | (string[]) | タグ                       |              |          |
 
+
+Configration Examples
+---------------------
+
+以下は設定の一例です。
+
+```yml
+addons:
+  log2reqs:
+    name: csv
+
+  reqs2reqs:
+    - name: shuffle
+    - name: head
+      config:
+        size: 10
+
+  final:
+    - name: slack
+      tags: production
+      config:
+        conditions:
+          - payload:
+              message_format: Finish Jumeaux!!
+              channel: "#jumeaux"
+              icon_emoji: ":innocent:"
+```
+
+この設定は以下のように動作します。
+
+1. リクエストファイルをcsvと解釈してパースする
+2. 1でパースした結果をシャッフルする
+3. 2の結果 先頭10リクエストのみをテストする
+4. `--skip-addon-tag production`が指定されていなければ最後にSlackで通知する
+
+4つのアドオンが使用されており、仕様とconfigの定義は各アドオンページをご覧下さい。
+
+* [log2reqs/csv]
+* [reqs2reqs/shuffle]
+* [reqs2reqs/head]
+* [final/slack]
+
+[log2reqs/csv]: /ja/addons/log2reqs#csv
+[reqs2reqs/shuffle]: /ja/addons/reqs2reqs#shuffle
+[reqs2reqs/head]: /ja/addons/reqs2reqs#head
+[final/slack]: /ja/addons/final#slack
 
