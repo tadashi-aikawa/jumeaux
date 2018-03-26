@@ -9,37 +9,44 @@ Usage
 Usage:
   jumeaux init
   jumeaux init <name>
-  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>] [-vvv]
-  jumeaux retry <report> [--title=<title>] [--description=<description>] [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>] [--max-retries=<max_retries>] [-vvv]
+  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>]
+                         [--tag=<tag>...] [--skip-addon-tag=<skip_add_on_tag>...]
+                         [--threads=<threads>] [--processes=<processes>]
+                         [--max-retries=<max_retries>] [-vvv]
+  jumeaux retry <report> [--title=<title>] [--description=<description>]
+                         [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
+                         [--max-retries=<max_retries>] [-vvv]
 
 Options:
-  <name>                           Initialize template name
-  <files>...                       Files written requests
-  --config = <yaml>...             Configuration files(see below) [def: config.yml]
-  --title = <title>                The title of report [def: No title]
-  --description = <description>    The description of report
-  --tag = <tag>...                 Tags
-  --threads = <threads>            The number of threads in challenge [def: 1]
-  --processes = <processes>        The number of processes in challenge
-  --max-retries = <max_retries>    The max number of retries which accesses to API
-  <report>                         Report for retry
-  -vvv                             Logger level (`-v` or `-vv` or `-vvv`)
+  <name>                                        Initialize template name
+  <files>...                                    Files written requests
+  --config = <yaml>...                          Configuration files(see below) [def: config.yml]
+  --title = <title>                             The title of report [def: No title]
+  --description = <description>                 The description of report
+  --tag = <tag>...                              Tags
+  --skip-addon-tag = <skip_addon_tag>...        Skip add-ons loading whose tags have one of this
+  --threads = <threads>                         The number of threads in challenge [def: 1]
+  --processes = <processes>                     The number of processes in challenge
+  --max-retries = <max_retries>                 The max number of retries which accesses to API
+  <report>                                      Report for retry
+  -vvv                                          Logger level (`-v` or `-vv` or `-vvv`)
 """
 
 import hashlib
-import shutil
 import io
-import sys
-import urllib.parse as urlparser
-
 import os
-import requests
-from typing import Tuple
+import shutil
+import sys
+import datetime
+import urllib.parse as urlparser
 from concurrent import futures
+from typing import Tuple, Optional, Any
+
+import requests
 from deepdiff import DeepDiff
 from docopt import docopt
 from fn import _
-from owlmixin.util import load_yamlf
+from owlmixin import TList, TOption, TDict
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 
@@ -47,7 +54,31 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 from jumeaux import __version__
 from jumeaux.addons import AddOnExecutor
-from jumeaux.models import *
+from jumeaux.configmaker import create_config, create_config_from_report
+from jumeaux.models import (
+    Config,
+    Report,
+    Request,
+    Response,
+    Args,
+    ChallengeArg,
+    Trial,
+    Proxy,
+    Summary,
+    Concurrency,
+    Log2ReqsAddOnPayload,
+    Reqs2ReqsAddOnPayload,
+    Res2ResAddOnPayload,
+    Res2DictAddOnPayload,
+    JudgementAddOnPayload,
+    JudgementAddOnReference,
+    StoreCriterionAddOnPayload,
+    DumpAddOnPayload,
+    FinalAddOnPayload,
+    DidChallengeAddOnPayload,
+    DiffKeys,
+    Status,
+)
 from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
@@ -128,7 +159,7 @@ def judgement(r_one: Response, r_other: Response,
             "diff_keys": diff_keys,
         })
     ).regard_as_same
-    return Status.SAME if regard_as_same else Status.DIFFERENT
+    return Status.SAME if regard_as_same else Status.DIFFERENT  # type: ignore # Prevent for enum problem
 
 
 def store_criterion(status: Status, path: str, qs: TDict[TList[str]], headers: TDict[str],
@@ -177,9 +208,11 @@ def challenge(arg: ChallengeArg) -> dict:
                                             url_one, url_other,
                                             arg.proxy_one.get(), arg.proxy_other.get())
         logger.info_lv3(
-            f"{log_prefix} One:   {r_one.status_code} / {to_sec(r_one.elapsed)}s / {len(r_one.content)}b / {r_one.headers.get('content-type')}")
+            f"{log_prefix} One:   {r_one.status_code} / {to_sec(r_one.elapsed)}s / {len(r_one.content)}b / {r_one.headers.get('content-type')}" # noqa
+        )
         logger.info_lv3(
-            f"{log_prefix} Other: {r_other.status_code} / {to_sec(r_other.elapsed)}s / {len(r_other.content)}b / {r_other.headers.get('content-type')}")
+            f"{log_prefix} Other: {r_other.status_code} / {to_sec(r_other.elapsed)}s / {len(r_other.content)}b / {r_other.headers.get('content-type')}" # noqa
+        )
     except ConnectionError:
         logger.info_lv1(f"{log_prefix} 💀 {arg.req.name.get()}")
         # TODO: Integrate logic into create_trial
@@ -227,7 +260,7 @@ def challenge(arg: ChallengeArg) -> dict:
     status: Status = judgement(res_one, res_other, dict_one, dict_other,
                                name, arg.req.path, arg.req.qs, arg.req.headers, diff_keys)
     status_symbol = "O" if status == Status.SAME else "X"
-    log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{to_sec(res_one.elapsed):.2f}s - {to_sec(res_other.elapsed):.2f}s> {arg.req.name.get_or(arg.req.path)}"
+    log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{to_sec(res_one.elapsed):.2f}s - {to_sec(res_other.elapsed):.2f}s> {arg.req.name.get_or(arg.req.path)}" # noqa
     (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
 
     file_one = file_other = None
@@ -272,7 +305,7 @@ def challenge(arg: ChallengeArg) -> dict:
     })).trial.to_dict()
 
 
-def create_concurrent_executor(config: Config) -> Tuple[any, Concurrency]:
+def create_concurrent_executor(config: Config) -> Tuple[Any, Concurrency]:
     processes = config.processes.get()
     if processes:
         return (
@@ -358,8 +391,8 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "status": trials.group_by(_.status.value).map_values(len).to_dict(),
         "tags": tags,
         "time": {
-            "start": start_time.strftime("%Y/%m/%d %X"),
-            "end": end_time.strftime("%Y/%m/%d %X"),
+            "start": start_time.strftime("%Y/%m/%d %T"),
+            "end": end_time.strftime("%Y/%m/%d %T"),
             "elapsed_sec": (end_time - start_time).seconds
         },
         "output": config.output.to_dict(),
@@ -375,8 +408,8 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "trials": trials.to_dicts(),
         "addons": config.addons.to_dict(),
         "retry_hash": retry_hash,
-        "ignores": config.addons.judgement \
-            .filter(lambda x: x.name.endswith('ignore_properties')) \
+        "ignores": config.addons.judgement
+            .filter(lambda x: x.name.endswith('ignore_properties'))
             .flat_map(lambda x: x.config.map(_["ignores"]).get_or([]))
     })
 
@@ -402,60 +435,16 @@ def merge_args2config(args: Args, config: Config) -> Config:
     })
 
 
-def create_config(config_paths: TList[str]) -> Config:
-    def apply_include(addon: dict, config_path: str) -> dict:
-        return load_yamlf(os.path.join(os.path.dirname(config_path), addon['include']), 'utf8') \
-            if 'include' in addon else addon
-
-    def apply_include_addons(addons: dict, config_path: str) -> dict:
-        def apply_includes(name: str):
-            return [apply_include(a, config_path) for a in addons.get(name, [])]
-
-        return {k: v for k, v in {
-            "log2reqs": apply_include(addons["log2reqs"], config_path) \
-                if "log2reqs" in addons else None,
-            "reqs2reqs": apply_includes("reqs2reqs"),
-            "res2res": apply_includes("res2res"),
-            "res2dict": apply_includes("res2dict"),
-            "judgement": apply_includes("judgement"),
-            "store_criterion": apply_includes("store_criterion"),
-            "dump": apply_includes("dump"),
-            "did_challenge": apply_includes("did_challenge"),
-            "final": apply_includes("final"),
-        }.items() if v}
-
-    def reducer(merged: dict, config_path: str) -> dict:
-        d = load_yamlf(config_path, 'utf8')
-        if 'addons' in d and 'addons' in merged:
-            merged['addons'].update(d['addons'])
-            del d['addons']
-        merged.update(d)
-        if 'addons' in merged:
-            merged['addons'].update(apply_include_addons(merged["addons"], config_path))
-        return merged
-
-    return Config.from_dict(config_paths.reduce(reducer, {}))
-
-
-def create_config_from_report(report: Report) -> Config:
-    return Config.from_dict({
-        "one": report.summary.one.to_dict(),
-        "other": report.summary.other.to_dict(),
-        "output": report.summary.output.to_dict(),
-        "threads": 1,
-        "title": report.title,
-        "description": report.description,
-        "addons": report.addons.get().to_dict()
-    })
-
-
 def handle_init(name: TOption[str]):
     # XXX: Beta: jumeaux init addon
     # TODO: refactoring
     if name.get() == 'addon':
         addon_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/addon'
         for f in os.listdir(addon_dir):
-            (shutil.copytree if os.path.isdir(f'{addon_dir}/{f}') else shutil.copy)(f'{addon_dir}/{f}', f)
+            if os.path.isdir(f'{addon_dir}/{f}'):
+                shutil.copytree(f'{addon_dir}/{f}', f)
+            else:
+                shutil.copy(f'{addon_dir}/{f}', f)
             logger.info_lv1(f'✨ [Create] {f}')
         return
 
@@ -471,7 +460,7 @@ def handle_init(name: TOption[str]):
     if not os.path.exists(target_dir):
         exit(f'''
 Please specify a valid name.
-        
+
 ✨ [Valid names] ✨
 {os.linesep.join(os.listdir(sample_dir))}
         '''.strip())
@@ -500,7 +489,8 @@ def main():
         }))
         retry_hash: Optional[str] = report.key
     else:
-        config: Config = merge_args2config(args, create_config(args.config.get() or TList(['config.yml'])))
+        config: Config = merge_args2config(args, create_config(args.config.get() or TList(['config.yml']),
+                                                               args.skip_addon_tag))
         global_addon_executor = AddOnExecutor(config.addons)
         origin_logs: TList[Request] = config.input_files.get().flat_map(
             lambda f: global_addon_executor.apply_log2reqs(
@@ -515,13 +505,13 @@ def main():
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=config.output.encoding)
 
     logger.info_lv1(f"""
-        ____  _             _         _                                              
+        ____  _             _         _
 __/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ __/\__
 \    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
 /_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\\
   \/   |____/ \__\__,_|_|   \__|  \___/ \__,_|_| |_| |_|\___|\__,_|\__,_/_/\_\   \/
 
-Version: {__version__}  
+Version: {__version__}
     """)
 
     if config.output.logger.get():
@@ -529,12 +519,12 @@ Version: {__version__}
         logger.warning('And this will be removed soon! You need to remove this property not to stop!')
 
     logger.info_lv3(f"""
-         ____             __ _              
+         ____             __ _
 __/\__  / ___|___  _ __  / _(_) __ _  __/\__
 \    / | |   / _ \| '_ \| |_| |/ _` | \    /
 /_  _\ | |__| (_) | | | |  _| | (_| | /_  _\\
-  \/    \____\___/|_| |_|_| |_|\__, |   \/  
-                               |___/        
+  \/    \____\___/|_| |_|_| |_|\__, |   \/
+                               |___/
 (Merge with yaml files or report, and args)
 
 ----

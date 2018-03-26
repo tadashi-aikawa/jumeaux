@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.1">
     
     
       
@@ -91,8 +91,8 @@
         
       </defs>
     </svg>
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
       <a href="#addons" tabindex="1" class="md-skip">
@@ -202,7 +202,7 @@
   <label class="md-nav__title md-nav__title--site" for="drawer">
     <span class="md-nav__button md-logo">
       
-        <img src="../../img/logo.png" width="24" height="24">
+        <img src="../../img/logo.png" width="48" height="48">
       
     </span>
     Jumeaux
@@ -367,6 +367,40 @@
         <li class="md-nav__item">
   <a href="#add-on-specifications" title="Add-on specifications" class="md-nav__link">
     Add-on specifications
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configration-definitions" title="Configration Definitions" class="md-nav__link">
+    Configration Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addons_1" title="Addons" class="md-nav__link">
+    Addons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addon" title="Addon" class="md-nav__link">
+    Addon
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configration-examples" title="Configration Examples" class="md-nav__link">
+    Configration Examples
   </a>
   
 </li>
@@ -613,6 +647,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#configration-definitions" title="Configration Definitions" class="md-nav__link">
+    Configration Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#addons_1" title="Addons" class="md-nav__link">
+    Addons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addon" title="Addon" class="md-nav__link">
+    Addon
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configration-examples" title="Configration Examples" class="md-nav__link">
+    Configration Examples
+  </a>
+  
+</li>
+      
       
       
       
@@ -687,12 +755,180 @@
 </tr>
 </tbody>
 </table>
+<h2 id="configration-definitions">Configration Definitions<a class="headerlink" href="#configration-definitions" title="Permanent link">&para;</a></h2>
+<p>アドオンを使用する場合は以下の定義に従って、<a href="../../ja/getstarted/configuration">設定ファイル</a>に追加してください。</p>
+<h3 id="addons_1">Addons<a class="headerlink" href="#addons_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>log2reqs</td>
+<td><a href="#addon">Addon</a></td>
+<td><a href="../../ja/addons/log2reqs">log2reqs</a>のアドオン</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>reqs2reqs</td>
+<td>(<a href="#addon">Addon[]</a>)</td>
+<td><a href="../../ja/addons/reqs2reqs">reqs2reqs</a>のアドオン</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>res2res</td>
+<td>(<a href="#addon">Addon[]</a>)</td>
+<td><a href="../../ja/addons/res2res">res2res</a>のアドオン</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>res2dict</td>
+<td>(<a href="#addon">Addon[]</a>)</td>
+<td><a href="../../ja/addons/res2dict">res2dict</a>のアドオン</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>judgement</td>
+<td>(<a href="#addon">Addon[]</a>)</td>
+<td><a href="../../ja/addons/judgement">judgement</a>のアドオン</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>store_criterion</td>
+<td>(<a href="#addon">Addon[]</a>)</td>
+<td><a href="../../ja/addons/store_criterion">store_criterion</a>のアドオン</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>dump</td>
+<td>(<a href="#addon">Addon[]</a>)</td>
+<td><a href="../../ja/addons/dump">dump</a>のアドオン</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>did_challenge</td>
+<td>(<a href="#addon">Addon[]</a>)</td>
+<td><a href="../../ja/addons/did_challenge">did_challenge</a>のアドオン</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>final</td>
+<td>(<a href="#addon">Addon[]</a>)</td>
+<td><a href="../../ja/addons/final">final</a>のアドオン</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="addon">Addon<a class="headerlink" href="#addon" title="Permanent link">&para;</a></h3>
+<p>アドオン単位での設定です。</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>アドオン名称</td>
+<td>csv</td>
+<td></td>
+</tr>
+<tr>
+<td>cls_name</td>
+<td>(string)</td>
+<td>実行するクラス名</td>
+<td>YourExecutor</td>
+<td>Executor</td>
+</tr>
+<tr>
+<td>config</td>
+<td>(Config)</td>
+<td>アドオンの設定</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>include</td>
+<td>(string)</td>
+<td>読み込む設定ファイルのパス</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>tags</td>
+<td>(string[])</td>
+<td>タグ</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configration-examples">Configration Examples<a class="headerlink" href="#configration-examples" title="Permanent link">&para;</a></h2>
+<p>以下は設定の一例です。</p>
+<div class="codehilite"><pre><span></span>addons:
+  log2reqs:
+    name: csv
+
+  reqs2reqs:
+    - name: shuffle
+    - name: head
+      config:
+        size: 10
+
+  final:
+    - name: slack
+      tags: production
+      config:
+        conditions:
+          - payload:
+              message_format: Finish Jumeaux!!
+              channel: &quot;#jumeaux&quot;
+              icon_emoji: &quot;:innocent:&quot;
+</pre></div>
+
+<p>この設定は以下のように動作します。</p>
+<ol>
+<li>リクエストファイルをcsvと解釈してパースする</li>
+<li>1でパースした結果をシャッフルする</li>
+<li>2の結果 先頭10リクエストのみをテストする</li>
+<li><code>--skip-addon-tag production</code>が指定されていなければ最後にSlackで通知する</li>
+</ol>
+<p>4つのアドオンが使用されており、仕様とconfigの定義は各アドオンページをご覧下さい。</p>
+<ul>
+<li><a href="../../ja/addons/log2reqs#csv">log2reqs/csv</a></li>
+<li><a href="../../ja/addons/reqs2reqs#shuffle">reqs2reqs/shuffle</a></li>
+<li><a href="../../ja/addons/reqs2reqs#head">reqs2reqs/head</a></li>
+<li><a href="../../ja/addons/final#slack">final/slack</a></li>
+</ul>
                 
                   
                 
               
               
                 
+
+
               
             </article>
           </div>
@@ -764,7 +1000,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.02434462.js"></script>
+      <script src="../../assets/javascripts/application.8eb9be28.js"></script>
       
         
         
@@ -787,7 +1023,7 @@
           
         
       
-      <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.17.3",url:{base:"../.."}})</script>
       
     
     

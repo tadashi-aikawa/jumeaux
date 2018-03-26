@@ -62,7 +62,17 @@ test: ## Test
 	@pipenv run pytest $(ARGS)
 	@echo End $@
 
-release: init test package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to enviroment varialbles)
+test-pudb: ## Test with pudb
+	@echo Start $@
+	@pytest --pdbcls pudb.debugger:Debugger --pdb --capture=no
+	@echo End $@
+
+release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to enviroment varialbles)
+
+	@echo '0. Install packages from lockfile and test'
+	@pipenv install --deploy
+	@pipenv run pytest $(ARGS)
+
 	@echo '1. Recreate `jumeaux/__init__.py`'
 	@echo "__version__ = '$(version)'" > jumeaux/__init__.py
 

@@ -61,11 +61,11 @@ def init_logger(v_num: int):
     Call when initialize Jumeaux !!
     :return:
     """
-    logging.addLevelName(LogLevel.INFO_LV1.value, 'INFO_LV1')
-    logging.addLevelName(LogLevel.INFO_LV2.value, 'INFO_LV2')
-    logging.addLevelName(LogLevel.INFO_LV3.value, 'INFO_LV3')
+    logging.addLevelName(LogLevel.INFO_LV1.value, 'INFO_LV1')  # type: ignore # Prevent for enum problem
+    logging.addLevelName(LogLevel.INFO_LV2.value, 'INFO_LV2')  # type: ignore # Prevent for enum problem
+    logging.addLevelName(LogLevel.INFO_LV3.value, 'INFO_LV3')  # type: ignore # Prevent for enum problem
 
-    logging.config.dictConfig(create_logger_config({
+    logging.config.dictConfig(create_logger_config({  # type: ignore # Prevent for enum problem
         0: LogLevel.INFO_LV1,
         1: LogLevel.INFO_LV2,
         2: LogLevel.INFO_LV3,
