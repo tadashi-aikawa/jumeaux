@@ -94,7 +94,8 @@ addons:
 
   final:
     - name: slack
-      tags: production
+      tags:
+        - production
       config:
         conditions:
           - payload:
