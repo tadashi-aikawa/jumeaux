@@ -5,6 +5,17 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.43.0
+
+:fa-calendar: `2018/03/26`
+
+??? info "特定のタグを持つアドオンをスキップする実行オプションを追加しました"
+
+    * `--skip-addon-tag`オプションでスキップ対象のタグを指定します
+        * `--skip-addon-tag`は複数指定可能
+    * アドオンにタグを設定するには [addons/addon] の定義をご覧ください
+
+
 ## :package: 0.42.0
 
 :fa-calendar: `2018/03/02`
@@ -243,6 +254,7 @@ Releases
 
 [configuration]: /ja/getstarted/configuration
 [addons]: /ja/addons
+[addons/addon]: /ja/addons#addon
 [reqs2reqs/empty_guard]: /ja/addons/reqs2reqs#empty_guard
 [reqs2reqs/filter]: /ja/addons/reqs2reqs#filter
 [reqs2reqs/replace]: /ja/addons/reqs2reqs#replace
