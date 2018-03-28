@@ -67,6 +67,11 @@ test-pudb: ## Test with pudb
 	@pytest --pdbcls pudb.debugger:Debugger --pdb --capture=no
 	@echo End $@
 
+test-cli: ## Test on CLI
+	@echo Start $@
+	@bats test.bats
+	@echo End $@
+
 release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to enviroment varialbles)
 
 	@echo '0. Install packages from lockfile and test'
