@@ -76,7 +76,8 @@ release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to envir
 
 	@echo '0. Install packages from lockfile and test'
 	@pipenv install --deploy
-	@pipenv run pytest $(ARGS)
+	@make test
+	@make test-cli
 
 	@echo '1. Recreate `jumeaux/__init__.py`'
 	@echo "__version__ = '$(version)'" > jumeaux/__init__.py
