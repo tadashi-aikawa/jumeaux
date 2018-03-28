@@ -10,8 +10,21 @@ setup() {
   $JUMEAUX -h
 }
 
-@test "Init list" {
-  $JUMEAUX init
+
+#--------------------------
+# jumeaux init
+#--------------------------
+
+@test "Init with no args" {
+  run $JUMEAUX init
+  [ "$status" -eq 1 ]
+  [[ ! -a config.yml ]]
+  [[ ! -a requests ]]
+}
+
+@test "Init with invalid args" {
+  run $JUMEAUX init hogehoge
+  [ "$status" -eq 1 ]
   [[ ! -a config.yml ]]
   [[ ! -a requests ]]
 }
@@ -40,11 +53,21 @@ setup() {
   [[ -a requests ]]
 }
 
+
+#--------------------------
+# jumeaux run
+#--------------------------
+
 @test "Run" {
   $JUMEAUX init rest
   $JUMEAUX run requests
   [[ -a responses ]]
 }
+
+
+#--------------------------
+# jumeaux retry
+#--------------------------
 
 @test "Retry" {
   $JUMEAUX init rest
