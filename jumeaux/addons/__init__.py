@@ -3,8 +3,24 @@
 
 from importlib import import_module
 from importlib.util import find_spec
+from owlmixin import TList
 
-from jumeaux.models import *
+from jumeaux.models import (
+    Addon,
+    Addons,
+    Request,
+    Config,
+    Log2ReqsAddOnPayload,
+    Reqs2ReqsAddOnPayload,
+    Res2ResAddOnPayload,
+    Res2DictAddOnPayload,
+    JudgementAddOnPayload,
+    JudgementAddOnReference,
+    StoreCriterionAddOnPayload,
+    DidChallengeAddOnPayload,
+    DumpAddOnPayload,
+    FinalAddOnPayload,
+)
 
 
 def create_addon(a: Addon, layer: str):
@@ -28,7 +44,7 @@ Please check either if << {relative_name} >> or << {a.name} >> are exist.
 
 
 class AddOnExecutor:
-    def __init__(self, addons: Addons):
+    def __init__(self, addons: Addons) -> None:
         self.log2reqs = create_addon(addons.log2reqs, 'log2reqs')
         self.reqs2reqs = addons.reqs2reqs.map(lambda x: create_addon(x, 'reqs2reqs')) if addons else TList()
         self.res2res = addons.res2res.map(lambda x: create_addon(x, 'res2res')) if addons else TList()
