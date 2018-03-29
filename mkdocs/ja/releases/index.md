@@ -5,6 +5,13 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.43.1
+
+:fa-calendar: `2018/03/29`
+
+!!! note "内部的なリファクタリングとテストの整備をしました"
+
+
 ## :package: 0.43.0
 
 :fa-calendar: `2018/03/26`
