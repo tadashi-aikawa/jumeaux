@@ -72,12 +72,15 @@ Commands
 Version up
 ----------
 
-Before release, you need to
+There are 2 steps.
 
-1. Update release note (mkdocs/ja/releases/index.md)
-2. Confirm that your branch name equals release version
+### Update release note (mkdocs/ja/releases/index.md)
 
-Then
+.. sourcecode::
+
+    $ make edit-release
+
+### Confirm that your branch name equals release version
 
 .. sourcecode::
 
