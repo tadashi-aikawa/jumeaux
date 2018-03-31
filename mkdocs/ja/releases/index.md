@@ -4,6 +4,13 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.45.0
+
+:fa-calendar: `2018-03-31`
+
+!!! info "DynamoDBへ送信するデータにelapsed_sec(実行秒)を追加しました ([final/miroir])"
+
+
 ## :package: 0.44.0
 
 :fa-calendar: `2018-03-30`

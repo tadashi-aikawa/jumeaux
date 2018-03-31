@@ -72,6 +72,9 @@ test-cli: ## Test on CLI
 	@bats test.bats
 	@echo End $@
 
+edit-release: ## Open release note by vim
+	@vim mkdocs/ja/releases/index.md
+
 release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to enviroment varialbles)
 
 	@echo '0. Install packages from lockfile and test'
@@ -105,4 +108,6 @@ release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to envir
 	@pipenv run twine upload dist/jumeaux-$(version)-py3-none-any.whl
 
 	@echo 'Success All!!'
+	@echo 'Create a pull request and merge to master!!'
+	@echo 'https://github.com/tadashi-aikawa/jumeaux/compare/$(version)?expand=1'
 

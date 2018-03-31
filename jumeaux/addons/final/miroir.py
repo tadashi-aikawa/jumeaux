@@ -13,6 +13,13 @@ from jumeaux.models import Report, OutputSummary, FinalAddOnPayload
 from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
+MIROIR_AA = """
+        __  __ _           _
+__/\__ |  \/  (_)_ __ ___ (_)_ __  __/\__
+\    / | |\/| | | '__/ _ \| | '__| \    /
+/_  _\ | |  | | | | | (_) | | |    /_  _\\
+  \/   |_|  |_|_|_|  \___/|_|_|      \/
+"""
 
 
 class When(OwlEnum):
@@ -38,7 +45,7 @@ class Config(OwlMixin):
 
 
 class Executor(FinalExecutor):
-    def __init__(self, config: dict):
+    def __init__(self, config: dict) -> None:
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
@@ -50,13 +57,7 @@ class Executor(FinalExecutor):
             logger.info_lv1('Skip sending results to Miroir because there are different status.')
             return payload
 
-        logger.info_lv1("""
-        __  __ _           _             
-__/\__ |  \/  (_)_ __ ___ (_)_ __  __/\__
-\    / | |\/| | | '__/ _ \| | '__| \    /
-/_  _\ | |  | | | | | (_) | | |    /_  _\\
-  \/   |_|  |_|_|_|  \___/|_|_|      \/  
-""")
+        logger.info_lv1(MIROIR_AA)
 
         report: Report = payload.report
         output_summary: OutputSummary = payload.output_summary
@@ -89,6 +90,7 @@ __/\__ |  \/  (_)_ __ ___ (_)_ __  __/\__
             "failure_count": Decimal(report.summary.status.failure),
             "begin_time": report.summary.time.start,
             "end_time": report.summary.time.end,
+            "elapsed_sec": Decimal(report.summary.time.elapsed_sec),
             "with_zip": self.config.with_zip,
             "retry_hash": report.retry_hash.get(),
             "check_status": 'todo'
@@ -145,11 +147,11 @@ __/\__ |  \/  (_)_ __ ___ (_)_ __  __/\__
             shutil.make_archive(base_name, 'zip', f'{output_summary.response_dir}/{report.key}')
 
             zip_fullpath = f'{base_name}.zip'
-            with open(zip_fullpath, 'rb') as f:
+            with open(zip_fullpath, 'rb') as zipf:
                 logger.info_lv3(f'Put {zip_fullpath}')
                 s3.put_object(Bucket=self.config.bucket,
                               Key=f'{base_key}/{report.key}/{report.key[0:7]}.zip',
-                              Body=f.read(),
+                              Body=zipf.read(),
                               CacheControl=f'max-age={self.config.cache_max_age}')
             os.remove(zip_fullpath)
 
