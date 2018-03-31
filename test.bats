@@ -64,6 +64,14 @@ setup() {
   [[ -a responses ]]
 }
 
+@test "Run with log level options" {
+  $JUMEAUX init rest
+  $JUMEAUX run requests -v
+  $JUMEAUX run requests -vv
+  $JUMEAUX run requests -vvv
+  [[ -a responses ]]
+}
+
 
 #--------------------------
 # jumeaux retry

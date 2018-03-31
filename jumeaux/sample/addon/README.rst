@@ -28,10 +28,11 @@ Tutorial
 
 ### Run sample add-ons
 
-There are two add-ons from the beginning.
+There are three add-ons from the beginning.
 
 1. reqs2reqs/add_path (Add specified path to requests)
-2. final/table (Output report as table)
+2. judgement/ignore_values (Ignore differences which includes values specified in config)
+3. final/table (Output report as table)
 
 #### Edit config.yml
 

@@ -219,7 +219,7 @@ def challenge(arg: ChallengeArg) -> dict:
         return {
             "seq": arg.seq,
             "name": name,
-            "request_time": req_time.strftime("%Y/%m/%d %H:%M:%S.%f"),
+            "request_time": req_time.isoformat(),
             "status": 'failure',
             "path": arg.req.path,
             "queries": arg.req.qs,
@@ -275,7 +275,7 @@ def challenge(arg: ChallengeArg) -> dict:
         "trial": Trial.from_dict({
             "seq": arg.seq,
             "name": name,
-            "request_time": req_time.strftime("%Y/%m/%d %H:%M:%S.%f"),
+            "request_time": req_time.isoformat(),
             "status": status,
             "path": arg.req.path or "No path",
             "queries": arg.req.qs,
@@ -391,8 +391,8 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "status": trials.group_by(_.status.value).map_values(len).to_dict(),
         "tags": tags,
         "time": {
-            "start": start_time.strftime("%Y/%m/%d %T"),
-            "end": end_time.strftime("%Y/%m/%d %T"),
+            "start": start_time.isoformat(),
+            "end": end_time.isoformat(),
             "elapsed_sec": (end_time - start_time).seconds
         },
         "output": config.output.to_dict(),

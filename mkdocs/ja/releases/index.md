@@ -4,17 +4,27 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.44.0
+
+:fa-calendar: `2018-03-30`
+
+??? danger "reportに出力される日付フォーマットをISO 8601に変更しました"
+
+    * `2000/01/01 10:00:00` => `2000-01-01T10:00:00.000000` のように変わります
+
+!!! hint "デバッグログが出力されるようになりました ([res2dict])"
+
 
 ## :package: 0.43.1
 
-:fa-calendar: `2018/03/29`
+:fa-calendar: `2018-03-29`
 
 !!! note "内部的なリファクタリングとテストの整備をしました"
 
 
 ## :package: 0.43.0
 
-:fa-calendar: `2018/03/26`
+:fa-calendar: `2018-03-26`
 
 ??? info "特定のタグを持つアドオンをスキップする実行オプションを追加しました"
 
@@ -25,7 +35,7 @@ Releases
 
 ## :package: 0.42.0
 
-:fa-calendar: `2018/03/02`
+:fa-calendar: `2018-03-02`
 
 ??? info "レスポンスの文字コードが不明なとき任意のエンコーディングを指定するオプションを追加しました"
 
@@ -37,7 +47,7 @@ Releases
 
 ## :package: 0.41.2
 
-:fa-calendar: `2018/02/27`
+:fa-calendar: `2018-02-27`
 
 ??? hint " 文字化けしたレスポンスをdumpできるようにしました([dump/xml])([dump/json])"
 
@@ -47,14 +57,14 @@ Releases
 
 ## :package: 0.41.1
 
-:fa-calendar: `2018/02/16`
+:fa-calendar: `2018-02-16`
 
 !!! note "requestsライブラリのwarningを消しました"
 
 
 ## :package: 0.41.0
 
-:fa-calendar: `2018/02/15`
+:fa-calendar: `2018-02-15`
 
 !!! bug "`jumeaux init`が動作しない不具合を修正しました"
 
@@ -66,7 +76,7 @@ Releases
 
 ## :package: 0.40.0
 
-:fa-calendar: `2018/02/13`
+:fa-calendar: `2018-02-13`
 
 !!! info "`jumeaux init addon`でアドオンサンプルプロジェクトを作成できるようにしました"
 
@@ -77,28 +87,28 @@ Releases
 
 ## :package: 0.39.1
 
-:fa-calendar: `2018/02/12`
+:fa-calendar: `2018-02-12`
 
 !!! bug "`jumeaux init`が動作しない不具合修正"
 
 
 ## :package: 0.39.0
 
-:fa-calendar: `2018/02/12`
+:fa-calendar: `2018-02-12`
 
 !!! note "内部的な設定ファイルの整備を行いました"
 
 
 ## :package: 0.38.1
 
-:fa-calendar: `2018/02/09`
+:fa-calendar: `2018-02-09`
 
 !!! bug "Dockerfileで作成したイメージが起動しない不具合修正"
 
 
 ## :package: 0.38.0
 
-:fa-calendar: `2018/02/06`
+:fa-calendar: `2018-02-06`
 
 ??? info "ログの出力設定インタフェースと出力内容を変更しました"
 
@@ -114,7 +124,7 @@ Releases
 
 ## :package: 0.37.0
 
-:fa-calendar: `2018/01/26`
+:fa-calendar: `2018-01-26`
 
 ??? info "リクエストの接続失敗最大数を指定できるようにしました"
     
@@ -129,7 +139,7 @@ Releases
 
 ## :package: 0.36.2
 
-:fa-calendar: `2018/01/17`
+:fa-calendar: `2018-01-17`
 
 ??? bug "バイナリなどencodingの推測が不可能な場合に強制終了する不具合を修正しました"
 
@@ -145,7 +155,7 @@ Releases
 
 ## :package: 0.36.1
 
-:fa-calendar: `2018/01/15`
+:fa-calendar: `2018-01-15`
 
 ??? bug "特定のケースで不適切なencodingによるdecode/encodeされていた不具合を修正しました"
 
@@ -162,7 +172,7 @@ Releases
 
 ## :package: 0.36.0
 
-:fa-calendar: `2018/01/11`
+:fa-calendar: `2018-01-11`
 
 ??? danger "`jumeaux run`コマンドのrunを省略できなくなりました"
 
@@ -178,7 +188,7 @@ Releases
 
 ## :package: 0.35.0
 
-:fa-calendar: `2017/12/26`
+:fa-calendar: `2017-12-26`
 
 ??? danger "filterアドオンのconfig仕様に破壊的変更があります ([reqs2reqs/filter])"
 
@@ -192,7 +202,7 @@ Releases
 
 ## :package: 0.34.1
 
-:fa-calendar: `2017/12/23`
+:fa-calendar: `2017-12-23`
 
 ??? bug "CLIの引数で指定した値が通知メッセージに反映されない不具合を修正しました ([reqs2reqs/empty_guard])"
 
@@ -204,7 +214,7 @@ Releases
 
 ## :package: 0.34.0
 
-:fa-calendar: `2017/12/22`
+:fa-calendar: `2017-12-22`
 
 ??? info "empty_guardアドオンを追加しました ([reqs2reqs/empty_guard])"
 
@@ -216,7 +226,7 @@ Releases
 
 ## :package: 0.33.0
 
-:fa-calendar: `2017/12/20`
+:fa-calendar: `2017-12-20`
 
 ??? danger "richplainアドオンの名称をblockアドオンに変更し、機能を追加しました ([res2dict/block])"
 
@@ -226,17 +236,19 @@ Releases
 
 ## :package: 0.32.0
 
-:fa-calendar: `2017/12/19`
+:fa-calendar: `2017-12-19`
 
 ??? info "richplainアドオンを追加しました ([res2dict/richplain])"
     
+    Version 0.33.0で名称が変更されています
+
     * 特殊な形式で記載されたテキストをdictに変換することができます
-    * 詳細は [res2dict/richplain] をご覧ください
+    * 詳細は [res2dict/block] をご覧ください
 
 
 ## :package: 0.31.1
 
-:fa-calendar: `2017/12/19`
+:fa-calendar: `2017-12-19`
 
 ??? hint "レスポンスヘッダにエンコーディング情報が無い場合、UTF8ではなく推測したエンコーディングでデコードするようにしました"
     
@@ -245,7 +257,7 @@ Releases
 
 ## :package: 0.31.0
 
-:fa-calendar: `2017/12/14`
+:fa-calendar: `2017-12-14`
 
 ??? hint "リクエスト結果が返却された後の処理を高速化しました"
     
@@ -254,7 +266,7 @@ Releases
 
 ## :package: 0.30.1
 
-:fa-calendar: `2017/12/06`
+:fa-calendar: `2017-12-06`
 
 !!! hint "when_notプロパティをwhenに変更しました ([final/miroir])"
 
@@ -265,7 +277,7 @@ Releases
 [reqs2reqs/empty_guard]: /ja/addons/reqs2reqs#empty_guard
 [reqs2reqs/filter]: /ja/addons/reqs2reqs#filter
 [reqs2reqs/replace]: /ja/addons/reqs2reqs#replace
-[res2dict/richplain]: /ja/addons/res2dict#block
+[res2dict]: /ja/addons/res2dict
 [res2dict/block]: /ja/addons/res2dict#block
 [judgement/ignore_properties]: /ja/addons/judgement#ignore_properties
 [dump/xml]: /ja/addons/dump#xml
