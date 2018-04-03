@@ -16,24 +16,6 @@ version := $(shell git rev-parse --abbrev-ref HEAD)
 
 #------
 
-init: ## Intialize develop environment
-	@echo Start $@
-	@pipenv install -d
-	@echo End $@
-
-run-init: ## Run jumeaux init
-	@echo Start $@
-	@pipenv run python jumeaux/executor.py init $(ARGS)
-	@echo End $@
-
-run: ## Run jumeaux run
-	@pipenv run python jumeaux/executor.py run $(ARGS)
-
-retry: ## Retry jumeaux
-	@echo Start $@
-	@pipenv run python jumeaux/executor.py retry $(ARGS)
-	@echo End $@
-
 serve-docs: ## Build and serve documentation
 	@echo Start $@
 	@pipenv run mkdocs serve -a 0.0.0.0:8000
@@ -114,7 +96,7 @@ release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to envir
 	git push
 
 	@echo '6. Deploy'
-	@echo 'Packageing...'
+	@echo 'Packaging...'
 	@pipenv run python setup.py bdist_wheel
 	@echo 'Deploying...'
 	@pipenv run twine upload dist/jumeaux-$(version)-py3-none-any.whl

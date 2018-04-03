@@ -56,17 +56,36 @@ Requirements
 Commands
 --------
 
+### Create and activate env
+
 .. sourcecode::
 
-    # Create env
-    $ make init
-    # Check
-    $ make run ARGS="--help"
+    $ pipenv install -d
+    $ pipenv shell
 
-    # Build documentation and run server locally
+### Run
+
+.. sourcecode::
+
+    $ python jumeaux/executory.py <args>
+
+### Serve docs
+
+.. sourcecode::
+
     $ make serve-docs
-    # Build documentation (then you can deploy by git push)
-    $ make package-docs
+
+### Unite test
+
+.. sourcecode::
+
+    $ make test
+
+### Integration test
+
+.. sourcecode::
+
+    $ make test-cli
 
 
 Version up
