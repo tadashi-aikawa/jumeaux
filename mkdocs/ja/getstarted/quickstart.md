@@ -37,15 +37,6 @@ $ docker build -t tadashi-aikawa/jumeaux .
     以降はPythonの場合を想定して説明します。
     つまり `jumeaux` => `docker run -v (pwd):/tmp -it tadashi-aikawa/jumeaux` とコマンドを置き換えてください。
 
-### VagrantとVirtualbox
-
-[Jumeaux Toolbox]はJumeauxを利用する環境一式を作成/利用することができます。  
-その中にJumeauxも含まれるため、それを使用することができます。
-
-!!! warning
-
-    サンドボックス環境以外での使用はあまりおすすめしません。
-
 
 :fa-file: Create files
 ----------------------
@@ -60,14 +51,14 @@ Jumeauxを実行するには、以下2つのファイルを用意する必要が
 上記ファイルの作成に`jumeaux init`コマンドを使用できます。
 
 ```
-$ jumeaux init minimum
+$ jumeaux init simple
 ```
 
-`minimum`は作成するファイルの種類です。
+`simple`は作成するファイルの種類です。
 
 !!! note
 
-    `jumeaux init help`コマンドで`minimum`以外の有効な値を確認できます。
+    `jumeaux init help`コマンドで`simple`以外の有効な値を確認できます。
 
 
 :fa-play-circle: Execute
@@ -89,6 +80,3 @@ $ jumeaux run requests
     $ jumeaux run requests --config config.yml
     ```
 
-
-[Jumeaux Toolbox]: https://github.com/tadashi-aikawa/jumeaux-toolbox
-[todo]: todo.md

@@ -1,0 +1,49 @@
+title: Ignore order
+
+one:
+  name: One endpoint
+  host: http://localhost:8000/api/one
+
+other:
+  name: Other endpoint
+  host: http://localhost:8000/api/other
+
+output:
+  response_dir: responses
+
+addons:
+  log2reqs:
+    name: csv
+    config:
+      encoding: utf8
+
+  res2dict:
+    - name: json
+
+  res2res:
+    - name: json_sort
+      config:
+        items:
+          - conditions:
+              - path:
+                  items:
+                    - regexp: /M-.+
+            targets:
+              - path: root<'list1'><0><'favorite'>
+
+  store_criterion:
+    - name: general
+      config:
+        statuses:
+          - different
+
+  dump:
+    - name: json
+
+  # final:
+  #   - name: miroir
+  #     config:
+  #       table: miroir
+  #       bucket: mamansoft-miroir
+  #       cache_max_age: 120
+

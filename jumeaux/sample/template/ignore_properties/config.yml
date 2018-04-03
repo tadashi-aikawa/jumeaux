@@ -1,0 +1,53 @@
+title: Ignore properties
+
+one:
+  name: One endpoint
+  host: http://localhost:8000/api/one
+
+other:
+  name: Other endpoint
+  host: http://localhost:8000/api/other
+
+output:
+  response_dir: responses
+
+addons:
+  log2reqs:
+    name: csv
+    config:
+      encoding: utf8
+
+  res2dict:
+    - name: json
+
+  judgement:
+    - name: ignore_properties
+      config:
+        ignores:
+          - title: Ignore ignored_id
+            conditions:
+              - changed:
+                  - root<'ignored_id'>
+          - title: Ignore favorite only if path includes `/same`
+            conditions:
+              - path: .*/same.*
+                added: [root<'members'><\d+><'favorite'>.*]
+                changed: [root<'members'><\d+><'favorite'>.*]
+                removed: [root<'members'><\d+><'favorite'>.*]
+
+  store_criterion:
+    - name: general
+      config:
+        statuses:
+          - different
+
+  dump:
+    - name: json
+
+  # final:
+  #   - name: miroir
+  #     config:
+  #       table: miroir
+  #       bucket: mamansoft-miroir
+  #       cache_max_age: 120
+
