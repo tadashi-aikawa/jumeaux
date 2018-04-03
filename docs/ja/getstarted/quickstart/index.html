@@ -326,13 +326,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#vagrantvirtualbox" title="VagrantとVirtualbox" class="md-nav__link">
-    VagrantとVirtualbox
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -669,13 +662,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#vagrantvirtualbox" title="VagrantとVirtualbox" class="md-nav__link">
-    VagrantとVirtualbox
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -740,13 +726,6 @@ $ docker build -t tadashi-aikawa/jumeaux .
 <p>以降はPythonの場合を想定して説明します。<br />
 つまり <code>jumeaux</code> =&gt; <code>docker run -v (pwd):/tmp -it tadashi-aikawa/jumeaux</code> とコマンドを置き換えてください。</p>
 </div>
-<h3 id="vagrantvirtualbox">VagrantとVirtualbox<a class="headerlink" href="#vagrantvirtualbox" title="Permanent link">&para;</a></h3>
-<p><a href="https://github.com/tadashi-aikawa/jumeaux-toolbox">Jumeaux Toolbox</a>はJumeauxを利用する環境一式を作成/利用することができます。<br />
-その中にJumeauxも含まれるため、それを使用することができます。</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>サンドボックス環境以外での使用はあまりおすすめしません。</p>
-</div>
 <h2 id="create-files"><i class="fa fa-file"></i> Create files<a class="headerlink" href="#create-files" title="Permanent link">&para;</a></h2>
 <p>Jumeauxを実行するには、以下2つのファイルを用意する必要があります。</p>
 <table>
@@ -771,13 +750,13 @@ $ docker build -t tadashi-aikawa/jumeaux .
 </tbody>
 </table>
 <p>上記ファイルの作成に<code>jumeaux init</code>コマンドを使用できます。</p>
-<div class="codehilite"><pre><span></span>$ jumeaux init minimum
+<div class="codehilite"><pre><span></span>$ jumeaux init simple
 </pre></div>
 
-<p><code>minimum</code>は作成するファイルの種類です。</p>
+<p><code>simple</code>は作成するファイルの種類です。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>jumeaux init help</code>コマンドで<code>minimum</code>以外の有効な値を確認できます。</p>
+<p><code>jumeaux init help</code>コマンドで<code>simple</code>以外の有効な値を確認できます。</p>
 </div>
 <h2 id="execute"><i class="fa fa-play-circle"></i> Execute<a class="headerlink" href="#execute" title="Permanent link">&para;</a></h2>
 <p><code>config.yml</code>と<code>requests</code>を指定して実行しましょう。<br />

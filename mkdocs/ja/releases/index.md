@@ -4,6 +4,17 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.46.0
+
+:fa-calendar: `2018-04-04`
+
+??? danger "`jumeaux init`で作成できるテンプレートの候補と中身が変更されました"
+
+    * 新しい候補を表示するには`jumeaux init help`を実行してください
+    * 新しいテンプレートは`python -m http.server`を実行したときに動作する想定で作られています
+    * 後のバージョンにてjumeauxコマンド経由で上記を実行/停止できるようにする予定です
+
+
 ## :package: 0.45.0
 
 :fa-calendar: `2018-03-31`
