@@ -51,7 +51,7 @@ test-pudb: ## Test with pudb
 
 start-api: ## Start dummy API
 	@echo Start $@
-	@python -m http.server &
+	@pipenv run python -m http.server &
 	@echo End $@
 
 stop-api: ## Stop dummy API
