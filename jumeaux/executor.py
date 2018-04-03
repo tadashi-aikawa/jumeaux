@@ -448,13 +448,15 @@ def handle_init(name: TOption[str]):
             logger.info_lv1(f'✨ [Create] {f}')
         return
 
-    sample_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/config'
+    sample_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/template'
     target_dir = f'{sample_dir}/{name.get()}'
 
     if os.path.exists(target_dir):
-        for f in os.listdir(target_dir):
+        for f in ['config.yml', 'requests']:
             shutil.copy(f'{target_dir}/{f}', '.')
             logger.info_lv1(f'✨ [Create] {f}')
+        shutil.copytree(f'{target_dir}/api', 'api')
+        logger.info_lv1(f'✨ [Create] templates with a api directory')
         return
 
     if not os.path.exists(target_dir):

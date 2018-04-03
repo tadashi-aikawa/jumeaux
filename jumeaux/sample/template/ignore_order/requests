@@ -1,0 +1,3 @@
+Request path is not matched,/not-same-1.json
+Property path is not matched,/M-not-same-2.json
+Request path and property path are matched,/M-same-1.json

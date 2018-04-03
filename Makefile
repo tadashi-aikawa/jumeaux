@@ -67,9 +67,21 @@ test-pudb: ## Test with pudb
 	@pytest --pdbcls pudb.debugger:Debugger --pdb --capture=no
 	@echo End $@
 
+start-api: ## Start dummy API
+	@echo Start $@
+	@python -m http.server &
+	@echo End $@
+
+stop-api: ## Stop dummy API
+	@echo Start $@
+	@pkill -f 'python -m http.server'
+	@echo End $@
+
 test-cli: ## Test on CLI
 	@echo Start $@
-	@bats test.bats
+	@make start-api
+	@-bats test.bats
+	@make stop-api
 	@echo End $@
 
 edit-release: ## Open release note by vim

@@ -2,8 +2,12 @@
 
 JUMEAUX="pipenv run python jumeaux/executor.py"
 
-setup() {
-  rm -rf requests config.yml responses report.json
+teardown() {
+  rm -rf requests \
+         config.yml \
+         api \
+         responses \
+         report.json
 }
 
 @test "Usage" {
@@ -20,6 +24,7 @@ setup() {
   [ "$status" -eq 1 ]
   [[ ! -a config.yml ]]
   [[ ! -a requests ]]
+  [[ ! -a api ]]
 }
 
 @test "Init with invalid args" {
@@ -27,30 +32,14 @@ setup() {
   [ "$status" -eq 1 ]
   [[ ! -a config.yml ]]
   [[ ! -a requests ]]
+  [[ ! -a api ]]
 }
 
-@test "Init rest" {
-  $JUMEAUX init rest
+@test "Init" {
+  $JUMEAUX init simple
   [[ -a config.yml ]]
   [[ -a requests ]]
-}
-
-@test "Init minimum" {
-  $JUMEAUX init minimum
-  [[ -a config.yml ]]
-  [[ -a requests ]]
-}
-
-@test "Init json" {
-  $JUMEAUX init json
-  [[ -a config.yml ]]
-  [[ -a requests ]]
-}
-
-@test "Init ignore_properties" {
-  $JUMEAUX init ignore_properties
-  [[ -a config.yml ]]
-  [[ -a requests ]]
+  [[ -a api ]]
 }
 
 
@@ -58,18 +47,70 @@ setup() {
 # jumeaux run
 #--------------------------
 
-@test "Run" {
-  $JUMEAUX init rest
-  $JUMEAUX run requests
+@test "Run simple" {
+  $JUMEAUX init simple
+  $JUMEAUX run requests > report.json
   [[ -a responses ]]
+  [[ -a report.json ]]
+  [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
 }
 
+
+@test "Run xml" {
+  $JUMEAUX init xml
+  $JUMEAUX run requests > report.json
+  [[ -a responses ]]
+  [[ -a report.json ]]
+  [[ $(jq '.summary.status.same' report.json) -eq 0 ]]
+  [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
+}
+
+
+@test "Run ignore_order" {
+  $JUMEAUX init ignore_order
+  $JUMEAUX run requests > report.json
+  [[ -a responses ]]
+  [[ -a report.json ]]
+  [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' report.json) -eq 2 ]]
+}
+
+
+@test "Run ignore_properties" {
+  $JUMEAUX init ignore_properties
+  $JUMEAUX run requests > report.json
+  [[ -a responses ]]
+  [[ -a report.json ]]
+  [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
+}
+
+
 @test "Run with log level options" {
-  $JUMEAUX init rest
+  $JUMEAUX init simple
   $JUMEAUX run requests -v
   $JUMEAUX run requests -vv
   $JUMEAUX run requests -vvv
   [[ -a responses ]]
+}
+
+
+@test "Run with threads" {
+  $JUMEAUX init simple
+  $JUMEAUX run requests --threads 2 > report.json
+  [[ -a responses ]]
+  [[ $(jq '.summary.concurrency.threads' report.json) -eq 2 ]]
+  [[ $(jq '.summary.concurrency.processes' report.json) -eq 1 ]]
+}
+
+
+@test "Run with processes" {
+  $JUMEAUX init simple
+  $JUMEAUX run requests --processes 2 > report.json
+  [[ -a responses ]]
+  [[ $(jq '.summary.concurrency.threads' report.json) -eq 1 ]]
+  [[ $(jq '.summary.concurrency.processes' report.json) -eq 2 ]]
 }
 
 
@@ -78,14 +119,16 @@ setup() {
 #--------------------------
 
 @test "Retry" {
-  $JUMEAUX init rest
+  $JUMEAUX init simple
   $JUMEAUX run requests > report.json
   [[ -a responses ]]
   [[ -a report.json ]]
+  [[ -a api ]]
   rm -rf requests config.yml responses
 
   $JUMEAUX retry report.json
   [[ -a responses ]]
   [[ -a report.json ]]
+  [[ -a api ]]
 }
 

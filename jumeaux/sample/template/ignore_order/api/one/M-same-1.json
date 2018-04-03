@@ -1,0 +1,18 @@
+{
+    "list1": [
+        {
+            "id": 1,
+            "favorite": [
+                "apple",
+                "orange"
+            ]
+        },
+        {
+            "id": 2,
+            "favorite": [
+                "apple",
+                "orange"
+            ]
+        }
+    ]
+}
