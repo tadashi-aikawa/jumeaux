@@ -104,11 +104,13 @@ class Args(OwlMixin):
     threads: TOption[int]
     processes: TOption[int]
     max_retries: TOption[int]
+    v: int
     retry: bool
     report: TOption[str]  # Only case in which retry is True
     init: bool
     name: TOption[str]  # Only case in which init is True
-    v: int
+    server: bool
+    port: TOption[int]
 
     @classmethod
     def ___threads(cls, v: Optional[str]) -> int:
@@ -120,6 +122,10 @@ class Args(OwlMixin):
 
     @classmethod
     def ___max_retries(cls, v: Optional[str]) -> int:
+        return int(v) if v else None
+
+    @classmethod
+    def ___port(cls, v: Optional[str]) -> int:
         return int(v) if v else None
 
 
