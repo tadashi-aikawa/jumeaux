@@ -4,6 +4,19 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.46.1
+
+:fa-calendar: `2018-04-05`
+
+!!! bug "レスポンスのエンコーディングが推測した結果でかつ不適切なとき強制終了する不具合を修正しました ([res2res/json_sort])"
+
+??? danger "default_encodingを非推奨にしました ([res2res/json_sort])"
+
+    * 近い内に削除します
+    * 削除された後は指定するとエラーになりますので注意してください
+    * [res2res/json_sort]の仕様からは既に削除済みです
+
+
 ## :package: 0.46.0
 
 :fa-calendar: `2018-04-04`
@@ -295,6 +308,7 @@ Releases
 [reqs2reqs/empty_guard]: /ja/addons/reqs2reqs#empty_guard
 [reqs2reqs/filter]: /ja/addons/reqs2reqs#filter
 [reqs2reqs/replace]: /ja/addons/reqs2reqs#replace
+[res2res/json_sort]: /ja/addons/res2res#json_sort
 [res2dict]: /ja/addons/res2dict
 [res2dict/block]: /ja/addons/res2dict#block
 [judgement/ignore_properties]: /ja/addons/judgement#ignore_properties
