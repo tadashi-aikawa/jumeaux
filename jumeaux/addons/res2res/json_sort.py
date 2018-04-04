@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import json
+from typing import Any
 
 from owlmixin import OwlMixin, TList, TOption
 
@@ -11,6 +12,7 @@ from jumeaux.models import Res2ResAddOnPayload, Response, Request
 from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
+LOG_PREFIX = "[res2res/json_sort]"
 
 
 class Target(OwlMixin):
@@ -20,7 +22,7 @@ class Target(OwlMixin):
 
 class Sorter(OwlMixin):
     conditions: TList[RequestCondition]
-    and_or: AndOr = "and"
+    and_or: AndOr = "and"  # type: ignore # Prevent for enum problem
     negative: bool = False
     targets: TList[Target]
 
@@ -30,9 +32,11 @@ class Sorter(OwlMixin):
 
 class Config(OwlMixin):
     items: TList[Sorter]
+    # TODO: remove
+    default_encoding: TOption[str]
 
 
-def traverse(value: any, location: str, targets: TList[Target]):
+def traverse(value: Any, location: str, targets: TList[Target]):
     if isinstance(value, dict):
         return _dict_sort(value, targets, location)
     elif isinstance(value, list):
@@ -59,14 +63,17 @@ def _list_sort(list_obj: list, targets: TList[Target], location: str = 'root') -
 
 
 class Executor(Res2ResExecutor):
-    def __init__(self, config: dict):
+    def __init__(self, config: dict) -> None:
         self.config: Config = Config.from_dict(config or {})
+        if self.config.default_encoding.get():
+            logger.warning(f'{LOG_PREFIX} `default_encoding` is no longer works.')
+            logger.warning(f'{LOG_PREFIX} And this will be removed soon! You need to remove this property not to stop!')
 
     def exec(self, payload: Res2ResAddOnPayload) -> Res2ResAddOnPayload:
         res: Response = payload.response
 
         if res.mime_type.get() not in ('text/json', 'application/json'):
-            logger.info_lv3("Skipped because mime type is not json.")
+            logger.info_lv3(f"{LOG_PREFIX} Skipped because mime type is not json.")
             return payload
 
         res_json = json.loads(res.text)
