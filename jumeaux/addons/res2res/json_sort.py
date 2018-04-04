@@ -30,7 +30,6 @@ class Sorter(OwlMixin):
 
 class Config(OwlMixin):
     items: TList[Sorter]
-    default_encoding: str = 'utf8'
 
 
 def traverse(value: any, location: str, targets: TList[Target]):
@@ -70,7 +69,7 @@ class Executor(Res2ResExecutor):
             logger.info_lv3("Skipped because mime type is not json.")
             return payload
 
-        res_json = json.loads(res.text, encoding=res.encoding.get())
+        res_json = json.loads(res.text)
         sorted_res = json.dumps(
             self.config.items.reduce(lambda t, s:
                                      (_dict_sort(t, s.targets)
@@ -82,7 +81,7 @@ class Executor(Res2ResExecutor):
 
         return Res2ResAddOnPayload.from_dict({
             "response": {
-                "body": sorted_res.encode(res.encoding.get_or(self.config.default_encoding)),
+                "body": sorted_res.encode(res.encoding.get(), errors='replace'),
                 "encoding": res.encoding.get(),
                 "headers": res.headers,
                 "url": res.url,
