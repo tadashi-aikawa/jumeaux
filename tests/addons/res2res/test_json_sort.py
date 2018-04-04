@@ -41,10 +41,15 @@ TEXT = json.dumps({
 })
 
 
-def make_response(text: str) -> Response:
+TEXT_MULTIBYTE = json.dumps({
+    "name": "国道１２３号"
+})
+
+
+def make_response(text: str, encoding: str, body_encoding: str) -> Response:
     return Response.from_dict({
-        "body": text.encode('utf-8'),
-        "encoding": 'utf-8',
+        "body": text.encode(body_encoding),
+        "encoding": encoding,
         "headers": {
             "content-type": "application/json"
         },
@@ -66,7 +71,7 @@ class TestExec:
                           items:
                             - regexp: /filter
                     targets:
-                      - path: root<'dict1'><'list1-1'> 
+                      - path: root<'dict1'><'list1-1'>
                 """,
                 {
                     "int1": 1,
@@ -272,7 +277,7 @@ class TestExec:
     )
     def test_normal(self, title, config_yml, expected_text):
         payload: Res2ResAddOnPayload = Res2ResAddOnPayload.from_dict({
-            'response': make_response(TEXT),
+            'response': make_response(TEXT, 'utf-8', 'utf-8'),
             'req': {
                 "path": "/filter",
                 "qs": {},
@@ -281,10 +286,68 @@ class TestExec:
         })
 
         assert Executor(load_yaml(config_yml)).exec(payload).to_dict() == {
-            'response': make_response(json.dumps(expected_text)).to_dict(),
+            'response': make_response(json.dumps(expected_text), 'utf-8', 'utf-8').to_dict(),
             'req': {
                 "path": "/filter",
                 "qs": {},
                 "headers": {},
             }
         }
+
+    @pytest.mark.parametrize(
+        'title, encoding, body_encoding, config_yml, expected_text', [
+            (
+                "Valid encoding",
+                'utf-8',
+                'utf-8',
+                """
+                items:
+                  - conditions:
+                      - path:
+                          items:
+                            - regexp: /filter
+                    targets:
+                      - path: root<'name'>
+                """,
+                {
+                    "name": "国道１２３号",
+                }
+            ),
+            (
+                "Illegal encoding",
+                'Windows-1254',
+                'sjis',
+                """
+                items:
+                  - conditions:
+                      - path:
+                          items:
+                            - regexp: /filter
+                    targets:
+                      - path: root<'name'>
+                """,
+                {
+                    "name": "??????",
+                }
+            )
+        ]
+    )
+    def test_multibyte(self, title, encoding, body_encoding, config_yml, expected_text):
+        payload: Res2ResAddOnPayload = Res2ResAddOnPayload.from_dict({
+            'response': make_response(TEXT_MULTIBYTE, encoding, body_encoding),
+            'req': {
+                "path": "/filter",
+                "qs": {},
+                "headers": {},
+            }
+        })
+
+        assert Executor(load_yaml(config_yml)).exec(payload).to_dict() == {
+            'response': make_response(json.dumps(expected_text, ensure_ascii=False), encoding, encoding).to_dict(),
+            'req': {
+                "path": "/filter",
+                "qs": {},
+                "headers": {},
+            }
+        }
+
