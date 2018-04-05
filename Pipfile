@@ -32,6 +32,7 @@ freezegun = "*"
 owlmixin = ">=2.3.0"
 pydash = "*"
 requests-toolbelt = "*"
+"jinja2" = "*"
 
 [requires]
 python_version = "3.6"
