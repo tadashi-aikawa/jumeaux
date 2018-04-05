@@ -358,13 +358,16 @@ class JudgementAddOnReference(OwlMixin):
 
 
 class StoreCriterionAddOnPayload(OwlMixin):
+    stored: bool
+
+
+class StoreCriterionAddOnReference(OwlMixin):
     status: Status
     path: str
     qs: TDict[TList[str]]
     headers: TDict[str]
     res_one: Response
     res_other: Response
-    stored: bool
 
 
 class FinalAddOnPayload(OwlMixin):

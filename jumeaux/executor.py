@@ -77,6 +77,7 @@ from jumeaux.models import (
     JudgementAddOnPayload,
     JudgementAddOnReference,
     StoreCriterionAddOnPayload,
+    StoreCriterionAddOnReference,
     DumpAddOnPayload,
     FinalAddOnPayload,
     DidChallengeAddOnPayload,
@@ -168,15 +169,19 @@ def judgement(r_one: Response, r_other: Response,
 
 def store_criterion(status: Status, path: str, qs: TDict[TList[str]], headers: TDict[str],
                     r_one: Response, r_other: Response):
-    return global_addon_executor.apply_store_criterion(StoreCriterionAddOnPayload.from_dict({
-        "status": status,
-        "path": path,
-        "qs": qs,
-        "headers": headers,
-        "res_one": r_one,
-        "res_other": r_other,
-        "stored": False,
-    })).stored
+    return global_addon_executor.apply_store_criterion(
+        StoreCriterionAddOnPayload.from_dict({
+            "stored": False,
+        }),
+        StoreCriterionAddOnReference.from_dict({
+            "status": status,
+            "path": path,
+            "qs": qs,
+            "headers": headers,
+            "res_one": r_one,
+            "res_other": r_other,
+        }),
+    ).stored
 
 
 def dump(res: Response):
