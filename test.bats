@@ -51,9 +51,23 @@ teardown() {
   $JUMEAUX init simple
   $JUMEAUX run requests > report.json
   [[ -a responses ]]
+  [[ $(ls responses/*/one/*) ]]
+  [[ $(ls responses/*/other/*) ]]
   [[ -a report.json ]]
   [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
+}
+
+
+@test "Run all_same" {
+  $JUMEAUX init all_same
+  $JUMEAUX run requests > report.json
+  [[ -a responses ]]
+  [[ ! $(ls responses/*/one/*) ]]
+  [[ ! $(ls responses/*/other/*) ]]
+  [[ -a report.json ]]
+  [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' report.json) -eq 0 ]]
 }
 
 
@@ -61,6 +75,8 @@ teardown() {
   $JUMEAUX init xml
   $JUMEAUX run requests > report.json
   [[ -a responses ]]
+  [[ $(ls responses/*/one/*) ]]
+  [[ $(ls responses/*/other/*) ]]
   [[ -a report.json ]]
   [[ $(jq '.summary.status.same' report.json) -eq 0 ]]
   [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
@@ -71,6 +87,8 @@ teardown() {
   $JUMEAUX init ignore_order
   $JUMEAUX run requests > report.json
   [[ -a responses ]]
+  [[ $(ls responses/*/one/*) ]]
+  [[ $(ls responses/*/other/*) ]]
   [[ -a report.json ]]
   [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' report.json) -eq 2 ]]
@@ -81,6 +99,8 @@ teardown() {
   $JUMEAUX init ignore_properties
   $JUMEAUX run requests > report.json
   [[ -a responses ]]
+  [[ $(ls responses/*/one/*) ]]
+  [[ $(ls responses/*/other/*) ]]
   [[ -a report.json ]]
   [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
