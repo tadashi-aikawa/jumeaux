@@ -26,6 +26,6 @@ env = Environment(loader=BaseLoader())
 env.filters['reg'] = exact_match
 
 
-def filter(when: str, data: dict) -> bool:
+def when_filter(when: str, data: dict) -> bool:
     return ast.literal_eval(env.from_string('{{' + when + '}}').render(data))
 

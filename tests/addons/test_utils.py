@@ -5,7 +5,7 @@ import pytest
 from jumeaux.addons import utils
 
 
-class TestFilter:
+class TestWhenFilter:
     data = {
         "id": 1,
         "name": "一朗",
@@ -56,6 +56,6 @@ class TestFilter:
         ]
     )
     def test_normal(self, expected, expression):
-        actual = utils.filter(expression, self.data)
+        actual = utils.when_filter(expression, self.data)
         assert expected == actual
 
