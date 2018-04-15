@@ -11,7 +11,7 @@ from jumeaux.models import Request, Reqs2ReqsAddOnPayload
 
 class Condition(OwlMixin):
     name: str
-    when: str
+    when: TOption[str]
 
 
 class Config(OwlMixin):
@@ -20,12 +20,14 @@ class Config(OwlMixin):
 
 def apply_first_condition(request: Request, conditions: TList[Condition]) -> Request:
     # TODO: remove TOption (owlmixin... find)
-    condition: TOption[Condition] = TOption(conditions.find(lambda c: when_filter(c.when, request.to_dict())))
+    condition: TOption[Condition] = TOption(
+        conditions.find(lambda c: c.when.map(lambda x: when_filter(x, request.to_dict())).get_or(True))
+    )
     if condition.is_none():
         return request
 
     name: TOption[str] = request.str_format(condition.get().name) \
-        if when_filter(condition.get().when, request.to_dict()) \
+        if condition.get().when.map(lambda x: when_filter(x, request.to_dict())).get_or(True) \
         else request.name
 
     return Request.from_dict({
