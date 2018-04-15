@@ -29,10 +29,10 @@ fn = "*"
 "boto3" = "*"
 deepdiff = "*"
 freezegun = "*"
-owlmixin = ">=2.3.0"
 pydash = "*"
 requests-toolbelt = "*"
 "jinja2" = "*"
+owlmixin = ">=2.4.0"
 
 [requires]
 python_version = "3.6"

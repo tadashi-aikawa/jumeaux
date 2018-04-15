@@ -24,7 +24,7 @@ def apply_first_condition(request: Request, conditions: TList[Condition]) -> Req
     if condition.is_none():
         return request
 
-    name: TOption[str] = condition.get().name.format(**request.to_dict()) \
+    name: TOption[str] = request.str_format(condition.get().name) \
         if when_filter(condition.get().when, request.to_dict()) \
         else request.name
 
