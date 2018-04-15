@@ -444,8 +444,14 @@ def merge_args2config(args: Args, config: Config) -> Config:
     })
 
 
+class ServerHandler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        logger.info_lv1(self.headers)
+        http.server.SimpleHTTPRequestHandler.do_GET(self)
+
+
 def handle_server(port: Optional[int]):
-    Handler = http.server.SimpleHTTPRequestHandler
+    Handler = ServerHandler
     with socketserver.TCPServer(("", port), Handler) as httpd:
         logger.info_lv1(f'Serving HTTP on 0.0.0.0 port {port} (http://0.0.0.0:{port}/)')
         httpd.serve_forever()
