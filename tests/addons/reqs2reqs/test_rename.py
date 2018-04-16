@@ -28,9 +28,9 @@ RENAME_WITH_CONDITION = ("Rename requests with a condition",
 RENAME_WITH_CONDITIONS = ("Rename requests with a conditions",
                           """
                           conditions:
-                            - name: "Over 100 ({name})"
+                            - name: Over 100 ({name})
                               when: "qs.id.0|int > 100"
-                            - name: "Over 10 ({name})"
+                            - name: Over 10 ({name})
                               when: "qs.id.0|int > 10"
                           """,
                           [
@@ -46,23 +46,23 @@ RENAME_WITH_CONDITIONS = ("Rename requests with a conditions",
                           )
 
 RENAME_ALL = ("Rename all",
-                  """
-                  conditions:
-                    - name: "target1"
-                      when: "path == 'target1'"
-                    - name: "END"
-                  """,
-                  [
-                      {"name": "name1", "path": "target1", "headers": {}, "qs": {}},
-                      {"name": "name2", "path": "target2", "headers": {}, "qs": {}},
-                      {"name": "name3", "path": "target3", "headers": {}, "qs": {}},
-                  ],
-                  [
-                      {"name": "target1", "path": "target1", "headers": {}, "qs": {}},
-                      {"name": "END", "path": "target2", "headers": {}, "qs": {}},
-                      {"name": "END", "path": "target3", "headers": {}, "qs": {}},
-                  ]
-                  )
+              """
+              conditions:
+                - name: target1
+                  when: "path == 'target1'"
+                - name: END
+              """,
+              [
+                  {"name": "name1", "path": "target1", "headers": {}, "qs": {}},
+                  {"name": "name2", "path": "target2", "headers": {}, "qs": {}},
+                  {"name": "name3", "path": "target3", "headers": {}, "qs": {}},
+              ],
+              [
+                  {"name": "target1", "path": "target1", "headers": {}, "qs": {}},
+                  {"name": "END", "path": "target2", "headers": {}, "qs": {}},
+                  {"name": "END", "path": "target3", "headers": {}, "qs": {}},
+              ]
+              )
 
 
 class TestExec:
