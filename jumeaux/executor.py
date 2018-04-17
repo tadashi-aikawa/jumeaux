@@ -107,10 +107,10 @@ def make_dir(path):
     os.chmod(path, 0o777)
 
 
-def http_get(args):
+def http_get(args: Tuple[Any, str, TDict[str], TDict[str]]):
     session, url, headers, proxies = args
     try:
-        r = session.get(url, headers=headers, proxies=proxies)
+        r = session.get(url, headers=headers.assign({'User-Agent': f'jumeaux/{__version__}'}), proxies=proxies)
     finally:
         session.close()
     return r
@@ -120,7 +120,7 @@ def to_sec(elapsed):
     return round(elapsed.seconds + elapsed.microseconds / 1000000, 2)
 
 
-def concurrent_request(session, headers, url_one, url_other, proxies_one, proxies_other):
+def concurrent_request(session, headers: TDict[str], url_one, url_other, proxies_one, proxies_other):
     fs = ((session, url_one, headers, proxies_one),
           (session, url_other, headers, proxies_other))
     with futures.ThreadPoolExecutor(max_workers=2) as ex:
