@@ -17,6 +17,7 @@ from jumeaux.models import (
     JudgementAddOnPayload,
     JudgementAddOnReference,
     StoreCriterionAddOnPayload,
+    StoreCriterionAddOnReference,
     DidChallengeAddOnPayload,
     DumpAddOnPayload,
     FinalAddOnPayload,
@@ -70,8 +71,10 @@ class AddOnExecutor:
     def apply_judgement(self, payload: JudgementAddOnPayload, reference: JudgementAddOnReference) -> JudgementAddOnPayload:
         return self.judgement.reduce(lambda p, a: a.exec(p, reference), payload)
 
-    def apply_store_criterion(self, payload: StoreCriterionAddOnPayload) -> StoreCriterionAddOnPayload:
-        return self.store_criterion.reduce(lambda p, a: a.exec(p), payload)
+    def apply_store_criterion(self,
+                              payload: StoreCriterionAddOnPayload,
+                              reference: StoreCriterionAddOnReference) -> StoreCriterionAddOnPayload:
+        return self.store_criterion.reduce(lambda p, a: a.exec(p, reference), payload)
 
     def apply_dump(self, payload: DumpAddOnPayload) -> DumpAddOnPayload:
         return self.dump.reduce(lambda p, a: a.exec(p), payload)

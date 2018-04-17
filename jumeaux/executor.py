@@ -16,6 +16,7 @@ Usage:
   jumeaux retry <report> [--title=<title>] [--description=<description>]
                          [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
                          [--max-retries=<max_retries>] [-vvv]
+  jumeaux server [--port=<port>]
 
 Options:
   <name>                                        Initialize template name
@@ -30,6 +31,7 @@ Options:
   --max-retries = <max_retries>                 The max number of retries which accesses to API
   <report>                                      Report for retry
   -vvv                                          Logger level (`-v` or `-vv` or `-vvv`)
+  --port = <port>                               Running port [def: 8000]
 """
 
 import hashlib
@@ -38,6 +40,8 @@ import os
 import shutil
 import sys
 import datetime
+import http.server
+import socketserver
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
@@ -73,6 +77,7 @@ from jumeaux.models import (
     JudgementAddOnPayload,
     JudgementAddOnReference,
     StoreCriterionAddOnPayload,
+    StoreCriterionAddOnReference,
     DumpAddOnPayload,
     FinalAddOnPayload,
     DidChallengeAddOnPayload,
@@ -102,10 +107,10 @@ def make_dir(path):
     os.chmod(path, 0o777)
 
 
-def http_get(args):
+def http_get(args: Tuple[Any, str, TDict[str], TDict[str]]):
     session, url, headers, proxies = args
     try:
-        r = session.get(url, headers=headers, proxies=proxies)
+        r = session.get(url, headers=headers.assign({'User-Agent': f'jumeaux/{__version__}'}), proxies=proxies)
     finally:
         session.close()
     return r
@@ -115,7 +120,7 @@ def to_sec(elapsed):
     return round(elapsed.seconds + elapsed.microseconds / 1000000, 2)
 
 
-def concurrent_request(session, headers, url_one, url_other, proxies_one, proxies_other):
+def concurrent_request(session, headers: TDict[str], url_one, url_other, proxies_one, proxies_other):
     fs = ((session, url_one, headers, proxies_one),
           (session, url_other, headers, proxies_other))
     with futures.ThreadPoolExecutor(max_workers=2) as ex:
@@ -164,15 +169,19 @@ def judgement(r_one: Response, r_other: Response,
 
 def store_criterion(status: Status, path: str, qs: TDict[TList[str]], headers: TDict[str],
                     r_one: Response, r_other: Response):
-    return global_addon_executor.apply_store_criterion(StoreCriterionAddOnPayload.from_dict({
-        "status": status,
-        "path": path,
-        "qs": qs,
-        "headers": headers,
-        "res_one": r_one,
-        "res_other": r_other,
-        "stored": False,
-    })).stored
+    return global_addon_executor.apply_store_criterion(
+        StoreCriterionAddOnPayload.from_dict({
+            "stored": False,
+        }),
+        StoreCriterionAddOnReference.from_dict({
+            "status": status,
+            "path": path,
+            "qs": qs,
+            "headers": headers,
+            "res_one": r_one,
+            "res_other": r_other,
+        }),
+    ).stored
 
 
 def dump(res: Response):
@@ -435,6 +444,19 @@ def merge_args2config(args: Args, config: Config) -> Config:
     })
 
 
+class ServerHandler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        logger.info_lv1(self.headers)
+        http.server.SimpleHTTPRequestHandler.do_GET(self)
+
+
+def handle_server(port: Optional[int]):
+    Handler = ServerHandler
+    with socketserver.TCPServer(("", port), Handler) as httpd:
+        logger.info_lv1(f'Serving HTTP on 0.0.0.0 port {port} (http://0.0.0.0:{port}/)')
+        httpd.serve_forever()
+
+
 def handle_init(name: TOption[str]):
     # XXX: Beta: jumeaux init addon
     # TODO: refactoring
@@ -475,6 +497,10 @@ def main():
 
     global global_addon_executor
     # TODO: refactoring
+    if args.server:
+        handle_server(args.port.get_or(8000))
+        return
+
     if args.init:
         handle_init(args.name)
         return

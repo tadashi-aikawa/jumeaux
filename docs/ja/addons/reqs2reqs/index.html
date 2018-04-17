@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.1">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.2">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/application.78aab2dc.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.8d40d89b.css">
       
     
     
@@ -839,6 +839,79 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rename" title="rename" class="md-nav__link">
+    rename
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_7" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_7" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root_4" title="Root" class="md-nav__link">
+    Root
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_7" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pathtargetrenamed" title="pathにtargetという文字列が含まれる場合にrenamedへ名称を変更する" class="md-nav__link">
+    pathにtargetという文字列が含まれる場合にrenamedへ名称を変更する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="複雑な条件" class="md-nav__link">
+    複雑な条件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -1501,6 +1574,79 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rename" title="rename" class="md-nav__link">
+    rename
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_7" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_7" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root_4" title="Root" class="md-nav__link">
+    Root
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_7" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pathtargetrenamed" title="pathにtargetという文字列が含まれる場合にrenamedへ名称を変更する" class="md-nav__link">
+    pathにtargetという文字列が含まれる場合にrenamedへ名称を変更する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="複雑な条件" class="md-nav__link">
+    複雑な条件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -1642,7 +1788,7 @@
 <tbody>
 <tr>
 <td>reqs</td>
-<td><a href="../../../models/request">Request[]</a></td>
+<td><a href="../../../ja/models/request">Request[]</a></td>
 <td>本設定を反映させるRequestの条件</td>
 <td></td>
 <td></td>
@@ -1914,6 +2060,68 @@
 </pre></div>
 
 </div>
+<h2 id="rename"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/rename.py"><i class="fa fa-github"></i></a> rename<a class="headerlink" href="#rename" title="Permanent link">&para;</a></h2>
+<p>条件に一致するリクエストの名称を変更します。</p>
+<h3 id="config_7">Config<a class="headerlink" href="#config_7" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_7">Definitions<a class="headerlink" href="#definitions_7" title="Permanent link">&para;</a></h4>
+<h5 id="root_4">Root<a class="headerlink" href="#root_4" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>str</td>
+<td>変更後の名称テンプレート <i class="fa fa-info-circle"></i></td>
+<td><pre>{name}({path})</pre></td>
+<td></td>
+</tr>
+<tr>
+<td>when</td>
+<td>str</td>
+<td><a href="http://jinja.pocoo.org/docs/2.10/templates/#expressions">jinja2の式</a>に準拠した条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>"qs.id.0 == 1"</pre></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">whenで指定できるプロパティ</p>
+<p><a href="../../../ja/models/request">request</a>で定義されたプロパティを指定することができます。</p>
+</div>
+<h4 id="examples_7">Examples<a class="headerlink" href="#examples_7" title="Permanent link">&para;</a></h4>
+<h5 id="pathtargetrenamed">pathに<code>target</code>という文字列が含まれる場合に<code>renamed</code>へ名称を変更する<a class="headerlink" href="#pathtargetrenamed" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>reqs2reqs:
+  - name: replace
+    config:
+      conditions:
+        - name: renamed
+          when: &quot;&#39;target&#39; in path&quot;
+</pre></div>
+
+<h5 id="_3">複雑な条件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
+<ol>
+<li>pathが小文字のアルファベット3文字である場合は<code>GOOD</code>へ名称を変更する</li>
+<li>1に該当せず<code>id</code>が1つだけ指定されており、かつ2より大きい場合は<code>&lt;クエリのid&gt;: &lt;元の名称&gt;</code>へ名称を変更する<br />
+  2-1. 例えば<code>id=4</code>で名称が<code>hoge</code>のとき、新しい名称は<code>4: hoge</code>となる</li>
+<li>1と2に該当しない場合は名称を変更しない</li>
+</ol>
+<div class="codehilite"><pre><span></span>reqs2reqs:
+  - name: replace
+    config:
+      conditions:
+        - name: &quot;GOOD&quot;
+          when: &quot;path|reg(&#39;[a-z]{3}&#39;)&quot;
+        - name: &quot;{qs[id][0]}: {name}&quot;
+          when: &quot;qs.id|length == 1 and qs.id.0|int &gt; 2&quot;
+</pre></div>
                 
                   
                 
@@ -1993,7 +2201,7 @@
       
     </div>
     
-      <script src="../../../assets/javascripts/application.8eb9be28.js"></script>
+      <script src="../../../assets/javascripts/application.b438e6c5.js"></script>
       
         
         

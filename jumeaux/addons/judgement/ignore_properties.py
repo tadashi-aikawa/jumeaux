@@ -19,7 +19,7 @@ class Config(OwlMixin):
 class Executor(JudgementExecutor):
     config: Config
 
-    def __init__(self, config: dict):
+    def __init__(self, config: dict) -> None:
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: JudgementAddOnPayload, reference: JudgementAddOnReference) -> JudgementAddOnPayload:
@@ -27,19 +27,19 @@ class Executor(JudgementExecutor):
             return payload
 
         def filter_diff_keys(diff_keys: DiffKeys, condition: Condition) -> DiffKeys:
-            if any([condition.path.get() and not exact_match(condition.path.get(), reference.path),
-                    condition.name.get() and not exact_match(condition.name.get(), reference.name)]):
+            if any([condition.path.get() and not exact_match(reference.path, condition.path.get()),
+                    condition.name.get() and not exact_match(reference.name, condition.name.get())]):
                 return diff_keys
 
             return DiffKeys.from_dict({
                 "added": diff_keys.added.reject(
-                    lambda dk: condition.added.any(lambda ig: exact_match(ig, dk))
+                    lambda dk: condition.added.any(lambda ig: exact_match(dk, ig))
                 ),
                 "removed": diff_keys.removed.reject(
-                    lambda dk: condition.removed.any(lambda ig: exact_match(ig, dk))
+                    lambda dk: condition.removed.any(lambda ig: exact_match(dk, ig))
                 ),
                 "changed": diff_keys.changed.reject(
-                    lambda dk: condition.changed.any(lambda ig: exact_match(ig, dk))
+                    lambda dk: condition.changed.any(lambda ig: exact_match(dk, ig))
                 )
             })
 

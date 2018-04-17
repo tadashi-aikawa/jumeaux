@@ -21,7 +21,7 @@ class Matcher(OwlMixin):
     negative: bool = False
 
     def fulfill(self, v: str) -> bool:
-        return self.negative ^ exact_match(self.regexp, v)
+        return self.negative ^ exact_match(v, self.regexp)
 
 
 class Matchers(OwlMixin):

@@ -113,7 +113,6 @@ res2res:
 | reqs     | [Request[]][request]    | 本設定を反映させるRequestの条件 |         |         |
 | location | ([Location](#location)) | 先頭と末尾どちらに追加するか    | tail    | head    |
 
-[request]: /models/request
 
 ##### Location
 
@@ -321,3 +320,63 @@ reqs2reqs:
 
 
 [request-condition]: /ja/models/request-condition
+
+
+[:fa-github:][rename] rename
+----------------------------
+
+[rename]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/rename.py
+
+条件に一致するリクエストの名称を変更します。
+
+### Config
+
+#### Definitions
+
+##### Root
+
+| Key  | Type | Description                                   | Example                   | Default |
+|------|------|-----------------------------------------------|---------------------------|---------|
+| name | str  | 変更後の名称テンプレート :fa-info-circle:     | <pre>{name}({path})</pre> |         |
+| when | str  | [jinja2の式]に準拠した条件式 :fa-info-circle: | <pre>"qs.id.0 == 1"</pre> |         |
+
+[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
+
+!!! info "whenで指定できるプロパティ"
+
+    [request]で定義されたプロパティを指定することができます。
+
+
+#### Examples
+
+##### pathに`target`という文字列が含まれる場合に`renamed`へ名称を変更する
+
+```yml
+reqs2reqs:
+  - name: replace
+    config:
+      conditions:
+        - name: renamed
+          when: "'target' in path"
+```
+
+##### 複雑な条件
+
+1. pathが小文字のアルファベット3文字である場合は`GOOD`へ名称を変更する
+2. 1に該当せず`id`が1つだけ指定されており、かつ2より大きい場合は`<クエリのid>: <元の名称>`へ名称を変更する
+  2-1. 例えば`id=4`で名称が`hoge`のとき、新しい名称は`4: hoge`となる
+3. 1と2に該当しない場合は名称を変更しない
+
+```yml
+reqs2reqs:
+  - name: replace
+    config:
+      conditions:
+        - name: "GOOD"
+          when: "path|reg('[a-z]{3}')"
+        - name: "{qs[id][0]}: {name}"
+          when: "qs.id|length == 1 and qs.id.0|int > 2"
+```
+
+
+[request]: /ja/models/request

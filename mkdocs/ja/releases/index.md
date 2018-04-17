@@ -4,6 +4,21 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.47.0
+
+:fa-calendar: `2018-04-17`
+
+??? info "renameアドオンを追加しました ([reqs2reqs/rename])"
+
+    * 特定条件に一致するリクエストの名称を変更することができます
+    * jinja2の式を使って柔軟な条件を指定することができます
+    * 詳しくは [reqs2reqs/rename] をご覧下さい
+
+??? info "User agentに適切な値を設定するようにしました"
+
+    * 詳しくは[Issue #66](https://github.com/tadashi-aikawa/jumeaux/issues/66)をご覧下さい
+
+
 ## :package: 0.46.1
 
 :fa-calendar: `2018-04-05`
@@ -308,6 +323,7 @@ Releases
 [reqs2reqs/empty_guard]: /ja/addons/reqs2reqs#empty_guard
 [reqs2reqs/filter]: /ja/addons/reqs2reqs#filter
 [reqs2reqs/replace]: /ja/addons/reqs2reqs#replace
+[reqs2reqs/rename]: /ja/addons/reqs2reqs#rename
 [res2res/json_sort]: /ja/addons/res2res#json_sort
 [res2dict]: /ja/addons/res2dict
 [res2dict/block]: /ja/addons/res2dict#block

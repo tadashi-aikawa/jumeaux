@@ -8,7 +8,6 @@ Quickstart
 
 * Python3.6以上(推奨)
 * Docker
-* VagrantとVirtualbox
 
 
 :fa-download: Installation
@@ -59,6 +58,16 @@ $ jumeaux init simple
 !!! note
 
     `jumeaux init help`コマンドで`simple`以外の有効な値を確認できます。
+
+
+:fa-server: Run mock server
+---------------------------
+
+`jumeaux init`コマンドでは上記2ファイルの他に`api`ディレクトリが作成されます。  
+`api`ディレクトリの中には、`jumeaux init`で指定したファイルの種類に応じて確認用のダミーhttpレスポンスが作成されます。
+
+`jumeaux server`コマンドを実行すると、カレントディレクトをWebサーバとして起動できます。  
+ローカル環境で動作確認をするため、`jumeaux server`コマンドを実行しましょう。
 
 
 :fa-play-circle: Execute

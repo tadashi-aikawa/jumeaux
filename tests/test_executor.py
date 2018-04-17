@@ -135,7 +135,6 @@ class TestChallenge:
 
         args: ChallengeArg = ChallengeArg.from_dict({
             "seq": 1,
-
             "number_of_request": 10,
             "key": "hash_key",
             "session": 'dummy',
@@ -346,9 +345,10 @@ class TestMergeArgs2Config:
             'threads': 3,
             'processes': 2,
             'max_retries': 5,
+            'v': 0,
             'retry': False,
             'init': False,
-            'v': 0,
+            'server': False,
         })
 
         config: Config = Config.from_dict({
@@ -433,6 +433,7 @@ class TestMergeArgs2Config:
             'retry': False,
             'init': False,
             'v': 0,
+            'server': False,
         })
 
         config: Config = Config.from_dict({
@@ -508,6 +509,7 @@ class TestMergeArgs2Config:
             'retry': False,
             'init': False,
             'v': 0,
+            'server': False,
         })
 
         config: Config = Config.from_dict({

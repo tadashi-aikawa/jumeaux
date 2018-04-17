@@ -50,7 +50,7 @@ def _dict_sort(dict_obj: dict, targets: TList[Target], location: str = 'root') -
 
 
 def _list_sort(list_obj: list, targets: TList[Target], location: str = 'root') -> list:
-    target: Target = targets.find(lambda t: exact_match(t.path, location))
+    target: Target = targets.find(lambda t: exact_match(location, t.path))
 
     traversed = [traverse(v, f"{location}<{i}>", targets) for i, v in enumerate(list_obj)]
     if not target:

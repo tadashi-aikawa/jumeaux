@@ -3,7 +3,7 @@
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
 
-from jumeaux.addons.store_criterion import StoreCriterionExecutor
+from jumeaux.addons.store_criterion import StoreCriterionExecutor, StoreCriterionAddOnReference
 from jumeaux.logger import Logger
 from jumeaux.models import StoreCriterionAddOnPayload, Status
 
@@ -15,22 +15,16 @@ class Config(OwlMixin):
 
 
 class Executor(StoreCriterionExecutor):
-    def __init__(self, config: dict):
+    def __init__(self, config: dict) -> None:
         self.config: Config = Config.from_dict(config or {})
 
-    def exec(self, payload: StoreCriterionAddOnPayload) -> StoreCriterionAddOnPayload:
+    def exec(self, payload: StoreCriterionAddOnPayload, reference: StoreCriterionAddOnReference) -> StoreCriterionAddOnPayload:
         if payload.stored:
             return payload
 
-        stored: bool = payload.status in self.config.statuses
+        stored: bool = reference.status in self.config.statuses
         logger.debug(f"Store: {stored}")
 
         return StoreCriterionAddOnPayload.from_dict({
-            "status": payload.status,
-            "path": payload.path,
-            "qs": payload.qs,
-            "headers": payload.headers,
-            "res_one": payload.res_one,
-            "res_other": payload.res_other,
             "stored": stored
         })

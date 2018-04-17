@@ -51,12 +51,12 @@ test-pudb: ## Test with pudb
 
 start-api: ## Start dummy API
 	@echo Start $@
-	@pipenv run python -m http.server &
+	@pipenv run python jumeaux/executor.py server &
 	@echo End $@
 
 stop-api: ## Stop dummy API
 	@echo Start $@
-	@pkill -f 'python -m http.server'
+	@pkill -f 'jumeaux/executor.py server'
 	@echo End $@
 
 test-cli: ## Test on CLI
