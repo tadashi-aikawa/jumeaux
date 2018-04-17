@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.1">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.2">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/application.78aab2dc.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.8d40d89b.css">
       
     
     
@@ -334,6 +334,13 @@
         <li class="md-nav__item">
   <a href="#create-files" title="Create files" class="md-nav__link">
     Create files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-mock-server" title="Run mock server" class="md-nav__link">
+    Run mock server
   </a>
   
 </li>
@@ -675,6 +682,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#run-mock-server" title="Run mock server" class="md-nav__link">
+    Run mock server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#execute" title="Execute" class="md-nav__link">
     Execute
   </a>
@@ -706,7 +720,6 @@
 <ul>
 <li>Python3.6以上(推奨)</li>
 <li>Docker</li>
-<li>VagrantとVirtualbox</li>
 </ul>
 <h2 id="installation"><i class="fa fa-download"></i> Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <h3 id="python36">Python3.6以上(推奨)<a class="headerlink" href="#python36" title="Permanent link">&para;</a></h3>
@@ -758,6 +771,11 @@ $ docker build -t tadashi-aikawa/jumeaux .
 <p class="admonition-title">Note</p>
 <p><code>jumeaux init help</code>コマンドで<code>simple</code>以外の有効な値を確認できます。</p>
 </div>
+<h2 id="run-mock-server"><i class="fa fa-server"></i> Run mock server<a class="headerlink" href="#run-mock-server" title="Permanent link">&para;</a></h2>
+<p><code>jumeaux init</code>コマンドでは上記2ファイルの他に<code>api</code>ディレクトリが作成されます。<br />
+<code>api</code>ディレクトリの中には、<code>jumeaux init</code>で指定したファイルの種類に応じて確認用のダミーhttpレスポンスが作成されます。</p>
+<p><code>jumeaux server</code>コマンドを実行すると、カレントディレクトをWebサーバとして起動できます。<br />
+ローカル環境で動作確認をするため、<code>jumeaux server</code>コマンドを実行しましょう。</p>
 <h2 id="execute"><i class="fa fa-play-circle"></i> Execute<a class="headerlink" href="#execute" title="Permanent link">&para;</a></h2>
 <p><code>config.yml</code>と<code>requests</code>を指定して実行しましょう。<br />
 出力結果の意味は<a href="../report/">Report <i class="fa fa-sticky-note"></i></a>をご覧ください。</p>
@@ -851,7 +869,7 @@ $ docker build -t tadashi-aikawa/jumeaux .
       
     </div>
     
-      <script src="../../../assets/javascripts/application.8eb9be28.js"></script>
+      <script src="../../../assets/javascripts/application.b438e6c5.js"></script>
       
         
         
