@@ -61,6 +61,7 @@ target/
 *.iml
 
 /config.yml
+/report.json
 /requests
 /resource
 /responses
