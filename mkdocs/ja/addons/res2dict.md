@@ -1,15 +1,15 @@
-res2dict [:fa-github:][res2dict]
-================================
+res2dict [:fa-github:][s1]
+==========================
 
-[res2dict]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict
+[s1]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict
 
 APIレスポンスを差分比較に必要なdictへ変換します。
 
 
-[:fa-github:][json] json
-------------------------
+[:fa-github:][s2] json
+----------------------
 
-[json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/json.py
+[s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/json.py
 
 JSONレスポンスをdictに変換します。
 
@@ -60,10 +60,10 @@ res2dict:
 ```
 
 
-[:fa-github:][xml] xml
-----------------------
+[:fa-github:][s3] xml
+---------------------
 
-[xml]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/xml.py
+[s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/xml.py
 
 XMLレスポンスをdictに変換します。
 
@@ -114,65 +114,10 @@ res2dict:
 ```
 
 
-[:fa-github:][html] html
-------------------------
+[:fa-github:][s3] block
+-----------------------
 
-[html]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/html.py
-
-HTMLレスポンスをdictに変換します。
-
-
-### Config
-
-#### Definitions
-
-| Key        | Type       | Description                                                      | Example                 | Default                |
-|------------|------------|------------------------------------------------------------------|-------------------------|------------------------|
-| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true                    | false                  |
-| mime_types | (string[]) | 対応MIMEタイプ                                                   | <pre>- text/xhtml</pre> | <pre>- text/html</pre> |
-
-!!! info "`force` 変換する必要がないケース"
-
-    以下のいずれかに一致する場合
-
-    * MIMEタイプ が `mime_types` のいずれにも一致しない場合
-    * 既にアドオンでdict型に変換済みの場合
-
-
-#### Examples
-
-##### レスポンスがHTMLの場合 dictに変換する
-
-```yaml
-res2dict:
-  - name: html
-```
-
-##### 変換する必要がないケースでも強制的に変換する
-
-```yaml
-res2dict:
-  - name: html
-    config:
-      force: true
-```
-
-##### MIMEタイプが `text/xhtml` のときだけ変換する
-
-```yaml
-res2dict:
-  - name: html
-    config:
-      mime_types:
-        - text/xhtml
-```
-
-
-
-[:fa-github:][block] block
---------------------------
-
-[block]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/block.py
+[s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/block.py
 
 ブロック単位(空行で区切られた)のレスポンスをdictに変換します。
 ブロック単位の定義は下記セクションを参照してください。
