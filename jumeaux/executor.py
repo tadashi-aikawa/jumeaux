@@ -450,9 +450,13 @@ class ServerHandler(http.server.SimpleHTTPRequestHandler):
         http.server.SimpleHTTPRequestHandler.do_GET(self)
 
 
+class ReuseAddressTCPServer(socketserver.TCPServer):
+    allow_reuse_address = True
+
+
 def handle_server(port: Optional[int]):
     Handler = ServerHandler
-    with socketserver.TCPServer(("", port), Handler) as httpd:
+    with ReuseAddressTCPServer(("", port), Handler) as httpd:
         logger.info_lv1(f'Serving HTTP on 0.0.0.0 port {port} (http://0.0.0.0:{port}/)')
         httpd.serve_forever()
 
