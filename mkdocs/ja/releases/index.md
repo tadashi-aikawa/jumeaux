@@ -4,6 +4,16 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.48.0
+
+:fa-calendar: `2018-04-30`
+
+??? info "htmlアドオンを追加しました ([res2dict/html])([dump/html])"
+
+    * HTMLをプロパティとして解析したり、保存時にフォーマットすることができます
+    * 詳しくは [res2dict/html] と [dump/html] をご覧下さい
+
+
 ## :package: 0.47.0
 
 :fa-calendar: `2018-04-17`
@@ -326,9 +336,11 @@ Releases
 [reqs2reqs/rename]: /ja/addons/reqs2reqs#rename
 [res2res/json_sort]: /ja/addons/res2res#json_sort
 [res2dict]: /ja/addons/res2dict
+[res2dict/html]: /ja/addons/res2dict#html
 [res2dict/block]: /ja/addons/res2dict#block
 [judgement/ignore_properties]: /ja/addons/judgement#ignore_properties
 [dump/xml]: /ja/addons/dump#xml
+[dump/html]: /ja/addons/dump#html
 [dump/json]: /ja/addons/dump#json
 [final/miroir]: /ja/addons/final#miroir
 [final/slack]: /ja/addons/final#slack

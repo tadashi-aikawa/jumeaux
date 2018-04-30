@@ -83,6 +83,18 @@ teardown() {
 }
 
 
+@test "Run html" {
+  $JUMEAUX init html
+  $JUMEAUX run requests > report.json
+  [[ -a responses ]]
+  [[ $(ls responses/*/one/*) ]]
+  [[ $(ls responses/*/other/*) ]]
+  [[ -a report.json ]]
+  [[ $(jq '.summary.status.same' report.json) -eq 0 ]]
+  [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
+}
+
+
 @test "Run ignore_order" {
   $JUMEAUX init ignore_order
   $JUMEAUX run requests > report.json
