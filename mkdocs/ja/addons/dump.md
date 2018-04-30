@@ -1,15 +1,15 @@
-dump [:fa-github:][s1]
-======================
+dump [:fa-github:][dump]
+========================
 
-[s1]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump
+[dump]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump
 
 APIレスポンスを保存前に加工します。
 
 
-[:fa-github:][s2] json
-----------------------
+[:fa-github:][json] json
+------------------------
 
-[s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/json.py
+[json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/json.py
 
 レスポンスをJSON形式でフォーマットします。
 
@@ -36,14 +36,14 @@ APIレスポンスを保存前に加工します。
 
 ##### JSON形式でフォーマットする
 
-```yml
+```yaml
 dump:
   - name: json
 ```
 
 ##### JSON形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
 
-```yml
+```yaml
 dump:
   - name: json
     config:
@@ -52,7 +52,7 @@ dump:
 
 ##### MIMEタイプが `application/json` の時だけJSON形式でフォーマットする
 
-```yml
+```yaml
 dump:
   - name: json
     config:
@@ -62,7 +62,7 @@ dump:
 
 ##### MIMEタイプに関係なく JSON形式でフォーマットする
 
-```yml
+```yaml
 dump:
   - name: json
     config:
@@ -70,10 +70,10 @@ dump:
 ```
 
 
-[:fa-github:][s3] xml
-----------------------
+[:fa-github:][xml] xml
+-----------------------
 
-[s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/xml.py
+[xml]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/xml.py
 
 レスポンスをXML形式でフォーマットします。
 
@@ -96,14 +96,14 @@ dump:
 
 ##### XML形式でフォーマットする
 
-```yml
+```yaml
 dump:
   - name: xml
 ```
 
 ##### XML形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
 
-```yml
+```yaml
 dump:
   - name: xml
     config:
@@ -112,7 +112,7 @@ dump:
 
 ##### MIMEタイプが `text/xml` の時だけXML形式でフォーマットする
 
-```yml
+```yaml
 dump:
   - name: xml
     config:
@@ -122,7 +122,7 @@ dump:
 
 ##### MIMEタイプに関係なく XML形式でフォーマットする
 
-```yml
+```yaml
 dump:
   - name: xml
     config:
@@ -130,10 +130,70 @@ dump:
 ```
 
 
-[:fa-github:][s3] encoding
---------------------------
+[:fa-github:][html] html
+-------------------------
 
-[s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/encoding.py
+[html]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/html.py
+
+レスポンスをHTML形式でフォーマットします。
+
+* インデント(1)
+* 改行
+
+
+### Config
+
+#### Definitions
+
+| Key              | Type       | Description                                                            | Example                 | Default                |
+|------------------|------------|------------------------------------------------------------------------|-------------------------|------------------------|
+| default_encoding | (string)   | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                  | utf8                   |
+| mime_types       | (string[]) | 対応MIMEタイプ                                                         | <pre>- text/xhtml</pre> | <pre>- text/html</pre> |
+| force            | (bool)     | MIMEタイプが未対応の場合でも強制的に変換するか                         | true                    | false                  |
+
+
+#### Examples
+
+##### HTML形式でフォーマットする
+
+```yaml
+dump:
+  - name: html
+```
+
+##### HTML形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
+
+```yaml
+dump:
+  - name: html
+    config:
+      default_encoding: euc-jp
+```
+
+##### MIMEタイプが `text/xhml` の時だけHTML形式でフォーマットする
+
+```yaml
+dump:
+  - name: html
+    config:
+      mime_types:
+        - text/html
+```
+
+##### MIMEタイプに関係なく HTML形式でフォーマットする
+
+```yaml
+dump:
+  - name: html
+    config:
+      force: True
+```
+
+
+[:fa-github:][encoding] encoding
+--------------------------------
+
+[encoding]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/encoding.py
 
 レスポンスのエンコーディングを変換します。
 
@@ -151,7 +211,7 @@ dump:
 
 ##### UTF8に変換する
 
-```yml
+```yaml
 dump:
   - name: encoding
 ```
