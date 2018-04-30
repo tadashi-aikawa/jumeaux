@@ -4,7 +4,7 @@
 import datetime
 import pytest
 
-from owlmixin.util import load_yaml, dump_json, load_json
+from owlmixin.util import load_yaml
 
 from jumeaux.addons.res2dict.html import Executor
 from jumeaux.models import Response, Res2DictAddOnPayload
@@ -45,17 +45,32 @@ NORMAL_CASE = ("Normal",
                    "html": {
                        "head": {
                            "title": {
-                               "": "タイトル"
+                               "##value": "タイトル"
                            },
                            "meta": [
-                               "hoge", "hoge"
+                               {
+                                   "#name": "format-detection",
+                                   "#content": "telephone=no",
+                                   "##value": ""
+                               },
+                               {
+                                   "#http-equiv": "Content-Type",
+                                   "#content": "text/html; charset=utf-8",
+                                   "##value": ""
+                               }
                            ],
-                           "script": "var hoge = 1 > 2"
+                           "script": {
+                               "#type": "text/javascript",
+                               "#charset": "utf-8",
+                               "##value": "var hoge = 1 > 2;"
+                           }
                        },
                        "body": {
                            "div": {
                                "#id": "main",
-                               "span": "Main contents"
+                               "span": {
+                                   "##value": "Main contents"
+                               }
                            }
                        }
                    }
@@ -76,6 +91,5 @@ class TestExec:
 
         actual: Res2DictAddOnPayload = Executor(load_yaml(config_yml)).exec(payload)
 
-        assert actual.response == response
-        assert expected_result == load_json(dump_json(actual.result.get()))
-
+        assert response == actual.response
+        assert expected_result == actual.result.get()

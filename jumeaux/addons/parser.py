@@ -39,7 +39,7 @@ class HTMLToDictParser(html.parser.HTMLParser):
 
         for a, v in attrs.items():
             self.cur["#" + a] = v
-        self.cur[""] = ""
+        self.cur["##value"] = ""
 
     def handle_endtag(self, tag):
         if tag != self.path[-1] and self.raise_exception:
@@ -52,8 +52,8 @@ class HTMLToDictParser(html.parser.HTMLParser):
 
     def handle_data(self, data):
         self.line += data.count("\n")
-        if "" in self.cur:
-            self.cur[""] += data
+        if "##value" in self.cur:
+            self.cur["##value"] += data
 
     def clean(self, values):
         keys = list(values.keys())
