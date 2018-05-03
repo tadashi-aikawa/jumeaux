@@ -6,8 +6,11 @@ teardown() {
   rm -rf requests \
          config.yml \
          api \
-         responses \
-         report.json
+         responses
+}
+
+is_exists() {
+  [[ $(ls "$1") ]]
 }
 
 @test "Usage" {
@@ -49,73 +52,76 @@ teardown() {
 
 @test "Run simple" {
   $JUMEAUX init simple
-  $JUMEAUX run requests > report.json
+  $JUMEAUX run requests
   [[ -a responses ]]
   [[ $(ls responses/*/one/*) ]]
   [[ $(ls responses/*/other/*) ]]
-  [[ -a report.json ]]
-  [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
+  is_exists responses/*/report.json
+  [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
 
 
 @test "Run all_same" {
   $JUMEAUX init all_same
-  $JUMEAUX run requests > report.json
+  $JUMEAUX run requests
   [[ -a responses ]]
   [[ ! $(ls responses/*/one/*) ]]
   [[ ! $(ls responses/*/other/*) ]]
-  [[ -a report.json ]]
-  [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' report.json) -eq 0 ]]
+  is_exists responses/*/report.json
+  [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 0 ]]
 }
 
 
 @test "Run xml" {
   $JUMEAUX init xml
-  $JUMEAUX run requests > report.json
+  $JUMEAUX run requests
   [[ -a responses ]]
   [[ $(ls responses/*/one/*) ]]
   [[ $(ls responses/*/other/*) ]]
-  [[ -a report.json ]]
-  [[ $(jq '.summary.status.same' report.json) -eq 0 ]]
-  [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
+
+  is_exists responses/*/report.json
+  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
 
 
 @test "Run html" {
   $JUMEAUX init html
-  $JUMEAUX run requests > report.json
+  $JUMEAUX run requests
   [[ -a responses ]]
   [[ $(ls responses/*/one/*) ]]
   [[ $(ls responses/*/other/*) ]]
-  [[ -a report.json ]]
-  [[ $(jq '.summary.status.same' report.json) -eq 0 ]]
-  [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
+
+  is_exists responses/*/report.json
+  [[ $(jq '.summary.status.same' responses/*/report.json) -eq 0 ]]
+  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
 
 
 @test "Run ignore_order" {
   $JUMEAUX init ignore_order
-  $JUMEAUX run requests > report.json
+  $JUMEAUX run requests
   [[ -a responses ]]
   [[ $(ls responses/*/one/*) ]]
   [[ $(ls responses/*/other/*) ]]
-  [[ -a report.json ]]
-  [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' report.json) -eq 2 ]]
+
+  is_exists responses/*/report.json
+  [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 2 ]]
 }
 
 
 @test "Run ignore_properties" {
   $JUMEAUX init ignore_properties
-  $JUMEAUX run requests > report.json
+  $JUMEAUX run requests
   [[ -a responses ]]
   [[ $(ls responses/*/one/*) ]]
   [[ $(ls responses/*/other/*) ]]
-  [[ -a report.json ]]
-  [[ $(jq '.summary.status.same' report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' report.json) -eq 1 ]]
+
+  is_exists responses/*/report.json
+  [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
 
 
@@ -130,19 +136,19 @@ teardown() {
 
 @test "Run with threads" {
   $JUMEAUX init simple
-  $JUMEAUX run requests --threads 2 > report.json
+  $JUMEAUX run requests --threads 2
   [[ -a responses ]]
-  [[ $(jq '.summary.concurrency.threads' report.json) -eq 2 ]]
-  [[ $(jq '.summary.concurrency.processes' report.json) -eq 1 ]]
+  [[ $(jq '.summary.concurrency.threads' responses/*/report.json) -eq 2 ]]
+  [[ $(jq '.summary.concurrency.processes' responses/*/report.json) -eq 1 ]]
 }
 
 
 @test "Run with processes" {
   $JUMEAUX init simple
-  $JUMEAUX run requests --processes 2 > report.json
+  $JUMEAUX run requests --processes 2
   [[ -a responses ]]
-  [[ $(jq '.summary.concurrency.threads' report.json) -eq 1 ]]
-  [[ $(jq '.summary.concurrency.processes' report.json) -eq 2 ]]
+  [[ $(jq '.summary.concurrency.threads' responses/*/report.json) -eq 1 ]]
+  [[ $(jq '.summary.concurrency.processes' responses/*/report.json) -eq 2 ]]
 }
 
 
@@ -152,15 +158,19 @@ teardown() {
 
 @test "Retry" {
   $JUMEAUX init simple
-  $JUMEAUX run requests > report.json
+  $JUMEAUX run requests
   [[ -a responses ]]
-  [[ -a report.json ]]
+
+  is_exists responses/*/report.json
   [[ -a api ]]
-  rm -rf requests config.yml responses
+  cp responses/*/report.json .
+  rm -rf requests responses
 
   $JUMEAUX retry report.json
+  rm report.json
   [[ -a responses ]]
-  [[ -a report.json ]]
+
+  is_exists responses/*/report.json
   [[ -a api ]]
 }
 

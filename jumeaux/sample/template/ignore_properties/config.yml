@@ -44,7 +44,8 @@ addons:
   dump:
     - name: json
 
-  # final:
+  final:
+    - name: json
   #   - name: miroir
   #     config:
   #       table: miroir

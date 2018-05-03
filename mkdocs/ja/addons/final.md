@@ -6,16 +6,58 @@ final [:fa-github:][s1]
 Jumeauxの処理が完了する直前処理を行う事ができます。
 
 
-[:fa-github:][s2] miroir
+[:fa-github:][json] json
 ------------------------
 
-[s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/miroir.py
+[json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/json.py
+
+結果をjson形式で出力します
+
+[response_dir]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/#outputsummary
+
+出力したjsonの定義は[report]を参照してください。
+
+
+### Config
+
+#### Definitions
+
+##### Root
+
+| Key    | Type   | Description                                       | Example | Default |
+|--------|--------|---------------------------------------------------|---------|---------|
+| sysout | (bool) | ファイルではなく標準出力を使うか :fa-info-circle: | true    | false   |
+| indent | (int)  | インデント :fa-info-circle:                       | 2       | -       |
+
+!!! info "sysout"
+
+    * trueでない場合はファイルが作成されます
+    * 作成先はconfigファイルの[response_dir]で指定されたディレクトリの中です
+
+!!! info "indent"
+
+    未指定だと1行で出力されます。
+
+#### Examples
+
+##### 結果をインデントサイズ4で標準出力に出力する
+
+```yaml
+final:
+  - name: json
+    config:
+      sysout: true
+      indent: 4
+```
+
+
+[:fa-github:][miroir] miroir
+----------------------------
+
+[miroir]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/miroir.py
 
 Miroir参照用にデータをAWSに登録します。
 
-!!! todo
-
-    Miroirについての記載。現段階ではJumeaux Viewerのことです。
 
 ### Config
 
@@ -33,7 +75,7 @@ Miroir参照用にデータをAWSに登録します。
 | assumed_role_arn | (string)                  | Assumed roleで認証を行う場合はarnを指定する         | TODO:            |         |
 | checklist        | (string)                  | 今はまだ使用していません                            |                  |         |
 | local_stack      | [LocalStack](#localstack) | LocalStackを使用する場合に設定する                  |                  |         |
-| when             | (When[]) :fa-info-circle: | Miroirへ転送する条件                                |                  |         |
+| when             | (When[])  | Miroirへ転送する条件                                |                  |         |
 
 ??? info "when"
 
@@ -56,7 +98,7 @@ Miroir参照用にデータをAWSに登録します。
 
 ##### キャッシュ1時間で保存する
 
-```yml
+```yaml
 final:
   - name: miroir
     config:
@@ -69,7 +111,7 @@ final:
 
 Bucketの`test/`配下にデータが保存されます。
 
-```yml
+```yaml
 final:
   - name: miroir
     config:
@@ -80,7 +122,7 @@ final:
 
 ##### LocalStackを使ってキャッシュ2分で保存する
 
-```yml
+```yaml
 final:
   - name: miroir
     config:
@@ -93,7 +135,7 @@ final:
 
 ##### 結果が空でないときだけ保存する
 
-```yml
+```yaml
 final:
   - name: miroir
     config:
@@ -104,10 +146,10 @@ final:
 ```
 
 
-[:fa-github:][s3] slack
------------------------
+[:fa-github:][slack] slack
+--------------------------
 
-[s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/slack.py
+[slack]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/slack.py
 
 実行結果をSlackに転送します。
 
@@ -150,7 +192,7 @@ final:
 
 ##### `#jumeaux` channelに終了時通知する
 
-```yml
+```yaml
 final:
   - name: slack
     config:
@@ -163,23 +205,23 @@ final:
 
 ##### メッセージフォーマットを利用して通知する
 
-```yml
-  final:
-    - name: slack
-      config:
-        conditions:
-          - payload:
-              message_format: "Version {version}, Title: {title}, -- {summary[status][different]} diffs"
-              channel: "#jumeaux"
+```yaml
+final:
+  - name: slack
+    config:
+      conditions:
+        - payload:
+            message_format: "Version {version}, Title: {title}, -- {summary[status][different]} diffs"
+            channel: "#jumeaux"
 ```
 
 通知本文は `Version 0.24.1, Title: DEMO, -- 2 diffs` のようになります。
 
 
-[:fa-github:][s4] csv
----------------------
+[:fa-github:][csv] csv
+----------------------
 
-[s4]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/csv.py
+[csv]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/csv.py
 
 レポートの`trials`をCSVファイル形式で追加出力します。
 
@@ -225,7 +267,7 @@ final:
 
 ##### `seq` `name` `status` の要素を出力する
 
-```yml
+```yaml
 final:
   - name: csv
     config:
@@ -238,7 +280,7 @@ final:
 
 ##### `seq` `name` `status`, `one.response_sec`, `other.response_sec` の要素をヘッダ付きで出力する
 
-```yml
+```yaml
 final:
   - name: csv
     config:
@@ -252,3 +294,5 @@ final:
       output_path: result.csv
 ```
 
+
+[report]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/report

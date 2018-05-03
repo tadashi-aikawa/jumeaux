@@ -32,9 +32,9 @@ freezegun = "*"
 pydash = "*"
 requests-toolbelt = "*"
 "jinja2" = "*"
-owlmixin = ">=2.5.0"
 "beautifulsoup4" = "*"
 lxml = "*"
+owlmixin = ">=2.6.0"
 
 [requires]
 python_version = "3.6"
