@@ -37,7 +37,6 @@ Options:
 import hashlib
 import io
 import os
-import shutil
 import sys
 import datetime
 import urllib.parse as urlparser
@@ -55,7 +54,7 @@ from requests.exceptions import ConnectionError
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 from jumeaux import __version__
-from jumeaux.handlers import server
+from jumeaux.handlers import server, init
 from jumeaux.addons import AddOnExecutor
 from jumeaux.configmaker import create_config, create_config_from_report
 from jumeaux.models import (
@@ -87,6 +86,23 @@ from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
 global_addon_executor: AddOnExecutor = None
+
+START_JUMEAUX_AA = """
+        ____  _             _         _
+__/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ __/\__
+\    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
+/_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\\
+  \/   |____/ \__\__,_|_|   \__|  \___/ \__,_|_| |_| |_|\___|\__,_|\__,_/_/\_\   \/
+"""
+
+CONFIG_AA = """
+         ____             __ _
+__/\__  / ___|___  _ __  / _(_) __ _  __/\__
+\    / | |   / _ \| '_ \| |_| |/ _` | \    /
+/_  _\ | |__| (_) | | | |  _| | (_| | /_  _\\
+  \/    \____\___/|_| |_|_| |_|\__, |   \/
+                               |___/
+"""
 
 
 def now():
@@ -443,39 +459,6 @@ def merge_args2config(args: Args, config: Config) -> Config:
     })
 
 
-def handle_init(name: TOption[str]):
-    # XXX: Beta: jumeaux init addon
-    # TODO: refactoring
-    if name.get() == 'addon':
-        addon_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/addon'
-        for f in os.listdir(addon_dir):
-            if os.path.isdir(f'{addon_dir}/{f}'):
-                shutil.copytree(f'{addon_dir}/{f}', f)
-            else:
-                shutil.copy(f'{addon_dir}/{f}', f)
-            logger.info_lv1(f'✨ [Create] {f}')
-        return
-
-    sample_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/template'
-    target_dir = f'{sample_dir}/{name.get()}'
-
-    if os.path.exists(target_dir):
-        for f in ['config.yml', 'requests']:
-            shutil.copy(f'{target_dir}/{f}', '.')
-            logger.info_lv1(f'✨ [Create] {f}')
-        shutil.copytree(f'{target_dir}/api', 'api')
-        logger.info_lv1(f'✨ [Create] templates with a api directory')
-        return
-
-    if not os.path.exists(target_dir):
-        exit(f'''
-Please specify a valid name.
-
-✨ [Valid names] ✨
-{os.linesep.join(os.listdir(sample_dir))}
-        '''.strip())
-
-
 def main():
     # We can use args only in `main()`
     args: Args = Args.from_dict(docopt(__doc__, version=__version__))
@@ -488,7 +471,7 @@ def main():
         return
 
     if args.init:
-        handle_init(args.name)
+        init.handle(args.name)
         return
 
     # TODO: refactoring
@@ -519,34 +502,17 @@ def main():
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=config.output.encoding)
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=config.output.encoding)
 
-    logger.info_lv1(f"""
-        ____  _             _         _
-__/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ __/\__
-\    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
-/_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\\
-  \/   |____/ \__\__,_|_|   \__|  \___/ \__,_|_| |_| |_|\___|\__,_|\__,_/_/\_\   \/
-
-Version: {__version__}
-    """)
+    logger.info_lv1(START_JUMEAUX_AA)
+    logger.info_lv1(f"Version: {__version__}")
 
     if config.output.logger.get():
         logger.warning('`output.logger` is no longer works.')
         logger.warning('And this will be removed soon! You need to remove this property not to stop!')
 
-    logger.info_lv3(f"""
-         ____             __ _
-__/\__  / ___|___  _ __  / _(_) __ _  __/\__
-\    / | |   / _ \| '_ \| |_| |/ _` | \    /
-/_  _\ | |__| (_) | | | |  _| | (_| | /_  _\\
-  \/    \____\___/|_| |_|_| |_|\__, |   \/
-                               |___/
-(Merge with yaml files or report, and args)
-
-----
-
-{config.to_yaml()}
-
-""")
+    logger.info_lv2(CONFIG_AA)
+    logger.info_lv2('Merge with yaml files or report, and args')
+    logger.info_lv2('----')
+    logger.info_lv2(config.to_yaml())
 
     # Requests
     logs: TList[Request] = global_addon_executor.apply_reqs2reqs(
