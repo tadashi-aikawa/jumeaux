@@ -16,7 +16,7 @@ Usage:
   jumeaux retry <report> [--title=<title>] [--description=<description>]
                          [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
                          [--max-retries=<max_retries>] [-vvv]
-  jumeaux server [--port=<port>]
+  jumeaux server [--port=<port>] [-vvv]
 
 Options:
   <name>                                        Initialize template name
@@ -40,8 +40,6 @@ import os
 import shutil
 import sys
 import datetime
-import http.server
-import socketserver
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
@@ -57,6 +55,7 @@ from requests.exceptions import ConnectionError
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 from jumeaux import __version__
+from jumeaux.handlers import server
 from jumeaux.addons import AddOnExecutor
 from jumeaux.configmaker import create_config, create_config_from_report
 from jumeaux.models import (
@@ -444,23 +443,6 @@ def merge_args2config(args: Args, config: Config) -> Config:
     })
 
 
-class ServerHandler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        logger.info_lv1(self.headers)
-        http.server.SimpleHTTPRequestHandler.do_GET(self)
-
-
-class ReuseAddressTCPServer(socketserver.TCPServer):
-    allow_reuse_address = True
-
-
-def handle_server(port: Optional[int]):
-    Handler = ServerHandler
-    with ReuseAddressTCPServer(("", port), Handler) as httpd:
-        logger.info_lv1(f'Serving HTTP on 0.0.0.0 port {port} (http://0.0.0.0:{port}/)')
-        httpd.serve_forever()
-
-
 def handle_init(name: TOption[str]):
     # XXX: Beta: jumeaux init addon
     # TODO: refactoring
@@ -500,15 +482,16 @@ def main():
     init_logger(args.v)
 
     global global_addon_executor
-    # TODO: refactoring
+
     if args.server:
-        handle_server(args.port.get_or(8000))
+        server.handle(args.port.get_or(8000))
         return
 
     if args.init:
         handle_init(args.name)
         return
 
+    # TODO: refactoring
     if args.retry:
         report: Report = Report.from_jsonf(args.report.get())
         config: Config = merge_args2config(args, create_config_from_report(report))
