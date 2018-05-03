@@ -35,7 +35,8 @@ addons:
   dump:
     - name: xml
 
-  # final:
+  final:
+    - name: json
   #   - name: miroir
   #     config:
   #       table: miroir
