@@ -520,12 +520,10 @@ def main():
         config
     ).requests
 
-    report: Report = global_addon_executor.apply_final(FinalAddOnPayload.from_dict({
+    global_addon_executor.apply_final(FinalAddOnPayload.from_dict({
         'report': exec(config, logs, hash_from_args(args), retry_hash),
         'output_summary': config.output
-    })).report
-
-    print(report.to_pretty_json())
+    }))
 
 
 if __name__ == '__main__':
