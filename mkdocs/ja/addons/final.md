@@ -6,16 +6,57 @@ final [:fa-github:][s1]
 Jumeauxの処理が完了する直前処理を行う事ができます。
 
 
+[:fa-github:][summary] summary
+------------------------------
+
+[summary]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/summary.py
+
+結果の概要をテキスト形式で出力します。  
+出力された項目の定義は[report]を参考にしてください。
+
+
+### Config
+
+#### Definitions
+
+##### Root
+
+| Key    | Type   | Description                                       | Example | Default |
+|--------|--------|---------------------------------------------------|---------|---------|
+| sysout | (bool) | ファイルではなく標準出力を使うか :fa-info-circle: | true    | false   |
+
+!!! info "sysout"
+
+    * trueでない場合はファイルが作成されます
+    * ファイルはconfigの[response_dir]で指定されたディレクトリの中に`summary.txt`という名前で作成されます
+
+
+#### Examples
+
+##### 結果の概要ファイルを出力する
+
+```yaml
+final:
+  - name: summary
+```
+
+##### 結果の概要を標準出力に出力する
+
+```yaml
+final:
+  - name: summary
+    config:
+      sysout: true
+```
+
+
 [:fa-github:][json] json
 ------------------------
 
 [json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/json.py
 
-結果をjson形式で出力します
-
-[response_dir]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/#outputsummary
-
-出力したjsonの定義は[report]を参照してください。
+結果のレポートをjson形式で出力します。  
+出力されたjsonの定義は[report]を参照してください。
 
 
 ### Config
@@ -32,7 +73,7 @@ Jumeauxの処理が完了する直前処理を行う事ができます。
 !!! info "sysout"
 
     * trueでない場合はファイルが作成されます
-    * 作成先はconfigファイルの[response_dir]で指定されたディレクトリの中です
+    * ファイルはconfigの[response_dir]で指定されたディレクトリの中に`report.json`という名前で作成されます
 
 !!! info "indent"
 
@@ -40,7 +81,14 @@ Jumeauxの処理が完了する直前処理を行う事ができます。
 
 #### Examples
 
-##### 結果をインデントサイズ4で標準出力に出力する
+##### 結果のレポートをjsonファイルで出力する
+
+```yaml
+final:
+  - name: json
+```
+
+##### 結果のレポートをインデントサイズ4で標準出力に出力する
 
 ```yaml
 final:
@@ -296,3 +344,4 @@ final:
 
 
 [report]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/report
+[response_dir]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/#outputsummary
