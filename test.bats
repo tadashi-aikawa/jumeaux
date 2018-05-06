@@ -9,8 +9,12 @@ teardown() {
          responses
 }
 
-is_exists() {
+assert_exists() {
   [[ $(ls "$1") ]]
+}
+
+assert_not_exists() {
+  [[ ! $(ls "$1") ]]
 }
 
 @test "Usage" {
@@ -25,24 +29,27 @@ is_exists() {
 @test "Init with no args" {
   run $JUMEAUX init
   [ "$status" -eq 1 ]
-  [[ ! -a config.yml ]]
-  [[ ! -a requests ]]
-  [[ ! -a api ]]
+
+  assert_not_exists config.yml
+  assert_not_exists requests
+  assert_not_exists api
 }
 
 @test "Init with invalid args" {
   run $JUMEAUX init hogehoge
   [ "$status" -eq 1 ]
-  [[ ! -a config.yml ]]
-  [[ ! -a requests ]]
-  [[ ! -a api ]]
+
+  assert_not_exists config.yml
+  assert_not_exists requests
+  assert_not_exists api
 }
 
 @test "Init" {
   $JUMEAUX init simple
-  [[ -a config.yml ]]
-  [[ -a requests ]]
-  [[ -a api ]]
+
+  assert_exists config.yml
+  assert_exists requests
+  assert_exists api
 }
 
 
@@ -53,10 +60,12 @@ is_exists() {
 @test "Run simple" {
   $JUMEAUX init simple
   $JUMEAUX run requests
-  [[ -a responses ]]
-  [[ $(ls responses/*/one/*) ]]
-  [[ $(ls responses/*/other/*) ]]
-  is_exists responses/*/report.json
+
+  assert_exists responses
+  assert_exists responses/*/one/*
+  assert_exists responses/*/other/*
+  assert_exists responses/*/report.json
+  assert_exists responses/*/index.html
   [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
@@ -65,10 +74,12 @@ is_exists() {
 @test "Run all_same" {
   $JUMEAUX init all_same
   $JUMEAUX run requests
-  [[ -a responses ]]
-  [[ ! $(ls responses/*/one/*) ]]
-  [[ ! $(ls responses/*/other/*) ]]
-  is_exists responses/*/report.json
+
+  assert_exists responses
+  assert_not_exists responses/*/one/*
+  assert_not_exists responses/*/other/*
+  assert_exists responses/*/report.json
+  assert_exists responses/*/index.html
   [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 0 ]]
 }
@@ -77,11 +88,12 @@ is_exists() {
 @test "Run xml" {
   $JUMEAUX init xml
   $JUMEAUX run requests
-  [[ -a responses ]]
-  [[ $(ls responses/*/one/*) ]]
-  [[ $(ls responses/*/other/*) ]]
 
-  is_exists responses/*/report.json
+  assert_exists responses
+  assert_exists responses/*/one/*
+  assert_exists responses/*/other/*
+  assert_exists responses/*/report.json
+  assert_exists responses/*/index.html
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
 
@@ -89,11 +101,12 @@ is_exists() {
 @test "Run html" {
   $JUMEAUX init html
   $JUMEAUX run requests
-  [[ -a responses ]]
-  [[ $(ls responses/*/one/*) ]]
-  [[ $(ls responses/*/other/*) ]]
 
-  is_exists responses/*/report.json
+  assert_exists responses
+  assert_exists responses/*/one/*
+  assert_exists responses/*/other/*
+  assert_exists responses/*/report.json
+  assert_exists responses/*/index.html
   [[ $(jq '.summary.status.same' responses/*/report.json) -eq 0 ]]
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
@@ -102,11 +115,12 @@ is_exists() {
 @test "Run ignore_order" {
   $JUMEAUX init ignore_order
   $JUMEAUX run requests
-  [[ -a responses ]]
-  [[ $(ls responses/*/one/*) ]]
-  [[ $(ls responses/*/other/*) ]]
 
-  is_exists responses/*/report.json
+  assert_exists responses
+  assert_exists responses/*/one/*
+  assert_exists responses/*/other/*
+  assert_exists responses/*/report.json
+  assert_exists responses/*/index.html
   [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 2 ]]
 }
@@ -115,11 +129,12 @@ is_exists() {
 @test "Run ignore_properties" {
   $JUMEAUX init ignore_properties
   $JUMEAUX run requests
-  [[ -a responses ]]
-  [[ $(ls responses/*/one/*) ]]
-  [[ $(ls responses/*/other/*) ]]
 
-  is_exists responses/*/report.json
+  assert_exists responses
+  assert_exists responses/*/one/*
+  assert_exists responses/*/other/*
+  assert_exists responses/*/report.json
+  assert_exists responses/*/index.html
   [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
@@ -130,14 +145,16 @@ is_exists() {
   $JUMEAUX run requests -v
   $JUMEAUX run requests -vv
   $JUMEAUX run requests -vvv
-  [[ -a responses ]]
+
+  assert_exists responses
 }
 
 
 @test "Run with threads" {
   $JUMEAUX init simple
   $JUMEAUX run requests --threads 2
-  [[ -a responses ]]
+
+  assert_exists responses
   [[ $(jq '.summary.concurrency.threads' responses/*/report.json) -eq 2 ]]
   [[ $(jq '.summary.concurrency.processes' responses/*/report.json) -eq 1 ]]
 }
@@ -146,7 +163,8 @@ is_exists() {
 @test "Run with processes" {
   $JUMEAUX init simple
   $JUMEAUX run requests --processes 2
-  [[ -a responses ]]
+
+  assert_exists responses
   [[ $(jq '.summary.concurrency.threads' responses/*/report.json) -eq 1 ]]
   [[ $(jq '.summary.concurrency.processes' responses/*/report.json) -eq 2 ]]
 }
@@ -159,18 +177,20 @@ is_exists() {
 @test "Retry" {
   $JUMEAUX init simple
   $JUMEAUX run requests
-  [[ -a responses ]]
 
-  is_exists responses/*/report.json
-  [[ -a api ]]
+  assert_exists responses
+  assert_exists responses/*/report.json
+  assert_exists api
+
   cp responses/*/report.json .
   rm -rf requests responses
 
   $JUMEAUX retry report.json
   rm report.json
-  [[ -a responses ]]
 
-  is_exists responses/*/report.json
-  [[ -a api ]]
+  assert_exists responses
+  assert_exists responses/*/report.json
+  assert_exists responses/*/index.html
+  assert_exists api
 }
 

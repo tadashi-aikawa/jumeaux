@@ -81,8 +81,6 @@ $ jumeaux run requests
 
 * デフォルトでは標準出力に何も出力されません :fa-info-circle:
 * 標準エラー出力にはログまたはエラーが出力されます
-* 結果は設定ファイルの[response_dir]で指定したディレクトリ配下に作成されます
-    * 実行時に生成されたキー(ユニークなハッシュ)に基づいた名称のディレクトリが作成されます
 
 !!! info "標準出力"
 
@@ -97,5 +95,36 @@ $ jumeaux run requests
     $ jumeaux run requests --config config.yml
     ```
 
+
+:fa-laptop: Check
+-----------------
+
+結果は設定ファイルの[response_dir]で指定したディレクトリ配下に作成されます。
+配下には、実行ごとに生成されるユニークなハッシュに基づいたディレクトリが存在します。
+
+```
+responses/
+└── 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
+    ├── index.html   # Localサーバを立ち上げてアクセスすると結果をGUIで確認できる
+    ├── one          # oneで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
+    │   └── (2)2
+    ├── other        # otherで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
+    │   └── (2)2
+    └── report.json  # 結果のjson. index.htmlもこれを参照している
+```
+
+`jumeaux server`コマンドを実行している場合は以下のURLにアクセスすると、GUIで結果を確認することができます。
+
+http://localhost:8000/responses/057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
+
+!!! hint "他の結果も確認してみよう"
+
+    `jumeaux init`コマンドで`ignore_order`のテンプレートを使った結果も確認してみましょう。
+
+!!! hint "GUIでより高度な確認をしたい場合は.."
+
+    [Miroir]の使用を検討してみましょう。`final/miroir`アドオンを使用するとJumeauxの結果を登録することができます。
+
 [response_dir]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/#outputsummary
+[miroir]: https://github.com/tadashi-aikawa/miroir
 
