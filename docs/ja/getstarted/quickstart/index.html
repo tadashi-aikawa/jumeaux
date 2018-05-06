@@ -352,6 +352,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#check" title="Check" class="md-nav__link">
+    Check
+  </a>
+  
+</li>
+      
       
       
       
@@ -695,6 +702,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#check" title="Check" class="md-nav__link">
+    Check
+  </a>
+  
+</li>
+      
       
       
       
@@ -777,11 +791,18 @@ $ docker build -t tadashi-aikawa/jumeaux .
 <p><code>jumeaux server</code>コマンドを実行すると、カレントディレクトをWebサーバとして起動できます。<br />
 ローカル環境で動作確認をするため、<code>jumeaux server</code>コマンドを実行しましょう。</p>
 <h2 id="execute"><i class="fa fa-play-circle"></i> Execute<a class="headerlink" href="#execute" title="Permanent link">&para;</a></h2>
-<p><code>config.yml</code>と<code>requests</code>を指定して実行しましょう。<br />
-出力結果の意味は<a href="../report/">Report <i class="fa fa-sticky-note"></i></a>をご覧ください。</p>
+<p><code>config.yml</code>と<code>requests</code>を指定して実行しましょう。</p>
 <div class="codehilite"><pre><span></span>$ jumeaux run requests
 </pre></div>
 
+<ul>
+<li>デフォルトでは標準出力に何も出力されません <i class="fa fa-info-circle"></i></li>
+<li>標準エラー出力にはログまたはエラーが出力されます</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">標準出力</p>
+<p>特定のアドオンが標準出力を使用することがあります。</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>--config</code>を指定しないと<code>config.yml</code>が設定されたことになります。<br />
@@ -789,6 +810,29 @@ $ docker build -t tadashi-aikawa/jumeaux .
 <div class="codehilite"><pre><span></span>$ jumeaux run requests --config config.yml
 </pre></div>
 
+</div>
+<h2 id="check"><i class="fa fa-laptop"></i> Check<a class="headerlink" href="#check" title="Permanent link">&para;</a></h2>
+<p>結果は設定ファイルの<a href="https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/#outputsummary">response_dir</a>で指定したディレクトリ配下に作成されます。<br />
+配下には、実行ごとに生成されるユニークなハッシュに基づいたディレクトリが存在します。</p>
+<div class="codehilite"><pre><span></span>responses/
+└── 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
+    ├── index.html   # Localサーバを立ち上げてアクセスすると結果をGUIで確認できる
+    ├── one          # oneで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
+    │   └── (2)2
+    ├── other        # otherで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
+    │   └── (2)2
+    └── report.json  # 結果のjson. index.htmlもこれを参照している
+</pre></div>
+
+<p><code>jumeaux server</code>コマンドを実行している場合は以下のURLにアクセスすると、GUIで結果を確認することができます。</p>
+<p><a href="http://localhost:8000/responses/057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16">http://localhost:8000/responses/057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16</a></p>
+<div class="admonition hint">
+<p class="admonition-title">他の結果も確認してみよう</p>
+<p><code>jumeaux init</code>コマンドで<code>ignore_order</code>のテンプレートを使った結果も確認してみましょう。</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">GUIでより高度な確認をしたい場合は..</p>
+<p><a href="https://github.com/tadashi-aikawa/miroir">Miroir</a>の使用を検討してみましょう。<code>final/miroir</code>アドオンを使用するとJumeauxの結果を登録することができます。</p>
 </div>
                 
                   
