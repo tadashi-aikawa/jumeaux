@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+  <!-- Vue -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <!-- Vue Shortkeys -->
+  <script src="https://cdn.jsdelivr.net/npm/vue-shortkey@3.1.4/dist/index.min.js"></script>
+  <!-- Clipboard -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard-polyfill/2.4.6/clipboard-polyfill.js"></script>
+  <!-- Element UI -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <!-- Monaco editor -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.12.0/min/vs/loader.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+
+
+  <style type="text/css">
+    /* Hide while initializing */
+    [v-cloak] {
+      display:none;
+    }
+
+    /* Centering font-awesome icons */
+    [class^="fa-"], [class*=" fa-"] {
+        display: inline-block;
+        width: 100%;
+        text-align:center;
+    }
+
+    /* Elegant scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      border-radius: 10px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, .1);
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 50, .5);
+      border-radius: 10px;
+      box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
+    }
+
+    .json-viewer {
+      height: 80vh;
+      padding: 10px 50px 10px 20px;
+      overflow: scroll;
+    }
+  </style>
+
+  <script>
+      window.onload = () => {
+        require.config({
+          paths: {
+            'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.12.0/min/vs',
+            'vue-shortkey': 'https://cdn.jsdelivr.net/npm/vue-shortkey@3.1.4/dist/index.min.js',
+          }
+        });
+        window.MonacoEnvironment = {
+          getWorkerUrl: function(workerId, label) {
+            return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
+              self.MonacoEnvironment = {
+                baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.12.0/min/vs'
+              };
+              importScripts('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.12.0/min/vs/base/worker/workerMain.js');`
+            )}`;
+          }
+        };
+        let diffEditor
+        let diffNavigator
+        require(['vs/editor/editor.main'], () => {
+          diffEditor = monaco.editor.createDiffEditor(document.getElementById('container'));
+          diffNavigator = monaco.editor.createDiffNavigator(diffEditor);
+        })
+
+        require(['vue-shortkey'], () => {
+          Vue.use(require('vue-shortkey'))
+
+          const app = new Vue({
+            el: '#app',
+            data: {
+              title: 'Now Loading...',
+              key: '?????',
+              summary: undefined,
+              trials: [],
+              currentTrial: undefined,
+              addOns: [],
+              tableVisible: false,
+              jsonVisible: false,
+              addOnVisible: false,
+              statuses: [
+                {value: 'same', label: 'same'},
+                {value: 'different', label: 'different'},
+                {value: 'failure', label: 'failure'},
+              ],
+              enableStatuses: ['different'],
+              initLoading: true,
+              isTrialLoading: false,
+            },
+            computed: {
+              filterBehind: function() {
+                return this.trials && this.trials.length - this.filteredTrials.length
+              },
+              currentIndex: function() {
+                return this.filteredTrials.findIndex(x => x === this.currentTrial)
+              },
+              filteredTrials: function() {
+                return this.trials.filter(x => this.enableStatuses.includes(x.status))
+              },
+              maxPathLength: function() {
+                return Math.max.apply(null, this.filteredTrials.map(x => x.path.length))
+              },
+              currentStatusType: function() {
+                if (!this.currentTrial) {
+                  return
+                }
+                switch(this.currentTrial.status) {
+                  case "same":
+                    return "success"
+                  case "different":
+                    return "warning"
+                  case "failure":
+                    return "danger"
+                }
+              },
+              parsedQueries: function() {
+                return Object.keys(this.currentTrial.queries)
+                  .map(k => `${k}: ${this.currentTrial.queries[k]}`)
+              }
+            },
+            watch: {
+              currentTrial: async function(newCurrentTrial) {
+                if (!newCurrentTrial) {
+                  return
+                }
+                this.isTrialLoading = true
+
+                try {
+                  const one = await fetch(newCurrentTrial.one.file)
+                  const other = await fetch(newCurrentTrial.other.file)
+
+                  diffEditor.setModel({
+                    original: monaco.editor.createModel(one.status === 404 ? "No response" : await one.text()),
+                    modified: monaco.editor.createModel(other.status === 404 ? "No response" : await other.text()),
+                  })
+
+                  this.$refs.trialTable.setCurrentRow(newCurrentTrial)
+                } catch(e) {
+                  this.$alert(e.message, 'Unexpected error', {confirmButtonText: 'Close', type: 'error'});
+                } finally {
+                  this.isTrialLoading = false
+                }
+              },
+              filteredTrials: function(newFilteredTrials) {
+                if (!newFilteredTrials.includes(this.currentTrial)) {
+                  this.currentTrial = newFilteredTrials[0]
+                }
+              }
+            },
+            methods: {
+              loadConfig: async function() {
+                const report = await (await fetch("report.json")).json()
+                this.title = report.title
+                this.key = report.key
+                this.summary = report.summary
+                this.trials = report.trials
+                this.addOns = report.addons
+                this.currentTrial = this.filteredTrials[0]
+                this.initLoading = false
+              },
+              updateEnableStatuses: function(statuses) {
+                this.enableStatuses = statuses
+                this.$message({message: `Filter ${statuses}`, type: 'success'});
+              },
+              onRowClick: function(trial) {
+                this.currentTrial = trial
+                this.tableVisible = false
+              },
+              nextDiff: function() {
+                diffNavigator.next()
+              },
+              previousDiff: function() {
+                diffNavigator.previous()
+              },
+              nextTrial: function() {
+                if (this.currentIndex + 1 < this.filteredTrials.length) {
+                  this.currentTrial = this.filteredTrials[this.currentIndex + 1]
+                }
+              },
+              previousTrial: function() {
+                if (this.currentIndex - 1 >= 0) {
+                  this.currentTrial = this.filteredTrials[this.currentIndex - 1]
+                }
+              },
+              copyUrl: function(url) {
+                clipboard.writeText(url)
+                this.$message({message: `Copy: ${url}`, type: 'success'});
+              }
+            }
+          })
+          setTimeout(app.loadConfig, 500)
+        });
+      }
+  </script>
+
+</head>
+<body>
+  <div id="app" v-cloak>
+    <span v-shortkey="['q']" @shortkey="tableVisible = !tableVisible"></span>
+    <span v-shortkey="['f']" @shortkey="jsonVisible = !jsonVisible"></span>
+    <span v-shortkey="['a']" @shortkey="addOnVisible = !addOnVisible"></span>
+    <span v-shortkey="['j']" @shortkey="nextDiff()"></span>
+    <span v-shortkey="['k']" @shortkey="previousDiff()"></span>
+    <span v-shortkey="['l']" @shortkey="nextTrial()"></span>
+    <span v-shortkey="['h']" @shortkey="previousTrial()"></span>
+    <span v-shortkey="['shift', 'h']" @shortkey="copyUrl(currentTrial.one.url)"></span>
+    <span v-shortkey="['shift', 'l']" @shortkey="copyUrl(currentTrial.other.url)"></span>
+    <span v-shortkey="['shift', 's']" @shortkey="updateEnableStatuses(['same'])"></span>
+    <span v-shortkey="['shift', 'd']" @shortkey="updateEnableStatuses(['different'])"></span>
+    <span v-shortkey="['shift', 'f']" @shortkey="updateEnableStatuses(['failure'])"></span>
+    <span v-shortkey="['shift', 'a']" @shortkey="updateEnableStatuses(['same', 'different', 'failure'])"></span>
+
+    <el-container
+      v-loading.fullscreen.lock="initLoading"
+      element-loading-text="Loading..."
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)">
+
+      <el-header style="text-align: center; font-size: 28px;">{{ title }}</el-header>
+      <el-header style="text-align: center; font-size: 14px;">
+        <el-tooltip class="item" effect="dark" content="Show same trials (S)" placement="bottom">
+          <el-button type="success" @click="updateEnableStatuses(['same'])"
+                     :disabled="!summary || summary.status.same === 0">
+            {{summary && summary.status.same}} Same
+          </el-button>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="Show different trials (D)" placement="bottom">
+          <el-button type="warning" @click="updateEnableStatuses(['different'])"
+                     :disabled="!summary || summary.status.different === 0">
+            {{summary && summary.status.different}} Different
+          </el-button>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="Show failure trials (F)" placement="bottom">
+          <el-button type="danger" @click="updateEnableStatuses(['failure'])"
+                     :disabled="!summary || summary.status.failure === 0">
+            {{summary && summary.status.failure}} Failure
+          </el-button>
+        </el-tooltip>
+      </el-header>
+      <el-container>
+        <el-aside width="70px" height="100px">
+          <el-menu>
+            <el-menu-item index="1" @click="tableVisible = !tableVisible">
+              <el-popover
+                placement="right"
+                v-model="tableVisible">
+
+                <template>
+                  <el-select v-model="enableStatuses" multiple style="width: 300px">
+                    <el-option v-for="s in statuses" :key="s.value" :label="s.label" :value="s.value"> </el-option>
+                  </el-select>
+
+                  <el-table ref="trialTable" :data="filteredTrials" @row-click="onRowClick"
+                            border height="80vh" highlight-current-row>
+                    <el-table-column prop="seq" label="S" width="60" sortable> </el-table-column>
+                    <el-table-column prop="name" label="Name" width="100%" resizable sortable> </el-table-column>
+                    <el-table-column prop="path" label="Path" :width="maxPathLength*10" resizable sortable> </el-table-column>
+                    <el-table-column prop="status" label="Status" width="100" sortable> </el-table-column>
+                    <el-table-column label="Status code">
+                      <el-table-column prop="one.status_code" label="<-" width="70" sortable> </el-table-column>
+                      <el-table-column prop="other.status_code" label="->" width="70" sortable> </el-table-column>
+                    </el-table-column>
+                    <el-table-column label="Response sec">
+                      <el-table-column prop="one.response_sec" label="<-" width="70" sortable> </el-table-column>
+                      <el-table-column prop="other.response_sec" label="->" width="70" sortable> </el-table-column>
+                    </el-table-column>
+                    <el-table-column label="Response byte">
+                      <el-table-column prop="one.byte" label="<-" width="70" sortable> </el-table-column>
+                      <el-table-column prop="other.byte" label="->" width="70" sortable> </el-table-column>
+                    </el-table-column>
+                    <el-table-column label="Request time" width="250" resizable sortable>
+                      <template slot-scope="scope">
+                        <span style="margin-left: 10px">{{ scope.row.request_time.replace('T', ' ') }}</span>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </template>
+
+                <template slot="reference">
+                  <el-tooltip class="item" effect="dark" content="Show trials and set filters (q)" placement="right">
+                    <i class="fas fa-filter" style="font-size: 150%" @click="tableVisible = !tableVisible"></i>
+                  </el-tooltip>
+                </template>
+              </el-popover>
+            </el-menu-item>
+
+
+            <el-menu-item index="2" @click="jsonVisible = !jsonVisible">
+              <el-popover
+                placement="right"
+                width="100%"
+                v-model="jsonVisible">
+
+                <template>
+                  <pre class="json-viewer">{{JSON.stringify(currentTrial, undefined, 4)}}</pre>
+                </template>
+
+                <template slot="reference">
+                  <el-tooltip class="item" effect="dark" content="Show trial by original json (f)" placement="right">
+                    <i class="fas fa-file-code" style="font-size: 150%;" @click="jsonVisible = !jsonVisible"></i>
+                  </el-tooltip>
+                </template>
+
+              </el-popover>
+            </el-menu-item>
+
+            <el-menu-item index="3" @click="addOnVisible = !addOnVisible">
+              <el-popover
+                placement="right"
+                width="100%"
+                v-model="addOnVisible">
+
+                <template>
+                  <pre class="json-viewer">{{JSON.stringify(addOns, undefined, 4)}}</pre>
+                </template>
+
+                <template slot="reference">
+                  <el-tooltip class="item" effect="dark" content="Show add-on settings by original json (a)" placement="right">
+                    <i class="fas fa-cogs" style="font-size: 150%;" @click="addOnVisible = !addOnVisible"></i>
+                  </el-tooltip>
+                </template>
+
+              </el-popover>
+            </el-menu-item>
+
+          <el-menu>
+
+        </el-aside>
+
+        <el-main>
+          <el-alert type="warning"
+                    :closable="false"
+                    center show-icon
+                    v-if="filterBehind"
+                    :title="`Hidden ${filterBehind} rows by filter`">
+          </el-alert>
+          <div
+            id="container"
+            style="width: calc(100% - 100px); height: calc(90vh - 200px); border:1px solid grey"
+            v-loading="isTrialLoading">
+          </div>
+        </el-main>
+
+      </el-container>
+
+
+      <el-footer v-if="currentTrial">
+        <div style="text-align: left; font-size: 14px; padding: 5px; margin-left: 70px;">
+          <el-tag :type="currentStatusType">
+            {{ currentIndex + 1 }} / {{ filteredTrials.length }}
+          </el-tag>
+          {{ currentTrial.name }}
+          ({{ currentTrial.path }})
+        </div>
+
+        <div style="text-align: left; font-size: 10.5px; padding: 5px; margin-left: 70px;">
+          <template v-for="query of parsedQueries">
+            <el-tag size="small" type="info">{{ query }}</el-tag>
+          </template>
+        </div>
+      </el-footer>
+
+    </el-container>
+
+
+  </div>
+</body>
+
+</html>
