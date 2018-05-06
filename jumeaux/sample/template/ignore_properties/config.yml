@@ -46,6 +46,7 @@ addons:
 
   final:
     - name: json
+    - name: viewer
   #   - name: miroir
   #     config:
   #       table: miroir
