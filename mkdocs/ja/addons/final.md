@@ -6,16 +6,106 @@ final [:fa-github:][s1]
 Jumeauxの処理が完了する直前処理を行う事ができます。
 
 
-[:fa-github:][s2] miroir
+[:fa-github:][summary] summary
+------------------------------
+
+[summary]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/summary.py
+
+結果の概要をテキスト形式で出力します。  
+出力された項目の定義は[report]を参考にしてください。
+
+
+### Config
+
+#### Definitions
+
+##### Root
+
+| Key    | Type   | Description                                       | Example | Default |
+|--------|--------|---------------------------------------------------|---------|---------|
+| sysout | (bool) | ファイルではなく標準出力を使うか :fa-info-circle: | true    | false   |
+
+!!! info "sysout"
+
+    * trueでない場合はファイルが作成されます
+    * ファイルはconfigの[response_dir]で指定されたディレクトリの中に`summary.txt`という名前で作成されます
+
+
+#### Examples
+
+##### 結果の概要ファイルを出力する
+
+```yaml
+final:
+  - name: summary
+```
+
+##### 結果の概要を標準出力に出力する
+
+```yaml
+final:
+  - name: summary
+    config:
+      sysout: true
+```
+
+
+[:fa-github:][json] json
 ------------------------
 
-[s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/miroir.py
+[json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/json.py
+
+結果のレポートをjson形式で出力します。  
+出力されたjsonの定義は[report]を参照してください。
+
+
+### Config
+
+#### Definitions
+
+##### Root
+
+| Key    | Type   | Description                                       | Example | Default |
+|--------|--------|---------------------------------------------------|---------|---------|
+| sysout | (bool) | ファイルではなく標準出力を使うか :fa-info-circle: | true    | false   |
+| indent | (int)  | インデント :fa-info-circle:                       | 2       | -       |
+
+!!! info "sysout"
+
+    * trueでない場合はファイルが作成されます
+    * ファイルはconfigの[response_dir]で指定されたディレクトリの中に`report.json`という名前で作成されます
+
+!!! info "indent"
+
+    未指定だと1行で出力されます。
+
+#### Examples
+
+##### 結果のレポートをjsonファイルで出力する
+
+```yaml
+final:
+  - name: json
+```
+
+##### 結果のレポートをインデントサイズ4で標準出力に出力する
+
+```yaml
+final:
+  - name: json
+    config:
+      sysout: true
+      indent: 4
+```
+
+
+[:fa-github:][miroir] miroir
+----------------------------
+
+[miroir]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/miroir.py
 
 Miroir参照用にデータをAWSに登録します。
 
-!!! todo
-
-    Miroirについての記載。現段階ではJumeaux Viewerのことです。
 
 ### Config
 
@@ -33,7 +123,7 @@ Miroir参照用にデータをAWSに登録します。
 | assumed_role_arn | (string)                  | Assumed roleで認証を行う場合はarnを指定する         | TODO:            |         |
 | checklist        | (string)                  | 今はまだ使用していません                            |                  |         |
 | local_stack      | [LocalStack](#localstack) | LocalStackを使用する場合に設定する                  |                  |         |
-| when             | (When[]) :fa-info-circle: | Miroirへ転送する条件                                |                  |         |
+| when             | (When[])  | Miroirへ転送する条件                                |                  |         |
 
 ??? info "when"
 
@@ -56,7 +146,7 @@ Miroir参照用にデータをAWSに登録します。
 
 ##### キャッシュ1時間で保存する
 
-```yml
+```yaml
 final:
   - name: miroir
     config:
@@ -69,7 +159,7 @@ final:
 
 Bucketの`test/`配下にデータが保存されます。
 
-```yml
+```yaml
 final:
   - name: miroir
     config:
@@ -80,7 +170,7 @@ final:
 
 ##### LocalStackを使ってキャッシュ2分で保存する
 
-```yml
+```yaml
 final:
   - name: miroir
     config:
@@ -93,7 +183,7 @@ final:
 
 ##### 結果が空でないときだけ保存する
 
-```yml
+```yaml
 final:
   - name: miroir
     config:
@@ -104,10 +194,10 @@ final:
 ```
 
 
-[:fa-github:][s3] slack
------------------------
+[:fa-github:][slack] slack
+--------------------------
 
-[s3]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/slack.py
+[slack]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/slack.py
 
 実行結果をSlackに転送します。
 
@@ -150,7 +240,7 @@ final:
 
 ##### `#jumeaux` channelに終了時通知する
 
-```yml
+```yaml
 final:
   - name: slack
     config:
@@ -163,23 +253,23 @@ final:
 
 ##### メッセージフォーマットを利用して通知する
 
-```yml
-  final:
-    - name: slack
-      config:
-        conditions:
-          - payload:
-              message_format: "Version {version}, Title: {title}, -- {summary[status][different]} diffs"
-              channel: "#jumeaux"
+```yaml
+final:
+  - name: slack
+    config:
+      conditions:
+        - payload:
+            message_format: "Version {version}, Title: {title}, -- {summary[status][different]} diffs"
+            channel: "#jumeaux"
 ```
 
 通知本文は `Version 0.24.1, Title: DEMO, -- 2 diffs` のようになります。
 
 
-[:fa-github:][s4] csv
----------------------
+[:fa-github:][csv] csv
+----------------------
 
-[s4]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/csv.py
+[csv]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/csv.py
 
 レポートの`trials`をCSVファイル形式で追加出力します。
 
@@ -225,7 +315,7 @@ final:
 
 ##### `seq` `name` `status` の要素を出力する
 
-```yml
+```yaml
 final:
   - name: csv
     config:
@@ -238,7 +328,7 @@ final:
 
 ##### `seq` `name` `status`, `one.response_sec`, `other.response_sec` の要素をヘッダ付きで出力する
 
-```yml
+```yaml
 final:
   - name: csv
     config:
@@ -252,3 +342,38 @@ final:
       output_path: result.csv
 ```
 
+
+[:fa-github:][viewer] viewer
+----------------------------
+
+[viewer]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/viewer.py
+
+結果をGUIで確認するためのHTMLを出力します。
+
+出力される`index.html`は同じディレクトリに以下のエントリがいる前提で動作します。
+
+* oneディレクトリ
+* otherディレクトリ
+* report.json
+
+`report.json`を作成するには`final/json`アドオンを指定してください。
+
+### Config
+
+#### Definitions
+
+Config設定はありません。
+
+#### Examples
+
+##### 結果をGUIで確認するためのviewerを同梱する
+
+```yaml
+final:
+  - name: json  # report.jsonが必要なため
+  - name: viewer
+```
+
+
+[report]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/report
+[response_dir]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/#outputsummary

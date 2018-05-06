@@ -16,7 +16,7 @@ Usage:
   jumeaux retry <report> [--title=<title>] [--description=<description>]
                          [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
                          [--max-retries=<max_retries>] [-vvv]
-  jumeaux server [--port=<port>]
+  jumeaux server [--port=<port>] [-vvv]
 
 Options:
   <name>                                        Initialize template name
@@ -37,11 +37,8 @@ Options:
 import hashlib
 import io
 import os
-import shutil
 import sys
 import datetime
-import http.server
-import socketserver
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
@@ -57,6 +54,7 @@ from requests.exceptions import ConnectionError
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 from jumeaux import __version__
+from jumeaux.handlers import server, init
 from jumeaux.addons import AddOnExecutor
 from jumeaux.configmaker import create_config, create_config_from_report
 from jumeaux.models import (
@@ -88,6 +86,23 @@ from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
 global_addon_executor: AddOnExecutor = None
+
+START_JUMEAUX_AA = """
+        ____  _             _         _
+__/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ __/\__
+\    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
+/_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\\
+  \/   |____/ \__\__,_|_|   \__|  \___/ \__,_|_| |_| |_|\___|\__,_|\__,_/_/\_\   \/
+"""
+
+CONFIG_AA = """
+         ____             __ _
+__/\__  / ___|___  _ __  / _(_) __ _  __/\__
+\    / | |   / _ \| '_ \| |_| |/ _` | \    /
+/_  _\ | |__| (_) | | | |  _| | (_| | /_  _\\
+  \/    \____\___/|_| |_|_| |_|\__, |   \/
+                               |___/
+"""
 
 
 def now():
@@ -444,71 +459,22 @@ def merge_args2config(args: Args, config: Config) -> Config:
     })
 
 
-class ServerHandler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        logger.info_lv1(self.headers)
-        http.server.SimpleHTTPRequestHandler.do_GET(self)
-
-
-class ReuseAddressTCPServer(socketserver.TCPServer):
-    allow_reuse_address = True
-
-
-def handle_server(port: Optional[int]):
-    Handler = ServerHandler
-    with ReuseAddressTCPServer(("", port), Handler) as httpd:
-        logger.info_lv1(f'Serving HTTP on 0.0.0.0 port {port} (http://0.0.0.0:{port}/)')
-        httpd.serve_forever()
-
-
-def handle_init(name: TOption[str]):
-    # XXX: Beta: jumeaux init addon
-    # TODO: refactoring
-    if name.get() == 'addon':
-        addon_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/addon'
-        for f in os.listdir(addon_dir):
-            if os.path.isdir(f'{addon_dir}/{f}'):
-                shutil.copytree(f'{addon_dir}/{f}', f)
-            else:
-                shutil.copy(f'{addon_dir}/{f}', f)
-            logger.info_lv1(f'✨ [Create] {f}')
-        return
-
-    sample_dir = f'{os.path.abspath(os.path.dirname(__file__))}/sample/template'
-    target_dir = f'{sample_dir}/{name.get()}'
-
-    if os.path.exists(target_dir):
-        for f in ['config.yml', 'requests']:
-            shutil.copy(f'{target_dir}/{f}', '.')
-            logger.info_lv1(f'✨ [Create] {f}')
-        shutil.copytree(f'{target_dir}/api', 'api')
-        logger.info_lv1(f'✨ [Create] templates with a api directory')
-        return
-
-    if not os.path.exists(target_dir):
-        exit(f'''
-Please specify a valid name.
-
-✨ [Valid names] ✨
-{os.linesep.join(os.listdir(sample_dir))}
-        '''.strip())
-
-
 def main():
     # We can use args only in `main()`
     args: Args = Args.from_dict(docopt(__doc__, version=__version__))
     init_logger(args.v)
 
     global global_addon_executor
-    # TODO: refactoring
+
     if args.server:
-        handle_server(args.port.get_or(8000))
+        server.handle(args.port.get_or(8000))
         return
 
     if args.init:
-        handle_init(args.name)
+        init.handle(args.name)
         return
 
+    # TODO: refactoring
     if args.retry:
         report: Report = Report.from_jsonf(args.report.get())
         config: Config = merge_args2config(args, create_config_from_report(report))
@@ -536,34 +502,17 @@ def main():
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=config.output.encoding)
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=config.output.encoding)
 
-    logger.info_lv1(f"""
-        ____  _             _         _
-__/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ __/\__
-\    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
-/_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\\
-  \/   |____/ \__\__,_|_|   \__|  \___/ \__,_|_| |_| |_|\___|\__,_|\__,_/_/\_\   \/
-
-Version: {__version__}
-    """)
+    logger.info_lv1(START_JUMEAUX_AA)
+    logger.info_lv1(f"Version: {__version__}")
 
     if config.output.logger.get():
         logger.warning('`output.logger` is no longer works.')
         logger.warning('And this will be removed soon! You need to remove this property not to stop!')
 
-    logger.info_lv3(f"""
-         ____             __ _
-__/\__  / ___|___  _ __  / _(_) __ _  __/\__
-\    / | |   / _ \| '_ \| |_| |/ _` | \    /
-/_  _\ | |__| (_) | | | |  _| | (_| | /_  _\\
-  \/    \____\___/|_| |_|_| |_|\__, |   \/
-                               |___/
-(Merge with yaml files or report, and args)
-
-----
-
-{config.to_yaml()}
-
-""")
+    logger.info_lv2(CONFIG_AA)
+    logger.info_lv2('Merge with yaml files or report, and args')
+    logger.info_lv2('----')
+    logger.info_lv2(config.to_yaml())
 
     # Requests
     logs: TList[Request] = global_addon_executor.apply_reqs2reqs(
@@ -571,12 +520,10 @@ __/\__  / ___|___  _ __  / _(_) __ _  __/\__
         config
     ).requests
 
-    report: Report = global_addon_executor.apply_final(FinalAddOnPayload.from_dict({
+    global_addon_executor.apply_final(FinalAddOnPayload.from_dict({
         'report': exec(config, logs, hash_from_args(args), retry_hash),
         'output_summary': config.output
-    })).report
-
-    print(report.to_pretty_json())
+    }))
 
 
 if __name__ == '__main__':

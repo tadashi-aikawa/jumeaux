@@ -32,10 +32,12 @@ addons:
         min: 0.5
         max: 0.5
 
-  # dump:
-  #   - name: html
+  dump:
+    - name: html
 
-  # final:
+  final:
+    - name: json
+    - name: viewer
   #   - name: miroir
   #     config:
   #       table: miroir

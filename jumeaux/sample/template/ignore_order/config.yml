@@ -40,7 +40,9 @@ addons:
   dump:
     - name: json
 
-  # final:
+  final:
+    - name: json
+    - name: viewer
   #   - name: miroir
   #     config:
   #       table: miroir

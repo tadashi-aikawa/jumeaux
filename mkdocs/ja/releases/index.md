@@ -4,6 +4,37 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.49.0
+
+:fa-calendar: `2018-05-06`
+
+??? danger "デフォルトで標準出力に結果を出力しないようにしました"
+
+    * 今までのようにjsonを出力するには[final/json]アドオンを使用してください
+
+??? info "viewerアドオンを追加しました ([final/viewer])"
+
+    * 結果をGUIで確認可能なHTMLファイルを出力します
+    * [final/json]アドオンと一緒に使う必要があります
+    * 詳しくは[final/viewer]をご覧下さい
+
+    [![](https://dl.dropboxusercontent.com/s/btw02l0xsn10bzl/0.49.0-1.png)](https://dl.dropboxusercontent.com/s/btw02l0xsn10bzl/0.49.0-1.png)
+
+??? info "jsonアドオンを追加しました ([final/json])"
+
+    * 結果をjsonとして出力します
+    * 詳しくは[final/json]をご覧下さい
+
+??? info "summaryアドオンを追加しました ([final/summary])"
+
+    * 結果を1画面に納まる程度のsummaryとして出力します
+    * 詳しくは[final/summary]をご覧下さい
+
+??? info "`jumeaux server`コマンドに`-v`オプションを追加しました"
+
+    * `-v`オプションを指定する場合はリクエストヘッダを標準エラー出力に出力します (今までと同じ挙動)
+
+
 ## :package: 0.48.0
 
 :fa-calendar: `2018-04-30`
@@ -344,3 +375,6 @@ Releases
 [dump/json]: /ja/addons/dump#json
 [final/miroir]: /ja/addons/final#miroir
 [final/slack]: /ja/addons/final#slack
+[final/json]: /ja/addons/final#json
+[final/summary]: /ja/addons/final#summary
+[final/viewer]: /ja/addons/final#viewer

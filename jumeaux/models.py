@@ -373,3 +373,8 @@ class StoreCriterionAddOnReference(OwlMixin):
 class FinalAddOnPayload(OwlMixin):
     report: Report
     output_summary: OutputSummary
+
+    @property
+    def result_path(self) -> str:
+        return f"{self.output_summary.response_dir}/{self.report.key}"
+
