@@ -53,6 +53,22 @@
   </style>
 
   <script>
+      function strLen(str){
+        var result = 0;
+        for(var i=0;i<str.length;i++){
+          var chr = str.charCodeAt(i);
+          if((chr >= 0x00 && chr < 0x81) ||
+             (chr === 0xf8f0) ||
+             (chr >= 0xff61 && chr < 0xffa0) ||
+             (chr >= 0xf8f1 && chr < 0xf8f4)){
+            result += 1;
+          }else{
+            result += 2;
+          }
+        }
+        return result;
+      };
+
       window.onload = () => {
         require.config({
           paths: {
@@ -111,8 +127,11 @@
               filteredTrials: function() {
                 return this.trials.filter(x => this.enableStatuses.includes(x.status))
               },
+              maxNameLength: function() {
+                return Math.max.apply(null, this.filteredTrials.map(x => strLen(x.name)))
+              },
               maxPathLength: function() {
-                return Math.max.apply(null, this.filteredTrials.map(x => x.path.length))
+                return Math.max.apply(null, this.filteredTrials.map(x => strLen(x.path)))
               },
               currentStatusType: function() {
                 if (!this.currentTrial) {
@@ -267,8 +286,12 @@
                   <el-table ref="trialTable" :data="filteredTrials" @row-click="onRowClick"
                             border height="80vh" highlight-current-row>
                     <el-table-column prop="seq" label="S" width="60" sortable> </el-table-column>
-                    <el-table-column prop="name" label="Name" width="100%" resizable sortable> </el-table-column>
-                    <el-table-column prop="path" label="Path" :width="maxPathLength*10" resizable sortable> </el-table-column>
+                    <el-table-column prop="name" label="Name" resizable sortable
+                                     :width="maxNameLength > 10 ? maxNameLength*10 : 100">
+                    </el-table-column>
+                    <el-table-column prop="path" label="Path" resizable sortable
+                                     :width="maxPathLength > 10 ? maxPathLength*10 : 100">
+                    </el-table-column>
                     <el-table-column prop="status" label="Status" width="100" sortable> </el-table-column>
                     <el-table-column label="Status code">
                       <el-table-column prop="one.status_code" label="<-" width="70" sortable> </el-table-column>
