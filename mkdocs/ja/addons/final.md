@@ -343,5 +343,37 @@ final:
 ```
 
 
+[:fa-github:][viewer] viewer
+----------------------------
+
+[viewer]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/viewer.py
+
+結果をGUIで確認するためのHTMLを出力します。
+
+出力される`index.html`は同じディレクトリに以下のエントリがいる前提で動作します。
+
+* oneディレクトリ
+* otherディレクトリ
+* report.json
+
+`report.json`を作成するには`final/json`アドオンを指定してください。
+
+### Config
+
+#### Definitions
+
+Config設定はありません。
+
+#### Examples
+
+##### 結果をGUIで確認するためのviewerを同梱する
+
+```yaml
+final:
+  - name: json  # report.jsonが必要なため
+  - name: viewer
+```
+
+
 [report]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/report
 [response_dir]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/#outputsummary
