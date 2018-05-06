@@ -57,6 +57,7 @@ is_exists() {
   [[ $(ls responses/*/one/*) ]]
   [[ $(ls responses/*/other/*) ]]
   is_exists responses/*/report.json
+  is_exists responses/*/index.html
   [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
@@ -69,6 +70,7 @@ is_exists() {
   [[ ! $(ls responses/*/one/*) ]]
   [[ ! $(ls responses/*/other/*) ]]
   is_exists responses/*/report.json
+  is_exists responses/*/index.html
   [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 0 ]]
 }
@@ -82,6 +84,7 @@ is_exists() {
   [[ $(ls responses/*/other/*) ]]
 
   is_exists responses/*/report.json
+  is_exists responses/*/index.html
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
 
@@ -94,6 +97,7 @@ is_exists() {
   [[ $(ls responses/*/other/*) ]]
 
   is_exists responses/*/report.json
+  is_exists responses/*/index.html
   [[ $(jq '.summary.status.same' responses/*/report.json) -eq 0 ]]
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
@@ -107,6 +111,7 @@ is_exists() {
   [[ $(ls responses/*/other/*) ]]
 
   is_exists responses/*/report.json
+  is_exists responses/*/index.html
   [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 2 ]]
 }
@@ -120,6 +125,7 @@ is_exists() {
   [[ $(ls responses/*/other/*) ]]
 
   is_exists responses/*/report.json
+  is_exists responses/*/index.html
   [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
   [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
 }
@@ -171,6 +177,7 @@ is_exists() {
   [[ -a responses ]]
 
   is_exists responses/*/report.json
+  is_exists responses/*/index.html
   [[ -a api ]]
 }
 
