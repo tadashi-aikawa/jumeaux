@@ -67,7 +67,7 @@ Commands
 
 .. sourcecode::
 
-    $ python jumeaux/executory.py <args>
+    $ python jumeaux/executor.py <args>
 
 ### Serve docs
 
