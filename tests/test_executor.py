@@ -349,6 +349,9 @@ class TestMergeArgs2Config:
             'retry': False,
             'init': False,
             'server': False,
+            'port': 8000,
+            'viewer': False,
+            'responses_dir': 'responses'
         })
 
         config: Config = Config.from_dict({
@@ -434,6 +437,9 @@ class TestMergeArgs2Config:
             'init': False,
             'v': 0,
             'server': False,
+            'port': 8000,
+            'viewer': False,
+            'responses_dir': 'responses'
         })
 
         config: Config = Config.from_dict({
@@ -510,6 +516,9 @@ class TestMergeArgs2Config:
             'init': False,
             'v': 0,
             'server': False,
+            'port': 8000,
+            'viewer': False,
+            'responses_dir': 'responses'
         })
 
         config: Config = Config.from_dict({
