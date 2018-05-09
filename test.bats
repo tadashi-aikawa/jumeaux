@@ -62,12 +62,12 @@ assert_not_exists() {
   $JUMEAUX run requests
 
   assert_exists responses
-  assert_exists responses/*/one/*
-  assert_exists responses/*/other/*
-  assert_exists responses/*/report.json
-  assert_exists responses/*/index.html
-  [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+  [[ $(jq '.summary.status.same' responses/latest/report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 1 ]]
 }
 
 
@@ -76,12 +76,12 @@ assert_not_exists() {
   $JUMEAUX run requests
 
   assert_exists responses
-  assert_not_exists responses/*/one/*
-  assert_not_exists responses/*/other/*
-  assert_exists responses/*/report.json
-  assert_exists responses/*/index.html
-  [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 0 ]]
+  assert_not_exists responses/latest/one/*
+  assert_not_exists responses/latest/other/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+  [[ $(jq '.summary.status.same' responses/latest/report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 0 ]]
 }
 
 
@@ -90,11 +90,11 @@ assert_not_exists() {
   $JUMEAUX run requests
 
   assert_exists responses
-  assert_exists responses/*/one/*
-  assert_exists responses/*/other/*
-  assert_exists responses/*/report.json
-  assert_exists responses/*/index.html
-  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 1 ]]
 }
 
 
@@ -103,12 +103,12 @@ assert_not_exists() {
   $JUMEAUX run requests
 
   assert_exists responses
-  assert_exists responses/*/one/*
-  assert_exists responses/*/other/*
-  assert_exists responses/*/report.json
-  assert_exists responses/*/index.html
-  [[ $(jq '.summary.status.same' responses/*/report.json) -eq 0 ]]
-  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+  [[ $(jq '.summary.status.same' responses/latest/report.json) -eq 0 ]]
+  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 1 ]]
 }
 
 
@@ -117,12 +117,12 @@ assert_not_exists() {
   $JUMEAUX run requests
 
   assert_exists responses
-  assert_exists responses/*/one/*
-  assert_exists responses/*/other/*
-  assert_exists responses/*/report.json
-  assert_exists responses/*/index.html
-  [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 2 ]]
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+  [[ $(jq '.summary.status.same' responses/latest/report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 2 ]]
 }
 
 
@@ -131,12 +131,12 @@ assert_not_exists() {
   $JUMEAUX run requests
 
   assert_exists responses
-  assert_exists responses/*/one/*
-  assert_exists responses/*/other/*
-  assert_exists responses/*/report.json
-  assert_exists responses/*/index.html
-  [[ $(jq '.summary.status.same' responses/*/report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' responses/*/report.json) -eq 1 ]]
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+  [[ $(jq '.summary.status.same' responses/latest/report.json) -eq 1 ]]
+  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 1 ]]
 }
 
 
@@ -155,8 +155,8 @@ assert_not_exists() {
   $JUMEAUX run requests --threads 2
 
   assert_exists responses
-  [[ $(jq '.summary.concurrency.threads' responses/*/report.json) -eq 2 ]]
-  [[ $(jq '.summary.concurrency.processes' responses/*/report.json) -eq 1 ]]
+  [[ $(jq '.summary.concurrency.threads' responses/latest/report.json) -eq 2 ]]
+  [[ $(jq '.summary.concurrency.processes' responses/latest/report.json) -eq 1 ]]
 }
 
 
@@ -165,8 +165,8 @@ assert_not_exists() {
   $JUMEAUX run requests --processes 2
 
   assert_exists responses
-  [[ $(jq '.summary.concurrency.threads' responses/*/report.json) -eq 1 ]]
-  [[ $(jq '.summary.concurrency.processes' responses/*/report.json) -eq 2 ]]
+  [[ $(jq '.summary.concurrency.threads' responses/latest/report.json) -eq 1 ]]
+  [[ $(jq '.summary.concurrency.processes' responses/latest/report.json) -eq 2 ]]
 }
 
 
@@ -179,18 +179,18 @@ assert_not_exists() {
   $JUMEAUX run requests
 
   assert_exists responses
-  assert_exists responses/*/report.json
+  assert_exists responses/latest/report.json
   assert_exists api
 
-  cp responses/*/report.json .
+  cp responses/latest/report.json .
   rm -rf requests responses
 
   $JUMEAUX retry report.json
   rm report.json
 
   assert_exists responses
-  assert_exists responses/*/report.json
-  assert_exists responses/*/index.html
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
   assert_exists api
 }
 

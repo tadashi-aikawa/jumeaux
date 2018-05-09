@@ -102,8 +102,11 @@ $ jumeaux run requests
 結果は設定ファイルの[response_dir]で指定したディレクトリ配下に作成されます。
 配下には、実行ごとに生成されるユニークなハッシュに基づいたディレクトリが存在します。
 
+また最も新しい結果にはlatestのシンボリックリンクが貼られます。
+
 ```
 responses/
+├── latest -> 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16  # 最新の結果へのシンボリックリンク
 └── 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
     ├── index.html   # Localサーバを立ち上げてアクセスすると結果をGUIで確認できる
     ├── one          # oneで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
@@ -113,9 +116,13 @@ responses/
     └── report.json  # 結果のjson. index.htmlもこれを参照している
 ```
 
-`jumeaux server`コマンドを実行している場合は以下のURLにアクセスすると、GUIで結果を確認することができます。
 
-http://localhost:8000/responses/057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
+### GUIで結果を確認する
+
+`jumeaux server`コマンドを実行している場合は以下いずれかのURLにアクセスすると、Viewerで結果を確認することができます。
+
+* http://localhost:8000/responses/latest
+* http://localhost:8000/responses/057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
 
 !!! hint "他の結果も確認してみよう"
 
@@ -125,6 +132,22 @@ http://localhost:8000/responses/057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c91
 
     [Miroir]の使用を検討してみましょう。`final/miroir`アドオンを使用するとJumeauxの結果を登録することができます。
 
+
 [response_dir]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/#outputsummary
 [miroir]: https://github.com/tadashi-aikawa/miroir
+
+
+### Viewerを開いたまま最新の結果を自動リロードする
+
+`jumeaux viewer`コマンドを実行中は、最新の結果に限り速やかに確認することができます。  
+responsesに結果が1つ以上格納された状態で`jumeaux viewer`を実行してみましょう。
+
+自動でブラウザのタブが開き、Viewerが表示されます。
+
+この状態で`jumeaux run`を実行すると、ブラウザのViewerが自動で新しい結果にリロードされます。
+
+!!! hint "リロードのトリガーになるものは?"
+
+    `latest/report.json`に変更があった場合にリロードされます。  
+    そのため`jumeaux`を実行せずにシンボリックリンクを切り替えたり、`report.json`を編集しても自動リロードされます。
 
