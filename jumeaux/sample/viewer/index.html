@@ -159,8 +159,8 @@
                 this.isTrialLoading = true
 
                 try {
-                  const one = await fetch(newCurrentTrial.one.file)
-                  const other = await fetch(newCurrentTrial.other.file)
+                  const one = await fetch(newCurrentTrial.one.file, {cache: "no-store"})
+                  const other = await fetch(newCurrentTrial.other.file, {cache: "no-store"})
 
                   diffEditor.setModel({
                     original: monaco.editor.createModel(one.status === 404 ? "No response" : await one.text()),
@@ -182,7 +182,7 @@
             },
             methods: {
               loadConfig: async function() {
-                const report = await (await fetch("report.json")).json()
+                const report = await (await fetch("report.json", {cache: "no-store"})).json()
                 this.title = report.title
                 this.key = report.key
                 this.summary = report.summary
