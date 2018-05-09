@@ -270,6 +270,11 @@
           </el-button>
         </el-tooltip>
       </el-header>
+      <div style="text-align: center; font-size: 10px;">
+          <i class="fas fa-clock">
+            {{ summary && summary.time.end.replace('T', ' ') }}
+          </i>
+      </div>
       <el-container>
         <el-aside width="70px" height="100px">
           <el-menu>
