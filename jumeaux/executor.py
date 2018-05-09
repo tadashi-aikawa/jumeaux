@@ -401,8 +401,10 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
             lambda x: Trial.from_dict(x))
     end_time = now()
 
-    os.remove(f'{config.output.response_dir}/latest')
-    os.symlink(key, f'{config.output.response_dir}/latest', True)
+    latest = f'{config.output.response_dir}/latest'
+    if os.path.lexists(latest):
+        os.remove(latest)
+    os.symlink(key, latest, True)
 
     summary = Summary.from_dict({
         "one": {
