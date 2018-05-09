@@ -113,7 +113,7 @@ class Args(OwlMixin):
     server: bool
     port: int
     viewer: bool
-    result: str
+    responses_dir: str
 
     @classmethod
     def ___threads(cls, v: Optional[str]) -> int:

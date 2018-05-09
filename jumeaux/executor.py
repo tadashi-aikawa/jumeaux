@@ -17,7 +17,7 @@ Usage:
                          [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
                          [--max-retries=<max_retries>] [-vvv]
   jumeaux server [--port=<port>] [-vvv]
-  jumeaux viewer [--port=<port>] [--result=<result>]
+  jumeaux viewer [--port=<port>] [--responses-dir=<responses_dir>]
 
 Options:
   <name>                                        Initialize template name
@@ -33,7 +33,7 @@ Options:
   <report>                                      Report for retry
   -vvv                                          Logger level (`-v` or `-vv` or `-vvv`)
   --port = <port>                               Running port [default: 8000]
-  --result = <result>                           Result directory [default: responses]
+  --responses-dir = <responses_dir>             Directory which has responses [default: responses]
 """
 
 import hashlib
@@ -478,7 +478,7 @@ def main():
         return
 
     if args.viewer:
-        viewer.handle(args.result, args.port)
+        viewer.handle(args.responses_dir, args.port)
         return
 
     if args.init:
