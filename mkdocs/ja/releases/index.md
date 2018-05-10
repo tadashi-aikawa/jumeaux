@@ -4,6 +4,18 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.50.0
+
+:fa-calendar: `2018-05-10`
+
+??? info "`jumeaux viewer`コマンドを追加しました"
+
+    * Jumeauxを実行して結果が出力されたらViewerをlivereloadすることができます
+    * 詳しくは[viewer]をご覧下さい
+
+!!! info "Viewerで実行終了日時を表示するようにしました ([final/viewer])"
+
+
 ## :package: 0.49.0
 
 :fa-calendar: `2018-05-06`
@@ -359,6 +371,7 @@ Releases
 
 
 [configuration]: /ja/getstarted/configuration
+[viewer]: /ja/getstarted/quickstart/#viewer
 [addons]: /ja/addons
 [addons/addon]: /ja/addons#addon
 [reqs2reqs/empty_guard]: /ja/addons/reqs2reqs#empty_guard
