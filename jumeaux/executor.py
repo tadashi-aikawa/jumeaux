@@ -17,6 +17,7 @@ Usage:
                          [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
                          [--max-retries=<max_retries>] [-vvv]
   jumeaux server [--port=<port>] [-vvv]
+  jumeaux viewer [--port=<port>] [--responses-dir=<responses_dir>]
 
 Options:
   <name>                                        Initialize template name
@@ -31,7 +32,8 @@ Options:
   --max-retries = <max_retries>                 The max number of retries which accesses to API
   <report>                                      Report for retry
   -vvv                                          Logger level (`-v` or `-vv` or `-vvv`)
-  --port = <port>                               Running port [def: 8000]
+  --port = <port>                               Running port [default: 8000]
+  --responses-dir = <responses_dir>             Directory which has responses [default: responses]
 """
 
 import hashlib
@@ -54,7 +56,7 @@ from requests.exceptions import ConnectionError
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 from jumeaux import __version__
-from jumeaux.handlers import server, init
+from jumeaux.handlers import server, init, viewer
 from jumeaux.addons import AddOnExecutor
 from jumeaux.configmaker import create_config, create_config_from_report
 from jumeaux.models import (
@@ -399,6 +401,11 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
             lambda x: Trial.from_dict(x))
     end_time = now()
 
+    latest = f'{config.output.response_dir}/latest'
+    if os.path.lexists(latest):
+        os.remove(latest)
+    os.symlink(key, latest, True)
+
     summary = Summary.from_dict({
         "one": {
             "name": config.one.name,
@@ -467,7 +474,11 @@ def main():
     global global_addon_executor
 
     if args.server:
-        server.handle(args.port.get_or(8000))
+        server.handle(args.port)
+        return
+
+    if args.viewer:
+        viewer.handle(args.responses_dir, args.port)
         return
 
     if args.init:
