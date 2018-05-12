@@ -30,7 +30,7 @@ class Transformer(OwlMixin):
 
 class Config(OwlMixin):
     transformer: Transformer
-    force_encoding: TOption[str]
+    default_encoding: str = "utf8"
 
 
 class Executor(Res2ResExecutor):
@@ -54,7 +54,7 @@ class Executor(Res2ResExecutor):
     def exec(self, payload: Res2ResAddOnPayload) -> Res2ResAddOnPayload:
         res: Response = payload.response
         json_str: str = self.module(res.body, res.encoding.get())
-        new_encoding: str = self.config.force_encoding.get_or(res.encoding.get())
+        new_encoding: str = res.encoding.get_or(self.config.default_encoding)
 
         return Res2ResAddOnPayload.from_dict({
             "response": {
