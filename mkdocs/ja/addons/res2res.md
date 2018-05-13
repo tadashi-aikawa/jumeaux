@@ -3,13 +3,77 @@ res2res [:fa-github:][s1]
 
 [s1]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res
 
-APIレスポンスを形式を変えずに変換します。
+APIから返却されたレスポンスを判定前に変換します。
 
 
-[:fa-github:][s2] json_sort
----------------------------
+[:fa-github:][json] json
+------------------------
 
-[s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/json_sort.py
+[json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/json.py
+
+レスポンスをJSONに変換します。  
+任意の変換ロジックを指定することができます。
+
+
+### Config
+
+#### Definitions
+
+##### Root
+
+| Key              | Type                        | Description                                                            | Example | Default |
+|------------------|-----------------------------|------------------------------------------------------------------------|---------|---------|
+| transformer      | [Transformer](#transformer) | 変換処理                                                               |         |         |
+| default_encoding | (string)                    | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp  | utf8    |
+
+
+##### Transformer
+
+| Key      | Type                      | Description                    | Example       | Default   |
+|----------|---------------------------|--------------------------------|---------------|-----------|
+| module   | string                    | 変換処理のあるモジュールのパス | sample.module |           |
+| function | (string) :fa-info-circle: | 変換処理の関数                 | bytes2json    | transform |
+
+!!! info "functionのインタフェース"
+
+    functionで指定した関数のインタフェースは`(bytes, str) -> str`となる必要があります。  
+    以下は実装の一例です。
+
+    ```python
+    def transform(anything: bytes, encoding: str) -> str:
+        return json.dumps({
+            "wrap": load_json(anything.decode(encoding))
+        }, ensure_ascii=False)
+    ```
+
+#### Examples
+
+##### `sample`モジュールの`transform`関数を使ってjsonに変換する
+
+```yml
+res2res:
+  - name: json
+    config:
+      transformer:
+        module: sample
+```
+
+##### `sample`モジュールの`bytes2json`関数を使ってjsonに変換する
+
+```yml
+res2res:
+  - name: json
+    config:
+      transformer:
+        module: sample
+        function: bytes2json
+```
+
+
+[:fa-github:][json-sort] json_sort
+----------------------------------
+
+[json-sort]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/json_sort.py
 
 JSONレスポンスの並び順をソートします。
 

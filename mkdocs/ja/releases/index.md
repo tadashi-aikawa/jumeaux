@@ -4,6 +4,18 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.51.0
+
+:fa-calendar: `2018-05-13`
+
+??? info "res2res/jsonアドオンを追加しました ([res2res/json])"
+
+    * 任意のロジックを指定してレスポンスを強制的にjsonへ変換することができます
+    * 詳しくは[res2res/json]をご覧下さい
+
+!!! bug "jsonのトップレベルが配列の時に強制終了する不具合を修正しました ([res2dict/json])"
+
+
 ## :package: 0.50.0
 
 :fa-calendar: `2018-05-10`
@@ -378,8 +390,10 @@ Releases
 [reqs2reqs/filter]: /ja/addons/reqs2reqs#filter
 [reqs2reqs/replace]: /ja/addons/reqs2reqs#replace
 [reqs2reqs/rename]: /ja/addons/reqs2reqs#rename
+[res2res/json]: /ja/addons/res2res#json
 [res2res/json_sort]: /ja/addons/res2res#json_sort
 [res2dict]: /ja/addons/res2dict
+[res2dict/json]: /ja/addons/res2dict#json
 [res2dict/html]: /ja/addons/res2dict#html
 [res2dict/block]: /ja/addons/res2dict#block
 [judgement/ignore_properties]: /ja/addons/judgement#ignore_properties

@@ -1,6 +1,6 @@
 FROM python:3.6
 
-RUN pip install jumeaux==0.50.0
+RUN pip install jumeaux==0.51.0
 WORKDIR tmp
 
 ENTRYPOINT ["jumeaux", "run"]

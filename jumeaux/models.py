@@ -9,6 +9,9 @@ from owlmixin.owlenum import OwlEnum
 from requests.structures import CaseInsensitiveDict as RequestsCaseInsensitiveDict
 
 
+DictOrList = any
+
+
 class CaseInsensitiveDict(RequestsCaseInsensitiveDict):
     pass
 
@@ -335,7 +338,7 @@ class Res2ResAddOnPayload(OwlMixin):
 
 class Res2DictAddOnPayload(OwlMixin):
     response: Response
-    result: TOption[dict]
+    result: TOption[DictOrList]
 
 
 class DidChallengeAddOnPayload(OwlMixin):
@@ -354,8 +357,8 @@ class JudgementAddOnReference(OwlMixin):
     headers: TDict[str]
     res_one: Response
     res_other: Response
-    dict_one: TOption[dict]
-    dict_other: TOption[dict]
+    dict_one: TOption[DictOrList]
+    dict_other: TOption[DictOrList]
     # None if unknown
     diff_keys: TOption[DiffKeys]
 
