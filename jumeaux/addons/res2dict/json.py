@@ -5,7 +5,7 @@ import json
 from owlmixin import OwlMixin, TList
 
 from jumeaux.addons.res2dict import Res2DictExecutor
-from jumeaux.models import Res2DictAddOnPayload
+from jumeaux.models import Res2DictAddOnPayload, DictOrList
 from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
@@ -30,7 +30,7 @@ class Executor(Res2DictExecutor):
 
         mime_type: str = payload.response.mime_type.get()
 
-        result: dict
+        result: DictOrList
         if self.config.force:
             logger.debug(f"{LOG_PREFIX} Force to convert to dict as json")
             result = json.loads(payload.response.text)

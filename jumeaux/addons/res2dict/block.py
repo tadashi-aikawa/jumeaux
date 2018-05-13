@@ -5,7 +5,7 @@ import re
 from owlmixin import OwlMixin, TList
 
 from jumeaux.addons.res2dict import Res2DictExecutor
-from jumeaux.models import Res2DictAddOnPayload
+from jumeaux.models import Res2DictAddOnPayload, DictOrList
 from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
@@ -43,7 +43,7 @@ def config_generator(blockstr: str, header_regexp: str, record_regexp: str):
             d[b[0][0]] = b[0][1] if len(b[0]) > 1 else None
 
 
-def to_dict(blockstr: str, header_regexp: str, record_regexp: str):
+def to_dict(blockstr: str, header_regexp: str, record_regexp: str) -> dict:
     return {k: v for k, v in config_generator(blockstr, header_regexp, record_regexp)}
 
 
@@ -58,7 +58,7 @@ class Executor(Res2DictExecutor):
 
         mime_type: str = payload.response.mime_type.get()
 
-        result: dict
+        result: DictOrList
         if self.config.force:
             logger.debug(f"{LOG_PREFIX} Force to convert to dict as block")
             result = to_dict(payload.response.text, self.config.header_regexp, self.config.record_regexp)
