@@ -83,7 +83,7 @@ from jumeaux.models import (
     DidChallengeAddOnPayload,
     DiffKeys,
     Status,
-)
+    DictOrList)
 from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
@@ -161,7 +161,7 @@ def res2dict(res: Response) -> TOption[dict]:
 
 
 def judgement(r_one: Response, r_other: Response,
-              d_one: TOption[dict], d_other: TOption[dict],
+              d_one: TOption[DictOrList], d_other: TOption[dict],
               name: str, path: str, qs: TDict[TList[str]], headers: TList[str],
               diff_keys: Optional[DiffKeys]) -> Status:
     regard_as_same: bool = global_addon_executor.apply_judgement(
