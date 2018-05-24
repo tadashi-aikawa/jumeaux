@@ -47,6 +47,7 @@ CONFIG = {
 
 RES_ONE = Response.from_dict({
     'body': b'a',
+    "type": "unknown",
     'headers': CaseInsensitiveDict({}),
     'url': 'url',
     'status_code': 200,
@@ -55,6 +56,7 @@ RES_ONE = Response.from_dict({
 
 RES_OTHER = Response.from_dict({
     'body': b'b',
+    "type": "unknown",
     'headers': CaseInsensitiveDict({}),
     'url': 'url',
     'status_code': 200,

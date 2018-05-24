@@ -38,6 +38,7 @@ NORMAL_CASE = ("Normal",
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('euc-jp'),
+                   "type": "html",
                    "encoding": 'euc-jp',
                    "headers": {
                        "content-type": "text/html; charset=euc-jp"
@@ -76,6 +77,7 @@ CORRUPTION_CASE = ("Corruption",
                    """,
                    Response.from_dict({
                        "body": CORRUPTION_BODY_BYTES,
+                       "type": "html",
                        "encoding": 'euc-jp',
                        "headers": {
                            "content-type": "text/html; charset=euc-jp"

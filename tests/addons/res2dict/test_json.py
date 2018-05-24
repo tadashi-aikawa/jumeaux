@@ -25,6 +25,7 @@ NORMAL_CASE = ("Normal",
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('euc-jp'),
+                   "type": "json",
                    "encoding": 'euc-jp',
                    "headers": {
                        "content-type": "application/json; charset=utf-8"
@@ -55,6 +56,7 @@ ARRAY_TOP_CASE = ("Array top",
                   """,
                   Response.from_dict({
                       "body": ARRAY_TOP_BODY.encode('utf8'),
+                      "type": "json",
                       "encoding": 'utf8',
                       "headers": {
                           "content-type": "application/json; charset=utf-8"
@@ -72,6 +74,7 @@ EMPTY_ENCODING_CASE = ("Encoding is empty (Decode as utf8)",
                        """,
                        Response.from_dict({
                            "body": NORMAL_BODY.encode('euc-jp'),
+                           "type": "json",
                            "headers": {
                                "content-type": "application/json; charset=utf-8"
                            },
@@ -101,6 +104,7 @@ INVALID_CONTENT_TYPE_CASE = ("Content type is invalid",
                              """,
                              Response.from_dict({
                                  "body": NORMAL_BODY.encode('euc-jp'),
+                                 "type": "unknown",
                                  "encoding": 'euc-jp',
                                  "headers": {
                                      "content-type": "hoge"
@@ -118,6 +122,7 @@ INVALID_CONTENT_TYPE_BUT_FORCE_CASE = ("Content type is invalid but force",
                                        """,
                                        Response.from_dict({
                                            "body": NORMAL_BODY.encode('euc-jp'),
+                                           "type": "unknown",
                                            "encoding": 'euc-jp',
                                            "headers": {
                                                "content-type": "hoge"
@@ -151,6 +156,7 @@ SPECIFY_CONTENT_TYPES_CASE_MATCHED = ("Specify content-types matched",
                                       """,
                                       Response.from_dict({
                                           "body": NORMAL_BODY.encode('utf8'),
+                                          "type": "json",
                                           "encoding": 'utf8',
                                           "headers": {
                                               "content-type": "great/json; charset=utf-8"
@@ -184,6 +190,7 @@ SPECIFY_CONTENT_TYPES_CASE_NOT_MATCHED = ("Specify content-types not matched",
                                           """,
                                           Response.from_dict({
                                               "body": NORMAL_BODY.encode('utf8'),
+                                              "type": "json",
                                               "encoding": 'utf8',
                                               "headers": {
                                                   "content-type": "bad/json; charset=utf-8"

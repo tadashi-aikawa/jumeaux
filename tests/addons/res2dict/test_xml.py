@@ -28,6 +28,7 @@ NORMAL_CASE = ("Normal",
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('euc-jp'),
+                   "type": "xml",
                    "encoding": 'euc-jp',
                    "headers": {
                        "content-type": "application/xml"
@@ -52,6 +53,7 @@ EMPTY_ENCODING_CASE = ("Encoding is empty (as utf8)",
                        """,
                        Response.from_dict({
                            "body": NORMAL_BODY.encode('utf8'),
+                           "type": "xml",
                            "headers": {
                                "content-type": "application/xml"
                            },
@@ -75,6 +77,7 @@ INVALID_CONTENT_TYPE_CASE = ("Content type is invalid",
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('euc-jp'),
+                   "type": "unknown",
                    "encoding": 'euc-jp',
                    "headers": {
                        "content-type": "hogehoge"
@@ -92,6 +95,7 @@ INVALID_CONTENT_TYPE_BUT_FORCE_CASE = ("Content type is invalid but force",
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('euc-jp'),
+                   "type": "unknown",
                    "encoding": 'euc-jp',
                    "headers": {
                        "content-type": "hogehoge"
@@ -119,6 +123,7 @@ SPECIFY_CONTENT_TYPES_CASE_MATCHED = ("Specify content-types matched",
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('euc-jp'),
+                   "type": "xml",
                    "encoding": 'euc-jp',
                    "headers": {
                        "content-type": "great/xml; charset=utf-8"
@@ -146,6 +151,7 @@ SPECIFY_CONTENT_TYPES_CASE_NOT_MATCHED = ("Specify content-types not matched",
                                           """,
                                           Response.from_dict({
                                               "body": NORMAL_BODY.encode('euc-jp'),
+                                              "type": "xml",
                                               "encoding": 'euc-jp',
                                               "headers": {
                                                   "content-type": "bad/xml; charset=utf-8"

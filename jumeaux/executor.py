@@ -309,6 +309,7 @@ def challenge(arg: ChallengeArg) -> dict:
             "diff_keys": diff_keys,
             "one": {
                 "url": res_one.url,
+                "type": res_one.type,
                 "status_code": res_one.status_code,
                 "byte": len(res_one.body),
                 "response_sec": to_sec(res_one.elapsed),
@@ -319,6 +320,7 @@ def challenge(arg: ChallengeArg) -> dict:
             },
             "other": {
                 "url": res_other.url,
+                "type": res_other.type,
                 "status_code": res_other.status_code,
                 "byte": len(res_other.body),
                 "response_sec": to_sec(res_other.elapsed),

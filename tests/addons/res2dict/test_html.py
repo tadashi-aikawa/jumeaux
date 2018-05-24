@@ -33,6 +33,7 @@ NORMAL_CASE = ("Normal",
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('utf8'),
+                   "type": "html",
                    "encoding": 'utf8',
                    "headers": {
                        "content-type": "text/html"

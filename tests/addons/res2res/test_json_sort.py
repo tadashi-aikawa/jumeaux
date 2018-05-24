@@ -49,6 +49,7 @@ TEXT_MULTIBYTE = json.dumps({
 def make_response(text: str, encoding: str, body_encoding: str) -> Response:
     return Response.from_dict({
         "body": text.encode(body_encoding),
+        "type": "json",
         "encoding": encoding,
         "headers": {
             "content-type": "application/json"

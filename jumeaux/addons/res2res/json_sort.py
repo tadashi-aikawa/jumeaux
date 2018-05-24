@@ -89,6 +89,7 @@ class Executor(Res2ResExecutor):
         return Res2ResAddOnPayload.from_dict({
             "response": {
                 "body": sorted_res.encode(res.encoding.get(), errors='replace'),
+                "type": res.type,
                 "encoding": res.encoding.get(),
                 "headers": res.headers,
                 "url": res.url,
