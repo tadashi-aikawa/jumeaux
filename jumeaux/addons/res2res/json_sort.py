@@ -72,8 +72,8 @@ class Executor(Res2ResExecutor):
     def exec(self, payload: Res2ResAddOnPayload) -> Res2ResAddOnPayload:
         res: Response = payload.response
 
-        if res.mime_type.get() not in ('text/json', 'application/json'):
-            logger.info_lv3(f"{LOG_PREFIX} Skipped because mime type is not json.")
+        if res.type != "json":
+            logger.info_lv3(f"{LOG_PREFIX} Skipped because this response is not json.")
             return payload
 
         res_json = json.loads(res.text)

@@ -44,8 +44,6 @@ Version: 1.0.0 (r1585)
 PATTERN1 = ("Normal",
             """
             force: False 
-            mime_types:
-              - text/plain
             header_regexp: '\\[(.+)\\]'
             record_regexp: '([^:]+): (.+)'
             """,
@@ -76,8 +74,6 @@ PATTERN1 = ("Normal",
 PATTERN2 = ("Normal",
             """
             force: False 
-            mime_types:
-              - text/plain
             header_regexp: '^\\d+\\)(.+)'
             record_regexp: '([^ ]+) (.+)'
             """,
@@ -108,8 +104,6 @@ PATTERN2 = ("Normal",
 NO_END_LINEBREAK = ("No end linebreak",
                     """
                     force: False 
-                    mime_types:
-                      - text/plain
                     header_regexp: '\\[(.+)\\]'
                     record_regexp: '([^:]+): (.+)'
                     """,

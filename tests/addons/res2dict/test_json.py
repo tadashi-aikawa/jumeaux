@@ -98,109 +98,23 @@ EMPTY_ENCODING_CASE = ("Encoding is empty (Decode as utf8)",
                        }
                        )
 
-INVALID_CONTENT_TYPE_CASE = ("Content type is invalid",
-                             """
-                             force: False 
-                             """,
-                             Response.from_dict({
-                                 "body": NORMAL_BODY.encode('euc-jp'),
-                                 "type": "unknown",
-                                 "encoding": 'euc-jp',
-                                 "headers": {
-                                     "content-type": "hoge"
-                                 },
-                                 "url": "http://test",
-                                 "status_code": 200,
-                                 "elapsed": datetime.timedelta(seconds=1)
-                             }),
-                             None
-                             )
-
-INVALID_CONTENT_TYPE_BUT_FORCE_CASE = ("Content type is invalid but force",
-                                       """
-                                       force: True 
-                                       """,
-                                       Response.from_dict({
-                                           "body": NORMAL_BODY.encode('euc-jp'),
-                                           "type": "unknown",
-                                           "encoding": 'euc-jp',
-                                           "headers": {
-                                               "content-type": "hoge"
-                                           },
-                                           "url": "http://test",
-                                           "status_code": 200,
-                                           "elapsed": datetime.timedelta(seconds=1)
-                                       }),
-                                       {
-                                           "total": 10,
-                                           "items": [
-                                               {
-                                                   "id": 1,
-                                                   "name": "Ichiro",
-                                                   "favorites": ["apple", "orange"]
-                                               },
-                                               {
-                                                   "id": 2,
-                                                   "name": "次郎"
-                                               }
-                                           ]
-                                       }
-                                       )
-
-SPECIFY_CONTENT_TYPES_CASE_MATCHED = ("Specify content-types matched",
-                                      """
-                                      force: False 
-                                      mime_types:
-                                        - good/json
-                                        - great/json
-                                      """,
-                                      Response.from_dict({
-                                          "body": NORMAL_BODY.encode('utf8'),
-                                          "type": "json",
-                                          "encoding": 'utf8',
-                                          "headers": {
-                                              "content-type": "great/json; charset=utf-8"
-                                          },
-                                          "url": "http://test",
-                                          "status_code": 200,
-                                          "elapsed": datetime.timedelta(seconds=1)
-                                      }),
-                                      {
-                                          "total": 10,
-                                          "items": [
-                                              {
-                                                  "id": 1,
-                                                  "name": "Ichiro",
-                                                  "favorites": ["apple", "orange"]
-                                              },
-                                              {
-                                                  "id": 2,
-                                                  "name": "次郎"
-                                              }
-                                          ]
-                                      }
-                                      )
-
-SPECIFY_CONTENT_TYPES_CASE_NOT_MATCHED = ("Specify content-types not matched",
-                                          """
-                                          force: False 
-                                          mime_types:
-                                            - good/json
-                                            - great/json
-                                          """,
-                                          Response.from_dict({
-                                              "body": NORMAL_BODY.encode('utf8'),
-                                              "type": "json",
-                                              "encoding": 'utf8',
-                                              "headers": {
-                                                  "content-type": "bad/json; charset=utf-8"
-                                              },
-                                              "url": "http://test",
-                                              "status_code": 200,
-                                              "elapsed": datetime.timedelta(seconds=1)
-                                          }),
-                                          None
-                                          )
+NOT_JSON_CASE = ("Response is not json",
+                 """
+                 force: False 
+                 """,
+                 Response.from_dict({
+                     "body": NORMAL_BODY.encode('utf8'),
+                     "type": "xml",
+                     "encoding": 'utf8',
+                     "headers": {
+                         "content-type": "bad/xml; charset=utf-8"
+                     },
+                     "url": "http://test",
+                     "status_code": 200,
+                     "elapsed": datetime.timedelta(seconds=1)
+                 }),
+                 None
+                 )
 
 
 class TestExec:
@@ -209,10 +123,7 @@ class TestExec:
             NORMAL_CASE,
             ARRAY_TOP_CASE,
             EMPTY_ENCODING_CASE,
-            INVALID_CONTENT_TYPE_CASE,
-            INVALID_CONTENT_TYPE_BUT_FORCE_CASE,
-            SPECIFY_CONTENT_TYPES_CASE_MATCHED,
-            SPECIFY_CONTENT_TYPES_CASE_NOT_MATCHED,
+            NOT_JSON_CASE,
         ]
     )
     def test(self, title, config_yml, response, expected_result):
