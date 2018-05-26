@@ -251,10 +251,12 @@ def challenge(arg: ChallengeArg) -> dict:
             "queries": arg.req.qs,
             "headers": arg.req.headers,
             "one": {
-                "url": url_one
+                "url": url_one,
+                "type": "unknown",
             },
             "other": {
-                "url": url_other
+                "url": url_other,
+                "type": "unknown",
             }
         }
 
