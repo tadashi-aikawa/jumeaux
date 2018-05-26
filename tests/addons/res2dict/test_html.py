@@ -33,13 +33,15 @@ NORMAL_CASE = ("Normal",
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('utf8'),
+                   "type": "html",
                    "encoding": 'utf8',
                    "headers": {
                        "content-type": "text/html"
                    },
                    "url": "http://test",
                    "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
+                   "elapsed": datetime.timedelta(seconds=1),
+                   "elapsed_sec": 1.0,
                }),
                {
                    "html": {

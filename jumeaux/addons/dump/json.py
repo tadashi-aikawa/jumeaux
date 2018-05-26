@@ -11,9 +11,6 @@ from jumeaux.models import DumpAddOnPayload
 class Config(OwlMixin):
     default_encoding: str = 'utf8'
     force: bool = False
-    mime_types: TList[str] = [
-        'test/json', 'application/json'
-    ]
 
 
 class Executor(DumpExecutor):
@@ -21,7 +18,6 @@ class Executor(DumpExecutor):
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: DumpAddOnPayload) -> DumpAddOnPayload:
-        mime_type: str = payload.response.mime_type.get()
         encoding: str = payload.encoding.get_or(self.config.default_encoding)
 
         return DumpAddOnPayload.from_dict({
@@ -30,7 +26,7 @@ class Executor(DumpExecutor):
                 json.loads(payload.body.decode(encoding, errors='replace')),
                 ensure_ascii=False, indent=4, sort_keys=True
             ).encode(encoding, errors='replace') \
-                if self.config.force or mime_type in self.config.mime_types \
+                if self.config.force or payload.response.type == 'json' \
                 else payload.body,
             "encoding": encoding
         })

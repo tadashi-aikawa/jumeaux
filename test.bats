@@ -17,6 +17,24 @@ assert_not_exists() {
   [[ ! $(ls "$1") ]]
 }
 
+assert_number_property() {
+  local path=$1
+  local expected=$2
+  [[ $(jq $path responses/latest/report.json) -eq $expected ]]
+}
+
+assert_string_property() {
+  local path=$1
+  local expected=$2
+  # Distinguish between numbers and character strings
+  [[ $(jq $path responses/latest/report.json) == \""$expected"\" ]]
+}
+
+
+#--------------------------
+# jumeaux usage
+#--------------------------
+
 @test "Usage" {
   $JUMEAUX -h
 }
@@ -66,8 +84,9 @@ assert_not_exists() {
   assert_exists responses/latest/other/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
-  [[ $(jq '.summary.status.same' responses/latest/report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 1 ]]
+
+  assert_number_property '.summary.status.same' 1
+  assert_number_property '.summary.status.different' 1
 }
 
 
@@ -80,8 +99,9 @@ assert_not_exists() {
   assert_not_exists responses/latest/other/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
-  [[ $(jq '.summary.status.same' responses/latest/report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 0 ]]
+
+  assert_number_property '.summary.status.same' 1
+  assert_number_property '.summary.status.different' 0
 }
 
 
@@ -94,7 +114,8 @@ assert_not_exists() {
   assert_exists responses/latest/other/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
-  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 1 ]]
+
+  assert_number_property '.summary.status.different' 1
 }
 
 
@@ -107,8 +128,9 @@ assert_not_exists() {
   assert_exists responses/latest/other/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
-  [[ $(jq '.summary.status.same' responses/latest/report.json) -eq 0 ]]
-  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 1 ]]
+
+  assert_number_property '.summary.status.same' 0
+  assert_number_property '.summary.status.different' 1
 }
 
 
@@ -121,8 +143,9 @@ assert_not_exists() {
   assert_exists responses/latest/other/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
-  [[ $(jq '.summary.status.same' responses/latest/report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 2 ]]
+
+  assert_number_property '.summary.status.same' 1
+  assert_number_property '.summary.status.different' 2
 }
 
 
@@ -135,10 +158,26 @@ assert_not_exists() {
   assert_exists responses/latest/other/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
-  [[ $(jq '.summary.status.same' responses/latest/report.json) -eq 1 ]]
-  [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 1 ]]
+
+  assert_number_property '.summary.status.same' 1
+  assert_number_property '.summary.status.different' 1
 }
 
+@test "Run force_json" {
+  $JUMEAUX init force_json
+  $JUMEAUX run requests
+
+  assert_exists responses
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+
+  assert_string_property '.trials[0].one.type' plain
+  assert_string_property '.trials[0].other.type' plain
+  assert_string_property '.trials[1].one.type' json
+  assert_string_property '.trials[1].other.type' json
+}
 
 @test "Run with log level options" {
   $JUMEAUX init simple
@@ -155,8 +194,9 @@ assert_not_exists() {
   $JUMEAUX run requests --threads 2
 
   assert_exists responses
-  [[ $(jq '.summary.concurrency.threads' responses/latest/report.json) -eq 2 ]]
-  [[ $(jq '.summary.concurrency.processes' responses/latest/report.json) -eq 1 ]]
+
+  assert_number_property '.summary.concurrency.threads' 2
+  assert_number_property '.summary.concurrency.processes' 1
 }
 
 
@@ -165,8 +205,9 @@ assert_not_exists() {
   $JUMEAUX run requests --processes 2
 
   assert_exists responses
-  [[ $(jq '.summary.concurrency.threads' responses/latest/report.json) -eq 1 ]]
-  [[ $(jq '.summary.concurrency.processes' responses/latest/report.json) -eq 2 ]]
+
+  assert_number_property '.summary.concurrency.threads' 1
+  assert_number_property '.summary.concurrency.processes' 2
 }
 
 

@@ -44,20 +44,20 @@ Version: 1.0.0 (r1585)
 PATTERN1 = ("Normal",
             """
             force: False 
-            mime_types:
-              - text/plain
             header_regexp: '\\[(.+)\\]'
             record_regexp: '([^:]+): (.+)'
             """,
             Response.from_dict({
                 "body": PATTERN1_BODY.encode('utf-8'),
+                "type": "plain",
                 "encoding": 'utf-8',
                 "headers": {
                     "content-type": "text/plain; charset=utf-8"
                 },
                 "url": "http://test",
                 "status_code": 200,
-                "elapsed": datetime.timedelta(seconds=1)
+                "elapsed": datetime.timedelta(seconds=1),
+                "elapsed_sec": 1.0,
             }),
             {
                 "Module1": {
@@ -75,20 +75,20 @@ PATTERN1 = ("Normal",
 PATTERN2 = ("Normal",
             """
             force: False 
-            mime_types:
-              - text/plain
             header_regexp: '^\\d+\\)(.+)'
             record_regexp: '([^ ]+) (.+)'
             """,
             Response.from_dict({
                 "body": PATTERN2_BODY.encode('utf-8'),
+                "type": "plain",
                 "encoding": 'utf-8',
                 "headers": {
                     "content-type": "text/plain; charset=utf-8"
                 },
                 "url": "http://test",
                 "status_code": 200,
-                "elapsed": datetime.timedelta(seconds=1)
+                "elapsed": datetime.timedelta(seconds=1),
+                "elapsed_sec": 1.0,
             }),
             {
                 "Module1": {
@@ -106,20 +106,20 @@ PATTERN2 = ("Normal",
 NO_END_LINEBREAK = ("No end linebreak",
                     """
                     force: False 
-                    mime_types:
-                      - text/plain
                     header_regexp: '\\[(.+)\\]'
                     record_regexp: '([^:]+): (.+)'
                     """,
                     Response.from_dict({
                         "body": NO_END_LINEBREAK_BODY.encode('utf-8'),
+                        "type": "plain",
                         "encoding": 'utf-8',
                         "headers": {
                             "content-type": "text/plain; charset=utf-8"
                         },
                         "url": "http://test",
                         "status_code": 200,
-                        "elapsed": datetime.timedelta(seconds=1)
+                        "elapsed": datetime.timedelta(seconds=1),
+                        "elapsed_sec": 1.0,
                     }),
                     {
                         "Module1": {

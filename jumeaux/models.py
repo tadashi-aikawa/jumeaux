@@ -8,7 +8,6 @@ from owlmixin.owlcollections import TList, TDict
 from owlmixin.owlenum import OwlEnum
 from requests.structures import CaseInsensitiveDict as RequestsCaseInsensitiveDict
 
-
 DictOrList = any
 
 
@@ -162,6 +161,8 @@ class Response(OwlMixin):
     url: str
     status_code: int
     elapsed: datetime.timedelta
+    elapsed_sec: float
+    type: str
 
     @property
     def text(self) -> str:
@@ -198,8 +199,16 @@ class Response(OwlMixin):
         return meta_encodings[0] if meta_encodings else default_encoding.get() or res.apparent_encoding
 
     @classmethod
+    def _to_type(cls, res: Any) -> str:
+        content_type = res.headers.get('content-type')
+        if not content_type:
+            return 'unknown'
+        return content_type.split(';')[0].split('/')[1]
+
+    @classmethod
     def from_requests(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> 'Response':
         encoding: str = cls._decide_encoding(res, default_encoding)
+        type: str = cls._to_type(res)
         return Response.from_dict({
             'body': res.content,
             'encoding': encoding,
@@ -207,6 +216,8 @@ class Response(OwlMixin):
             'url': res.url,
             'status_code': res.status_code,
             'elapsed': res.elapsed,
+            'elapsed_sec': round(res.elapsed.seconds + res.elapsed.microseconds / 1000000, 2),
+            'type': type,
         })
 
 
@@ -225,6 +236,7 @@ class ChallengeArg(OwlMixin):
     default_response_encoding_one: TOption[str]
     default_response_encoding_other: TOption[str]
     res_dir: str
+
 
 # --------
 
@@ -260,6 +272,7 @@ class DiffKeys(OwlMixin):
 
 class ResponseSummary(OwlMixin):
     url: str
+    type: str
     status_code: TOption[int]
     byte: TOption[int]
     response_sec: TOption[float]
@@ -383,4 +396,3 @@ class FinalAddOnPayload(OwlMixin):
     @property
     def result_path(self) -> str:
         return f"{self.output_summary.response_dir}/{self.report.key}"
-
