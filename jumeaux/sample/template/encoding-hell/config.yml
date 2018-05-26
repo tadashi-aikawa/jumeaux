@@ -16,8 +16,6 @@ output:
 addons:
   log2reqs:
     name: csv
-    config:
-      encoding: utf8
 
   res2res:
     - name: json_sort
