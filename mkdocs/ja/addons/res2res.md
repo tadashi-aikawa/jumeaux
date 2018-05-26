@@ -152,4 +152,55 @@ res2res:
               sort_keys: [id, name]
 ```
 
+
+[:fa-github:][type] type
+------------------------
+
+[type]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/type.py
+
+レスポンスのtypeを変更します。  
+typeはJumeauxのアドオンや連携先アプリケーションでファイル形式を判定するために使用されます。
+
+### Config
+
+#### Definitions
+
+##### Root
+
+| Key        | Type                      | Description  | Example | Default |
+|------------|---------------------------|--------------|---------|---------|
+| conditions | [Condition[]](#condition) | 変更値と条件 |         |         |
+
+##### Condition
+
+| Key  | Type | Description                                   | Example                             | Default |
+|------|------|-----------------------------------------------|-------------------------------------|---------|
+| type | str  | 変更後のtype                                  | json                                |         |
+| when | str  | [jinja2の式]に準拠した条件式 :fa-info-circle: | <pre>"res.status_code == 200"</pre> |         |
+
+[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
+
+!!! info "whenで指定できるプロパティ"
+
+    | key | Description |
+    |-----|-------------|
+    | req | [request]   |
+    | res | [response]  |
+
+
+#### Examples
+
+##### pathに`target`という文字列が含まれる場合に`json`へtypeを変更する
+
+```yml
+res2res:
+  - name: type
+    config:
+      conditions:
+        - type: json
+          when: "'target' in req.path"
+```
+
 [request-condition]: /ja/models/request-condition
+[request]: /ja/models/request
+[response]: /ja/models/response

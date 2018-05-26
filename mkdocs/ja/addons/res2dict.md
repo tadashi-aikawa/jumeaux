@@ -11,23 +11,22 @@ APIレスポンスを差分比較に必要なdictへ変換します。
 
 [json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/json.py
 
-JSONレスポンスをdictに変換します。
+JSONレスポンスをdictに変換します。  
 
 
 ### Config
 
 #### Definitions
 
-|    Key     |    Type    |                           Description                            |        Example         |                    Default                    |
-| ---------- | ---------- | ---------------------------------------------------------------- | ---------------------- | --------------------------------------------- |
-| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true                   | false                                         |
-| mime_types | (string[]) | 対応MIMEタイプ                                                   | <pre>- text/json</pre> | <pre>- text/json<br/>- application/json</pre> |
+| Key   | Type   | Description                                                      | Example | Default |
+|-------|--------|------------------------------------------------------------------|---------|---------|
+| force | (bool) | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
 
 !!! info "`force` 変換する必要がないケース"
 
     以下のいずれかに一致する場合
 
-    * MIMEタイプ が `mime_types` のいずれにも一致しない場合
+    * レスポンスのtypeがjsonではない
     * 既にアドオンでdict型に変換済みの場合
 
 
@@ -49,16 +48,6 @@ res2dict:
       force: true
 ```
 
-##### MIMEタイプが `application/json` のときだけ変換する
-
-```yml
-res2dict:
-  - name: json
-    config:
-      mime_types:
-        - application/json
-```
-
 
 [:fa-github:][xml] xml
 ----------------------
@@ -72,16 +61,15 @@ XMLレスポンスをdictに変換します。
 
 #### Definitions
 
-|    Key     |    Type    |                           Description                            |        Example        |                   Default                   |
-| ---------- | ---------- | ---------------------------------------------------------------- | --------------------- | ------------------------------------------- |
-| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true                  | false                                       |
-| mime_types | (string[]) | 対応MIMEタイプ                                                   | <pre>- text/xml</pre> | <pre>- text/xml<br/>- application/xml</pre> |
+| Key   | Type   | Description                                                      | Example | Default |
+|-------|--------|------------------------------------------------------------------|---------|---------|
+| force | (bool) | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
 
 !!! info "`force` 変換する必要がないケース"
 
     以下のいずれかに一致する場合
 
-    * MIMEタイプ が `mime_types` のいずれにも一致しない場合
+    * レスポンスのtypeがxmlではない
     * 既にアドオンでdict型に変換済みの場合
 
 
@@ -103,16 +91,6 @@ res2dict:
       force: true
 ```
 
-##### MIMEタイプが `text/xml` のときだけ変換する
-
-```yml
-res2dict:
-  - name: xml
-    config:
-      mime_types:
-        - text/xml
-```
-
 
 [:fa-github:][html] html
 ------------------------
@@ -126,16 +104,15 @@ HTMLレスポンスをdictに変換します。
 
 #### Definitions
 
-| Key        | Type       | Description                                                      | Example                 | Default                |
-|------------|------------|------------------------------------------------------------------|-------------------------|------------------------|
-| force      | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true                    | false                  |
-| mime_types | (string[]) | 対応MIMEタイプ                                                   | <pre>- text/xhtml</pre> | <pre>- text/html</pre> |
+| Key   | Type   | Description                                                      | Example | Default |
+|-------|--------|------------------------------------------------------------------|---------|---------|
+| force | (bool) | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
 
 !!! info "`force` 変換する必要がないケース"
 
     以下のいずれかに一致する場合
 
-    * MIMEタイプ が `mime_types` のいずれにも一致しない場合
+    * レスポンスのtypeがhtmlではない
     * 既にアドオンでdict型に変換済みの場合
 
 
@@ -157,17 +134,6 @@ res2dict:
       force: true
 ```
 
-##### MIMEタイプが `text/xhtml` のときだけ変換する
-
-```yaml
-res2dict:
-  - name: html
-    config:
-      mime_types:
-        - text/xhtml
-```
-
-
 
 [:fa-github:][block] block
 --------------------------
@@ -182,12 +148,11 @@ res2dict:
 
 #### Definitions
 
-|      Key      |    Type    |                            Description                            |         Example         |         Default         |
-| ------------- | ---------- | ----------------------------------------------------------------- | ----------------------- | ----------------------- |
-| header_regexp | string     | ヘッダ行のキーを抽出する正規表現 :fa-exclamation-triangle:        | <pre>^\d+\)(.+)</pre>   |                         |
-| record_regexp | string     | レコード行のkey/valueを抽出する正規表現 :fa-exclamation-triangle: | <pre>([^ ]+) (.+)</pre> |                         |
-| force         | (bool)     | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか  | true                    | false                   |
-| mime_types    | (string[]) | 対応MIMEタイプ                                                    | <pre>- text/xml</pre>   | <pre>- text/plain</pre> |
+| Key           | Type   | Description                                                       | Example                 | Default |
+|---------------|--------|-------------------------------------------------------------------|-------------------------|---------|
+| header_regexp | string | ヘッダ行のキーを抽出する正規表現 :fa-exclamation-triangle:        | <pre>^\d+\)(.+)</pre>   |         |
+| record_regexp | string | レコード行のkey/valueを抽出する正規表現 :fa-exclamation-triangle: | <pre>([^ ]+) (.+)</pre> |         |
+| force         | (bool) | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか  | true                    | false   |
 
 !!! warning "header_regexpの正規表現について"
 
@@ -201,20 +166,17 @@ res2dict:
 
     以下のいずれかに一致する場合
 
-    * MIMEタイプ が `mime_types` のいずれにも一致しない場合
     * 既にアドオンでdict型に変換済みの場合
 
 
 #### Examples
 
-##### MIMEタイプが `text/xml` のときだけINIファイルっぽい形式に変換する
+##### INIファイルっぽい形式に変換する
 
 ```yml
 res2dict:
   - name: block
     config:
-      mime_types:
-        - text/xml
       header_regexp: '\[(.+)\]'
       record_regexp: '([^:]+): (.+)'
 ```
