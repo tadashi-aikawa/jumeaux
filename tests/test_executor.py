@@ -328,9 +328,11 @@ class TestChallenge:
             },
             "one": {
                 "url": 'http://one/challenge?q1=1',
+                "type": "unknown",
             },
             "other": {
                 "url": 'http://other/challenge?q1=1',
+                "type": "unknown",
             }
         }
 
