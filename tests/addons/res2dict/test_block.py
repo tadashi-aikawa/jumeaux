@@ -56,7 +56,8 @@ PATTERN1 = ("Normal",
                 },
                 "url": "http://test",
                 "status_code": 200,
-                "elapsed": datetime.timedelta(seconds=1)
+                "elapsed": datetime.timedelta(seconds=1),
+                "elapsed_sec": 1.0,
             }),
             {
                 "Module1": {
@@ -86,7 +87,8 @@ PATTERN2 = ("Normal",
                 },
                 "url": "http://test",
                 "status_code": 200,
-                "elapsed": datetime.timedelta(seconds=1)
+                "elapsed": datetime.timedelta(seconds=1),
+                "elapsed_sec": 1.0,
             }),
             {
                 "Module1": {
@@ -116,7 +118,8 @@ NO_END_LINEBREAK = ("No end linebreak",
                         },
                         "url": "http://test",
                         "status_code": 200,
-                        "elapsed": datetime.timedelta(seconds=1)
+                        "elapsed": datetime.timedelta(seconds=1),
+                        "elapsed_sec": 1.0,
                     }),
                     {
                         "Module1": {

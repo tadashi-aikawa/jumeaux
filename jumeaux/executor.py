@@ -133,10 +133,6 @@ def http_get(args: Tuple[Any, str, TDict[str], TDict[str]]):
     return r
 
 
-def to_sec(elapsed):
-    return round(elapsed.seconds + elapsed.microseconds / 1000000, 2)
-
-
 def concurrent_request(session, headers: TDict[str], url_one, url_other, proxies_one, proxies_other):
     fs = ((session, url_one, headers, proxies_one),
           (session, url_other, headers, proxies_other))
@@ -162,7 +158,7 @@ def res2dict(res: Response) -> TOption[dict]:
 
 def judgement(r_one: Response, r_other: Response,
               d_one: TOption[DictOrList], d_other: TOption[dict],
-              name: str, path: str, qs: TDict[TList[str]], headers: TList[str],
+              name: str, path: str, qs: TDict[TList[str]], headers: TDict[str],
               diff_keys: Optional[DiffKeys]) -> Status:
     regard_as_same: bool = global_addon_executor.apply_judgement(
         JudgementAddOnPayload.from_dict({
@@ -207,6 +203,10 @@ def dump(res: Response):
         "body": res.body,
         "encoding": res.encoding
     })).body
+
+
+def to_sec(elapsed):
+    return round(elapsed.seconds + elapsed.microseconds / 1000000, 2)
 
 
 def challenge(arg: ChallengeArg) -> dict:
@@ -286,7 +286,7 @@ def challenge(arg: ChallengeArg) -> dict:
     status: Status = judgement(res_one, res_other, dict_one, dict_other,
                                name, arg.req.path, arg.req.qs, arg.req.headers, diff_keys)
     status_symbol = "O" if status == Status.SAME else "X"
-    log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{to_sec(res_one.elapsed):.2f}s - {to_sec(res_other.elapsed):.2f}s> {arg.req.name.get_or(arg.req.path)}" # noqa
+    log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{res_one.elapsed_sec}s - {res_other.elapsed_sec}s> {arg.req.name.get_or(arg.req.path)}" # noqa
     (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
 
     file_one = file_other = None
@@ -312,7 +312,7 @@ def challenge(arg: ChallengeArg) -> dict:
                 "type": res_one.type,
                 "status_code": res_one.status_code,
                 "byte": len(res_one.body),
-                "response_sec": to_sec(res_one.elapsed),
+                "response_sec": res_one.elapsed_sec,
                 "content_type": res_one.content_type,
                 "mime_type": res_one.mime_type,
                 "encoding": res_one.encoding,
@@ -323,7 +323,7 @@ def challenge(arg: ChallengeArg) -> dict:
                 "type": res_other.type,
                 "status_code": res_other.status_code,
                 "byte": len(res_other.body),
-                "response_sec": to_sec(res_other.elapsed),
+                "response_sec": res_other.elapsed_sec,
                 "content_type": res_other.content_type,
                 "mime_type": res_other.mime_type,
                 "encoding": res_other.encoding,

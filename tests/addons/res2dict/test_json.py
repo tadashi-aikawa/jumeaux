@@ -32,7 +32,8 @@ NORMAL_CASE = ("Normal",
                    },
                    "url": "http://test",
                    "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
+                   "elapsed": datetime.timedelta(seconds=1),
+                   "elapsed_sec": 1.0,
                }),
                {
                    "total": 10,
@@ -63,7 +64,8 @@ ARRAY_TOP_CASE = ("Array top",
                       },
                       "url": "http://test",
                       "status_code": 200,
-                      "elapsed": datetime.timedelta(seconds=1)
+                      "elapsed": datetime.timedelta(seconds=1),
+                      "elapsed_sec": 1.0,
                   }),
                   ["一郎", "Jiro"]
                   )
@@ -80,7 +82,8 @@ EMPTY_ENCODING_CASE = ("Encoding is empty (Decode as utf8)",
                            },
                            "url": "http://test",
                            "status_code": 200,
-                           "elapsed": datetime.timedelta(seconds=1)
+                           "elapsed": datetime.timedelta(seconds=1),
+                           "elapsed_sec": 1.0,
                        }),
                        {
                            "total": 10,
@@ -111,7 +114,8 @@ NOT_JSON_CASE = ("Response is not json",
                      },
                      "url": "http://test",
                      "status_code": 200,
-                     "elapsed": datetime.timedelta(seconds=1)
+                     "elapsed": datetime.timedelta(seconds=1),
+                     "elapsed_sec": 1.0,
                  }),
                  None
                  )

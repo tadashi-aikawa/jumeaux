@@ -23,7 +23,7 @@ def apply_first_condition(res: Response, req: Request, conditions: TList[Conditi
     # TODO: remove TOption (owlmixin... find)
     condition: TOption[Condition] = TOption(
         conditions.find(
-            lambda c: c.when.map(lambda x: when_filter(x, {'req': req.to_dict(), 'res': res.to_dict()})).get_or(True)
+            lambda c: c.when.map(lambda x: when_filter(x, {'req': req, 'res': res})).get_or(True)
         )
     )
     if condition.is_none():
@@ -38,6 +38,7 @@ def apply_first_condition(res: Response, req: Request, conditions: TList[Conditi
             "url": res.url,
             "status_code": res.status_code,
             "elapsed": res.elapsed,
+            "elapsed_sec": res.elapsed_sec,
         },
     )
 

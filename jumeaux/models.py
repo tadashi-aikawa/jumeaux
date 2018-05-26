@@ -8,7 +8,6 @@ from owlmixin.owlcollections import TList, TDict
 from owlmixin.owlenum import OwlEnum
 from requests.structures import CaseInsensitiveDict as RequestsCaseInsensitiveDict
 
-
 DictOrList = any
 
 
@@ -162,6 +161,7 @@ class Response(OwlMixin):
     url: str
     status_code: int
     elapsed: datetime.timedelta
+    elapsed_sec: float
     type: str
 
     @property
@@ -216,6 +216,7 @@ class Response(OwlMixin):
             'url': res.url,
             'status_code': res.status_code,
             'elapsed': res.elapsed,
+            'elapsed_sec': round(res.elapsed.seconds + res.elapsed.microseconds / 1000000, 2),
             'type': type,
         })
 
@@ -235,6 +236,7 @@ class ChallengeArg(OwlMixin):
     default_response_encoding_one: TOption[str]
     default_response_encoding_other: TOption[str]
     res_dir: str
+
 
 # --------
 
@@ -394,4 +396,3 @@ class FinalAddOnPayload(OwlMixin):
     @property
     def result_path(self) -> str:
         return f"{self.output_summary.response_dir}/{self.report.key}"
-

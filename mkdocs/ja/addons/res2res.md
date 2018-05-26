@@ -182,10 +182,10 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 
 !!! info "whenで指定できるプロパティ"
 
-    | key | Description |
-    |-----|-------------|
-    | req | [request]   |
-    | res | [response]  |
+    | key | Type                 | Description    |
+    |-----|----------------------|----------------|
+    | req | [Request][request]   | リクエスト情報 |
+    | res | [Response][response] | レスポンス情報 |
 
 
 #### Examples

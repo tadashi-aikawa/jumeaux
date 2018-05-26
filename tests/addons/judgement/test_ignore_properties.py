@@ -51,7 +51,8 @@ RES_ONE = Response.from_dict({
     'headers': CaseInsensitiveDict({}),
     'url': 'url',
     'status_code': 200,
-    'elapsed': datetime.timedelta(seconds=1)
+    'elapsed': datetime.timedelta(seconds=1),
+    "elapsed_sec": 1.0,
 })
 
 RES_OTHER = Response.from_dict({
@@ -60,7 +61,8 @@ RES_OTHER = Response.from_dict({
     'headers': CaseInsensitiveDict({}),
     'url': 'url',
     'status_code': 200,
-    'elapsed': datetime.timedelta(seconds=2)
+    'elapsed': datetime.timedelta(seconds=2),
+    "elapsed_sec": 2.0,
 })
 
 

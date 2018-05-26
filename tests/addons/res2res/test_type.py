@@ -19,7 +19,8 @@ def make_response(type: str, status_code: int) -> Response:
         },
         "url": "http://test",
         "status_code": status_code,
-        "elapsed": datetime.timedelta(seconds=1)
+        "elapsed": datetime.timedelta(seconds=1),
+        "elapsed_sec": 1.0,
     })
 
 
@@ -47,7 +48,8 @@ CHANGE_IF_CONDITION_RES_IS_FULFILLED = (
             },
             "url": "http://test",
             "status_code": 200,
-            "elapsed": datetime.timedelta(seconds=1)
+            "elapsed": datetime.timedelta(seconds=1),
+            "elapsed_sec": 1.0,
         }
     }
 )
@@ -77,7 +79,8 @@ CHANGE_IF_CONDITION_REQ_IS_FULFILLED = (
             },
             "url": "http://test",
             "status_code": 200,
-            "elapsed": datetime.timedelta(seconds=1)
+            "elapsed": datetime.timedelta(seconds=1),
+            "elapsed_sec": 1.0,
         }
     }
 )
@@ -107,7 +110,8 @@ CHANGE_ONLY_FIST_ONE_IF_CONDITION_IS_FULFILLED = (
             },
             "url": "http://test",
             "status_code": 200,
-            "elapsed": datetime.timedelta(seconds=1)
+            "elapsed": datetime.timedelta(seconds=1),
+            "elapsed_sec": 1.0,
         }
     }
 )
@@ -135,7 +139,8 @@ NOT_CHANGE_IF_CONDITION_IS_NOT_FULFILLED = (
             },
             "url": "http://test",
             "status_code": 200,
-            "elapsed": datetime.timedelta(seconds=1)
+            "elapsed": datetime.timedelta(seconds=1),
+            "elapsed_sec": 1.0,
         }
     }
 )

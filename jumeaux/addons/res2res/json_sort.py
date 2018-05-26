@@ -95,6 +95,7 @@ class Executor(Res2ResExecutor):
                 "url": res.url,
                 "status_code": res.status_code,
                 "elapsed": res.elapsed,
+                "elapsed_sec": res.elapsed_sec,
             },
             "req": payload.req,
         })

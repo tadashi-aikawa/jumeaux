@@ -35,7 +35,8 @@ NORMAL_CASE = ("Normal",
                    },
                    "url": "http://test",
                    "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
+                   "elapsed": datetime.timedelta(seconds=1),
+                   "elapsed_sec": 1.0,
                }),
                {
                    "catalog": {
@@ -59,7 +60,8 @@ EMPTY_ENCODING_CASE = ("Encoding is empty (as utf8)",
                            },
                            "url": "http://test",
                            "status_code": 200,
-                           "elapsed": datetime.timedelta(seconds=1)
+                           "elapsed": datetime.timedelta(seconds=1),
+                           "elapsed_sec": 1.0,
                        }),
                        {
                            "catalog": {
@@ -84,7 +86,8 @@ NOT_XML_CASE = ("Response is not xml.",
                     },
                     "url": "http://test",
                     "status_code": 200,
-                    "elapsed": datetime.timedelta(seconds=1)
+                    "elapsed": datetime.timedelta(seconds=1),
+                    "elapsed_sec": 1.0,
                 }),
                 None
                 )
