@@ -139,6 +139,20 @@ assert_not_exists() {
   [[ $(jq '.summary.status.different' responses/latest/report.json) -eq 1 ]]
 }
 
+@test "Run force_json" {
+  $JUMEAUX init force_json
+  $JUMEAUX run requests
+
+  assert_exists responses
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+  [[ $(jq '.trials[0].one.type' responses/latest/report.json) == '"plain"' ]]
+  [[ $(jq '.trials[0].other.type' responses/latest/report.json) == '"plain"' ]]
+  [[ $(jq '.trials[1].one.type' responses/latest/report.json) == '"json"' ]]
+  [[ $(jq '.trials[1].other.type' responses/latest/report.json) == '"json"' ]]
+}
 
 @test "Run with log level options" {
   $JUMEAUX init simple
