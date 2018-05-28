@@ -3,7 +3,7 @@ Jumeaux
 
 |pypi| |travis| |coverage| |complexity| |versions| |license|
 
-.. image:: ./logo.png
+.. image:: https://github.com/tadashi-aikawa/jumeaux/blob/master/logo.png?raw=true
    :height: 400px
    :width: 400px
 
