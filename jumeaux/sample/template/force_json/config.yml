@@ -1,4 +1,4 @@
-title: Ignore order
+title: force_json
 
 one:
   name: One endpoint
@@ -13,27 +13,29 @@ output:
 
 addons:
   log2reqs:
-    name: csv
+    name: plain
+
+  res2res:
+    - name: type
+      config:
+        conditions:
+          - type: json
+            when: "'json' in req.path"
 
   res2dict:
     - name: json
-
-  res2res:
-    - name: json_sort
-      config:
-        items:
-          - conditions:
-              - path:
-                  items:
-                    - regexp: /M-.+
-            targets:
-              - path: root<'list1'><0><'favorite'>
 
   store_criterion:
     - name: general
       config:
         statuses:
           - different
+
+  did_challenge:
+    - name: sleep
+      config:
+        min: 0.5
+        max: 0.5
 
   dump:
     - name: json

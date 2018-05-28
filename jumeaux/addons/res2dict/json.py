@@ -14,9 +14,6 @@ LOG_PREFIX = "[res2dict/json]"
 
 class Config(OwlMixin):
     force: bool = False
-    mime_types: TList[str] = [
-        'test/json', 'application/json'
-    ]
 
 
 class Executor(Res2DictExecutor):
@@ -25,20 +22,18 @@ class Executor(Res2DictExecutor):
 
     def exec(self, payload: Res2DictAddOnPayload) -> Res2DictAddOnPayload:
         if not payload.result.is_none() and not self.config.force:
-            logger.debug(f"{LOG_PREFIX} Skipped because result is nothing.")
+            logger.debug(f"{LOG_PREFIX} Skipped because result is already existed.")
             return payload
-
-        mime_type: str = payload.response.mime_type.get()
 
         result: DictOrList
         if self.config.force:
             logger.debug(f"{LOG_PREFIX} Force to convert to dict as json")
             result = json.loads(payload.response.text)
-        elif mime_type in self.config.mime_types:
-            logger.debug(f"{LOG_PREFIX} Convert to dict as json becuase mime-type is one of {self.config.mime_types}.")
+        elif payload.response.type == 'json':
+            logger.debug(f"{LOG_PREFIX} Convert to dict as json because this response is json.")
             result = json.loads(payload.response.text)
         else:
-            logger.debug(f"{LOG_PREFIX} Skipped because mime-type is not one of {self.config.mime_types}")
+            logger.debug(f"{LOG_PREFIX} Skipped because this response is not json.")
             result = None
 
         return Res2DictAddOnPayload.from_dict({

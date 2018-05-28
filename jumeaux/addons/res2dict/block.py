@@ -16,9 +16,6 @@ class Config(OwlMixin):
     force: bool = False
     header_regexp: str
     record_regexp: str
-    mime_types: TList[str] = [
-        'text/plain'
-    ]
 
 
 def config_generator(blockstr: str, header_regexp: str, record_regexp: str):
@@ -53,21 +50,16 @@ class Executor(Res2DictExecutor):
 
     def exec(self, payload: Res2DictAddOnPayload) -> Res2DictAddOnPayload:
         if not payload.result.is_none() and not self.config.force:
-            logger.debug(f"{LOG_PREFIX} Skipped because result is nothing.")
+            logger.debug(f"{LOG_PREFIX} Skipped because result is already existed.")
             return payload
-
-        mime_type: str = payload.response.mime_type.get()
 
         result: DictOrList
         if self.config.force:
             logger.debug(f"{LOG_PREFIX} Force to convert to dict as block")
             result = to_dict(payload.response.text, self.config.header_regexp, self.config.record_regexp)
-        elif mime_type in self.config.mime_types:
-            logger.debug(f"{LOG_PREFIX} Convert to dict as block becuase mime-type is one of {self.config.mime_types}.")
-            result = to_dict(payload.response.text, self.config.header_regexp, self.config.record_regexp)
         else:
-            logger.debug(f"{LOG_PREFIX} Skipped because mime-type is not one of {self.config.mime_types}")
-            result = None
+            logger.debug(f"{LOG_PREFIX} Convert to dict as block")
+            result = to_dict(payload.response.text, self.config.header_regexp, self.config.record_regexp)
 
         return Res2DictAddOnPayload.from_dict({
             "response": payload.response,

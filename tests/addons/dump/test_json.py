@@ -25,13 +25,15 @@ NORMAL_CASE = ("Normal",
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('euc-jp'),
+                   "type": "json",
                    "encoding": 'euc-jp',
                    "headers": {
                        "content-type": "application/json; charset=euc-jp"
                    },
                    "url": "http://test",
                    "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
+                   "elapsed": datetime.timedelta(seconds=1),
+                   "elapsed_sec": 1.0,
                }),
                NORMAL_BODY.encode('euc-jp'),
                'euc-jp',
@@ -64,13 +66,15 @@ CORRUPTION_CASE = ("Corruption",
                """,
                Response.from_dict({
                    "body": CORRUPTION_BODY_BYTES,
+                   "type": "json",
                    "encoding": 'euc-jp',
                    "headers": {
                        "content-type": "application/json; charset=euc-jp"
                    },
                    "url": "http://test",
                    "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
+                   "elapsed": datetime.timedelta(seconds=1),
+                   "elapsed_sec": 1.0,
                }),
                CORRUPTION_BODY_BYTES,
                'euc-jp',

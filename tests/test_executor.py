@@ -175,6 +175,7 @@ class TestChallenge:
             },
             "one": {
                 "file": "one/(1)name1",
+                "type": "json",
                 "url": 'URL_ONE',
                 "status_code": 200,
                 "byte": 20,
@@ -185,6 +186,7 @@ class TestChallenge:
             },
             "other": {
                 "file": "other/(1)name1",
+                "type": "json",
                 "url": 'URL_OTHER',
                 "status_code": 400,
                 "byte": 23,
@@ -260,6 +262,7 @@ class TestChallenge:
             },
             "one": {
                 "url": 'URL_ONE',
+                "type": "plain",
                 "status_code": 200,
                 "byte": 1,
                 "response_sec": 1.23,
@@ -269,6 +272,7 @@ class TestChallenge:
             },
             "other": {
                 "url": 'URL_OTHER',
+                "type": "plain",
                 "status_code": 200,
                 "byte": 1,
                 "response_sec": 9.88,
@@ -324,9 +328,11 @@ class TestChallenge:
             },
             "one": {
                 "url": 'http://one/challenge?q1=1',
+                "type": "unknown",
             },
             "other": {
                 "url": 'http://other/challenge?q1=1',
+                "type": "unknown",
             }
         }
 
@@ -616,6 +622,7 @@ class TestExec:
                 },
                 "one": {
                     "file": "one/(1)name1",
+                    "type": "json",
                     "url": 'URL_ONE',
                     "status_code": 200,
                     "byte": 20,
@@ -625,6 +632,7 @@ class TestExec:
                 },
                 "other": {
                     "file": "other/(1)name1",
+                    "type": "json",
                     "url": 'URL_OTHER',
                     "status_code": 400,
                     "byte": 23,
@@ -649,6 +657,7 @@ class TestExec:
                 },
                 "one": {
                     "file": "one/(2)name2",
+                    "type": "unknown",
                     "url": 'URL_ONE',
                     "status_code": 200,
                     "byte": 1,
@@ -656,6 +665,7 @@ class TestExec:
                 },
                 "other": {
                     "file": "other/(2)name2",
+                    "type": "unknown",
                     "url": 'URL_OTHER',
                     "status_code": 200,
                     "byte": 1,
@@ -792,6 +802,7 @@ class TestExec:
                     },
                     "one": {
                         "file": "one/(1)name1",
+                        "type": "json",
                         "url": 'URL_ONE',
                         "status_code": 200,
                         "byte": 20,
@@ -801,6 +812,7 @@ class TestExec:
                     },
                     "other": {
                         "file": "other/(1)name1",
+                        "type": "json",
                         "url": 'URL_OTHER',
                         "status_code": 400,
                         "byte": 23,
@@ -825,6 +837,7 @@ class TestExec:
                     },
                     "one": {
                         "file": "one/(2)name2",
+                        "type": "unknown",
                         "url": 'URL_ONE',
                         "status_code": 200,
                         "byte": 1,
@@ -832,6 +845,7 @@ class TestExec:
                     },
                     "other": {
                         "file": "other/(2)name2",
+                        "type": "unknown",
                         "url": 'URL_OTHER',
                         "status_code": 200,
                         "byte": 1,

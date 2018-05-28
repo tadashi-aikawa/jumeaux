@@ -3,9 +3,10 @@ Jumeaux
 
 |pypi| |travis| |coverage| |complexity| |versions| |license|
 
-.. raw:: html
+.. image:: https://github.com/tadashi-aikawa/jumeaux/blob/master/logo.png?raw=true
+   :height: 400px
+   :width: 400px
 
-   <img src="./logo.png" width=400 height=400 />
 
 Check difference between two responses of API.
 

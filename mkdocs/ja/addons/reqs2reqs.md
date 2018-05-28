@@ -335,6 +335,12 @@ reqs2reqs:
 
 ##### Root
 
+| Key        | Type                      | Description  | Example | Default |
+|------------|---------------------------|--------------|---------|---------|
+| conditions | [Condition[]][#condition] | 変更値と条件 |         |         |
+
+##### Condition
+
 | Key  | Type | Description                                   | Example                   | Default |
 |------|------|-----------------------------------------------|---------------------------|---------|
 | name | str  | 変更後の名称テンプレート :fa-info-circle:     | <pre>{name}({path})</pre> |         |
@@ -342,7 +348,7 @@ reqs2reqs:
 
 [jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
 
-!!! info "whenで指定できるプロパティ"
+!!! info "nameとwhenで指定できるプロパティ"
 
     [request]で定義されたプロパティを指定することができます。
 

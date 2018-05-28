@@ -560,6 +560,79 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#type" title="type" class="md-nav__link">
+    type
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_2" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_2" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root_2" title="Root" class="md-nav__link">
+    Root
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#condition" title="Condition" class="md-nav__link">
+    Condition
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_2" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pathtargetjsontype" title="pathにtargetという文字列が含まれる場合にjsonへtypeを変更する" class="md-nav__link">
+    pathにtargetという文字列が含まれる場合にjsonへtypeを変更する
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -711,6 +784,18 @@
   <li class="md-nav__item">
     <a href="../../models/request-condition/" title="RequestCondition" class="md-nav__link">
       RequestCondition
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../models/response/" title="Response" class="md-nav__link">
+      Response
     </a>
   </li>
 
@@ -900,6 +985,79 @@
           <li class="md-nav__item">
   <a href="#pathfilter-list2-id-name" title="pathが/filterである場合 list2 のリストをid, nameの優先順にソートする" class="md-nav__link">
     pathが/filterである場合 list2 のリストをid, nameの優先順にソートする
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type" title="type" class="md-nav__link">
+    type
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_2" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_2" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root_2" title="Root" class="md-nav__link">
+    Root
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#condition" title="Condition" class="md-nav__link">
+    Condition
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_2" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pathtargetjsontype" title="pathにtargetという文字列が含まれる場合にjsonへtypeを変更する" class="md-nav__link">
+    pathにtargetという文字列が含まれる場合にjsonへtypeを変更する
   </a>
   
 </li>
@@ -1159,6 +1317,94 @@
           targets:
             - path: root&lt;&#39;list2&#39;&gt;
               sort_keys: [id, name]
+</pre></div>
+
+<h2 id="type"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/type.py"><i class="fa fa-github"></i></a> type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h2>
+<p>レスポンスのtypeを変更します。<br />
+typeはJumeauxのアドオンや連携先アプリケーションでファイル形式を判定するために使用されます。</p>
+<h3 id="config_2">Config<a class="headerlink" href="#config_2" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_2">Definitions<a class="headerlink" href="#definitions_2" title="Permanent link">&para;</a></h4>
+<h5 id="root_2">Root<a class="headerlink" href="#root_2" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>conditions</td>
+<td><a href="#condition">Condition[]</a></td>
+<td>変更値と条件</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="condition">Condition<a class="headerlink" href="#condition" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>str</td>
+<td>変更後のtype</td>
+<td>json</td>
+<td></td>
+</tr>
+<tr>
+<td>when</td>
+<td>str</td>
+<td><a href="http://jinja.pocoo.org/docs/2.10/templates/#expressions">jinja2の式</a>に準拠した条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>"res.status_code == 200"</pre></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">whenで指定できるプロパティ</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>req</td>
+<td><a href="../../../ja/models/request">Request</a></td>
+<td>リクエスト情報</td>
+</tr>
+<tr>
+<td>res</td>
+<td><a href="../../../ja/models/response">Response</a></td>
+<td>レスポンス情報</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
+<h5 id="pathtargetjsontype">pathに<code>target</code>という文字列が含まれる場合に<code>json</code>へtypeを変更する<a class="headerlink" href="#pathtargetjsontype" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>res2res:
+  - name: type
+    config:
+      conditions:
+        - type: json
+          when: &quot;&#39;target&#39; in req.path&quot;
 </pre></div>
                 
                   

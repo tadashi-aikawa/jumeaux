@@ -11,7 +11,7 @@ APIレスポンスを保存前に加工します。
 
 [json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/json.py
 
-レスポンスをJSON形式でフォーマットします。
+レスポンスがJSONの場合にJSON形式でフォーマットします。
 
 * インデント(4)
 * 改行
@@ -25,11 +25,10 @@ APIレスポンスを保存前に加工します。
 
 #### Definitions
 
-|       Key        |    Type    |                              Description                               |        Example         |                    Default                    |
-| ---------------- | ---------- | ---------------------------------------------------------------------- | ---------------------- | --------------------------------------------- |
-| default_encoding | (string)   | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                 | utf8                                          |
-| mime_types       | (string[]) | 対応MIMEタイプ                                                         | <pre>- text/json</pre> | <pre>- text/json<br/>- application/json</pre> |
-| force            | (bool)     | MIMEタイプが未対応の場合でも強制的に変換するか                         | true                   | false                                         |
+| Key              | Type     | Description                                                            | Example | Default |
+|------------------|----------|------------------------------------------------------------------------|---------|---------|
+| default_encoding | (string) | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp  | utf8    |
+| force            | (bool)   | typeがjson以外の場合も強制的に変換するか                               | true    | false   |
 
 
 #### Examples
@@ -50,17 +49,7 @@ dump:
       default_encoding: euc-jp
 ```
 
-##### MIMEタイプが `application/json` の時だけJSON形式でフォーマットする
-
-```yaml
-dump:
-  - name: json
-    config:
-      mime_types:
-        - application/json
-```
-
-##### MIMEタイプに関係なく JSON形式でフォーマットする
+##### typeに関わらずJSON形式でフォーマットする
 
 ```yaml
 dump:
@@ -75,7 +64,7 @@ dump:
 
 [xml]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/xml.py
 
-レスポンスをXML形式でフォーマットします。
+レスポンスがXMLの場合にXML形式でフォーマットします。
 
 * インデント(4)
 * 改行
@@ -85,11 +74,10 @@ dump:
 
 #### Definitions
 
-|       Key        |    Type    |                              Description                               |        Example        |                   Default                   |
-| ---------------- | ---------- | ---------------------------------------------------------------------- | --------------------- | ------------------------------------------- |
-| default_encoding | (string)   | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                | utf8                                        |
-| mime_types       | (string[]) | 対応MIMEタイプ                                                         | <pre>- text/xml</pre> | <pre>- text/xml<br/>- application/xml</pre> |
-| force            | (bool)     | MIMEタイプが未対応の場合でも強制的に変換するか                         | true                  | false                                       |
+| Key              | Type     | Description                                                            | Example | Default |
+|------------------|----------|------------------------------------------------------------------------|---------|---------|
+| default_encoding | (string) | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp  | utf8    |
+| force            | (bool)   | typeがxml以外の場合も強制的に変換するか                                | true    | false   |
 
 
 #### Examples
@@ -110,17 +98,7 @@ dump:
       default_encoding: euc-jp
 ```
 
-##### MIMEタイプが `text/xml` の時だけXML形式でフォーマットする
-
-```yaml
-dump:
-  - name: xml
-    config:
-      mime_types:
-        - text/xml
-```
-
-##### MIMEタイプに関係なく XML形式でフォーマットする
+##### typeに関わらずXML形式でフォーマットする
 
 ```yaml
 dump:
@@ -145,11 +123,10 @@ dump:
 
 #### Definitions
 
-| Key              | Type       | Description                                                            | Example                 | Default                |
-|------------------|------------|------------------------------------------------------------------------|-------------------------|------------------------|
-| default_encoding | (string)   | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                  | utf8                   |
-| mime_types       | (string[]) | 対応MIMEタイプ                                                         | <pre>- text/xhtml</pre> | <pre>- text/html</pre> |
-| force            | (bool)     | MIMEタイプが未対応の場合でも強制的に変換するか                         | true                    | false                  |
+| Key              | Type     | Description                                                            | Example | Default |
+|------------------|----------|------------------------------------------------------------------------|---------|---------|
+| default_encoding | (string) | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp  | utf8    |
+| force            | (bool)   | typeがhtml以外の場合も強制的に変換するか                               | true    | false   |
 
 
 #### Examples
@@ -170,17 +147,7 @@ dump:
       default_encoding: euc-jp
 ```
 
-##### MIMEタイプが `text/xhml` の時だけHTML形式でフォーマットする
-
-```yaml
-dump:
-  - name: html
-    config:
-      mime_types:
-        - text/html
-```
-
-##### MIMEタイプに関係なく HTML形式でフォーマットする
+#### typeに関わらずHTML形式でフォーマットする
 
 ```yaml
 dump:

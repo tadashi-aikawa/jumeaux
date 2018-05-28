@@ -14,8 +14,6 @@ output:
 addons:
   log2reqs:
     name: plain
-    config:
-      encoding: utf8
 
   res2dict:
     - name: xml

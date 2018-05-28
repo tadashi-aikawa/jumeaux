@@ -450,13 +450,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#mime-applicationjson" title="MIMEタイプが application/json のときだけ変換する" class="md-nav__link">
-    MIMEタイプが application/json のときだけ変換する
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -513,13 +506,6 @@
           <li class="md-nav__item">
   <a href="#_2" title="変換する必要がないケースでも強制的に変換する" class="md-nav__link">
     変換する必要がないケースでも強制的に変換する
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mime-textxml" title="MIMEタイプが text/xml のときだけ変換する" class="md-nav__link">
-    MIMEタイプが text/xml のときだけ変換する
   </a>
   
 </li>
@@ -584,13 +570,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#mime-textxhtml" title="MIMEタイプが text/xhtml のときだけ変換する" class="md-nav__link">
-    MIMEタイプが text/xhtml のときだけ変換する
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -638,8 +617,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mime-textxml-ini" title="MIMEタイプが text/xml のときだけINIファイルっぽい形式に変換する" class="md-nav__link">
-    MIMEタイプが text/xml のときだけINIファイルっぽい形式に変換する
+  <a href="#ini" title="INIファイルっぽい形式に変換する" class="md-nav__link">
+    INIファイルっぽい形式に変換する
   </a>
   
 </li>
@@ -883,6 +862,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../models/response/" title="Response" class="md-nav__link">
+      Response
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -965,13 +956,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#mime-applicationjson" title="MIMEタイプが application/json のときだけ変換する" class="md-nav__link">
-    MIMEタイプが application/json のときだけ変換する
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1028,13 +1012,6 @@
           <li class="md-nav__item">
   <a href="#_2" title="変換する必要がないケースでも強制的に変換する" class="md-nav__link">
     変換する必要がないケースでも強制的に変換する
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mime-textxml" title="MIMEタイプが text/xml のときだけ変換する" class="md-nav__link">
-    MIMEタイプが text/xml のときだけ変換する
   </a>
   
 </li>
@@ -1099,13 +1076,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#mime-textxhtml" title="MIMEタイプが text/xhtml のときだけ変換する" class="md-nav__link">
-    MIMEタイプが text/xhtml のときだけ変換する
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1153,8 +1123,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mime-textxml-ini" title="MIMEタイプが text/xml のときだけINIファイルっぽい形式に変換する" class="md-nav__link">
-    MIMEタイプが text/xml のときだけINIファイルっぽい形式に変換する
+  <a href="#ini" title="INIファイルっぽい形式に変換する" class="md-nav__link">
+    INIファイルっぽい形式に変換する
   </a>
   
 </li>
@@ -1277,7 +1247,7 @@
                 <h1 id="res2dict">res2dict <a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict"><i class="fa fa-github"></i></a><a class="headerlink" href="#res2dict" title="Permanent link">&para;</a></h1>
 <p>APIレスポンスを差分比較に必要なdictへ変換します。</p>
 <h2 id="json"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/json.py"><i class="fa fa-github"></i></a> json<a class="headerlink" href="#json" title="Permanent link">&para;</a></h2>
-<p>JSONレスポンスをdictに変換します。</p>
+<p>JSONレスポンスをdictに変換します。  </p>
 <h3 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
 <h4 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h4>
 <table>
@@ -1298,20 +1268,13 @@
 <td>true</td>
 <td>false</td>
 </tr>
-<tr>
-<td>mime_types</td>
-<td>(string[])</td>
-<td>対応MIMEタイプ</td>
-<td><pre>- text/json</pre></td>
-<td><pre>- text/json<br/>- application/json</pre></td>
-</tr>
 </tbody>
 </table>
 <div class="admonition info">
 <p class="admonition-title"><code>force</code> 変換する必要がないケース</p>
 <p>以下のいずれかに一致する場合</p>
 <ul>
-<li>MIMEタイプ が <code>mime_types</code> のいずれにも一致しない場合</li>
+<li>レスポンスのtypeがjsonではない</li>
 <li>既にアドオンでdict型に変換済みの場合</li>
 </ul>
 </div>
@@ -1326,14 +1289,6 @@
   - name: json
     config:
       force: true
-</pre></div>
-
-<h5 id="mime-applicationjson">MIMEタイプが <code>application/json</code> のときだけ変換する<a class="headerlink" href="#mime-applicationjson" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2dict:
-  - name: json
-    config:
-      mime_types:
-        - application/json
 </pre></div>
 
 <h2 id="xml"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/xml.py"><i class="fa fa-github"></i></a> xml<a class="headerlink" href="#xml" title="Permanent link">&para;</a></h2>
@@ -1358,20 +1313,13 @@
 <td>true</td>
 <td>false</td>
 </tr>
-<tr>
-<td>mime_types</td>
-<td>(string[])</td>
-<td>対応MIMEタイプ</td>
-<td><pre>- text/xml</pre></td>
-<td><pre>- text/xml<br/>- application/xml</pre></td>
-</tr>
 </tbody>
 </table>
 <div class="admonition info">
 <p class="admonition-title"><code>force</code> 変換する必要がないケース</p>
 <p>以下のいずれかに一致する場合</p>
 <ul>
-<li>MIMEタイプ が <code>mime_types</code> のいずれにも一致しない場合</li>
+<li>レスポンスのtypeがxmlではない</li>
 <li>既にアドオンでdict型に変換済みの場合</li>
 </ul>
 </div>
@@ -1386,14 +1334,6 @@
   - name: xml
     config:
       force: true
-</pre></div>
-
-<h5 id="mime-textxml">MIMEタイプが <code>text/xml</code> のときだけ変換する<a class="headerlink" href="#mime-textxml" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2dict:
-  - name: xml
-    config:
-      mime_types:
-        - text/xml
 </pre></div>
 
 <h2 id="html"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/html.py"><i class="fa fa-github"></i></a> html<a class="headerlink" href="#html" title="Permanent link">&para;</a></h2>
@@ -1418,20 +1358,13 @@
 <td>true</td>
 <td>false</td>
 </tr>
-<tr>
-<td>mime_types</td>
-<td>(string[])</td>
-<td>対応MIMEタイプ</td>
-<td><pre>- text/xhtml</pre></td>
-<td><pre>- text/html</pre></td>
-</tr>
 </tbody>
 </table>
 <div class="admonition info">
 <p class="admonition-title"><code>force</code> 変換する必要がないケース</p>
 <p>以下のいずれかに一致する場合</p>
 <ul>
-<li>MIMEタイプ が <code>mime_types</code> のいずれにも一致しない場合</li>
+<li>レスポンスのtypeがhtmlではない</li>
 <li>既にアドオンでdict型に変換済みの場合</li>
 </ul>
 </div>
@@ -1446,14 +1379,6 @@
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
     <span class="l l-Scalar l-Scalar-Plain">config</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">force</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-</pre></div>
-
-<h5 id="mime-textxhtml">MIMEタイプが <code>text/xhtml</code> のときだけ変換する<a class="headerlink" href="#mime-textxhtml" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">res2dict</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
-    <span class="l l-Scalar l-Scalar-Plain">config</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">mime_types</span><span class="p p-Indicator">:</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">text/xhtml</span>
 </pre></div>
 
 <h2 id="block"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/block.py"><i class="fa fa-github"></i></a> block<a class="headerlink" href="#block" title="Permanent link">&para;</a></h2>
@@ -1493,13 +1418,6 @@
 <td>true</td>
 <td>false</td>
 </tr>
-<tr>
-<td>mime_types</td>
-<td>(string[])</td>
-<td>対応MIMEタイプ</td>
-<td><pre>- text/xml</pre></td>
-<td><pre>- text/plain</pre></td>
-</tr>
 </tbody>
 </table>
 <div class="admonition warning">
@@ -1514,17 +1432,14 @@
 <p class="admonition-title"><code>force</code> 変換する必要がないケース</p>
 <p>以下のいずれかに一致する場合</p>
 <ul>
-<li>MIMEタイプ が <code>mime_types</code> のいずれにも一致しない場合</li>
 <li>既にアドオンでdict型に変換済みの場合</li>
 </ul>
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
-<h5 id="mime-textxml-ini">MIMEタイプが <code>text/xml</code> のときだけINIファイルっぽい形式に変換する<a class="headerlink" href="#mime-textxml-ini" title="Permanent link">&para;</a></h5>
+<h5 id="ini">INIファイルっぽい形式に変換する<a class="headerlink" href="#ini" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span>res2dict:
   - name: block
     config:
-      mime_types:
-        - text/xml
       header_regexp: &#39;\[(.+)\]&#39;
       record_regexp: &#39;([^:]+): (.+)&#39;
 </pre></div>

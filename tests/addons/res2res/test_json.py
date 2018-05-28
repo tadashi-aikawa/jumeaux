@@ -18,13 +18,15 @@ TEXT = json.dumps({
 def make_response(text: str, encoding: str, body_encoding: str) -> Response:
     return Response.from_dict({
         "body": text.encode(body_encoding),
+        "type": "json",
         "encoding": encoding,
         "headers": {
             "content-type": "application/json"
         },
         "url": "http://test",
         "status_code": 200,
-        "elapsed": datetime.timedelta(seconds=1)
+        "elapsed": datetime.timedelta(seconds=1),
+        "elapsed_sec": 1.0,
     })
 
 

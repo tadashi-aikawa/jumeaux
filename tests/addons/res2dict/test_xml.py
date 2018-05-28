@@ -28,13 +28,15 @@ NORMAL_CASE = ("Normal",
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('euc-jp'),
+                   "type": "xml",
                    "encoding": 'euc-jp',
                    "headers": {
                        "content-type": "application/xml"
                    },
                    "url": "http://test",
                    "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
+                   "elapsed": datetime.timedelta(seconds=1),
+                   "elapsed_sec": 1.0,
                }),
                {
                    "catalog": {
@@ -52,12 +54,14 @@ EMPTY_ENCODING_CASE = ("Encoding is empty (as utf8)",
                        """,
                        Response.from_dict({
                            "body": NORMAL_BODY.encode('utf8'),
+                           "type": "xml",
                            "headers": {
                                "content-type": "application/xml"
                            },
                            "url": "http://test",
                            "status_code": 200,
-                           "elapsed": datetime.timedelta(seconds=1)
+                           "elapsed": datetime.timedelta(seconds=1),
+                           "elapsed_sec": 1.0,
                        }),
                        {
                            "catalog": {
@@ -69,93 +73,24 @@ EMPTY_ENCODING_CASE = ("Encoding is empty (as utf8)",
                        }
                        )
 
-INVALID_CONTENT_TYPE_CASE = ("Content type is invalid",
-               """
-               force: False 
-               """,
-               Response.from_dict({
-                   "body": NORMAL_BODY.encode('euc-jp'),
-                   "encoding": 'euc-jp',
-                   "headers": {
-                       "content-type": "hogehoge"
-                   },
-                   "url": "http://test",
-                   "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
-               }),
-               None
-               )
-
-INVALID_CONTENT_TYPE_BUT_FORCE_CASE = ("Content type is invalid but force",
-               """
-               force: True 
-               """,
-               Response.from_dict({
-                   "body": NORMAL_BODY.encode('euc-jp'),
-                   "encoding": 'euc-jp',
-                   "headers": {
-                       "content-type": "hogehoge"
-                   },
-                   "url": "http://test",
-                   "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
-               }),
-               {
-                   "catalog": {
-                       "book": [
-                           {"@id": "bk001", "author": "Ichiro", "title": "Ichiro55"},
-                           {"@id": "bk002", "author": "次郎", "title": "次郎22"}
-                       ]
-                   }
-               }
-               )
-
-SPECIFY_CONTENT_TYPES_CASE_MATCHED = ("Specify content-types matched",
-               """
-               force: False 
-               mime_types:
-                 - good/xml
-                 - great/xml
-               """,
-               Response.from_dict({
-                   "body": NORMAL_BODY.encode('euc-jp'),
-                   "encoding": 'euc-jp',
-                   "headers": {
-                       "content-type": "great/xml; charset=utf-8"
-                   },
-                   "url": "http://test",
-                   "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1)
-               }),
-               {
-                   "catalog": {
-                       "book": [
-                           {"@id": "bk001", "author": "Ichiro", "title": "Ichiro55"},
-                           {"@id": "bk002", "author": "次郎", "title": "次郎22"}
-                       ]
-                   }
-               }
-               )
-
-SPECIFY_CONTENT_TYPES_CASE_NOT_MATCHED = ("Specify content-types not matched",
-                                          """
-                                          force: False
-                                          mime_types:
-                                            - good/json
-                                            - great/json
-                                          """,
-                                          Response.from_dict({
-                                              "body": NORMAL_BODY.encode('euc-jp'),
-                                              "encoding": 'euc-jp',
-                                              "headers": {
-                                                  "content-type": "bad/xml; charset=utf-8"
-                                              },
-                                              "url": "http://test",
-                                              "status_code": 200,
-                                              "elapsed": datetime.timedelta(seconds=1)
-                                          }),
-                                          None
-                                          )
+NOT_XML_CASE = ("Response is not xml.",
+                """
+                force: False
+                """,
+                Response.from_dict({
+                    "body": NORMAL_BODY.encode('euc-jp'),
+                    "type": "json",
+                    "encoding": 'euc-jp',
+                    "headers": {
+                        "content-type": "application/json; charset=utf-8"
+                    },
+                    "url": "http://test",
+                    "status_code": 200,
+                    "elapsed": datetime.timedelta(seconds=1),
+                    "elapsed_sec": 1.0,
+                }),
+                None
+                )
 
 
 class TestExec:
@@ -163,10 +98,7 @@ class TestExec:
         'title, config_yml, response, expected_result', [
             NORMAL_CASE,
             EMPTY_ENCODING_CASE,
-            INVALID_CONTENT_TYPE_CASE,
-            INVALID_CONTENT_TYPE_BUT_FORCE_CASE,
-            SPECIFY_CONTENT_TYPES_CASE_MATCHED,
-            SPECIFY_CONTENT_TYPES_CASE_NOT_MATCHED,
+            NOT_XML_CASE,
         ]
     )
     def test(self, title, config_yml, response, expected_result):
