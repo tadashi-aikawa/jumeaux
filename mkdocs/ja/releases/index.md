@@ -4,6 +4,34 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.52.0
+
+:fa-calendar: `2018-05-28`
+
+??? info "テスト結果のtrialsにtypeプロパティを追加しました"
+
+    * 該当レスポンスがどのようなファイルタイプであるかを示すパラメータです
+    * レスポンスヘッダのcontent-typeから判断します
+      * [RFC-2045](https://tools.ietf.org/html/rfc2045#section-5.1)のsubtypeで判断します
+    * 一般的ではないtypeを変換するには[res2res/type]を使用して下さい
+
+??? info "res2res/typeアドオンを追加しました ([res2res/type])"
+
+    * 特定条件に一致する場合にtypeを変更することができます
+    * 詳しくは[res2res/type]をご覧下さい
+
+??? danger "以下アドオンのconfigから`mime_types`を削除しました"
+
+    * [res2dict/json]
+    * [res2dict/xml]
+    * [res2dict/html]
+    * [res2dict/block]
+    * [dump/html]
+    * [dump/xml]
+
+    一般的ではないmime-typeが返却される場合は[res2res/type]を使用して下さい。
+
+
 ## :package: 0.51.0
 
 :fa-calendar: `2018-05-13`
@@ -392,9 +420,11 @@ Releases
 [reqs2reqs/rename]: /ja/addons/reqs2reqs#rename
 [res2res/json]: /ja/addons/res2res#json
 [res2res/json_sort]: /ja/addons/res2res#json_sort
+[res2res/type]: /ja/addons/res2res#type
 [res2dict]: /ja/addons/res2dict
 [res2dict/json]: /ja/addons/res2dict#json
 [res2dict/html]: /ja/addons/res2dict#html
+[res2dict/xml]: /ja/addons/res2dict#xml
 [res2dict/block]: /ja/addons/res2dict#block
 [judgement/ignore_properties]: /ja/addons/judgement#ignore_properties
 [dump/xml]: /ja/addons/dump#xml
