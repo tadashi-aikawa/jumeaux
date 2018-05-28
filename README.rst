@@ -3,9 +3,10 @@ Jumeaux
 
 |pypi| |travis| |coverage| |complexity| |versions| |license|
 
-.. raw:: html
+.. image:: ./logo.png
+   :height: 400px
+   :width: 400px
 
-   <img src="./logo.png" width=400 height=400 />
 
 Check difference between two responses of API.
 
