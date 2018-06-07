@@ -1,7 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 import pytest
-from typing import Iterator
+from typing import Iterator, Callable
+
+
+@pytest.fixture
+def create_tmpfile_from(tmpdir) -> Callable[[str], str]:
+    def func(content: str) -> str:
+        tmpfile = tmpdir.join('tmpfile')
+        with tmpfile.open('w') as f:
+            f.write(content)
+        return str(tmpfile)
+
+    yield func
 
 
 @pytest.fixture

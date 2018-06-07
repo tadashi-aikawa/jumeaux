@@ -11,6 +11,7 @@ from jumeaux.models import Request, Log2ReqsAddOnPayload
 
 class Config(OwlMixin):
     encoding: str = 'utf8'
+    keep_blank: bool = False
 
 
 class Executor(Log2ReqsExecutor):
@@ -20,7 +21,8 @@ class Executor(Log2ReqsExecutor):
     def exec(self, payload: Log2ReqsAddOnPayload) -> TList[Request]:
         def line_to_request(line: str) -> Request:
             path = line.split('?')[0]
-            qs = urlparser.parse_qs(line.split('?')[1]) if len(line.split('?')) > 1 else {}
+            qs = urlparser.parse_qs(line.split('?')[1], keep_blank_values=self.config.keep_blank) \
+                if len(line.split('?')) > 1 else {}
             return Request.from_dict({"path": path, "qs": qs, "headers": {}})
 
         with open(payload.file, encoding=self.config.encoding) as f:
