@@ -12,6 +12,7 @@ from jumeaux.models import Request, Log2ReqsAddOnPayload
 
 class Config(OwlMixin):
     encoding: str = 'utf8'
+    keep_blank: bool = False
     dialect: str = 'excel'
 
 
@@ -36,10 +37,10 @@ class Executor(Log2ReqsExecutor):
             for r in rs:
                 if len(r) > 4:
                     raise ValueError
-                r['qs'] = urlparser.parse_qs(r['qs'])
+                r['qs'] = urlparser.parse_qs(r['qs'], keep_blank_values=self.config.keep_blank)
 
                 # XXX: This is bad implementation but looks simple...
-                r['headers'] = urlparser.parse_qs(r['headers'])
+                r['headers'] = urlparser.parse_qs(r['headers'], keep_blank_values=self.config.keep_blank)
                 for k, v in r['headers'].items():
                     r['headers'][k] = v[0]
 
