@@ -21,11 +21,20 @@ APIから返却されたレスポンスを判定前に変換します。
 
 ##### Root
 
-| Key              | Type                        | Description                                                            | Example | Default |
-|------------------|-----------------------------|------------------------------------------------------------------------|---------|---------|
-| transformer      | [Transformer](#transformer) | 変換処理                                                               |         |         |
-| default_encoding | (string)                    | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp  | utf8    |
+| Key              | Type                        | Description                                                            | Example                      | Default |
+|------------------|-----------------------------|------------------------------------------------------------------------|------------------------------|---------|
+| transformer      | [Transformer](#transformer) | 変換処理                                                               |                              |         |
+| default_encoding | (string)                    | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                       | utf8    |
+| when             | str                         | [jinja2の式]に準拠した条件式 :fa-info-circle:                          | <pre>'"2" in req.path'</pre> |         |
 
+[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
+
+!!! info "whenで指定できるプロパティ"
+
+    | key | Type                 | Description    |
+    |-----|----------------------|----------------|
+    | req | [Request][request]   | リクエスト情報 |
+    | res | [Response][response] | レスポンス情報 |
 
 ##### Transformer
 
@@ -67,6 +76,17 @@ res2res:
       transformer:
         module: sample
         function: bytes2json
+```
+
+##### pathにjsonを含む場合だけ`sample`モジュールの`transform`関数を使ってjsonに変換する
+
+```yml
+res2res:
+  - name: json
+    config:
+      transformer:
+        module: sample
+      when: '"sample" in req.path'
 ```
 
 
