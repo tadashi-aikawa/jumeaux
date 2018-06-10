@@ -458,6 +458,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#pathjsonsampletransformjson" title="pathにjsonを含む場合だけsampleモジュールのtransform関数を使ってjsonに変換する" class="md-nav__link">
+    pathにjsonを含む場合だけsampleモジュールのtransform関数を使ってjsonに変換する
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -902,6 +909,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#pathjsonsampletransformjson" title="pathにjsonを含む場合だけsampleモジュールのtransform関数を使ってjsonに変換する" class="md-nav__link">
+    pathにjsonを含む場合だけsampleモジュールのtransform関数を使ってjsonに変換する
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1129,8 +1143,39 @@
 <td>euc-jp</td>
 <td>utf8</td>
 </tr>
+<tr>
+<td>when</td>
+<td>str</td>
+<td><a href="http://jinja.pocoo.org/docs/2.10/templates/#expressions">jinja2の式</a>に準拠した条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>'"2" in req.path'</pre></td>
+<td></td>
+</tr>
 </tbody>
 </table>
+<div class="admonition info">
+<p class="admonition-title">whenで指定できるプロパティ</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>req</td>
+<td><a href="../../../ja/models/request">Request</a></td>
+<td>リクエスト情報</td>
+</tr>
+<tr>
+<td>res</td>
+<td><a href="../../../ja/models/response">Response</a></td>
+<td>レスポンス情報</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h5 id="transformer">Transformer<a class="headerlink" href="#transformer" title="Permanent link">&para;</a></h5>
 <table>
 <thead>
@@ -1186,6 +1231,15 @@
       transformer:
         module: sample
         function: bytes2json
+</pre></div>
+
+<h5 id="pathjsonsampletransformjson">pathにjsonを含む場合だけ<code>sample</code>モジュールの<code>transform</code>関数を使ってjsonに変換する<a class="headerlink" href="#pathjsonsampletransformjson" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>res2res:
+  - name: json
+    config:
+      transformer:
+        module: sample
+      when: &#39;&quot;sample&quot; in req.path&#39;
 </pre></div>
 
 <h2 id="json_sort"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/json_sort.py"><i class="fa fa-github"></i></a> json_sort<a class="headerlink" href="#json_sort" title="Permanent link">&para;</a></h2>

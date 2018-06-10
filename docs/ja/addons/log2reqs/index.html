@@ -415,8 +415,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#euc-jp" title="入力ファイルのエンコーディングはEUC-JP" class="md-nav__link">
-    入力ファイルのエンコーディングはEUC-JP
+  <a href="#euc-jp" title="入力ファイルのエンコーディングはEUC-JPで空のクエリも有効にする" class="md-nav__link">
+    入力ファイルのエンコーディングはEUC-JPで空のクエリも有効にする
   </a>
   
 </li>
@@ -502,8 +502,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#tabcsveuc-jp" title="入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP" class="md-nav__link">
-    入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP
+  <a href="#tabcsveuc-jp" title="入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP、空のクエリも有効にする" class="md-nav__link">
+    入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP、空のクエリも有効にする
   </a>
   
 </li>
@@ -971,8 +971,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#euc-jp" title="入力ファイルのエンコーディングはEUC-JP" class="md-nav__link">
-    入力ファイルのエンコーディングはEUC-JP
+  <a href="#euc-jp" title="入力ファイルのエンコーディングはEUC-JPで空のクエリも有効にする" class="md-nav__link">
+    入力ファイルのエンコーディングはEUC-JPで空のクエリも有効にする
   </a>
   
 </li>
@@ -1058,8 +1058,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#tabcsveuc-jp" title="入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP" class="md-nav__link">
-    入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP
+  <a href="#tabcsveuc-jp" title="入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP、空のクエリも有効にする" class="md-nav__link">
+    入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP、空のクエリも有効にする
   </a>
   
 </li>
@@ -1307,6 +1307,13 @@
 <td>euc-jp</td>
 <td>utf-8</td>
 </tr>
+<tr>
+<td>keep_blank</td>
+<td>(bool)</td>
+<td>値が指定されていないクエリを有効にするか</td>
+<td>true</td>
+<td>false</td>
+</tr>
 </tbody>
 </table>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
@@ -1315,11 +1322,12 @@
   name: plain
 </pre></div>
 
-<h5 id="euc-jp">入力ファイルのエンコーディングはEUC-JP<a class="headerlink" href="#euc-jp" title="Permanent link">&para;</a></h5>
+<h5 id="euc-jp">入力ファイルのエンコーディングはEUC-JPで空のクエリも有効にする<a class="headerlink" href="#euc-jp" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span>log2reqs:
   name: plain
   config:
     encoding: euc-jp
+    keep_blank: true
 </pre></div>
 
 <h2 id="csv"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/csv.py"><i class="fa fa-github"></i></a> csv<a class="headerlink" href="#csv" title="Permanent link">&para;</a></h2>
@@ -1395,6 +1403,13 @@
 <td>utf-8</td>
 </tr>
 <tr>
+<td>keep_blank</td>
+<td>(bool)</td>
+<td>値が指定されていないクエリを有効にするか</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
 <td>dialect</td>
 <td>(string)</td>
 <td>csv読みこみの方言 <i class="fa fa-info-circle"></i></td>
@@ -1409,11 +1424,12 @@
   name: csv
 </pre></div>
 
-<h5 id="tabcsveuc-jp">入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP<a class="headerlink" href="#tabcsveuc-jp" title="Permanent link">&para;</a></h5>
+<h5 id="tabcsveuc-jp">入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP、空のクエリも有効にする<a class="headerlink" href="#tabcsveuc-jp" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span>log2reqs:
   name: csv
   config:
     encoding: euc-jp
+    keep_blank: true
     dialect: excel-tab
 </pre></div>
 

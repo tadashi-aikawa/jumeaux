@@ -4,6 +4,21 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.53.0
+
+:fa-calendar: `2018-06-11`
+
+??? info "whenオプションを追加しました ([res2res/json])"
+
+    * jinja2の式を使って柔軟な条件を指定することができます
+    * 詳しくは[res2res/json]をご覧下さい
+
+??? info "キーのみが指定されたクエリを除外しないオプションを追加しました ([log2reqs/plain]) ([log2reqs/csv])"
+
+    * `keep_blank: true`を指定すると`key=`や`key`を空値として解釈します
+    * 詳しくは[log2reqs/plain]や[log2reqs/csv]をご覧下さい
+
+
 ## :package: 0.52.0
 
 :fa-calendar: `2018-05-28`
@@ -414,6 +429,8 @@ Releases
 [viewer]: /ja/getstarted/quickstart/#viewer
 [addons]: /ja/addons
 [addons/addon]: /ja/addons#addon
+[log2reqs/plain]: /ja/addons/log2reqs#plain
+[log2reqs/csv]: /ja/addons/log2reqs#csv
 [reqs2reqs/empty_guard]: /ja/addons/reqs2reqs#empty_guard
 [reqs2reqs/filter]: /ja/addons/reqs2reqs#filter
 [reqs2reqs/replace]: /ja/addons/reqs2reqs#replace
