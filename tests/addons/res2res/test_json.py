@@ -12,7 +12,7 @@ from jumeaux.models import Res2ResAddOnPayload, Response
 TEXT = json.dumps({
     "id": 1,
     "name": "山田Ichiro"
-})
+}, ensure_ascii=False)
 
 
 def make_response(text: str, encoding: str, body_encoding: str) -> Response:
@@ -45,6 +45,34 @@ class TestExec:
                         "id": 1,
                         "name": "山田Ichiro"
                     }
+                }
+            ),
+            (
+                "If condition is fulfilled.",
+                """
+                transformer:
+                  module: jumeaux.addons.res2res.json
+                  function: wrap
+                when: req.path == "/path"
+                """,
+                {
+                    "wrap": {
+                        "id": 1,
+                        "name": "山田Ichiro"
+                    }
+                }
+            ),
+            (
+                "If condition is not fulfilled.",
+                """
+                transformer:
+                  module: jumeaux.addons.res2res.json
+                  function: wrap
+                when: req.path == "/path0"
+                """,
+                {
+                    "id": 1,
+                    "name": "山田Ichiro"
                 }
             ),
         ]

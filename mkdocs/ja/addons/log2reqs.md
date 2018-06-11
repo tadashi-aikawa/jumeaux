@@ -32,9 +32,10 @@ log2reqs [:fa-github:][s1]
 
 #### Definitions
 
-|   Key    |   Type   |            Description             | Example | Default |
-| -------- | -------- | ---------------------------------- | ------- | ------- |
-| encoding | (string) | 読みこみファイルのエンコーディング | euc-jp  | utf-8   |
+| Key        | Type     | Description                              | Example | Default |
+|------------|----------|------------------------------------------|---------|---------|
+| encoding   | (string) | 読みこみファイルのエンコーディング       | euc-jp  | utf-8   |
+| keep_blank | (bool)   | 値が指定されていないクエリを有効にするか | true    | false   |
 
 
 #### Examples
@@ -46,13 +47,14 @@ log2reqs:
   name: plain
 ```
 
-##### 入力ファイルのエンコーディングはEUC-JP
+##### 入力ファイルのエンコーディングはEUC-JPで空のクエリも有効にする
 
 ```yml
 log2reqs:
   name: plain
   config:
     encoding: euc-jp
+    keep_blank: true
 ```
 
 
@@ -94,10 +96,11 @@ CSV入力形式に対応しています。
 
 #### Definitions
 
-|   Key    |   Type   |            Description             |  Example  | Default |
-| -------- | -------- | ---------------------------------- | --------- | ------- |
-| encoding | (string) | 読みこみファイルのエンコーディング | euc-jp    | utf-8   |
-| dialect  | (string) | csv読みこみの方言 :fa-info-circle: | excel-tab | excel   |
+| Key        | Type     | Description                              | Example   | Default |
+|------------|----------|------------------------------------------|-----------|---------|
+| encoding   | (string) | 読みこみファイルのエンコーディング       | euc-jp    | utf-8   |
+| keep_blank | (bool)   | 値が指定されていないクエリを有効にするか | true      | false   |
+| dialect    | (string) | csv読みこみの方言 :fa-info-circle:       | excel-tab | excel   |
 
 ??? info "dialectの有効値"
 
@@ -115,13 +118,14 @@ log2reqs:
   name: csv
 ```
 
-##### 入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP
+##### 入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP、空のクエリも有効にする
 
 ```yml
 log2reqs:
   name: csv
   config:
     encoding: euc-jp
+    keep_blank: true
     dialect: excel-tab
 ```
 
