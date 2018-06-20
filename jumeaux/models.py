@@ -170,6 +170,10 @@ class Response(OwlMixin):
         return self.body.decode(self.encoding.get_or('utf8'), errors='replace')
 
     @property
+    def byte(self) -> int:
+        return len(self.body)
+
+    @property
     def content_type(self) -> TOption[str]:
         return TOption(self.headers.get('content-type'))
 
