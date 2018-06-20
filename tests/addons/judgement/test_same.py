@@ -54,7 +54,7 @@ class TestExec:
                 {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
                 """
                 when_any:
-                  - path == '/test1'
+                  - req.path == '/test1'
                 """,
                 {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': True},
             ),
@@ -63,7 +63,7 @@ class TestExec:
                 {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
                 """
                 when_any:
-                  - path == '/test0'
+                  - req.path == '/test0'
                 """,
                 {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
             ),
@@ -72,8 +72,8 @@ class TestExec:
                 {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
                 """
                 when_any:
-                  - path == '/test0'
-                  - path == '/test1'
+                  - req.path == '/test0'
+                  - req.path == '/test1'
                 """,
                 {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': True},
             ),
@@ -82,9 +82,9 @@ class TestExec:
                 {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
                 """
                 when_any:
-                  - path == '/test1'
-                  - path == '/test1'
-                  - name == 'no title'
+                  - req.path == '/test1'
+                  - req.path == '/test1'
+                  - req.name == 'no title'
                 """,
                 {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': True},
             ),

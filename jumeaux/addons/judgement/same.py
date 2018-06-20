@@ -32,10 +32,12 @@ class Executor(JudgementExecutor):
             return payload
 
         same: str = self.config.when_any.find(lambda x: when_filter(x, {
-            "name": reference.name,
-            "path": reference.path,
-            "qs": reference.qs,
-            "headers": reference.headers,
+            "req": {
+                "name": reference.name,
+                "path": reference.path,
+                "qs": reference.qs,
+                "headers": reference.headers,
+            },
             "res_one": reference.res_one,
             "res_other": reference.res_other,
             "dict_one": reference.dict_one,

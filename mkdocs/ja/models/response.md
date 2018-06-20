@@ -19,6 +19,7 @@ Definitions
 | encoding     | (string)       | 様々な情報から決定したレスポンスエンコーディング   | euc-jp                                    |
 | response_sec | float          | レスポンスタイム(秒)(小数点第二位)                 | 10.23                                     |
 | text         | string         | レスポンス文字列のUnicode(文字列で表せる場合)      | <pre>{"id": 1, "name": "たろう"}</pre>    |
+| byte         | int            | レスポンスのバイト数                               | 123                                       |
 | headers      | (dict[string]) | レスポンスヘッダ                                   | <pre>{"content-type": "text/html;"}</pre> |
 | content_type | (string)       | レスポンスヘッダcontent-typeの値                   | <pre>text/html;charset=UTF-8</pre>        |
 | mime_type    | (string)       | レスポンスヘッダcontent-typeに記載されたMIMEタイプ | `text/html`                               |

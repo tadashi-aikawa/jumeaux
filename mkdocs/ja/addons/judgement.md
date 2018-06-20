@@ -6,10 +6,10 @@ judgement [:fa-github:][s1]
 プロパティ差分情報を元に ステータス(Same/Different)を決定します。
 
 
-[:fa-github:][s2] ignore_properties
------------------------------------
+[:fa-github:][ignore_properties] ignore_properties
+--------------------------------------------------
 
-[s2]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/ignore_properties.py
+[ignore_properties]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/ignore_properties.py
 
 以下2つの情報を生成します。
 
@@ -20,7 +20,6 @@ judgement [:fa-github:][s1]
 !!! warning
 
     既に同レイヤーのアドオンでSameと判定されている場合、本アドオンは実行されません。
-    今のところ他のアドオンはありませんが...
 
 
 ### Config
@@ -108,3 +107,51 @@ judgement:
               removed:
                 - .*<'(debug|url)'>.*
 ```
+
+
+[:fa-github:][same] same
+------------------------
+
+[same]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/same.py
+
+指定した条件のいずれかに一致する場合、ステータスをSameにします。
+
+
+### Config
+
+#### Definitions
+
+##### Root
+
+| Key      | Type  | Description                                   | Example                      | Default |
+|----------|-------|-----------------------------------------------|------------------------------|---------|
+| when_any | str[] | [jinja2の式]に準拠した条件式 :fa-info-circle: | <pre>'"2" in req.path'</pre> |         |
+
+[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
+
+!!! info "when_anyで指定できるプロパティ"
+
+    | key        | Type                 | Description           |
+    |------------|----------------------|-----------------------|
+    | req        | [Request][request]   | リクエスト情報        |
+    | res_one    | [Response][response] | oneのレスポンス情報   |
+    | res_other  | [Response][response] | otherのレスポンス情報 |
+    | dict_one   | (dict)               | oneのプロパティ情報   |
+    | dict_other | (dict)               | otherのプロパティ情報 |
+
+
+#### Examples
+
+##### リクエストのpathが`/test0`または`/test1`のときはSameとする
+
+```yml
+judgement:
+  - name: same
+    config:
+      when_any:
+        - req.path == '/test0'
+        - req.path == '/test1'
+```
+
+[request]: /ja/models/request
+[response]: /ja/models/response
