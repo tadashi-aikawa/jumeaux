@@ -32,10 +32,16 @@ log2reqs [:fa-github:][s1]
 
 #### Definitions
 
-| Key        | Type     | Description                              | Example | Default |
-|------------|----------|------------------------------------------|---------|---------|
-| encoding   | (string) | 読みこみファイルのエンコーディング       | euc-jp  | utf-8   |
-| keep_blank | (bool)   | 値が指定されていないクエリを有効にするか | true    | false   |
+| Key                                           | Type       | Description                              | Example                     | Default |
+|-----------------------------------------------|------------|------------------------------------------|-----------------------------|---------|
+| encoding                                      | (string)   | 読みこみファイルのエンコーディング       | euc-jp                      | utf-8   |
+| keep_blank                                    | (bool)     | 値が指定されていないクエリを有効にするか | true                        | false   |
+| candidate_for_url_encodings  :fa-info-circle: | (string[]) | URLエンコーディングの候補                | <pre>- sjis<br>- euc-jp</pre> |         |
+
+??? info "candidate_for_url_encodings"
+
+    * 配列で指定した順番にdecodeを行い、初めに成功したエンコーディングを採用します
+    * いずれのエンコーディングでもdecodeできなかった場合はutf-8になります
 
 
 #### Examples
@@ -55,6 +61,17 @@ log2reqs:
   config:
     encoding: euc-jp
     keep_blank: true
+```
+
+##### URLエンコーディングをsjis => euc-jpの順番で推測(判定)する
+
+```yml
+log2reqs:
+  name: plain
+  config:
+    candidate_for_url_encodings:
+      - sjis
+      - euc-jp
 ```
 
 

@@ -38,6 +38,7 @@ CHANGE_IF_CONDITION_RES_IS_FULFILLED = (
             "path": "/path",
             "qs": {},
             "headers": {},
+            "url_encoding": "utf-8",
         },
         'response': {
             "body": b'{"body": true}',
@@ -69,6 +70,7 @@ CHANGE_IF_CONDITION_REQ_IS_FULFILLED = (
             "path": "/path",
             "qs": {},
             "headers": {},
+            "url_encoding": "utf-8",
         },
         'response': {
             "body": b'{"body": true}',
@@ -100,6 +102,7 @@ CHANGE_ONLY_FIST_ONE_IF_CONDITION_IS_FULFILLED = (
             "path": "/path",
             "qs": {},
             "headers": {},
+            "url_encoding": "utf-8",
         },
         'response': {
             "body": b'{"body": true}',
@@ -129,6 +132,7 @@ NOT_CHANGE_IF_CONDITION_IS_NOT_FULFILLED = (
             "path": "/path",
             "qs": {},
             "headers": {},
+            "url_encoding": "utf-8",
         },
         'response': {
             "body": b'{"body": true}',
@@ -162,6 +166,7 @@ class TestExec:
                 "path": "/path",
                 "qs": {},
                 "headers": {},
+                "url_encoding": "utf-8",
             }
         })
 

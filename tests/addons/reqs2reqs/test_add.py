@@ -23,9 +23,9 @@ class TestExec:
 
         assert actual.to_dict() == {
             'requests': [
-                {'path': '/added1', 'headers': {}, 'qs': {'q2': ['query2']}},
-                {'path': '/added2', 'headers': {'h2': 'header2'}, 'qs': {}},
-                {'path': '/origin', 'headers': {'h1': 'header1'}, 'qs': {'q1': ['query1']}},
+                {'path': '/added1', 'headers': {}, 'qs': {'q2': ['query2']}, 'url_encoding': 'utf-8'},
+                {'path': '/added2', 'headers': {'h2': 'header2'}, 'qs': {}, 'url_encoding': 'utf-8'},
+                {'path': '/origin', 'headers': {'h1': 'header1'}, 'qs': {'q1': ['query1']}, 'url_encoding': 'utf-8'},
             ]
         }
 
@@ -44,8 +44,8 @@ class TestExec:
 
         assert actual.to_dict() == {
             'requests': [
-                {'path': '/added', 'headers': {}, 'qs': {}},
-                {'path': '/origin', 'headers': {}, 'qs': {}},
+                {'path': '/added', 'headers': {}, 'qs': {}, 'url_encoding': 'utf-8'},
+                {'path': '/origin', 'headers': {}, 'qs': {}, 'url_encoding': 'utf-8'},
             ]
         }
 
@@ -65,7 +65,7 @@ class TestExec:
 
         assert actual.to_dict() == {
             'requests': [
-                {'path': '/origin', 'headers': {}, 'qs': {}},
-                {'path': '/added', 'headers': {}, 'qs': {}},
+                {'path': '/origin', 'headers': {}, 'qs': {}, 'url_encoding': 'utf-8'},
+                {'path': '/added', 'headers': {}, 'qs': {}, 'url_encoding': 'utf-8'},
             ]
         }

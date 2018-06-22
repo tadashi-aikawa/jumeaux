@@ -421,6 +421,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#urlsjis-euc-jp" title="URLエンコーディングをsjis =&gt; euc-jpの順番で推測(判定)する" class="md-nav__link">
+    URLエンコーディングをsjis =&gt; euc-jpの順番で推測(判定)する
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -977,6 +984,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#urlsjis-euc-jp" title="URLエンコーディングをsjis =&gt; euc-jpの順番で推測(判定)する" class="md-nav__link">
+    URLエンコーディングをsjis =&gt; euc-jpの順番で推測(判定)する
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1314,9 +1328,16 @@
 <td>true</td>
 <td>false</td>
 </tr>
+<tr>
+<td>candidate_for_url_encodings  <i class="fa fa-info-circle"></i></td>
+<td>(string[])</td>
+<td>URLエンコーディングの候補</td>
+<td><pre>- sjis<br>- euc-jp</pre></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
+<details class="info"><summary>candidate_for_url_encodings</summary><ul><li>配列で指定した順番にdecodeを行い、初めに成功したエンコーディングを採用します</li><li>いずれのエンコーディングでもdecodeできなかった場合はutf-8になります</li></ul></details><h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="_1">最もシンプルな例<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span>log2reqs:
   name: plain
@@ -1328,6 +1349,15 @@
   config:
     encoding: euc-jp
     keep_blank: true
+</pre></div>
+
+<h5 id="urlsjis-euc-jp">URLエンコーディングをsjis =&gt; euc-jpの順番で推測(判定)する<a class="headerlink" href="#urlsjis-euc-jp" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>log2reqs:
+  name: plain
+  config:
+    candidate_for_url_encodings:
+      - sjis
+      - euc-jp
 </pre></div>
 
 <h2 id="csv"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/csv.py"><i class="fa fa-github"></i></a> csv<a class="headerlink" href="#csv" title="Permanent link">&para;</a></h2>

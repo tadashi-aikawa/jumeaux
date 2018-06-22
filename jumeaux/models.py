@@ -140,6 +140,7 @@ class Request(OwlMixin):
     path: str
     qs: TDict[TList[str]] = {}
     headers: TDict[str] = {}
+    url_encoding: str = 'utf-8'
 
 
 class Proxy(OwlMixin):
@@ -168,6 +169,10 @@ class Response(OwlMixin):
     def text(self) -> str:
         # Refer https://github.com/requests/requests/blob/e4fc3539b43416f9e9ba6837d73b1b7392d4b242/requests/models.py#L831
         return self.body.decode(self.encoding.get_or('utf8'), errors='replace')
+
+    @property
+    def byte(self) -> int:
+        return len(self.body)
 
     @property
     def content_type(self) -> TOption[str]:

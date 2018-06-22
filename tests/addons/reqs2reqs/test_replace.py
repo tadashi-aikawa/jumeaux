@@ -13,13 +13,13 @@ class TestRequestCondition:
         'reqs, expected', [
             (
                 [{'name': 'hoge', 'path': '/api', 'qs': {'q1': ['v11'], 'q2': ['v21', 'v22']}, 'headers': {}}],
-                [{'name': 'hoge', 'path': '/api', 'qs': {'q1': ['v99'], 'q2': ['v999']}, 'headers': {}}],
+                [{'name': 'hoge', 'path': '/api', 'qs': {'q1': ['v99'], 'q2': ['v999']}, 'headers': {}, 'url_encoding': 'utf-8'}],
             ),
             (
                 [{'name': 'hoge', 'path': '/hogehoge', 'qs': {'q1': ['v11'], 'q2': ['v21', 'v22']},
                   'headers': {'h2': 'header2', 'h3': 'header3'}}],
                 [{'name': 'hoge', 'path': '/hogehoge', 'qs': {'q1': ['v77'], 'q2': ['v21', 'v22'], 'q3': ['v777']},
-                  'headers': {'h1': 'H1', 'h2': 'H2', 'h3': 'header3'}}],
+                  'headers': {'h1': 'H1', 'h2': 'H2', 'h3': 'header3'}, 'url_encoding': 'utf-8'}],
             ),
         ]
     )
@@ -61,12 +61,12 @@ items:
             (
                 ['$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)'],
                 [{'path': '/api', 'qs': {'q1': ['v99']}, 'headers': {}}],
-                [{'path': '/api', 'qs': {'q1': ['2000-01-01T10:00:00']}, 'headers': {}}],
+                [{'path': '/api', 'qs': {'q1': ['2000-01-01T10:00:00']}, 'headers': {}, 'url_encoding': 'utf-8'}],
             ),
             (
                 ['$DATETIME(%Y/%m/%d %H:%M:%S)(-666)'],
                 [{'path': '/api', 'qs': {'q1': ['v99']}, 'headers': {}}],
-                [{'path': '/api', 'qs': {'q1': ['2000/01/01 08:48:54']}, 'headers': {}}],
+                [{'path': '/api', 'qs': {'q1': ['2000/01/01 08:48:54']}, 'headers': {}, 'url_encoding': 'utf-8'}],
             ),
         ]
     )

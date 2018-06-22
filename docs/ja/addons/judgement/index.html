@@ -504,6 +504,72 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#same" title="same" class="md-nav__link">
+    same
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_1" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_1" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root_1" title="Root" class="md-nav__link">
+    Root
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pathtest0test1same" title="リクエストのpathが/test0または/test1のときはSameとする" class="md-nav__link">
+    リクエストのpathが/test0または/test1のときはSameとする
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -771,6 +837,72 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#same" title="same" class="md-nav__link">
+    same
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_1" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_1" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root_1" title="Root" class="md-nav__link">
+    Root
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pathtest0test1same" title="リクエストのpathが/test0または/test1のときはSameとする" class="md-nav__link">
+    リクエストのpathが/test0または/test1のときはSameとする
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -803,8 +935,7 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>既に同レイヤーのアドオンでSameと判定されている場合、本アドオンは実行されません。<br />
-今のところ他のアドオンはありませんが...</p>
+<p>既に同レイヤーのアドオンでSameと判定されている場合、本アドオンは実行されません。</p>
 </div>
 <h3 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
 <h4 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h4>
@@ -969,6 +1100,80 @@
               link: http://hoge.html
               removed:
                 - .*&lt;&#39;(debug|url)&#39;&gt;.*
+</pre></div>
+
+<h2 id="same"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/same.py"><i class="fa fa-github"></i></a> same<a class="headerlink" href="#same" title="Permanent link">&para;</a></h2>
+<p>指定した条件のいずれかに一致する場合、ステータスをSameにします。</p>
+<h3 id="config_1">Config<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_1">Definitions<a class="headerlink" href="#definitions_1" title="Permanent link">&para;</a></h4>
+<h5 id="root_1">Root<a class="headerlink" href="#root_1" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>when_any</td>
+<td>str[]</td>
+<td><a href="http://jinja.pocoo.org/docs/2.10/templates/#expressions">jinja2の式</a>に準拠した条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>'"2" in req.path'</pre></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">when_anyで指定できるプロパティ</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>req</td>
+<td><a href="../../../ja/models/request">Request</a></td>
+<td>リクエスト情報</td>
+</tr>
+<tr>
+<td>res_one</td>
+<td><a href="../../../ja/models/response">Response</a></td>
+<td>oneのレスポンス情報</td>
+</tr>
+<tr>
+<td>res_other</td>
+<td><a href="../../../ja/models/response">Response</a></td>
+<td>otherのレスポンス情報</td>
+</tr>
+<tr>
+<td>dict_one</td>
+<td>(dict)</td>
+<td>oneのプロパティ情報</td>
+</tr>
+<tr>
+<td>dict_other</td>
+<td>(dict)</td>
+<td>otherのプロパティ情報</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
+<h5 id="pathtest0test1same">リクエストのpathが<code>/test0</code>または<code>/test1</code>のときはSameとする<a class="headerlink" href="#pathtest0test1same" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>judgement:
+  - name: same
+    config:
+      when_any:
+        - req.path == &#39;/test0&#39;
+        - req.path == &#39;/test1&#39;
 </pre></div>
                 
                   

@@ -2,6 +2,7 @@
 
 from owlmixin import OwlEnum
 
+import sys
 import logging.config
 
 
@@ -89,8 +90,10 @@ class Logger:
     def warning(self, msg):
         self.logger.log(LogLevel.WARNING.value, f"{Color.YELLOW}[WARNING] {msg}{Color.END}")
 
-    def error(self, msg):
+    def error(self, msg, exit=False):
         self.logger.log(LogLevel.ERROR.value, f"{Color.RED}[ ERROR ] {msg}{Color.END}")
+        if exit:
+            sys.exit(1)
 
     def debug(self, msg):
         self.logger.log(LogLevel.DEBUG.value, f"{Color.GREEN}[ DEBUG ] {msg}{Color.END}")

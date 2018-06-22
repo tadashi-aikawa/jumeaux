@@ -284,17 +284,22 @@ class TestExec:
                 "path": "/filter",
                 "qs": {},
                 "headers": {},
+                "url_encoding": "utf-8",
             }
         })
 
-        assert Executor(load_yaml(config_yml)).exec(payload).to_dict() == {
+        expected = {
             'response': make_response(json.dumps(expected_text), 'utf-8', 'utf-8').to_dict(),
             'req': {
                 "path": "/filter",
                 "qs": {},
                 "headers": {},
+                "url_encoding": "utf-8",
             }
         }
+        actual = Executor(load_yaml(config_yml)).exec(payload).to_dict()
+
+        assert expected == actual
 
     @pytest.mark.parametrize(
         'title, encoding, body_encoding, config_yml, expected_text', [
@@ -341,15 +346,20 @@ class TestExec:
                 "path": "/filter",
                 "qs": {},
                 "headers": {},
+                "url_encoding": "utf-8",
             }
         })
 
-        assert Executor(load_yaml(config_yml)).exec(payload).to_dict() == {
+        actual = Executor(load_yaml(config_yml)).exec(payload).to_dict()
+        expected = {
             'response': make_response(json.dumps(expected_text, ensure_ascii=False), encoding, encoding).to_dict(),
             'req': {
                 "path": "/filter",
                 "qs": {},
                 "headers": {},
+                "url_encoding": "utf-8",
             }
         }
+
+        assert expected == actual
 
