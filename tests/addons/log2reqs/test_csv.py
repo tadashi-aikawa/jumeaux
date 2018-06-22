@@ -34,6 +34,7 @@ def create_expected(no: int, qs: dict, headers: dict) -> dict:
         "path": f"/path{no}",
         "qs": qs,
         "headers": headers,
+        "url_encoding": "utf-8",
     }
 
 

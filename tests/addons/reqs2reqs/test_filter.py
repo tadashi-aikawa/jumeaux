@@ -25,7 +25,7 @@ AND = ("And filter",
            {"name": "It's NG", "path": "/ng", "headers": {}, "qs": {}},
        ],
        [
-           {"name": "It's OK", "path": "/ok", "headers": {}, "qs": {}},
+           {"name": "It's OK", "path": "/ok", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
        ]
        )
 
@@ -47,9 +47,9 @@ OR = ("Or filter",
           {"name": "It's NG", "path": "/ng", "headers": {}, "qs": {}},
       ],
       [
-          {"name": "It's OK", "path": "/ok", "headers": {}, "qs": {}},
-          {"name": "It's OK", "path": "/ng", "headers": {}, "qs": {}},
-          {"name": "It's NG", "path": "/ok", "headers": {}, "qs": {}},
+          {"name": "It's OK", "path": "/ok", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
+          {"name": "It's OK", "path": "/ng", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
+          {"name": "It's NG", "path": "/ok", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
       ]
       )
 
@@ -71,9 +71,9 @@ NEGATIVE = ("Negative filter",
                 {"name": "It's NG", "path": "/ng", "headers": {}, "qs": {}},
             ],
             [
-                {"name": "It's OK", "path": "/ng", "headers": {}, "qs": {}},
-                {"name": "It's NG", "path": "/ok", "headers": {}, "qs": {}},
-                {"name": "It's NG", "path": "/ng", "headers": {}, "qs": {}},
+                {"name": "It's OK", "path": "/ng", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
+                {"name": "It's NG", "path": "/ok", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
+                {"name": "It's NG", "path": "/ng", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
             ]
             )
 
@@ -93,4 +93,4 @@ class TestExec:
 
         actual: Reqs2ReqsAddOnPayload = Executor(load_yaml(config_yml)).exec(payload, None)
 
-        assert actual.requests.to_dicts() == expected_result
+        assert expected_result == actual.requests.to_dicts()

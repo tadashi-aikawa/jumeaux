@@ -19,9 +19,9 @@ RENAME_WITH_CONDITION = ("Rename requests with a condition",
                              {"name": "name3", "path": "This is target, too", "headers": {}, "qs": {}},
                          ],
                          [
-                             {"name": "renamed", "path": "target", "headers": {}, "qs": {}},
-                             {"name": "name2", "path": "TARGET", "headers": {}, "qs": {}},
-                             {"name": "renamed", "path": "This is target, too", "headers": {}, "qs": {}},
+                             {"name": "renamed", "path": "target", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
+                             {"name": "name2", "path": "TARGET", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
+                             {"name": "renamed", "path": "This is target, too", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
                          ]
                          )
 
@@ -39,9 +39,9 @@ RENAME_WITH_CONDITIONS = ("Rename requests with a conditions",
                               {"name": "name3", "path": "target3", "headers": {}, "qs": {'id': ['5']}},
                           ],
                           [
-                              {"name": "Over 100 (name1)", "path": "target1", "headers": {}, "qs": {'id': ['500']}},
-                              {"name": "Over 10 (name2)", "path": "target2", "headers": {}, "qs": {'id': ['50']}},
-                              {"name": "name3", "path": "target3", "headers": {}, "qs": {'id': ['5']}},
+                              {"name": "Over 100 (name1)", "path": "target1", "headers": {}, "qs": {'id': ['500']}, 'url_encoding': 'utf-8'},
+                              {"name": "Over 10 (name2)", "path": "target2", "headers": {}, "qs": {'id': ['50']}, 'url_encoding': 'utf-8'},
+                              {"name": "name3", "path": "target3", "headers": {}, "qs": {'id': ['5']}, 'url_encoding': 'utf-8'},
                           ]
                           )
 
@@ -58,9 +58,9 @@ RENAME_ALL = ("Rename all",
                   {"name": "name3", "path": "target3", "headers": {}, "qs": {}},
               ],
               [
-                  {"name": "target1", "path": "target1", "headers": {}, "qs": {}},
-                  {"name": "END", "path": "target2", "headers": {}, "qs": {}},
-                  {"name": "END", "path": "target3", "headers": {}, "qs": {}},
+                  {"name": "target1", "path": "target1", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
+                  {"name": "END", "path": "target2", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
+                  {"name": "END", "path": "target3", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
               ]
               )
 
