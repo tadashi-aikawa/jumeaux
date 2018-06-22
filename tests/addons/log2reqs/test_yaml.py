@@ -50,14 +50,16 @@ class TestFromFormat:
             {
                 "path": "/test1",
                 "qs": {},
-                "headers": {}
+                "headers": {},
+                "url_encoding": "utf-8",
             },
             {
                 "path": "/test2",
                 "qs": {
                     "q1": ["1"]
                 },
-                "headers": {}
+                "headers": {},
+                "url_encoding": "utf-8",
             },
             {
                 "path": "/test3",
@@ -65,7 +67,8 @@ class TestFromFormat:
                     "q1": ["1"],
                     "q2": ["2-1", "2-2"]
                 },
-                "headers": {}
+                "headers": {},
+                "url_encoding": "utf-8",
             },
             {
                 "path": "/test4",
@@ -73,7 +76,8 @@ class TestFromFormat:
                 "headers": {
                     "key1": "header1",
                     "key2": "header2"
-                }
+                },
+                "url_encoding": "utf-8",
             },
             {
                 "path": "/test5",
@@ -84,7 +88,8 @@ class TestFromFormat:
                 "headers": {
                     "key1": "header1",
                     "key2": "header2"
-                }
+                },
+                "url_encoding": "utf-8",
             }
         ]
 

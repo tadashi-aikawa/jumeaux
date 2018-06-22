@@ -65,7 +65,7 @@ NOT_EMPTY = ("Not guard not empty",
               name: plain
          """,
          [
-             {"name": "req", "path": "/sample",  "headers": {}, "qs": {}}
+             {"name": "req", "path": "/sample",  "headers": {}, "qs": {}, 'url_encoding': 'utf-8'}
          ]
          )
 
@@ -89,7 +89,7 @@ class TestExec:
         actual: Reqs2ReqsAddOnPayload = Executor(load_yaml(config_yml)) \
             .exec(payload, JumeauxConfig.from_yaml(jumeaux_config_yml))
 
-        assert actual.requests.to_dicts() == expected_result
+        assert expected_result == actual.requests.to_dicts()
 
     @pytest.mark.parametrize(
         'title, config_yml, requests, jumeaux_config_yml', [

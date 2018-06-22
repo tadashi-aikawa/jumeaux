@@ -140,6 +140,7 @@ class Request(OwlMixin):
     path: str
     qs: TDict[TList[str]] = {}
     headers: TDict[str] = {}
+    url_encoding: str = 'utf-8'
 
 
 class Proxy(OwlMixin):

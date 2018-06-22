@@ -84,6 +84,7 @@ class TestExec:
                 "path": "/path",
                 "qs": {},
                 "headers": {},
+                "url_encoding": "utf-8"
             }
         })
 
@@ -93,6 +94,7 @@ class TestExec:
                 "path": "/path",
                 "qs": {},
                 "headers": {},
+                "url_encoding": "utf-8"
             }
         }
 

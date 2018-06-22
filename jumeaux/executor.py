@@ -220,7 +220,7 @@ def challenge(arg: ChallengeArg) -> dict:
     logger.info_lv3(f"{log_prefix}  {arg.seq}. {arg.req.name.get_or(arg.req.path)}")
     logger.info_lv3(f"{log_prefix} {'-'*80}")
 
-    qs_str = urlparser.urlencode(arg.req.qs, doseq=True)
+    qs_str = urlparser.urlencode(arg.req.qs, doseq=True, encoding=arg.req.url_encoding)
 
     url_one = f'{arg.host_one}{arg.req.path}?{qs_str}'
     url_other = f'{arg.host_other}{arg.req.path}?{qs_str}'
@@ -288,7 +288,7 @@ def challenge(arg: ChallengeArg) -> dict:
     status: Status = judgement(res_one, res_other, dict_one, dict_other,
                                name, arg.req.path, arg.req.qs, arg.req.headers, diff_keys)
     status_symbol = "O" if status == Status.SAME else "X"
-    log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{res_one.elapsed_sec}s - {res_other.elapsed_sec}s> {arg.req.name.get_or(arg.req.path)}" # noqa
+    log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{res_one.elapsed_sec}s - {res_other.elapsed_sec}s> {arg.req.name.get_or(arg.req.path)}"  # noqa
     (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
 
     file_one = file_other = None
