@@ -337,7 +337,7 @@ reqs2reqs:
 
 | Key        | Type                      | Description  | Example | Default |
 |------------|---------------------------|--------------|---------|---------|
-| conditions | [Condition[]][#condition] | 変更値と条件 |         |         |
+| conditions | [Condition[]](#condition) | 変更値と条件 |         |         |
 
 ##### Condition
 
