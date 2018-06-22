@@ -4,6 +4,22 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.54.0
+
+:fa-calendar: `2018-06-22`
+
+??? info "judgement/sameアドオンを追加しました ([judgement/same])"
+
+    * 指定した条件のいずれかに一致する場合、ステータスをSameにすることができます
+        * 例: ファイルタイプがバイナリでサイズが変わらない場合はSameとする
+    * 詳しくは[judgement/same]をご覧下さい
+
+??? info "リクエストのURLエンコーディング候補を指定できるようにしました ([log2reqs/plain])"
+
+    * `candidate_for_url_encodings`に指定した複数のエンコーディングを候補として判定します
+    * 詳しくは[log2reqs/plain]をご覧下さい
+
+
 ## :package: 0.53.0
 
 :fa-calendar: `2018-06-11`
@@ -444,6 +460,7 @@ Releases
 [res2dict/xml]: /ja/addons/res2dict#xml
 [res2dict/block]: /ja/addons/res2dict#block
 [judgement/ignore_properties]: /ja/addons/judgement#ignore_properties
+[judgement/same]: /ja/addons/judgement#same
 [dump/xml]: /ja/addons/dump#xml
 [dump/html]: /ja/addons/dump#html
 [dump/json]: /ja/addons/dump#json
