@@ -180,17 +180,15 @@ def judgement(r_one: Response, r_other: Response,
     return Status.SAME if regard_as_same else Status.DIFFERENT  # type: ignore # Prevent for enum problem
 
 
-def store_criterion(status: Status, path: str, qs: TDict[TList[str]], headers: TDict[str],
-                    r_one: Response, r_other: Response):
+def store_criterion(status: Status, name: str, req: Request, r_one: Response, r_other: Response):
     return global_addon_executor.apply_store_criterion(
         StoreCriterionAddOnPayload.from_dict({
             "stored": False,
         }),
         StoreCriterionAddOnReference.from_dict({
             "status": status,
-            "path": path,
-            "qs": qs,
-            "headers": headers,
+            "name": name,
+            "req": req,
             "res_one": r_one,
             "res_other": r_other,
         }),
@@ -295,7 +293,7 @@ def challenge(arg: ChallengeArg) -> dict:
     file_other: str = None
     prop_file_one: str = None
     prop_file_other: str = None
-    if store_criterion(status, arg.req.path, arg.req.qs, arg.req.headers, res_one, res_other):
+    if store_criterion(status, name, arg.req, res_one, res_other):
         dir = f'{arg.res_dir}/{arg.key}'
         file_one = f'one/({arg.seq}){name}'
         file_other = f'other/({arg.seq}){name}'
