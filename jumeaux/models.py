@@ -285,6 +285,7 @@ class ResponseSummary(OwlMixin):
     mime_type: TOption[str]
     encoding: TOption[str]
     file: TOption[str]
+    prop_file: TOption[str]
 
 
 class Condition(OwlMixin):

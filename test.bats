@@ -82,6 +82,8 @@ assert_string_property() {
   assert_exists responses
   assert_exists responses/latest/one/*
   assert_exists responses/latest/other/*
+  assert_exists responses/latest/one-props/*
+  assert_exists responses/latest/other-props/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
 
@@ -112,6 +114,8 @@ assert_string_property() {
   assert_exists responses
   assert_exists responses/latest/one/*
   assert_exists responses/latest/other/*
+  assert_exists responses/latest/one-props/*
+  assert_exists responses/latest/other-props/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
 
@@ -126,6 +130,8 @@ assert_string_property() {
   assert_exists responses
   assert_exists responses/latest/one/*
   assert_exists responses/latest/other/*
+  assert_exists responses/latest/one-props/*
+  assert_exists responses/latest/other-props/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
 
@@ -141,6 +147,8 @@ assert_string_property() {
   assert_exists responses
   assert_exists responses/latest/one/*
   assert_exists responses/latest/other/*
+  assert_exists responses/latest/one-props/*
+  assert_exists responses/latest/other-props/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
 
@@ -156,6 +164,8 @@ assert_string_property() {
   assert_exists responses
   assert_exists responses/latest/one/*
   assert_exists responses/latest/other/*
+  assert_exists responses/latest/one-props/*
+  assert_exists responses/latest/other-props/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
 
@@ -170,6 +180,8 @@ assert_string_property() {
   assert_exists responses
   assert_exists responses/latest/one/*
   assert_exists responses/latest/other/*
+  assert_exists responses/latest/one-props/*
+  assert_exists responses/latest/other-props/*
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
 
