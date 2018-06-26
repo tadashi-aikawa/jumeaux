@@ -4,6 +4,21 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.55.0
+
+:fa-calendar: `2018-06-26`
+
+??? info "store_criterion/freeアドオンを追加しました ([store_criterion/free])"
+
+    * 指定した条件のいずれかに一致する場合のみ結果をdumpさせることができます
+    * 詳しくは[store_criterion/free]をご覧下さい
+
+??? info "property解析用のdictをjsonファイルとしてdumpするようにしました"
+
+    * JSON以外のデータ形式に対してプロパティベースで解析したい場合に利用できます
+    * ファイルは`one`, `other`と同階層の`one-props`, `other-props`ディレクトリ配下に作成されます
+
+
 ## :package: 0.54.0
 
 :fa-calendar: `2018-06-22`
@@ -461,6 +476,7 @@ Releases
 [res2dict/block]: /ja/addons/res2dict#block
 [judgement/ignore_properties]: /ja/addons/judgement#ignore_properties
 [judgement/same]: /ja/addons/judgement#same
+[store_criterion/free]: /ja/addons/store_criterion#free
 [dump/xml]: /ja/addons/dump#xml
 [dump/html]: /ja/addons/dump#html
 [dump/json]: /ja/addons/dump#json

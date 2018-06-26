@@ -87,7 +87,7 @@ from jumeaux.models import (
 from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
-global_addon_executor: AddOnExecutor = None
+global_addon_executor: AddOnExecutor
 
 START_JUMEAUX_AA = """
         ____  _             _         _
@@ -115,7 +115,7 @@ def now():
 
 
 def write_to_file(name, dir, body):
-    with open(f'{dir}/{name}', "bw") as f:
+    with open(f'{dir}/{name}', "wb") as f:
         f.write(body)
 
 
@@ -180,17 +180,19 @@ def judgement(r_one: Response, r_other: Response,
     return Status.SAME if regard_as_same else Status.DIFFERENT  # type: ignore # Prevent for enum problem
 
 
-def store_criterion(status: Status, path: str, qs: TDict[TList[str]], headers: TDict[str],
-                    r_one: Response, r_other: Response):
+def store_criterion(status: Status, name: str, req: Request, r_one: Response, r_other: Response):
     return global_addon_executor.apply_store_criterion(
         StoreCriterionAddOnPayload.from_dict({
             "stored": False,
         }),
         StoreCriterionAddOnReference.from_dict({
             "status": status,
-            "path": path,
-            "qs": qs,
-            "headers": headers,
+            "req": {
+                "name": name,
+                "path": req.path,
+                "qs": req.qs,
+                "headers": req.headers,
+            },
             "res_one": r_one,
             "res_other": r_other,
         }),
@@ -291,13 +293,22 @@ def challenge(arg: ChallengeArg) -> dict:
     log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{res_one.elapsed_sec}s - {res_other.elapsed_sec}s> {arg.req.name.get_or(arg.req.path)}"  # noqa
     (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
 
-    file_one = file_other = None
-    if store_criterion(status, arg.req.path, arg.req.qs, arg.req.headers, res_one, res_other):
+    file_one: str = None
+    file_other: str = None
+    prop_file_one: str = None
+    prop_file_other: str = None
+    if store_criterion(status, name, arg.req, res_one, res_other):
         dir = f'{arg.res_dir}/{arg.key}'
         file_one = f'one/({arg.seq}){name}'
         file_other = f'other/({arg.seq}){name}'
         write_to_file(file_one, dir, dump(res_one))
         write_to_file(file_other, dir, dump(res_other))
+        if not dict_one.is_none():
+            prop_file_one = f'one-props/({arg.seq}){name}.json'
+            write_to_file(prop_file_one, dir, TDict(dict_one.get()).to_json().encode('utf-8', errors='replace'))
+        if not dict_other.is_none():
+            prop_file_other = f'other-props/({arg.seq}){name}.json'
+            write_to_file(prop_file_other, dir, TDict(dict_other.get()).to_json().encode('utf-8', errors='replace'))
 
     return global_addon_executor.apply_did_challenge(DidChallengeAddOnPayload.from_dict({
         "trial": Trial.from_dict({
@@ -318,7 +329,8 @@ def challenge(arg: ChallengeArg) -> dict:
                 "content_type": res_one.content_type,
                 "mime_type": res_one.mime_type,
                 "encoding": res_one.encoding,
-                "file": file_one
+                "file": file_one,
+                "prop_file": prop_file_one,
             },
             "other": {
                 "url": res_other.url,
@@ -329,7 +341,8 @@ def challenge(arg: ChallengeArg) -> dict:
                 "content_type": res_other.content_type,
                 "mime_type": res_other.mime_type,
                 "encoding": res_other.encoding,
-                "file": file_other
+                "file": file_other,
+                "prop_file": prop_file_other,
             }
         })
     })).trial.to_dict()
@@ -364,6 +377,8 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
 
     make_dir(f'{config.output.response_dir}/{key}/one')
     make_dir(f'{config.output.response_dir}/{key}/other')
+    make_dir(f'{config.output.response_dir}/{key}/one-props')
+    make_dir(f'{config.output.response_dir}/{key}/other-props')
 
     # Parse inputs to args of multi-thread executor.
     ex_args = TList(reqs).emap(lambda x, i: {

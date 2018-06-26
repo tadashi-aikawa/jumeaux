@@ -137,7 +137,9 @@ class Executor(FinalExecutor):
 
         # details
         upload_responses("one")
+        upload_responses("one-props")
         upload_responses("other")
+        upload_responses("other-props")
 
         # zip (${hashkey}.zip)
         if self.config.with_zip:
