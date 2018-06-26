@@ -489,6 +489,59 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#free" title="free" class="md-nav__link">
+    free
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_1" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_1" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pathtestsame" title="pathが/testまたはステータスがSameの結果は保存する" class="md-nav__link">
+    pathが/testまたはステータスがSameの結果は保存する
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -717,6 +770,59 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#free" title="free" class="md-nav__link">
+    free
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_1" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_1" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pathtestsame" title="pathが/testまたはステータスがSameの結果は保存する" class="md-nav__link">
+    pathが/testまたはステータスがSameの結果は保存する
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -778,6 +884,74 @@
       statuses:
         - same
         - different
+</pre></div>
+
+<h2 id="free"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/store_criterion/free.py"><i class="fa fa-github"></i></a> free<a class="headerlink" href="#free" title="Permanent link">&para;</a></h2>
+<p>細かな条件を指定してレスポンスの保存基準を決めることができます。</p>
+<h3 id="config_1">Config<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_1">Definitions<a class="headerlink" href="#definitions_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>when_any</td>
+<td>str[]</td>
+<td><a href="http://jinja.pocoo.org/docs/2.10/templates/#expressions">jinja2の式</a>に準拠した条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>'"2" in req.path'</pre></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">when_anyで指定できるプロパティ</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>status</td>
+<td>Status <i class="fa fa-info-circle"></i></td>
+<td>ステータス</td>
+</tr>
+<tr>
+<td>req</td>
+<td><a href="../../../ja/models/request">Request</a></td>
+<td>リクエスト情報</td>
+</tr>
+<tr>
+<td>res_one</td>
+<td><a href="../../../ja/models/response">Response</a></td>
+<td>oneのレスポンス情報</td>
+</tr>
+<tr>
+<td>res_other</td>
+<td><a href="../../../ja/models/response">Response</a></td>
+<td>otherのレスポンス情報</td>
+</tr>
+</tbody>
+</table>
+<details class="info"><summary>Status</summary><table><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>same</td><td>結果を同一とみなす</td></tr><tr><td>different</td><td>結果を同一ではないとみなす</td></tr><tr><td>failure</td><td>リクエストを失敗とみなす</td></tr></tbody></table></details></div>
+<h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
+<h5 id="pathtestsame">pathが<code>/test</code>またはステータスがSameの結果は保存する<a class="headerlink" href="#pathtestsame" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>store_criterion:
+  - name: free
+    config:
+    when_any:
+      - req.path == &#39;/test&#39;
+      - status == &#39;same&#39;
 </pre></div>
                 
                   
