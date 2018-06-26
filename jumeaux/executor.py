@@ -187,8 +187,12 @@ def store_criterion(status: Status, name: str, req: Request, r_one: Response, r_
         }),
         StoreCriterionAddOnReference.from_dict({
             "status": status,
-            "name": name,
-            "req": req,
+            "req": {
+                "name": name,
+                "path": req.path,
+                "qs": req.qs,
+                "headers": req.headers,
+            },
             "res_one": r_one,
             "res_other": r_other,
         }),

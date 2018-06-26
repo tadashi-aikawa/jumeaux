@@ -388,7 +388,6 @@ class StoreCriterionAddOnPayload(OwlMixin):
 
 class StoreCriterionAddOnReference(OwlMixin):
     status: Status
-    name: str
     req: Request
     res_one: Response
     res_other: Response

@@ -33,8 +33,8 @@ RES_OTHER = Response.from_dict({
 
 REFERENCE = {
     'status': 'same',
-    'name': 'no title',
     'req': {
+        'name': 'no title',
         'path': '/test1',
         'qs': {},
         'headers': {},
