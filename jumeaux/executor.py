@@ -163,7 +163,7 @@ def judgement(r_one: Response, r_other: Response,
     regard_as_same: bool = global_addon_executor.apply_judgement(
         JudgementAddOnPayload.from_dict({
             "remaining_diff_keys": diff_keys,
-            "regard_as_same": r_one.body == r_other.body,
+            "regard_as_same": r_one.body == r_other.body if diff_keys is None else diff_keys.is_empty(),
         }),
         JudgementAddOnReference.from_dict({
             "name": name,

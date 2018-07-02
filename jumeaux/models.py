@@ -274,6 +274,9 @@ class DiffKeys(OwlMixin):
     changed: TList[str]
     removed: TList[str]
 
+    def is_empty(self) -> bool:
+        return len(self.added) == len(self.changed) == len(self.removed) == 0
+
 
 class ResponseSummary(OwlMixin):
     url: str
