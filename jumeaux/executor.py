@@ -55,6 +55,7 @@ from requests.exceptions import ConnectionError
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
+sys.path.append(os.getcwd())
 from jumeaux import __version__
 from jumeaux.handlers import server, init, viewer
 from jumeaux.addons import AddOnExecutor
