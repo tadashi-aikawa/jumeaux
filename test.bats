@@ -30,6 +30,11 @@ assert_string_property() {
   [[ $(jq $path responses/latest/report.json) == \""$expected"\" ]]
 }
 
+assert_null_property() {
+  local path=$1
+  [[ $(jq $path responses/latest/report.json) == null ]]
+}
+
 
 #--------------------------
 # jumeaux usage
@@ -91,6 +96,29 @@ assert_string_property() {
   assert_number_property '.summary.status.different' 1
 }
 
+@test "Run query_custom" {
+  $JUMEAUX init query_custom
+  $JUMEAUX run requests
+
+  assert_exists responses
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/one-props/*
+  assert_exists responses/latest/other-props/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+
+  assert_number_property '.summary.status.same' 1
+  assert_number_property '.summary.status.different' 1
+  assert_null_property '.summary.one.query'
+  assert_string_property '.summary.other.query.overwrite.additional[0]' hoge
+  assert_string_property '.summary.other.query.remove[0]' param
+
+  assert_string_property '.trials[0].one.url' 'http://localhost:8000/api/one/same-1.json'
+  assert_string_property '.trials[0].other.url' 'http://localhost:8000/api/other/same-1.json?additional=hoge'
+  assert_string_property '.trials[1].one.url' 'http://localhost:8000/api/one/diff-1.json?param=123'
+  assert_string_property '.trials[1].other.url' 'http://localhost:8000/api/other/diff-1.json?additional=hoge'
+}
 
 @test "Run all_same" {
   $JUMEAUX init all_same
