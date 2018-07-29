@@ -1,18 +1,20 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+import datetime
 import os
 import shutil
-import datetime
+from typing import Optional
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
+import pytest
+from owlmixin import TList, TDict
 from requests.exceptions import ConnectionError
-from owlmixin import TList
 
 from jumeaux import executor, __version__
 from jumeaux.addons import AddOnExecutor
-from jumeaux.executor import merge_args2config
+from jumeaux.executor import merge_args2config, create_query_string
 from jumeaux.models import (
     CaseInsensitiveDict,
     Addons,
@@ -21,7 +23,7 @@ from jumeaux.models import (
     Args,
     Request,
     Report,
-)
+    QueryCustomization)
 
 
 class ResponseBuilder():
@@ -337,6 +339,55 @@ class TestChallenge:
         }
 
         assert actual == expected
+
+
+class TestCreateQueryString:
+    @pytest.mark.parametrize(
+        'title, qs, cqs, encoding, expected', [
+            (
+                "Overwrite existing",
+                {"q1": ["v1"], "q2": ["v2-1"]},
+                {"overwrite": {"q2": ["v2-2", "v2-3"]}},
+                'utf-8',
+                "q1=v1&q2=v2-2&q2=v2-3",
+            ),
+            (
+                "Overwrite empty",
+                {"q1": ["v1"]},
+                {"overwrite": {"q2": ["v2"]}},
+                'utf-8',
+                "q1=v1&q2=v2",
+            ),
+            (
+                "Remove existing",
+                {"q1": ["v1"], "q2": ["v2-1"]},
+                {"remove": ["q2"]},
+                'utf-8',
+                "q1=v1",
+            ),
+            (
+                "Remove empty",
+                {"q1": ["v1"]},
+                {"remove": ["q2"]},
+                'utf-8',
+                "q1=v1",
+            ),
+            (
+                "Overall",
+                {"q1": ["v1"], "q2": ["v2-1", "v2-2"], "q3": ["v3"], "q4": ["v4"]},
+                {
+                    "overwrite": {
+                        "q2": [""], "q5": ["値5"]
+                    },
+                    "remove": ["q1", "q3", "q6"]
+                },
+                'sjis',
+                "q2=&q4=v4&q5=%92l5",
+            ),
+        ]
+    )
+    def test_normal(self, title, qs: TDict[TList[str]], cqs: Optional[dict], encoding: str, expected):
+        assert expected == create_query_string(TDict(qs), QueryCustomization.from_optional_dict(cqs), encoding)
 
 
 class TestMergeArgs2Config:
@@ -690,7 +741,12 @@ class TestExec:
             },
             "other": {
                 "name": "name_other",
-                "host": "http://host/other"
+                "host": "http://host/other",
+                "query": {
+                    "overwrite": {
+                        "q3": ["3"]
+                    }
+                },
             },
             "output": {
                 "encoding": "utf8",
@@ -768,7 +824,12 @@ class TestExec:
                 },
                 "other": {
                     "host": "http://host/other",
-                    "name": "name_other"
+                    "name": "name_other",
+                    "query": {
+                        "overwrite": {
+                            "q3": ["3"]
+                        },
+                    },
                 },
                 "tags": ["tag1", "tag2"],
                 "status": {
@@ -855,4 +916,4 @@ class TestExec:
             ]
         }
 
-        assert actual.to_dict() == expected
+        assert expected == actual.to_dict()

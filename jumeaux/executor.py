@@ -218,8 +218,8 @@ def create_query_string(qs: TDict[TList[str]], cqs: TOption[QueryCustomization],
     if cqs.is_none():
         return urlparser.urlencode(qs, doseq=True, encoding=encoding)
 
-    overwritten = qs.assign(cqs.get().overwrite.to_dict())
-    removed = {k: v for k, v in overwritten.items() if k not in cqs.get().remove}
+    overwritten = qs.assign(cqs.get().overwrite.get_or(TDict()).to_dict())
+    removed = {k: v for k, v in overwritten.items() if k not in cqs.get().remove.get_or(TList())}
 
     return urlparser.urlencode(removed, doseq=True, encoding=encoding)
 

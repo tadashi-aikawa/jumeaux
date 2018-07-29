@@ -26,8 +26,8 @@ class Status(OwlEnum):
 
 
 class QueryCustomization(OwlMixin):
-    overwrite: TDict[TList[str]] = {}
-    remove: TList[str] = []
+    overwrite: TOption[TDict[TList[str]]]
+    remove: TOption[TList[str]]
 
 
 class AccessPoint(OwlMixin):
