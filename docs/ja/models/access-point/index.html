@@ -516,6 +516,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#querycustomization" title="QueryCustomization" class="md-nav__link">
+    QueryCustomization
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -532,6 +539,13 @@
           <li class="md-nav__item">
   <a href="#production" title="Production環境のアクセス先情報" class="md-nav__link">
     Production環境のアクセス先情報
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id123name" title="クエリ、idを123に上書きしnameを削除する" class="md-nav__link">
+    クエリ、idを123に上書きしnameを削除する
   </a>
   
 </li>
@@ -666,6 +680,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#querycustomization" title="QueryCustomization" class="md-nav__link">
+    QueryCustomization
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -682,6 +703,13 @@
           <li class="md-nav__item">
   <a href="#production" title="Production環境のアクセス先情報" class="md-nav__link">
     Production環境のアクセス先情報
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id123name" title="クエリ、idを123に上書きしnameを削除する" class="md-nav__link">
+    クエリ、idを123に上書きしnameを削除する
   </a>
   
 </li>
@@ -754,6 +782,13 @@
 <td></td>
 </tr>
 <tr>
+<td>query</td>
+<td>(<a href="#query-customization">QueryCustomization</a>)</td>
+<td>アクセス先ごとにクエリを上書き/削除したい場合の設定</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
 <td>proxy</td>
 <td>(string)</td>
 <td>プロキシ <i class="fa fa-exclamation-triangle"></i></td>
@@ -780,10 +815,53 @@
 推測はボディが大きい場合にパフォーマンスが著しく劣化するので可能な限り指定して下さい。</p>
 <p>content-typeにcharsetが指定されていれば本パラメータは無関係です。</p>
 </div>
+<h3 id="querycustomization">QueryCustomization<a class="headerlink" href="#querycustomization" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>overwrite</td>
+<td>(dict[list[string]])</td>
+<td>上書きクエリのkey-value <i class="fa fa-exclamation-triangle"></i></td>
+<td><pre>{"a": ["v1"], "b": ["2", "3"]}</pre></td>
+<td></td>
+</tr>
+<tr>
+<td>remove</td>
+<td>(list[string])</td>
+<td>削除するクエリのリスト</td>
+<td><code>[id, name]</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">overwrite</p>
+<p><code>overwrite</code>は既存のクエリに値を追加できません。<br />
+既にクエリの値が設定されている場合、それらは削除されます。</p>
+</div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="production">Production環境のアクセス先情報<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>name: Production
 host: &quot;http://jumeaux/production&quot;
+</pre></div>
+
+<h3 id="id123name">クエリ、idを123に上書きしnameを削除する<a class="headerlink" href="#id123name" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>name: Query Customization
+host: &quot;http://jumeaux/production&quot;
+query:
+  overwrite:
+    id: [&#39;123&#39;]
+  remove:
+    - name
 </pre></div>
 
 <h3 id="proxy-hostproduction"><code>proxy-host</code>をプロキシとしてい経由するProduction環境のアクセス先情報<a class="headerlink" href="#proxy-hostproduction" title="Permanent link">&para;</a></h3>
