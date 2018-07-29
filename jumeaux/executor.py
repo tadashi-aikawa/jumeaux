@@ -84,7 +84,9 @@ from jumeaux.models import (
     DidChallengeAddOnPayload,
     DiffKeys,
     Status,
-    DictOrList)
+    DictOrList,
+    QueryCustomization
+)
 from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
@@ -212,6 +214,16 @@ def to_sec(elapsed):
     return round(elapsed.seconds + elapsed.microseconds / 1000000, 2)
 
 
+def create_query_string(qs: TDict[TList[str]], cqs: TOption[QueryCustomization], encoding: str) -> str:
+    if cqs.is_none():
+        return urlparser.urlencode(qs, doseq=True, encoding=encoding)
+
+    overwritten = qs.assign(cqs.get().overwrite.get_or(TDict()).to_dict())
+    removed = {k: v for k, v in overwritten.items() if k not in cqs.get().remove.get_or(TList())}
+
+    return urlparser.urlencode(removed, doseq=True, encoding=encoding)
+
+
 def challenge(arg: ChallengeArg) -> dict:
     """ Response is dict like `Trial` because Status(OwlEnum) can't be pickled.
     """
@@ -223,10 +235,10 @@ def challenge(arg: ChallengeArg) -> dict:
     logger.info_lv3(f"{log_prefix}  {arg.seq}. {arg.req.name.get_or(arg.req.path)}")
     logger.info_lv3(f"{log_prefix} {'-'*80}")
 
-    qs_str = urlparser.urlencode(arg.req.qs, doseq=True, encoding=arg.req.url_encoding)
-
-    url_one = f'{arg.host_one}{arg.req.path}?{qs_str}'
-    url_other = f'{arg.host_other}{arg.req.path}?{qs_str}'
+    qs_str_one = create_query_string(arg.req.qs, arg.query_one, arg.req.url_encoding)
+    qs_str_other = create_query_string(arg.req.qs, arg.query_other, arg.req.url_encoding)
+    url_one = f'{arg.host_one}{arg.req.path}?{qs_str_one}'
+    url_other = f'{arg.host_other}{arg.req.path}?{qs_str_other}'
 
     # Get two responses
     req_time = now()
@@ -392,6 +404,8 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "host_other": config.other.host,
         "proxy_one": Proxy.from_host(config.one.proxy),
         "proxy_other": Proxy.from_host(config.other.proxy),
+        "query_one": config.one.query,
+        "query_other": config.other.query,
         "default_response_encoding_one": config.one.default_response_encoding,
         "default_response_encoding_other": config.other.default_response_encoding,
         "res_dir": config.output.response_dir,
@@ -430,12 +444,14 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "one": {
             "name": config.one.name,
             "host": config.one.host,
+            "query": config.one.query,
             "proxy": config.one.proxy,
             "default_response_encoding": config.one.default_response_encoding,
         },
         "other": {
             "name": config.other.name,
             "host": config.other.host,
+            "query": config.other.query,
             "proxy": config.other.proxy,
             "default_response_encoding": config.other.default_response_encoding,
         },

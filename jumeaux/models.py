@@ -25,9 +25,15 @@ class Status(OwlEnum):
     FAILURE = "failure"
 
 
+class QueryCustomization(OwlMixin):
+    overwrite: TOption[TDict[TList[str]]]
+    remove: TOption[TList[str]]
+
+
 class AccessPoint(OwlMixin):
     name: str
     host: str
+    query: TOption[QueryCustomization]
     proxy: TOption[str]
     default_response_encoding: TOption[str]
 
@@ -236,6 +242,8 @@ class ChallengeArg(OwlMixin):
     req: Request
     host_one: str
     host_other: str
+    query_one: TOption[QueryCustomization]
+    query_other: TOption[QueryCustomization]
     proxy_one: TOption[Proxy]
     proxy_other: TOption[Proxy]
     default_response_encoding_one: TOption[str]
