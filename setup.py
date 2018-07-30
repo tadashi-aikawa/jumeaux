@@ -34,7 +34,7 @@ setup(
         open('jumeaux/__init__.py').read()).group(1),
     description='Check difference between two responses of API.',
     long_description=load_readme(),
-    long_description_content_type=”text/markdown”,
+    long_description_content_type='text/markdown',
     license='MIT',
     author='tadashi-aikawa',
     author_email='syou.maman@gmail.com',
