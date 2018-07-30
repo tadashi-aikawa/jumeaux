@@ -544,8 +544,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#id123name" title="クエリ、idを123に上書きしnameを削除する" class="md-nav__link">
-    クエリ、idを123に上書きしnameを削除する
+  <a href="#id123name" title="クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別する)" class="md-nav__link">
+    クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別する)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id123name_1" title="クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別しない)" class="md-nav__link">
+    クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別しない)
   </a>
   
 </li>
@@ -708,8 +715,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#id123name" title="クエリ、idを123に上書きしnameを削除する" class="md-nav__link">
-    クエリ、idを123に上書きしnameを削除する
+  <a href="#id123name" title="クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別する)" class="md-nav__link">
+    クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別する)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id123name_1" title="クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別しない)" class="md-nav__link">
+    クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別しない)
   </a>
   
 </li>
@@ -783,7 +797,7 @@
 </tr>
 <tr>
 <td>query</td>
-<td>(<a href="#query-customization">QueryCustomization</a>)</td>
+<td>(<a href="#querycustomization">QueryCustomization</a>)</td>
 <td>アクセス先ごとにクエリを上書き/削除したい場合の設定</td>
 <td>-</td>
 <td></td>
@@ -843,6 +857,7 @@
 </tr>
 </tbody>
 </table>
+<p>名前が<code>/i</code>で終わるキーはcase insensitive(大文字小文字を区別しない)になります。</p>
 <div class="admonition warning">
 <p class="admonition-title">overwrite</p>
 <p><code>overwrite</code>は既存のクエリに値を追加できません。<br />
@@ -854,14 +869,24 @@
 host: &quot;http://jumeaux/production&quot;
 </pre></div>
 
-<h3 id="id123name">クエリ、idを123に上書きしnameを削除する<a class="headerlink" href="#id123name" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>name: Query Customization
+<h3 id="id123name">クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別する)<a class="headerlink" href="#id123name" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>name: Query Customization case sensitive
 host: &quot;http://jumeaux/production&quot;
 query:
   overwrite:
     id: [&#39;123&#39;]
   remove:
     - name
+</pre></div>
+
+<h3 id="id123name_1">クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別しない)<a class="headerlink" href="#id123name_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>name: Query Customization case insensitive
+host: &quot;http://jumeaux/production&quot;
+query:
+  overwrite:
+    id/i: [&#39;123&#39;]
+  remove:
+    - name/i
 </pre></div>
 
 <h3 id="proxy-hostproduction"><code>proxy-host</code>をプロキシとしてい経由するProduction環境のアクセス先情報<a class="headerlink" href="#proxy-hostproduction" title="Permanent link">&para;</a></h3>

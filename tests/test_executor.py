@@ -345,11 +345,39 @@ class TestCreateQueryString:
     @pytest.mark.parametrize(
         'title, qs, cqs, encoding, expected', [
             (
-                "Overwrite existing",
+                "Overwrite existing case sensitive",
                 {"q1": ["v1"], "q2": ["v2-1"]},
                 {"overwrite": {"q2": ["v2-2", "v2-3"]}},
                 'utf-8',
                 "q1=v1&q2=v2-2&q2=v2-3",
+            ),
+            (
+                "Overwrite existing case insensitive, good",
+                {"q1": ["v1"], "Q2": ["v2-1"]},
+                {"overwrite": {"q2/i": ["v2-2", "v2-3"]}},
+                'utf-8',
+                "q1=v1&Q2=v2-2&Q2=v2-3",
+            ),
+            (
+                "Overwrite existing case insensitive reverse, good",
+                {"q1": ["v1"], "q2": ["v2-1"]},
+                {"overwrite": {"Q2/i": ["v2-2", "v2-3"]}},
+                'utf-8',
+                "q1=v1&q2=v2-2&q2=v2-3",
+            ),
+            (
+                "Overwrite existing case insensitive, bad",
+                {"q1": ["v1"], "Q2": ["v2-1"]},
+                {"overwrite": {"q2": ["v2-2", "v2-3"]}},
+                'utf-8',
+                "q1=v1&Q2=v2-1&q2=v2-2&q2=v2-3",
+            ),
+            (
+                "Overwrite existing case insensitive reverse, bad",
+                {"q1": ["v1"], "q2": ["v2-1"]},
+                {"overwrite": {"Q2": ["v2-2", "v2-3"]}},
+                'utf-8',
+                "q1=v1&q2=v2-1&Q2=v2-2&Q2=v2-3",
             ),
             (
                 "Overwrite empty",
@@ -359,11 +387,39 @@ class TestCreateQueryString:
                 "q1=v1&q2=v2",
             ),
             (
-                "Remove existing",
+                "Remove existing case sensitive",
                 {"q1": ["v1"], "q2": ["v2-1"]},
                 {"remove": ["q2"]},
                 'utf-8',
                 "q1=v1",
+            ),
+            (
+                "Remove existing case insensitive, good",
+                {"q1": ["v1"], "Q2": ["v2-1"]},
+                {"remove": ["q2/i"]},
+                'utf-8',
+                "q1=v1",
+            ),
+            (
+                "Remove existing case insensitive reverse, good",
+                {"q1": ["v1"], "q2": ["v2-1"]},
+                {"remove": ["Q2/i"]},
+                'utf-8',
+                "q1=v1",
+            ),
+            (
+                "Remove existing case insensitive, bad",
+                {"q1": ["v1"], "Q2": ["v2-1"]},
+                {"remove": ["q2"]},
+                'utf-8',
+                "q1=v1&Q2=v2-1",
+            ),
+            (
+                "Remove existing case insensitive reverse, bad",
+                {"q1": ["v1"], "q2": ["v2-1"]},
+                {"remove": ["Q2"]},
+                'utf-8',
+                "q1=v1&q2=v2-1",
             ),
             (
                 "Remove empty",
@@ -374,15 +430,15 @@ class TestCreateQueryString:
             ),
             (
                 "Overall",
-                {"q1": ["v1"], "q2": ["v2-1", "v2-2"], "q3": ["v3"], "q4": ["v4"]},
+                {"q1": ["v1"], "q2": ["v2-1", "v2-2"], "q3": ["v3"], "q4": ["v4"], "Query1": ["V1"], "Query2": ["V2"]},
                 {
                     "overwrite": {
-                        "q2": [""], "q5": ["値5"]
+                        "q2": [""], "q5": ["値5"], "query1/i": ["値1"], "query2": ["値2"],
                     },
-                    "remove": ["q1", "q3", "q6"]
+                    "remove": ["q1", "q3", "q6"],
                 },
                 'sjis',
-                "q2=&q4=v4&q5=%92l5",
+                "q2=&q4=v4&Query1=%92l1&Query2=V2&q5=%92l5&query2=%92l2",
             ),
         ]
     )

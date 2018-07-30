@@ -4,6 +4,16 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.57.0
+
+:fa-calendar: `2018-07-30`
+
+??? info "アクセス先クエリ制御のcase insensitive対応をしました"
+
+    * `/i`を付けることでキーの大文字/小文字を同一視することができます
+    * 詳しくは [models/accesspoint] のQueryCustomizationをご覧下さい
+
+
 ## :package: 0.56.0
 
 :fa-calendar: `2018-07-29`
@@ -514,3 +524,4 @@ Releases
 [final/json]: /ja/addons/final#json
 [final/summary]: /ja/addons/final#summary
 [final/viewer]: /ja/addons/final#viewer
+[models/accesspoint]: /ja/models/access-point

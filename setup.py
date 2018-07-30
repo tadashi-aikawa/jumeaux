@@ -17,7 +17,7 @@ test_requirements = convert_deps_to_pip(pfile['dev-packages'], r=False)
 
 
 def load_readme():
-    with open(os.path.join(here, 'README.rst')) as f:
+    with open(os.path.join(here, 'README.md')) as f:
         return f.read()
 
 
@@ -34,6 +34,7 @@ setup(
         open('jumeaux/__init__.py').read()).group(1),
     description='Check difference between two responses of API.',
     long_description=load_readme(),
+    long_description_content_type='text/markdown',
     license='MIT',
     author='tadashi-aikawa',
     author_email='syou.maman@gmail.com',
