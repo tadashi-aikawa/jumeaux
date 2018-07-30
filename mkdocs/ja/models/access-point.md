@@ -8,13 +8,13 @@ Definitions
 
 ### AccessPoint
 
-| Key                       | Type                                         | Description                                                   | Example                     | Default |
-|---------------------------|----------------------------------------------|---------------------------------------------------------------|-----------------------------|---------|
-| name                      | string                                       | アクセス先の名称                                              | Production                  |         |
-| host                      | string                                       | アクセス先のhost                                              | `http://jumeaux/production` |         |
-| query                     | ([QueryCustomization](#query-customization)) | アクセス先ごとにクエリを上書き/削除したい場合の設定           | -                           |         |
-| proxy                     | (string)                                     | プロキシ :fa-exclamation-triangle:                            | `proxy-host`                |         |
-| default_response_encoding | (string)                                     | レスポンスのエンコーディングが不明な場合の値 :fa-info-circle: | utf8                        |         |
+| Key                       | Type                                        | Description                                                   | Example                     | Default |
+|---------------------------|---------------------------------------------|---------------------------------------------------------------|-----------------------------|---------|
+| name                      | string                                      | アクセス先の名称                                              | Production                  |         |
+| host                      | string                                      | アクセス先のhost                                              | `http://jumeaux/production` |         |
+| query                     | ([QueryCustomization](#querycustomization)) | アクセス先ごとにクエリを上書き/削除したい場合の設定           | -                           |         |
+| proxy                     | (string)                                    | プロキシ :fa-exclamation-triangle:                            | `proxy-host`                |         |
+| default_response_encoding | (string)                                    | レスポンスのエンコーディングが不明な場合の値 :fa-info-circle: | utf8                        |         |
 
 
 !!! warning  "proxy"
