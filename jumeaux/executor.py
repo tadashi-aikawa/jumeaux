@@ -36,11 +36,11 @@ Options:
   --responses-dir = <responses_dir>             Directory which has responses [default: responses]
 """
 
+import datetime
 import hashlib
 import io
 import os
 import sys
-import datetime
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
@@ -214,12 +214,26 @@ def to_sec(elapsed):
     return round(elapsed.seconds + elapsed.microseconds / 1000000, 2)
 
 
+def select_key_as_case_insensitive(target_key_pattern: str, qs: TDict[TList[str]]) -> str:
+    case_insensitive: bool = target_key_pattern.endswith("/i")
+    target_key = target_key_pattern[:-2] if case_insensitive else target_key_pattern
+
+    def matcher(x):
+        return x.lower() == target_key.lower() if case_insensitive else x == target_key
+
+    return TList(qs.keys()).find(matcher) or target_key
+
+
 def create_query_string(qs: TDict[TList[str]], cqs: TOption[QueryCustomization], encoding: str) -> str:
     if cqs.is_none():
         return urlparser.urlencode(qs, doseq=True, encoding=encoding)
 
-    overwritten = qs.assign(cqs.get().overwrite.get_or(TDict()).to_dict())
-    removed = {k: v for k, v in overwritten.items() if k not in cqs.get().remove.get_or(TList())}
+    overwritten = qs.assign(
+        {select_key_as_case_insensitive(k, qs): v for k, v in cqs.get().overwrite.get_or(TDict()).to_dict().items()}
+    )
+    removed = {k: v for k, v in overwritten.items() if k not in
+               [select_key_as_case_insensitive(x, qs) for x in cqs.get().remove.get_or(TList())]
+               }
 
     return urlparser.urlencode(removed, doseq=True, encoding=encoding)
 
