@@ -537,7 +537,7 @@ def main():
 
     # TODO: refactoring
     if args.retry:
-        report: Report = Report.from_jsonf(args.report.get())
+        report: Report = Report.from_jsonf(args.report.get(), force_cast=True)
         config: Config = merge_args2config(args, create_config_from_report(report))
         global_addon_executor = AddOnExecutor(config.addons)
         origin_logs: TList[Request] = report.trials.map(lambda x: Request.from_dict({

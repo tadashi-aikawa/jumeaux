@@ -565,6 +565,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0571" title="0.57.1" class="md-nav__link">
+    0.57.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0570" title="0.57.0" class="md-nav__link">
     0.57.0
   </a>
@@ -876,6 +883,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0571" title="0.57.1" class="md-nav__link">
+    0.57.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0570" title="0.57.0" class="md-nav__link">
     0.57.0
   </a>
@@ -1177,7 +1191,11 @@
                 <h1 id="releases">Releases<a class="headerlink" href="#releases" title="Permanent link">&para;</a></h1>
 <p>主なリリース情報を記載します。<br />
 全ての変更はGitHubのコミットログをご覧ください。</p>
-<h2 id="0570"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/3.1/png/64/1f4e6.png" title=":package:" /> 0.57.0<a class="headerlink" href="#0570" title="Permanent link">&para;</a></h2>
+<h2 id="0571"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/3.1/png/64/1f4e6.png" title=":package:" /> 0.57.1<a class="headerlink" href="#0571" title="Permanent link">&para;</a></h2>
+<p><i class="fa fa-calendar"></i> <code>2018-08-04</code></p>
+<details class="bug"><summary>特定の条件下でretryに失敗する不具合を修正しました</summary><p>以下の条件を満たすとき失敗していました。</p><ol><li>Jumeauxの実行結果に整数で表現可能なresponse_secが含まれる (例: response_sec: 2.0 など)</li><li>1のReportをMiroirからダウンロードし、それを入力にして<code>jumeaux retry</code>を実行する</li></ol><p>直接の原因は、<code>report.json</code>の<code>response_sec</code>がint型を受けつけていなかった為です。(floatでなければいけない)<br />
+2のダウンロード時に2.0のようなfloat型は2のようなint型へ変換されていました。(JavaScriptの仕様と思われる)<br />
+今回の対応によってint型の場合にfloat型へ変換して処理を続行するようになりました。</p></details><h2 id="0570"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/3.1/png/64/1f4e6.png" title=":package:" /> 0.57.0<a class="headerlink" href="#0570" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-07-30</code></p>
 <details class="info"><summary>アクセス先クエリ制御のcase insensitive対応をしました</summary><ul><li><code>/i</code>を付けることでキーの大文字/小文字を同一視することができます</li><li>詳しくは <a href="../../ja/models/access-point">models/accesspoint</a> のQueryCustomizationをご覧下さい</li></ul></details><h2 id="0560"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/3.1/png/64/1f4e6.png" title=":package:" /> 0.56.0<a class="headerlink" href="#0560" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-07-29</code></p>
