@@ -4,6 +4,23 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+
+## :package: 0.57.1
+
+:fa-calendar: `2018-08-04`
+
+??? bug "特定の条件下でretryに失敗する不具合を修正しました"
+
+    以下の条件を満たすとき失敗していました。
+
+    1. Jumeauxの実行結果に整数で表現可能なresponse_secが含まれる (例: response_sec: 2.0 など)
+    2. 1のReportをMiroirからダウンロードし、それを入力にして`jumeaux retry`を実行する
+
+    直接の原因は、`report.json`の`response_sec`がint型を受けつけていなかった為です。(floatでなければいけない)  
+    2のダウンロード時に2.0のようなfloat型は2のようなint型へ変換されていました。(JavaScriptの仕様と思われる)  
+    今回の対応によってint型の場合にfloat型へ変換して処理を続行するようになりました。
+
+
 ## :package: 0.57.0
 
 :fa-calendar: `2018-07-30`
