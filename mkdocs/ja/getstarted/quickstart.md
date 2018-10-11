@@ -119,7 +119,7 @@ responses/
 
 ### GUIで結果を確認する
 
-`jumeaux server`コマンドを実行している場合は以下いずれかのURLにアクセスすると、Viewerで結果を確認することができます。
+`jumeaux viewer`コマンドを実行している場合は以下いずれかのURLにアクセスすると、Viewerで結果を確認することができます。
 
 * http://localhost:8000/responses/latest
 * http://localhost:8000/responses/057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
