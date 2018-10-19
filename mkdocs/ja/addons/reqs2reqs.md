@@ -156,12 +156,12 @@ reqs2reqs:
 
 ##### Replacer
 
-|    Key     |                  Type                   |             Description              |                 Example                 | Default |
-| ---------- | --------------------------------------- | ------------------------------------ | --------------------------------------- | ------- |
+| Key        | Type                                    | Description                          | Example                                 | Default |
+|------------|-----------------------------------------|--------------------------------------|-----------------------------------------|---------|
 | conditions | [RequestCondition[]][request-condition] | 置換するRequestの条件                |                                         |         |
 | and_or     | (AndOr) :fa-info-circle:                | conditionsをAND/ORどちらで判定するか |                                         | and     |
 | negative   | (bool)                                  | 否定条件とするか                     | true                                    | false   |
-| qs         | dict[str[]])                            | 置換するクエリ                       | <pre>{"a": [1], "b": [2, 3]}</pre>      |         |
+| queries    | dict[str[]])                            | 置換するクエリ                       | <pre>{"a": [1], "b": [2, 3]}</pre>      |         |
 | headers    | dict[str]                               | 置換するヘッダ                       | <pre>{"header1": 1, "header2": 2}</pre> |         |
 
 ??? info "AndOr"
@@ -170,7 +170,7 @@ reqs2reqs:
     ja/constants/and_or.md
     --8<--
 
-!!! info "`qs`と`headers`について"
+!!! info "`queries`と`headers`について"
 
     リクエストに存在しないクエリやヘッダの場合は、設定した値が追加されます
 
@@ -188,8 +188,8 @@ reqs2reqs:
                 items:
                   - regexp: /target
           queries:
-            id: "dummy_id"
-            time: "dummy_date"
+            id: ["dummy_id"]
+            time: ["dummy_date"]
 ```
 
 [:fa-github:][shuffle] shuffle

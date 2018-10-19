@@ -1917,7 +1917,7 @@
 <td>false</td>
 </tr>
 <tr>
-<td>qs</td>
+<td>queries</td>
 <td>dict[str[]])</td>
 <td>置換するクエリ</td>
 <td><pre>{"a": [1], "b": [2, 3]}</pre></td>
@@ -1933,7 +1933,7 @@
 </tbody>
 </table>
 <details class="info"><summary>AndOr</summary><table><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td>and</td><td>AND条件</td></tr><tr><td>or</td><td>OR条件</td></tr></tbody></table></details><div class="admonition info">
-<p class="admonition-title"><code>qs</code>と<code>headers</code>について</p>
+<p class="admonition-title"><code>queries</code>と<code>headers</code>について</p>
 <p>リクエストに存在しないクエリやヘッダの場合は、設定した値が追加されます</p>
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
@@ -1947,8 +1947,8 @@
                 items:
                   - regexp: /target
           queries:
-            id: &quot;dummy_id&quot;
-            time: &quot;dummy_date&quot;
+            id: [&quot;dummy_id&quot;]
+            time: [&quot;dummy_date&quot;]
 </pre></div>
 
 <h2 id="shuffle"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/shuffle.py"><i class="fa fa-github"></i></a> shuffle<a class="headerlink" href="#shuffle" title="Permanent link">&para;</a></h2>
