@@ -13,7 +13,7 @@ from jumeaux.models import Report, OutputSummary, FinalAddOnPayload
 from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
-MIROIR_AA = """
+MIROIR_AA = r"""
         __  __ _           _
 __/\__ |  \/  (_)_ __ ___ (_)_ __  __/\__
 \    / | |\/| | | '__/ _ \| | '__| \    /

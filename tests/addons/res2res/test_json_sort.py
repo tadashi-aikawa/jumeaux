@@ -193,7 +193,7 @@ class TestExec:
             ),
             (
                 "list -> dict -> list(str) (string sorting)",
-                """
+                r"""
                 items:
                   - conditions:
                       - path:
