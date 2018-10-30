@@ -3,6 +3,7 @@
 import json
 import os
 import shutil
+import warnings
 from decimal import Decimal
 
 import boto3
@@ -13,13 +14,16 @@ from jumeaux.models import Report, OutputSummary, FinalAddOnPayload
 from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
-MIROIR_AA = """
+MIROIR_AA = r"""
         __  __ _           _
 __/\__ |  \/  (_)_ __ ___ (_)_ __  __/\__
 \    / | |\/| | | '__/ _ \| | '__| \    /
 /_  _\ | |  | | | | | (_) | | |    /_  _\\
   \/   |_|  |_|_|_|  \___/|_|_|      \/
 """
+
+# See https://github.com/boto/boto3/issues/454
+warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed.*<ssl.SSLSocket.*>")
 
 
 class When(OwlEnum):

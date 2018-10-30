@@ -9,7 +9,7 @@ repo_name: tadashi-aikawa/jumeaux
 repo_url: https://github.com/tadashi-aikawa/jumeaux
 edit_uri: edit/master/mkdocs/
 
-pages:
+nav:
   - Home: index.md
   - Get Started:
     - Quickstart: ja/getstarted/quickstart.md
@@ -69,8 +69,8 @@ markdown_extensions:
     # コードのsyntax
     - codehilite:
         guess_lang: false
-    # 見出しに逆リンクを貼れる
-    - markdown.extensions.toc(permalink=true)
+    - toc:
+        permalink: True
     # expandableにする
     - pymdownx.details
     # 絵文字対応
