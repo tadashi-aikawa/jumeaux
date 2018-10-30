@@ -1,0 +1,38 @@
+title: Path empty
+
+one:
+  name: One endpoint
+  host: http://localhost:8000/api/one/diff-1.json
+
+other:
+  name: Other endpoint
+  host: http://localhost:8000/api/other/diff-1.json
+
+output:
+  response_dir: responses
+
+addons:
+  log2reqs:
+    name: plain
+
+  res2dict:
+    - name: json
+
+  store_criterion:
+    - name: general
+      config:
+        statuses:
+          - different
+
+  dump:
+    - name: json
+
+  final:
+    - name: json
+    - name: viewer
+  #   - name: miroir
+  #     config:
+  #       table: miroir
+  #       bucket: mamansoft-miroir
+  #       cache_max_age: 120
+

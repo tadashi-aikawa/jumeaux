@@ -255,8 +255,8 @@ assert_null_property() {
 # jumeaux retry
 #--------------------------
 
-@test "Retry" {
-  $JUMEAUX init simple
+@test "Retry with empty path" {
+  $JUMEAUX init path_empty
   $JUMEAUX run requests
 
   assert_exists responses
@@ -273,5 +273,8 @@ assert_null_property() {
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
   assert_exists api
+
+  assert_number_property '.summary.status.same' 0
+  assert_number_property '.summary.status.different' 1
 }
 

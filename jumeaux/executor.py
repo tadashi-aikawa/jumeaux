@@ -344,7 +344,7 @@ def challenge(arg: ChallengeArg) -> dict:
             "name": name,
             "request_time": req_time.isoformat(),
             "status": status,
-            "path": arg.req.path or "No path",
+            "path": arg.req.path,
             "queries": arg.req.qs,
             "headers": arg.req.headers,
             "diff_keys": diff_keys,
