@@ -6,7 +6,7 @@ Releases
 
 ## :package: 0.58.0
 
-:fa-calendar: `???`
+:fa-calendar: `2018-10-30`
 
 ??? danger "出力レポート内の時刻にTimezone情報を追加しました"
 
