@@ -44,6 +44,7 @@ import sys
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
+from tzlocal import get_localzone
 
 import requests
 from deepdiff import DeepDiff
@@ -92,15 +93,15 @@ from jumeaux.logger import Logger, init_logger
 logger: Logger = Logger(__name__)
 global_addon_executor: AddOnExecutor
 
-START_JUMEAUX_AA = """
+START_JUMEAUX_AA = r"""
         ____  _             _         _
 __/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ __/\__
 \    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
-/_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\\
+/_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\
   \/   |____/ \__\__,_|_|   \__|  \___/ \__,_|_| |_| |_|\___|\__,_|\__,_/_/\_\   \/
 """
 
-CONFIG_AA = """
+CONFIG_AA = r"""
          ____             __ _
 __/\__  / ___|___  _ __  / _(_) __ _  __/\__
 \    / | |   / _ \| '_ \| |_| |/ _` | \    /
@@ -114,7 +115,7 @@ def now():
     """
     For test
     """
-    return datetime.datetime.today()
+    return datetime.datetime.now(get_localzone())
 
 
 def write_to_file(name, dir, body):
