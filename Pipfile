@@ -36,6 +36,7 @@ requests-toolbelt = "*"
 lxml = "*"
 owlmixin = ">=2.8.0"
 livereload = "*"
+tzlocal = "*"
 
 [requires]
 python_version = "3.6"

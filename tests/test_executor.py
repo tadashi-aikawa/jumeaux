@@ -5,6 +5,7 @@ import datetime
 import os
 import shutil
 from typing import Optional
+from datetime import timezone, timedelta
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
@@ -24,6 +25,14 @@ from jumeaux.models import (
     Request,
     Report,
     QueryCustomization)
+
+
+def mock_date(year, month, day, hour, minute, second, microsecond):
+    """
+    For test
+    """
+    # TODO: timezone is JST and tests!
+    return datetime.datetime(year, month, day, hour, minute, second, microsecond, timezone(timedelta(hours=+9), 'JST'))
 
 
 class ResponseBuilder():
@@ -132,7 +141,7 @@ class TestChallenge:
             .second(9, 876543) \
             .build()
         concurrent_request.return_value = res_one, res_other
-        now.return_value = datetime.datetime(2000, 1, 1, 10, 10, 10, 10)
+        now.return_value = mock_date(2000, 1, 1, 10, 10, 10, 10)
         store_criterion.return_value = True
 
         args: ChallengeArg = ChallengeArg.from_dict({
@@ -164,7 +173,7 @@ class TestChallenge:
         expected = {
             "seq": 1,
             "name": "name1",
-            "request_time": '2000-01-01T10:10:10.000010',
+            "request_time": '2000-01-01T10:10:10.000010+09:00',
             "status": 'different',
             "path": '/challenge',
             "queries": {
@@ -220,7 +229,7 @@ class TestChallenge:
             .second(9, 876543) \
             .build()
         concurrent_request.return_value = res_one, res_other
-        now.return_value = datetime.datetime(2000, 1, 1, 10, 10, 10, 10)
+        now.return_value = mock_date(2000, 1, 1, 10, 10, 10, 10)
         store_criterion.return_value = False
 
         args: ChallengeArg = ChallengeArg.from_dict({
@@ -251,7 +260,7 @@ class TestChallenge:
         expected = {
             "seq": 1,
             "name": "name2",
-            "request_time": '2000-01-01T10:10:10.000010',
+            "request_time": '2000-01-01T10:10:10.000010+09:00',
             "status": 'same',
             "path": '/challenge',
             "queries": {
@@ -288,7 +297,7 @@ class TestChallenge:
 
     def test_failure(self, concurrent_request, now, store_criterion):
         concurrent_request.side_effect = ConnectionError
-        now.return_value = datetime.datetime(2000, 1, 1, 10, 10, 10, 10)
+        now.return_value = mock_date(2000, 1, 1, 10, 10, 10, 10)
         store_criterion.return_value = False
 
         args: ChallengeArg = ChallengeArg.from_dict({
@@ -318,7 +327,7 @@ class TestChallenge:
         expected = {
             "seq": 1,
             "name": "name3",
-            "request_time": '2000-01-01T10:10:10.000010',
+            "request_time": '2000-01-01T10:10:10.000010+09:00',
             "status": 'failure',
             "path": '/challenge',
             "queries": {
@@ -716,7 +725,7 @@ class TestExec:
             {
                 "seq": 1,
                 "name": "name1",
-                "request_time": '2000-01-01T10:10:10.000010',
+                "request_time": '2000-01-01T10:10:10.000010+09:00',
                 "status": 'different',
                 "path": '/challenge1',
                 "queries": {
@@ -751,7 +760,7 @@ class TestExec:
             {
                 "seq": 2,
                 "name": "name2",
-                "request_time": '2000-01-01T10:10:11.000010',
+                "request_time": '2000-01-01T10:10:11.000010+09:00',
                 "status": 'same',
                 "path": '/challenge2',
                 "queries": {
@@ -781,8 +790,8 @@ class TestExec:
             }
         ]
         now.side_effect = [
-            datetime.datetime(2000, 1, 1, 23, 50, 30, 100),
-            datetime.datetime(2000, 1, 2, 0, 0, 0, 200)
+            mock_date(2000, 1, 1, 23, 50, 30, 100),
+            mock_date(2000, 1, 2, 0, 0, 0, 200)
         ]
 
         config: Config = Config.from_dict({
@@ -869,8 +878,8 @@ class TestExec:
             },
             "summary": {
                 "time": {
-                    "start": '2000-01-01T23:50:30.000100',
-                    "end": '2000-01-02T00:00:00.000200',
+                    "start": '2000-01-01T23:50:30.000100+09:00',
+                    "end": '2000-01-02T00:00:00.000200+09:00',
                     "elapsed_sec": 570
                 },
                 "one": {
@@ -906,7 +915,7 @@ class TestExec:
                 {
                     "seq": 1,
                     "name": "name1",
-                    "request_time": '2000-01-01T10:10:10.000010',
+                    "request_time": '2000-01-01T10:10:10.000010+09:00',
                     "status": 'different',
                     "path": '/challenge1',
                     "queries": {
@@ -941,7 +950,7 @@ class TestExec:
                 {
                     "seq": 2,
                     "name": "name2",
-                    "request_time": '2000-01-01T10:10:11.000010',
+                    "request_time": '2000-01-01T10:10:11.000010+09:00',
                     "status": 'same',
                     "path": '/challenge2',
                     "queries": {

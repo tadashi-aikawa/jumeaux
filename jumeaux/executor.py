@@ -44,6 +44,7 @@ import sys
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
+from tzlocal import get_localzone
 
 import requests
 from deepdiff import DeepDiff
@@ -114,7 +115,7 @@ def now():
     """
     For test
     """
-    return datetime.datetime.today()
+    return datetime.datetime.now(get_localzone())
 
 
 def write_to_file(name, dir, body):
