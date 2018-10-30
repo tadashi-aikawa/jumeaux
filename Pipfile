@@ -16,8 +16,8 @@ mypy = "*"
 python-language-server = "*"
 pudb = "*"
 pytest-pudb = "*"
-mkdocs = "==0.17.2"
-mkdocs-material = "==2.6.6"
+mkdocs = "*"
+mkdocs-material = "*"
 
 [packages]
 requests = "*"
