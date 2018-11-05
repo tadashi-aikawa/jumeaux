@@ -31,21 +31,21 @@ Add-on specifications
 | [did_challenge]   | 次のchallengeに移る前に処理をする               |
 | [final]           | jumeauxの処理が完了する前に処理をする           |
 
-[log2reqs]: /ja/addons/log2reqs
-[reqs2reqs]: /ja/addons/reqs2reqs
-[res2res]: /ja/addons/res2res
-[res2dict]: /ja/addons/res2dict
-[judgement]: /ja/addons/judgement
-[store_criterion]: /ja/addons/store_criterion
-[dump]: /ja/addons/dump
-[did_challenge]: /ja/addons/did_challenge
-[final]: /ja/addons/final
+[log2reqs]: log2reqs
+[reqs2reqs]: reqs2reqs
+[res2res]: res2res
+[res2dict]: res2dict
+[judgement]: judgement
+[store_criterion]: store_criterion
+[dump]: dump
+[did_challenge]: did_challenge
+[final]: final
 
 
 Configration Definitions
 ------------------------
 
-アドオンを使用する場合は以下の定義に従って、[設定ファイル](/ja/getstarted/configuration)に追加してください。
+アドオンを使用する場合は以下の定義に従って、[設定ファイル](ja/getstarted/configuration)に追加してください。
 
 ### Addons
 
@@ -118,8 +118,8 @@ addons:
 * [reqs2reqs/head]
 * [final/slack]
 
-[log2reqs/csv]: /ja/addons/log2reqs#csv
-[reqs2reqs/shuffle]: /ja/addons/reqs2reqs#shuffle
-[reqs2reqs/head]: /ja/addons/reqs2reqs#head
-[final/slack]: /ja/addons/final#slack
+[log2reqs/csv]: log2reqs#csv
+[reqs2reqs/shuffle]: reqs2reqs#shuffle
+[reqs2reqs/head]: reqs2reqs#head
+[final/slack]: final#slack
 

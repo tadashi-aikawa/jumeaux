@@ -375,5 +375,5 @@ final:
 ```
 
 
-[report]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/report
-[response_dir]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/#outputsummary
+[report]: ../../getstarted/report
+[response_dir]: ../../getstarted/configuration/#outputsummary

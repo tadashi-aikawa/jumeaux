@@ -100,6 +100,6 @@ store_criterion:
       - status == 'same'
 ```
 
-[request]: /ja/models/request
-[response]: /ja/models/response
+[request]: ../../models/request
+[response]: ../../models/response
 

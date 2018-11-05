@@ -153,5 +153,5 @@ judgement:
         - req.path == '/test1'
 ```
 
-[request]: /ja/models/request
-[response]: /ja/models/response
+[request]: ../../models/request
+[response]: ../../models/response

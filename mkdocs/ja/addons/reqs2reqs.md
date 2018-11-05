@@ -319,7 +319,7 @@ reqs2reqs:
     ```
 
 
-[request-condition]: /ja/models/request-condition
+[request-condition]: ../../models/request-condition
 
 
 [:fa-github:][rename] rename
@@ -385,4 +385,4 @@ reqs2reqs:
 ```
 
 
-[request]: /ja/models/request
+[request]: ../../models/request

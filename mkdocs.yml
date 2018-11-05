@@ -8,6 +8,7 @@ strict: true
 repo_name: tadashi-aikawa/jumeaux
 repo_url: https://github.com/tadashi-aikawa/jumeaux
 edit_uri: edit/master/mkdocs/
+site_url: https://tadashi-aikawa.github.io/jumeaux/
 
 nav:
   - Home: index.md

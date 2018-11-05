@@ -133,7 +133,7 @@ responses/
     [Miroir]の使用を検討してみましょう。`final/miroir`アドオンを使用するとJumeauxの結果を登録することができます。
 
 
-[response_dir]: https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/#outputsummary
+[response_dir]: ../configuration/#outputsummary
 [miroir]: https://github.com/tadashi-aikawa/miroir
 
 

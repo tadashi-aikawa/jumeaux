@@ -79,6 +79,6 @@ addons:
             message: "{title} notify!"
 ```
 
-[addons]: /ja/addons#configration-definitions
-[notifier]: /ja/models/notifier
-[access-point]: /ja/models/access-point
+[addons]: ../../addons#configration-definitions
+[notifier]: ../../models/notifier
+[access-point]: ../../models/access-point

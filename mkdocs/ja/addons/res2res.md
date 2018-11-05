@@ -221,6 +221,6 @@ res2res:
           when: "'target' in req.path"
 ```
 
-[request-condition]: /ja/models/request-condition
-[request]: /ja/models/request
-[response]: /ja/models/response
+[request-condition]: ../../models/request-condition
+[request]: ../../models/request
+[response]: ../../models/response
