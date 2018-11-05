@@ -12,10 +12,10 @@ This is document of [Jumeaux].
 <img src="./img/logo-large.png" width=480 />
 
 [Jumeaux] is a tool which can checks difference between two responses of API.
-See [Jumeaux Viewer] if you want to check more graphical with GUI tools.
+See [Miroir] if you want to check more graphical with GUI tools.
 
 [Jumeaux]: https://github.com/tadashi-aikawa/jumeaux
-[Jumeaux Viewer]: https://github.com/tadashi-aikawa/jumeaux-viewer
+[Miroir]: https://github.com/tadashi-aikawa/miroir
 [travis]: https://travis-ci.org/tadashi-aikawa/jumeaux/builds
 [coverage]: https://codeclimate.com/github/tadashi-aikawa/jumeaux/coverage
 [complexity]: https://codeclimate.com/github/tadashi-aikawa/jumeaux
