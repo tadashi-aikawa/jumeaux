@@ -275,6 +275,7 @@ def challenge(arg: ChallengeArg) -> dict:
         return {
             "seq": arg.seq,
             "name": name,
+            "tags": [],
             "request_time": req_time.isoformat(),
             "status": 'failure',
             "path": arg.req.path,
@@ -342,6 +343,7 @@ def challenge(arg: ChallengeArg) -> dict:
         "trial": Trial.from_dict({
             "seq": arg.seq,
             "name": name,
+            "tags": [], # TODO: tags created by reqs2reqs
             "request_time": req_time.isoformat(),
             "status": status,
             "path": arg.req.path,
