@@ -2,7 +2,7 @@
 from owlmixin import OwlMixin, TOption, TList
 
 from jumeaux.addons.res2res import Res2ResExecutor
-from jumeaux.addons.utils import when_filter
+from jumeaux.addons.utils import when_optional_filter
 from jumeaux.logger import Logger
 from jumeaux.models import Res2ResAddOnPayload, Response, Request
 
@@ -22,9 +22,7 @@ class Config(OwlMixin):
 def apply_first_condition(res: Response, req: Request, conditions: TList[Condition]) -> Response:
     # TODO: remove TOption (owlmixin... find)
     condition: TOption[Condition] = TOption(
-        conditions.find(
-            lambda c: c.when.map(lambda x: when_filter(x, {'req': req, 'res': res})).get_or(True)
-        )
+        conditions.find(lambda c: when_optional_filter(c.when, {'req': req, 'res': res}))
     )
     if condition.is_none():
         return res
