@@ -128,16 +128,17 @@ def make_dir(path):
     os.chmod(path, 0o777)
 
 
-def http_get(args: Tuple[Any, str, TDict[str], TDict[str]]):
+def http_get(args: Tuple[Any, str, TDict[str], TOption[Proxy]]):
     session, url, headers, proxies = args
     try:
-        r = session.get(url, headers=headers.assign({'User-Agent': f'jumeaux/{__version__}'}), proxies=proxies)
+        r = session.get(url, headers=headers.assign({'User-Agent': f'jumeaux/{__version__}'}),
+                        proxies=proxies.map(lambda x: x.to_dict()).get_or({}))
     finally:
         session.close()
     return r
 
 
-def concurrent_request(session, headers: TDict[str], url_one, url_other, proxies_one, proxies_other):
+def concurrent_request(session, headers: TDict[str], url_one, url_other, proxies_one: TOption[Proxy], proxies_other: TOption[Proxy]):
     fs = ((session, url_one, headers, proxies_one),
           (session, url_other, headers, proxies_other))
     with futures.ThreadPoolExecutor(max_workers=2) as ex:
@@ -258,11 +259,13 @@ def challenge(arg: ChallengeArg) -> dict:
     # Get two responses
     req_time = now()
     try:
-        logger.info_lv3(f"{log_prefix} One:   {url_one}")
-        logger.info_lv3(f"{log_prefix} Other: {url_other}")
+        logger.info_lv3(f"{log_prefix} One   URL:   {url_one}")
+        logger.debug(f"{log_prefix} One   PROXY: {arg.proxy_one.map(lambda x: x.to_dict()).get()}")
+        logger.info_lv3(f"{log_prefix} Other URL:   {url_other}")
+        logger.debug(f"{log_prefix} Other PROXY: {arg.proxy_other.map(lambda x: x.to_dict()).get()}")
         r_one, r_other = concurrent_request(arg.session, arg.req.headers,
                                             url_one, url_other,
-                                            arg.proxy_one.get(), arg.proxy_other.get())
+                                            arg.proxy_one, arg.proxy_other)
         logger.info_lv3(
             f"{log_prefix} One:   {r_one.status_code} / {to_sec(r_one.elapsed)}s / {len(r_one.content)}b / {r_one.headers.get('content-type')}" # noqa
         )
