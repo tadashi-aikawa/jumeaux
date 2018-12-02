@@ -14,8 +14,8 @@ nav:
   - Home: index.md
   - Get Started:
     - Quickstart: ja/getstarted/quickstart.md
-    - Report: ja/getstarted/report.md
     - Configuration: ja/getstarted/configuration.md
+    - Report: ja/getstarted/report.md
   - Addons:
     - Summary: ja/addons/index.md
     - log2reqs: ja/addons/log2reqs.md

@@ -18,6 +18,7 @@ pudb = "*"
 pytest-pudb = "*"
 mkdocs = "*"
 mkdocs-material = "*"
+pylint = "*"
 
 [packages]
 requests = "*"

@@ -78,15 +78,13 @@ did_challenge:
 
 [jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
 
-!!! info "付与するタグについて"
+!!! info "タグ名およびwhenで指定できるプロパティ"
 
-    [Trial](../models/trial.md)プロパティを使用する事ができます。  
-    要素へのアクセスは辞書アクセスです。
-
-!!! info "whenで指定できるプロパティ"
-
-    [Trial](../models/trial.md)プロパティを指定する事ができます。  
-    要素へのアクセスはドットアクセスか辞書アクセスです。
+    | key       | Type                    | Description           |
+    |-----------|-------------------------|-----------------------|
+    | trial     | [Trial][trial]         | テスト結果 |           |
+    | res_one   | [Response][response]    | oneのレスポンス情報   |
+    | res_other | [Response][response]    | otherのレスポンス情報 |
 
 
 #### Examples
@@ -99,7 +97,7 @@ did_challenge:
     config:
       conditions:
         - tag: json
-          when: "name == 'json'"
+          when: "trial.name == 'json'"
 ```
 
 ##### それぞれのレスポンスタイプをタグとして付ける
@@ -109,7 +107,9 @@ did_challenge:
   - name: tag
     config:
       conditions:
-        - tag: "tag:{one[type]}"
-        - tag: "tag:{other[type]}"
+        - tag: "tag:{trial[one][type]}"
+        - tag: "tag:{trial[other][type]}"
 ```
 
+[trial]: ../../models/trial
+[response]: ../../models/response
