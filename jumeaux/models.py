@@ -376,6 +376,11 @@ class DidChallengeAddOnPayload(OwlMixin):
     trial: Trial
 
 
+class DidChallengeAddOnReference(OwlMixin):
+    res_one: Response
+    res_other: Response
+
+
 class JudgementAddOnPayload(OwlMixin):
     remaining_diff_keys: TOption[DiffKeys]
     regard_as_same: bool

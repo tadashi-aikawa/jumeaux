@@ -1,12 +1,35 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 from typing import List
+import datetime
 
 import pytest
 from owlmixin.util import load_yaml
 
 from jumeaux.addons.did_challenge.tag import Executor
-from jumeaux.models import DidChallengeAddOnPayload
+from jumeaux.models import DidChallengeAddOnPayload, DidChallengeAddOnReference, Response, CaseInsensitiveDict
+
+
+RES_ONE = Response.from_dict({
+    'body': b'a',
+    "type": "unknown",
+    'headers': CaseInsensitiveDict({}),
+    'url': 'url',
+    'status_code': 200,
+    'elapsed': datetime.timedelta(seconds=1),
+    "elapsed_sec": 1.0,
+})
+
+
+RES_OTHER = Response.from_dict({
+    'body': b'b',
+    "type": "unknown",
+    'headers': CaseInsensitiveDict({}),
+    'url': 'url',
+    'status_code': 200,
+    'elapsed': datetime.timedelta(seconds=2),
+    "elapsed_sec": 2.0,
+})
 
 
 def create_trial_dict(seq: int, name: str, tags: List[str], status: str) -> dict:
@@ -34,7 +57,7 @@ ADD_TAG_IF_CONDITION_IS_FULFILLED = ("Add a tag if a condition is fulfilled",
                                      """
                                      conditions:
                                        - tag: tagged
-                                         when: "name == 'hoge'"
+                                         when: "trial.name == 'hoge'"
                                      """,
                                      create_trial_dict(1, "hoge", [], "same"),
                                      create_trial_dict(1, "hoge", ["tagged"], "same"),
@@ -44,9 +67,9 @@ ADD_TAGS_IF_CONDITIONS_ARE_FULFILLED = ("Add tags if conditions are fulfilled",
                                         """
                                         conditions:
                                           - tag: tagged1
-                                            when: "name == 'hoge'"
+                                            when: "trial.name == 'hoge'"
                                           - tag: tagged2
-                                            when: "name == 'hoge'"
+                                            when: "trial.name == 'hoge'"
                                         """,
                                         create_trial_dict(1, "hoge", [], "same"),
                                         create_trial_dict(1, "hoge", ["tagged1", "tagged2"], "same"),
@@ -56,7 +79,7 @@ DO_NOT_ADD_TAG_IF_CONDITION_IS_NOT_FULFILLED = ("Don't Add a tag if a condition 
                                                 """
                                                 conditions:
                                                   - tag: tagged
-                                                    when: "name == 'hogehoge'"
+                                                    when: "trial.name == 'hogehoge'"
                                                 """,
                                                 create_trial_dict(1, "hoge", [], "same"),
                                                 create_trial_dict(1, "hoge", [], "same"),
@@ -74,10 +97,10 @@ ADD_TAG_IF_CONDITION_IS_EMPTY = ("Add a tag if condition is empty",
 ADD_TAG_FORMATTED = ("Add a tag formatted",
                      """
                      conditions:
-                       - tag: "name: {name}"
+                       - tag: "{trial[name]}: {res_one[elapsed_sec]}"
                      """,
                      create_trial_dict(1, "hoge", [], "same"),
-                     create_trial_dict(1, "hoge", ["name: hoge"], "same"),
+                     create_trial_dict(1, "hoge", ["hoge: 1.0"], "same"),
                      )
 
 
@@ -95,7 +118,11 @@ class TestExec:
         payload: DidChallengeAddOnPayload = DidChallengeAddOnPayload.from_dict({
             'trial': trial,
         })
+        reference: DidChallengeAddOnReference = DidChallengeAddOnReference.from_dict({
+            "res_one": RES_ONE,
+            "res_other": RES_OTHER
+        })
 
-        actual: DidChallengeAddOnPayload = Executor(load_yaml(config_yml)).exec(payload)
+        actual: DidChallengeAddOnPayload = Executor(load_yaml(config_yml)).exec(payload, reference)
 
         assert expected_result == actual.trial.to_dict()
