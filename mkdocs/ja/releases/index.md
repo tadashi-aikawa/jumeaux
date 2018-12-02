@@ -4,6 +4,15 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+## :package: 0.58.1
+
+:fa-calendar: `2018-11-29`
+
+??? bug "proxyを指定すると実行できない不具合を修正しました"
+
+    * 該当プロパティは [AccessPoint](http://tadashi-aikawa.github.io/jumeaux/ja/models/access-point/#accesspoint_1) をご覧下さい
+
+
 ## :package: 0.58.0
 
 :fa-calendar: `2018-10-30`
