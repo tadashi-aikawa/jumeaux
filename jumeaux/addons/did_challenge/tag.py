@@ -36,7 +36,7 @@ class Executor(DidChallengeExecutor):
             logger.debug(f"{LOG_PREFIX} There are no matched conditions")
             return payload
 
-        tags: TList[str] = conditions.reduce(lambda t, x: t + TList([payload.trial.str_format(x.tag)]), payload.trial.tags)
+        tags: TList[str] = conditions.reduce(lambda t, x: t + [payload.trial.str_format(x.tag)], payload.trial.tags)
         return DidChallengeAddOnPayload.from_dict({
             "trial": Trial.from_dict({
                 "seq": payload.trial.seq,
