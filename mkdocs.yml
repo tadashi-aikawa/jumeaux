@@ -33,6 +33,7 @@ nav:
     - Request: ja/models/request.md
     - RequestCondition: ja/models/request-condition.md
     - Response: ja/models/response.md
+    - Trial: ja/models/trial.md
   - Releases: ja/releases/index.md
 
 theme:
