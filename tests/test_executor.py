@@ -173,6 +173,7 @@ class TestChallenge:
         expected = {
             "seq": 1,
             "name": "name1",
+            "tags": [],
             "request_time": '2000-01-01T10:10:10.000010+09:00',
             "status": 'different',
             "path": '/challenge',
@@ -260,6 +261,7 @@ class TestChallenge:
         expected = {
             "seq": 1,
             "name": "name2",
+            "tags": [],
             "request_time": '2000-01-01T10:10:10.000010+09:00',
             "status": 'same',
             "path": '/challenge',
@@ -327,6 +329,7 @@ class TestChallenge:
         expected = {
             "seq": 1,
             "name": "name3",
+            "tags": [],
             "request_time": '2000-01-01T10:10:10.000010+09:00',
             "status": 'failure',
             "path": '/challenge',
@@ -725,6 +728,7 @@ class TestExec:
             {
                 "seq": 1,
                 "name": "name1",
+                "tags": [],
                 "request_time": '2000-01-01T10:10:10.000010+09:00',
                 "status": 'different',
                 "path": '/challenge1',
@@ -760,6 +764,7 @@ class TestExec:
             {
                 "seq": 2,
                 "name": "name2",
+                "tags": [],
                 "request_time": '2000-01-01T10:10:11.000010+09:00',
                 "status": 'same',
                 "path": '/challenge2',
@@ -915,6 +920,7 @@ class TestExec:
                 {
                     "seq": 1,
                     "name": "name1",
+                    "tags": [],
                     "request_time": '2000-01-01T10:10:10.000010+09:00',
                     "status": 'different',
                     "path": '/challenge1',
@@ -950,6 +956,7 @@ class TestExec:
                 {
                     "seq": 2,
                     "name": "name2",
+                    "tags": [],
                     "request_time": '2000-01-01T10:10:11.000010+09:00',
                     "status": 'same',
                     "path": '/challenge2',

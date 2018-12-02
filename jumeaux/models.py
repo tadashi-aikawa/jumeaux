@@ -319,6 +319,7 @@ class Trial(OwlMixin):
     """
     seq: int
     name: str
+    tags: TList[str]
     headers: TDict[str]
     queries: TDict[TList[str]]
     one: ResponseSummary
