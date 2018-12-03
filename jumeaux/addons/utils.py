@@ -7,6 +7,7 @@ from typing import Any
 from jinja2 import Environment, BaseLoader
 
 import pydash as py_
+from owlmixin import TOption
 
 
 def exact_match(target: str, regexp: str):
@@ -28,4 +29,8 @@ env.filters['reg'] = exact_match
 
 def when_filter(when: str, data: dict) -> bool:
     return ast.literal_eval(env.from_string('{{' + when + '}}').render(data))
+
+
+def when_optional_filter(when: TOption[str], data: dict) -> bool:
+    return when.map(lambda x: when_filter(x, data)).get_or(True)
 

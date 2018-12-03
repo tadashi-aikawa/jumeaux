@@ -4,7 +4,7 @@ from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
-from jumeaux.addons.utils import when_filter
+from jumeaux.addons.utils import when_filter, when_optional_filter
 from jumeaux.models import Config as JumeauxConfig
 from jumeaux.models import Request, Reqs2ReqsAddOnPayload
 
@@ -21,13 +21,13 @@ class Config(OwlMixin):
 def apply_first_condition(request: Request, conditions: TList[Condition]) -> Request:
     # TODO: remove TOption (owlmixin... find)
     condition: TOption[Condition] = TOption(
-        conditions.find(lambda c: c.when.map(lambda x: when_filter(x, request.to_dict())).get_or(True))
+        conditions.find(lambda c: when_optional_filter(c.when, request.to_dict()))
     )
     if condition.is_none():
         return request
 
     name: TOption[str] = request.str_format(condition.get().name) \
-        if condition.get().when.map(lambda x: when_filter(x, request.to_dict())).get_or(True) \
+        if when_optional_filter(condition.get().when, request.to_dict()) \
         else request.name
 
     return Request.from_dict({

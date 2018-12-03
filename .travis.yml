@@ -1,18 +1,19 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=1561686e6399317b53a92aaad0550f8b91fe5af312e1f2852ab803ff6fcb6fa9
+  - CC_TEST_REPORTER_ID=1561686e6399317b53a92aaad0550f8b91fe5af312e1f2852ab803ff6fcb6fa9
 language: python
 python:
-  - "3.6"
+- '3.6'
 install:
-  - pip install pipenv
-  - pipenv install --dev --skip-lock
+- pip install pipenv
+- pipenv install --dev --skip-lock
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
 script:
-  - pipenv run py.test -v --cov-report=xml --cov=. tests/
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+- pipenv run py.test -v --cov-report=xml --cov=. tests/
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 notifications:
   slack:
-    secure: QPq14naOvUQjnVZJrSRo6K5oRIBOHiZC7bfEKJxGEYa4Xi0x3o9maNLYtcgw5ZLgkv15e31yb/MeLF1F0DiNTBc9j4mn7a0PYALhn5kaeXel+J+xgrm2FGx+uF7BK0zQeWGTZAdX1WO8S00Ri7PjqMsSFyMAlHqoqWHONrb2fuU=
+    secure: DnVG8IgIoS3C2Z/xB83tKfRE1tgRXHO7A6QDzkB+axsKxYx88Wl2dz5YJiMsHMeTueRv7mldi8haWCTVgPrz2Mz+vXDqr5K0d/YUQ1bXgtVwG/K/eQ679FF8yjykugPknGerDiW1j+ITT6wwDb6SiZRKailWTZJLKQK+um52UWw=

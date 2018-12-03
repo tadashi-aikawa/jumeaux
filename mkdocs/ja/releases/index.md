@@ -4,6 +4,17 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+
+## :package: 0.59.0
+
+:fa-calendar: `2018-12-03`
+
+??? info "did_challenge/tagアドオンを追加しました ([did_challenge/tag])"
+
+    * 指定した条件に一致するとき任意の値(パラメータ参照可)でタグを付与できます
+    * 詳しくは[did_challenge/tag]をご覧下さい
+
+
 ## :package: 0.58.1
 
 :fa-calendar: `2018-11-29`
@@ -561,6 +572,7 @@ Releases
 [dump/xml]: ../addons/dump#xml
 [dump/html]: ../addons/dump#html
 [dump/json]: ../addons/dump#json
+[did_challenge/tag]: ../addons/did_challenge#tag
 [final/miroir]: ../addons/final#miroir
 [final/slack]: ../addons/final#slack
 [final/json]: ../addons/final#json

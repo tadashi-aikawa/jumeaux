@@ -18,6 +18,7 @@ pudb = "*"
 pytest-pudb = "*"
 mkdocs = "*"
 mkdocs-material = "*"
+pylint = "*"
 
 [packages]
 requests = "*"
@@ -34,7 +35,7 @@ requests-toolbelt = "*"
 "jinja2" = "*"
 "beautifulsoup4" = "*"
 lxml = "*"
-owlmixin = ">=2.8.0"
+owlmixin = ">=2.8.2"
 livereload = "*"
 tzlocal = "*"
 

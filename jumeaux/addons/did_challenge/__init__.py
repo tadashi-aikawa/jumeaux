@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-from jumeaux.models import DidChallengeAddOnPayload
+from jumeaux.models import DidChallengeAddOnPayload, DidChallengeAddOnReference
 
 
 class DidChallengeExecutor:
-    def exec(self, payload: DidChallengeAddOnPayload) -> DidChallengeAddOnPayload:
+    def exec(self, payload: DidChallengeAddOnPayload, referenece: DidChallengeAddOnReference) -> DidChallengeAddOnPayload:
         raise NotImplementedError()

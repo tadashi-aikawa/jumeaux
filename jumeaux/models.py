@@ -319,6 +319,7 @@ class Trial(OwlMixin):
     """
     seq: int
     name: str
+    tags: TList[str]
     headers: TDict[str]
     queries: TDict[TList[str]]
     one: ResponseSummary
@@ -373,6 +374,11 @@ class Res2DictAddOnPayload(OwlMixin):
 
 class DidChallengeAddOnPayload(OwlMixin):
     trial: Trial
+
+
+class DidChallengeAddOnReference(OwlMixin):
+    res_one: Response
+    res_other: Response
 
 
 class JudgementAddOnPayload(OwlMixin):

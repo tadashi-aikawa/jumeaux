@@ -83,6 +83,7 @@ from jumeaux.models import (
     DumpAddOnPayload,
     FinalAddOnPayload,
     DidChallengeAddOnPayload,
+    DidChallengeAddOnReference,
     DiffKeys,
     Status,
     DictOrList,
@@ -278,6 +279,7 @@ def challenge(arg: ChallengeArg) -> dict:
         return {
             "seq": arg.seq,
             "name": name,
+            "tags": [],
             "request_time": req_time.isoformat(),
             "status": 'failure',
             "path": arg.req.path,
@@ -341,42 +343,49 @@ def challenge(arg: ChallengeArg) -> dict:
             prop_file_other = f'other-props/({arg.seq}){name}.json'
             write_to_file(prop_file_other, dir, TDict(dict_other.get()).to_json().encode('utf-8', errors='replace'))
 
-    return global_addon_executor.apply_did_challenge(DidChallengeAddOnPayload.from_dict({
-        "trial": Trial.from_dict({
-            "seq": arg.seq,
-            "name": name,
-            "request_time": req_time.isoformat(),
-            "status": status,
-            "path": arg.req.path,
-            "queries": arg.req.qs,
-            "headers": arg.req.headers,
-            "diff_keys": diff_keys,
-            "one": {
-                "url": res_one.url,
-                "type": res_one.type,
-                "status_code": res_one.status_code,
-                "byte": res_one.byte,
-                "response_sec": res_one.elapsed_sec,
-                "content_type": res_one.content_type,
-                "mime_type": res_one.mime_type,
-                "encoding": res_one.encoding,
-                "file": file_one,
-                "prop_file": prop_file_one,
-            },
-            "other": {
-                "url": res_other.url,
-                "type": res_other.type,
-                "status_code": res_other.status_code,
-                "byte": res_other.byte,
-                "response_sec": res_other.elapsed_sec,
-                "content_type": res_other.content_type,
-                "mime_type": res_other.mime_type,
-                "encoding": res_other.encoding,
-                "file": file_other,
-                "prop_file": prop_file_other,
-            }
+    return global_addon_executor.apply_did_challenge(
+        DidChallengeAddOnPayload.from_dict({
+            "trial": Trial.from_dict({
+                "seq": arg.seq,
+                "name": name,
+                "tags": [], # TODO: tags created by reqs2reqs
+                "request_time": req_time.isoformat(),
+                "status": status,
+                "path": arg.req.path,
+                "queries": arg.req.qs,
+                "headers": arg.req.headers,
+                "diff_keys": diff_keys,
+                "one": {
+                    "url": res_one.url,
+                    "type": res_one.type,
+                    "status_code": res_one.status_code,
+                    "byte": res_one.byte,
+                    "response_sec": res_one.elapsed_sec,
+                    "content_type": res_one.content_type,
+                    "mime_type": res_one.mime_type,
+                    "encoding": res_one.encoding,
+                    "file": file_one,
+                    "prop_file": prop_file_one,
+                },
+                "other": {
+                    "url": res_other.url,
+                    "type": res_other.type,
+                    "status_code": res_other.status_code,
+                    "byte": res_other.byte,
+                    "response_sec": res_other.elapsed_sec,
+                    "content_type": res_other.content_type,
+                    "mime_type": res_other.mime_type,
+                    "encoding": res_other.encoding,
+                    "file": file_other,
+                    "prop_file": prop_file_other,
+                }
+            })
+        }),
+        DidChallengeAddOnReference.from_dict({
+            "res_one": res_one,
+            "res_other": res_other,
         })
-    })).trial.to_dict()
+    ).trial.to_dict()
 
 
 def create_concurrent_executor(config: Config) -> Tuple[Any, Concurrency]:
