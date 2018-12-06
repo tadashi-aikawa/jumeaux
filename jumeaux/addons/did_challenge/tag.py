@@ -26,22 +26,22 @@ class Executor(DidChallengeExecutor):
 
     def exec(self, payload: DidChallengeAddOnPayload, referenece: DidChallengeAddOnReference) -> DidChallengeAddOnPayload:
 
-        def to_obj(trial: Trial) -> TDict:
+        def to_dict(trial: Trial) -> TDict:
             return TDict({
-                "trial": trial,
-                "res_one": referenece.res_one,
-                "res_other": referenece.res_other
+                "trial": trial.to_dict(),
+                "res_one": referenece.res_one.to_dict(),
+                "res_other": referenece.res_other.to_dict()
             })
 
         # TODO: remove TOption (owlmixin... find)
         conditions: TList[Condition] = self.config.conditions.filter(
-            lambda c: when_optional_filter(c.when, to_obj(payload.trial))
+            lambda c: when_optional_filter(c.when, to_dict(payload.trial))
         )
         if not conditions:
             logger.debug(f"{LOG_PREFIX} There are no matched conditions")
             return payload
 
-        tags: TList[str] = conditions.reduce(lambda t, x: t + [to_obj(payload.trial).str_format(x.tag)], payload.trial.tags)
+        tags: TList[str] = conditions.reduce(lambda t, x: t + [to_dict(payload.trial).str_format(x.tag)], payload.trial.tags)
         return DidChallengeAddOnPayload.from_dict({
             "trial": Trial.from_dict({
                 "seq": payload.trial.seq,

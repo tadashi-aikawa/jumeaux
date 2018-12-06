@@ -10,6 +10,10 @@ class TestWhenFilter:
         "id": 1,
         "name": "一朗",
         "age": 44,
+        "carrier": {
+            "2010": "web",
+            "2015": "aws"
+        },
         "favorites": [
             {
                 "rank": 2,
@@ -53,6 +57,8 @@ class TestWhenFilter:
             (True, 'id == 1 or (not name and favorites|length == 0) or nicknames|length == 0'),
             (True, '"Apple" in favorites|map(attribute="name")'),
             (False, '"Grape" in favorites|map(attribute="name")'),
+            (True, 'carrier["2010"]|default("neet") == "web"'),
+            (True, 'carrier["2011"]|default("neet") == "neet"')
         ]
     )
     def test_normal(self, expected, expression):
