@@ -42,6 +42,7 @@ def create_trial_dict(seq: int, name: str, tags: List[str], status: str) -> dict
         "one": {
             "url": "http://one",
             "type": "json",
+            "response_sec": 1.2,
         },
         "other": {
             "url": "http://other",
@@ -104,6 +105,19 @@ ADD_TAG_FORMATTED = ("Add a tag formatted",
                      )
 
 
+ADD_TAG_IF_CONDITION_HAS_OPTIONAL_PARAMETER = ("Add a tag if condition has a optional parameter",
+                                               """
+                                               conditions:
+                                                 - tag: "other slow"
+                                                   when: 'trial.other.response_sec|default(0.0) > 1.0'
+                                                 - tag: "one slow"
+                                                   when: 'trial.one.response_sec|default(0.0) > 1.0'
+                                               """,
+                                               create_trial_dict(1, "hoge", [], "same"),
+                                               create_trial_dict(1, "hoge", ["one slow"], "same"),
+                                               )
+
+
 class TestExec:
     @pytest.mark.parametrize(
         'title, config_yml, trial, expected_result', [
@@ -112,6 +126,7 @@ class TestExec:
             DO_NOT_ADD_TAG_IF_CONDITION_IS_NOT_FULFILLED,
             ADD_TAG_IF_CONDITION_IS_EMPTY,
             ADD_TAG_FORMATTED,
+            ADD_TAG_IF_CONDITION_HAS_OPTIONAL_PARAMETER,
         ]
     )
     def test(self, title, config_yml, trial, expected_result):
