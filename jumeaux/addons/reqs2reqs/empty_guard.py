@@ -5,10 +5,11 @@ import sys
 from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
+from jumeaux.addons.utils import jinja2_format
+from jumeaux.logger import Logger
 from jumeaux.models import Config as JumeauxConfig
 from jumeaux.models import Reqs2ReqsAddOnPayload, Notifier
 from jumeaux.notification_handlers import create_notification_handler
-from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
 
@@ -36,7 +37,7 @@ class Executor(Reqs2ReqsExecutor):
             logger.warning("Requests are empty. Exit executor.")
             # TODO: Error handling
             errors: TList[TOption[str]] = self.config.notifies.map(lambda x: send(
-                x.message.format(**config.to_dict(ignore_none=False)),
+                jinja2_format(x.message, config.to_dict(ignore_none=False)),
                 config.notifiers.get().get(x.notifier)
             ))
             errors.map(lambda m: m.map(logger.error))
