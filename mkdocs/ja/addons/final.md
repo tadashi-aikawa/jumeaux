@@ -224,17 +224,19 @@ final:
 
 ##### Payload
 
-|      Key       |   Type   |              Description              |        Example        | Default |
-| -------------- | -------- | ------------------------------------- | --------------------- | ------- |
-| message_format | string   | フォーマット付き本文 :fa-info-circle: |                       |         |
-| channel        | string   | 送信先channel                         | #hoge                 |         |
-| username       | string   | 投稿ユーザ名                          | Jumeaux man           | jumeaux |
-| icon_emoji     | (string) | アイコン(絵文字表記)                  | `:smile:`             |         |
-| icon_url       | (string) | アイコン(URL)                         | http://hoge/image.jpg |         |
+|      Key       |   Type   |      Description      |        Example        | Default |
+| -------------- | -------- | --------------------- | --------------------- | ------- |
+| message_format | string   | 本文 :fa-info-circle: |                       |         |
+| channel        | string   | 送信先channel         | #hoge                 |         |
+| username       | string   | 投稿ユーザ名          | Jumeaux man           | jumeaux |
+| icon_emoji     | (string) | アイコン(絵文字表記)  | `:smile:`             |         |
+| icon_url       | (string) | アイコン(URL)         | http://hoge/image.jpg |         |
 
-!!! info "フォーマットについて"
+!!! info "message_formatについて"
 
-    [Report](../getstarted/report.md)で定義されたプロパティを使用する事ができます。
+    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    プロパティは[Report](../getstarted/report.md)で定義されたものを使用できます。
+
 
 #### Examples
 
@@ -259,7 +261,7 @@ final:
     config:
       conditions:
         - payload:
-            message_format: "Version {version}, Title: {title}, -- {summary[status][different]} diffs"
+            message_format: "Version {{ version }}, Title: {{ title }}, -- {{ summary.status.different }} diffs"
             channel: "#jumeaux"
 ```
 
