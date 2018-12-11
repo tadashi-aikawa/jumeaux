@@ -28,9 +28,9 @@ RENAME_WITH_CONDITION = ("Rename requests with a condition",
 RENAME_WITH_CONDITIONS = ("Rename requests with a conditions",
                           """
                           conditions:
-                            - name: Over 100 ({name})
+                            - name: "Over 100 ({{ name }}: {{ qs.id.0 }})"
                               when: "qs.id.0|int > 100"
-                            - name: Over 10 ({name})
+                            - name: "Over 10 ({{ name }}: {{ qs.id.0 }})"
                               when: "qs.id.0|int > 10"
                           """,
                           [
@@ -39,8 +39,8 @@ RENAME_WITH_CONDITIONS = ("Rename requests with a conditions",
                               {"name": "name3", "path": "target3", "headers": {}, "qs": {'id': ['5']}},
                           ],
                           [
-                              {"name": "Over 100 (name1)", "path": "target1", "headers": {}, "qs": {'id': ['500']}, 'url_encoding': 'utf-8'},
-                              {"name": "Over 10 (name2)", "path": "target2", "headers": {}, "qs": {'id': ['50']}, 'url_encoding': 'utf-8'},
+                              {"name": "Over 100 (name1: 500)", "path": "target1", "headers": {}, "qs": {'id': ['500']}, 'url_encoding': 'utf-8'},
+                              {"name": "Over 10 (name2: 50)", "path": "target2", "headers": {}, "qs": {'id': ['50']}, 'url_encoding': 'utf-8'},
                               {"name": "name3", "path": "target3", "headers": {}, "qs": {'id': ['5']}, 'url_encoding': 'utf-8'},
                           ]
                           )

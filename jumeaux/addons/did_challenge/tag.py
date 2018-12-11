@@ -3,9 +3,9 @@
 from owlmixin import OwlMixin, TOption, TList, TDict
 
 from jumeaux.addons.did_challenge import DidChallengeExecutor
-from jumeaux.addons.utils import when_optional_filter
-from jumeaux.models import DidChallengeAddOnPayload, DidChallengeAddOnReference, Trial
+from jumeaux.addons.utils import when_optional_filter, jinja2_format
 from jumeaux.logger import Logger
+from jumeaux.models import DidChallengeAddOnPayload, DidChallengeAddOnReference, Trial
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[did_challenge/tag]"
@@ -41,7 +41,7 @@ class Executor(DidChallengeExecutor):
             logger.debug(f"{LOG_PREFIX} There are no matched conditions")
             return payload
 
-        tags: TList[str] = conditions.reduce(lambda t, x: t + [to_dict(payload.trial).str_format(x.tag)], payload.trial.tags)
+        tags: TList[str] = conditions.reduce(lambda t, x: t + [jinja2_format(x.tag, to_dict(payload.trial))], payload.trial.tags)
         return DidChallengeAddOnPayload.from_dict({
             "trial": Trial.from_dict({
                 "seq": payload.trial.seq,

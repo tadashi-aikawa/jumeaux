@@ -4,7 +4,7 @@ from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
-from jumeaux.addons.utils import when_filter, when_optional_filter
+from jumeaux.addons.utils import when_optional_filter, jinja2_format
 from jumeaux.models import Config as JumeauxConfig
 from jumeaux.models import Request, Reqs2ReqsAddOnPayload
 
@@ -26,7 +26,7 @@ def apply_first_condition(request: Request, conditions: TList[Condition]) -> Req
     if condition.is_none():
         return request
 
-    name: TOption[str] = request.str_format(condition.get().name) \
+    name: TOption[str] = jinja2_format(condition.get().name, request.to_dict()) \
         if when_optional_filter(condition.get().when, request.to_dict()) \
         else request.name
 

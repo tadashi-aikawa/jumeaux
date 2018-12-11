@@ -4,9 +4,9 @@
 import ast
 import re
 from typing import Any
-from jinja2 import Environment, BaseLoader
 
 import pydash as py_
+from jinja2 import Environment, BaseLoader
 from owlmixin import TOption
 
 
@@ -34,3 +34,6 @@ def when_filter(when: str, data: dict) -> bool:
 def when_optional_filter(when: TOption[str], data: dict) -> bool:
     return when.map(lambda x: when_filter(x, data)).get_or(True)
 
+
+def jinja2_format(fmt: str, data: dict) -> str:
+    return env.from_string(fmt).render(data)
