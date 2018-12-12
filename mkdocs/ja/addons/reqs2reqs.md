@@ -282,7 +282,7 @@ reqs2reqs:
 !!! info "messageついて"
 
     [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
-    プロパティは[Report](../getstarted/configuration.md)で定義されたものを使用できます。
+    プロパティは[Configuration](../getstarted/configuration.md)で定義されたものを使用できます。
 
 [test_empty_guard]: https://github.com/tadashi-aikawa/jumeaux/tree/master/tests/addons/reqs2reqs/test_empty_guard.py
 
