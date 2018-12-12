@@ -13,6 +13,7 @@ from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.final import FinalExecutor
+from jumeaux.addons.utils import jinja2_format
 from jumeaux.logger import Logger
 from jumeaux.models import Report, FinalAddOnPayload
 
@@ -63,7 +64,7 @@ __/\__ / ___|| | __ _  ___| | __ __/\__
 
         for c in self.config.conditions:  # type: Condition
             p = SlackPayload.from_dict({
-                "text": c.payload.message_format.format(**report.to_dict()),
+                "text": jinja2_format(c.payload.message_format, report.to_dict()),
                 "channel": c.payload.channel,
                 "username": c.payload.username,
                 "icon_emoji": c.payload.icon_emoji.get(),

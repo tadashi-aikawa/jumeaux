@@ -271,7 +271,7 @@ reqs2reqs:
 |   Key    |  Type  |               Description                |             Example              | Default |
 | -------- | ------ | ---------------------------------------- | -------------------------------- | ------- |
 | notifier | string | 使用する通知設定の名前  :fa-info-circle: | jumeaux                          |         |
-| message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{title}を中断しました</pre> |         |
+| message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{{ title }}を中断しました</pre> |         |
 
 !!! todo "notifierについて"
 
@@ -279,9 +279,10 @@ reqs2reqs:
     それまでの間、設定例はテストコード[test_empty_guard]を参考にしてください。
 
 
-!!! info "送信するメッセージについて"
+!!! info "messageついて"
 
-    [Report](../getstarted/configuration.md)で定義されたプロパティを使用する事ができます。
+    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    プロパティは[Configuration](../getstarted/configuration.md)で定義されたものを使用できます。
 
 [test_empty_guard]: https://github.com/tadashi-aikawa/jumeaux/tree/master/tests/addons/reqs2reqs/test_empty_guard.py
 
@@ -302,7 +303,7 @@ reqs2reqs:
     config:
       notifies:
         - notifier: jumeaux
-          message: "{title} notify!"
+          message: "{{ title }} notify!"
 ```
 
 !!! hint "`notifier: jumeaux`について"
@@ -341,16 +342,18 @@ reqs2reqs:
 
 ##### Condition
 
-| Key  | Type | Description                                   | Example                   | Default |
-|------|------|-----------------------------------------------|---------------------------|---------|
-| name | str  | 変更後の名称テンプレート :fa-info-circle:     | <pre>{name}({path})</pre> |         |
-| when | str  | [jinja2の式]に準拠した条件式 :fa-info-circle: | <pre>"qs.id.0 == 1"</pre> |         |
+| Key  | Type |          Description          |              Example               | Default |
+| ---- | ---- | ----------------------------- | ---------------------------------- | ------- |
+| name | str  | 変更後の名称 :fa-info-circle: | <pre>{{ name }} ({{ path }})</pre> |         |
+| when | str  | 条件式 :fa-info-circle:       | <pre>"qs.id.0 == 1"</pre>          |         |
 
-[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
+!!! info "nameおよびwhenについて"
 
-!!! info "nameとwhenで指定できるプロパティ"
+    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    プロパティは[request]で定義されたものを使用できます。
 
-    [request]で定義されたプロパティを指定することができます。
+    **nameはテンプレート部分を`{{ }}`で囲む必要があります。**  
+    一方、**whenは式であるため`{{ }}`で囲む必要はありませんが、代わりに文字列はクォートで囲って下さい。**
 
 
 #### Examples
@@ -380,7 +383,7 @@ reqs2reqs:
       conditions:
         - name: "GOOD"
           when: "path|reg('[a-z]{3}')"
-        - name: "{qs[id][0]}: {name}"
+        - name: "{{ qs.id.0 }}: {{ name }}"
           when: "qs.id|length == 1 and qs.id.0|int > 2"
 ```
 

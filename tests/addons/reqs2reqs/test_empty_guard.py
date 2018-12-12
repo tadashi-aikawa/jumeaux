@@ -14,7 +14,7 @@ EMPTY = ("Guard empty",
              """
              notifies:
                - notifier: jumeaux
-                 message: "{title} notify!"
+                 message: "{{ title }} notify!"
              """,
              [],
              """

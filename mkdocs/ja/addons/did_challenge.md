@@ -71,20 +71,25 @@ did_challenge:
 
 ##### Condition
 
-| Key  | Type | Description                                   | Example                     | Default |
-|------|------|-----------------------------------------------|-----------------------------|---------|
-| tag  | str  | 付与するタグ :fa-info-circle:                 | `{one[type]}`               |         |
-| when | str  | [jinja2の式]に準拠した条件式 :fa-info-circle: | <pre>"name == 'hoge'"</pre> |         |
+| Key  | Type |          Description          |           Example           | Default |
+| ---- | ---- | ----------------------------- | --------------------------- | ------- |
+| tag  | str  | 付与するタグ :fa-info-circle: | `tag: {{ one.type }}`       |         |
+| when | str  | 条件式 :fa-info-circle:       | <pre>"name == 'hoge'"</pre> |         |
 
-[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
 
-!!! info "タグ名およびwhenで指定できるプロパティ"
+!!! info "tagおよびwhenについて"
+
+    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    プロパティは以下を使用できます。
 
     | key       | Type                    | Description           |
     |-----------|-------------------------|-----------------------|
     | trial     | [Trial][trial]         | テスト結果 |           |
     | res_one   | [Response][response]    | oneのレスポンス情報   |
     | res_other | [Response][response]    | otherのレスポンス情報 |
+
+    **tagはテンプレート部分を`{{ }}`で囲む必要があります。**  
+    一方、**whenは式であるため`{{ }}`で囲む必要はありませんが、代わりに文字列はクォートで囲って下さい。**
 
 
 #### Examples
@@ -107,8 +112,8 @@ did_challenge:
   - name: tag
     config:
       conditions:
-        - tag: "tag:{trial[one][type]}"
-        - tag: "tag:{trial[other][type]}"
+        - tag: "tag:{{ trial.one.type }}"
+        - tag: "tag:{{ trial.other.type }}"
 ```
 
 [trial]: ../../models/trial

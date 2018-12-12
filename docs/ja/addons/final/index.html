@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.1.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.6">
     
     
       
@@ -44,12 +44,12 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/application.11e41852.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.451f80e5.css">
       
       
     
     
-      <script src="../../../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../../../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
       
@@ -59,7 +59,6 @@
       
     
     <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
-    
     
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     
@@ -1869,7 +1868,7 @@
 <tr>
 <td>message_format</td>
 <td>string</td>
-<td>フォーマット付き本文 <i class="fa fa-info-circle"></i></td>
+<td>本文 <i class="fa fa-info-circle"></i></td>
 <td></td>
 <td></td>
 </tr>
@@ -1904,8 +1903,9 @@
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">フォーマットについて</p>
-<p><a href="../../getstarted/report/">Report</a>で定義されたプロパティを使用する事ができます。</p>
+<p class="admonition-title">message_formatについて</p>
+<p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
+プロパティは<a href="../../getstarted/report/">Report</a>で定義されたものを使用できます。</p>
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <h5 id="jumeaux-channel"><code>#jumeaux</code> channelに終了時通知する<a class="headerlink" href="#jumeaux-channel" title="Permanent link">&para;</a></h5>
@@ -1925,7 +1925,7 @@
     <span class="l l-Scalar l-Scalar-Plain">config</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">conditions</span><span class="p p-Indicator">:</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">payload</span><span class="p p-Indicator">:</span>
-            <span class="l l-Scalar l-Scalar-Plain">message_format</span><span class="p p-Indicator">:</span> <span class="s">&quot;Version</span><span class="nv"> </span><span class="s">{version},</span><span class="nv"> </span><span class="s">Title:</span><span class="nv"> </span><span class="s">{title},</span><span class="nv"> </span><span class="s">--</span><span class="nv"> </span><span class="s">{summary[status][different]}</span><span class="nv"> </span><span class="s">diffs&quot;</span>
+            <span class="l l-Scalar l-Scalar-Plain">message_format</span><span class="p p-Indicator">:</span> <span class="s">&quot;Version</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">version</span><span class="nv"> </span><span class="s">}},</span><span class="nv"> </span><span class="s">Title:</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}},</span><span class="nv"> </span><span class="s">--</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">summary.status.different</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">diffs&quot;</span>
             <span class="l l-Scalar l-Scalar-Plain">channel</span><span class="p p-Indicator">:</span> <span class="s">&quot;#jumeaux&quot;</span>
 </pre></div>
 
@@ -2178,7 +2178,7 @@
       
     </div>
     
-      <script src="../../../assets/javascripts/application.9e1f3b71.js"></script>
+      <script src="../../../assets/javascripts/application.5e60981f.js"></script>
       
         
         

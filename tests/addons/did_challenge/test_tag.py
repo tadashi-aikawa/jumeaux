@@ -98,7 +98,7 @@ ADD_TAG_IF_CONDITION_IS_EMPTY = ("Add a tag if condition is empty",
 ADD_TAG_FORMATTED = ("Add a tag formatted",
                      """
                      conditions:
-                       - tag: "{trial[name]}: {res_one[elapsed_sec]}"
+                       - tag: "{{ trial.name }}: {{ res_one.elapsed_sec }}"
                      """,
                      create_trial_dict(1, "hoge", [], "same"),
                      create_trial_dict(1, "hoge", ["hoge: 1.0"], "same"),

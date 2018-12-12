@@ -4,6 +4,26 @@ Releases
 主なリリース情報を記載します。  
 全ての変更はGitHubのコミットログをご覧ください。
 
+
+## :package: 0.60.0
+
+:fa-calendar: `2018-12-12`
+
+??? danger "formatを指定できる設定箇所の仕様をwhen(jinja2)の仕様にあわせました"
+
+    以下のアドオンに影響があります。
+
+    * [reqs2reqs/rename](https://tadashi-aikawa.github.io/jumeaux/ja/addons/reqs2reqs/#condition)
+    * [reqs2reqs/empty_guard](https://tadashi-aikawa.github.io/jumeaux/ja/addons/reqs2reqs/#notify)
+    * [did_challenge/tag](https://tadashi-aikawa.github.io/jumeaux/ja/addons/did_challenge/#condition)
+    * [final/slack](https://tadashi-aikawa.github.io/jumeaux/ja/addons/final/#payload)
+
+    代表的な変更点は以下3点です。
+
+    * 変数表記は`{var}`ではなく`{{ var }}`で表現する
+    * プロパティアクセスは全てドットアクセス(`obj.prop`)で表現できる
+    * その他jinja2形式の多様な表現ができる
+
 ## :package: 0.59.1
 
 :fa-calendar: `2018-12-06`
