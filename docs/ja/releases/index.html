@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.1.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.0.6">
     
     
       
@@ -44,12 +44,12 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.11e41852.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
       
       
     
     
-      <script src="../../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
       
@@ -59,7 +59,6 @@
       
     
     <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
-    
     
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     
@@ -581,6 +580,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0600" title="0.60.0" class="md-nav__link">
+    0.60.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0591" title="0.59.1" class="md-nav__link">
     0.59.1
   </a>
@@ -927,6 +933,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0600" title="0.60.0" class="md-nav__link">
+    0.60.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0591" title="0.59.1" class="md-nav__link">
     0.59.1
   </a>
@@ -1263,6 +1276,22 @@
                 <h1 id="releases">Releases<a class="headerlink" href="#releases" title="Permanent link">&para;</a></h1>
 <p>主なリリース情報を記載します。<br />
 全ての変更はGitHubのコミットログをご覧ください。</p>
+<h2 id="0600"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/4.0/png/64/1f4e6.png" title=":package:" /> 0.60.0<a class="headerlink" href="#0600" title="Permanent link">&para;</a></h2>
+<p><i class="fa fa-calendar"></i> <code>2018-12-12</code></p>
+<details class="danger"><summary>formatを指定できる設定箇所の仕様をwhen(jinja2)の仕様にあわせました</summary><p>以下のアドオンに影響があります。</p>
+<ul>
+<li><a href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/reqs2reqs/#condition">reqs2reqs/rename</a></li>
+<li><a href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/reqs2reqs/#notify">reqs2reqs/empty_guard</a></li>
+<li><a href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/did_challenge/#condition">did_challenge/tag</a></li>
+<li><a href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/final/#payload">final/slack</a></li>
+</ul>
+<p>代表的な変更点は以下3点です。</p>
+<ul>
+<li>変数表記は<code>{var}</code>ではなく<code>{{ var }}</code>で表現する</li>
+<li>プロパティアクセスは全てドットアクセス(<code>obj.prop</code>)で表現できる</li>
+<li>その他jinja2形式の多様な表現ができる</li>
+</ul>
+</details>
 <h2 id="0591"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/4.0/png/64/1f4e6.png" title=":package:" /> 0.59.1<a class="headerlink" href="#0591" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-12-06</code></p>
 <div class="admonition bug">
@@ -1761,7 +1790,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.9e1f3b71.js"></script>
+      <script src="../../assets/javascripts/application.5e60981f.js"></script>
       
         
         
