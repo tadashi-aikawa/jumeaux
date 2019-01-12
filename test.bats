@@ -96,6 +96,30 @@ assert_null_property() {
   assert_number_property '.summary.status.different' 1
 }
 
+@test "Run path_custom" {
+  $JUMEAUX init path_custom
+  $JUMEAUX run requests
+
+  assert_exists responses
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/other-props/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+
+  assert_number_property '.summary.status.same' 0
+  assert_number_property '.summary.status.different' 2
+  assert_string_property '.summary.one.path.before' 'json'
+  assert_string_property '.summary.one.path.after' 'xml'
+  assert_string_property '.summary.other.path.before' '([^-]+)-(\\d).json'
+  assert_string_property '.summary.other.path.after' '\\1/case-\\2.json'
+
+  assert_string_property '.trials[0].one.url' 'http://localhost:8000/api/one/same-1.xml'
+  assert_string_property '.trials[0].other.url' 'http://localhost:8000/api/other/same/case-1.json'
+  assert_string_property '.trials[1].one.url' 'http://localhost:8000/api/one/diff-1.xml?param=123'
+  assert_string_property '.trials[1].other.url' 'http://localhost:8000/api/other/diff/case-1.json?param=123'
+}
+
 @test "Run query_custom" {
   $JUMEAUX init query_custom
   $JUMEAUX run requests

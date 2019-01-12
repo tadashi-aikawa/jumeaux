@@ -477,6 +477,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "one": {
             "name": config.one.name,
             "host": config.one.host,
+            "path": config.one.path,
             "query": config.one.query,
             "proxy": config.one.proxy,
             "default_response_encoding": config.one.default_response_encoding,
@@ -484,6 +485,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "other": {
             "name": config.other.name,
             "host": config.other.host,
+            "path": config.other.path,
             "query": config.other.query,
             "proxy": config.other.proxy,
             "default_response_encoding": config.other.default_response_encoding,
