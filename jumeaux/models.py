@@ -30,9 +30,15 @@ class QueryCustomization(OwlMixin):
     remove: TOption[TList[str]]
 
 
+class PathReplace(OwlMixin):
+    before: str
+    after: str
+
+
 class AccessPoint(OwlMixin):
     name: str
     host: str
+    path: TOption[PathReplace]
     query: TOption[QueryCustomization]
     proxy: TOption[str]
     default_response_encoding: TOption[str]
@@ -124,15 +130,15 @@ class Args(OwlMixin):
     responses_dir: str
 
     @classmethod
-    def ___threads(cls, v: Optional[str]) -> int:
+    def ___threads(cls, v: Optional[str]) -> Optional[int]:
         return int(v) if v else None
 
     @classmethod
-    def ___processes(cls, v: Optional[str]) -> int:
+    def ___processes(cls, v: Optional[str]) -> Optional[int]:
         return int(v) if v else None
 
     @classmethod
-    def ___max_retries(cls, v: Optional[str]) -> int:
+    def ___max_retries(cls, v: Optional[str]) -> Optional[int]:
         return int(v) if v else None
 
     @classmethod
@@ -150,8 +156,8 @@ class Request(OwlMixin):
 
 
 class Proxy(OwlMixin):
-    http: str = None
-    https: str = None
+    http: str
+    https: str
 
     @classmethod
     def from_host(cls, host: TOption[str]) -> 'Proxy':
@@ -242,6 +248,8 @@ class ChallengeArg(OwlMixin):
     req: Request
     host_one: str
     host_other: str
+    path_one: TOption[PathReplace]
+    path_other: TOption[PathReplace]
     query_one: TOption[QueryCustomization]
     query_other: TOption[QueryCustomization]
     proxy_one: TOption[Proxy]

@@ -41,6 +41,7 @@ import hashlib
 import io
 import os
 import sys
+import re
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
@@ -60,6 +61,7 @@ sys.path.append(os.getcwd())
 from jumeaux import __version__
 from jumeaux.handlers import server, init, viewer
 from jumeaux.addons import AddOnExecutor
+from jumeaux.addons.utils import exact_match
 from jumeaux.configmaker import create_config, create_config_from_report
 from jumeaux.models import (
     Config,
@@ -252,10 +254,12 @@ def challenge(arg: ChallengeArg) -> dict:
     logger.info_lv3(f"{log_prefix}  {arg.seq}. {arg.req.name.get_or(arg.req.path)}")
     logger.info_lv3(f"{log_prefix} {'-'*80}")
 
+    path_str_one = arg.path_one.map(lambda x: re.sub(x.before, x.after, arg.req.path)).get_or(arg.req.path)
+    path_str_other = arg.path_other.map(lambda x: re.sub(x.before, x.after, arg.req.path)).get_or(arg.req.path)
     qs_str_one = create_query_string(arg.req.qs, arg.query_one, arg.req.url_encoding)
     qs_str_other = create_query_string(arg.req.qs, arg.query_other, arg.req.url_encoding)
-    url_one = f'{arg.host_one}{arg.req.path}?{qs_str_one}'
-    url_other = f'{arg.host_other}{arg.req.path}?{qs_str_other}'
+    url_one = f'{arg.host_one}{path_str_one}?{qs_str_one}'
+    url_other = f'{arg.host_other}{path_str_other}?{qs_str_other}'
 
     # Get two responses
     req_time = now()
@@ -431,6 +435,8 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "host_other": config.other.host,
         "proxy_one": Proxy.from_host(config.one.proxy),
         "proxy_other": Proxy.from_host(config.other.proxy),
+        "path_one": config.one.path,
+        "path_other": config.other.path,
         "query_one": config.one.query,
         "query_other": config.other.query,
         "default_response_encoding_one": config.one.default_response_encoding,
@@ -471,6 +477,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "one": {
             "name": config.one.name,
             "host": config.one.host,
+            "path": config.one.path,
             "query": config.one.query,
             "proxy": config.one.proxy,
             "default_response_encoding": config.one.default_response_encoding,
@@ -478,6 +485,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "other": {
             "name": config.other.name,
             "host": config.other.host,
+            "path": config.other.path,
             "query": config.other.query,
             "proxy": config.other.proxy,
             "default_response_encoding": config.other.default_response_encoding,
