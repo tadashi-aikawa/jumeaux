@@ -25,7 +25,6 @@ requests = "*"
 docopt = "*"
 schema = "*"
 xmltodict = "*"
-PyYAML = "*"
 fn = "*"
 "boto3" = "*"
 deepdiff = "*"
@@ -35,9 +34,12 @@ requests-toolbelt = "*"
 "jinja2" = "*"
 "beautifulsoup4" = "*"
 lxml = "*"
-owlmixin = ">=2.8.2"
+owlmixin = ">=2.8.3"
 livereload = "*"
 tzlocal = "*"
 
 [requires]
 python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true
