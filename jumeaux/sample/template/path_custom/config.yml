@@ -1,0 +1,44 @@
+title: Simple
+
+one:
+  name: One endpoint
+  host: http://localhost:8000/api/one
+  path:
+    before: "json"
+    after: "xml"
+
+other:
+  name: Other endpoint
+  host: http://localhost:8000/api/other
+  path:
+    before: "([^-]+)-(\\d).json"
+    after: "\\1/case-\\2.json"
+
+output:
+  response_dir: responses
+
+addons:
+  log2reqs:
+    name: plain
+
+  res2dict:
+    - name: json
+
+  store_criterion:
+    - name: general
+      config:
+        statuses:
+          - different
+
+  dump:
+    - name: json
+
+  final:
+    - name: json
+    - name: viewer
+  #   - name: miroir
+  #     config:
+  #       table: miroir
+  #       bucket: mamansoft-miroir
+  #       cache_max_age: 120
+

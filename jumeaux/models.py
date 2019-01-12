@@ -30,9 +30,15 @@ class QueryCustomization(OwlMixin):
     remove: TOption[TList[str]]
 
 
+class PathReplace(OwlMixin):
+    before: str
+    after: str
+
+
 class AccessPoint(OwlMixin):
     name: str
     host: str
+    path: TOption[PathReplace]
     query: TOption[QueryCustomization]
     proxy: TOption[str]
     default_response_encoding: TOption[str]
@@ -242,6 +248,8 @@ class ChallengeArg(OwlMixin):
     req: Request
     host_one: str
     host_other: str
+    path_one: TOption[PathReplace]
+    path_other: TOption[PathReplace]
     query_one: TOption[QueryCustomization]
     query_other: TOption[QueryCustomization]
     proxy_one: TOption[Proxy]
