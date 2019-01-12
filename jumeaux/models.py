@@ -130,15 +130,15 @@ class Args(OwlMixin):
     responses_dir: str
 
     @classmethod
-    def ___threads(cls, v: Optional[str]) -> int:
+    def ___threads(cls, v: Optional[str]) -> Optional[int]:
         return int(v) if v else None
 
     @classmethod
-    def ___processes(cls, v: Optional[str]) -> int:
+    def ___processes(cls, v: Optional[str]) -> Optional[int]:
         return int(v) if v else None
 
     @classmethod
-    def ___max_retries(cls, v: Optional[str]) -> int:
+    def ___max_retries(cls, v: Optional[str]) -> Optional[int]:
         return int(v) if v else None
 
     @classmethod
@@ -156,8 +156,8 @@ class Request(OwlMixin):
 
 
 class Proxy(OwlMixin):
-    http: str = None
-    https: str = None
+    http: str
+    https: str
 
     @classmethod
     def from_host(cls, host: TOption[str]) -> 'Proxy':
