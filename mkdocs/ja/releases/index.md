@@ -5,6 +5,16 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.61.0
+
+:fa-calendar: `2019-01-13`
+
+??? info "アクセス先ごとにパスを制御できるようにしました"
+
+    * OneとOtherそれぞれに対して、正規表現を含めたpathの置換ができます
+    * 設定の詳細は [configuration] から AccessPoint の`path`をご覧ください
+
+
 ## :package: 0.60.0
 
 :fa-calendar: `2018-12-12`
