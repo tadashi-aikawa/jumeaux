@@ -12,6 +12,7 @@ Definitions
 |---------------------------|---------------------------------------------|---------------------------------------------------------------|-----------------------------|---------|
 | name                      | string                                      | アクセス先の名称                                              | Production                  |         |
 | host                      | string                                      | アクセス先のhost                                              | `http://jumeaux/production` |         |
+| path                      | ([PathReplace](#pathreplace))               | アクセス先ごとにパスを置換したい場合の設定                    | -                           |         |
 | query                     | ([QueryCustomization](#querycustomization)) | アクセス先ごとにクエリを上書き/削除したい場合の設定           | -                           |         |
 | proxy                     | (string)                                    | プロキシ :fa-exclamation-triangle:                            | `proxy-host`                |         |
 | default_response_encoding | (string)                                    | レスポンスのエンコーディングが不明な場合の値 :fa-info-circle: | utf8                        |         |
@@ -28,6 +29,18 @@ Definitions
     推測はボディが大きい場合にパフォーマンスが著しく劣化するので可能な限り指定して下さい。
 
     content-typeにcharsetが指定されていれば本パラメータは無関係です。
+
+### PathReplace
+
+| Key    | Type     | Description                 | Example         | Default |
+|--------|----------|-----------------------------|-----------------|---------|
+| before | (string) | 置換対象の正規表現          | `([0-9]+).json` |         |
+| after  | (string) | 置換後の値 :fa-info-circle: | `\\1.xml`       |         |
+
+
+!!! info "after"
+
+    `\\1`のように出現箇所を使用することもできます。
 
 
 ### QueryCustomization
@@ -53,6 +66,26 @@ Examples
 ```yml
 name: Production
 host: "http://jumeaux/production"
+```
+
+### パス中のoneをtwoに置換する
+
+```yml
+name: Path replace normal
+host: "http://jumeaux/production"
+path:
+  before: one
+  after: two
+```
+
+### パス中の先頭に出現する連続した数字を末尾に移動する
+
+```yml
+name: Path replace moving
+host: "http://jumeaux/production"
+path:
+  before: "^(\\d+)(.+)"
+  after: "\\2\\1"
 ```
 
 ### クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別する)
