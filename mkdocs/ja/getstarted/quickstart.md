@@ -108,11 +108,15 @@ $ jumeaux run requests
 responses/
 ├── latest -> 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16  # 最新の結果へのシンボリックリンク
 └── 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
-    ├── index.html   # Localサーバを立ち上げてアクセスすると結果をGUIで確認できる
-    ├── one          # oneで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
+    ├── index.html       # Localサーバを立ち上げてアクセスすると結果をGUIで確認できる
+    ├── one              # oneで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
     │   └── (2)2
-    ├── other        # otherで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
+    ├── one_props        # oneの結果をプロパティとして解析した結果を保存している. 結果がjsonの場合はほぼ同じ
+    │   └── (2)2.json
+    ├── other            # otherで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
     │   └── (2)2
+    ├── other.props      # otherの結果をプロパティとして解析した結果を保存している. 結果がjsonの場合はほぼ同じ
+    │   └── (2)2.json
     └── report.json  # 結果のjson. index.htmlもこれを参照している
 ```
 
