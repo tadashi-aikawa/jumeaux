@@ -111,11 +111,11 @@ responses/
     ├── index.html       # Localサーバを立ち上げてアクセスすると結果をGUIで確認できる
     ├── one              # oneで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
     │   └── (2)2
-    ├── one_props        # oneの結果をプロパティとして解析した結果を保存している. 結果がjsonの場合はほぼ同じ
+    ├── one-props        # oneの結果をプロパティとして解析した結果を保存している. 結果がjsonの場合はほぼ同じ
     │   └── (2)2.json
     ├── other            # otherで指定したhostのリクエスト結果. simpleの場合は差分アリの結果だけ保存している
     │   └── (2)2
-    ├── other.props      # otherの結果をプロパティとして解析した結果を保存している. 結果がjsonの場合はほぼ同じ
+    ├── other-props      # otherの結果をプロパティとして解析した結果を保存している. 結果がjsonの場合はほぼ同じ
     │   └── (2)2.json
     └── report.json  # 結果のjson. index.htmlもこれを参照している
 ```
