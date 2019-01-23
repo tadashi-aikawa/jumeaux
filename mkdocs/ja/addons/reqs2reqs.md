@@ -362,7 +362,7 @@ reqs2reqs:
 
 ```yml
 reqs2reqs:
-  - name: replace
+  - name: rename
     config:
       conditions:
         - name: renamed
@@ -378,7 +378,7 @@ reqs2reqs:
 
 ```yml
 reqs2reqs:
-  - name: replace
+  - name: rename
     config:
       conditions:
         - name: "GOOD"
