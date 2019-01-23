@@ -3,7 +3,7 @@
 from owlmixin import OwlMixin, TOption, TList, TDict
 
 from jumeaux.addons.did_challenge import DidChallengeExecutor
-from jumeaux.addons.utils import when_optional_filter, jinja2_format
+from jumeaux.addons.utils import when_optional_filter, jinja2_format, get_jinja2_format_error
 from jumeaux.logger import Logger
 from jumeaux.models import DidChallengeAddOnPayload, DidChallengeAddOnReference, Trial
 
@@ -23,6 +23,17 @@ class Config(OwlMixin):
 class Executor(DidChallengeExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
+
+        errors: TList[str] = self.config.conditions\
+            .reject(lambda x: x.when.is_none())\
+            .map(lambda x: get_jinja2_format_error(x.when.get()).get())\
+            .filter(lambda x: x is not None)
+        if errors:
+            logger.error(f"{LOG_PREFIX} Illegal format in `conditions[*].when`.")
+            logger.error(f"{LOG_PREFIX} Please check your configuration yaml files.")
+            logger.error(f"{LOG_PREFIX} --- Error messages ---")
+            errors.map(lambda x: logger.error(f"{LOG_PREFIX}   * `{x}`"))
+            logger.error(f"{LOG_PREFIX} ---------------------", exit=True)
 
     def exec(self, payload: DidChallengeAddOnPayload, referenece: DidChallengeAddOnReference) -> DidChallengeAddOnPayload:
 

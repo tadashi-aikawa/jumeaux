@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 
 import pytest
+
 from jumeaux.addons import utils
 
 
@@ -65,3 +66,15 @@ class TestWhenFilter:
         actual = utils.when_filter(expression, self.data)
         assert expected == actual
 
+
+class TestGetJinja2FormatError:
+    @pytest.mark.parametrize(
+        'expected, fmt', [
+            (None, 'I am {{ name }}'),
+            (None, 'I am { name }'),
+            ("unexpected '}'", 'I am {{ name }'),
+        ]
+    )
+    def test_normal(self, expected, fmt):
+        actual = utils.get_jinja2_format_error(fmt)
+        assert expected == actual.get()
