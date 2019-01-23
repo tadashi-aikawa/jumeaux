@@ -14,8 +14,8 @@ def exact_match(target: str, regexp: str):
     return bool(re.search(f'^{regexp}$', target))
 
 
-def get_by_diff_key(d: dict, diff_key: str) -> Any:
-    return py_.get(d, diff_key
+def get_by_diff_key(dic: dict, diff_key: str) -> Any:
+    return py_.get(dic, diff_key
                    .replace("root", "")
                    .replace("><", ".")
                    .replace(">", "")
@@ -23,12 +23,12 @@ def get_by_diff_key(d: dict, diff_key: str) -> Any:
                    .replace("'", ""))
 
 
-env = Environment(loader=BaseLoader())
-env.filters['reg'] = exact_match
+ENV = Environment(loader=BaseLoader())
+ENV.filters['reg'] = exact_match
 
 
 def when_filter(when: str, data: dict) -> bool:
-    return ast.literal_eval(env.from_string('{{' + when + '}}').render(data))
+    return ast.literal_eval(ENV.from_string('{{' + when + '}}').render(data))
 
 
 def when_optional_filter(when: TOption[str], data: dict) -> bool:
@@ -36,4 +36,4 @@ def when_optional_filter(when: TOption[str], data: dict) -> bool:
 
 
 def jinja2_format(fmt: str, data: dict) -> str:
-    return env.from_string(fmt).render(data)
+    return ENV.from_string(fmt).render(data)
