@@ -5,13 +5,14 @@ import sys
 from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
-from jumeaux.addons.utils import jinja2_format
+from jumeaux.addons.utils import jinja2_format, get_jinja2_format_error
 from jumeaux.logger import Logger
 from jumeaux.models import Config as JumeauxConfig
 from jumeaux.models import Reqs2ReqsAddOnPayload, Notifier
 from jumeaux.notification_handlers import create_notification_handler
 
 logger: Logger = Logger(__name__)
+LOG_PREFIX = "[reqs2reqs/empty_guard]"
 
 
 class Notify(OwlMixin):
@@ -31,6 +32,16 @@ def send(message: str, notifier: Notifier) -> TOption[str]:
 class Executor(Reqs2ReqsExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
+
+        errors: TList[str] = self.config.notifies\
+            .map(lambda x: get_jinja2_format_error(x.message).get())\
+            .filter(lambda x: x is not None)
+        if errors:
+            logger.error(f"{LOG_PREFIX} Illegal format in `notifies[*].message`.")
+            logger.error(f"{LOG_PREFIX} Please check your configuration yaml files.")
+            logger.error(f"{LOG_PREFIX} --- Error messages ---")
+            errors.map(lambda x: logger.error(f"{LOG_PREFIX}   * `{x}`"))
+            logger.error(f"{LOG_PREFIX} ---------------------", exit=True)
 
     def exec(self, payload: Reqs2ReqsAddOnPayload, config: JumeauxConfig) -> Reqs2ReqsAddOnPayload:
         if not payload.requests:

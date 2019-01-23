@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 
-
 import ast
 import re
 from typing import Any
 
 import pydash as py_
 from jinja2 import Environment, BaseLoader
+from jinja2.exceptions import TemplateSyntaxError
 from owlmixin import TOption
 
 
@@ -37,3 +37,11 @@ def when_optional_filter(when: TOption[str], data: dict) -> bool:
 
 def jinja2_format(fmt: str, data: dict) -> str:
     return ENV.from_string(fmt).render(data)
+
+
+def get_jinja2_format_error(fmt: str) -> TOption[str]:
+    try:
+        ENV.from_string(fmt)
+        return TOption(None)
+    except TemplateSyntaxError as err:
+        return TOption(err.message)
