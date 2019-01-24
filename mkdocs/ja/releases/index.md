@@ -5,6 +5,19 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.62.0
+
+:fa-calendar: `2019-01-24`
+
+??? hint "whenやmessage_formatの値に構文エラーがある場合、実行直後にエラーを表示するようにしました"
+
+    * jinja2フォーマットを使っている以下のアドオンが対象です
+        * [reqs2reqs/empty_guard]
+        * [reqs2reqs/rename]
+        * [did_challenge/tag]
+        * [final/slack]
+
+
 ## :package: 0.61.1
 
 :fa-calendar: `2019-01-16`
