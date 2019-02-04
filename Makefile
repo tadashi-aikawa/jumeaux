@@ -93,7 +93,7 @@ release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to envir
 	git tag v$(version) -m v$(version)
 
 	@echo '5. Push'
-	git push
+	git push --tags
 
 	@echo '6. Deploy'
 	@echo 'Packaging...'
