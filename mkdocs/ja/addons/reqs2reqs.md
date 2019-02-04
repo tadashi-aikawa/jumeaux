@@ -281,7 +281,7 @@ reqs2reqs:
 
 !!! info "messageついて"
 
-    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    [Template表記]に対応しています。
     プロパティは[Configuration](../getstarted/configuration.md)で定義されたものを使用できます。
 
 [test_empty_guard]: https://github.com/tadashi-aikawa/jumeaux/tree/master/tests/addons/reqs2reqs/test_empty_guard.py
@@ -387,5 +387,6 @@ reqs2reqs:
           when: "qs.id|length == 1 and qs.id.0|int > 2"
 ```
 
-
+[Template表記]: ../../template
 [request]: ../../models/request
+

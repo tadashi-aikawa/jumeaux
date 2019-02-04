@@ -234,7 +234,7 @@ final:
 
 !!! info "message_formatについて"
 
-    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    [Template表記]に対応しています。
     プロパティは[Report](../getstarted/report.md)で定義されたものを使用できます。
 
 
@@ -377,5 +377,6 @@ final:
 ```
 
 
+[Template表記]: ../../template
 [report]: ../../getstarted/report
 [response_dir]: ../../getstarted/configuration/#outputsummary

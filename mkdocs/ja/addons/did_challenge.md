@@ -79,7 +79,7 @@ did_challenge:
 
 !!! info "tagおよびwhenについて"
 
-    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    [Template表記]に対応しています。
     プロパティは以下を使用できます。
 
     | key             | Type                 | Description                 |
@@ -89,9 +89,6 @@ did_challenge:
     | res_other       | [Response][response] | otherのレスポンス情報       |
     | res_one_props   | (dict)               | oneのレスポンスプロパティ   |
     | res_other_props | (dict)               | otherのレスポンスプロパティ |
-
-    **tagはテンプレート部分を`{{ }}`で囲む必要があります。**  
-    一方、**whenは式であるため`{{ }}`で囲む必要はありませんが、代わりに文字列はクォートで囲って下さい。**
 
 
 #### Examples
@@ -128,5 +125,6 @@ did_challenge:
           - tag: "{{ res_one_props.items[0].type }}"
 ```
 
+[Template表記]: ../../template
 [trial]: ../../models/trial
 [response]: ../../models/response

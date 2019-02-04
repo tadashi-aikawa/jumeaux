@@ -25,11 +25,12 @@ APIから返却されたレスポンスを判定前に変換します。
 |------------------|-----------------------------|------------------------------------------------------------------------|------------------------------|---------|
 | transformer      | [Transformer](#transformer) | 変換処理                                                               |                              |         |
 | default_encoding | (string)                    | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                       | utf8    |
-| when             | str                         | [jinja2の式]に準拠した条件式 :fa-info-circle:                          | <pre>'"2" in req.path'</pre> |         |
-
-[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
+| when             | str                         | 条件式 :fa-info-circle:                                                | <pre>'"2" in req.path'</pre> |         |
 
 !!! info "whenで指定できるプロパティ"
+
+    [Template表記]に対応しています。
+    プロパティは以下を使用できます。
 
     | key | Type                 | Description    |
     |-----|----------------------|----------------|
@@ -193,14 +194,15 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 
 ##### Condition
 
-| Key  | Type | Description                                   | Example                             | Default |
-|------|------|-----------------------------------------------|-------------------------------------|---------|
-| type | str  | 変更後のtype                                  | json                                |         |
-| when | str  | [jinja2の式]に準拠した条件式 :fa-info-circle: | <pre>"res.status_code == 200"</pre> |         |
-
-[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
+| Key  | Type | Description             | Example                             | Default |
+|------|------|-------------------------|-------------------------------------|---------|
+| type | str  | 変更後のtype            | json                                |         |
+| when | str  | 条件式 :fa-info-circle: | <pre>"res.status_code == 200"</pre> |         |
 
 !!! info "whenで指定できるプロパティ"
+
+    [Template表記]に対応しています。
+    プロパティは以下を使用できます。
 
     | key | Type                 | Description    |
     |-----|----------------------|----------------|
@@ -221,6 +223,7 @@ res2res:
           when: "'target' in req.path"
 ```
 
+[Template表記]: ../../template
 [request-condition]: ../../models/request-condition
 [request]: ../../models/request
 [response]: ../../models/response

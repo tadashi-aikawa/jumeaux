@@ -65,13 +65,14 @@ store_criterion:
 
 #### Definitions
 
-| Key      | Type  | Description                                   | Example                      | Default |
-|----------|-------|-----------------------------------------------|------------------------------|---------|
-| when_any | str[] | [jinja2の式]に準拠した条件式 :fa-info-circle: | <pre>'"2" in req.path'</pre> |         |
-
-[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
+| Key      | Type  | Description             | Example                      | Default |
+|----------|-------|-------------------------|------------------------------|---------|
+| when_any | str[] | 条件式 :fa-info-circle: | <pre>'"2" in req.path'</pre> |         |
 
 !!! info "when_anyで指定できるプロパティ"
+
+    [Template表記]に対応しています。
+    プロパティは以下を使用できます。
 
     | key       | Type                    | Description           |
     |-----------|-------------------------|-----------------------|
@@ -100,6 +101,7 @@ store_criterion:
       - status == 'same'
 ```
 
+[Template表記]: ../../template
 [request]: ../../models/request
 [response]: ../../models/response
 
