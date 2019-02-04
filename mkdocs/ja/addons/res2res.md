@@ -61,33 +61,33 @@ APIから返却されたレスポンスを判定前に変換します。
 ##### `sample`モジュールの`transform`関数を使ってjsonに変換する
 
 ```yml
-res2res:
-  - name: json
-    config:
-      transformer:
-        module: sample
+  res2res:
+    - name: json
+      config:
+        transformer:
+          module: sample
 ```
 
 ##### `sample`モジュールの`bytes2json`関数を使ってjsonに変換する
 
 ```yml
-res2res:
-  - name: json
-    config:
-      transformer:
-        module: sample
-        function: bytes2json
+  res2res:
+    - name: json
+      config:
+        transformer:
+          module: sample
+          function: bytes2json
 ```
 
 ##### pathにjsonを含む場合だけ`sample`モジュールの`transform`関数を使ってjsonに変換する
 
 ```yml
-res2res:
-  - name: json
-    config:
-      transformer:
-        module: sample
-      when: '"sample" in req.path'
+  res2res:
+    - name: json
+      config:
+        transformer:
+          module: sample
+        when: '"sample" in req.path'
 ```
 
 
@@ -145,32 +145,32 @@ JSONレスポンスの並び順をソートします。
 ##### pathが`/filter`である場合 `dict1.list1-1` のリストをソートする
 
 ```yml
-res2res:
-  - name: json_sort
-    config:
-      items:
-        - conditions:
-            - path:
-                items:
-                  - regexp: /filter
-          targets:
-            - path: root<'dict1'><'list1-1'> 
+  res2res:
+    - name: json_sort
+      config:
+        items:
+          - conditions:
+              - path:
+                  items:
+                    - regexp: /filter
+            targets:
+              - path: root<'dict1'><'list1-1'> 
 ```
 
 ##### pathが`/filter`である場合 `list2` のリストをid, nameの優先順にソートする
 
 ```yml
-res2res:
-  - name: json_sort
-    config:
-      items:
-        - conditions:
-            - path:
-                items:
-                  - regexp: /filter
-          targets:
-            - path: root<'list2'>
-              sort_keys: [id, name]
+  res2res:
+    - name: json_sort
+      config:
+        items:
+          - conditions:
+              - path:
+                  items:
+                    - regexp: /filter
+            targets:
+              - path: root<'list2'>
+                sort_keys: [id, name]
 ```
 
 
@@ -215,12 +215,12 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 ##### pathに`target`という文字列が含まれる場合に`json`へtypeを変更する
 
 ```yml
-res2res:
-  - name: type
-    config:
-      conditions:
-        - type: json
-          when: "'target' in req.path"
+  res2res:
+    - name: type
+      config:
+        conditions:
+          - type: json
+            when: "'target' in req.path"
 ```
 
 [Template表記]: ../../template
