@@ -740,6 +740,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../template/" title="Template" class="md-nav__link">
+      Template
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../releases/" title="Releases" class="md-nav__link">
       Releases
     </a>
@@ -1083,15 +1095,15 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="path-api1-itemsid">path <code>/api1</code> の <code>items[].id</code> は値が変更されていても無視する<a class="headerlink" href="#path-api1-itemsid" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>judgement:
-  - name: ignore_properties
-    config:
-      ignores:
-        - title: API1のitems[].idの値は無視
-          conditions:
-            - path: /api1
-              changed:
-                - root&lt;&#39;items&#39;&gt;&lt;\d+&gt;&lt;&#39;id&#39;&gt;
+<div class="codehilite"><pre><span></span>  judgement:
+    - name: ignore_properties
+      config:
+        ignores:
+          - title: API1のitems[].idの値は無視
+            conditions:
+              - path: /api1
+                changed:
+                  - root&lt;&#39;items&#39;&gt;&lt;\d+&gt;&lt;&#39;id&#39;&gt;
 </pre></div>
 
 <h5 id="_1">複雑な条件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
@@ -1100,22 +1112,22 @@
 <li>pathが <code>/api</code> から始まる <code>id</code> は追加されている倍委</li>
 <li>nameに <code>check</code> を含む <code>debug</code> または <code>url</code> は削除されている場合</li>
 </ul>
-<div class="codehilite"><pre><span></span>judgement:
-  - name: ignore_properties
-    config:
-      ignores:
-        - title: /apiから始まるidは無視
-          conditions:
-            - path: /api.*
-              added:
-                - root&lt;&#39;id&#39;&gt;
-        - title: タイトルにcheckを含む場合は全階層のdebugとurlを無視
-          conditions:
-            - name: .*check.*
-              image: http://hoge.png
-              link: http://hoge.html
-              removed:
-                - .*&lt;&#39;(debug|url)&#39;&gt;.*
+<div class="codehilite"><pre><span></span>  judgement:
+    - name: ignore_properties
+      config:
+        ignores:
+          - title: /apiから始まるidは無視
+            conditions:
+              - path: /api.*
+                added:
+                  - root&lt;&#39;id&#39;&gt;
+          - title: タイトルにcheckを含む場合は全階層のdebugとurlを無視
+            conditions:
+              - name: .*check.*
+                image: http://hoge.png
+                link: http://hoge.html
+                removed:
+                  - .*&lt;&#39;(debug|url)&#39;&gt;.*
 </pre></div>
 
 <h2 id="same"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/same.py"><i class="fa fa-github"></i></a> same<a class="headerlink" href="#same" title="Permanent link">&para;</a></h2>
@@ -1137,7 +1149,7 @@
 <tr>
 <td>when_any</td>
 <td>str[]</td>
-<td><a href="http://jinja.pocoo.org/docs/2.10/templates/#expressions">jinja2の式</a>に準拠した条件式 <i class="fa fa-info-circle"></i></td>
+<td>条件式 <i class="fa fa-info-circle"></i></td>
 <td><pre>'"2" in req.path'</pre></td>
 <td></td>
 </tr>
@@ -1145,6 +1157,8 @@
 </table>
 <div class="admonition info">
 <p class="admonition-title">when_anyで指定できるプロパティ</p>
+<p><a href="../../template">Template表記</a>に対応しています。<br />
+プロパティは以下を使用できます。</p>
 <table>
 <thead>
 <tr>
@@ -1184,12 +1198,12 @@
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="pathtest0test1same">リクエストのpathが<code>/test0</code>または<code>/test1</code>のときはSameとする<a class="headerlink" href="#pathtest0test1same" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>judgement:
-  - name: same
-    config:
-      when_any:
-        - req.path == &#39;/test0&#39;
-        - req.path == &#39;/test1&#39;
+<div class="codehilite"><pre><span></span>  judgement:
+    - name: same
+      config:
+        when_any:
+          - req.path == &#39;/test0&#39;
+          - req.path == &#39;/test1&#39;
 </pre></div>
                 
                   

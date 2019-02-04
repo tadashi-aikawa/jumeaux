@@ -5,6 +5,28 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.63.0
+
+:fa-calendar: `2019-02-05`
+
+??? info "whenやtagでレスポンスプロパティを利用できるようにしました([did_challenge/tag])"
+
+    * OneとOtherそれぞれのレスポンスプロパティを参照できます
+    * 詳細は [did_challenge/tag] をご覧下さい
+
+??? info "Template functionにcalc_distance_kmを追加しました"
+
+    * 座標間の概算距離を計算できます
+    * 詳細は [template/#functions] をご覧下さい
+
+??? hint "アドオンのExamplesに表記された設定例のインデントを調整しました"
+
+    * コピーボタンでコピーした設定をそのまま貼り付けられるようになりました
+    * もうペーストした後にインデント調整をする必要はありません :smile:
+
+    [![](https://dl.dropboxusercontent.com/s/f9zsr96v994dh02/0.63.0-1.png)](https://dl.dropboxusercontent.com/s/f9zsr96v994dh02/0.63.0-1.png)
+
+
 ## :package: 0.62.0
 
 :fa-calendar: `2019-01-24`
@@ -606,6 +628,7 @@ Releases
 
 [configuration]: ../getstarted/configuration
 [viewer]: ../getstarted/quickstart/#viewer
+[template/#functions]: ../template#functions
 [addons]: ../addons
 [addons/addon]: ../addons#addon
 [log2reqs/plain]: ../addons/log2reqs#plain

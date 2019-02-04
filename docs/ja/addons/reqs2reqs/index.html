@@ -1125,6 +1125,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../template/" title="Template" class="md-nav__link">
+      Template
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../releases/" title="Releases" class="md-nav__link">
       Releases
     </a>
@@ -1736,10 +1748,10 @@
 </table>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="10">先頭の10リクエストを抽出する<a class="headerlink" href="#10" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>reqs2reqs:
-  - name: head
-    config:
-      size: 10
+<div class="codehilite"><pre><span></span>  reqs2reqs:
+    - name: head
+      config:
+        size: 10
 </pre></div>
 
 <h2 id="filter"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/filter.py"><i class="fa fa-github"></i></a> filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h2>
@@ -1802,32 +1814,32 @@
 </details>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="pathok-nameok">pathに<code>ok</code>が含まれ かつ nameに<code>OK</code>が含まれるリクエストのみ抽出する<a class="headerlink" href="#pathok-nameok" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2res:
-  - name: filter
-    config:
-       and_or: and
-       filters:
-         - path:
-             items:
-               - regexp: .*ok.*
-         - name:
-             items:
-               - regexp: .*OK.*
+<div class="codehilite"><pre><span></span>  res2res:
+    - name: filter
+      config:
+         and_or: and
+         filters:
+           - path:
+               items:
+                 - regexp: .*ok.*
+           - name:
+               items:
+                 - regexp: .*OK.*
 </pre></div>
 
 <div class="admonition hint">
 <p class="admonition-title">1つのfilter内でpathとnameをAND検索することもできます</p>
-<div class="codehilite"><pre><span></span>res2res:
-  - name: filter
-    config:
-      and_or: and
-      filters:
-        - path:
-            items:
-              - regexp: .*ok.*
-          name:
-            items:
-              - regexp: .*OK.*    
+<div class="codehilite"><pre><span></span>  res2res:
+    - name: filter
+      config:
+        and_or: and
+        filters:
+          - path:
+              items:
+                - regexp: .*ok.*
+            name:
+              items:
+                - regexp: .*OK.*
 </pre></div>
 
 </div>
@@ -1884,13 +1896,13 @@
 </table>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="restsamplewordhoge">末尾に<code>/rest/sample?word=hoge</code>というリクエストを追加する<a class="headerlink" href="#restsamplewordhoge" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>reqs2reqs:
-  - name: add
-    config:
-      reqs:
-        - path: /rest/sample
-          qs: {word: [hoge]}
-      location: tail
+<div class="codehilite"><pre><span></span>  reqs2reqs:
+    - name: add
+      config:
+        reqs:
+          - path: /rest/sample
+            qs: {word: [hoge]}
+        location: tail
 </pre></div>
 
 <h2 id="replace"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/replace.py"><i class="fa fa-github"></i></a> replace<a class="headerlink" href="#replace" title="Permanent link">&para;</a></h2>
@@ -1992,17 +2004,17 @@
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <h5 id="pathtarget-iddummay_id-timedummy_date">pathが<code>/target</code>と一致するリクエストのクエリを置換する (<code>id=dummay_id</code>, <code>time=dummy_date</code>)<a class="headerlink" href="#pathtarget-iddummay_id-timedummy_date" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>reqs2reqs:
-  - name: replace
-    config:
-      items:
-        - conditions:
-            - path:
-                items:
-                  - regexp: /target
-          queries:
-            id: [&quot;dummy_id&quot;]
-            time: [&quot;dummy_date&quot;]
+<div class="codehilite"><pre><span></span>  reqs2reqs:
+    - name: replace
+      config:
+        items:
+          - conditions:
+              - path:
+                  items:
+                    - regexp: /target
+            queries:
+              id: [&quot;dummy_id&quot;]
+              time: [&quot;dummy_date&quot;]
 </pre></div>
 
 <h2 id="shuffle"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/shuffle.py"><i class="fa fa-github"></i></a> shuffle<a class="headerlink" href="#shuffle" title="Permanent link">&para;</a></h2>
@@ -2012,8 +2024,8 @@
 <p>Config設定はありません。</p>
 <h4 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h4>
 <h5 id="_1">リクエストをシャッフルする<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>reqs2reqs:
-  - name: shuffle
+<div class="codehilite"><pre><span></span>  reqs2reqs:
+    - name: shuffle
 </pre></div>
 
 <h2 id="repeat"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/repeat.py"><i class="fa fa-github"></i></a> repeat<a class="headerlink" href="#repeat" title="Permanent link">&para;</a></h2>
@@ -2042,10 +2054,10 @@
 </table>
 <h4 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h4>
 <h5 id="10_1">リクエスト全体を10回複製する<a class="headerlink" href="#10_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>reqs2reqs:
-  - name: repeat
-    config:
-      times: 10
+<div class="codehilite"><pre><span></span>  reqs2reqs:
+    - name: repeat
+      config:
+        times: 10
 </pre></div>
 
 <h2 id="empty_guard"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/empty_guard.py"><i class="fa fa-github"></i></a> empty_guard<a class="headerlink" href="#empty_guard" title="Permanent link">&para;</a></h2>
@@ -2111,22 +2123,22 @@
 </div>
 <div class="admonition info">
 <p class="admonition-title">messageついて</p>
-<p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
+<p><a href="../../template">Template表記</a>に対応しています。<br />
 プロパティは<a href="../../getstarted/configuration/">Configuration</a>で定義されたものを使用できます。</p>
 </div>
 <h4 id="examples_6">Examples<a class="headerlink" href="#examples_6" title="Permanent link">&para;</a></h4>
 <h5 id="_2">リクエストが空の場合に処理を中断する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>reqs2reqs:
-  - name: empty_guard
+<div class="codehilite"><pre><span></span>  reqs2reqs:
+    - name: empty_guard
 </pre></div>
 
 <h5 id="notifier-jumeaux">リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする<a class="headerlink" href="#notifier-jumeaux" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>reqs2reqs:
-  - name: empty_guard
-    config:
-      notifies:
-        - notifier: jumeaux
-          message: &quot;{{ title }} notify!&quot;
+<div class="codehilite"><pre><span></span>  reqs2reqs:
+    - name: empty_guard
+      config:
+        notifies:
+          - notifier: jumeaux
+            message: &quot;{{ title }} notify!&quot;
 </pre></div>
 
 <div class="admonition hint">
@@ -2203,12 +2215,12 @@
 </div>
 <h4 id="examples_7">Examples<a class="headerlink" href="#examples_7" title="Permanent link">&para;</a></h4>
 <h5 id="pathtargetrenamed">pathに<code>target</code>という文字列が含まれる場合に<code>renamed</code>へ名称を変更する<a class="headerlink" href="#pathtargetrenamed" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>reqs2reqs:
-  - name: rename
-    config:
-      conditions:
-        - name: renamed
-          when: &quot;&#39;target&#39; in path&quot;
+<div class="codehilite"><pre><span></span>  reqs2reqs:
+    - name: rename
+      config:
+        conditions:
+          - name: renamed
+            when: &quot;&#39;target&#39; in path&quot;
 </pre></div>
 
 <h5 id="_3">複雑な条件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
@@ -2218,14 +2230,14 @@
   2-1. 例えば<code>id=4</code>で名称が<code>hoge</code>のとき、新しい名称は<code>4: hoge</code>となる</li>
 <li>1と2に該当しない場合は名称を変更しない</li>
 </ol>
-<div class="codehilite"><pre><span></span>reqs2reqs:
-  - name: rename
-    config:
-      conditions:
-        - name: &quot;GOOD&quot;
-          when: &quot;path|reg(&#39;[a-z]{3}&#39;)&quot;
-        - name: &quot;{{ qs.id.0 }}: {{ name }}&quot;
-          when: &quot;qs.id|length == 1 and qs.id.0|int &gt; 2&quot;
+<div class="codehilite"><pre><span></span>  reqs2reqs:
+    - name: rename
+      config:
+        conditions:
+          - name: &quot;GOOD&quot;
+            when: &quot;path|reg(&#39;[a-z]{3}&#39;)&quot;
+          - name: &quot;{{ qs.id.0 }}: {{ name }}&quot;
+            when: &quot;qs.id|length == 1 and qs.id.0|int &gt; 2&quot;
 </pre></div>
                 
                   

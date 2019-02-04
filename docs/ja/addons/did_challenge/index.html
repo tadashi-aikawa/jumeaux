@@ -582,6 +582,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#oneitems0type" title="oneのレスポンスプロパティitems[0].type の値をタグにつける" class="md-nav__link">
+    oneのレスポンスプロパティitems[0].type の値をタグにつける
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -718,6 +725,18 @@
         
       </ul>
     </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../template/" title="Template" class="md-nav__link">
+      Template
+    </a>
   </li>
 
     
@@ -878,6 +897,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#oneitems0type" title="oneのレスポンスプロパティitems[0].type の値をタグにつける" class="md-nav__link">
+    oneのレスポンスプロパティitems[0].type の値をタグにつける
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -952,19 +978,19 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="0110">ランダムで0.1～1.0秒待機する<a class="headerlink" href="#0110" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>did_challenge:
-  - name: sleep
-    config:
-      min: 0.1
-      max: 1.0
+<div class="codehilite"><pre><span></span>  did_challenge:
+    - name: sleep
+      config:
+        min: 0.1
+        max: 1.0
 </pre></div>
 
 <h5 id="05">0.5秒待機する<a class="headerlink" href="#05" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>did_challenge:
-  - name: sleep
-    config:
-      min: 0.5
-      max: 0.5
+<div class="codehilite"><pre><span></span>  did_challenge:
+    - name: sleep
+      config:
+        min: 0.5
+        max: 0.5
 </pre></div>
 
 <h2 id="tag"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/did_challenge/tag.py"><i class="fa fa-github"></i></a> tag<a class="headerlink" href="#tag" title="Permanent link">&para;</a></h2>
@@ -1008,21 +1034,21 @@
 <td>tag</td>
 <td>str</td>
 <td>付与するタグ <i class="fa fa-info-circle"></i></td>
-<td><code>tag: {{ one.type }}</code></td>
+<td><code>tag: {{ trial.one.type }}</code></td>
 <td></td>
 </tr>
 <tr>
 <td>when</td>
 <td>str</td>
 <td>条件式 <i class="fa fa-info-circle"></i></td>
-<td><pre>"name == 'hoge'"</pre></td>
+<td><pre>"trial.name == 'hoge'"</pre></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition info">
 <p class="admonition-title">tagおよびwhenについて</p>
-<p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
+<p><a href="../../template">Template表記</a>に対応しています。<br />
 プロパティは以下を使用できます。</p>
 <table>
 <thead>
@@ -1048,28 +1074,44 @@
 <td><a href="../../models/response">Response</a></td>
 <td>otherのレスポンス情報</td>
 </tr>
+<tr>
+<td>res_one_props</td>
+<td>(dict)</td>
+<td>oneのレスポンスプロパティ</td>
+</tr>
+<tr>
+<td>res_other_props</td>
+<td>(dict)</td>
+<td>otherのレスポンスプロパティ</td>
+</tr>
 </tbody>
 </table>
-<p><strong>tagはテンプレート部分を<code>{{ }}</code>で囲む必要があります。</strong><br />
-一方、<strong>whenは式であるため<code>{{ }}</code>で囲む必要はありませんが、代わりに文字列はクォートで囲って下さい。</strong></p>
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="trialnamejsonjson">Trialのnameが<code>json</code>のとき、<code>json</code>というタグを付ける<a class="headerlink" href="#trialnamejsonjson" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>did_challenge:
-  - name: tag
-    config:
-      conditions:
-        - tag: json
-          when: &quot;trial.name == &#39;json&#39;&quot;
+<div class="codehilite"><pre><span></span>  did_challenge:
+    - name: tag
+      config:
+        conditions:
+          - tag: json
+            when: &quot;trial.name == &#39;json&#39;&quot;
 </pre></div>
 
 <h5 id="_1">それぞれのレスポンスタイプをタグとして付ける<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>did_challenge:
-  - name: tag
-    config:
-      conditions:
-        - tag: &quot;tag:{{ trial.one.type }}&quot;
-        - tag: &quot;tag:{{ trial.other.type }}&quot;
+<div class="codehilite"><pre><span></span>  did_challenge:
+    - name: tag
+      config:
+        conditions:
+          - tag: &quot;tag:{{ trial.one.type }}&quot;
+          - tag: &quot;tag:{{ trial.other.type }}&quot;
+</pre></div>
+
+<h5 id="oneitems0type">oneのレスポンスプロパティ<code>items[0].type</code> の値をタグにつける<a class="headerlink" href="#oneitems0type" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>  did_challenge:
+    - name: tag
+      config:
+        conditions:
+          - tag: &quot;{{ res_one_props.items[0].type }}&quot;
 </pre></div>
                 
                   
