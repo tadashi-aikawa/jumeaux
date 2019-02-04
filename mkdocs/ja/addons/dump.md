@@ -36,26 +36,26 @@ APIレスポンスを保存前に加工します。
 ##### JSON形式でフォーマットする
 
 ```yaml
-dump:
-  - name: json
+  dump:
+    - name: json
 ```
 
 ##### JSON形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
 
 ```yaml
-dump:
-  - name: json
-    config:
-      default_encoding: euc-jp
+  dump:
+    - name: json
+      config:
+        default_encoding: euc-jp
 ```
 
 ##### typeに関わらずJSON形式でフォーマットする
 
 ```yaml
-dump:
-  - name: json
-    config:
-      force: True
+  dump:
+    - name: json
+      config:
+        force: True
 ```
 
 
@@ -85,26 +85,26 @@ dump:
 ##### XML形式でフォーマットする
 
 ```yaml
-dump:
-  - name: xml
+  dump:
+    - name: xml
 ```
 
 ##### XML形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
 
 ```yaml
-dump:
-  - name: xml
-    config:
-      default_encoding: euc-jp
+  dump:
+    - name: xml
+      config:
+        default_encoding: euc-jp
 ```
 
 ##### typeに関わらずXML形式でフォーマットする
 
 ```yaml
-dump:
-  - name: xml
-    config:
-      force: True
+  dump:
+    - name: xml
+      config:
+        force: True
 ```
 
 
@@ -134,26 +134,26 @@ dump:
 ##### HTML形式でフォーマットする
 
 ```yaml
-dump:
-  - name: html
+  dump:
+    - name: html
 ```
 
 ##### HTML形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)
 
 ```yaml
-dump:
-  - name: html
-    config:
-      default_encoding: euc-jp
+  dump:
+    - name: html
+      config:
+        default_encoding: euc-jp
 ```
 
 #### typeに関わらずHTML形式でフォーマットする
 
 ```yaml
-dump:
-  - name: html
-    config:
-      force: True
+  dump:
+    - name: html
+      config:
+        force: True
 ```
 
 
@@ -179,6 +179,6 @@ dump:
 ##### UTF8に変換する
 
 ```yaml
-dump:
-  - name: encoding
+  dump:
+    - name: encoding
 ```

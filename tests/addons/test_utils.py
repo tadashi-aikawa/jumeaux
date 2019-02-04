@@ -59,7 +59,8 @@ class TestWhenFilter:
             (True, '"Apple" in favorites|map(attribute="name")'),
             (False, '"Grape" in favorites|map(attribute="name")'),
             (True, 'carrier["2010"]|default("neet") == "web"'),
-            (True, 'carrier["2011"]|default("neet") == "neet"')
+            (True, 'carrier["2011"]|default("neet") == "neet"'),
+            (4, 'calc_distance_km(35.664131, 139.759302, 35.694253, 139.784099)|int')
         ]
     )
     def test_normal(self, expected, expression):

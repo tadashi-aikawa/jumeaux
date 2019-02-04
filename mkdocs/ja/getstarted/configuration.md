@@ -76,7 +76,7 @@ addons:
       config:
         notifies:
           - notifier: test
-            message: "{title} notify!"
+            message: "{{ title }} notify!"
 ```
 
 [addons]: ../../addons#configration-definitions

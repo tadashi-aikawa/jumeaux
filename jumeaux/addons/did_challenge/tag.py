@@ -41,7 +41,9 @@ class Executor(DidChallengeExecutor):
             return TDict({
                 "trial": trial.to_dict(),
                 "res_one": referenece.res_one.to_dict(),
-                "res_other": referenece.res_other.to_dict()
+                "res_other": referenece.res_other.to_dict(),
+                "res_one_props": referenece.res_one_props.get(),
+                "res_other_props": referenece.res_other_props.get(),
             })
 
         # TODO: remove TOption (owlmixin... find)

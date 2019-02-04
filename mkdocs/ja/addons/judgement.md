@@ -71,15 +71,15 @@ judgement [:fa-github:][s1]
 ##### path `/api1` の `items[].id` は値が変更されていても無視する
 
 ```yml
-judgement:
-  - name: ignore_properties
-    config:
-      ignores:
-        - title: API1のitems[].idの値は無視
-          conditions:
-            - path: /api1
-              changed:
-                - root<'items'><\d+><'id'>
+  judgement:
+    - name: ignore_properties
+      config:
+        ignores:
+          - title: API1のitems[].idの値は無視
+            conditions:
+              - path: /api1
+                changed:
+                  - root<'items'><\d+><'id'>
 ```
 
 ##### 複雑な条件
@@ -90,22 +90,22 @@ judgement:
 * nameに ``check`` を含む ``debug`` または ``url`` は削除されている場合
 
 ```yml
-judgement:
-  - name: ignore_properties
-    config:
-      ignores:
-        - title: /apiから始まるidは無視
-          conditions:
-            - path: /api.*
-              added:
-                - root<'id'>
-        - title: タイトルにcheckを含む場合は全階層のdebugとurlを無視
-          conditions:
-            - name: .*check.*
-              image: http://hoge.png
-              link: http://hoge.html
-              removed:
-                - .*<'(debug|url)'>.*
+  judgement:
+    - name: ignore_properties
+      config:
+        ignores:
+          - title: /apiから始まるidは無視
+            conditions:
+              - path: /api.*
+                added:
+                  - root<'id'>
+          - title: タイトルにcheckを含む場合は全階層のdebugとurlを無視
+            conditions:
+              - name: .*check.*
+                image: http://hoge.png
+                link: http://hoge.html
+                removed:
+                  - .*<'(debug|url)'>.*
 ```
 
 
@@ -123,13 +123,15 @@ judgement:
 
 ##### Root
 
-| Key      | Type  | Description                                   | Example                      | Default |
-|----------|-------|-----------------------------------------------|------------------------------|---------|
-| when_any | str[] | [jinja2の式]に準拠した条件式 :fa-info-circle: | <pre>'"2" in req.path'</pre> |         |
+| Key      | Type  | Description             | Example                      | Default |
+|----------|-------|-------------------------|------------------------------|---------|
+| when_any | str[] | 条件式 :fa-info-circle: | <pre>'"2" in req.path'</pre> |         |
 
-[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
 
 !!! info "when_anyで指定できるプロパティ"
+
+    [Template表記]に対応しています。
+    プロパティは以下を使用できます。
 
     | key        | Type                 | Description           |
     |------------|----------------------|-----------------------|
@@ -145,13 +147,14 @@ judgement:
 ##### リクエストのpathが`/test0`または`/test1`のときはSameとする
 
 ```yml
-judgement:
-  - name: same
-    config:
-      when_any:
-        - req.path == '/test0'
-        - req.path == '/test1'
+  judgement:
+    - name: same
+      config:
+        when_any:
+          - req.path == '/test0'
+          - req.path == '/test1'
 ```
 
+[Template表記]: ../../template
 [request]: ../../models/request
 [response]: ../../models/response

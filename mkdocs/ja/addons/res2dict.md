@@ -35,17 +35,17 @@ JSONレスポンスをdictに変換します。
 ##### レスポンスがJSONの場合 dictに変換する
 
 ```yml
-res2dict:
-  - name: json
+  res2dict:
+    - name: json
 ```
 
 ##### 変換する必要がないケースでも強制的に変換する
 
 ```yml
-res2dict:
-  - name: json
-    config:
-      force: true
+  res2dict:
+    - name: json
+      config:
+        force: true
 ```
 
 
@@ -78,17 +78,17 @@ XMLレスポンスをdictに変換します。
 ##### レスポンスがXMLの場合 dictに変換する
 
 ```yml
-res2dict:
-  - name: xml
+  res2dict:
+    - name: xml
 ```
 
 ##### 変換する必要がないケースでも強制的に変換する
 
 ```yml
-res2dict:
-  - name: xml
-    config:
-      force: true
+  res2dict:
+    - name: xml
+      config:
+        force: true
 ```
 
 
@@ -121,17 +121,17 @@ HTMLレスポンスをdictに変換します。
 ##### レスポンスがHTMLの場合 dictに変換する
 
 ```yaml
-res2dict:
-  - name: html
+  res2dict:
+    - name: html
 ```
 
 ##### 変換する必要がないケースでも強制的に変換する
 
 ```yaml
-res2dict:
-  - name: html
-    config:
-      force: true
+  res2dict:
+    - name: html
+      config:
+        force: true
 ```
 
 
@@ -174,11 +174,11 @@ res2dict:
 ##### INIファイルっぽい形式に変換する
 
 ```yml
-res2dict:
-  - name: block
-    config:
-      header_regexp: '\[(.+)\]'
-      record_regexp: '([^:]+): (.+)'
+  res2dict:
+    - name: block
+      config:
+        header_regexp: '\[(.+)\]'
+        record_regexp: '([^:]+): (.+)'
 ```
 
 

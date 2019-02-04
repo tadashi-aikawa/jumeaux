@@ -36,17 +36,17 @@ Jumeauxの処理が完了する直前処理を行う事ができます。
 ##### 結果の概要ファイルを出力する
 
 ```yaml
-final:
-  - name: summary
+  final:
+    - name: summary
 ```
 
 ##### 結果の概要を標準出力に出力する
 
 ```yaml
-final:
-  - name: summary
-    config:
-      sysout: true
+  final:
+    - name: summary
+      config:
+        sysout: true
 ```
 
 
@@ -84,18 +84,18 @@ final:
 ##### 結果のレポートをjsonファイルで出力する
 
 ```yaml
-final:
-  - name: json
+  final:
+    - name: json
 ```
 
 ##### 結果のレポートをインデントサイズ4で標準出力に出力する
 
 ```yaml
-final:
-  - name: json
-    config:
-      sysout: true
-      indent: 4
+  final:
+    - name: json
+      config:
+        sysout: true
+        indent: 4
 ```
 
 
@@ -147,12 +147,12 @@ Miroir参照用にデータをAWSに登録します。
 ##### キャッシュ1時間で保存する
 
 ```yaml
-final:
-  - name: miroir
-    config:
-      table: miroir
-      bucket: mamansoft-miroir
-      cache_max_age: 3600
+  final:
+    - name: miroir
+      config:
+        table: miroir
+        bucket: mamansoft-miroir
+        cache_max_age: 3600
 ```
 
 ##### キャッシュなしでprefixを指定して保存する
@@ -160,37 +160,37 @@ final:
 Bucketの`test/`配下にデータが保存されます。
 
 ```yaml
-final:
-  - name: miroir
-    config:
-      table: miroir
-      bucket: mamansoft-miroir
-      prefix: test
+  final:
+    - name: miroir
+      config:
+        table: miroir
+        bucket: mamansoft-miroir
+        prefix: test
 ```
 
 ##### LocalStackを使ってキャッシュ2分で保存する
 
 ```yaml
-final:
-  - name: miroir
-    config:
-      table: miroir
-      bucket: mamansoft-miroir
-      cache_max_age: 120
-      local_stack:
-        use: true
+  final:
+    - name: miroir
+      config:
+        table: miroir
+        bucket: mamansoft-miroir
+        cache_max_age: 120
+        local_stack:
+          use: true
 ```
 
 ##### 結果が空でないときだけ保存する
 
 ```yaml
-final:
-  - name: miroir
-    config:
-      table: miroir
-      bucket: mamansoft-miroir
-      when:
-        - not_empty
+  final:
+    - name: miroir
+      config:
+        table: miroir
+        bucket: mamansoft-miroir
+        when:
+          - not_empty
 ```
 
 
@@ -234,7 +234,7 @@ final:
 
 !!! info "message_formatについて"
 
-    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    [Template表記]に対応しています。
     プロパティは[Report](../getstarted/report.md)で定義されたものを使用できます。
 
 
@@ -243,26 +243,26 @@ final:
 ##### `#jumeaux` channelに終了時通知する
 
 ```yaml
-final:
-  - name: slack
-    config:
-      conditions:
-        - payload:
-            message_format: Finish Jumeaux!!
-            channel: "#jumeaux"
-            icon_emoji: ":innocent:"
+  final:
+    - name: slack
+      config:
+        conditions:
+          - payload:
+              message_format: Finish Jumeaux!!
+              channel: "#jumeaux"
+              icon_emoji: ":innocent:"
 ```
 
 ##### メッセージフォーマットを利用して通知する
 
 ```yaml
-final:
-  - name: slack
-    config:
-      conditions:
-        - payload:
-            message_format: "Version {{ version }}, Title: {{ title }}, -- {{ summary.status.different }} diffs"
-            channel: "#jumeaux"
+  final:
+    - name: slack
+      config:
+        conditions:
+          - payload:
+              message_format: "Version {{ version }}, Title: {{ title }}, -- {{ summary.status.different }} diffs"
+              channel: "#jumeaux"
 ```
 
 通知本文は `Version 0.24.1, Title: DEMO, -- 2 diffs` のようになります。
@@ -318,30 +318,30 @@ final:
 ##### `seq` `name` `status` の要素を出力する
 
 ```yaml
-final:
-  - name: csv
-    config:
-      column_names:
-        - seq
-        - name
-        - status
-      output_path: result.csv
+  final:
+    - name: csv
+      config:
+        column_names:
+          - seq
+          - name
+          - status
+        output_path: result.csv
 ```
 
 ##### `seq` `name` `status`, `one.response_sec`, `other.response_sec` の要素をヘッダ付きで出力する
 
 ```yaml
-final:
-  - name: csv
-    config:
-      with_header: true
-      column_names:
-        - seq
-        - name
-        - status
-        - one.response_sec
-        - other.response_sec
-      output_path: result.csv
+  final:
+    - name: csv
+      config:
+        with_header: true
+        column_names:
+          - seq
+          - name
+          - status
+          - one.response_sec
+          - other.response_sec
+        output_path: result.csv
 ```
 
 
@@ -371,11 +371,12 @@ Config設定はありません。
 ##### 結果をGUIで確認するためのviewerを同梱する
 
 ```yaml
-final:
-  - name: json  # report.jsonが必要なため
-  - name: viewer
+  final:
+    - name: json  # report.jsonが必要なため
+    - name: viewer
 ```
 
 
+[Template表記]: ../../template
 [report]: ../../getstarted/report
 [response_dir]: ../../getstarted/configuration/#outputsummary
