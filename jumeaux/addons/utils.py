@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 
+import math
 import ast
 import re
 from typing import Any
@@ -23,8 +24,24 @@ def get_by_diff_key(dic: dict, diff_key: str) -> Any:
                    .replace("'", ""))
 
 
+def calc_distance_km(wgs84_deg_lat1: float, wgs84_deg_lon1: float, wgs84_deg_lat2: float, wgs84_deg_lon2: float) -> float:
+    R = 6371
+    rad1 = math.radians(wgs84_deg_lat1)
+    rad2 = math.radians(wgs84_deg_lat2)
+    delta_lat_rad = math.radians(wgs84_deg_lat2 - wgs84_deg_lat1)
+    delta_lon_rad = math.radians(wgs84_deg_lon2 - wgs84_deg_lon1)
+
+    a = math.sin(delta_lat_rad / 2) * math.sin(delta_lat_rad / 2) \
+        + math.cos(rad1) * math.cos(rad2) \
+        * math.sin(delta_lon_rad / 2) * math.sin(delta_lon_rad / 2)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+    return R * c
+
+
 ENV = Environment(loader=BaseLoader())
 ENV.filters['reg'] = exact_match
+ENV.globals['calc_distance_km'] = calc_distance_km
 
 
 def when_filter(when: str, data: dict) -> bool:

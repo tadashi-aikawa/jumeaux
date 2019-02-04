@@ -33,21 +33,21 @@ did_challenge [:fa-github:][s1]
 ##### ランダムで0.1～1.0秒待機する
 
 ```yml
-did_challenge:
-  - name: sleep
-    config:
-      min: 0.1
-      max: 1.0
+  did_challenge:
+    - name: sleep
+      config:
+        min: 0.1
+        max: 1.0
 ```
 
 ##### 0.5秒待機する
 
 ```yml
-did_challenge:
-  - name: sleep
-    config:
-      min: 0.5
-      max: 0.5
+  did_challenge:
+    - name: sleep
+      config:
+        min: 0.5
+        max: 0.5
 ```
 
 
@@ -71,25 +71,24 @@ did_challenge:
 
 ##### Condition
 
-| Key  | Type |          Description          |           Example           | Default |
-| ---- | ---- | ----------------------------- | --------------------------- | ------- |
-| tag  | str  | 付与するタグ :fa-info-circle: | `tag: {{ one.type }}`       |         |
-| when | str  | 条件式 :fa-info-circle:       | <pre>"name == 'hoge'"</pre> |         |
+| Key  | Type | Description                   | Example                           | Default |
+|------|------|-------------------------------|-----------------------------------|---------|
+| tag  | str  | 付与するタグ :fa-info-circle: | `tag: {{ trial.one.type }}`       |         |
+| when | str  | 条件式 :fa-info-circle:       | <pre>"trial.name == 'hoge'"</pre> |         |
 
 
 !!! info "tagおよびwhenについて"
 
-    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    [Template表記]に対応しています。
     プロパティは以下を使用できます。
 
-    | key       | Type                    | Description           |
-    |-----------|-------------------------|-----------------------|
-    | trial     | [Trial][trial]         | テスト結果 |           |
-    | res_one   | [Response][response]    | oneのレスポンス情報   |
-    | res_other | [Response][response]    | otherのレスポンス情報 |
-
-    **tagはテンプレート部分を`{{ }}`で囲む必要があります。**  
-    一方、**whenは式であるため`{{ }}`で囲む必要はありませんが、代わりに文字列はクォートで囲って下さい。**
+    | key             | Type                 | Description                 |
+    |-----------------|----------------------|-----------------------------|
+    | trial           | [Trial][trial]       | テスト結果                  |
+    | res_one         | [Response][response] | oneのレスポンス情報         |
+    | res_other       | [Response][response] | otherのレスポンス情報       |
+    | res_one_props   | (dict)               | oneのレスポンスプロパティ   |
+    | res_other_props | (dict)               | otherのレスポンスプロパティ |
 
 
 #### Examples
@@ -97,24 +96,35 @@ did_challenge:
 ##### Trialのnameが`json`のとき、`json`というタグを付ける
 
 ```yml
-did_challenge:
-  - name: tag
-    config:
-      conditions:
-        - tag: json
-          when: "trial.name == 'json'"
+  did_challenge:
+    - name: tag
+      config:
+        conditions:
+          - tag: json
+            when: "trial.name == 'json'"
 ```
 
 ##### それぞれのレスポンスタイプをタグとして付ける
 
 ```yml
-did_challenge:
-  - name: tag
-    config:
-      conditions:
-        - tag: "tag:{{ trial.one.type }}"
-        - tag: "tag:{{ trial.other.type }}"
+  did_challenge:
+    - name: tag
+      config:
+        conditions:
+          - tag: "tag:{{ trial.one.type }}"
+          - tag: "tag:{{ trial.other.type }}"
 ```
 
+##### oneのレスポンスプロパティ`items[0].type` の値をタグにつける
+
+```yml
+  did_challenge:
+    - name: tag
+      config:
+        conditions:
+          - tag: "{{ res_one_props.items[0].type }}"
+```
+
+[Template表記]: ../../template
 [trial]: ../../models/trial
 [response]: ../../models/response

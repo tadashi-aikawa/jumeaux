@@ -841,6 +841,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../template/" title="Template" class="md-nav__link">
+      Template
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../releases/" title="Releases" class="md-nav__link">
       Releases
     </a>
@@ -1183,22 +1195,22 @@
 </table>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="json_1">JSON形式でフォーマットする<a class="headerlink" href="#json_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">dump</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">dump</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
 </pre></div>
 
 <h5 id="json-euc-jp">JSON形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)<a class="headerlink" href="#json-euc-jp" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">dump</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
-    <span class="nt">config</span><span class="p">:</span>
-      <span class="nt">default_encoding</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">dump</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">default_encoding</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
 </pre></div>
 
 <h5 id="typejson">typeに関わらずJSON形式でフォーマットする<a class="headerlink" href="#typejson" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">dump</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
-    <span class="nt">config</span><span class="p">:</span>
-      <span class="nt">force</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">dump</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">force</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 </pre></div>
 
 <h2 id="xml"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/xml.py"><i class="fa fa-github"></i></a> xml<a class="headerlink" href="#xml" title="Permanent link">&para;</a></h2>
@@ -1238,22 +1250,22 @@
 </table>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="xml_1">XML形式でフォーマットする<a class="headerlink" href="#xml_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">dump</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">dump</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
 </pre></div>
 
 <h5 id="xml-euc-jp">XML形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)<a class="headerlink" href="#xml-euc-jp" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">dump</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
-    <span class="nt">config</span><span class="p">:</span>
-      <span class="nt">default_encoding</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">dump</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">default_encoding</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
 </pre></div>
 
 <h5 id="typexml">typeに関わらずXML形式でフォーマットする<a class="headerlink" href="#typexml" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">dump</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
-    <span class="nt">config</span><span class="p">:</span>
-      <span class="nt">force</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">dump</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">force</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 </pre></div>
 
 <h2 id="html"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/html.py"><i class="fa fa-github"></i></a> html<a class="headerlink" href="#html" title="Permanent link">&para;</a></h2>
@@ -1293,22 +1305,22 @@
 </table>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="html_1">HTML形式でフォーマットする<a class="headerlink" href="#html_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">dump</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">dump</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
 </pre></div>
 
 <h5 id="html-euc-jp">HTML形式でフォーマットする (エンコーディング情報が無ければEUC-JPで出力する)<a class="headerlink" href="#html-euc-jp" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">dump</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
-    <span class="nt">config</span><span class="p">:</span>
-      <span class="nt">default_encoding</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">dump</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">default_encoding</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
 </pre></div>
 
 <h4 id="typehtml">typeに関わらずHTML形式でフォーマットする<a class="headerlink" href="#typehtml" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nt">dump</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
-    <span class="nt">config</span><span class="p">:</span>
-      <span class="nt">force</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">dump</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">force</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 </pre></div>
 
 <h2 id="encoding"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/encoding.py"><i class="fa fa-github"></i></a> encoding<a class="headerlink" href="#encoding" title="Permanent link">&para;</a></h2>
@@ -1337,8 +1349,8 @@
 </table>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <h5 id="utf8">UTF8に変換する<a class="headerlink" href="#utf8" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">dump</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">encoding</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">dump</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">encoding</span>
 </pre></div>
                 
                   

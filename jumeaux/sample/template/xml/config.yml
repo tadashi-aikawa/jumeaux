@@ -25,10 +25,13 @@ addons:
           - different
 
   did_challenge:
-    - name: sleep
+    - name: tag
       config:
-        min: 0.5
-        max: 0.5
+        conditions:
+          - tag: "over $10 (id={{ res_one_props.catalog.book[0]['@id'] }})"
+            when: res_one_props.catalog.book[0].price|int > 10
+          - tag: "over $10 (id={{ res_one_props.catalog.book[1]['@id'] }})"
+            when: res_one_props.catalog.book[1].price|int > 10
 
   dump:
     - name: xml

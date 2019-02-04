@@ -49,29 +49,29 @@ log2reqs [:fa-github:][s1]
 ##### 最もシンプルな例
 
 ```yml
-log2reqs:
-  name: plain
+  log2reqs:
+    name: plain
 ```
 
 ##### 入力ファイルのエンコーディングはEUC-JPで空のクエリも有効にする
 
 ```yml
-log2reqs:
-  name: plain
-  config:
-    encoding: euc-jp
-    keep_blank: true
+  log2reqs:
+    name: plain
+    config:
+      encoding: euc-jp
+      keep_blank: true
 ```
 
 ##### URLエンコーディングをsjis => euc-jpの順番で推測(判定)する
 
 ```yml
-log2reqs:
-  name: plain
-  config:
-    candidate_for_url_encodings:
-      - sjis
-      - euc-jp
+  log2reqs:
+    name: plain
+    config:
+      candidate_for_url_encodings:
+        - sjis
+        - euc-jp
 ```
 
 
@@ -131,19 +131,19 @@ CSV入力形式に対応しています。
 ##### 最もシンプルな例
 
 ```yml
-log2reqs:
-  name: csv
+  log2reqs:
+    name: csv
 ```
 
 ##### 入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP、空のクエリも有効にする
 
 ```yml
-log2reqs:
-  name: csv
-  config:
-    encoding: euc-jp
-    keep_blank: true
-    dialect: excel-tab
+  log2reqs:
+    name: csv
+    config:
+      encoding: euc-jp
+      keep_blank: true
+      dialect: excel-tab
 ```
 
 
@@ -203,17 +203,17 @@ JSON入力形式に対応しています。
 ##### 最もシンプルな例
 
 ```yml
-log2reqs:
-  name: json
+  log2reqs:
+    name: json
 ```
 
 ##### 入力ファイルのエンコーディングはEUC-JP
 
 ```yml
-log2reqs:
-  name: json
-  config:
-    encoding: euc-jp
+  log2reqs:
+    name: json
+    config:
+      encoding: euc-jp
 ```
 
 
@@ -266,15 +266,15 @@ YAML入力形式に対応しています。
 ##### 最もシンプルな例
 
 ```yml
-log2reqs:
-  name: yaml
+  log2reqs:
+    name: yaml
 ```
 
 ##### 入力ファイルのエンコーディングはEUC-JP
 
 ```yml
-log2reqs:
-  name: yaml
-  config:
-    encoding: euc-jp
+  log2reqs:
+    name: yaml
+    config:
+      encoding: euc-jp
 ```

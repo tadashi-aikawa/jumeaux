@@ -27,10 +27,10 @@ reqs2reqs [:fa-github:][s1]
 ##### 先頭の10リクエストを抽出する
 
 ```yml
-reqs2reqs:
-  - name: head
-    config:
-      size: 10
+  reqs2reqs:
+    - name: head
+      config:
+        size: 10
 ```
 
 
@@ -65,33 +65,33 @@ reqs2reqs:
 ##### pathに`ok`が含まれ かつ nameに`OK`が含まれるリクエストのみ抽出する
 
 ```yml
-res2res:
-  - name: filter
-    config:
-       and_or: and
-       filters:
-         - path:
-             items:
-               - regexp: .*ok.*
-         - name:
-             items:
-               - regexp: .*OK.*
+  res2res:
+    - name: filter
+      config:
+         and_or: and
+         filters:
+           - path:
+               items:
+                 - regexp: .*ok.*
+           - name:
+               items:
+                 - regexp: .*OK.*
 ```
 
 !!! hint "1つのfilter内でpathとnameをAND検索することもできます"
 
     ```yml
-    res2res:
-      - name: filter
-        config:
-          and_or: and
-          filters:
-            - path:
-                items:
-                  - regexp: .*ok.*
-              name:
-                items:
-                  - regexp: .*OK.*    
+      res2res:
+        - name: filter
+          config:
+            and_or: and
+            filters:
+              - path:
+                  items:
+                    - regexp: .*ok.*
+                name:
+                  items:
+                    - regexp: .*OK.*
     ```
 
 
@@ -127,13 +127,13 @@ res2res:
 ##### 末尾に`/rest/sample?word=hoge`というリクエストを追加する
 
 ```yml
-reqs2reqs:
-  - name: add
-    config:
-      reqs:
-        - path: /rest/sample
-          qs: {word: [hoge]}
-      location: tail
+  reqs2reqs:
+    - name: add
+      config:
+        reqs:
+          - path: /rest/sample
+            qs: {word: [hoge]}
+        location: tail
 ```
 
 
@@ -179,17 +179,17 @@ reqs2reqs:
 ##### pathが`/target`と一致するリクエストのクエリを置換する (`id=dummay_id`, `time=dummy_date`)
 
 ```yml
-reqs2reqs:
-  - name: replace
-    config:
-      items:
-        - conditions:
-            - path:
-                items:
-                  - regexp: /target
-          queries:
-            id: ["dummy_id"]
-            time: ["dummy_date"]
+  reqs2reqs:
+    - name: replace
+      config:
+        items:
+          - conditions:
+              - path:
+                  items:
+                    - regexp: /target
+            queries:
+              id: ["dummy_id"]
+              time: ["dummy_date"]
 ```
 
 [:fa-github:][shuffle] shuffle
@@ -210,8 +210,8 @@ Config設定はありません。
 ##### リクエストをシャッフルする
 
 ```yml
-reqs2reqs:
-  - name: shuffle
+  reqs2reqs:
+    - name: shuffle
 ```
 
 
@@ -236,10 +236,10 @@ reqs2reqs:
 ##### リクエスト全体を10回複製する
 
 ```yml
-reqs2reqs:
-  - name: repeat
-    config:
-      times: 10
+  reqs2reqs:
+    - name: repeat
+      config:
+        times: 10
 ```
 
 
@@ -281,7 +281,7 @@ reqs2reqs:
 
 !!! info "messageついて"
 
-    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    [Template表記]に対応しています。
     プロパティは[Configuration](../getstarted/configuration.md)で定義されたものを使用できます。
 
 [test_empty_guard]: https://github.com/tadashi-aikawa/jumeaux/tree/master/tests/addons/reqs2reqs/test_empty_guard.py
@@ -291,19 +291,19 @@ reqs2reqs:
 ##### リクエストが空の場合に処理を中断する
 
 ```yml
-reqs2reqs:
-  - name: empty_guard
+  reqs2reqs:
+    - name: empty_guard
 ```
 
 ##### リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする
 
 ```yml
-reqs2reqs:
-  - name: empty_guard
-    config:
-      notifies:
-        - notifier: jumeaux
-          message: "{{ title }} notify!"
+  reqs2reqs:
+    - name: empty_guard
+      config:
+        notifies:
+          - notifier: jumeaux
+            message: "{{ title }} notify!"
 ```
 
 !!! hint "`notifier: jumeaux`について"
@@ -361,12 +361,12 @@ reqs2reqs:
 ##### pathに`target`という文字列が含まれる場合に`renamed`へ名称を変更する
 
 ```yml
-reqs2reqs:
-  - name: rename
-    config:
-      conditions:
-        - name: renamed
-          when: "'target' in path"
+  reqs2reqs:
+    - name: rename
+      config:
+        conditions:
+          - name: renamed
+            when: "'target' in path"
 ```
 
 ##### 複雑な条件
@@ -377,15 +377,16 @@ reqs2reqs:
 3. 1と2に該当しない場合は名称を変更しない
 
 ```yml
-reqs2reqs:
-  - name: rename
-    config:
-      conditions:
-        - name: "GOOD"
-          when: "path|reg('[a-z]{3}')"
-        - name: "{{ qs.id.0 }}: {{ name }}"
-          when: "qs.id|length == 1 and qs.id.0|int > 2"
+  reqs2reqs:
+    - name: rename
+      config:
+        conditions:
+          - name: "GOOD"
+            when: "path|reg('[a-z]{3}')"
+          - name: "{{ qs.id.0 }}: {{ name }}"
+            when: "qs.id|length == 1 and qs.id.0|int > 2"
 ```
 
-
+[Template表記]: ../../template
 [request]: ../../models/request
+

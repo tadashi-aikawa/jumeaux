@@ -172,6 +172,8 @@ assert_null_property() {
   assert_exists responses/latest/index.html
 
   assert_number_property '.summary.status.different' 1
+  assert_string_property '.trials[0].tags[0]' 'over $10 (id=bk101)'
+  assert_number_property '.trials[0].tags[1]'
 }
 
 

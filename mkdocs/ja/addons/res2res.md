@@ -25,11 +25,12 @@ APIから返却されたレスポンスを判定前に変換します。
 |------------------|-----------------------------|------------------------------------------------------------------------|------------------------------|---------|
 | transformer      | [Transformer](#transformer) | 変換処理                                                               |                              |         |
 | default_encoding | (string)                    | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                       | utf8    |
-| when             | str                         | [jinja2の式]に準拠した条件式 :fa-info-circle:                          | <pre>'"2" in req.path'</pre> |         |
-
-[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
+| when             | str                         | 条件式 :fa-info-circle:                                                | <pre>'"2" in req.path'</pre> |         |
 
 !!! info "whenで指定できるプロパティ"
+
+    [Template表記]に対応しています。
+    プロパティは以下を使用できます。
 
     | key | Type                 | Description    |
     |-----|----------------------|----------------|
@@ -60,33 +61,33 @@ APIから返却されたレスポンスを判定前に変換します。
 ##### `sample`モジュールの`transform`関数を使ってjsonに変換する
 
 ```yml
-res2res:
-  - name: json
-    config:
-      transformer:
-        module: sample
+  res2res:
+    - name: json
+      config:
+        transformer:
+          module: sample
 ```
 
 ##### `sample`モジュールの`bytes2json`関数を使ってjsonに変換する
 
 ```yml
-res2res:
-  - name: json
-    config:
-      transformer:
-        module: sample
-        function: bytes2json
+  res2res:
+    - name: json
+      config:
+        transformer:
+          module: sample
+          function: bytes2json
 ```
 
 ##### pathにjsonを含む場合だけ`sample`モジュールの`transform`関数を使ってjsonに変換する
 
 ```yml
-res2res:
-  - name: json
-    config:
-      transformer:
-        module: sample
-      when: '"sample" in req.path'
+  res2res:
+    - name: json
+      config:
+        transformer:
+          module: sample
+        when: '"sample" in req.path'
 ```
 
 
@@ -144,32 +145,32 @@ JSONレスポンスの並び順をソートします。
 ##### pathが`/filter`である場合 `dict1.list1-1` のリストをソートする
 
 ```yml
-res2res:
-  - name: json_sort
-    config:
-      items:
-        - conditions:
-            - path:
-                items:
-                  - regexp: /filter
-          targets:
-            - path: root<'dict1'><'list1-1'> 
+  res2res:
+    - name: json_sort
+      config:
+        items:
+          - conditions:
+              - path:
+                  items:
+                    - regexp: /filter
+            targets:
+              - path: root<'dict1'><'list1-1'> 
 ```
 
 ##### pathが`/filter`である場合 `list2` のリストをid, nameの優先順にソートする
 
 ```yml
-res2res:
-  - name: json_sort
-    config:
-      items:
-        - conditions:
-            - path:
-                items:
-                  - regexp: /filter
-          targets:
-            - path: root<'list2'>
-              sort_keys: [id, name]
+  res2res:
+    - name: json_sort
+      config:
+        items:
+          - conditions:
+              - path:
+                  items:
+                    - regexp: /filter
+            targets:
+              - path: root<'list2'>
+                sort_keys: [id, name]
 ```
 
 
@@ -193,14 +194,15 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 
 ##### Condition
 
-| Key  | Type | Description                                   | Example                             | Default |
-|------|------|-----------------------------------------------|-------------------------------------|---------|
-| type | str  | 変更後のtype                                  | json                                |         |
-| when | str  | [jinja2の式]に準拠した条件式 :fa-info-circle: | <pre>"res.status_code == 200"</pre> |         |
-
-[jinja2の式]: http://jinja.pocoo.org/docs/2.10/templates/#expressions
+| Key  | Type | Description             | Example                             | Default |
+|------|------|-------------------------|-------------------------------------|---------|
+| type | str  | 変更後のtype            | json                                |         |
+| when | str  | 条件式 :fa-info-circle: | <pre>"res.status_code == 200"</pre> |         |
 
 !!! info "whenで指定できるプロパティ"
+
+    [Template表記]に対応しています。
+    プロパティは以下を使用できます。
 
     | key | Type                 | Description    |
     |-----|----------------------|----------------|
@@ -213,14 +215,15 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 ##### pathに`target`という文字列が含まれる場合に`json`へtypeを変更する
 
 ```yml
-res2res:
-  - name: type
-    config:
-      conditions:
-        - type: json
-          when: "'target' in req.path"
+  res2res:
+    - name: type
+      config:
+        conditions:
+          - type: json
+            when: "'target' in req.path"
 ```
 
+[Template表記]: ../../template
 [request-condition]: ../../models/request-condition
 [request]: ../../models/request
 [response]: ../../models/response

@@ -922,6 +922,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../template/" title="Template" class="md-nav__link">
+      Template
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../releases/" title="Releases" class="md-nav__link">
       Releases
     </a>
@@ -1360,25 +1372,25 @@
 </details>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="_1">最もシンプルな例<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>log2reqs:
-  name: plain
+<div class="codehilite"><pre><span></span>  log2reqs:
+    name: plain
 </pre></div>
 
 <h5 id="euc-jp">入力ファイルのエンコーディングはEUC-JPで空のクエリも有効にする<a class="headerlink" href="#euc-jp" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>log2reqs:
-  name: plain
-  config:
-    encoding: euc-jp
-    keep_blank: true
+<div class="codehilite"><pre><span></span>  log2reqs:
+    name: plain
+    config:
+      encoding: euc-jp
+      keep_blank: true
 </pre></div>
 
 <h5 id="urlsjis-euc-jp">URLエンコーディングをsjis =&gt; euc-jpの順番で推測(判定)する<a class="headerlink" href="#urlsjis-euc-jp" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>log2reqs:
-  name: plain
-  config:
-    candidate_for_url_encodings:
-      - sjis
-      - euc-jp
+<div class="codehilite"><pre><span></span>  log2reqs:
+    name: plain
+    config:
+      candidate_for_url_encodings:
+        - sjis
+        - euc-jp
 </pre></div>
 
 <h2 id="csv"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/csv.py"><i class="fa fa-github"></i></a> csv<a class="headerlink" href="#csv" title="Permanent link">&para;</a></h2>
@@ -1477,17 +1489,17 @@
 </details>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="_2">最もシンプルな例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>log2reqs:
-  name: csv
+<div class="codehilite"><pre><span></span>  log2reqs:
+    name: csv
 </pre></div>
 
 <h5 id="tabcsveuc-jp">入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP、空のクエリも有効にする<a class="headerlink" href="#tabcsveuc-jp" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>log2reqs:
-  name: csv
-  config:
-    encoding: euc-jp
-    keep_blank: true
-    dialect: excel-tab
+<div class="codehilite"><pre><span></span>  log2reqs:
+    name: csv
+    config:
+      encoding: euc-jp
+      keep_blank: true
+      dialect: excel-tab
 </pre></div>
 
 <h2 id="json"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/json.py"><i class="fa fa-github"></i></a> json<a class="headerlink" href="#json" title="Permanent link">&para;</a></h2>
@@ -1580,15 +1592,15 @@
 </table>
 <h4 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h4>
 <h5 id="_3">最もシンプルな例<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>log2reqs:
-  name: json
+<div class="codehilite"><pre><span></span>  log2reqs:
+    name: json
 </pre></div>
 
 <h5 id="euc-jp_1">入力ファイルのエンコーディングはEUC-JP<a class="headerlink" href="#euc-jp_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>log2reqs:
-  name: json
-  config:
-    encoding: euc-jp
+<div class="codehilite"><pre><span></span>  log2reqs:
+    name: json
+    config:
+      encoding: euc-jp
 </pre></div>
 
 <h2 id="yaml"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/yaml.py"><i class="fa fa-github"></i></a> yaml<a class="headerlink" href="#yaml" title="Permanent link">&para;</a></h2>
@@ -1673,15 +1685,15 @@
 </table>
 <h4 id="examples_6">Examples<a class="headerlink" href="#examples_6" title="Permanent link">&para;</a></h4>
 <h5 id="_4">最もシンプルな例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>log2reqs:
-  name: yaml
+<div class="codehilite"><pre><span></span>  log2reqs:
+    name: yaml
 </pre></div>
 
 <h5 id="euc-jp_2">入力ファイルのエンコーディングはEUC-JP<a class="headerlink" href="#euc-jp_2" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>log2reqs:
-  name: yaml
-  config:
-    encoding: euc-jp
+<div class="codehilite"><pre><span></span>  log2reqs:
+    name: yaml
+    config:
+      encoding: euc-jp
 </pre></div>
                 
                   

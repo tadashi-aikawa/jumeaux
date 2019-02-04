@@ -700,6 +700,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../template/" title="Template" class="md-nav__link">
+      Template
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../releases/" title="Releases" class="md-nav__link">
       Releases
     </a>
@@ -909,20 +921,20 @@
 </details>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="_1">差分のあるレスポンスだけを保存する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>store_criterion:
-  - name: general
-    config:
-      statuses:
-        - different
+<div class="codehilite"><pre><span></span>  store_criterion:
+    - name: general
+      config:
+        statuses:
+          - different
 </pre></div>
 
 <h5 id="_2">成功したリクエスト結果だけを保存する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>store_criterion:
-  - name: general
-    config:
-      statuses:
-        - same
-        - different
+<div class="codehilite"><pre><span></span>  store_criterion:
+    - name: general
+      config:
+        statuses:
+          - same
+          - different
 </pre></div>
 
 <h2 id="free"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/store_criterion/free.py"><i class="fa fa-github"></i></a> free<a class="headerlink" href="#free" title="Permanent link">&para;</a></h2>
@@ -943,7 +955,7 @@
 <tr>
 <td>when_any</td>
 <td>str[]</td>
-<td><a href="http://jinja.pocoo.org/docs/2.10/templates/#expressions">jinja2の式</a>に準拠した条件式 <i class="fa fa-info-circle"></i></td>
+<td>条件式 <i class="fa fa-info-circle"></i></td>
 <td><pre>'"2" in req.path'</pre></td>
 <td></td>
 </tr>
@@ -951,6 +963,8 @@
 </table>
 <div class="admonition info">
 <p class="admonition-title">when_anyで指定できるプロパティ</p>
+<p><a href="../../template">Template表記</a>に対応しています。<br />
+プロパティは以下を使用できます。</p>
 <table>
 <thead>
 <tr>
@@ -1008,12 +1022,12 @@
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="pathtestsame">pathが<code>/test</code>またはステータスがSameの結果は保存する<a class="headerlink" href="#pathtestsame" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>store_criterion:
-  - name: free
-    config:
-    when_any:
-      - req.path == &#39;/test&#39;
-      - status == &#39;same&#39;
+<div class="codehilite"><pre><span></span>  store_criterion:
+    - name: free
+      config:
+      when_any:
+        - req.path == &#39;/test&#39;
+        - status == &#39;same&#39;
 </pre></div>
                 
                   

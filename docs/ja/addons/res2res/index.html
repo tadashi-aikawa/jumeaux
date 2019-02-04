@@ -834,6 +834,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../template/" title="Template" class="md-nav__link">
+      Template
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../releases/" title="Releases" class="md-nav__link">
       Releases
     </a>
@@ -1162,7 +1174,7 @@
 <tr>
 <td>when</td>
 <td>str</td>
-<td><a href="http://jinja.pocoo.org/docs/2.10/templates/#expressions">jinja2の式</a>に準拠した条件式 <i class="fa fa-info-circle"></i></td>
+<td>条件式 <i class="fa fa-info-circle"></i></td>
 <td><pre>'"2" in req.path'</pre></td>
 <td></td>
 </tr>
@@ -1170,6 +1182,8 @@
 </table>
 <div class="admonition info">
 <p class="admonition-title">whenで指定できるプロパティ</p>
+<p><a href="../../template">Template表記</a>に対応しています。<br />
+プロパティは以下を使用できます。</p>
 <table>
 <thead>
 <tr>
@@ -1233,29 +1247,29 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="sampletransformjson"><code>sample</code>モジュールの<code>transform</code>関数を使ってjsonに変換する<a class="headerlink" href="#sampletransformjson" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2res:
-  - name: json
-    config:
-      transformer:
-        module: sample
+<div class="codehilite"><pre><span></span>  res2res:
+    - name: json
+      config:
+        transformer:
+          module: sample
 </pre></div>
 
 <h5 id="samplebytes2jsonjson"><code>sample</code>モジュールの<code>bytes2json</code>関数を使ってjsonに変換する<a class="headerlink" href="#samplebytes2jsonjson" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2res:
-  - name: json
-    config:
-      transformer:
-        module: sample
-        function: bytes2json
+<div class="codehilite"><pre><span></span>  res2res:
+    - name: json
+      config:
+        transformer:
+          module: sample
+          function: bytes2json
 </pre></div>
 
 <h5 id="pathjsonsampletransformjson">pathにjsonを含む場合だけ<code>sample</code>モジュールの<code>transform</code>関数を使ってjsonに変換する<a class="headerlink" href="#pathjsonsampletransformjson" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2res:
-  - name: json
-    config:
-      transformer:
-        module: sample
-      when: &#39;&quot;sample&quot; in req.path&#39;
+<div class="codehilite"><pre><span></span>  res2res:
+    - name: json
+      config:
+        transformer:
+          module: sample
+        when: &#39;&quot;sample&quot; in req.path&#39;
 </pre></div>
 
 <h2 id="json_sort"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/json_sort.py"><i class="fa fa-github"></i></a> json_sort<a class="headerlink" href="#json_sort" title="Permanent link">&para;</a></h2>
@@ -1382,30 +1396,30 @@
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="pathfilter-dict1list1-1">pathが<code>/filter</code>である場合 <code>dict1.list1-1</code> のリストをソートする<a class="headerlink" href="#pathfilter-dict1list1-1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2res:
-  - name: json_sort
-    config:
-      items:
-        - conditions:
-            - path:
-                items:
-                  - regexp: /filter
-          targets:
-            - path: root&lt;&#39;dict1&#39;&gt;&lt;&#39;list1-1&#39;&gt; 
+<div class="codehilite"><pre><span></span>  res2res:
+    - name: json_sort
+      config:
+        items:
+          - conditions:
+              - path:
+                  items:
+                    - regexp: /filter
+            targets:
+              - path: root&lt;&#39;dict1&#39;&gt;&lt;&#39;list1-1&#39;&gt; 
 </pre></div>
 
 <h5 id="pathfilter-list2-id-name">pathが<code>/filter</code>である場合 <code>list2</code> のリストをid, nameの優先順にソートする<a class="headerlink" href="#pathfilter-list2-id-name" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2res:
-  - name: json_sort
-    config:
-      items:
-        - conditions:
-            - path:
-                items:
-                  - regexp: /filter
-          targets:
-            - path: root&lt;&#39;list2&#39;&gt;
-              sort_keys: [id, name]
+<div class="codehilite"><pre><span></span>  res2res:
+    - name: json_sort
+      config:
+        items:
+          - conditions:
+              - path:
+                  items:
+                    - regexp: /filter
+            targets:
+              - path: root&lt;&#39;list2&#39;&gt;
+                sort_keys: [id, name]
 </pre></div>
 
 <h2 id="type"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/type.py"><i class="fa fa-github"></i></a> type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h2>
@@ -1456,7 +1470,7 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 <tr>
 <td>when</td>
 <td>str</td>
-<td><a href="http://jinja.pocoo.org/docs/2.10/templates/#expressions">jinja2の式</a>に準拠した条件式 <i class="fa fa-info-circle"></i></td>
+<td>条件式 <i class="fa fa-info-circle"></i></td>
 <td><pre>"res.status_code == 200"</pre></td>
 <td></td>
 </tr>
@@ -1464,6 +1478,8 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 </table>
 <div class="admonition info">
 <p class="admonition-title">whenで指定できるプロパティ</p>
+<p><a href="../../template">Template表記</a>に対応しています。<br />
+プロパティは以下を使用できます。</p>
 <table>
 <thead>
 <tr>
@@ -1488,12 +1504,12 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 </div>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="pathtargetjsontype">pathに<code>target</code>という文字列が含まれる場合に<code>json</code>へtypeを変更する<a class="headerlink" href="#pathtargetjsontype" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2res:
-  - name: type
-    config:
-      conditions:
-        - type: json
-          when: &quot;&#39;target&#39; in req.path&quot;
+<div class="codehilite"><pre><span></span>  res2res:
+    - name: type
+      config:
+        conditions:
+          - type: json
+            when: &quot;&#39;target&#39; in req.path&quot;
 </pre></div>
                 
                   

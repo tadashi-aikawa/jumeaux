@@ -901,6 +901,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../template/" title="Template" class="md-nav__link">
+      Template
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../releases/" title="Releases" class="md-nav__link">
       Releases
     </a>
@@ -1296,15 +1308,15 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="json-dict">レスポンスがJSONの場合 dictに変換する<a class="headerlink" href="#json-dict" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2dict:
-  - name: json
+<div class="codehilite"><pre><span></span>  res2dict:
+    - name: json
 </pre></div>
 
 <h5 id="_1">変換する必要がないケースでも強制的に変換する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2dict:
-  - name: json
-    config:
-      force: true
+<div class="codehilite"><pre><span></span>  res2dict:
+    - name: json
+      config:
+        force: true
 </pre></div>
 
 <h2 id="xml"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/xml.py"><i class="fa fa-github"></i></a> xml<a class="headerlink" href="#xml" title="Permanent link">&para;</a></h2>
@@ -1341,15 +1353,15 @@
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="xml-dict">レスポンスがXMLの場合 dictに変換する<a class="headerlink" href="#xml-dict" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2dict:
-  - name: xml
+<div class="codehilite"><pre><span></span>  res2dict:
+    - name: xml
 </pre></div>
 
 <h5 id="_2">変換する必要がないケースでも強制的に変換する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2dict:
-  - name: xml
-    config:
-      force: true
+<div class="codehilite"><pre><span></span>  res2dict:
+    - name: xml
+      config:
+        force: true
 </pre></div>
 
 <h2 id="html"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/html.py"><i class="fa fa-github"></i></a> html<a class="headerlink" href="#html" title="Permanent link">&para;</a></h2>
@@ -1386,15 +1398,15 @@
 </div>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="html-dict">レスポンスがHTMLの場合 dictに変換する<a class="headerlink" href="#html-dict" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">res2dict</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">res2dict</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
 </pre></div>
 
 <h5 id="_3">変換する必要がないケースでも強制的に変換する<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><span class="nt">res2dict</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
-    <span class="nt">config</span><span class="p">:</span>
-      <span class="nt">force</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="codehilite"><pre><span></span>  <span class="nt">res2dict</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">html</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">force</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 
 <h2 id="block"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/block.py"><i class="fa fa-github"></i></a> block<a class="headerlink" href="#block" title="Permanent link">&para;</a></h2>
@@ -1453,11 +1465,11 @@
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <h5 id="ini">INIファイルっぽい形式に変換する<a class="headerlink" href="#ini" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>res2dict:
-  - name: block
-    config:
-      header_regexp: &#39;\[(.+)\]&#39;
-      record_regexp: &#39;([^:]+): (.+)&#39;
+<div class="codehilite"><pre><span></span>  res2dict:
+    - name: block
+      config:
+        header_regexp: &#39;\[(.+)\]&#39;
+        record_regexp: &#39;([^:]+): (.+)&#39;
 </pre></div>
 
 <h3 id="_4">ブロック単位のルール<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
