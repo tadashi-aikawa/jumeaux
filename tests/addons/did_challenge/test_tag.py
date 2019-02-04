@@ -32,6 +32,21 @@ RES_OTHER = Response.from_dict({
 })
 
 
+RES_ONE_PROPS = {
+    "id": 1,
+    "name": "ichiro",
+    "age": 32
+}
+
+
+RES_OTHER_PROPS = {
+    "id": 2,
+    "name": "jiro",
+    "age": 28
+}
+
+
+
 def create_trial_dict(seq: int, name: str, tags: List[str], status: str) -> dict:
     return {
         "seq": seq,
@@ -105,6 +120,19 @@ ADD_TAG_FORMATTED = ("Add a tag formatted",
                      )
 
 
+ADD_TAG_IF_PROPS_CONDITION_IS_FULFILLED = ("Add tag if props condition is fulfilled",
+                     """
+                     conditions:
+                       - tag: "{{ res_one_props.id }}: {{ res_one_props.name }} is U30"
+                         when: "res_one_props.age < 30"
+                       - tag: "{{ res_other_props.id }}: {{ res_other_props.name }} is U30"
+                         when: "res_other_props.age < 30"
+                     """,
+                     create_trial_dict(1, "hoge", [], "same"),
+                     create_trial_dict(1, "hoge", ["2: jiro is U30"], "same"),
+                     )
+
+
 ADD_TAG_IF_CONDITION_HAS_OPTIONAL_PARAMETER = ("Add a tag if condition has a optional parameter",
                                                """
                                                conditions:
@@ -125,6 +153,7 @@ class TestExec:
             ADD_TAGS_IF_CONDITIONS_ARE_FULFILLED,
             DO_NOT_ADD_TAG_IF_CONDITION_IS_NOT_FULFILLED,
             ADD_TAG_IF_CONDITION_IS_EMPTY,
+            ADD_TAG_IF_PROPS_CONDITION_IS_FULFILLED,
             ADD_TAG_FORMATTED,
             ADD_TAG_IF_CONDITION_HAS_OPTIONAL_PARAMETER,
         ]
@@ -135,7 +164,9 @@ class TestExec:
         })
         reference: DidChallengeAddOnReference = DidChallengeAddOnReference.from_dict({
             "res_one": RES_ONE,
-            "res_other": RES_OTHER
+            "res_other": RES_OTHER,
+            "res_one_props": RES_ONE_PROPS,
+            "res_other_props": RES_OTHER_PROPS,
         })
 
         actual: DidChallengeAddOnPayload = Executor(load_yaml(config_yml)).exec(payload, reference)

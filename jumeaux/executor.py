@@ -330,10 +330,10 @@ def challenge(arg: ChallengeArg) -> dict:
     log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{res_one.elapsed_sec}s - {res_other.elapsed_sec}s> {arg.req.name.get_or(arg.req.path)}"  # noqa
     (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
 
-    file_one: str = None
-    file_other: str = None
-    prop_file_one: str = None
-    prop_file_other: str = None
+    file_one: Optional[str] = None
+    file_other: Optional[str] = None
+    prop_file_one: Optional[str] = None
+    prop_file_other: Optional[str] = None
     if store_criterion(status, name, arg.req, res_one, res_other):
         dir = f'{arg.res_dir}/{arg.key}'
         file_one = f'one/({arg.seq}){name}'
@@ -388,6 +388,8 @@ def challenge(arg: ChallengeArg) -> dict:
         DidChallengeAddOnReference.from_dict({
             "res_one": res_one,
             "res_other": res_other,
+            "res_one_props": dict_one,
+            "res_other_props": dict_other,
         })
     ).trial.to_dict()
 
