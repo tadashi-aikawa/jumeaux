@@ -40,12 +40,11 @@ import datetime
 import hashlib
 import io
 import os
-import sys
 import re
+import sys
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
-from tzlocal import get_localzone
 
 import requests
 from deepdiff import DeepDiff
@@ -54,6 +53,7 @@ from fn import _
 from owlmixin import TList, TOption, TDict
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
+from tzlocal import get_localzone
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
@@ -61,7 +61,6 @@ sys.path.append(os.getcwd())
 from jumeaux import __version__
 from jumeaux.handlers import server, init, viewer
 from jumeaux.addons import AddOnExecutor
-from jumeaux.addons.utils import exact_match
 from jumeaux.configmaker import create_config, create_config_from_report
 from jumeaux.models import (
     Config,
