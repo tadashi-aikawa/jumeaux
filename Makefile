@@ -16,6 +16,9 @@ version := $(shell git rev-parse --abbrev-ref HEAD)
 
 #------
 
+init: ## Install dependencies
+	pipenv install -d
+
 serve-docs: ## Build and serve documentation
 	@echo Start $@
 	@pipenv run mkdocs serve -a 0.0.0.0:8000
@@ -42,11 +45,6 @@ _package: _clean-package ## Package OwlMixin
 test: ## Test
 	@echo Start $@
 	@pipenv run pytest $(ARGS)
-	@echo End $@
-
-test-pudb: ## Test with pudb
-	@echo Start $@
-	@pytest --pdbcls pudb.debugger:Debugger --pdb --capture=no
 	@echo End $@
 
 start-api: ## Start dummy API
