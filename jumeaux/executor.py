@@ -170,7 +170,7 @@ def judgement(r_one: Response, r_other: Response,
               diffs_by_cognition: Optional[TDict[DiffKeys]]) -> Tuple[Status, TOption[TDict[DiffKeys]]]:
     result: JudgementAddOnPayload = global_addon_executor.apply_judgement(
         JudgementAddOnPayload.from_dict({
-            "diffs_by_cognition": diffs_by_cognition,
+            "diffs_by_cognition": diffs_by_cognition and diffs_by_cognition.omit_by(lambda k, v: v.is_empty()),
             "regard_as_same": r_one.body == r_other.body if diffs_by_cognition is None else diffs_by_cognition["unknown"].is_empty(),
         }),
         JudgementAddOnReference.from_dict({
