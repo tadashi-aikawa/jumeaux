@@ -8,7 +8,11 @@ from jumeaux.addons.judgement.same import Executor
 from jumeaux.models import JudgementAddOnPayload, Response, CaseInsensitiveDict, JudgementAddOnReference
 
 EMPTY_KEYS = {
-    'changed': [], 'added': [], 'removed': []
+    'unknown': {
+        'changed': [],
+        'added': [],
+        'removed': []
+    }
 }
 
 RES_ONE = Response.from_dict({
@@ -38,11 +42,6 @@ REFERENCE = {
     'headers': {},
     'res_one': RES_ONE,
     'res_other': RES_OTHER,
-    'diff_keys': {
-        'added': ['<add><0>', '<add><1>', '<add><2>'],
-        'changed': [],
-        'removed': []
-    },
 }
 
 
@@ -51,42 +50,42 @@ class TestExec:
         'title, payload, config, expected', [
             (
                 "Match 1 of 1",
-                {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
+                {'diffs_by_cognition': EMPTY_KEYS, 'regard_as_same': False},
                 """
                 when_any:
                   - req.path == '/test1'
                 """,
-                {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': True},
+                {'diffs_by_cognition': EMPTY_KEYS, 'regard_as_same': True},
             ),
             (
                 "Match 0 of 1",
-                {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
+                {'diffs_by_cognition': EMPTY_KEYS, 'regard_as_same': False},
                 """
                 when_any:
                   - req.path == '/test0'
                 """,
-                {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
+                {'diffs_by_cognition': EMPTY_KEYS, 'regard_as_same': False},
             ),
             (
                 "Match 1 of 2",
-                {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
+                {'diffs_by_cognition': EMPTY_KEYS, 'regard_as_same': False},
                 """
                 when_any:
                   - req.path == '/test0'
                   - req.path == '/test1'
                 """,
-                {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': True},
+                {'diffs_by_cognition': EMPTY_KEYS, 'regard_as_same': True},
             ),
             (
                 "Match 2 of 3",
-                {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
+                {'diffs_by_cognition': EMPTY_KEYS, 'regard_as_same': False},
                 """
                 when_any:
                   - req.path == '/test1'
                   - req.path == '/test1'
                   - req.name == 'no title'
                 """,
-                {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': True},
+                {'diffs_by_cognition': EMPTY_KEYS, 'regard_as_same': True},
             ),
         ]
     )
@@ -101,7 +100,7 @@ class TestExec:
         'title, payload, config', [
             (
                 "No config",
-                {'remaining_diff_keys': EMPTY_KEYS, 'regard_as_same': False},
+                {'diffs_by_cognition': EMPTY_KEYS, 'regard_as_same': False},
                 """
                 """,
             ),
