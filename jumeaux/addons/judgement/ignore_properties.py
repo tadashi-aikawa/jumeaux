@@ -9,6 +9,7 @@ from jumeaux.logger import Logger
 from jumeaux.models import JudgementAddOnPayload, DiffKeys, JudgementAddOnReference
 
 logger: Logger = Logger(__name__)
+LOG_PREFIX = "[judgement/ignore_properties]"
 
 
 # TODO: deprecated
@@ -81,6 +82,8 @@ class Executor(JudgementExecutor):
     config: Config
 
     def __init__(self, config: dict) -> None:
+        logger.warning(f"{LOG_PREFIX} This add-on will be removed soon.")
+        logger.warning(f"{LOG_PREFIX} Please use `judgement/ignore` instead.")
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: JudgementAddOnPayload, reference: JudgementAddOnReference) -> JudgementAddOnPayload:
