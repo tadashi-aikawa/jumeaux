@@ -33,7 +33,7 @@ addons:
                     when: other == "ignored"
           - title: Ignore favorite only if path includes `/same`
             conditions:
-              - when: '"same" in path'
+              - when: '"same" in req.path'
                 added:
                   - path: root<'members'><\d+><'favorite'>.*
                 changed:

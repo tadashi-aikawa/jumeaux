@@ -10,11 +10,11 @@ CONFIG = load_yaml(r"""
 ignores:
   - title: Check point 1
     conditions:
-      - when: '"/test1" in path'
+      - when: '"/test1" in req.path'
         added:
           - path: root<'add'><[0-1]>
           - path: root<'add'><2>
-      - when: '"/test2" in path and name == "no title"'
+      - when: '"/test2" in req.path and req.name == "no title"'
         changed:
           - path: root<'change'><[0-1]>
           - path: root<'change'><2>
@@ -29,11 +29,11 @@ ignores:
           - path: root<'add'><99>
   - title: Check point 3
     conditions:
-      - when: '"value_when" in qs and qs["value_when"][0] == "yes"'
+      - when: '"value_when" in req.qs and req.qs["value_when"][0] == "yes"'
         added:
           - path: root<'add'><[0-1]>
             when: 'other == "ignore"'
-      - when: '"value_when" in qs and qs["value_when"][0] == "yes"'
+      - when: '"value_when" in req.qs and req.qs["value_when"][0] == "yes"'
         changed:
           - path: root<'change'><\d+>
             when: 'one == "ignore" and other == "ignore"'

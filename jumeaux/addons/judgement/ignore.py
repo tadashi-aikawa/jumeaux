@@ -28,8 +28,6 @@ class Condition(OwlMixin):
 class Ignore(OwlMixin):
     title: str
     conditions: TList[Condition]
-    image: TOption[str]
-    link: TOption[str]
 
 
 class Config(OwlMixin):
@@ -79,7 +77,18 @@ def merge_diff_keys(diffs_by_cognition: TDict[DiffKeys], matched_unknown: DiffKe
 
 def fold_diffs_by_cognition(diffs_by_cognition: TDict[DiffKeys], ignore: Ignore, ref: JudgementAddOnReference) -> TDict[DiffKeys]:
     matched_unknowns: TList[DiffKeys] = ignore.conditions \
-        .filter(lambda c: when_optional_filter(c.when, ref.to_dict())) \
+        .filter(lambda c: when_optional_filter(c.when, {
+            "req": {
+                "name": ref.name,
+                "path": ref.path,
+                "qs": ref.qs,
+                "headers": ref.headers,
+            },
+            "res_one": ref.res_one,
+            "res_other": ref.res_other,
+            "dict_one": ref.dict_one,
+            "dict_other": ref.dict_other,
+        })) \
         .map(lambda cond: to_matched_unknown(diffs_by_cognition["unknown"], cond, ref))
 
     return matched_unknowns.reduce(lambda t, x: merge_diff_keys(t, x, ignore.title), diffs_by_cognition)
