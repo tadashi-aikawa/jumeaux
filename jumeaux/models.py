@@ -313,21 +313,6 @@ class ResponseSummary(OwlMixin):
     prop_file: TOption[str]
 
 
-class Condition(OwlMixin):
-    name: TOption[str]
-    path: TOption[str]
-    added: TList[str] = []
-    removed: TList[str] = []
-    changed: TList[str] = []
-
-
-class Ignore(OwlMixin):
-    title: str
-    conditions: TList[Condition]
-    image: TOption[str]
-    link: TOption[str]
-
-
 class Trial(OwlMixin):
     """ Affect `final/csv` config specifications,
     """
@@ -356,7 +341,6 @@ class Report(OwlMixin):
     trials: TList[Trial]
     addons: TOption[Addons]
     retry_hash: TOption[str]
-    ignores: TList[Ignore] = []
 
 
 # ---

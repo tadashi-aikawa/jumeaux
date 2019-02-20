@@ -516,9 +516,6 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "trials": trials.to_dicts(),
         "addons": config.addons.to_dict(),
         "retry_hash": retry_hash,
-        "ignores": config.addons.judgement
-            .filter(lambda x: x.name.endswith('ignore_properties'))
-            .flat_map(lambda x: x.config.map(_["ignores"]).get_or([]))
     })
 
 

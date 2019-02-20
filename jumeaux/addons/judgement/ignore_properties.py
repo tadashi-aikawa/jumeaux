@@ -1,17 +1,34 @@
 # -*- coding:utf-8 -*-
 
-from owlmixin import OwlMixin
+from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList, TDict
 
 from jumeaux.addons.judgement import JudgementExecutor
 from jumeaux.addons.utils import exact_match
 from jumeaux.logger import Logger
-from jumeaux.models import JudgementAddOnPayload, DiffKeys, Ignore, Condition, JudgementAddOnReference
+from jumeaux.models import JudgementAddOnPayload, DiffKeys, JudgementAddOnReference
 
 logger: Logger = Logger(__name__)
 
 
-def to_matched_unknown(unknown_diff: DiffKeys, condition: Condition, ref: JudgementAddOnReference) -> DiffKeys:
+# TODO: deprecated
+class ConditionDeprecated(OwlMixin):
+    name: TOption[str]
+    path: TOption[str]
+    added: TList[str] = []
+    removed: TList[str] = []
+    changed: TList[str] = []
+
+
+# TODO: deprecated
+class IgnoreDeprecated(OwlMixin):
+    title: str
+    conditions: TList[ConditionDeprecated]
+    image: TOption[str]
+    link: TOption[str]
+
+
+def to_matched_unknown(unknown_diff: DiffKeys, condition: ConditionDeprecated, ref: JudgementAddOnReference) -> DiffKeys:
     if any([condition.path.get() and not exact_match(ref.path, condition.path.get()),
             condition.name.get() and not exact_match(ref.name, condition.name.get())]):
         return DiffKeys.empty()
@@ -49,7 +66,7 @@ def merge_diff_keys(diffs_by_cognition: TDict[DiffKeys], matched_unknown: DiffKe
     })
 
 
-def fold_diffs_by_cognition(diffs_by_cognition: TDict[DiffKeys], ignore: Ignore, ref: JudgementAddOnReference) -> TDict[DiffKeys]:
+def fold_diffs_by_cognition(diffs_by_cognition: TDict[DiffKeys], ignore: IgnoreDeprecated, ref: JudgementAddOnReference) -> TDict[DiffKeys]:
     matched_unknowns: TList[DiffKeys] = ignore.conditions.map(
         lambda cond: to_matched_unknown(diffs_by_cognition["unknown"], cond, ref)
     )
@@ -57,7 +74,7 @@ def fold_diffs_by_cognition(diffs_by_cognition: TDict[DiffKeys], ignore: Ignore,
 
 
 class Config(OwlMixin):
-    ignores: TList[Ignore]
+    ignores: TList[IgnoreDeprecated]
 
 
 class Executor(JudgementExecutor):
