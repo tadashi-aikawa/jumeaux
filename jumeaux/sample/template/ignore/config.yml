@@ -1,0 +1,61 @@
+title: Ignore
+
+one:
+  name: One endpoint
+  host: http://localhost:8000/api/one
+
+other:
+  name: Other endpoint
+  host: http://localhost:8000/api/other
+
+output:
+  response_dir: responses
+
+addons:
+  log2reqs:
+    name: csv
+
+  res2dict:
+    - name: json
+
+  judgement:
+    - name: ignore
+      config:
+        ignores:
+          - title: Ignore ignored_id
+            conditions:
+              - changed:
+                  - path: root<'ignored_id'>
+          - title: "Ignore `members.name` which change to `ignored`"
+            conditions:
+              - changed:
+                  - path: root<'members'><\d+><'name'>
+                    when: other == "ignored"
+          - title: Ignore favorite only if path includes `/same`
+            conditions:
+              - when: '"same" in req.path'
+                added:
+                  - path: root<'members'><\d+><'favorite'>.*
+                changed:
+                  - path: root<'members'><\d+><'favorite'>.*
+                removed:
+                  - path: root<'members'><\d+><'favorite'>.*
+
+  store_criterion:
+    - name: general
+      config:
+        statuses:
+          - different
+
+  dump:
+    - name: json
+
+  final:
+    - name: json
+    - name: viewer
+  #   - name: miroir
+  #     config:
+  #       table: miroir
+  #       bucket: mamansoft-miroir
+  #       cache_max_age: 120
+

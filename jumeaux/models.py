@@ -293,6 +293,12 @@ class DiffKeys(OwlMixin):
     def is_empty(self) -> bool:
         return len(self.added) == len(self.changed) == len(self.removed) == 0
 
+    @classmethod
+    def empty(cls) -> 'DiffKeys':
+        return DiffKeys.from_dict({
+            "added": [], "changed": [], "removed": []
+        })
+
 
 class ResponseSummary(OwlMixin):
     url: str
@@ -305,21 +311,6 @@ class ResponseSummary(OwlMixin):
     encoding: TOption[str]
     file: TOption[str]
     prop_file: TOption[str]
-
-
-class Condition(OwlMixin):
-    name: TOption[str]
-    path: TOption[str]
-    added: TList[str] = []
-    removed: TList[str] = []
-    changed: TList[str] = []
-
-
-class Ignore(OwlMixin):
-    title: str
-    conditions: TList[Condition]
-    image: TOption[str]
-    link: TOption[str]
 
 
 class Trial(OwlMixin):
@@ -336,7 +327,7 @@ class Trial(OwlMixin):
     request_time: str
     status: Status
     # `None` is not same as `{}`. `{}` means no diffs, None means unknown
-    diff_keys: TOption[DiffKeys]
+    diffs_by_cognition: TOption[TDict[DiffKeys]]
 
 
 class Report(OwlMixin):
@@ -350,7 +341,6 @@ class Report(OwlMixin):
     trials: TList[Trial]
     addons: TOption[Addons]
     retry_hash: TOption[str]
-    ignores: TList[Ignore] = []
 
 
 # ---
@@ -392,7 +382,9 @@ class DidChallengeAddOnReference(OwlMixin):
 
 
 class JudgementAddOnPayload(OwlMixin):
-    remaining_diff_keys: TOption[DiffKeys]
+    # By ignores title in config.yml
+    # `unknown` is diffs which didn't match any configurations
+    diffs_by_cognition: TOption[TDict[DiffKeys]]
     regard_as_same: bool
 
 
@@ -405,8 +397,6 @@ class JudgementAddOnReference(OwlMixin):
     res_other: Response
     dict_one: TOption[DictOrList]
     dict_other: TOption[DictOrList]
-    # None if unknown
-    diff_keys: TOption[DiffKeys]
 
 
 class StoreCriterionAddOnPayload(OwlMixin):

@@ -67,6 +67,5 @@ class Executor(DidChallengeExecutor):
                 "path": payload.trial.path,
                 "request_time": payload.trial.request_time,
                 "status": payload.trial.status,
-                "diff_keys": payload.trial.diff_keys,
             })
         })
