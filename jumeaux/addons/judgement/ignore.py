@@ -85,11 +85,27 @@ def fold_diffs_by_cognition(diffs_by_cognition: TDict[DiffKeys], ignore: Ignore,
     return matched_unknowns.reduce(lambda t, x: merge_diff_keys(t, x, ignore.title), diffs_by_cognition)
 
 
+def validate_config(config: Config):
+    errors: TList[str] = config.ignores \
+        .flat_map(lambda x: x.conditions) \
+        .reject(lambda x: x.when.is_none()) \
+        .map(lambda x: get_jinja2_format_error(x.when.get()).get()) \
+        .filter(lambda x: x is not None)
+    if errors:
+        logger.error(f"{LOG_PREFIX} Illegal format in `conditions[*].when`.")
+        logger.error(f"{LOG_PREFIX} Please check your configuration yaml files.")
+        logger.error(f"{LOG_PREFIX} --- Error messages ---")
+        errors.map(lambda x: logger.error(f"{LOG_PREFIX}   * `{x}`"))
+        logger.error(f"{LOG_PREFIX} ---------------------", exit=True)
+    # TODO: added, changed, removed...
+
+
 class Executor(JudgementExecutor):
     config: Config
 
     def __init__(self, config: dict) -> None:
         self.config: Config = Config.from_dict(config or {})
+        validate_config(self.config)
 
     def exec(self, payload: JudgementAddOnPayload, reference: JudgementAddOnReference) -> JudgementAddOnPayload:
         if payload.regard_as_same or payload.diffs_by_cognition.is_none():
