@@ -15,6 +15,10 @@ def exact_match(target: str, regexp: str):
     return bool(re.search(f'^{regexp}$', target))
 
 
+def to_jumeaux_xpath(xpath: str):
+    return xpath.replace('[', '<').replace(']', '>')
+
+
 def get_by_diff_key(dic: dict, diff_key: str) -> Any:
     return py_.get(dic, diff_key
                    .replace("root", "")

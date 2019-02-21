@@ -40,12 +40,11 @@ import datetime
 import hashlib
 import io
 import os
-import sys
 import re
+import sys
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
-from tzlocal import get_localzone
 
 import requests
 from deepdiff import DeepDiff
@@ -54,6 +53,7 @@ from fn import _
 from owlmixin import TList, TOption, TDict
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
+from tzlocal import get_localzone
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
@@ -61,7 +61,7 @@ sys.path.append(os.getcwd())
 from jumeaux import __version__
 from jumeaux.handlers import server, init, viewer
 from jumeaux.addons import AddOnExecutor
-from jumeaux.addons.utils import exact_match
+from jumeaux.addons.utils import to_jumeaux_xpath
 from jumeaux.configmaker import create_config, create_config_from_report
 from jumeaux.models import (
     Config,
@@ -167,11 +167,11 @@ def res2dict(res: Response) -> TOption[dict]:
 def judgement(r_one: Response, r_other: Response,
               d_one: TOption[DictOrList], d_other: TOption[dict],
               name: str, path: str, qs: TDict[TList[str]], headers: TDict[str],
-              diff_keys: Optional[DiffKeys]) -> Status:
-    regard_as_same: bool = global_addon_executor.apply_judgement(
+              diffs_by_cognition: Optional[TDict[DiffKeys]]) -> Tuple[Status, TOption[TDict[DiffKeys]]]:
+    result: JudgementAddOnPayload = global_addon_executor.apply_judgement(
         JudgementAddOnPayload.from_dict({
-            "remaining_diff_keys": diff_keys,
-            "regard_as_same": r_one.body == r_other.body if diff_keys is None else diff_keys.is_empty(),
+            "diffs_by_cognition": diffs_by_cognition and diffs_by_cognition.omit_by(lambda k, v: v.is_empty()),
+            "regard_as_same": r_one.body == r_other.body if diffs_by_cognition is None else diffs_by_cognition["unknown"].is_empty(),
         }),
         JudgementAddOnReference.from_dict({
             "name": name,
@@ -182,10 +182,12 @@ def judgement(r_one: Response, r_other: Response,
             "dict_other": d_other,
             "res_one": r_one,
             "res_other": r_other,
-            "diff_keys": diff_keys,
         })
-    ).regard_as_same
-    return Status.SAME if regard_as_same else Status.DIFFERENT  # type: ignore # Prevent for enum problem
+    )
+
+    status: Status = Status.SAME if result.regard_as_same else Status.DIFFERENT  # type: ignore # Prevent for enum problem
+
+    return status, result.diffs_by_cognition
 
 
 def store_criterion(status: Status, name: str, req: Request, r_one: Response, r_other: Response):
@@ -311,21 +313,23 @@ def challenge(arg: ChallengeArg) -> dict:
         else {} if res_one.body == res_other.body \
         else DeepDiff(dict_one.get(), dict_other.get())
 
-    diff_keys: Optional[DiffKeys] = DiffKeys.from_dict({
-        "changed": TList(ddiff.get('type_changes', {}).keys() | ddiff.get('values_changed', {}).keys())
-            .map(lambda x: x.replace('[', '<').replace(']', '>'))
-            .order_by(_),
-        "added": TList(ddiff.get('dictionary_item_added', {}) | ddiff.get('iterable_item_added', {}).keys())
-            .map(lambda x: x.replace('[', '<').replace(']', '>'))
-            .order_by(_),
-        "removed": TList(ddiff.get('dictionary_item_removed', {}) | ddiff.get('iterable_item_removed', {}).keys())
-            .map(lambda x: x.replace('[', '<').replace(']', '>'))
-            .order_by(_)
+    initial_diffs_by_cognition: Optional[TDict[DiffKeys]] = TDict({
+        "unknown": DiffKeys.from_dict({
+            "changed": TList(ddiff.get('type_changes', {}).keys() | ddiff.get('values_changed', {}).keys())
+                .map(to_jumeaux_xpath)
+                .order_by(_),
+            "added": TList(ddiff.get('dictionary_item_added', {}) | ddiff.get('iterable_item_added', {}).keys())
+                .map(to_jumeaux_xpath)
+                .order_by(_),
+            "removed": TList(ddiff.get('dictionary_item_removed', {}) | ddiff.get('iterable_item_removed', {}).keys())
+                .map(to_jumeaux_xpath)
+                .order_by(_)
+        })
     }) if ddiff is not None else None
 
     # Judgement
-    status: Status = judgement(res_one, res_other, dict_one, dict_other,
-                               name, arg.req.path, arg.req.qs, arg.req.headers, diff_keys)
+    status, diffs_by_cognition = judgement(res_one, res_other, dict_one, dict_other,
+                                           name, arg.req.path, arg.req.qs, arg.req.headers, initial_diffs_by_cognition)
     status_symbol = "O" if status == Status.SAME else "X"
     log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{res_one.elapsed_sec}s - {res_other.elapsed_sec}s> {arg.req.name.get_or(arg.req.path)}"  # noqa
     (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
@@ -358,7 +362,7 @@ def challenge(arg: ChallengeArg) -> dict:
                 "path": arg.req.path,
                 "queries": arg.req.qs,
                 "headers": arg.req.headers,
-                "diff_keys": diff_keys,
+                "diffs_by_cognition": diffs_by_cognition,
                 "one": {
                     "url": res_one.url,
                     "type": res_one.type,
@@ -512,9 +516,6 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
         "trials": trials.to_dicts(),
         "addons": config.addons.to_dict(),
         "retry_hash": retry_hash,
-        "ignores": config.addons.judgement
-            .filter(lambda x: x.name.endswith('ignore_properties'))
-            .flat_map(lambda x: x.config.map(_["ignores"]).get_or([]))
     })
 
 

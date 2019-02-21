@@ -5,6 +5,30 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.64.0
+
+:fa-calendar: `2019-02-21`
+
+??? info "ignoreアドオンを追加しました ([judgement/ignore])"
+
+    * [judgement/ignore_properties]との差分は以下です
+        * pathやqueryなどの条件絞り込みにjinja2フォーマットが使える
+        * oneとotherのプロパティを式で比較して無視するかどうかを判定できる
+        * 詳細は [judgement/ignore] をご覧下さい
+    * [judgement/ignore_properties]を使っている場合はこちらへの移行をお願いします
+
+??? fire "ignore_propertiesアドオンを非推奨にしました ([judgement/ignore_properties])"
+
+    * Version 1.0 までの間に削除します
+    * [judgement/ignore]アドオンへの移行をお願いします
+
+??? fire "Reportのスキームを一部変更しました"
+
+    * `ignores`を削除しました
+    * [models/trial]の`diff_keys`を削除しました
+    * [models/trial]の`diffs_by_cognition`を追加しました
+
+
 ## :package: 0.63.0
 
 :fa-calendar: `2019-02-05`
@@ -645,6 +669,7 @@ Releases
 [res2dict/html]: ../addons/res2dict#html
 [res2dict/xml]: ../addons/res2dict#xml
 [res2dict/block]: ../addons/res2dict#block
+[judgement/ignore]: ../addons/judgement#ignore
 [judgement/ignore_properties]: ../addons/judgement#ignore_properties
 [judgement/same]: ../addons/judgement#same
 [store_criterion/free]: ../addons/store_criterion#free
@@ -658,3 +683,4 @@ Releases
 [final/summary]: ../addons/final#summary
 [final/viewer]: ../addons/final#viewer
 [models/accesspoint]: ../models/access-point
+[models/trial]: ../models/trial

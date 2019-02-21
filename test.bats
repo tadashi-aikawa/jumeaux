@@ -227,6 +227,22 @@ assert_null_property() {
   assert_number_property '.summary.status.different' 1
 }
 
+@test "Run ignore" {
+  $JUMEAUX init ignore
+  $JUMEAUX run requests
+
+  assert_exists responses
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/one-props/*
+  assert_exists responses/latest/other-props/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+
+  assert_number_property '.summary.status.same' 2
+  assert_number_property '.summary.status.different' 1
+}
+
 @test "Run force_json" {
   $JUMEAUX init force_json
   $JUMEAUX run requests

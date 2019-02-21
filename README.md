@@ -45,7 +45,7 @@ For developer
 #### Create and activate env
 
 ```
-$ pipenv install -d
+$ make init
 $ pipenv shell
 ```
 

@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
     
     
       
@@ -44,12 +44,12 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/application.572ca0f0.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.982221ab.css">
       
       
     
     
-      <script src="../../../assets/javascripts/modernizr.8c900955.js"></script>
+      <script src="../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
     
     
       
@@ -64,6 +64,9 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     
       <link rel="stylesheet" href="../../../css/custom.css">
+    
+    
+      
     
     
   </head>
@@ -120,22 +123,19 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                Jumeaux
-              </span>
-              <span class="md-header-nav__topic">
-                judgement
-              </span>
-            
+            <span class="md-header-nav__topic">
+              Jumeaux
+            </span>
+            <span class="md-header-nav__topic">
+              judgement
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
@@ -158,7 +158,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -169,20 +168,18 @@
 
   
 
-
-  <a href="https://github.com/tadashi-aikawa/jumeaux/" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      tadashi-aikawa/jumeaux
+<a href="https://github.com/tadashi-aikawa/jumeaux/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    tadashi-aikawa/jumeaux
+  </div>
+</a>
           </div>
         </div>
       
@@ -218,20 +215,18 @@
 
   
 
-
-  <a href="https://github.com/tadashi-aikawa/jumeaux/" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      tadashi-aikawa/jumeaux
+<a href="https://github.com/tadashi-aikawa/jumeaux/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    tadashi-aikawa/jumeaux
+  </div>
+</a>
     </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -453,15 +448,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ignore" title="Ignore" class="md-nav__link">
-    Ignore
+  <a href="#ignoreold" title="IgnoreOld" class="md-nav__link">
+    IgnoreOld
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#condition" title="Condition" class="md-nav__link">
-    Condition
+  <a href="#conditionold" title="ConditionOld" class="md-nav__link">
+    ConditionOld
   </a>
   
 </li>
@@ -509,8 +504,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#same" title="same" class="md-nav__link">
-    same
+  <a href="#ignore" title="ignore" class="md-nav__link">
+    ignore
   </a>
   
     <nav class="md-nav">
@@ -539,6 +534,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#condition" title="Condition" class="md-nav__link">
+    Condition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case" title="Case" class="md-nav__link">
+    Case
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -546,6 +555,86 @@
         
           <li class="md-nav__item">
   <a href="#examples_1" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-api1-itemsid_1" title="path /api1 の items[].id は値が変更されていても無視する" class="md-nav__link">
+    path /api1 の items[].id は値が変更されていても無視する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#itemstype-all" title="items[].type が追加されていても、その値がallなら無視する" class="md-nav__link">
+    items[].type が追加されていても、その値がallなら無視する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="複雑な条件" class="md-nav__link">
+    複雑な条件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#same" title="same" class="md-nav__link">
+    same
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_2" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_2" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root_2" title="Root" class="md-nav__link">
+    Root
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_2" title="Examples" class="md-nav__link">
     Examples
   </a>
   
@@ -810,15 +899,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ignore" title="Ignore" class="md-nav__link">
-    Ignore
+  <a href="#ignoreold" title="IgnoreOld" class="md-nav__link">
+    IgnoreOld
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#condition" title="Condition" class="md-nav__link">
-    Condition
+  <a href="#conditionold" title="ConditionOld" class="md-nav__link">
+    ConditionOld
   </a>
   
 </li>
@@ -866,8 +955,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#same" title="same" class="md-nav__link">
-    same
+  <a href="#ignore" title="ignore" class="md-nav__link">
+    ignore
   </a>
   
     <nav class="md-nav">
@@ -896,6 +985,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#condition" title="Condition" class="md-nav__link">
+    Condition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case" title="Case" class="md-nav__link">
+    Case
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -903,6 +1006,86 @@
         
           <li class="md-nav__item">
   <a href="#examples_1" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-api1-itemsid_1" title="path /api1 の items[].id は値が変更されていても無視する" class="md-nav__link">
+    path /api1 の items[].id は値が変更されていても無視する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#itemstype-all" title="items[].type が追加されていても、その値がallなら無視する" class="md-nav__link">
+    items[].type が追加されていても、その値がallなら無視する
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="複雑な条件" class="md-nav__link">
+    複雑な条件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#same" title="same" class="md-nav__link">
+    same
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_2" title="Config" class="md-nav__link">
+    Config
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions_2" title="Definitions" class="md-nav__link">
+    Definitions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root_2" title="Root" class="md-nav__link">
+    Root
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_2" title="Examples" class="md-nav__link">
     Examples
   </a>
   
@@ -953,13 +1136,14 @@
                 <h1 id="judgement">judgement <a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement"><i class="fa fa-github"></i></a><a class="headerlink" href="#judgement" title="Permanent link">&para;</a></h1>
 <p>プロパティ差分情報を元に ステータス(Same/Different)を決定します。</p>
 <h2 id="ignore_properties"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/ignore_properties.py"><i class="fa fa-github"></i></a> ignore_properties<a class="headerlink" href="#ignore_properties" title="Permanent link">&para;</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>本アドオンは非推奨です。代わりに<a href="#ignore">ignore</a>を使用してください。</p>
+</div>
 <p>以下2つの情報を生成します。</p>
 <ul>
 <li>configで指定したプロパティを無視した上で判定したステータス</li>
-<li>無視したプロパティのキー と 無視するために参照した設定<ul>
-<li>Reportの<code>ignores</code>に出力されます</li>
-</ul>
-</li>
+<li>無視したプロパティのキー と 無視するために参照した設定名</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -981,14 +1165,14 @@
 <tbody>
 <tr>
 <td>ignores</td>
-<td><a href="#ignore">Ignore[]</a></td>
+<td><a href="#ignoreold">IgnoreOld[]</a></td>
 <td>無視設定</td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<h5 id="ignore">Ignore<a class="headerlink" href="#ignore" title="Permanent link">&para;</a></h5>
+<h5 id="ignoreold">IgnoreOld<a class="headerlink" href="#ignoreold" title="Permanent link">&para;</a></h5>
 <table>
 <thead>
 <tr>
@@ -1009,7 +1193,7 @@
 </tr>
 <tr>
 <td>conditions</td>
-<td><a href="#condition">Condition[]</a></td>
+<td><a href="#conditionold">ConditionOld[]</a></td>
 <td>本設定を反映させるRequestの条件</td>
 <td></td>
 <td></td>
@@ -1034,7 +1218,7 @@
 <p class="admonition-title"><code>image</code>と<code>link</code>について</p>
 <p>画像のURLと参考URLはViewerなどで利用されることを想定しています。</p>
 </div>
-<h5 id="condition">Condition<a class="headerlink" href="#condition" title="Permanent link">&para;</a></h5>
+<h5 id="conditionold">ConditionOld<a class="headerlink" href="#conditionold" title="Permanent link">&para;</a></h5>
 <table>
 <thead>
 <tr>
@@ -1130,8 +1314,16 @@
                   - .*&lt;&#39;(debug|url)&#39;&gt;.*
 </pre></div>
 
-<h2 id="same"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/same.py"><i class="fa fa-github"></i></a> same<a class="headerlink" href="#same" title="Permanent link">&para;</a></h2>
-<p>指定した条件のいずれかに一致する場合、ステータスをSameにします。</p>
+<h2 id="ignore"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/ignore.py"><i class="fa fa-github"></i></a> ignore<a class="headerlink" href="#ignore" title="Permanent link">&para;</a></h2>
+<p>以下2つの情報を生成します。</p>
+<ul>
+<li>configで指定したプロパティを無視した上で判定したステータス</li>
+<li>無視したプロパティのキー と 無視するために参照した設定名</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>既に同レイヤーのアドオンでSameと判定されている場合、本アドオンは実行されません。</p>
+</div>
 <h3 id="config_1">Config<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
 <h4 id="definitions_1">Definitions<a class="headerlink" href="#definitions_1" title="Permanent link">&para;</a></h4>
 <h5 id="root_1">Root<a class="headerlink" href="#root_1" title="Permanent link">&para;</a></h5>
@@ -1147,17 +1339,89 @@
 </thead>
 <tbody>
 <tr>
-<td>when_any</td>
-<td>str[]</td>
-<td>条件式 <i class="fa fa-info-circle"></i></td>
-<td><pre>'"2" in req.path'</pre></td>
+<td>ignores</td>
+<td><a href="#ignore_">Ignore[]</a></td>
+<td>無視設定</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<div class="admonition info">
-<p class="admonition-title">when_anyで指定できるプロパティ</p>
-<p><a href="../../template">Template表記</a>に対応しています。<br />
+<h5 id="ignore_1"><a name="ignore_" style="padding-top: 70px; margin-top: -70px;"></a>Ignore<a class="headerlink" href="#ignore_1" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>(string)</td>
+<td>タイトル</td>
+<td>IDは毎回変わるので無視</td>
+<td></td>
+</tr>
+<tr>
+<td>conditions</td>
+<td><a href="#condition">Condition[]</a></td>
+<td>本設定を反映させるRequestの条件</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title"><code>title</code>について</p>
+<p>titleが同じものは同一条件として扱われます。</p>
+</div>
+<h5 id="condition">Condition<a class="headerlink" href="#condition" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>when</td>
+<td>(string)</td>
+<td>条件式 <i class="fa fa-exclamation-triangle"></i></td>
+<td><pre>"req.path == '/test'"</pre></td>
+<td></td>
+</tr>
+<tr>
+<td>added</td>
+<td>(<a href="#case">Case[]</a>)</td>
+<td>追加されていても無視するプロパティのリストと条件</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>changed</td>
+<td>(<a href="#case">Case[]</a>)</td>
+<td>変更されていても無視するプロパティのリストと条件</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>removed</td>
+<td>(<a href="#case">Case[]</a>)</td>
+<td>削除されていても無視するプロパティのリストと条件</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<details class="info"><summary>whenについて</summary><p><a href="../../template">Template表記</a>に対応しています。<br />
 プロパティは以下を使用できます。</p>
 <table>
 <thead>
@@ -1195,8 +1459,188 @@
 </tr>
 </tbody>
 </table>
+<p>whenが指定されなかった場合は全て条件に一致したとみなします。</p>
+</details>
+<h5 id="case">Case<a class="headerlink" href="#case" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>プロパティの正規表現(完全一致)</td>
+<td><code>root&lt;'id'&gt;</code> <i class="fa fa-exclamation-triangle"></i></td>
+<td></td>
+</tr>
+<tr>
+<td>when</td>
+<td>(str)</td>
+<td>条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>"one.name == 'hoge'"</pre></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<details class="info"><summary>whenについて</summary><p><a href="../../template">Template表記</a>に対応しています。<br />
+プロパティは以下を使用できます。</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>one</td>
+<td>(any)</td>
+<td>oneのpathで指定したプロパティに入っている値</td>
+</tr>
+<tr>
+<td>other</td>
+<td>(any)</td>
+<td>otherのpathで指定したプロパティに入っている値</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>added</code>の場合はoneが<code>None</code></li>
+<li><code>removed</code>の場合はotherが<code>None</code></li>
+</ul>
+<p>whenが指定されなかった場合は全て条件に一致したとみなします。</p>
+</details>
+<div class="admonition warning">
+<p class="admonition-title">pathのコーテーションについて</p>
+<p>プロパティが文字列の場合コーテーションを付けて下さい。<br />
+数字の場合はコーテーションを付けないで下さい。</p>
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
+<h5 id="path-api1-itemsid_1">path <code>/api1</code> の <code>items[].id</code> は値が変更されていても無視する<a class="headerlink" href="#path-api1-itemsid_1" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>  judgement:
+    - name: ignore
+      config:
+        ignores:
+          - title: API1のitems[].idの値は無視
+            conditions:
+              - when: &#39;req.path == &quot;/api1&quot;&#39;
+                changed:
+                  - path: root&lt;&#39;items&#39;&gt;&lt;\d+&gt;&lt;&#39;id&#39;&gt;
+</pre></div>
+
+<h5 id="itemstype-all"><code>items[].type</code> が追加されていても、その値がallなら無視する<a class="headerlink" href="#itemstype-all" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>  judgement:
+    - name: ignore
+      config:
+        ignores:
+          - title: items[].type
+            conditions:
+              - added:
+                  - path: root&lt;&#39;items&#39;&gt;&lt;\d+&gt;&lt;&#39;type&#39;&gt;
+                    when: &#39;other == &quot;all&quot;&#39;
+</pre></div>
+
+<h5 id="_2">複雑な条件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
+<p>以下3つのケースを無視した上でステータスを判断する。</p>
+<ul>
+<li>pathが <code>/api</code> から始まる場合に追加された <code>.id</code></li>
+<li>nameに <code>check</code> を含む <code>debug</code> または <code>url</code> は削除されている場合</li>
+<li><code>name</code> がignoreまたはunknown に変更された場合</li>
+</ul>
+<div class="codehilite"><pre><span></span>  judgement:
+    - name: ignore_properties
+      config:
+        ignores:
+          - title: /apiから始まる場合に追加されたプロパティ.idは無視
+            conditions:
+              - when: &#39;req.path|reg(&quot;/api.*&quot;)&#39;
+                added:
+                  - path: root&lt;&#39;id&#39;&gt;
+          - title: nameにcheckを含む場合は全階層のプロパティdebugとurlが削除されていても無視
+            conditions:
+              - when: &#39;req.name|reg(.*check.*)&#39;
+                removed:
+                  - path: .*&lt;&#39;(debug|url)&#39;&gt;.*
+          - title: プロパティ.nameがignoreまたはunknownに変更された場合だけは無視
+            conditions:
+              - changed:
+                  - path: root&lt;&#39;name&#39;&gt;
+                    when: &#39;other in [&quot;ignore&quot;, &quot;unknown&quot;]&#39;
+</pre></div>
+
+<h2 id="same"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/same.py"><i class="fa fa-github"></i></a> same<a class="headerlink" href="#same" title="Permanent link">&para;</a></h2>
+<p>指定した条件のいずれかに一致する場合、ステータスをSameにします。</p>
+<h3 id="config_2">Config<a class="headerlink" href="#config_2" title="Permanent link">&para;</a></h3>
+<h4 id="definitions_2">Definitions<a class="headerlink" href="#definitions_2" title="Permanent link">&para;</a></h4>
+<h5 id="root_2">Root<a class="headerlink" href="#root_2" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>when_any</td>
+<td>str[]</td>
+<td>条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>'"2" in req.path'</pre></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<details class="info"><summary>when_anyで指定できるプロパティ</summary><p><a href="../../template">Template表記</a>に対応しています。<br />
+プロパティは以下を使用できます。</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>req</td>
+<td><a href="../../models/request">Request</a></td>
+<td>リクエスト情報</td>
+</tr>
+<tr>
+<td>res_one</td>
+<td><a href="../../models/response">Response</a></td>
+<td>oneのレスポンス情報</td>
+</tr>
+<tr>
+<td>res_other</td>
+<td><a href="../../models/response">Response</a></td>
+<td>otherのレスポンス情報</td>
+</tr>
+<tr>
+<td>dict_one</td>
+<td>(dict)</td>
+<td>oneのプロパティ情報</td>
+</tr>
+<tr>
+<td>dict_other</td>
+<td>(dict)</td>
+<td>otherのプロパティ情報</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="pathtest0test1same">リクエストのpathが<code>/test0</code>または<code>/test1</code>のときはSameとする<a class="headerlink" href="#pathtest0test1same" title="Permanent link">&para;</a></h5>
 <div class="codehilite"><pre><span></span>  judgement:
     - name: same
@@ -1268,7 +1712,6 @@
           Material for MkDocs</a>
       </div>
       
-        
   <div class="md-footer-social">
     <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
     
@@ -1276,14 +1719,13 @@
     
   </div>
 
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../../../assets/javascripts/application.b41f3d20.js"></script>
+      <script src="../../../assets/javascripts/application.b806dc00.js"></script>
       
         
         
@@ -1307,9 +1749,6 @@
         
       
       <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
-      
-    
-    
       
     
   </body>

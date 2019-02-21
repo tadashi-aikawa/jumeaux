@@ -46,7 +46,6 @@ RES_OTHER_PROPS = {
 }
 
 
-
 def create_trial_dict(seq: int, name: str, tags: List[str], status: str) -> dict:
     return {
         "seq": seq,

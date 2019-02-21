@@ -1,13 +1,12 @@
 # -*- coding:utf-8 -*-
 
-from fn import _
-from owlmixin import OwlMixin, TOption
+from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.judgement import JudgementExecutor
 from jumeaux.addons.utils import get_by_diff_key
 from jumeaux.logger import Logger
-from jumeaux.models import JudgementAddOnPayload, DiffKeys, Ignore, Condition, JudgementAddOnReference
+from jumeaux.models import JudgementAddOnPayload, DiffKeys, JudgementAddOnReference
 
 logger: Logger = Logger(__name__)
 

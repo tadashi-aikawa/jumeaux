@@ -48,6 +48,6 @@ class Executor(JudgementExecutor):
             logger.info_lv3(f"{LOG_PREFIX} Regard as same by `{same}`.")
 
         return JudgementAddOnPayload.from_dict({
-            "remaining_diff_keys": payload.remaining_diff_keys,
+            "diffs_by_cognition": payload.diffs_by_cognition,
             "regard_as_same": bool(same),
         })
