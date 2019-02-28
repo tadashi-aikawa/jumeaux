@@ -55,6 +55,9 @@ class SlackPayload(OwlMixin):
 
 class Executor(FinalExecutor):
     def __init__(self, config: dict):
+        logger.warning(f"{LOG_PREFIX} This add-on will be removed soon.")
+        logger.warning(f"{LOG_PREFIX} Please use `final/notify` instead.")
+
         self.config: Config = Config.from_dict(config or {})
         if "SLACK_INCOMING_WEBHOOKS_URL" not in os.environ:
             sys.exit('Environment variable SLACK_INCOMING_WEBHOOKS_URL is not specified. You need to set it.')
