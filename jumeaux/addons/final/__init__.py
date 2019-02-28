@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-from jumeaux.models import FinalAddOnPayload
+from jumeaux.models import FinalAddOnPayload, FinalAddOnReference
 
 
 class FinalExecutor:
-    def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
+    def exec(self, payload: FinalAddOnPayload, reference: FinalAddOnReference) -> FinalAddOnPayload:
         raise NotImplementedError()
