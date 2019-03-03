@@ -5,6 +5,16 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.65.0
+
+:fa-calendar: `2019-03-04`
+
+??? info "notifyアドオンを追加しました ([final/notify])"
+
+    * [final/slack] アドオンは非推奨になりますので [final/notify] に置き換えて下さい
+    * 詳細は [final/notify] をご覧下さい
+
+
 ## :package: 0.64.0
 
 :fa-calendar: `2019-02-21`
@@ -678,6 +688,7 @@ Releases
 [dump/json]: ../addons/dump#json
 [did_challenge/tag]: ../addons/did_challenge#tag
 [final/miroir]: ../addons/final#miroir
+[final/notify]: ../addons/final#notify
 [final/slack]: ../addons/final#slack
 [final/json]: ../addons/final#json
 [final/summary]: ../addons/final#summary
