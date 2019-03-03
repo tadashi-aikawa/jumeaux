@@ -15,7 +15,7 @@ from owlmixin.owlcollections import TList
 from jumeaux.addons.final import FinalExecutor
 from jumeaux.addons.utils import jinja2_format, get_jinja2_format_error
 from jumeaux.logger import Logger
-from jumeaux.models import Report, FinalAddOnPayload
+from jumeaux.models import Report, FinalAddOnPayload, FinalAddOnReference
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[final/slack]"
@@ -55,6 +55,9 @@ class SlackPayload(OwlMixin):
 
 class Executor(FinalExecutor):
     def __init__(self, config: dict):
+        logger.warning(f"{LOG_PREFIX} This add-on will be removed soon.")
+        logger.warning(f"{LOG_PREFIX} Please use `final/notify` instead.")
+
         self.config: Config = Config.from_dict(config or {})
         if "SLACK_INCOMING_WEBHOOKS_URL" not in os.environ:
             sys.exit('Environment variable SLACK_INCOMING_WEBHOOKS_URL is not specified. You need to set it.')
@@ -69,7 +72,7 @@ class Executor(FinalExecutor):
             errors.map(lambda x: logger.error(f"{LOG_PREFIX}   * `{x}`"))
             logger.error(f"{LOG_PREFIX} ---------------------", exit=True)
 
-    def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
+    def exec(self, payload: FinalAddOnPayload, reference: FinalAddOnReference) -> FinalAddOnPayload:
         report: Report = payload.report
 
         logger.info_lv1(SLACK_AA)

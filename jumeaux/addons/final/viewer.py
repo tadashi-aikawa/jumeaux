@@ -4,7 +4,7 @@ import os
 import shutil
 
 from jumeaux.addons.final import FinalExecutor
-from jumeaux.models import FinalAddOnPayload
+from jumeaux.models import FinalAddOnPayload, FinalAddOnReference
 from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
@@ -16,7 +16,7 @@ class Executor(FinalExecutor):
     def __init__(self, config: dict):
         pass
 
-    def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
+    def exec(self, payload: FinalAddOnPayload, reference: FinalAddOnReference) -> FinalAddOnPayload:
         dst_path = f"{payload.result_path}/index.html"
         shutil.copy(VIEWER, dst_path)
         logger.info_lv1(f"{LOG_PREFIX} Create {dst_path}")

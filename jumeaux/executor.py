@@ -89,8 +89,8 @@ from jumeaux.models import (
     DiffKeys,
     Status,
     DictOrList,
-    QueryCustomization
-)
+    QueryCustomization,
+    FinalAddOnReference)
 from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
@@ -605,10 +605,15 @@ def main():
         config
     ).requests
 
-    global_addon_executor.apply_final(FinalAddOnPayload.from_dict({
-        'report': exec(config, logs, hash_from_args(args), retry_hash),
-        'output_summary': config.output
-    }))
+    global_addon_executor.apply_final(
+        FinalAddOnPayload.from_dict({
+            'report': exec(config, logs, hash_from_args(args), retry_hash),
+            'output_summary': config.output
+        }),
+        FinalAddOnReference.from_dict({
+            "notifiers": config.notifiers
+        })
+    )
 
 
 if __name__ == '__main__':

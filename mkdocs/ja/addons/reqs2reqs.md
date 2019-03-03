@@ -273,18 +273,12 @@ Config設定はありません。
 | notifier | string | 使用する通知設定の名前  :fa-info-circle: | jumeaux                          |         |
 | message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{{ title }}を中断しました</pre> |         |
 
-!!! todo "notifierについて"
-
-    TODO: 後日マニュアルに記載します。
-    それまでの間、設定例はテストコード[test_empty_guard]を参考にしてください。
-
 
 !!! info "messageついて"
 
     [Template表記]に対応しています。
     プロパティは[Configuration](../getstarted/configuration.md)で定義されたものを使用できます。
 
-[test_empty_guard]: https://github.com/tadashi-aikawa/jumeaux/tree/master/tests/addons/reqs2reqs/test_empty_guard.py
 
 #### Examples
 
