@@ -4,7 +4,7 @@ import os
 from owlmixin import OwlMixin
 
 from jumeaux.addons.final import FinalExecutor
-from jumeaux.models import FinalAddOnPayload, Report, OutputSummary
+from jumeaux.models import FinalAddOnPayload, Report, OutputSummary, FinalAddOnReference
 from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
@@ -18,7 +18,7 @@ class Executor(FinalExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
 
-    def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
+    def exec(self, payload: FinalAddOnPayload, reference: FinalAddOnReference) -> FinalAddOnPayload:
         r: Report = payload.report
         s: OutputSummary = payload.output_summary
 

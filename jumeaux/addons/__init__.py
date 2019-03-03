@@ -22,7 +22,7 @@ from jumeaux.models import (
     DidChallengeAddOnReference,
     DumpAddOnPayload,
     FinalAddOnPayload,
-)
+    FinalAddOnReference)
 
 
 def create_addon(a: Addon, layer: str):
@@ -83,5 +83,5 @@ class AddOnExecutor:
     def apply_did_challenge(self, payload: DidChallengeAddOnPayload, reference: DidChallengeAddOnReference) -> DidChallengeAddOnPayload:
         return self.did_challenge.reduce(lambda p, a: a.exec(p, reference), payload)
 
-    def apply_final(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
-        return self.final.reduce(lambda p, a: a.exec(p), payload)
+    def apply_final(self, payload: FinalAddOnPayload, reference: FinalAddOnReference) -> FinalAddOnPayload:
+        return self.final.reduce(lambda p, a: a.exec(p, reference), payload)

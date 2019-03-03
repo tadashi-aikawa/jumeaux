@@ -417,3 +417,7 @@ class FinalAddOnPayload(OwlMixin):
     @property
     def result_path(self) -> str:
         return f"{self.output_summary.response_dir}/{self.report.key}"
+
+
+class FinalAddOnReference(OwlMixin):
+    notifiers: TOption[TDict[Notifier]]

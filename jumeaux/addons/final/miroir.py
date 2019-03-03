@@ -10,7 +10,7 @@ import boto3
 from owlmixin import OwlMixin, TOption, TList, OwlEnum
 
 from jumeaux.addons.final import FinalExecutor
-from jumeaux.models import Report, OutputSummary, FinalAddOnPayload
+from jumeaux.models import Report, OutputSummary, FinalAddOnPayload, FinalAddOnReference
 from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
@@ -52,7 +52,7 @@ class Executor(FinalExecutor):
     def __init__(self, config: dict) -> None:
         self.config: Config = Config.from_dict(config or {})
 
-    def exec(self, payload: FinalAddOnPayload) -> FinalAddOnPayload:
+    def exec(self, payload: FinalAddOnPayload, reference: FinalAddOnReference) -> FinalAddOnPayload:
         if When.NOT_EMPTY in self.config.when and payload.report.trials.size() == 0:
             logger.info_lv1('Skip sending results to Miroir because trials are empty.')
             return payload

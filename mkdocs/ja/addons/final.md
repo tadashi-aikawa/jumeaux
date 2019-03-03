@@ -197,6 +197,10 @@ Bucketの`test/`配下にデータが保存されます。
 [:fa-github:][slack] slack
 --------------------------
 
+!!! danger
+
+    本アドオンは非推奨です。代わりに[notify](#notify)を使用してください。
+    
 [slack]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/slack.py
 
 実行結果をSlackに転送します。
@@ -266,6 +270,74 @@ Bucketの`test/`配下にデータが保存されます。
 ```
 
 通知本文は `Version 0.24.1, Title: DEMO, -- 2 diffs` のようになります。
+
+
+[:fa-github:][notify] notify
+----------------------------
+
+[notify]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/notify.py
+
+実行結果を通知します。
+
+
+### Prerequirements
+
+--8<-- "ja/notify-prerequirements.md"
+
+
+### Config
+
+#### Definitions
+
+##### root
+
+|   Key    |         Type          |        Description         | Example | Default |
+| -------- | --------------------- | -------------------------- | ------- | ------- |
+| notifies | ([Notify[]](#notify)) | 通知設定                    |         |         |
+
+##### Notify
+
+|   Key    |  Type  |               Description                |             Example              | Default |
+| -------- | ------ | ---------------------------------------- | -------------------------------- | ------- |
+| notifier | string | 使用する通知設定の名前  :fa-info-circle: | jumeaux                            |         |
+| message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{{ title }}が完了しました</pre> |         |
+
+
+!!! info "notifierについて"
+
+    通知設定の例は [config/examples] を参考にしてください。定義は [notifier] の通りです。
+
+!!! info "messageについて"
+
+    [Template表記]に対応しています。
+    プロパティは[Report](../getstarted/report.md)で定義されたものを使用できます。
+
+
+#### Examples
+
+##### 通知設定`jumeaux`を使って終了時通知する
+
+```yaml
+  final:
+    - name: notify
+      config:
+        notifies:
+          - notifier: jumeaux
+            message: "{{ title }} is Finish!! There are {{ summary.status.different }} diffs.."
+```
+
+!!! hint "`notifier: jumeaux`について"
+
+    Jumeauxのconfigに以下のような設定が必要です。
+
+    ```yml
+    notifiers:
+      jumeaux:
+        type: slack
+        channel: "#jumeaux"
+        username: jumeaux
+        icon_emoji: "jumeaux"
+    ```
 
 
 [:fa-github:][csv] csv
@@ -380,3 +452,6 @@ Config設定はありません。
 [Template表記]: ../../template
 [report]: ../../getstarted/report
 [response_dir]: ../../getstarted/configuration/#outputsummary
+[notifier]: ../../models/notifier
+[config/examples]: ../../getstarted/configuration/#examples
+
