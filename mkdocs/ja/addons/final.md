@@ -303,6 +303,10 @@ Bucketの`test/`配下にデータが保存されます。
 | message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{{ title }}が完了しました</pre> |         |
 
 
+!!! info "notifierについて"
+
+    通知設定の例は [config/examples] を参考にしてください。定義は [notifier] の通りです。
+
 !!! info "messageについて"
 
     [Template表記]に対応しています。
@@ -448,3 +452,6 @@ Config設定はありません。
 [Template表記]: ../../template
 [report]: ../../getstarted/report
 [response_dir]: ../../getstarted/configuration/#outputsummary
+[notifier]: ../../models/notifier
+[config/examples]: ../../getstarted/configuration/#examples
+

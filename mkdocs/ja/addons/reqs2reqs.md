@@ -274,6 +274,10 @@ Config設定はありません。
 | message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{{ title }}を中断しました</pre> |         |
 
 
+!!! info "notifierについて"
+
+    通知設定の例は [config/examples] を参考にしてください。定義は [notifier] の通りです。
+
 !!! info "messageついて"
 
     [Template表記]に対応しています。
@@ -383,4 +387,6 @@ Config設定はありません。
 
 [Template表記]: ../../template
 [request]: ../../models/request
+[notifier]: ../../models/notifier
+[config/examples]: ../../getstarted/configuration/#examples
 
