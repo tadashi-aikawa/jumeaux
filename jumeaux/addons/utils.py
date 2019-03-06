@@ -11,8 +11,8 @@ from jinja2.exceptions import TemplateSyntaxError
 from owlmixin import TOption
 
 
-def exact_match(target: str, regexp: str):
-    return bool(re.search(f'^{regexp}$', target))
+def exact_match(target: str, regexp: str) -> bool:
+    return bool(re.search(f'^({regexp})$', target))
 
 
 def to_jumeaux_xpath(xpath: str):
