@@ -52,33 +52,56 @@ class TestWhenFilter:
 
     @pytest.mark.parametrize(
         'expected, expression', [
+            # operator
             (True, 'id == 1'),
             (False, 'id != 1'),
             (False, 'id == 2'),
+
+            # compare
             (True, 'age > 40'),
             (False, 'age > 45'),
             (True, '40 < age < 45'),
+
+            # in
             (True, '"イチロー" in nicknames'),
             (True, '"イチ" not in nicknames'),
+
+            # property access
             (True, 'favorites.1.name == "Apple"'),
             (True, 'favorites[1].name == "Apple"'),
             (False, 'favorites.0.name == "Apple"'),
             (False, 'favorites[0].name == "Apple"'),
+
+            # regexp
+            (True, 'age|string|reg("[0-9]{2}")'),
+            (False, 'age|string|reg("[0-9]{3}")'),
+
+            # length
             (True, 'favorites|length == 2'),
             (False, 'favorites|length == 3'),
+
+            # map
+            (True, '"Apple" in favorites|map(attribute="name")'),
+            (False, '"Grape" in favorites|map(attribute="name")'),
+
+            # and / or
             (True, 'id == 1 and age == 44'),
             (False, 'id == 1 and age == 45'),
             (True, 'id == 1 or age == 44'),
             (True, 'id == 1 or age == 45'),
             (False, 'id == 2 or age == 45'),
-            (True, 'age|string|reg("[0-9]{2}")'),
-            (False, 'age|string|reg("[0-9]{3}")'),
             (False, '(id == 1 or not name) and (favorites|length == 0 or nicknames|length == 0)'),
             (True, 'id == 1 or (not name and favorites|length == 0) or nicknames|length == 0'),
-            (True, '"Apple" in favorites|map(attribute="name")'),
-            (False, '"Grape" in favorites|map(attribute="name")'),
+
+            # default value
             (True, 'carrier["2010"]|default("neet") == "web"'),
             (True, 'carrier["2011"]|default("neet") == "neet"'),
+
+            # split / join
+            (True, 'nicknames|join("*") == "Ichi*イチロー"'),
+            (True, 'favorites[1].name.split("p") == ["A", "", "le"]'),
+
+            # functions
             (4, 'calc_distance_km(35.664131, 139.759302, 35.694253, 139.784099)|int')
         ]
     )
