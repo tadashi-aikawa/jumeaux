@@ -6,6 +6,25 @@ import pytest
 from jumeaux.addons import utils
 
 
+class TestExactMatch:
+    @pytest.mark.parametrize(
+        'expected, target, regexp', [
+            (True, '123', '[0-9]+'),
+            (False, 'a123b', '[0-9]+'),
+            (True, 'a123b', '([0-9]|[a-b])+'),
+            (True, 'aaa', 'aaa|bbb'),
+            (False, 'caaa', 'aaa|bbb'),
+            (False, 'aaac', 'aaa|bbb'),
+            (True, 'bbb', 'aaa|bbb'),
+            (False, 'cbbb', 'aaa|bbb'),
+            (False, 'bbbc', 'aaa|bbb'),
+        ]
+    )
+    def test_normal(self, expected, target, regexp):
+        actual = utils.exact_match(target, regexp)
+        assert expected == actual
+
+
 class TestWhenFilter:
     data = {
         "id": 1,
