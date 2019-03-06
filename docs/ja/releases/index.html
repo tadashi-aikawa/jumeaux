@@ -588,6 +588,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0651" title="0.65.1" class="md-nav__link">
+    0.65.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0650" title="0.65.0" class="md-nav__link">
     0.65.0
   </a>
@@ -983,6 +990,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#0651" title="0.65.1" class="md-nav__link">
+    0.65.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0650" title="0.65.0" class="md-nav__link">
     0.65.0
   </a>
@@ -1368,6 +1382,34 @@
                 <h1 id="releases">Releases<a class="headerlink" href="#releases" title="Permanent link">&para;</a></h1>
 <p>主なリリース情報を記載します。<br />
 全ての変更はGitHubのコミットログをご覧ください。</p>
+<h2 id="0651"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/4.0/png/64/1f4e6.png" title=":package:" /> 0.65.1<a class="headerlink" href="#0651" title="Permanent link">&para;</a></h2>
+<p><i class="fa fa-calendar"></i> <code>2019-03-06</code></p>
+<details class="bug"><summary>完全一致の正規表現が特定のケースで部分一致になる不具合を修正しました</summary><ul>
+<li>再現するケースは以下2つを満たすパターンの場合です<ul>
+<li>パイプ(<code>|</code>)がある</li>
+<li>カッコがない</li>
+</ul>
+</li>
+<li>今までは上記ケースにおいて<ul>
+<li>以下いずれかを満たす場合とされてしまいました<ul>
+<li>パイプより左側の文字列で前方一致</li>
+<li>パイプより右側の文字列で後方一致</li>
+</ul>
+</li>
+<li>例: <code>aaa|bbb</code>の場合、<code>aaa</code>に前方一致 or <code>bbb</code>に後方一致 のとき となる</li>
+</ul>
+</li>
+<li>改修後は<ul>
+<li>以下いずれかを満たす場合となります<ul>
+<li>パイプより左側に完全一致</li>
+<li>パイプより右側に完全一致</li>
+</ul>
+</li>
+<li>例: <code>aaa|bbb</code>の場合、<code>aaa</code>に完全一致 or <code>bbb</code>に完全一致 のとき となる</li>
+</ul>
+</li>
+</ul>
+</details>
 <h2 id="0650"><img alt="📦" class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/4.0/png/64/1f4e6.png" title=":package:" /> 0.65.0<a class="headerlink" href="#0650" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-03-04</code></p>
 <details class="info"><summary>notifyアドオンを追加しました (<a href="../addons/final#notify">final/notify</a>)</summary><ul>
