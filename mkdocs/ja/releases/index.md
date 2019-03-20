@@ -5,6 +5,13 @@ Releases
 全ての変更はGitHubのコミットログをご覧ください。
 
 
+## :package: 0.65.2
+
+:fa-calendar: `2019-03-20`
+
+??? bug "一部環境でJumeauxのインストールができない不具合を修正しました"
+
+
 ## :package: 0.65.1
 
 :fa-calendar: `2019-03-06`
