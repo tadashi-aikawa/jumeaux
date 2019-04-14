@@ -72,7 +72,307 @@ Report
 
 ## Examples
 
-TODO
+`jumeaux init ignore`で作成したテンプレートを実行した結果です。
+
+??? info "クリックしてreport.jsonの内容を見る"
+
+    ```json
+    {
+      "addons": {
+        "did_challenge": [],
+        "dump": [
+          {
+            "cls_name": "Executor",
+            "name": "json"
+          }
+        ],
+        "final": [
+          {
+            "cls_name": "Executor",
+            "name": "json"
+          },
+          {
+            "cls_name": "Executor",
+            "name": "viewer"
+          }
+        ],
+        "judgement": [
+          {
+            "cls_name": "Executor",
+            "config": {
+              "ignores": [
+                {
+                  "conditions": [
+                    {
+                      "changed": [
+                        {
+                          "path": "root<'ignored_id'>"
+                        }
+                      ]
+                    }
+                  ],
+                  "title": "Ignore ignored_id"
+                },
+                {
+                  "conditions": [
+                    {
+                      "changed": [
+                        {
+                          "path": "root<'members'><\\d+><'name'>",
+                          "when": "other == \"ignored\""
+                        }
+                      ]
+                    }
+                  ],
+                  "title": "Ignore `members.name` which change to `ignored`"
+                },
+                {
+                  "conditions": [
+                    {
+                      "added": [
+                        {
+                          "path": "root<'members'><\\d+><'favorite'>.*"
+                        }
+                      ],
+                      "changed": [
+                        {
+                          "path": "root<'members'><\\d+><'favorite'>.*"
+                        }
+                      ],
+                      "removed": [
+                        {
+                          "path": "root<'members'><\\d+><'favorite'>.*"
+                        }
+                      ],
+                      "when": "\"same\" in req.path"
+                    }
+                  ],
+                  "title": "Ignore favorite only if path includes `/same`"
+                }
+              ]
+            },
+            "name": "ignore"
+          }
+        ],
+        "log2reqs": {
+          "cls_name": "Executor",
+          "name": "csv"
+        },
+        "reqs2reqs": [],
+        "res2dict": [
+          {
+            "cls_name": "Executor",
+            "name": "json"
+          }
+        ],
+        "res2res": [],
+        "store_criterion": [
+          {
+            "cls_name": "Executor",
+            "config": {
+              "statuses": [
+                "different"
+              ]
+            },
+            "name": "general"
+          }
+        ]
+      },
+      "key": "a90b680c26451c983ecb0e4db57830b745127e0f8af9fcc0cca898579cf40367",
+      "summary": {
+        "concurrency": {
+          "processes": 1,
+          "threads": 1
+        },
+        "one": {
+          "host": "http://localhost:8000/api/one",
+          "name": "One endpoint"
+        },
+        "other": {
+          "host": "http://localhost:8000/api/other",
+          "name": "Other endpoint"
+        },
+        "output": {
+          "encoding": "utf8",
+          "response_dir": "responses"
+        },
+        "status": {
+          "different": 1,
+          "failure": 0,
+          "same": 2
+        },
+        "tags": [],
+        "time": {
+          "elapsed_sec": 0,
+          "end": "2019-04-14T16:15:42.817128+09:00",
+          "start": "2019-04-14T16:15:42.711287+09:00"
+        }
+      },
+      "title": "Ignore",
+      "trials": [
+        {
+          "diffs_by_cognition": {
+            "Ignore favorite only if path includes `/same`": {
+              "added": [
+                "root<'members'><2><'favorite'>"
+              ],
+              "changed": [
+                "root<'members'><1><'favorite'><0>"
+              ],
+              "removed": [
+                "root<'members'><1><'favorite'><1>"
+              ]
+            },
+            "Ignore ignored_id": {
+              "added": [],
+              "changed": [
+                "root<'ignored_id'>"
+              ],
+              "removed": []
+            }
+          },
+          "headers": {},
+          "name": "Regard as `Same` in spite of `Different` actually",
+          "one": {
+            "byte": 457,
+            "content_type": "application/json",
+            "encoding": "ascii",
+            "mime_type": "application/json",
+            "response_sec": 0.03,
+            "status_code": 200,
+            "type": "json",
+            "url": "http://localhost:8000/api/one/same-1.json?param1=hoge"
+          },
+          "other": {
+            "byte": 497,
+            "content_type": "application/json",
+            "encoding": "ascii",
+            "mime_type": "application/json",
+            "response_sec": 0.03,
+            "status_code": 200,
+            "type": "json",
+            "url": "http://localhost:8000/api/other/same-1.json?param1=hoge"
+          },
+          "path": "/same-1.json",
+          "queries": {
+            "param1": [
+              "hoge"
+            ]
+          },
+          "request_time": "2019-04-14T16:15:42.713374+09:00",
+          "seq": 1,
+          "status": "same",
+          "tags": []
+        },
+        {
+          "diffs_by_cognition": {
+            "Ignore `members.name` which change to `ignored`": {
+              "added": [],
+              "changed": [
+                "root<'members'><2><'name'>"
+              ],
+              "removed": []
+            }
+          },
+          "headers": {},
+          "name": "Regard as `Same` in spite of `Different` actually (with when)",
+          "one": {
+            "byte": 497,
+            "content_type": "application/json",
+            "encoding": "ascii",
+            "mime_type": "application/json",
+            "response_sec": 0,
+            "status_code": 200,
+            "type": "json",
+            "url": "http://localhost:8000/api/one/same-2.json?param1=hoge"
+          },
+          "other": {
+            "byte": 499,
+            "content_type": "application/json",
+            "encoding": "ascii",
+            "mime_type": "application/json",
+            "response_sec": 0.01,
+            "status_code": 200,
+            "type": "json",
+            "url": "http://localhost:8000/api/other/same-2.json?param1=hoge"
+          },
+          "path": "/same-2.json",
+          "queries": {
+            "param1": [
+              "hoge"
+            ]
+          },
+          "request_time": "2019-04-14T16:15:42.769972+09:00",
+          "seq": 2,
+          "status": "same",
+          "tags": []
+        },
+        {
+          "diffs_by_cognition": {
+            "Ignore ignored_id": {
+              "added": [],
+              "changed": [
+                "root<'ignored_id'>"
+              ],
+              "removed": []
+            },
+            "unknown": {
+              "added": [
+                "root<'members'><2><'favorite'>"
+              ],
+              "changed": [
+                "root<'members'><1><'favorite'><0>"
+              ],
+              "removed": [
+                "root<'members'><1><'favorite'><1>"
+              ]
+            }
+          },
+          "headers": {},
+          "name": "Only ignore `ignored_id`",
+          "one": {
+            "byte": 457,
+            "content_type": "application/json",
+            "encoding": "ascii",
+            "file": "one/(3)Only ignore `ignored_id`",
+            "mime_type": "application/json",
+            "prop_file": "one-props/(3)Only ignore `ignored_id`.json",
+            "response_sec": 0.01,
+            "status_code": 200,
+            "type": "json",
+            "url": "http://localhost:8000/api/one/diff-1.json?param1=hoge&param1=hoge2&param2=huga"
+          },
+          "other": {
+            "byte": 497,
+            "content_type": "application/json",
+            "encoding": "ascii",
+            "file": "other/(3)Only ignore `ignored_id`",
+            "mime_type": "application/json",
+            "prop_file": "other-props/(3)Only ignore `ignored_id`.json",
+            "response_sec": 0,
+            "status_code": 200,
+            "type": "json",
+            "url": "http://localhost:8000/api/other/diff-1.json?param1=hoge&param1=hoge2&param2=huga"
+          },
+          "path": "/diff-1.json",
+          "queries": {
+            "param1": [
+              "hoge",
+              "hoge2"
+            ],
+            "param2": [
+              "huga"
+            ]
+          },
+          "request_time": "2019-04-14T16:15:42.791674+09:00",
+          "seq": 3,
+          "status": "different",
+          "tags": []
+        }
+      ],
+      "version": "0.65.2"
+    }
+    ```
 
 
 [addons]: ../../addons#configration-definitions
