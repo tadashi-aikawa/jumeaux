@@ -13,10 +13,16 @@ Jumeaux
 Check difference between two responses of API.
 
 
+Demo
+----
+
+See [Top page in documentation](https://tadashi-aikawa.github.io/jumeaux/)
+
+
 Install
 -------
 
-See [documentation](https://tadashi-aikawa.github.io/jumeaux/).
+See [quick start in documentation](https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/quickstart/).
 
 
 Test reports
