@@ -17,7 +17,7 @@ version := $(shell git rev-parse --abbrev-ref HEAD)
 #------
 
 init: ## Install dependencies
-	pipenv install -d --skip-lock
+	pipenv install -d
 
 serve-docs: ## Build and serve documentation
 	@echo Start $@
@@ -70,7 +70,7 @@ edit-release: ## Open release note by vim
 release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to enviroment varialbles)
 
 	@echo '0. Install packages from lockfile and test'
-	@pipenv install --skip-lock
+	@pipenv install --deploy
 	@make test
 	@make test-cli
 
