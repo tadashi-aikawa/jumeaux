@@ -12,17 +12,11 @@ Jumeaux
 
 Check difference between two responses of API.
 
-<video controls src="https://dl.dropboxusercontent.com/s/2m0jvenb50iyacr/demo.mp4" type="video/mp4" width="1200"></video>
-
 
 Install
 -------
 
-See documentation.
-
-### Documentation
-
-https://tadashi-aikawa.github.io/jumeaux/
+See [documentation](https://tadashi-aikawa.github.io/jumeaux/).
 
 
 Test reports
