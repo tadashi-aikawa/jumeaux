@@ -1,32 +1,32 @@
 Jumeaux
 =======
 
+[![versions](https://img.shields.io/pypi/pyversions/jumeaux.svg)]()
+[![pypi](https://img.shields.io/pypi/v/jumeaux.svg)]()
 [![travis](https://api.travis-ci.org/tadashi-aikawa/jumeaux.svg?branch=master)](https://travis-ci.org/tadashi-aikawa/jumeaux/builds)
 [![coverage](https://codeclimate.com/github/tadashi-aikawa/jumeaux/badges/coverage.svg)](https://codeclimate.com/github/tadashi-aikawa/jumeaux/coverage)
 [![complexity](https://codeclimate.com/github/tadashi-aikawa/jumeaux/badges/gpa.svg)](https://codeclimate.com/github/tadashi-aikawa/jumeaux)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
-[![pypi](https://img.shields.io/pypi/v/jumeaux.svg)]()
-[![versions](https://img.shields.io/pypi/pyversions/jumeaux.svg)]()
 
 <img src="https://github.com/tadashi-aikawa/jumeaux/blob/master/logo.png?raw=true" width=400 height=400 />
 
 Check difference between two responses of API.
 
 
-Requirement
------------
+Demo
+----
 
-* Python3.6 (Maybe Python 3.7 is also fine)
-
-
-Documentation
--------------
-
-https://tadashi-aikawa.github.io/jumeaux/
+See [Top page in documentation](https://tadashi-aikawa.github.io/jumeaux/)
 
 
-Test Result
------------
+Install
+-------
+
+See [quick start in documentation](https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/quickstart/).
+
+
+Test reports
+------------
 
 * Master: [![](https://api.travis-ci.org/tadashi-aikawa/jumeaux.png?branch=master)](https://travis-ci.org/tadashi-aikawa/jumeaux)
 * Current [![](https://api.travis-ci.org/tadashi-aikawa/jumeaux.png?)](https://travis-ci.org/tadashi-aikawa/jumeaux)
