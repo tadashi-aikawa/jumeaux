@@ -1011,7 +1011,305 @@
 <p>実際に使用したスレッド数は2倍になります。 (<code>one</code>と<code>other</code>へは2スレッドで同時にリクエストするため)</p>
 </div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<p>TODO</p>
+<p><code>jumeaux init ignore</code>で作成したテンプレートを実行した結果です。</p>
+<details class="info"><summary>クリックしてreport.jsonの内容を見る</summary><div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;addons&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;did_challenge&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;dump&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;cls_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Executor&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;final&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;cls_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Executor&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;cls_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Executor&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;viewer&quot;</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;judgement&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;cls_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Executor&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;ignores&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+              <span class="nt">&quot;conditions&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                  <span class="nt">&quot;changed&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;root&lt;&#39;ignored_id&#39;&gt;&quot;</span>
+                    <span class="p">}</span>
+                  <span class="p">]</span>
+                <span class="p">}</span>
+              <span class="p">],</span>
+              <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Ignore ignored_id&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+              <span class="nt">&quot;conditions&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                  <span class="nt">&quot;changed&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;\\d+&gt;&lt;&#39;name&#39;&gt;&quot;</span><span class="p">,</span>
+                      <span class="nt">&quot;when&quot;</span><span class="p">:</span> <span class="s2">&quot;other == \&quot;ignored\&quot;&quot;</span>
+                    <span class="p">}</span>
+                  <span class="p">]</span>
+                <span class="p">}</span>
+              <span class="p">],</span>
+              <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Ignore `members.name` which change to `ignored`&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+              <span class="nt">&quot;conditions&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                  <span class="nt">&quot;added&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;\\d+&gt;&lt;&#39;favorite&#39;&gt;.*&quot;</span>
+                    <span class="p">}</span>
+                  <span class="p">],</span>
+                  <span class="nt">&quot;changed&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;\\d+&gt;&lt;&#39;favorite&#39;&gt;.*&quot;</span>
+                    <span class="p">}</span>
+                  <span class="p">],</span>
+                  <span class="nt">&quot;removed&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;\\d+&gt;&lt;&#39;favorite&#39;&gt;.*&quot;</span>
+                    <span class="p">}</span>
+                  <span class="p">],</span>
+                  <span class="nt">&quot;when&quot;</span><span class="p">:</span> <span class="s2">&quot;\&quot;same\&quot; in req.path&quot;</span>
+                <span class="p">}</span>
+              <span class="p">],</span>
+              <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Ignore favorite only if path includes `/same`&quot;</span>
+            <span class="p">}</span>
+          <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;ignore&quot;</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;log2reqs&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;cls_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Executor&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;csv&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;reqs2reqs&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;res2dict&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;cls_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Executor&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;res2res&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;store_criterion&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;cls_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Executor&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;config&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;statuses&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;different&quot;</span>
+          <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;general&quot;</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;a90b680c26451c983ecb0e4db57830b745127e0f8af9fcc0cca898579cf40367&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;summary&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;concurrency&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;processes&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;threads&quot;</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;one&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:8000/api/one&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;One endpoint&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;other&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:8000/api/other&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Other endpoint&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;output&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;utf8&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;response_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;responses&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;different&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;failure&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nt">&quot;same&quot;</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;elapsed_sec&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-04-14T16:15:42.817128+09:00&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-04-14T16:15:42.711287+09:00&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Ignore&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;trials&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;diffs_by_cognition&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Ignore favorite only if path includes `/same`&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;added&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;2&gt;&lt;&#39;favorite&#39;&gt;&quot;</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;changed&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;1&gt;&lt;&#39;favorite&#39;&gt;&lt;0&gt;&quot;</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;removed&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;1&gt;&lt;&#39;favorite&#39;&gt;&lt;1&gt;&quot;</span>
+          <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;Ignore ignored_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;added&quot;</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="nt">&quot;changed&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;root&lt;&#39;ignored_id&#39;&gt;&quot;</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;removed&quot;</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Regard as `Same` in spite of `Different` actually&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;one&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;byte&quot;</span><span class="p">:</span> <span class="mi">457</span><span class="p">,</span>
+        <span class="nt">&quot;content_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;ascii&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;mime_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;response_sec&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;status_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:8000/api/one/same-1.json?param1=hoge&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;other&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;byte&quot;</span><span class="p">:</span> <span class="mi">497</span><span class="p">,</span>
+        <span class="nt">&quot;content_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;ascii&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;mime_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;response_sec&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;status_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:8000/api/other/same-1.json?param1=hoge&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/same-1.json&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;queries&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;hoge&quot;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;request_time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-04-14T16:15:42.713374+09:00&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;seq&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;same&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;diffs_by_cognition&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Ignore `members.name` which change to `ignored`&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;added&quot;</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="nt">&quot;changed&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;2&gt;&lt;&#39;name&#39;&gt;&quot;</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;removed&quot;</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Regard as `Same` in spite of `Different` actually (with when)&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;one&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;byte&quot;</span><span class="p">:</span> <span class="mi">497</span><span class="p">,</span>
+        <span class="nt">&quot;content_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;ascii&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;mime_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;response_sec&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;status_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:8000/api/one/same-2.json?param1=hoge&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;other&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;byte&quot;</span><span class="p">:</span> <span class="mi">499</span><span class="p">,</span>
+        <span class="nt">&quot;content_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;ascii&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;mime_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;response_sec&quot;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+        <span class="nt">&quot;status_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:8000/api/other/same-2.json?param1=hoge&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/same-2.json&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;queries&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;hoge&quot;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;request_time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-04-14T16:15:42.769972+09:00&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;seq&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;same&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;diffs_by_cognition&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Ignore ignored_id&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;added&quot;</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="nt">&quot;changed&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;root&lt;&#39;ignored_id&#39;&gt;&quot;</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;removed&quot;</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;unknown&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;added&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;2&gt;&lt;&#39;favorite&#39;&gt;&quot;</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;changed&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;1&gt;&lt;&#39;favorite&#39;&gt;&lt;0&gt;&quot;</span>
+          <span class="p">],</span>
+          <span class="nt">&quot;removed&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;root&lt;&#39;members&#39;&gt;&lt;1&gt;&lt;&#39;favorite&#39;&gt;&lt;1&gt;&quot;</span>
+          <span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Only ignore `ignored_id`&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;one&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;byte&quot;</span><span class="p">:</span> <span class="mi">457</span><span class="p">,</span>
+        <span class="nt">&quot;content_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;ascii&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;one/(3)Only ignore `ignored_id`&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;mime_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;prop_file&quot;</span><span class="p">:</span> <span class="s2">&quot;one-props/(3)Only ignore `ignored_id`.json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;response_sec&quot;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+        <span class="nt">&quot;status_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:8000/api/one/diff-1.json?param1=hoge&amp;param1=hoge2&amp;param2=huga&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;other&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;byte&quot;</span><span class="p">:</span> <span class="mi">497</span><span class="p">,</span>
+        <span class="nt">&quot;content_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;ascii&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;other/(3)Only ignore `ignored_id`&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;mime_type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;prop_file&quot;</span><span class="p">:</span> <span class="s2">&quot;other-props/(3)Only ignore `ignored_id`.json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;response_sec&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;status_code&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:8000/api/other/diff-1.json?param1=hoge&amp;param1=hoge2&amp;param2=huga&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/diff-1.json&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;queries&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;param1&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;hoge&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;hoge2&quot;</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;param2&quot;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="s2">&quot;huga&quot;</span>
+        <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;request_time&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-04-14T16:15:42.791674+09:00&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;seq&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;different&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.65.2&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+</details>
                 
                   
                 
