@@ -35,7 +35,10 @@ nav:
     - Response: ja/models/response.md
     - Trial: ja/models/trial.md
   - Template: ja/template.md
-  - Releases: ja/releases/index.md
+  - Releases:
+    - All: ja/releases/index.md
+    - v1.x.y: ja/releases/v1.md
+    - v0.x.y: ja/releases/v0.md
 
 theme:
   name: material

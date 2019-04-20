@@ -27,10 +27,12 @@ class Executor(StoreCriterionExecutor):
         if self.config.when_any.is_none():
             return StoreCriterionAddOnPayload.from_dict({"stored": True})
 
-        matched_filter: str = self.config.when_any.get().find(lambda x: when_filter(x, reference.to_dict(ignore_none=False)))
-        if matched_filter:
-            logger.info_lv3(f"{LOG_PREFIX} Stored for `{matched_filter}`.")
+        matched_filter: TOption[str] = self.config.when_any.get().find(
+            lambda x: when_filter(x, reference.to_dict(ignore_none=False))
+        )
+        if not matched_filter.is_none():
+            logger.info_lv3(f"{LOG_PREFIX} Stored for `{matched_filter.get()}`.")
 
         return StoreCriterionAddOnPayload.from_dict({
-            "stored": bool(matched_filter)
+            "stored": not matched_filter.is_none()
         })

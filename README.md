@@ -78,10 +78,10 @@ $ make test-cli
 
 There are 2 steps.
 
-#### Update release note (mkdocs/ja/releases/index.md)
+#### Update release note (mkdocs/ja/releases/*)
 
 ```
-$ make edit-release
+$ git commit -m ":memo: Update release note"
 ```
 
 #### Confirm that your branch name equals release version

@@ -20,9 +20,8 @@ class Config(OwlMixin):
 
 
 def apply_first_condition(res: Response, req: Request, conditions: TList[Condition]) -> Response:
-    # TODO: remove TOption (owlmixin... find)
-    condition: TOption[Condition] = TOption(
-        conditions.find(lambda c: when_optional_filter(c.when, {'req': req.to_dict(), 'res': res.to_dict()}))
+    condition: TOption[Condition] = conditions.find(
+        lambda c: when_optional_filter(c.when, {'req': req.to_dict(), 'res': res.to_dict()})
     )
     if condition.is_none():
         return res

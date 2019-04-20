@@ -3,6 +3,7 @@
 
 import os
 import pytest
+from owlmixin import RequiredError
 
 from jumeaux.addons.log2reqs.yaml import Executor
 from jumeaux.models import Log2ReqsAddOnPayload
@@ -102,5 +103,5 @@ class TestFromFormat:
 
         with open('tmp', 'w', encoding='utf8') as f:
             f.write(examinee)
-        with pytest.raises(AttributeError):
+        with pytest.raises(RequiredError):
             Executor({"encoding": "utf8"}).exec(Log2ReqsAddOnPayload.from_dict({'file': 'tmp'}))
