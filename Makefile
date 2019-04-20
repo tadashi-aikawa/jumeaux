@@ -64,9 +64,6 @@ test-cli: ## Test on CLI
 	@make stop-api
 	@echo End $@
 
-edit-release: ## Open release note by vim
-	@vim mkdocs/ja/releases/index.md
-
 release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to enviroment varialbles)
 
 	@echo '0. Install packages from lockfile and test'
@@ -83,7 +80,6 @@ release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to envir
 	@echo '3. Staging and commit'
 	git add jumeaux/__init__.py
 	git add Dockerfile
-	git add mkdocs/ja/releases/index.md
 	git add docs
 	git commit -m ':package: Version $(version)'
 
