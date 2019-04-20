@@ -228,7 +228,7 @@ def select_key_as_case_insensitive(target_key_pattern: str, qs: TDict[TList[str]
     def matcher(x):
         return x.lower() == target_key.lower() if case_insensitive else x == target_key
 
-    return TList(qs.keys()).find(matcher) or target_key
+    return TList(qs.keys()).find(matcher).get_or(target_key)
 
 
 def create_query_string(qs: TDict[TList[str]], cqs: TOption[QueryCustomization], encoding: str) -> str:

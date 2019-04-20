@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from owlmixin import OwlMixin, TList
+from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.judgement import JudgementExecutor
 from jumeaux.addons.utils import when_filter
@@ -31,7 +31,7 @@ class Executor(JudgementExecutor):
         if payload.regard_as_same:
             return payload
 
-        same: str = self.config.when_any.find(lambda x: when_filter(x, {
+        same: TOption[str] = self.config.when_any.find(lambda x: when_filter(x, {
             "req": {
                 "name": reference.name,
                 "path": reference.path,
@@ -44,10 +44,10 @@ class Executor(JudgementExecutor):
             "dict_other": reference.dict_other,
         }))
 
-        if same:
-            logger.info_lv3(f"{LOG_PREFIX} Regard as same by `{same}`.")
+        if same.get():
+            logger.info_lv3(f"{LOG_PREFIX} Regard as same by `{same.get()}`.")
 
         return JudgementAddOnPayload.from_dict({
             "diffs_by_cognition": payload.diffs_by_cognition,
-            "regard_as_same": bool(same),
+            "regard_as_same": not same.is_none(),
         })

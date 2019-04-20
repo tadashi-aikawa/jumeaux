@@ -50,13 +50,13 @@ def _dict_sort(dict_obj: dict, targets: TList[Target], location: str = 'root') -
 
 
 def _list_sort(list_obj: list, targets: TList[Target], location: str = 'root') -> list:
-    target: Target = targets.find(lambda t: exact_match(location, t.path))
+    target: TOption[Target] = targets.find(lambda t: exact_match(location, t.path))
 
     traversed = [traverse(v, f"{location}<{i}>", targets) for i, v in enumerate(list_obj)]
-    if not target:
+    if target.is_none():
         return traversed
 
-    sort_func = target.sort_keys.map(lambda keys: lambda x: [x[k] for k in keys]) \
+    sort_func = target.get().sort_keys.map(lambda keys: lambda x: [x[k] for k in keys]) \
         .get_or(lambda x: json.dumps(x, ensure_ascii=False) if isinstance(x, (dict, list)) else x)
 
     return sorted(traversed, key=sort_func)
