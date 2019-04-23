@@ -48,7 +48,7 @@ class Executor(FinalExecutor):
             jinja2_format(x.message, payload.report.to_dict(ignore_none=False)),
             reference.notifiers.get().get(x.notifier)
         ))
-        if errors:
+        if errors.reject(lambda m: m.is_none()):
             errors.map(lambda m: m.map(logger.error))
             sys.exit(1)
 
