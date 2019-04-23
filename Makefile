@@ -86,14 +86,15 @@ release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to envir
 	@echo '4. Tags'
 	git tag v$(version) -m v$(version)
 
-	@echo '5. Push'
-	git push --tags
-
-	@echo '6. Deploy'
+	@echo '5. Deploy'
 	@echo 'Packaging...'
 	@pipenv run python setup.py bdist_wheel
 	@echo 'Deploying...'
 	@pipenv run twine upload dist/jumeaux-$(version)-py3-none-any.whl
+
+	@echo '6. Push'
+	git push --tags
+	git push
 
 	@echo 'Success All!!'
 	@echo 'Create a pull request and merge to master!!'
