@@ -49,7 +49,7 @@ class Executor(Reqs2ReqsExecutor):
             # TODO: Error handling
             errors: TList[TOption[str]] = self.config.notifies.map(lambda x: send(
                 jinja2_format(x.message, config.to_dict(ignore_none=False)),
-                config.notifiers.get().get(x.notifier)
+                config.notifiers.get().get(x.notifier).get()  # TODO: The case that notifier not found
             ))
             errors.map(lambda m: m.map(logger.error))
             sys.exit(1)
