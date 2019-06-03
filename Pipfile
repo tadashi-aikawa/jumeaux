@@ -33,7 +33,7 @@ requests-toolbelt = "*"
 "jinja2" = "*"
 "beautifulsoup4" = "*"
 lxml = "*"
-owlmixin = ">=3.1.0"
+owlmixin = ">=4.0.3"
 livereload = "*"
 tzlocal = "*"
 
