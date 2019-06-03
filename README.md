@@ -76,6 +76,8 @@ $ make test-cli
 
 ### Version up
 
+**Windows is not supported!!!**
+
 There are 2 steps.
 
 #### Update release note (mkdocs/ja/releases/*)
