@@ -245,7 +245,7 @@ judgement [:fa-github:][s1]
 
 ```yml
   judgement:
-    - name: ignore_properties
+    - name: ignore
       config:
         ignores:
           - title: /apiから始まる場合に追加されたプロパティ.idは無視
