@@ -32,6 +32,7 @@ class Sorter(OwlMixin):
 
 class Config(OwlMixin):
     items: TList[Sorter]
+    footprints_tag: TOption[str]
     # TODO: remove
     default_encoding: TOption[str]
 
@@ -107,7 +108,7 @@ class Executor(Res2ResExecutor):
                 },
                 "req": payload.req,
                 "tags": payload.tags.concat(
-                    ["res2res/json_sort#changed"] if res_json != res_json_sorted else []
+                    self.config.footprints_tag.map(lambda x: [x] if res_json != res_json_sorted else []).get_or([])
                 ),
             }
         )
