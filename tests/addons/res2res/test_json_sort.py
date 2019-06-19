@@ -64,7 +64,7 @@ def make_response(text: str, encoding: str, body_encoding: str) -> Response:
 
 class TestExec:
     @pytest.mark.parametrize(
-        'title, config_yml, expected_text', [
+        'title, config_yml, expected_tags, expected_text', [
             (
                 "dict -> list(str) (string sorting)",
                 """
@@ -76,6 +76,7 @@ class TestExec:
                     targets:
                       - path: root<'dict1'><'list1-1'>
                 """,
+                ["default"],
                 {
                     "int1": 1,
                     "str1": "1",
@@ -119,6 +120,7 @@ class TestExec:
                     targets:
                       - path: root<'list1'>
                 """,
+                ["default"],
                 {
                     "int1": 1,
                     "str1": "1",
@@ -163,6 +165,7 @@ class TestExec:
                       - path: root<'list2'>
                         sort_keys: [id, name]
                 """,
+                ["default"],
                 {
                     "int1": 1,
                     "str1": "1",
@@ -205,7 +208,9 @@ class TestExec:
                             - regexp: /filter
                     targets:
                       - path: root<'list3'><\d+><'list3-2'>
+                footprints_tag: "changed"
                 """,
+                ["default", "changed"],
                 {
                     "int1": 1,
                     "str1": "1",
@@ -248,7 +253,9 @@ class TestExec:
                             - regexp: /filter
                     targets:
                       - path: root<'list4'>
+                footprints_tag: "changed"
                 """,
+                ["default", "changed"],
                 {
                     "int1": 1,
                     "str1": "1",
@@ -283,7 +290,8 @@ class TestExec:
             )
         ]
     )
-    def test_normal(self, title, config_yml, expected_text):
+
+    def test_normal(self, title, config_yml, expected_tags, expected_text):
         payload: Res2ResAddOnPayload = Res2ResAddOnPayload.from_dict({
             'response': make_response(TEXT, 'utf-8', 'utf-8'),
             'req': {
@@ -303,7 +311,7 @@ class TestExec:
                 "headers": {},
                 "url_encoding": "utf-8",
             },
-            "tags": ["default", "res2res/json_sort#changed"],
+            "tags": expected_tags,
         }
         actual = Executor(load_yaml(config_yml)).exec(payload).to_dict()
 
@@ -321,6 +329,7 @@ class TestExec:
                             - regexp: /filter
                     targets:
                       - path: root<'list5'>
+                footprints_tag: "changed"
                 """,
                 {
                     "int1": 1,
@@ -395,6 +404,7 @@ class TestExec:
                             - regexp: /filter
                     targets:
                       - path: root<'name'>
+                footprints_tag: "changed"
                 """,
                 {
                     "name": "国道１２３号",
