@@ -363,6 +363,7 @@ class DumpAddOnPayload(OwlMixin):
 class Res2ResAddOnPayload(OwlMixin):
     response: Response
     req: Request
+    tags: TList[str]
 
 
 class Res2DictAddOnPayload(OwlMixin):
