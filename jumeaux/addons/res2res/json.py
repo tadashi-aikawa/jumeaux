@@ -75,4 +75,5 @@ class Executor(Res2ResExecutor):
                 "elapsed_sec": res.elapsed_sec,
             },
             "req": req,
+            "tags": payload.tags,
         })
