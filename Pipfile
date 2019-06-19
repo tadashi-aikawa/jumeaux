@@ -18,6 +18,7 @@ mkdocs-material = "*"
 pylint = "*"
 # sphinx, twine vulnerables
 urllib3 = ">=1.24.2"
+black = "*"
 
 [packages]
 requests = "*"

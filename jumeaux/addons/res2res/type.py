@@ -48,4 +48,5 @@ class Executor(Res2ResExecutor):
         return Res2ResAddOnPayload.from_dict({
             "req": payload.req,
             "response": apply_first_condition(payload.response, payload.req, self.config.conditions),
+            "tags": payload.tags,
         })
