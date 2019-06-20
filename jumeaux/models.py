@@ -207,8 +207,10 @@ class Response(OwlMixin):
         return CaseInsensitiveDict(v)
 
     @classmethod
-    def _decide_encoding(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> str:
+    def _decide_encoding(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> Optional[str]:
         content_type = res.headers.get('content-type')
+        if 'octet-stream' in content_type:
+            return None
         # XXX: See 2.2 in https://tools.ietf.org/html/rfc2616#section-2.2
         if res.encoding and not ('text' in content_type and res.encoding == 'ISO-8859-1'):
             return res.encoding
