@@ -24,10 +24,9 @@ class Executor(DidChallengeExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
 
-        errors: TList[str] = self.config.conditions\
-            .reject(lambda x: x.when.is_none())\
-            .map(lambda x: get_jinja2_format_error(x.when.get()).get())\
-            .filter(lambda x: x is not None)
+        errors: TList[str] = self.config.conditions.reject(lambda x: x.when.is_none()).map(
+            lambda x: get_jinja2_format_error(x.when.get()).get()
+        ).filter(lambda x: x is not None)
         if errors:
             logger.error(f"{LOG_PREFIX} Illegal format in `conditions[*].when`.")
             logger.error(f"{LOG_PREFIX} Please check your configuration yaml files.")
@@ -35,16 +34,19 @@ class Executor(DidChallengeExecutor):
             errors.map(lambda x: logger.error(f"{LOG_PREFIX}   * `{x}`"))
             logger.error(f"{LOG_PREFIX} ---------------------", exit=True)
 
-    def exec(self, payload: DidChallengeAddOnPayload, referenece: DidChallengeAddOnReference) -> DidChallengeAddOnPayload:
-
+    def exec(
+        self, payload: DidChallengeAddOnPayload, referenece: DidChallengeAddOnReference
+    ) -> DidChallengeAddOnPayload:
         def to_dict(trial: Trial) -> TDict:
-            return TDict({
-                "trial": trial.to_dict(),
-                "res_one": referenece.res_one.to_dict(),
-                "res_other": referenece.res_other.to_dict(),
-                "res_one_props": referenece.res_one_props.get(),
-                "res_other_props": referenece.res_other_props.get(),
-            })
+            return TDict(
+                {
+                    "trial": trial.to_dict(),
+                    "res_one": referenece.res_one.to_dict(),
+                    "res_other": referenece.res_other.to_dict(),
+                    "res_one_props": referenece.res_one_props.get(),
+                    "res_other_props": referenece.res_other_props.get(),
+                }
+            )
 
         # TODO: remove TOption (owlmixin... find)
         conditions: TList[Condition] = self.config.conditions.filter(
@@ -54,18 +56,9 @@ class Executor(DidChallengeExecutor):
             logger.debug(f"{LOG_PREFIX} There are no matched conditions")
             return payload
 
-        tags: TList[str] = conditions.reduce(lambda t, x: t + [jinja2_format(x.tag, to_dict(payload.trial))], payload.trial.tags)
-        return DidChallengeAddOnPayload.from_dict({
-            "trial": Trial.from_dict({
-                "seq": payload.trial.seq,
-                "name": payload.trial.name,
-                "tags": tags,
-                "headers": payload.trial.headers,
-                "queries": payload.trial.queries,
-                "one": payload.trial.one,
-                "other": payload.trial.other,
-                "path": payload.trial.path,
-                "request_time": payload.trial.request_time,
-                "status": payload.trial.status,
-            })
-        })
+        tags: TList[str] = conditions.reduce(
+            lambda t, x: t + [jinja2_format(x.tag, to_dict(payload.trial))], payload.trial.tags
+        )
+        return DidChallengeAddOnPayload.from_dict(
+            {"trial": Trial.from_dict({**payload.trial.to_dict(), "tags": tags})}
+        )

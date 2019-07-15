@@ -334,6 +334,7 @@ class Trial(OwlMixin):
     queries: TDict[TList[str]]
     one: ResponseSummary
     other: ResponseSummary
+    method: HttpMethod
     path: str
     request_time: str
     status: Status
