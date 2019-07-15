@@ -7,8 +7,9 @@ from owlmixin.util import load_yaml
 from jumeaux.addons.reqs2reqs.filter import Executor
 from jumeaux.models import Reqs2ReqsAddOnPayload
 
-AND = ("And filter",
-       """
+AND = (
+    "And filter",
+    """
        and_or: and
        filters:
          - path:
@@ -18,19 +19,27 @@ AND = ("And filter",
              items:
                - regexp: .*OK.*
        """,
-       [
-           {"name": "It's OK", "path": "/ok", "headers": {}, "qs": {}},
-           {"name": "It's OK", "path": "/ng", "headers": {}, "qs": {}},
-           {"name": "It's NG", "path": "/ok", "headers": {}, "qs": {}},
-           {"name": "It's NG", "path": "/ng", "headers": {}, "qs": {}},
-       ],
-       [
-           {"name": "It's OK", "path": "/ok", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
-       ]
-       )
+    [
+        {"name": "It's OK", "method": "GET", "path": "/ok", "headers": {}, "qs": {}},
+        {"name": "It's OK", "method": "GET", "path": "/ng", "headers": {}, "qs": {}},
+        {"name": "It's NG", "method": "GET", "path": "/ok", "headers": {}, "qs": {}},
+        {"name": "It's NG", "method": "GET", "path": "/ng", "headers": {}, "qs": {}},
+    ],
+    [
+        {
+            "name": "It's OK",
+            "method": "GET",
+            "path": "/ok",
+            "headers": {},
+            "qs": {},
+            "url_encoding": "utf-8",
+        }
+    ],
+)
 
-OR = ("Or filter",
-      """
+OR = (
+    "Or filter",
+    """
       and_or: or
       filters:
         - path:
@@ -40,21 +49,43 @@ OR = ("Or filter",
             items:
               - regexp: .*OK.*
       """,
-      [
-          {"name": "It's OK", "path": "/ok", "headers": {}, "qs": {}},
-          {"name": "It's OK", "path": "/ng", "headers": {}, "qs": {}},
-          {"name": "It's NG", "path": "/ok", "headers": {}, "qs": {}},
-          {"name": "It's NG", "path": "/ng", "headers": {}, "qs": {}},
-      ],
-      [
-          {"name": "It's OK", "path": "/ok", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
-          {"name": "It's OK", "path": "/ng", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
-          {"name": "It's NG", "path": "/ok", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
-      ]
-      )
+    [
+        {"name": "It's OK", "method": "GET", "path": "/ok", "headers": {}, "qs": {}},
+        {"name": "It's OK", "method": "GET", "path": "/ng", "headers": {}, "qs": {}},
+        {"name": "It's NG", "method": "GET", "path": "/ok", "headers": {}, "qs": {}},
+        {"name": "It's NG", "method": "GET", "path": "/ng", "headers": {}, "qs": {}},
+    ],
+    [
+        {
+            "name": "It's OK",
+            "method": "GET",
+            "path": "/ok",
+            "headers": {},
+            "qs": {},
+            "url_encoding": "utf-8",
+        },
+        {
+            "name": "It's OK",
+            "method": "GET",
+            "path": "/ng",
+            "headers": {},
+            "qs": {},
+            "url_encoding": "utf-8",
+        },
+        {
+            "name": "It's NG",
+            "method": "GET",
+            "path": "/ok",
+            "headers": {},
+            "qs": {},
+            "url_encoding": "utf-8",
+        },
+    ],
+)
 
-NEGATIVE = ("Negative filter",
-            """
+NEGATIVE = (
+    "Negative filter",
+    """
             negative: true
             filters:
               - path:
@@ -64,32 +95,45 @@ NEGATIVE = ("Negative filter",
                   items:
                     - regexp: .*OK.*
             """,
-            [
-                {"name": "It's OK", "path": "/ok", "headers": {}, "qs": {}},
-                {"name": "It's OK", "path": "/ng", "headers": {}, "qs": {}},
-                {"name": "It's NG", "path": "/ok", "headers": {}, "qs": {}},
-                {"name": "It's NG", "path": "/ng", "headers": {}, "qs": {}},
-            ],
-            [
-                {"name": "It's OK", "path": "/ng", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
-                {"name": "It's NG", "path": "/ok", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
-                {"name": "It's NG", "path": "/ng", "headers": {}, "qs": {}, 'url_encoding': 'utf-8'},
-            ]
-            )
+    [
+        {"name": "It's OK", "method": "GET", "path": "/ok", "headers": {}, "qs": {}},
+        {"name": "It's OK", "method": "GET", "path": "/ng", "headers": {}, "qs": {}},
+        {"name": "It's NG", "method": "GET", "path": "/ok", "headers": {}, "qs": {}},
+        {"name": "It's NG", "method": "GET", "path": "/ng", "headers": {}, "qs": {}},
+    ],
+    [
+        {
+            "name": "It's OK",
+            "method": "GET",
+            "path": "/ng",
+            "headers": {},
+            "qs": {},
+            "url_encoding": "utf-8",
+        },
+        {
+            "name": "It's NG",
+            "method": "GET",
+            "path": "/ok",
+            "headers": {},
+            "qs": {},
+            "url_encoding": "utf-8",
+        },
+        {
+            "name": "It's NG",
+            "method": "GET",
+            "path": "/ng",
+            "headers": {},
+            "qs": {},
+            "url_encoding": "utf-8",
+        },
+    ],
+)
 
 
 class TestExec:
-    @pytest.mark.parametrize(
-        'title, config_yml, requests, expected_result', [
-            AND,
-            OR,
-            NEGATIVE
-        ]
-    )
+    @pytest.mark.parametrize("title, config_yml, requests, expected_result", [AND, OR, NEGATIVE])
     def test_filter(self, title, config_yml, requests, expected_result):
-        payload: Reqs2ReqsAddOnPayload = Reqs2ReqsAddOnPayload.from_dict({
-            'requests': requests,
-        })
+        payload: Reqs2ReqsAddOnPayload = Reqs2ReqsAddOnPayload.from_dict({"requests": requests})
 
         actual: Reqs2ReqsAddOnPayload = Executor(load_yaml(config_yml)).exec(payload, None)
 

@@ -25,6 +25,11 @@ class Status(OwlEnum):
     FAILURE = "failure"
 
 
+class HttpMethod(OwlEnum):
+    GET = "GET"
+    POST = "POST"
+
+
 class QueryCustomization(OwlMixin):
     overwrite: TOption[TDict[TList[str]]]
     remove: TOption[TList[str]]
@@ -46,7 +51,7 @@ class AccessPoint(OwlMixin):
 
 class OutputSummary(OwlMixin):
     response_dir: str
-    encoding: str = 'utf8'
+    encoding: str = "utf8"
     logger: TOption[any]
 
 
@@ -57,7 +62,7 @@ class Concurrency(OwlMixin):
 
 class Addon(OwlMixin):
     name: str
-    cls_name: str = 'Executor'
+    cls_name: str = "Executor"
     config: TOption[dict]
     include: TOption[str]
     tags: TOption[TList[str]]
@@ -79,13 +84,13 @@ class Addons(OwlMixin):
 class Notifier(OwlMixin):
     type: NotifierType
     channel: str
-    username: str = 'jumeaux'
+    username: str = "jumeaux"
     icon_emoji: TOption[str]
     icon_url: TOption[str]
 
     @property
     def logging_message(self) -> str:
-        return f'Send to {self.channel} by slack'
+        return f"Send to {self.channel} by slack"
 
 
 class Config(OwlMixin):
@@ -149,10 +154,11 @@ class Args(OwlMixin):
 # or {}
 class Request(OwlMixin):
     name: TOption[str]
+    method: HttpMethod = HttpMethod.GET
     path: str
     qs: TDict[TList[str]] = {}
     headers: TDict[str] = {}
-    url_encoding: str = 'utf-8'
+    url_encoding: str = "utf-8"
 
 
 class Proxy(OwlMixin):
@@ -160,11 +166,12 @@ class Proxy(OwlMixin):
     https: str
 
     @classmethod
-    def from_host(cls, host: TOption[str]) -> 'Proxy':
-        return Proxy.from_dict({
-            'http': f"http://{host.get()}",
-            'https': f"https://{host.get()}",
-        }) if not host.is_none() else None
+    def from_host(cls, host: TOption[str]) -> "Proxy":
+        return (
+            Proxy.from_dict({"http": f"http://{host.get()}", "https": f"https://{host.get()}"})
+            if not host.is_none()
+            else None
+        )
 
 
 class Response(OwlMixin):
@@ -180,7 +187,7 @@ class Response(OwlMixin):
     @property
     def text(self) -> str:
         # Refer https://github.com/requests/requests/blob/e4fc3539b43416f9e9ba6837d73b1b7392d4b242/requests/models.py#L831
-        return self.body.decode(self.encoding.get_or('utf8'), errors='replace')
+        return self.body.decode(self.encoding.get_or("utf8"), errors="replace")
 
     @property
     def byte(self) -> int:
@@ -188,15 +195,15 @@ class Response(OwlMixin):
 
     @property
     def content_type(self) -> TOption[str]:
-        return TOption(self.headers.get('content-type'))
+        return TOption(self.headers.get("content-type"))
 
     @property
     def mime_type(self) -> TOption[str]:
-        return self.content_type.map(lambda x: x.split(';')[0])
+        return self.content_type.map(lambda x: x.split(";")[0])
 
     @property
     def charset(self) -> TOption[str]:
-        return self.content_type.map(lambda x: x.split(';')[1] if x.split(';') > 1 else None)
+        return self.content_type.map(lambda x: x.split(";")[1] if x.split(";") > 1 else None)
 
     @property
     def ok(self) -> bool:
@@ -208,37 +215,42 @@ class Response(OwlMixin):
 
     @classmethod
     def _decide_encoding(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> str:
-        content_type = res.headers.get('content-type')
+        content_type = res.headers.get("content-type")
         # XXX: See 2.2 in https://tools.ietf.org/html/rfc2616#section-2.2
-        if res.encoding and not ('text' in content_type and res.encoding == 'ISO-8859-1'):
+        if res.encoding and not ("text" in content_type and res.encoding == "ISO-8859-1"):
             return res.encoding
         meta_encodings: List[str] = deprecated.get_encodings_from_content(res.content)
-        return meta_encodings[0] if meta_encodings else default_encoding.get() or res.apparent_encoding
+        return (
+            meta_encodings[0] if meta_encodings else default_encoding.get() or res.apparent_encoding
+        )
 
     @classmethod
     def _to_type(cls, res: Any) -> str:
-        content_type = res.headers.get('content-type')
+        content_type = res.headers.get("content-type")
         if not content_type:
-            return 'unknown'
-        return content_type.split(';')[0].split('/')[1]
+            return "unknown"
+        return content_type.split(";")[0].split("/")[1]
 
     @classmethod
-    def from_requests(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> 'Response':
+    def from_requests(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> "Response":
         encoding: str = cls._decide_encoding(res, default_encoding)
         type: str = cls._to_type(res)
-        return Response.from_dict({
-            'body': res.content,
-            'encoding': encoding,
-            'headers': res.headers,
-            'url': res.url,
-            'status_code': res.status_code,
-            'elapsed': res.elapsed,
-            'elapsed_sec': round(res.elapsed.seconds + res.elapsed.microseconds / 1000000, 2),
-            'type': type,
-        })
+        return Response.from_dict(
+            {
+                "body": res.content,
+                "encoding": encoding,
+                "headers": res.headers,
+                "url": res.url,
+                "status_code": res.status_code,
+                "elapsed": res.elapsed,
+                "elapsed_sec": round(res.elapsed.seconds + res.elapsed.microseconds / 1000000, 2),
+                "type": type,
+            }
+        )
 
 
 # --------
+
 
 class ChallengeArg(OwlMixin):
     seq: int
@@ -294,10 +306,8 @@ class DiffKeys(OwlMixin):
         return len(self.added) == len(self.changed) == len(self.removed) == 0
 
     @classmethod
-    def empty(cls) -> 'DiffKeys':
-        return DiffKeys.from_dict({
-            "added": [], "changed": [], "removed": []
-        })
+    def empty(cls) -> "DiffKeys":
+        return DiffKeys.from_dict({"added": [], "changed": [], "removed": []})
 
 
 class ResponseSummary(OwlMixin):
@@ -316,6 +326,7 @@ class ResponseSummary(OwlMixin):
 class Trial(OwlMixin):
     """ Affect `final/csv` config specifications,
     """
+
     seq: int
     name: str
     tags: TList[str]
@@ -333,6 +344,7 @@ class Trial(OwlMixin):
 class Report(OwlMixin):
     """ Affect `final/slack` config specifications,
     """
+
     version: str
     key: str
     title: str

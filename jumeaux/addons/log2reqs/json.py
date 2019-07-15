@@ -8,7 +8,7 @@ from jumeaux.models import Request, Log2ReqsAddOnPayload
 
 
 class Config(OwlMixin):
-    encoding: str = 'utf8'
+    encoding: str = "utf8"
 
 
 class Executor(Log2ReqsExecutor):

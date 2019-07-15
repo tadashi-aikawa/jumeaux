@@ -10,18 +10,18 @@ from jumeaux.models import Res2ResAddOnPayload, Response
 
 
 def make_response(type: str, status_code: int) -> Response:
-    return Response.from_dict({
-        "body": b'{"body": true}',
-        "type": type,
-        "encoding": "utf-8",
-        "headers": {
-            "content-type": "application/json"
-        },
-        "url": "http://test",
-        "status_code": status_code,
-        "elapsed": datetime.timedelta(seconds=1),
-        "elapsed_sec": 1.0,
-    })
+    return Response.from_dict(
+        {
+            "body": b'{"body": true}',
+            "type": type,
+            "encoding": "utf-8",
+            "headers": {"content-type": "application/json"},
+            "url": "http://test",
+            "status_code": status_code,
+            "elapsed": datetime.timedelta(seconds=1),
+            "elapsed_sec": 1.0,
+        }
+    )
 
 
 CHANGE_IF_CONDITION_RES_IS_FULFILLED = (
@@ -34,25 +34,18 @@ CHANGE_IF_CONDITION_RES_IS_FULFILLED = (
         when: res.status_code == 200
     """,
     {
-        'req': {
-            "path": "/path",
-            "qs": {},
-            "headers": {},
-            "url_encoding": "utf-8",
-        },
-        'response': {
+        "req": {"method": "GET", "path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+        "response": {
             "body": b'{"body": true}',
             "type": "expected_type",
             "encoding": "utf-8",
-            "headers": {
-                "content-type": "application/json"
-            },
+            "headers": {"content-type": "application/json"},
             "url": "http://test",
             "status_code": 200,
             "elapsed": datetime.timedelta(seconds=1),
             "elapsed_sec": 1.0,
-        }
-    }
+        },
+    },
 )
 
 
@@ -66,25 +59,18 @@ CHANGE_IF_CONDITION_REQ_IS_FULFILLED = (
         when: req.path == '/path'
     """,
     {
-        'req': {
-            "path": "/path",
-            "qs": {},
-            "headers": {},
-            "url_encoding": "utf-8",
-        },
-        'response': {
+        "req": {"method": "GET", "path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+        "response": {
             "body": b'{"body": true}',
             "type": "expected_type",
             "encoding": "utf-8",
-            "headers": {
-                "content-type": "application/json"
-            },
+            "headers": {"content-type": "application/json"},
             "url": "http://test",
             "status_code": 200,
             "elapsed": datetime.timedelta(seconds=1),
             "elapsed_sec": 1.0,
-        }
-    }
+        },
+    },
 )
 
 
@@ -98,25 +84,18 @@ CHANGE_ONLY_FIST_ONE_IF_CONDITION_IS_FULFILLED = (
         when: res.status_code == 200
     """,
     {
-        'req': {
-            "path": "/path",
-            "qs": {},
-            "headers": {},
-            "url_encoding": "utf-8",
-        },
-        'response': {
+        "req": {"method": "GET", "path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+        "response": {
             "body": b'{"body": true}',
             "type": "expected_type",
             "encoding": "utf-8",
-            "headers": {
-                "content-type": "application/json"
-            },
+            "headers": {"content-type": "application/json"},
             "url": "http://test",
             "status_code": 200,
             "elapsed": datetime.timedelta(seconds=1),
             "elapsed_sec": 1.0,
-        }
-    }
+        },
+    },
 )
 
 
@@ -128,46 +107,43 @@ NOT_CHANGE_IF_CONDITION_IS_NOT_FULFILLED = (
         when: res.status_code == 201
     """,
     {
-        'req': {
-            "path": "/path",
-            "qs": {},
-            "headers": {},
-            "url_encoding": "utf-8",
-        },
-        'response': {
+        "req": {"method": "GET", "path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+        "response": {
             "body": b'{"body": true}',
             "type": "json",
             "encoding": "utf-8",
-            "headers": {
-                "content-type": "application/json"
-            },
+            "headers": {"content-type": "application/json"},
             "url": "http://test",
             "status_code": 200,
             "elapsed": datetime.timedelta(seconds=1),
             "elapsed_sec": 1.0,
-        }
-    }
+        },
+    },
 )
 
 
 class TestExec:
     @pytest.mark.parametrize(
-        'title, config_yml, expected', [
+        "title, config_yml, expected",
+        [
             CHANGE_IF_CONDITION_RES_IS_FULFILLED,
             CHANGE_IF_CONDITION_REQ_IS_FULFILLED,
             CHANGE_ONLY_FIST_ONE_IF_CONDITION_IS_FULFILLED,
             NOT_CHANGE_IF_CONDITION_IS_NOT_FULFILLED,
-        ]
+        ],
     )
     def test_normal(self, title, config_yml, expected):
-        payload: Res2ResAddOnPayload = Res2ResAddOnPayload.from_dict({
-            'response': make_response("json", 200),
-            'req': {
-                "path": "/path",
-                "qs": {},
-                "headers": {},
-                "url_encoding": "utf-8",
+        payload: Res2ResAddOnPayload = Res2ResAddOnPayload.from_dict(
+            {
+                "response": make_response("json", 200),
+                "req": {
+                    "method": "GET",
+                    "path": "/path",
+                    "qs": {},
+                    "headers": {},
+                    "url_encoding": "utf-8",
+                },
             }
-        })
+        )
 
         assert expected == Executor(load_yaml(config_yml)).exec(payload).to_dict()
