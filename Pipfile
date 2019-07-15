@@ -4,38 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-pytest = "*"
-pytest-cov = "*"
-pymdown-extensions = "*"
-fontawesome-markdown = "*"
-twine = "*"
-wheel = "*"
-pipenv = "*"
-"flake8" = "*"
-python-language-server = "*"
-mkdocs = "*"
-mkdocs-material = "*"
-pylint = "*"
-# sphinx, twine vulnerables
-urllib3 = ">=1.24.2"
+"e1839a8" = {path = ".", extras = ["dev"], editable = true}
 
 [packages]
-requests = "*"
-docopt = "*"
-schema = "*"
-xmltodict = "*"
-fn = "*"
-"boto3" = "*"
-deepdiff = "==3.3.0"
-freezegun = "*"
-pydash = "*"
-requests-toolbelt = "*"
-"jinja2" = "*"
-"beautifulsoup4" = "*"
-lxml = "*"
-owlmixin = ">=4.0.3"
-livereload = "*"
-tzlocal = "*"
+"e1839a8" = {path = ".", editable = true}
 
 [requires]
 python_version = "3.6"
