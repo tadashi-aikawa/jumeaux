@@ -268,9 +268,13 @@ def create_query_string(
     return urlparser.urlencode(removed, doseq=True, encoding=encoding)
 
 
-def challenge(arg: ChallengeArg) -> dict:
-    """ Response is dict like `Trial` because Status(OwlEnum) can't be pickled.
+def challenge(arg_dict: dict) -> dict:
     """
+    [[[ WARNING !!!!! ]]]
+    `arg_dict` is dict like `ChallengeArg` because HttpMethod(OwlEnum) can't be pickled.
+    Return value is dict like `Trial` because Status(OwlEnum) can't be pickled.
+    """
+    arg = ChallengeArg.from_dict(arg_dict)
 
     name: str = arg.req.name.get_or(str(arg.seq))
     log_prefix = f"[{arg.seq} / {arg.number_of_request}]"
@@ -496,7 +500,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
     make_dir(f"{config.output.response_dir}/{key}/other-props")
 
     # Parse inputs to args of multi-thread executor.
-    ex_args = TList(reqs).emap(
+    ex_args = reqs.emap(
         lambda x, i: {
             "seq": i + 1,
             "number_of_request": len(reqs),
@@ -515,7 +519,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
             "default_response_encoding_other": config.other.default_response_encoding,
             "res_dir": config.output.response_dir,
         }
-    )
+    ).to_dicts()
 
     # Challenge
     title = config.title.get_or("No title")
@@ -539,9 +543,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
 
     start_time = now()
     with executor as ex:
-        trials = TList([r for r in ex.map(challenge, ChallengeArg.from_dicts(ex_args))]).map(
-            lambda x: Trial.from_dict(x)
-        )
+        trials = TList([r for r in ex.map(challenge, ex_args)]).map(lambda x: Trial.from_dict(x))
     end_time = now()
 
     latest = f"{config.output.response_dir}/latest"
