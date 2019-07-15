@@ -37,22 +37,24 @@ Options:
 """
 
 import datetime
-import hashlib
-import io
-import os
-import re
 import sys
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
 
-import requests
-from deepdiff import DeepDiff
+import hashlib
+import io
+import os
+import re
 from docopt import docopt
-from fn import _
 from owlmixin import TList, TOption, TDict
+from deepdiff import DeepDiff
+
+import requests
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
+
+from fn import _
 from tzlocal import get_localzone
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -543,7 +545,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
 
     start_time = now()
     with executor as ex:
-        trials = TList([r for r in ex.map(challenge, ex_args)]).map(lambda x: Trial.from_dict(x))
+        trials = TList([r for r in ex.map(challenge, ex_args)]).map(Trial.from_dict)
     end_time = now()
 
     latest = f"{config.output.response_dir}/latest"
