@@ -157,6 +157,8 @@ class Request(OwlMixin):
     method: HttpMethod = HttpMethod.GET
     path: str
     qs: TDict[TList[str]] = {}
+    form: TOption[dict]
+    json: TOption[dict]
     headers: TDict[str] = {}
     url_encoding: str = "utf-8"
 
@@ -332,6 +334,8 @@ class Trial(OwlMixin):
     tags: TList[str]
     headers: TDict[str]
     queries: TDict[TList[str]]
+    form: TOption[dict]
+    json: TOption[dict]
     one: ResponseSummary
     other: ResponseSummary
     method: HttpMethod

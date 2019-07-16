@@ -93,6 +93,7 @@ from jumeaux.models import (
     DictOrList,
     QueryCustomization,
     FinalAddOnReference,
+    HttpMethod,
 )
 from jumeaux.logger import Logger, init_logger
 
@@ -147,17 +148,53 @@ def http_get(args: Tuple[Any, str, TDict[str], TOption[Proxy]]):
     return r
 
 
+def http_post(args: Tuple[Any, str, TOption[dict], TOption[dict], TDict[str], TOption[Proxy]]):
+    session, url, form, json_, headers, proxies = args
+    try:
+        r = session.post(
+            url,
+            data=form.get(),
+            json=json_.get(),
+            headers=headers.assign({"User-Agent": f"jumeaux/{__version__}"}),
+            proxies=proxies.map(lambda x: x.to_dict()).get_or({}),
+        )
+    finally:
+        session.close()
+    return r
+
+
 def concurrent_request(
     session,
+    *,
     headers: TDict[str],
-    url_one,
-    url_other,
+    method: HttpMethod,
+    form: TOption[dict],
+    json_: TOption[dict],
+    url_one: str,
+    url_other: str,
     proxies_one: TOption[Proxy],
     proxies_other: TOption[Proxy],
 ):
-    fs = ((session, url_one, headers, proxies_one), (session, url_other, headers, proxies_other))
     with futures.ThreadPoolExecutor(max_workers=2) as ex:
-        res_one, res_other = ex.map(http_get, fs)
+        if method is HttpMethod.GET:
+            res_one, res_other = ex.map(
+                http_get,
+                (
+                    (session, url_one, headers, proxies_one),
+                    (session, url_other, headers, proxies_other),
+                ),
+            )
+        elif method is HttpMethod.POST:
+            res_one, res_other = ex.map(
+                http_post,
+                (
+                    (session, url_one, form, json_, headers, proxies_one),
+                    (session, url_other, form, json_, headers, proxies_other),
+                ),
+            )
+        else:
+            # Unreachable
+            raise RuntimeError
 
     return res_one, res_other
 
@@ -276,7 +313,7 @@ def challenge(arg_dict: dict) -> dict:
     `arg_dict` is dict like `ChallengeArg` because HttpMethod(OwlEnum) can't be pickled.
     Return value is dict like `Trial` because Status(OwlEnum) can't be pickled.
     """
-    arg = ChallengeArg.from_dict(arg_dict)
+    arg: ChallengeArg = ChallengeArg.from_dict(arg_dict)
 
     name: str = arg.req.name.get_or(str(arg.seq))
     log_prefix = f"[{arg.seq} / {arg.number_of_request}]"
@@ -301,13 +338,31 @@ def challenge(arg_dict: dict) -> dict:
     try:
         logger.info_lv3(f"{log_prefix} One   URL:   {url_one}")
         logger.debug(f"{log_prefix} One   PROXY: {arg.proxy_one.map(lambda x: x.to_dict()).get()}")
+
         logger.info_lv3(f"{log_prefix} Other URL:   {url_other}")
         logger.debug(
             f"{log_prefix} Other PROXY: {arg.proxy_other.map(lambda x: x.to_dict()).get()}"
         )
+
+        if arg.req.headers:
+            logger.info_lv3(f"{log_prefix} Additional headers:   {arg.req.headers}")
+        if arg.req.form.any():
+            logger.info_lv3(f"{log_prefix} form:   {arg.req.form.get()}")
+        if arg.req.json.any():
+            logger.info_lv3(f"{log_prefix} json:   {arg.req.json.get()}")
+
         r_one, r_other = concurrent_request(
-            arg.session, arg.req.headers, url_one, url_other, arg.proxy_one, arg.proxy_other
+            arg.session,
+            headers=arg.req.headers,
+            method=arg.req.method,
+            form=arg.req.form,
+            json_=arg.req.json,
+            url_one=url_one,
+            url_other=url_other,
+            proxies_one=arg.proxy_one,
+            proxies_other=arg.proxy_other,
         )
+
         logger.info_lv3(
             f"{log_prefix} One:   {r_one.status_code} / {to_sec(r_one.elapsed)}s / {len(r_one.content)}b / {r_one.headers.get('content-type')}"  # noqa
         )
@@ -327,6 +382,8 @@ def challenge(arg_dict: dict) -> dict:
                 "method": arg.req.method,
                 "path": arg.req.path,
                 "queries": arg.req.qs,
+                "form": arg.req.form,
+                "json": arg.req.json,
                 "headers": arg.req.headers,
                 "one": {"url": url_one, "type": "unknown"},
                 "other": {"url": url_other, "type": "unknown"},
@@ -393,7 +450,7 @@ def challenge(arg_dict: dict) -> dict:
         initial_diffs_by_cognition,
     )
     status_symbol = "O" if status == Status.SAME else "X"
-    log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{res_one.elapsed_sec}s - {res_other.elapsed_sec}s> {arg.req.name.get_or(arg.req.path)}"  # noqa
+    log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{res_one.elapsed_sec}s - {res_other.elapsed_sec}s> {{{arg.req.method}}} {arg.req.name.get_or(arg.req.path)}"  # noqa
     (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
 
     file_one: Optional[str] = None
@@ -434,6 +491,8 @@ def challenge(arg_dict: dict) -> dict:
                         "method": arg.req.method,
                         "path": arg.req.path,
                         "queries": arg.req.qs,
+                        "form": arg.req.form,
+                        "json": arg.req.json,
                         "headers": arg.req.headers,
                         "diffs_by_cognition": diffs_by_cognition,
                         "one": {
@@ -646,9 +705,17 @@ def main():
         report: Report = Report.from_jsonf(args.report.get(), force_cast=True)
         config: Config = merge_args2config(args, create_config_from_report(report))
         global_addon_executor = AddOnExecutor(config.addons)
-        origin_logs: TList[Request] = report.trials.map(
+        origin_reqs: TList[Request] = report.trials.map(
             lambda x: Request.from_dict(
-                {"path": x.path, "qs": x.queries, "headers": x.headers, "name": x.name}
+                {
+                    "path": x.path,
+                    "qs": x.queries,
+                    "headers": x.headers,
+                    "name": x.name,
+                    "method": x.method,
+                    "form": x.form,
+                    "json": x.json,
+                }
             )
         )
         retry_hash: Optional[str] = report.key
@@ -657,7 +724,7 @@ def main():
             args, create_config(args.config.get() or TList(["config.yml"]), args.skip_addon_tag)
         )
         global_addon_executor = AddOnExecutor(config.addons)
-        origin_logs: TList[Request] = config.input_files.get().flat_map(
+        origin_reqs: TList[Request] = config.input_files.get().flat_map(
             lambda f: global_addon_executor.apply_log2reqs(
                 Log2ReqsAddOnPayload.from_dict({"file": f})
             )
@@ -682,14 +749,14 @@ def main():
     logger.info_lv2(config.to_yaml())
 
     # Requests
-    logs: TList[Request] = global_addon_executor.apply_reqs2reqs(
-        Reqs2ReqsAddOnPayload.from_dict({"requests": origin_logs}), config
+    reqs: TList[Request] = global_addon_executor.apply_reqs2reqs(
+        Reqs2ReqsAddOnPayload.from_dict({"requests": origin_reqs}), config
     ).requests
 
     global_addon_executor.apply_final(
         FinalAddOnPayload.from_dict(
             {
-                "report": exec(config, logs, hash_from_args(args), retry_hash),
+                "report": exec(config, reqs, hash_from_args(args), retry_hash),
                 "output_summary": config.output,
             }
         ),
