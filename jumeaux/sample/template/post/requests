@@ -1,0 +1,18 @@
+- name: Post x-www-form-urlencoded diff
+  method: POST
+  path: /same-1.json
+  qs:
+    param1: ["q1-1"]
+    param2: ["q1-2"]
+  form:
+    formparam:
+      - p11
+      - p12
+
+- name: Post json diff
+  method: POST
+  path: /diff-1.json
+  qs:
+    param1: ["q2-1"]
+    param2: ["q2-2"]
+  json: {"id": 1, "name": "Ichiro"}
