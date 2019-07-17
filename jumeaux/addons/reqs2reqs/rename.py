@@ -23,30 +23,26 @@ class Config(OwlMixin):
 
 
 def apply_first_condition(request: Request, conditions: TList[Condition]) -> Request:
-    condition: TOption[Condition] = conditions.find(lambda c: when_optional_filter(c.when, request.to_dict()))
+    condition: TOption[Condition] = conditions.find(
+        lambda c: when_optional_filter(c.when, request.to_dict())
+    )
     if condition.is_none():
         return request
 
-    name: TOption[str] = jinja2_format(condition.get().name, request.to_dict()) \
-        if when_optional_filter(condition.get().when, request.to_dict()) \
-        else request.name
+    name: TOption[str] = jinja2_format(
+        condition.get().name, request.to_dict()
+    ) if when_optional_filter(condition.get().when, request.to_dict()) else request.name
 
-    return Request.from_dict({
-        'name': name,
-        'path': request.path,
-        'qs': request.qs,
-        'headers': request.headers,
-    })
+    return Request.from_dict({**request.to_dict(), "name": name})
 
 
 class Executor(Reqs2ReqsExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
 
-        errors: TList[str] = self.config.conditions\
-            .reject(lambda x: x.when.is_none())\
-            .map(lambda x: get_jinja2_format_error(x.when.get()).get())\
-            .filter(lambda x: x is not None)
+        errors: TList[str] = self.config.conditions.reject(lambda x: x.when.is_none()).map(
+            lambda x: get_jinja2_format_error(x.when.get()).get()
+        ).filter(lambda x: x is not None)
         if errors:
             logger.error(f"{LOG_PREFIX} Illegal format in `conditions[*].when`.")
             logger.error(f"{LOG_PREFIX} Please check your configuration yaml files.")
@@ -55,6 +51,10 @@ class Executor(Reqs2ReqsExecutor):
             logger.error(f"{LOG_PREFIX} ---------------------", exit=True)
 
     def exec(self, payload: Reqs2ReqsAddOnPayload, config: JumeauxConfig) -> Reqs2ReqsAddOnPayload:
-        return Reqs2ReqsAddOnPayload.from_dict({
-            'requests': payload.requests.map(lambda r: apply_first_condition(r, self.config.conditions))
-        })
+        return Reqs2ReqsAddOnPayload.from_dict(
+            {
+                "requests": payload.requests.map(
+                    lambda r: apply_first_condition(r, self.config.conditions)
+                )
+            }
+        )

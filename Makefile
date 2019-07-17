@@ -24,6 +24,9 @@ serve-docs: ## Build and serve documentation
 	@pipenv run mkdocs serve -a 0.0.0.0:8000
 	@echo End $@
 
+clear: ## Remove responses, requests, api and config.yml
+	@rm -rf responses requests api config.yml
+
 _clean-package-docs: ## Clean package documentation
 	@rm -rf docs/*
 
