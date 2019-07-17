@@ -42,10 +42,10 @@ addons:
                   - path: root<'members'><\d+><'favorite'>.*
 
   store_criterion:
-    - name: general
+    - name: free
       config:
-        statuses:
-          - different
+        when_any:
+          - status == 'different'
 
   dump:
     - name: json
