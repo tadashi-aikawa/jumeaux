@@ -249,6 +249,8 @@ class TestChallenge:
                     "path": "/challenge",
                     "qs": {"q1": ["1"], "q2": ["2-1", "2-2"]},
                     "headers": {"header1": "1", "header2": "2"},
+                    "form": {"form": "dummy"},
+                    "json": {"json": "dummy"},
                 },
                 "host_one": "hoge_one",
                 "host_other": "hoge_other",
@@ -269,6 +271,8 @@ class TestChallenge:
             "path": "/challenge",
             "queries": {"q1": ["1"], "q2": ["2-1", "2-2"]},
             "headers": {"header1": "1", "header2": "2"},
+            "form": {"form": "dummy"},
+            "json": {"json": "dummy"},
             "one": {
                 "url": "URL_ONE",
                 "type": "plain",

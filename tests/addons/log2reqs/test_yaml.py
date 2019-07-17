@@ -24,6 +24,8 @@ class TestFromFormat:
       - "1"
 - path: "/test3"
   method: "POST"
+  form:
+    form_key: [1, 2]
   qs:
     q1:
       - "1"
@@ -31,6 +33,8 @@ class TestFromFormat:
       - "2-1"
       - "2-2"
 - path: "/test4"
+  method: "POST"
+  json: {"root": {"id": 100}}
   headers:
     key1: "header1"
     key2: "header2"
@@ -63,13 +67,15 @@ class TestFromFormat:
             {
                 "method": "POST",
                 "path": "/test3",
+                "form": {"form_key": [1, 2]},
                 "qs": {"q1": ["1"], "q2": ["2-1", "2-2"]},
                 "headers": {},
                 "url_encoding": "utf-8",
             },
             {
-                "method": "GET",
+                "method": "POST",
                 "path": "/test4",
+                "json": {"root": {"id": 100}},
                 "qs": {},
                 "headers": {"key1": "header1", "key2": "header2"},
                 "url_encoding": "utf-8",
