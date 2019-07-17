@@ -170,11 +170,11 @@ Report
           {
             "cls_name": "Executor",
             "config": {
-              "statuses": [
-                "different"
+              "when_any": [
+                "status == 'different'"
               ]
             },
-            "name": "general"
+            "name": "free"
           }
         ]
       },

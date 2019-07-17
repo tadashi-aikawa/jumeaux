@@ -6,53 +6,6 @@ store_criterion [:fa-github:][s1]
 APIレスポンスを保存する基準を決定します。
 
 
-[:fa-github:][general] general
-------------------------------
-
-[general]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/store_criterion/general.py
-
-レスポンスの保存基準を決める標準アドオンです。
-
-
-### Config
-
-#### Definitions
-
-|   Key    |   Type                    |                       Description      |    Example    | Default |
-| -------- | ------------------------- | -------------------------------------- |-------------- | ------- |
-| statuses | Status[] :fa-info-circle: | レスポンスを保存するステータスのリスト | `[different]` |         |
-
-??? info "Status"
-
-    --8<--
-    ja/constants/status.md
-    --8<--
-
-#### Examples
-
-##### 差分のあるレスポンスだけを保存する
-
-```yml
-  store_criterion:
-    - name: general
-      config:
-        statuses:
-          - different
-```
-
-##### 成功したリクエスト結果だけを保存する
-
-```yml
-  store_criterion:
-    - name: general
-      config:
-        statuses:
-          - same
-          - different
-```
-
-
-
 [:fa-github:][free] free
 ------------------------
 
@@ -96,9 +49,9 @@ APIレスポンスを保存する基準を決定します。
   store_criterion:
     - name: free
       config:
-      when_any:
-        - req.path == '/test'
-        - status == 'same'
+        when_any:
+          - req.path == '/test'
+          - status == 'same'
 ```
 
 [Template表記]: ../../template

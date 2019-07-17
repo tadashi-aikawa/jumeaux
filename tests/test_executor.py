@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
+# pylint: disable=no-self-use,duplicate-code
 
 import datetime
 import os
@@ -746,8 +747,8 @@ class TestExec:
                     "log2reqs": {"name": "addons.log2reqs.csv", "config": {"encoding": "utf8"}},
                     "store_criterion": [
                         {
-                            "name": "addons.store_criterion.general",
-                            "config": {"statuses": ["different"]},
+                            "name": "addons.store_criterion.free",
+                            "config": {"when_any": ["status == 'different'"]},
                         }
                     ],
                 },
@@ -774,9 +775,9 @@ class TestExec:
                 "judgement": [],
                 "store_criterion": [
                     {
-                        "name": "addons.store_criterion.general",
+                        "name": "addons.store_criterion.free",
                         "cls_name": "Executor",
-                        "config": {"statuses": ["different"]},
+                        "config": {"when_any": ["status == 'different'"]},
                     }
                 ],
                 "dump": [],

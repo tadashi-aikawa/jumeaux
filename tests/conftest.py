@@ -7,8 +7,8 @@ from typing import Iterator, Callable
 @pytest.fixture
 def create_tmpfile_from(tmpdir) -> Callable[[str], str]:
     def func(content: str) -> str:
-        tmpfile = tmpdir.join('tmpfile')
-        with tmpfile.open('w') as f:
+        tmpfile = tmpdir.join("tmpfile")
+        with tmpfile.open("w") as f:
             f.write(content)
         return str(tmpfile)
 
@@ -17,10 +17,11 @@ def create_tmpfile_from(tmpdir) -> Callable[[str], str]:
 
 @pytest.fixture
 def config_minimum(tmpdir) -> Iterator[str]:
-    tmpfile = tmpdir.join('config_minimum.yml')
+    tmpfile = tmpdir.join("config_minimum.yml")
 
-    with tmpfile.open('w') as f:
-        f.write(f'''
+    with tmpfile.open("w") as f:
+        f.write(
+            f"""
 one:
   name: name_one
   host: http://host/one
@@ -37,21 +38,23 @@ addons:
     config:
       encoding: utf8
   store_criterion:
-    - name: addons.store_criterion.general
+    - name: addons.store_criterion.free
       config:
-        statuses:
-          - different
-        ''')
+        when_any:
+          - status == 'different'
+        """
+        )
 
     yield str(tmpfile)
 
 
 @pytest.fixture
 def config_with_tags(tmpdir) -> Iterator[str]:
-    tmpfile = tmpdir.join('config_with_tags.yml')
+    tmpfile = tmpdir.join("config_with_tags.yml")
 
-    with tmpfile.open('w') as f:
-        f.write(f'''
+    with tmpfile.open("w") as f:
+        f.write(
+            f"""
 one:
   name: name_one
   host: http://host/one
@@ -84,12 +87,13 @@ addons:
       config:
         size: 4
   store_criterion:
-    - name: addons.store_criterion.general
+    - name: addons.store_criterion.free
       tags: ['skip2']
       config:
-        statuses:
-          - different
-        ''')
+        when_any:
+          - status == 'different'
+        """
+        )
 
     yield str(tmpfile)
 
@@ -98,10 +102,11 @@ addons:
 
 @pytest.fixture
 def config_without_access_points(tmpdir) -> Iterator[str]:
-    tmpfile = tmpdir.join('config_without_access_points.yml')
+    tmpfile = tmpdir.join("config_without_access_points.yml")
 
-    with tmpfile.open('w') as f:
-        f.write(f'''
+    with tmpfile.open("w") as f:
+        f.write(
+            f"""
 threads: 3
 max_retries: 2
 output:
@@ -112,7 +117,8 @@ addons:
     name: addons.log2reqs.csv
     config:
       encoding: utf8
-        ''')
+        """
+        )
 
     yield str(tmpfile)
 
@@ -121,10 +127,11 @@ addons:
 
 @pytest.fixture
 def config_only_access_points(tmpdir) -> Iterator[str]:
-    tmpfile = tmpdir.join('config_only_access_points.yml')
+    tmpfile = tmpdir.join("config_only_access_points.yml")
 
-    with tmpfile.open('w') as f:
-        f.write(f'''
+    with tmpfile.open("w") as f:
+        f.write(
+            f"""
 one:
   name: name_one
   host: http://host/one
@@ -132,7 +139,8 @@ one:
 other:
   name: name_other
   host: http://host/other
-        ''')
+        """
+        )
 
     yield str(tmpfile)
 
@@ -141,10 +149,11 @@ other:
 
 @pytest.fixture
 def config_mergecase_1(tmpdir) -> Iterator[str]:
-    tmpfile = tmpdir.join('config_mergecase_1.yml')
+    tmpfile = tmpdir.join("config_mergecase_1.yml")
 
-    with tmpfile.open('w') as f:
-        f.write(f'''
+    with tmpfile.open("w") as f:
+        f.write(
+            f"""
 output:
   encoding: utf8
   response_dir: mergecase1
@@ -157,7 +166,8 @@ addons:
     - name: addons.reqs2reqs.head
       config:
         size: 5
-        ''')
+        """
+        )
 
     yield str(tmpfile)
 
@@ -166,10 +176,11 @@ addons:
 
 @pytest.fixture
 def config_mergecase_2(tmpdir) -> Iterator[str]:
-    tmpfile = tmpdir.join('config_mergecase_2.yml')
+    tmpfile = tmpdir.join("config_mergecase_2.yml")
 
-    with tmpfile.open('w') as f:
-        f.write(f'''
+    with tmpfile.open("w") as f:
+        f.write(
+            f"""
 title: mergecase_2
 output:
   encoding: utf8
@@ -177,7 +188,8 @@ output:
 addons:
   reqs2reqs:
     - name: addons.reqs2reqs.random
-        ''')
+        """
+        )
 
     yield str(tmpfile)
 
@@ -186,10 +198,11 @@ addons:
 
 @pytest.fixture
 def config_mergecase_with_tags(tmpdir) -> Iterator[str]:
-    tmpfile = tmpdir.join('config_mergecase_with_tags.yml')
+    tmpfile = tmpdir.join("config_mergecase_with_tags.yml")
 
-    with tmpfile.open('w') as f:
-        f.write(f'''
+    with tmpfile.open("w") as f:
+        f.write(
+            f"""
 title: mergecase_with_tags
 output:
   encoding: utf8
@@ -204,7 +217,8 @@ addons:
       tags: ['no-skip']
       config:
         size: 2
-        ''')
+        """
+        )
 
     yield str(tmpfile)
 
@@ -213,10 +227,11 @@ addons:
 
 @pytest.fixture
 def config_includecase_1(tmpdir) -> Iterator[str]:
-    tmpfile = tmpdir.join('config_includecase_1.yml')
+    tmpfile = tmpdir.join("config_includecase_1.yml")
 
-    with tmpfile.open('w') as f:
-        f.write(f'''
+    with tmpfile.open("w") as f:
+        f.write(
+            f"""
 title: includecase_1
 output:
   encoding: utf8
@@ -231,15 +246,18 @@ addons:
     - name: addons.reqs2reqs.head
       config:
         size: 5
-        ''')
+        """
+        )
 
-    tmpfile2 = tmpdir.join('config_head.yml')
-    with tmpfile2.open('w') as f:
-        f.write(f'''
+    tmpfile2 = tmpdir.join("config_head.yml")
+    with tmpfile2.open("w") as f:
+        f.write(
+            f"""
     name: addons.reqs2reqs.head
     config:
       size: 999
-            ''')
+            """
+        )
 
     yield str(tmpfile)
 
