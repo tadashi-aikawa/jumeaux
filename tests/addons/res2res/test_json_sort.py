@@ -51,10 +51,7 @@ class TestExec:
                 "dict -> list(str) (string sorting)",
                 """
                 items:
-                  - conditions:
-                      - path:
-                          items:
-                            - regexp: /filter
+                  - when: path == '/filter'
                     targets:
                       - path: root<'dict1'><'list1-1'>
                 """,
@@ -84,10 +81,7 @@ class TestExec:
                 "list(str) (string sorting)",
                 """
                 items:
-                  - conditions:
-                      - path:
-                          items:
-                            - regexp: /filter
+                  - when: path == '/filter'
                     targets:
                       - path: root<'list1'>
                 """,
@@ -117,10 +111,7 @@ class TestExec:
                 "list(dict) (dict sorting with specified keys)",
                 """
                 items:
-                  - conditions:
-                      - path:
-                          items:
-                            - regexp: /filter
+                  - when: path == '/filter'
                     targets:
                       - path: root<'list2'>
                         sort_keys: [id, name]
@@ -151,10 +142,7 @@ class TestExec:
                 "list -> dict -> list(str) (string sorting)",
                 r"""
                 items:
-                  - conditions:
-                      - path:
-                          items:
-                            - regexp: /filter
+                  - when: path == '/filter'
                     targets:
                       - path: root<'list3'><\d+><'list3-2'>
                 """,
@@ -184,10 +172,7 @@ class TestExec:
                 "list -> * (dict sorting without keys)",
                 """
                 items:
-                  - conditions:
-                      - path:
-                          items:
-                            - regexp: /filter
+                  - when: path == '/filter'
                     targets:
                       - path: root<'list4'>
                 """,
@@ -252,10 +237,7 @@ class TestExec:
                 "utf-8",
                 """
                 items:
-                  - conditions:
-                      - path:
-                          items:
-                            - regexp: /filter
+                  - when: path == '/filter'
                     targets:
                       - path: root<'name'>
                 """,
@@ -267,10 +249,7 @@ class TestExec:
                 "sjis",
                 """
                 items:
-                  - conditions:
-                      - path:
-                          items:
-                            - regexp: /filter
+                  - when: path == '/filter'
                     targets:
                       - path: root<'name'>
                 """,

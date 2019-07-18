@@ -60,20 +60,11 @@ class TestRequestCondition:
         config = load_yaml(
             """
 items:
-  - conditions:
-      - path:
-          items:
-            - regexp: /api
-      - name:
-          items:
-            - regexp: hoge
+  - when: path == '/api' and name == 'hoge'
     queries:
       q1: ['v99']
       q2: ['v999']
-  - conditions:
-      - path:
-          items:
-            - regexp: /hogehoge
+  - when: path == '/hogehoge'
     queries:
       q1: ['v77']
       q3: ['v777']
@@ -120,7 +111,7 @@ items:
     )
     @freezegun.freeze_time("2000-01-01 09:00:00")
     def test_datetime(self, q1, reqs, expected):
-        config = {"items": [{"conditions": [], "queries": {"q1": q1}}]}
+        config = {"items": [{"queries": {"q1": q1}}]}
 
         payload: Reqs2ReqsAddOnPayload = Reqs2ReqsAddOnPayload.from_dict({"requests": reqs})
 

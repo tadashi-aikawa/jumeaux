@@ -10,15 +10,8 @@ from jumeaux.models import Reqs2ReqsAddOnPayload
 AND = (
     "And filter",
     """
-       and_or: and
-       filters:
-         - path:
-             items:
-               - regexp: .*ok.*
-         - name:
-             items:
-               - regexp: .*OK.*
-       """,
+    when: ('ok' in path) and ('OK' in name)
+    """,
     [
         {"name": "It's OK", "method": "GET", "path": "/ok", "headers": {}, "qs": {}},
         {"name": "It's OK", "method": "GET", "path": "/ng", "headers": {}, "qs": {}},
@@ -40,15 +33,8 @@ AND = (
 OR = (
     "Or filter",
     """
-      and_or: or
-      filters:
-        - path:
-            items:
-              - regexp: .*ok.*
-        - name:
-            items:
-              - regexp: .*OK.*
-      """,
+    when: ('ok' in path) or ('OK' in name)
+    """,
     [
         {"name": "It's OK", "method": "GET", "path": "/ok", "headers": {}, "qs": {}},
         {"name": "It's OK", "method": "GET", "path": "/ng", "headers": {}, "qs": {}},
@@ -86,15 +72,8 @@ OR = (
 NEGATIVE = (
     "Negative filter",
     """
-            negative: true
-            filters:
-              - path:
-                  items:
-                    - regexp: .*ok.*
-              - name:
-                  items:
-                    - regexp: .*OK.*
-            """,
+    when: not (('ok' in path) and ('OK' in name))
+    """,
     [
         {"name": "It's OK", "method": "GET", "path": "/ok", "headers": {}, "qs": {}},
         {"name": "It's OK", "method": "GET", "path": "/ng", "headers": {}, "qs": {}},
