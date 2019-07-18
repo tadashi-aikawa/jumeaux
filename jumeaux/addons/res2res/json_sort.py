@@ -5,11 +5,10 @@ from typing import Any
 
 from owlmixin import OwlMixin, TList, TOption
 
-from jumeaux.addons.conditions import RequestCondition, AndOr
 from jumeaux.addons.res2res import Res2ResExecutor
-from jumeaux.addons.utils import exact_match
+from jumeaux.addons.utils import exact_match, when_filter
 from jumeaux.logger import Logger
-from jumeaux.models import Res2ResAddOnPayload, Response, Request
+from jumeaux.models import Res2ResAddOnPayload, Response
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[res2res/json_sort]"
@@ -21,14 +20,8 @@ class Target(OwlMixin):
 
 
 class Sorter(OwlMixin):
-    conditions: TList[RequestCondition]
-    # pylint: disable=no-member
-    and_or: AndOr = "and"  # Prevent for enum problem
-    negative: bool = False
+    when: str
     targets: TList[Target]
-
-    def fulfill(self, req: Request) -> bool:
-        return self.negative ^ (self.and_or.check(self.conditions.map(lambda x: x.fulfill(req))))
 
 
 class Config(OwlMixin):
@@ -80,7 +73,7 @@ class Executor(Res2ResExecutor):
                 lambda t, s: (
                     _dict_sort(t, s.targets) if isinstance(t, dict) else _list_sort(t, s.targets)
                 )
-                if s.fulfill(payload.req)
+                if when_filter(s.when, payload.req.to_dict())
                 else t,
                 res_json,
             ),

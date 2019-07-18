@@ -22,10 +22,7 @@ addons:
     - name: json_sort
       config:
         items:
-          - conditions:
-              - path:
-                  items:
-                    - regexp: /M-.+
+          - when: path|reg('/M-.+')
             targets:
               - path: root<'list1'><0><'favorite'>
 
