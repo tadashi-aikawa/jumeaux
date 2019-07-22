@@ -3,7 +3,7 @@ log2reqs [:fa-github:][s1]
 
 [s1]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs
 
-任意のFormatで記載されたリクエストを、Jumeaux内部で使用する形式(Request型)に変換します。
+任意のFormatで記載されたリクエストを、Jumeaux内部で使用する形式([Request])に変換します。
 
 
 [:fa-github:][s2] plain
@@ -25,7 +25,8 @@ log2reqs [:fa-github:][s1]
 
 !!! warning
 
-    pathとquery以外のパラメータは設定できません
+    * pathとquery以外のパラメータは設定できません
+    * GET以外のHTTPメソッドは使えません
 
 
 ### Config
@@ -88,25 +89,38 @@ CSV入力形式に対応しています。
 
 #### Definitions
 
-| Col |   Type   | Description |       Example       |
-| --- | -------- | ----------- | ------------------- |
-| 1   | (string) | 名前        | ex1                 |
-| 2   | string   | path        | /api                |
-| 3   | (string) | query       | a=1&b=2             |
-| 4   | (string) | header      | header1=1&header2=2 |
+| Col |            Type             | Description  |       Example       |
+| --- | --------------------------- | ------------ | ------------------- |
+| 1   | (string)                    | 名前         | ex1                 |
+| 2   | HttpMethod :fa-info-circle: | HTTPメソッド | POST                |
+| 3   | string                      | path         | /api                |
+| 4   | (string)                    | query        | a=1&b=2             |
+| 5   | (string)                    | header       | header1=1&header2=2 |
+
+??? info "HttpMethod"
+
+    --8<--
+    ja/constants/http_method.md
+    --8<--
+
 
 #### Examples
 
 ```csv
-"title1","/path1","a=1&b=2","header1=1&header2=2"
-"title2","/path2","c=1"
-"title3","/path3",,"header1=1&header2=2"
-"title4","/path4"
+"title1","GET","/path1","a=1&b=2","header1=1&header2=2"
+"title2","GET","/path2","c=1"
+"title3","GET","/path3",,"header1=1&header2=2"
+"title4","GET","/path4"
 ```
 
 !!! info
 
     後方のカラムは省略することができます
+
+!!! warning
+
+    * POSTのBodyを指定することはできません
+    * 将来的に後方カラムの省略不可にして、POSTのBodyを指定可能にするかもしれません
 
 
 ### Config
@@ -159,12 +173,7 @@ JSON入力形式に対応しています。
 
 #### Definitions
 
-|   Key   |     Type     | Description |            Example             | Default |
-| ------- | ------------ | ----------- | ------------------------------ | ------- |
-| name    | (string)     | 名前        | title                          |         |
-| path    | string       | path        | /api                           |         |
-| qs      | (dict[list]) | query       | `{"a": [1], "b": [2, 3]}`      |         |
-| headers | (dict)       | header      | `{"header1": 1, "header2": 2}` |         |
+[Request]で定義されたものをjson形式で指定できます。
 
 
 #### Examples
@@ -172,19 +181,32 @@ JSON入力形式に対応しています。
 ```json
 [
     {
-        "name": "title1",
-        "path": "/api1",
+        "path": "/users"
+    },
+    {
+        "path": "/users",
+        "method": "GET",
         "qs": {
-            "a": [1],
-            "b": [2, 3]
-        },
-        "header": {
-            "header1": 1,
-            "header2": 2
+            "id": ["147"]
         }
     },
     {
-        "path": "/api2"
+        "path": "/users",
+        "method": "POST",
+        "form": {"ids":["100", "200"]},
+        "qs": {
+            "name": ["auto"],
+            "options": ["man", "japanese"]
+        }
+    },
+    {
+        "path": "/users",
+        "method": "POST",
+        "json": {"users": [{"id": "100", "name": "hyaku"}, {"id": "200", "name": "nihyaku"}]},
+        "headers": {
+            "auth-id": "xxxxxxxx",
+            "device": "ios"
+        }
     }
 ]
 ```
@@ -230,26 +252,36 @@ YAML入力形式に対応しています。
 
 #### Definitions
 
-|   Key   |       Type       | Description |               Example               | Default |
-| ------- | ---------------- | ----------- | ----------------------------------- | ------- |
-| name    | (string)         | 名前        | title                               |         |
-| path    | string           | path        | /api                                |         |
-| qs      | (dict[string[]]) | query       | <pre>a: [1]<br>b: [2]</pre>         |         |
-| headers | (dict[string])   | header      | <pre>header1: 1<br>header2: 2</pre> |         |
+[Request]で定義されたものをyaml形式で指定できます。
 
 
 #### Examples
 
 ```yml
-- name: title1
-  path: /api1
-  qs:
-    a: [1]
-    b: [2, 3]
-  header:
-    header1: 1
-    header2: 2
-- path: /api2
+- path: "/users"
+- path: "/users"
+  method: GET
+  qs: 
+    id: 
+      - 147
+- path: "/users"
+  method: POST
+  form: 
+    ids: 
+      - 100
+      - 200
+  qs: 
+    name: 
+      - auto
+    options: 
+      - man
+      - japanese
+- path: "/users"
+  method: POST
+  json: {"users": [{"id": "100", "name": "hyaku"}, {"id": "200", "name": "nihyaku"}]}
+  headers: 
+    "auth-id": xxxxxxxx
+    device: ios
 ```
 
 
@@ -278,3 +310,5 @@ YAML入力形式に対応しています。
     config:
       encoding: euc-jp
 ```
+
+[request]: ../../models/request
