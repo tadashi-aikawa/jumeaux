@@ -194,84 +194,6 @@ Bucketの`test/`配下にデータが保存されます。
 ```
 
 
-[:fa-github:][slack] slack
---------------------------
-
-!!! danger
-
-    本アドオンは非推奨です。代わりに[notify](#notify)を使用してください。
-    
-[slack]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/slack.py
-
-実行結果をSlackに転送します。
-
-### Prerequirements
-
---8<-- "ja/notify-prerequirements.md"
-
-
-### Config
-
-#### Definitions
-
-##### Root
-
-|    Key     |           Type            |    Description     | Example | Default |
-| ---------- | ------------------------- | ------------------ | ------- | ------- |
-| conditions | [Condition](#condition)[] | 送信条件と送信内容 |         |         |
-
-##### Condition
-
-|   Key   |        Type         |      Description      | Example | Default |
-| ------- | ------------------- | --------------------- | ------- | ------- |
-| payload | [Payload](#payload) | Slack送信に関する情報 |         |         |
-
-##### Payload
-
-|      Key       |   Type   |      Description      |        Example        | Default |
-| -------------- | -------- | --------------------- | --------------------- | ------- |
-| message_format | string   | 本文 :fa-info-circle: |                       |         |
-| channel        | string   | 送信先channel         | #hoge                 |         |
-| username       | string   | 投稿ユーザ名          | Jumeaux man           | jumeaux |
-| icon_emoji     | (string) | アイコン(絵文字表記)  | `:smile:`             |         |
-| icon_url       | (string) | アイコン(URL)         | http://hoge/image.jpg |         |
-
-!!! info "message_formatについて"
-
-    [Template表記]に対応しています。
-    プロパティは[Report](../getstarted/report.md)で定義されたものを使用できます。
-
-
-#### Examples
-
-##### `#jumeaux` channelに終了時通知する
-
-```yaml
-  final:
-    - name: slack
-      config:
-        conditions:
-          - payload:
-              message_format: Finish Jumeaux!!
-              channel: "#jumeaux"
-              icon_emoji: ":innocent:"
-```
-
-##### メッセージフォーマットを利用して通知する
-
-```yaml
-  final:
-    - name: slack
-      config:
-        conditions:
-          - payload:
-              message_format: "Version {{ version }}, Title: {{ title }}, -- {{ summary.status.different }} diffs"
-              channel: "#jumeaux"
-```
-
-通知本文は `Version 0.24.1, Title: DEMO, -- 2 diffs` のようになります。
-
-
 [:fa-github:][notify] notify
 ----------------------------
 
@@ -366,6 +288,7 @@ Bucketの`test/`配下にデータが保存されます。
     | ------------------ | --------------------------------- |
     | seq                | シーケンス                        |
     | name               | 名称                              |
+    | method             | HTTPメソッド                      |
     | path               | パス                              |
     | headers            | ヘッダ(JSON文字列)                |
     | queries            | クエリ(JSON文字列)                |

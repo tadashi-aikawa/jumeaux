@@ -5,11 +5,10 @@ from typing import Any
 
 from owlmixin import OwlMixin, TList, TOption
 
-from jumeaux.addons.conditions import RequestCondition, AndOr
 from jumeaux.addons.res2res import Res2ResExecutor
-from jumeaux.addons.utils import exact_match
-from jumeaux.models import Res2ResAddOnPayload, Response, Request
+from jumeaux.addons.utils import exact_match, when_filter
 from jumeaux.logger import Logger
+from jumeaux.models import Res2ResAddOnPayload, Response
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[res2res/json_sort]"
@@ -21,29 +20,21 @@ class Target(OwlMixin):
 
 
 class Sorter(OwlMixin):
-    conditions: TList[RequestCondition]
-    and_or: AndOr = "and"  # type: ignore # Prevent for enum problem
-    negative: bool = False
+    when: str
     targets: TList[Target]
-
-    def fulfill(self, req: Request) -> bool:
-        return self.negative ^ (self.and_or.check(self.conditions.map(lambda x: x.fulfill(req))))
 
 
 class Config(OwlMixin):
     items: TList[Sorter]
     footprints_tag: TOption[str]
-    # TODO: remove
-    default_encoding: TOption[str]
 
 
 def traverse(value: Any, location: str, targets: TList[Target]):
     if isinstance(value, dict):
         return _dict_sort(value, targets, location)
-    elif isinstance(value, list):
+    if isinstance(value, list):
         return _list_sort(value, targets, location)
-    else:
-        return value
+    return value
 
 
 def _dict_sort(dict_obj: dict, targets: TList[Target], location: str = "root") -> dict:
@@ -69,11 +60,6 @@ def _list_sort(list_obj: list, targets: TList[Target], location: str = "root") -
 class Executor(Res2ResExecutor):
     def __init__(self, config: dict) -> None:
         self.config: Config = Config.from_dict(config or {})
-        if self.config.default_encoding.get():
-            logger.warning(f"{LOG_PREFIX} `default_encoding` is no longer works.")
-            logger.warning(
-                f"{LOG_PREFIX} And this will be removed soon! You need to remove this property not to stop!"
-            )
 
     def exec(self, payload: Res2ResAddOnPayload) -> Res2ResAddOnPayload:
         res: Response = payload.response
@@ -87,7 +73,7 @@ class Executor(Res2ResExecutor):
             lambda t, s: (
                 _dict_sort(t, s.targets) if isinstance(t, dict) else _list_sort(t, s.targets)
             )
-            if s.fulfill(payload.req)
+            if when_filter(s.when, payload.req.to_dict())
             else t,
             res_json,
         )
@@ -108,7 +94,9 @@ class Executor(Res2ResExecutor):
                 },
                 "req": payload.req,
                 "tags": payload.tags.concat(
-                    self.config.footprints_tag.map(lambda x: [x] if res_json != res_json_sorted else []).get_or([])
+                    self.config.footprints_tag.map(
+                        lambda x: [x] if res_json != res_json_sorted else []
+                    ).get_or([])
                 ),
             }
         )

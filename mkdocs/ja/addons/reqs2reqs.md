@@ -26,7 +26,7 @@ reqs2reqs [:fa-github:][s1]
 
 ##### 先頭の10リクエストを抽出する
 
-```yml
+```yaml
   reqs2reqs:
     - name: head
       config:
@@ -47,52 +47,27 @@ reqs2reqs [:fa-github:][s1]
 
 ##### Root
 
-|   Key    |                  Type                   |             Description              | Example | Default |
-| -------- | --------------------------------------- | ------------------------------------ | ------- | ------- |
-| filters  | [RequestCondition[]][request-condition] | 本設定を反映させるRequestの条件      |         |         |
-| and_or   | (AndOr) :fa-info-circle:                | conditionsをAND/ORどちらで判定するか |         | and     |
-| negative | (bool)                                  | 否定条件とするか                     | true    | false   |
+| Key  | Type |       Description       |          Example          | Default |
+| ---- | ---- | ----------------------- | ------------------------- | ------- |
+| when | str  | 条件式 :fa-info-circle: | <pre>"qs.id.0 == 1"</pre> |         |
 
 
-??? info "AndOr"
+??? info "when"
 
-    --8<--
-    ja/constants/and_or.md
-    --8<--
+    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    プロパティは[request]で定義されたものを使用できます。
+
 
 #### Examples
 
 ##### pathに`ok`が含まれ かつ nameに`OK`が含まれるリクエストのみ抽出する
 
-```yml
+```yaml
   res2res:
     - name: filter
       config:
-         and_or: and
-         filters:
-           - path:
-               items:
-                 - regexp: .*ok.*
-           - name:
-               items:
-                 - regexp: .*OK.*
+        when: ('ok' in path) and ('OK' in name)
 ```
-
-!!! hint "1つのfilter内でpathとnameをAND検索することもできます"
-
-    ```yml
-      res2res:
-        - name: filter
-          config:
-            and_or: and
-            filters:
-              - path:
-                  items:
-                    - regexp: .*ok.*
-                name:
-                  items:
-                    - regexp: .*OK.*
-    ```
 
 
 [:fa-github:][add] add
@@ -126,7 +101,7 @@ reqs2reqs [:fa-github:][s1]
 
 ##### 末尾に`/rest/sample?word=hoge`というリクエストを追加する
 
-```yml
+```yaml
   reqs2reqs:
     - name: add
       config:
@@ -156,19 +131,16 @@ reqs2reqs [:fa-github:][s1]
 
 ##### Replacer
 
-| Key        | Type                                    | Description                          | Example                                 | Default |
-|------------|-----------------------------------------|--------------------------------------|-----------------------------------------|---------|
-| conditions | [RequestCondition[]][request-condition] | 置換するRequestの条件                |                                         |         |
-| and_or     | (AndOr) :fa-info-circle:                | conditionsをAND/ORどちらで判定するか |                                         | and     |
-| negative   | (bool)                                  | 否定条件とするか                     | true                                    | false   |
-| queries    | dict[str[]])                            | 置換するクエリ                       | <pre>{"a": [1], "b": [2, 3]}</pre>      |         |
-| headers    | dict[str]                               | 置換するヘッダ                       | <pre>{"header1": 1, "header2": 2}</pre> |         |
+|   Key   |     Type     |       Description       |                 Example                 | Default |
+| ------- | ------------ | ----------------------- | --------------------------------------- | ------- |
+| when    | (str)        | 条件式 :fa-info-circle: | <pre>"qs.id.0 == 1"</pre>               |         |
+| queries | dict[str[]]) | 置換するクエリ          | <pre>{"a": [1], "b": [2, 3]}</pre>      |         |
+| headers | dict[str]    | 置換するヘッダ          | <pre>{"header1": 1, "header2": 2}</pre> |         |
 
-??? info "AndOr"
+??? info "when"
 
-    --8<--
-    ja/constants/and_or.md
-    --8<--
+    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    プロパティは[request]で定義されたものを使用できます。
 
 !!! info "`queries`と`headers`について"
 
@@ -178,19 +150,17 @@ reqs2reqs [:fa-github:][s1]
 
 ##### pathが`/target`と一致するリクエストのクエリを置換する (`id=dummay_id`, `time=dummy_date`)
 
-```yml
+```yaml
   reqs2reqs:
     - name: replace
       config:
         items:
-          - conditions:
-              - path:
-                  items:
-                    - regexp: /target
+          - when: "path == /target"
             queries:
               id: ["dummy_id"]
               time: ["dummy_date"]
 ```
+
 
 [:fa-github:][shuffle] shuffle
 ------------------------------
@@ -209,7 +179,7 @@ Config設定はありません。
 
 ##### リクエストをシャッフルする
 
-```yml
+```yaml
   reqs2reqs:
     - name: shuffle
 ```
@@ -235,7 +205,7 @@ Config設定はありません。
 
 ##### リクエスト全体を10回複製する
 
-```yml
+```yaml
   reqs2reqs:
     - name: repeat
       config:
@@ -288,14 +258,14 @@ Config設定はありません。
 
 ##### リクエストが空の場合に処理を中断する
 
-```yml
+```yaml
   reqs2reqs:
     - name: empty_guard
 ```
 
 ##### リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする
 
-```yml
+```yaml
   reqs2reqs:
     - name: empty_guard
       config:
@@ -308,7 +278,7 @@ Config設定はありません。
 
     Jumeauxのconfigに以下のような設定が必要です。
 
-    ```yml
+    ```yaml
     notifiers:
       jumeaux:
         type: slack
@@ -358,7 +328,7 @@ Config設定はありません。
 
 ##### pathに`target`という文字列が含まれる場合に`renamed`へ名称を変更する
 
-```yml
+```yaml
   reqs2reqs:
     - name: rename
       config:
@@ -374,7 +344,7 @@ Config設定はありません。
   2-1. 例えば`id=4`で名称が`hoge`のとき、新しい名称は`4: hoge`となる
 3. 1と2に該当しない場合は名称を変更しない
 
-```yml
+```yaml
   reqs2reqs:
     - name: rename
       config:

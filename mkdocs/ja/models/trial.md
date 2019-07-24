@@ -10,19 +10,29 @@ Definitions
 
 ### Trial
 
-| Key                | Type                                           | Description                                 | Example                                   |
-|--------------------|------------------------------------------------|---------------------------------------------|-------------------------------------------|
+|        Key         |                      Type                      |                 Description                 |                  Example                  |
+| ------------------ | ---------------------------------------------- | ------------------------------------------- | ----------------------------------------- |
 | seq                | int                                            | リクエストされた順番                        | 1                                         |
 | name               | string                                         | リクエストの名称(未指定の場合は`seq`と同じ) | testcase-1                                |
 | tags               | string[]                                       | タグ                                        | `[good, bad]`                             |
 | headers            | dict[string]                                   | レスポンスヘッダ                            | <pre>{"content-type": "text/html;"}</pre> |
 | queries            | dict[string[]]                                 | リクエストのクエリ                          | a: [1]<br>b: [2]                          |
+| form               | (dict[string[]])                               | `x-www-form-urlencoded`のBODY               | key: [value1, value2]                     |
+| json               | (dict)                                         | `applicaton/json`のBODY                     | `{id: 1, name: 'Ichi'}`                   |
 | one                | [ResponseSummary](#responsesummary)            | oneのレスポンス概要                         |                                           |
 | other              | [ResponseSummary](#responsesummary)            | otherのレスポンス概要                       |                                           |
+| method             | HttpMethod :fa-info-circle:                    | HTTPメソッド                                | POST                                      |
 | path               | string                                         | リクエストURLのパス                         | /path                                     |
 | request_time       | string                                         | リクエストした時間                          | 2018-12-03T00:12:02.444940+09:00          |
-| status             | Status :fa-info-circle:                        | ステータス                                  | different                                 |  |
+| status             | Status :fa-info-circle:                        | ステータス                                  | different                                 |
 | diffs_by_cognition | (dict[[DiffKeys](#diffkeys)]) :fa-info-circle: | 認識と差分のあるプロパティの紐付け          |                                           |
+
+
+??? info "HttpMethod"
+
+    --8<--
+    ja/constants/http_method.md
+    --8<--
 
 ??? info "Status"
 
@@ -32,7 +42,7 @@ Definitions
 
 !!! info "diffs_by_cognition"
 
-    キーは[judgement]のignoreやignore_propertiesアドオンで指定されたtitleになります。  
+    キーは[judgement/ignore]アドオンで指定されたtitleになります。  
     どれにも当てはまらない場合は`unknown`になります。
 
 ### ResponseSummary
@@ -59,5 +69,5 @@ Definitions
 | removed | string[] | 削除されたプロパティ | `[<root><"id">]` |
 
 
-[judgement]: ../../addons/judgement
+[judgement/ignore]: ../../addons/judgement#ignore
 

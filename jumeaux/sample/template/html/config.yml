@@ -19,10 +19,10 @@ addons:
     - name: html
 
   store_criterion:
-    - name: general
+    - name: free
       config:
-        statuses:
-          - different
+        when_any:
+          - status == 'different'
 
   did_challenge:
     - name: sleep

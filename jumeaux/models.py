@@ -15,6 +15,7 @@ class CaseInsensitiveDict(RequestsCaseInsensitiveDict):
     pass
 
 
+
 class NotifierType(OwlEnum):
     SLACK = "slack"
 
@@ -23,6 +24,11 @@ class Status(OwlEnum):
     SAME = "same"
     DIFFERENT = "different"
     FAILURE = "failure"
+
+
+class HttpMethod(OwlEnum):
+    GET = "GET"
+    POST = "POST"
 
 
 class QueryCustomization(OwlMixin):
@@ -149,8 +155,11 @@ class Args(OwlMixin):
 # or {}
 class Request(OwlMixin):
     name: TOption[str]
+    method: HttpMethod = HttpMethod.GET
     path: str
     qs: TDict[TList[str]] = {}
+    form: TOption[dict]
+    json: TOption[dict]
     headers: TDict[str] = {}
     url_encoding: str = "utf-8"
 
@@ -233,7 +242,7 @@ class Response(OwlMixin):
 
     @classmethod
     def from_requests(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> "Response":
-        encoding: str = cls._decide_encoding(res, default_encoding)
+        encoding: Optional[str] = cls._decide_encoding(res, default_encoding)
         type: str = cls._to_type(res)
         return Response.from_dict(
             {
@@ -332,8 +341,11 @@ class Trial(OwlMixin):
     tags: TList[str]
     headers: TDict[str]
     queries: TDict[TList[str]]
+    form: TOption[dict]
+    json: TOption[dict]
     one: ResponseSummary
     other: ResponseSummary
+    method: HttpMethod
     path: str
     request_time: str
     status: Status

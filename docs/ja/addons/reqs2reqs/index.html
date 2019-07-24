@@ -1064,18 +1064,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../models/request-condition/" title="RequestCondition" class="md-nav__link">
-      RequestCondition
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../models/response/" title="Response" class="md-nav__link">
       Response
     </a>
@@ -1138,6 +1126,18 @@
   <li class="md-nav__item">
     <a href="../../releases/" title="All" class="md-nav__link">
       All
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../releases/v2/" title="v2.x.y" class="md-nav__link">
+      v2.x.y
     </a>
   </li>
 
@@ -1776,10 +1776,10 @@
 </table>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="10">先頭の10リクエストを抽出する<a class="headerlink" href="#10" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>  reqs2reqs:
-    - name: head
-      config:
-        size: 10
+<div class="codehilite"><pre><span></span>  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">head</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
 </pre></div>
 
 <h2 id="filter"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/filter.py"><i class="fa fa-github"></i></a> filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h2>
@@ -1799,78 +1799,25 @@
 </thead>
 <tbody>
 <tr>
-<td>filters</td>
-<td><a href="../../models/request-condition">RequestCondition[]</a></td>
-<td>本設定を反映させるRequestの条件</td>
+<td>when</td>
+<td>str</td>
+<td>条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>"qs.id.0 == 1"</pre></td>
 <td></td>
-<td></td>
-</tr>
-<tr>
-<td>and_or</td>
-<td>(AndOr) <i class="fa fa-info-circle"></i></td>
-<td>conditionsをAND/ORどちらで判定するか</td>
-<td></td>
-<td>and</td>
-</tr>
-<tr>
-<td>negative</td>
-<td>(bool)</td>
-<td>否定条件とするか</td>
-<td>true</td>
-<td>false</td>
 </tr>
 </tbody>
 </table>
-<details class="info"><summary>AndOr</summary><table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>and</td>
-<td>AND条件</td>
-</tr>
-<tr>
-<td>or</td>
-<td>OR条件</td>
-</tr>
-</tbody>
-</table>
+<details class="info"><summary>when</summary><p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
+プロパティは<a href="../../models/request">request</a>で定義されたものを使用できます。</p>
 </details>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="pathok-nameok">pathに<code>ok</code>が含まれ かつ nameに<code>OK</code>が含まれるリクエストのみ抽出する<a class="headerlink" href="#pathok-nameok" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>  res2res:
-    - name: filter
-      config:
-         and_or: and
-         filters:
-           - path:
-               items:
-                 - regexp: .*ok.*
-           - name:
-               items:
-                 - regexp: .*OK.*
+<div class="codehilite"><pre><span></span>  <span class="nt">res2res</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">filter</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">(&#39;ok&#39; in path) and (&#39;OK&#39; in name)</span>
 </pre></div>
 
-<div class="admonition hint">
-<p class="admonition-title">1つのfilter内でpathとnameをAND検索することもできます</p>
-<div class="codehilite"><pre><span></span>  res2res:
-    - name: filter
-      config:
-        and_or: and
-        filters:
-          - path:
-              items:
-                - regexp: .*ok.*
-            name:
-              items:
-                - regexp: .*OK.*
-</pre></div>
-
-</div>
 <h2 id="add"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/add.py"><i class="fa fa-github"></i></a> add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h2>
 <p>先頭または末尾にリクエストを追加します。</p>
 <h3 id="config_2">Config<a class="headerlink" href="#config_2" title="Permanent link">&para;</a></h3>
@@ -1924,13 +1871,13 @@
 </table>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="restsamplewordhoge">末尾に<code>/rest/sample?word=hoge</code>というリクエストを追加する<a class="headerlink" href="#restsamplewordhoge" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>  reqs2reqs:
-    - name: add
-      config:
-        reqs:
-          - path: /rest/sample
-            qs: {word: [hoge]}
-        location: tail
+<div class="codehilite"><pre><span></span>  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">add</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">reqs</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/rest/sample</span>
+            <span class="nt">qs</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">word</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">hoge</span><span class="p p-Indicator">]}</span>
+        <span class="nt">location</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tail</span>
 </pre></div>
 
 <h2 id="replace"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/replace.py"><i class="fa fa-github"></i></a> replace<a class="headerlink" href="#replace" title="Permanent link">&para;</a></h2>
@@ -1971,25 +1918,11 @@
 </thead>
 <tbody>
 <tr>
-<td>conditions</td>
-<td><a href="../../models/request-condition">RequestCondition[]</a></td>
-<td>置換するRequestの条件</td>
+<td>when</td>
+<td>(str)</td>
+<td>条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>"qs.id.0 == 1"</pre></td>
 <td></td>
-<td></td>
-</tr>
-<tr>
-<td>and_or</td>
-<td>(AndOr) <i class="fa fa-info-circle"></i></td>
-<td>conditionsをAND/ORどちらで判定するか</td>
-<td></td>
-<td>and</td>
-</tr>
-<tr>
-<td>negative</td>
-<td>(bool)</td>
-<td>否定条件とするか</td>
-<td>true</td>
-<td>false</td>
 </tr>
 <tr>
 <td>queries</td>
@@ -2007,24 +1940,8 @@
 </tr>
 </tbody>
 </table>
-<details class="info"><summary>AndOr</summary><table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>and</td>
-<td>AND条件</td>
-</tr>
-<tr>
-<td>or</td>
-<td>OR条件</td>
-</tr>
-</tbody>
-</table>
+<details class="info"><summary>when</summary><p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
+プロパティは<a href="../../models/request">request</a>で定義されたものを使用できます。</p>
 </details>
 <div class="admonition info">
 <p class="admonition-title"><code>queries</code>と<code>headers</code>について</p>
@@ -2032,17 +1949,14 @@
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <h5 id="pathtarget-iddummay_id-timedummy_date">pathが<code>/target</code>と一致するリクエストのクエリを置換する (<code>id=dummay_id</code>, <code>time=dummy_date</code>)<a class="headerlink" href="#pathtarget-iddummay_id-timedummy_date" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>  reqs2reqs:
-    - name: replace
-      config:
-        items:
-          - conditions:
-              - path:
-                  items:
-                    - regexp: /target
-            queries:
-              id: [&quot;dummy_id&quot;]
-              time: [&quot;dummy_date&quot;]
+<div class="codehilite"><pre><span></span>  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">replace</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">items</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;path</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">/target&quot;</span>
+            <span class="nt">queries</span><span class="p">:</span>
+              <span class="nt">id</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;dummy_id&quot;</span><span class="p p-Indicator">]</span>
+              <span class="nt">time</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;dummy_date&quot;</span><span class="p p-Indicator">]</span>
 </pre></div>
 
 <h2 id="shuffle"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/shuffle.py"><i class="fa fa-github"></i></a> shuffle<a class="headerlink" href="#shuffle" title="Permanent link">&para;</a></h2>
@@ -2052,8 +1966,8 @@
 <p>Config設定はありません。</p>
 <h4 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h4>
 <h5 id="_1">リクエストをシャッフルする<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>  reqs2reqs:
-    - name: shuffle
+<div class="codehilite"><pre><span></span>  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">shuffle</span>
 </pre></div>
 
 <h2 id="repeat"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/repeat.py"><i class="fa fa-github"></i></a> repeat<a class="headerlink" href="#repeat" title="Permanent link">&para;</a></h2>
@@ -2082,10 +1996,10 @@
 </table>
 <h4 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h4>
 <h5 id="10_1">リクエスト全体を10回複製する<a class="headerlink" href="#10_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>  reqs2reqs:
-    - name: repeat
-      config:
-        times: 10
+<div class="codehilite"><pre><span></span>  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">repeat</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">times</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
 </pre></div>
 
 <h2 id="empty_guard"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/empty_guard.py"><i class="fa fa-github"></i></a> empty_guard<a class="headerlink" href="#empty_guard" title="Permanent link">&para;</a></h2>
@@ -2155,28 +2069,28 @@
 </div>
 <h4 id="examples_6">Examples<a class="headerlink" href="#examples_6" title="Permanent link">&para;</a></h4>
 <h5 id="_2">リクエストが空の場合に処理を中断する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>  reqs2reqs:
-    - name: empty_guard
+<div class="codehilite"><pre><span></span>  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">empty_guard</span>
 </pre></div>
 
 <h5 id="notifier-jumeaux">リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする<a class="headerlink" href="#notifier-jumeaux" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>  reqs2reqs:
-    - name: empty_guard
-      config:
-        notifies:
-          - notifier: jumeaux
-            message: &quot;{{ title }} notify!&quot;
+<div class="codehilite"><pre><span></span>  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">empty_guard</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">notifies</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">notifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jumeaux</span>
+            <span class="nt">message</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">notify!&quot;</span>
 </pre></div>
 
 <div class="admonition hint">
 <p class="admonition-title"><code>notifier: jumeaux</code>について</p>
 <p>Jumeauxのconfigに以下のような設定が必要です。</p>
-<div class="codehilite"><pre><span></span>notifiers:
-  jumeaux:
-    type: slack
-    channel: &quot;#jumeaux&quot;
-    username: jumeaux
-    icon_emoji: &quot;jumeaux&quot;
+<div class="codehilite"><pre><span></span><span class="nt">notifiers</span><span class="p">:</span>
+  <span class="nt">jumeaux</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">slack</span>
+    <span class="nt">channel</span><span class="p">:</span> <span class="s">&quot;#jumeaux&quot;</span>
+    <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jumeaux</span>
+    <span class="nt">icon_emoji</span><span class="p">:</span> <span class="s">&quot;jumeaux&quot;</span>
 </pre></div>
 
 </div>
@@ -2242,12 +2156,12 @@
 </div>
 <h4 id="examples_7">Examples<a class="headerlink" href="#examples_7" title="Permanent link">&para;</a></h4>
 <h5 id="pathtargetrenamed">pathに<code>target</code>という文字列が含まれる場合に<code>renamed</code>へ名称を変更する<a class="headerlink" href="#pathtargetrenamed" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span>  reqs2reqs:
-    - name: rename
-      config:
-        conditions:
-          - name: renamed
-            when: &quot;&#39;target&#39; in path&quot;
+<div class="codehilite"><pre><span></span>  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rename</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">conditions</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">renamed</span>
+            <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;&#39;target&#39;</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">path&quot;</span>
 </pre></div>
 
 <h5 id="_3">複雑な条件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
@@ -2257,14 +2171,14 @@
   2-1. 例えば<code>id=4</code>で名称が<code>hoge</code>のとき、新しい名称は<code>4: hoge</code>となる</li>
 <li>1と2に該当しない場合は名称を変更しない</li>
 </ol>
-<div class="codehilite"><pre><span></span>  reqs2reqs:
-    - name: rename
-      config:
-        conditions:
-          - name: &quot;GOOD&quot;
-            when: &quot;path|reg(&#39;[a-z]{3}&#39;)&quot;
-          - name: &quot;{{ qs.id.0 }}: {{ name }}&quot;
-            when: &quot;qs.id|length == 1 and qs.id.0|int &gt; 2&quot;
+<div class="codehilite"><pre><span></span>  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rename</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">conditions</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;GOOD&quot;</span>
+            <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;path|reg(&#39;[a-z]{3}&#39;)&quot;</span>
+          <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">qs.id.0</span><span class="nv"> </span><span class="s">}}:</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">}}&quot;</span>
+            <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;qs.id|length</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">qs.id.0|int</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">2&quot;</span>
 </pre></div>
                 
                   

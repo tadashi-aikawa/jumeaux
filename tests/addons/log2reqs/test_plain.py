@@ -25,17 +25,13 @@ REQUESTS = """
 
 
 def create_expected(path: str, qs: dict, url_encoding="utf-8") -> dict:
-    return {
-        "path": path,
-        "qs": qs,
-        "headers": {},
-        "url_encoding": url_encoding,
-    }
+    return {"method": "GET", "path": path, "qs": qs, "headers": {}, "url_encoding": url_encoding}
 
 
 class TestExec:
     @pytest.mark.parametrize(
-        'title, config_yml, expected', [
+        "title, config_yml, expected",
+        [
             (
                 "Normal",
                 """
@@ -52,7 +48,7 @@ class TestExec:
                     create_expected("/utf8", {"word": ["東京"]}),
                     create_expected("/sjis", {"word": ["����"]}),
                     create_expected("/eucjp", {"word": ["���"]}),
-                ]
+                ],
             ),
             (
                 "Keep blank",
@@ -71,7 +67,7 @@ class TestExec:
                     create_expected("/utf8", {"word": ["東京"]}),
                     create_expected("/sjis", {"word": ["����"]}),
                     create_expected("/eucjp", {"word": ["���"]}),
-                ]
+                ],
             ),
             (
                 "Specify candidate for url encodings",
@@ -90,14 +86,14 @@ class TestExec:
                     create_expected("/path7", {}),
                     create_expected("/path8", {}),
                     create_expected("/utf8", {"word": ["東京"]}),
-                    create_expected("/sjis", {"word": ["東京"]}, 'sjis'),
+                    create_expected("/sjis", {"word": ["東京"]}, "sjis"),
                     create_expected("/eucjp", {"word": ["���"]}),
-                ]
+                ],
             ),
-        ]
+        ],
     )
     def test(self, create_tmpfile_from, title, config_yml, expected):
         tmp = create_tmpfile_from(REQUESTS)
-        actual = Executor(load_yaml(config_yml)).exec(Log2ReqsAddOnPayload.from_dict({'file': tmp}))
+        actual = Executor(load_yaml(config_yml)).exec(Log2ReqsAddOnPayload.from_dict({"file": tmp}))
 
         assert expected == actual.to_dicts()

@@ -66,7 +66,13 @@ class TestExec:
         payload: Res2ResAddOnPayload = Res2ResAddOnPayload.from_dict(
             {
                 "response": make_response(TEXT, "utf-8", "utf-8"),
-                "req": {"path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+                "req": {
+                    "method": "GET",
+                    "path": "/path",
+                    "qs": {},
+                    "headers": {},
+                    "url_encoding": "utf-8",
+                },
                 "tags": ["default"],
             }
         )
@@ -75,7 +81,13 @@ class TestExec:
             "response": make_response(
                 json.dumps(expected_text, ensure_ascii=False), "utf-8", "utf-8"
             ).to_dict(),
-            "req": {"path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+            "req": {
+                "method": "GET",
+                "path": "/path",
+                "qs": {},
+                "headers": {},
+                "url_encoding": "utf-8",
+            },
             "tags": ["default"],
         }
 
@@ -106,11 +118,10 @@ class TestExec:
         payload: Res2ResAddOnPayload = Res2ResAddOnPayload.from_dict(
             {
                 "response": make_response(TEXT, "utf-8", "utf-8"),
-                "req": {"path": "/path", "qs": {}, "headers": {}},
+                "req": {"method": "GET", "path": "/path", "qs": {}, "headers": {}},
                 "tags": ["default"],
             }
         )
 
         with pytest.raises(SystemExit):
             Executor(load_yaml(config_yml)).exec(payload)
-

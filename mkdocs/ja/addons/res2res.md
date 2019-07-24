@@ -117,18 +117,16 @@ JSONレスポンスの並び順をソートします。
 
 ##### Sorter
 
-|    Key     |                  Type                   |             Description              | Example | Default |
-| ---------- | --------------------------------------- | ------------------------------------ | ------- | ------- |
-| conditions | [RequestCondition[]][request-condition] | 本設定を反映させるRequestの条件      |         |         |
-| and_or     | (AndOr) :fa-info-circle:                | conditionsをAND/ORどちらで判定するか |         | and     |
-| negative   | (bool)                                  | 否定条件とするか                     | true    | false   |
-| targets    | [Target[]](#target)                     |                                      |         |         |
+|   Key   |        Type         |       Description       |          Example          | Default |
+| ------- | ------------------- | ----------------------- | ------------------------- | ------- |
+| when    | str                 | 条件式 :fa-info-circle: | <pre>"qs.id.0 == 1"</pre> |         |
+| targets | [Target[]](#target) |                         |                           |         |
 
-??? info "AndOr"
+??? info "when"
 
-    --8<--
-    ja/constants/and_or.md
-    --8<--
+    [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
+    プロパティは[request]で定義されたものを使用できます。
+
 
 ##### Target
 
@@ -150,10 +148,7 @@ JSONレスポンスの並び順をソートします。
     - name: json_sort
       config:
         items:
-          - conditions:
-              - path:
-                  items:
-                    - regexp: /filter
+          - when: "path == '/filter'"
             targets:
               - path: root<'dict1'><'list1-1'> 
 ```
@@ -165,10 +160,7 @@ JSONレスポンスの並び順をソートします。
     - name: json_sort
       config:
         items:
-          - conditions:
-              - path:
-                  items:
-                    - regexp: /filter
+          - when: "path == '/filter'"
             targets:
               - path: root<'list2'>
                 sort_keys: [id, name]

@@ -19,10 +19,10 @@ addons:
     - name: json
 
   store_criterion:
-    - name: general
+    - name: free
       config:
-        statuses:
-          - different
+        when_any:
+          - status == 'different'
 
   dump:
     - name: json

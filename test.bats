@@ -94,6 +94,8 @@ assert_null_property() {
 
   assert_number_property '.summary.status.same' 1
   assert_number_property '.summary.status.different' 1
+
+  assert_string_property '.trials[0].method' 'GET'
 }
 
 @test "Run path_custom" {

@@ -861,18 +861,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../models/request-condition/" title="RequestCondition" class="md-nav__link">
-      RequestCondition
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../models/response/" title="Response" class="md-nav__link">
       Response
     </a>
@@ -935,6 +923,18 @@
   <li class="md-nav__item">
     <a href="../../releases/" title="All" class="md-nav__link">
       All
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../releases/v2/" title="v2.x.y" class="md-nav__link">
+      v2.x.y
     </a>
   </li>
 
@@ -1343,7 +1343,7 @@
                 
                 
                 <h1 id="log2reqs">log2reqs <a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs"><i class="fa fa-github"></i></a><a class="headerlink" href="#log2reqs" title="Permanent link">&para;</a></h1>
-<p>任意のFormatで記載されたリクエストを、Jumeaux内部で使用する形式(Request型)に変換します。</p>
+<p>任意のFormatで記載されたリクエストを、Jumeaux内部で使用する形式(<a href="../../models/request">Request</a>)に変換します。</p>
 <h2 id="plain"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/plain.py"><i class="fa fa-github"></i></a> plain<a class="headerlink" href="#plain" title="Permanent link">&para;</a></h2>
 <p>最もシンプルな入力形式に対応しています。<br />
 要件が単純な場合に適しています。</p>
@@ -1355,7 +1355,10 @@
 
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>pathとquery以外のパラメータは設定できません</p>
+<ul>
+<li>pathとquery以外のパラメータは設定できません</li>
+<li>GET以外のHTTPメソッドは使えません</li>
+</ul>
 </div>
 <h3 id="config">Config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
 <h4 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h4>
@@ -1444,34 +1447,66 @@
 </tr>
 <tr>
 <td>2</td>
+<td>HttpMethod <i class="fa fa-info-circle"></i></td>
+<td>HTTPメソッド</td>
+<td>POST</td>
+</tr>
+<tr>
+<td>3</td>
 <td>string</td>
 <td>path</td>
 <td>/api</td>
 </tr>
 <tr>
-<td>3</td>
+<td>4</td>
 <td>(string)</td>
 <td>query</td>
 <td>a=1&amp;b=2</td>
 </tr>
 <tr>
-<td>4</td>
+<td>5</td>
 <td>(string)</td>
 <td>header</td>
 <td>header1=1&amp;header2=2</td>
 </tr>
 </tbody>
 </table>
+<details class="info"><summary>HttpMethod</summary><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>HTTPのGETメソッド</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>HTTPのPOSTメソッド</td>
+</tr>
+</tbody>
+</table>
+</details>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span>&quot;title1&quot;,&quot;/path1&quot;,&quot;a=1&amp;b=2&quot;,&quot;header1=1&amp;header2=2&quot;
-&quot;title2&quot;,&quot;/path2&quot;,&quot;c=1&quot;
-&quot;title3&quot;,&quot;/path3&quot;,,&quot;header1=1&amp;header2=2&quot;
-&quot;title4&quot;,&quot;/path4&quot;
+<div class="codehilite"><pre><span></span>&quot;title1&quot;,&quot;GET&quot;,&quot;/path1&quot;,&quot;a=1&amp;b=2&quot;,&quot;header1=1&amp;header2=2&quot;
+&quot;title2&quot;,&quot;GET&quot;,&quot;/path2&quot;,&quot;c=1&quot;
+&quot;title3&quot;,&quot;GET&quot;,&quot;/path3&quot;,,&quot;header1=1&amp;header2=2&quot;
+&quot;title4&quot;,&quot;GET&quot;,&quot;/path4&quot;
 </pre></div>
 
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>後方のカラムは省略することができます</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>POSTのBodyを指定することはできません</li>
+<li>将来的に後方カラムの省略不可にして、POSTのBodyを指定可能にするかもしれません</li>
+</ul>
 </div>
 <h3 id="config_1">Config<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
 <h4 id="definitions_2">Definitions<a class="headerlink" href="#definitions_2" title="Permanent link">&para;</a></h4>
@@ -1535,63 +1570,36 @@
 全ての項目を指定することができます。</p>
 <h3 id="input-file-format_2">Input file format<a class="headerlink" href="#input-file-format_2" title="Permanent link">&para;</a></h3>
 <h4 id="definitions_3">Definitions<a class="headerlink" href="#definitions_3" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Type</th>
-<th>Description</th>
-<th>Example</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>(string)</td>
-<td>名前</td>
-<td>title</td>
-<td></td>
-</tr>
-<tr>
-<td>path</td>
-<td>string</td>
-<td>path</td>
-<td>/api</td>
-<td></td>
-</tr>
-<tr>
-<td>qs</td>
-<td>(dict[list])</td>
-<td>query</td>
-<td><code>{"a": [1], "b": [2, 3]}</code></td>
-<td></td>
-</tr>
-<tr>
-<td>headers</td>
-<td>(dict)</td>
-<td>header</td>
-<td><code>{"header1": 1, "header2": 2}</code></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p><a href="../../models/request">Request</a>で定義されたものをjson形式で指定できます。</p>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;title1&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/users&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/users&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
         <span class="nt">&quot;qs&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-            <span class="nt">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;header&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;header1&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="nt">&quot;header2&quot;</span><span class="p">:</span> <span class="mi">2</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;147&quot;</span><span class="p">]</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/api2&quot;</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/users&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;form&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;ids&quot;</span><span class="p">:[</span><span class="s2">&quot;100&quot;</span><span class="p">,</span> <span class="s2">&quot;200&quot;</span><span class="p">]},</span>
+        <span class="nt">&quot;qs&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;man&quot;</span><span class="p">,</span> <span class="s2">&quot;japanese&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/users&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;json&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;users&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;100&quot;</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;hyaku&quot;</span><span class="p">},</span> <span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;200&quot;</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;nihyaku&quot;</span><span class="p">}]},</span>
+        <span class="nt">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;auth-id&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxxxxxx&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ios&quot;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
@@ -1636,57 +1644,32 @@
 全ての項目を指定することができます。</p>
 <h3 id="input-file-format_3">Input file format<a class="headerlink" href="#input-file-format_3" title="Permanent link">&para;</a></h3>
 <h4 id="definitions_5">Definitions<a class="headerlink" href="#definitions_5" title="Permanent link">&para;</a></h4>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Type</th>
-<th>Description</th>
-<th>Example</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>(string)</td>
-<td>名前</td>
-<td>title</td>
-<td></td>
-</tr>
-<tr>
-<td>path</td>
-<td>string</td>
-<td>path</td>
-<td>/api</td>
-<td></td>
-</tr>
-<tr>
-<td>qs</td>
-<td>(dict[string[]])</td>
-<td>query</td>
-<td><pre>a: [1]<br>b: [2]</pre></td>
-<td></td>
-</tr>
-<tr>
-<td>headers</td>
-<td>(dict[string])</td>
-<td>header</td>
-<td><pre>header1: 1<br>header2: 2</pre></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p><a href="../../models/request">Request</a>で定義されたものをyaml形式で指定できます。</p>
 <h4 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span>- name: title1
-  path: /api1
-  qs:
-    a: [1]
-    b: [2, 3]
-  header:
-    header1: 1
-    header2: 2
-- path: /api2
+<div class="codehilite"><pre><span></span>- path: &quot;/users&quot;
+- path: &quot;/users&quot;
+  method: GET
+  qs: 
+    id: 
+      - 147
+- path: &quot;/users&quot;
+  method: POST
+  form: 
+    ids: 
+      - 100
+      - 200
+  qs: 
+    name: 
+      - auto
+    options: 
+      - man
+      - japanese
+- path: &quot;/users&quot;
+  method: POST
+  json: {&quot;users&quot;: [{&quot;id&quot;: &quot;100&quot;, &quot;name&quot;: &quot;hyaku&quot;}, {&quot;id&quot;: &quot;200&quot;, &quot;name&quot;: &quot;nihyaku&quot;}]}
+  headers: 
+    &quot;auth-id&quot;: xxxxxxxx
+    device: ios
 </pre></div>
 
 <h3 id="config_3">config<a class="headerlink" href="#config_3" title="Permanent link">&para;</a></h3>

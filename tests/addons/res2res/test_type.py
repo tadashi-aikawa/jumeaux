@@ -34,7 +34,7 @@ CHANGE_IF_CONDITION_RES_IS_FULFILLED = (
         when: res.status_code == 200
     """,
     {
-        "req": {"path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+        "req": {"method": "GET", "path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
         "response": {
             "body": b'{"body": true}',
             "type": "expected_type",
@@ -60,7 +60,7 @@ CHANGE_IF_CONDITION_REQ_IS_FULFILLED = (
         when: req.path == '/path'
     """,
     {
-        "req": {"path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+        "req": {"method": "GET", "path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
         "response": {
             "body": b'{"body": true}',
             "type": "expected_type",
@@ -86,7 +86,7 @@ CHANGE_ONLY_FIST_ONE_IF_CONDITION_IS_FULFILLED = (
         when: res.status_code == 200
     """,
     {
-        "req": {"path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+        "req": {"method": "GET", "path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
         "response": {
             "body": b'{"body": true}',
             "type": "expected_type",
@@ -110,7 +110,7 @@ NOT_CHANGE_IF_CONDITION_IS_NOT_FULFILLED = (
         when: res.status_code == 201
     """,
     {
-        "req": {"path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+        "req": {"method": "GET", "path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
         "response": {
             "body": b'{"body": true}',
             "type": "json",
@@ -140,7 +140,13 @@ class TestExec:
         payload: Res2ResAddOnPayload = Res2ResAddOnPayload.from_dict(
             {
                 "response": make_response("json", 200),
-                "req": {"path": "/path", "qs": {}, "headers": {}, "url_encoding": "utf-8"},
+                "req": {
+                    "method": "GET",
+                    "path": "/path",
+                    "qs": {},
+                    "headers": {},
+                    "url_encoding": "utf-8",
+                },
                 "tags": [],
             }
         )

@@ -31,12 +31,12 @@ nav:
     - AccessPoint: ja/models/access-point.md
     - Notifier: ja/models/notifier.md
     - Request: ja/models/request.md
-    - RequestCondition: ja/models/request-condition.md
     - Response: ja/models/response.md
     - Trial: ja/models/trial.md
   - Template: ja/template.md
   - Releases:
     - All: ja/releases/index.md
+    - v2.x.y: ja/releases/v2.md
     - v1.x.y: ja/releases/v1.md
     - v0.x.y: ja/releases/v0.md
 

@@ -20,9 +20,7 @@ class Executor(FinalExecutor):
 
     def exec(self, payload: FinalAddOnPayload, reference: FinalAddOnReference) -> FinalAddOnPayload:
         if self.config.sysout:
-            print(
-                payload.report.to_json(indent=self.config.indent.get())
-            )
+            print(payload.report.to_json(indent=self.config.indent.get()))
         else:
             payload.report.to_jsonf(
                 f"{payload.result_path}/report.json",
