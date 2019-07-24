@@ -36,6 +36,7 @@ nav:
   - Template: ja/template.md
   - Releases:
     - All: ja/releases/index.md
+    - v2.x.y: ja/releases/v2.md
     - v1.x.y: ja/releases/v1.md
     - v0.x.y: ja/releases/v0.md
 
