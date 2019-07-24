@@ -56,7 +56,7 @@ extra:
     - type: github-alt
       link: https://github.com/tadashi-aikawa
   search:
-    language: 'en, jp'
+    language: 'en, ja'
 
 
 markdown_extensions:

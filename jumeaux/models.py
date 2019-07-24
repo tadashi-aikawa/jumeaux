@@ -15,6 +15,7 @@ class CaseInsensitiveDict(RequestsCaseInsensitiveDict):
     pass
 
 
+
 class NotifierType(OwlEnum):
     SLACK = "slack"
 
@@ -216,11 +217,17 @@ class Response(OwlMixin):
         return CaseInsensitiveDict(v)
 
     @classmethod
-    def _decide_encoding(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> str:
+    def _decide_encoding(
+        cls, res: Any, default_encoding: TOption[str] = TOption(None)
+    ) -> Optional[str]:
         content_type = res.headers.get("content-type")
+
+        if content_type and "octet-stream" in content_type:
+            return None
         # XXX: See 2.2 in https://tools.ietf.org/html/rfc2616#section-2.2
         if res.encoding and not ("text" in content_type and res.encoding == "ISO-8859-1"):
             return res.encoding
+
         meta_encodings: List[str] = deprecated.get_encodings_from_content(res.content)
         return (
             meta_encodings[0] if meta_encodings else default_encoding.get() or res.apparent_encoding
@@ -235,7 +242,7 @@ class Response(OwlMixin):
 
     @classmethod
     def from_requests(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> "Response":
-        encoding: str = cls._decide_encoding(res, default_encoding)
+        encoding: Optional[str] = cls._decide_encoding(res, default_encoding)
         type: str = cls._to_type(res)
         return Response.from_dict(
             {
@@ -380,6 +387,7 @@ class DumpAddOnPayload(OwlMixin):
 class Res2ResAddOnPayload(OwlMixin):
     response: Response
     req: Request
+    tags: TList[str]
 
 
 class Res2DictAddOnPayload(OwlMixin):
