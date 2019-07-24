@@ -551,6 +551,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#post-content-type-x-www-form-urlencoded-p111ampp222" title="/post に content-type が x-www-form-urlencoded で p1=11&amp;p2=22 のクエリをリクエスト" class="md-nav__link">
+    /post に content-type が x-www-form-urlencoded で p1=11&amp;p2=22 のクエリをリクエスト
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -564,18 +571,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../request-condition/" title="RequestCondition" class="md-nav__link">
-      RequestCondition
-    </a>
   </li>
 
         
@@ -647,6 +642,18 @@
   <li class="md-nav__item">
     <a href="../../releases/" title="All" class="md-nav__link">
       All
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../releases/v2/" title="v2.x.y" class="md-nav__link">
+      v2.x.y
     </a>
   </li>
 
@@ -742,6 +749,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#post-content-type-x-www-form-urlencoded-p111ampp222" title="/post に content-type が x-www-form-urlencoded で p1=11&amp;p2=22 のクエリをリクエスト" class="md-nav__link">
+    /post に content-type が x-www-form-urlencoded で p1=11&amp;p2=22 のクエリをリクエスト
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -809,8 +823,48 @@
 <td>header1: 1<br>header2: 2</td>
 <td><code>{}</code></td>
 </tr>
+<tr>
+<td>method</td>
+<td>(HttpMethod) <i class="fa fa-info-circle"></i></td>
+<td>HTTPメソッド</td>
+<td>POST</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>form</td>
+<td>(dict[string[]])</td>
+<td><code>x-www-form-urlencoded</code>のBody</td>
+<td>key: [value1, value2]</td>
+<td></td>
+</tr>
+<tr>
+<td>json</td>
+<td>(dict)</td>
+<td><code>application/json</code>のBody</td>
+<td><code>{id: 1, name: 'Ichi'}</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
+<details class="info"><summary>HttpMethod</summary><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>HTTPのGETメソッド</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>HTTPのPOSTメソッド</td>
+</tr>
+</tbody>
+</table>
+</details>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="sampleonewordhogeampsize10-hogehoge"><code>/sample/one?word=hoge&amp;size=10</code> 相当の <code>hogehoge</code> という名前のリクエスト<a class="headerlink" href="#sampleonewordhogeampsize10-hogehoge" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>path: /sample/one
@@ -825,6 +879,14 @@ qs:
 headers:
   x-header: &quot;1&quot;
   y-header: &quot;2&quot;
+</pre></div>
+
+<h3 id="post-content-type-x-www-form-urlencoded-p111ampp222"><code>/post</code> に content-type が <code>x-www-form-urlencoded</code> で <code>p1=11&amp;p2=22</code> のクエリをリクエスト<a class="headerlink" href="#post-content-type-x-www-form-urlencoded-p111ampp222" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>path: /post
+method: POST
+form:
+  p1: [11]
+  p2: [22]
 </pre></div>
                 
                   
@@ -861,13 +923,13 @@ headers:
           </a>
         
         
-          <a href="../request-condition/" title="RequestCondition" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../response/" title="Response" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                RequestCondition
+                Response
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

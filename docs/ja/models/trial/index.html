@@ -495,18 +495,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../request-condition/" title="RequestCondition" class="md-nav__link">
-      RequestCondition
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../response/" title="Response" class="md-nav__link">
       Response
     </a>
@@ -634,6 +622,18 @@
   <li class="md-nav__item">
     <a href="../../releases/" title="All" class="md-nav__link">
       All
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../releases/v2/" title="v2.x.y" class="md-nav__link">
+      v2.x.y
     </a>
   </li>
 
@@ -786,6 +786,18 @@
 <td>a: [1]<br>b: [2]</td>
 </tr>
 <tr>
+<td>form</td>
+<td>(dict[string[]])</td>
+<td><code>x-www-form-urlencoded</code>のBODY</td>
+<td>key: [value1, value2]</td>
+</tr>
+<tr>
+<td>json</td>
+<td>(dict)</td>
+<td><code>applicaton/json</code>のBODY</td>
+<td><code>{id: 1, name: 'Ichi'}</code></td>
+</tr>
+<tr>
 <td>one</td>
 <td><a href="#responsesummary">ResponseSummary</a></td>
 <td>oneのレスポンス概要</td>
@@ -796,6 +808,12 @@
 <td><a href="#responsesummary">ResponseSummary</a></td>
 <td>otherのレスポンス概要</td>
 <td></td>
+</tr>
+<tr>
+<td>method</td>
+<td>HttpMethod <i class="fa fa-info-circle"></i></td>
+<td>HTTPメソッド</td>
+<td>POST</td>
 </tr>
 <tr>
 <td>path</td>
@@ -823,6 +841,25 @@
 </tr>
 </tbody>
 </table>
+<details class="info"><summary>HttpMethod</summary><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>HTTPのGETメソッド</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>HTTPのPOSTメソッド</td>
+</tr>
+</tbody>
+</table>
+</details>
 <details class="info"><summary>Status</summary><table>
 <thead>
 <tr>
@@ -848,7 +885,7 @@
 </details>
 <div class="admonition info">
 <p class="admonition-title">diffs_by_cognition</p>
-<p>キーは<a href="../../addons/judgement">judgement</a>のignoreやignore_propertiesアドオンで指定されたtitleになります。<br />
+<p>キーは<a href="../../addons/judgement#ignore">judgement/ignore</a>アドオンで指定されたtitleになります。<br />
 どれにも当てはまらない場合は<code>unknown</code>になります。</p>
 </div>
 <h3 id="responsesummary">ResponseSummary<a class="headerlink" href="#responsesummary" title="Permanent link">&para;</a></h3>

@@ -773,18 +773,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../models/request-condition/" title="RequestCondition" class="md-nav__link">
-      RequestCondition
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../models/response/" title="Response" class="md-nav__link">
       Response
     </a>
@@ -847,6 +835,18 @@
   <li class="md-nav__item">
     <a href="../../releases/" title="All" class="md-nav__link">
       All
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../releases/v2/" title="v2.x.y" class="md-nav__link">
+      v2.x.y
     </a>
   </li>
 
@@ -1349,25 +1349,11 @@
 </thead>
 <tbody>
 <tr>
-<td>conditions</td>
-<td><a href="../../models/request-condition">RequestCondition[]</a></td>
-<td>本設定を反映させるRequestの条件</td>
+<td>when</td>
+<td>str</td>
+<td>条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>"qs.id.0 == 1"</pre></td>
 <td></td>
-<td></td>
-</tr>
-<tr>
-<td>and_or</td>
-<td>(AndOr) <i class="fa fa-info-circle"></i></td>
-<td>conditionsをAND/ORどちらで判定するか</td>
-<td></td>
-<td>and</td>
-</tr>
-<tr>
-<td>negative</td>
-<td>(bool)</td>
-<td>否定条件とするか</td>
-<td>true</td>
-<td>false</td>
 </tr>
 <tr>
 <td>targets</td>
@@ -1378,24 +1364,8 @@
 </tr>
 </tbody>
 </table>
-<details class="info"><summary>AndOr</summary><table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>and</td>
-<td>AND条件</td>
-</tr>
-<tr>
-<td>or</td>
-<td>OR条件</td>
-</tr>
-</tbody>
-</table>
+<details class="info"><summary>when</summary><p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
+プロパティは<a href="../../models/request">request</a>で定義されたものを使用できます。</p>
 </details>
 <h5 id="target">Target<a class="headerlink" href="#target" title="Permanent link">&para;</a></h5>
 <table>
@@ -1435,10 +1405,7 @@
     - name: json_sort
       config:
         items:
-          - conditions:
-              - path:
-                  items:
-                    - regexp: /filter
+          - when: &quot;path == &#39;/filter&#39;&quot;
             targets:
               - path: root&lt;&#39;dict1&#39;&gt;&lt;&#39;list1-1&#39;&gt; 
 </pre></div>
@@ -1448,10 +1415,7 @@
     - name: json_sort
       config:
         items:
-          - conditions:
-              - path:
-                  items:
-                    - regexp: /filter
+          - when: &quot;path == &#39;/filter&#39;&quot;
             targets:
               - path: root&lt;&#39;list2&#39;&gt;
                 sort_keys: [id, name]
