@@ -22,4 +22,4 @@ script:
   - '[ $TEST_REPORT_TARGET ] && ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT || echo "Skip send test report"'
 notifications:
   slack:
-    secure: DnVG8IgIoS3C2Z/xB83tKfRE1tgRXHO7A6QDzkB+axsKxYx88Wl2dz5YJiMsHMeTueRv7mldi8haWCTVgPrz2Mz+vXDqr5K0d/YUQ1bXgtVwG/K/eQ679FF8yjykugPknGerDiW1j+ITT6wwDb6SiZRKailWTZJLKQK+um52UWw=
+    secure: R2lrYvohHtXpznOK1XreP6Uhs8xTSdoGfd1Wsq1mPSgpZ8vWgjeyy0f2izrVhyl8+l91sjrP388mGqMvzD8zrYb09DxOYnYmTe2j6Ta5oRzCPBQub+9/l0jqHGj8s05TGgcQKEij8oXjyrj7ymIdF0zalS60qokjqWwDrT5eQvg=
