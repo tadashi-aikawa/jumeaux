@@ -52,11 +52,11 @@ Description: Running for test
 
 one:
   name: One
-  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore_properties/one
+  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/one
 
 other:
   name: Other
-  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore_properties/other
+  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/other
 
 notifiers:
   test:

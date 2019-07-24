@@ -42,7 +42,7 @@ Definitions
 
 !!! info "diffs_by_cognition"
 
-    キーは[judgement]のignoreやignore_propertiesアドオンで指定されたtitleになります。  
+    キーは[judgement/ignore]アドオンで指定されたtitleになります。  
     どれにも当てはまらない場合は`unknown`になります。
 
 ### ResponseSummary
@@ -69,5 +69,5 @@ Definitions
 | removed | string[] | 削除されたプロパティ | `[<root><"id">]` |
 
 
-[judgement]: ../../addons/judgement
+[judgement/ignore]: ../../addons/judgement#ignore
 
