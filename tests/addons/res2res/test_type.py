@@ -45,6 +45,7 @@ CHANGE_IF_CONDITION_RES_IS_FULFILLED = (
             "elapsed": datetime.timedelta(seconds=1),
             "elapsed_sec": 1.0,
         },
+        "tags": [],
     },
 )
 
@@ -70,6 +71,7 @@ CHANGE_IF_CONDITION_REQ_IS_FULFILLED = (
             "elapsed": datetime.timedelta(seconds=1),
             "elapsed_sec": 1.0,
         },
+        "tags": [],
     },
 )
 
@@ -95,6 +97,7 @@ CHANGE_ONLY_FIST_ONE_IF_CONDITION_IS_FULFILLED = (
             "elapsed": datetime.timedelta(seconds=1),
             "elapsed_sec": 1.0,
         },
+        "tags": [],
     },
 )
 
@@ -118,6 +121,7 @@ NOT_CHANGE_IF_CONDITION_IS_NOT_FULFILLED = (
             "elapsed": datetime.timedelta(seconds=1),
             "elapsed_sec": 1.0,
         },
+        "tags": [],
     },
 )
 
@@ -143,6 +147,7 @@ class TestExec:
                     "headers": {},
                     "url_encoding": "utf-8",
                 },
+                "tags": [],
             }
         )
 

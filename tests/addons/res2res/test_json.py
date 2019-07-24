@@ -73,6 +73,7 @@ class TestExec:
                     "headers": {},
                     "url_encoding": "utf-8",
                 },
+                "tags": ["default"],
             }
         )
 
@@ -87,6 +88,7 @@ class TestExec:
                 "headers": {},
                 "url_encoding": "utf-8",
             },
+            "tags": ["default"],
         }
 
         assert expected == Executor(load_yaml(config_yml)).exec(payload).to_dict()
@@ -117,6 +119,7 @@ class TestExec:
             {
                 "response": make_response(TEXT, "utf-8", "utf-8"),
                 "req": {"method": "GET", "path": "/path", "qs": {}, "headers": {}},
+                "tags": ["default"],
             }
         )
 

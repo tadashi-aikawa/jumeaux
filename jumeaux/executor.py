@@ -199,10 +199,10 @@ def concurrent_request(
     return res_one, res_other
 
 
-def res2res(res: Response, req: Request):
+def res2res(res: Response, req: Request) -> Res2ResAddOnPayload:
     return global_addon_executor.apply_res2res(
-        Res2ResAddOnPayload.from_dict({"response": res, "req": req})
-    ).response
+        Res2ResAddOnPayload.from_dict({"response": res, "req": req, "tags": []})
+    )
 
 
 def res2dict(res: Response) -> TOption[dict]:
@@ -390,12 +390,14 @@ def challenge(arg_dict: dict) -> dict:
             }
         ).to_dict()
 
-    res_one: Response = res2res(
+    res_one_payload: Res2ResAddOnPayload = res2res(
         Response.from_requests(r_one, arg.default_response_encoding_one), arg.req
     )
-    res_other: Response = res2res(
+    res_other_payload: Res2ResAddOnPayload = res2res(
         Response.from_requests(r_other, arg.default_response_encoding_other), arg.req
     )
+    res_one = res_one_payload.response
+    res_other = res_other_payload.response
 
     dict_one: TOption[dict] = res2dict(res_one)
     dict_other: TOption[dict] = res2dict(res_other)
@@ -485,7 +487,9 @@ def challenge(arg_dict: dict) -> dict:
                     {
                         "seq": arg.seq,
                         "name": name,
-                        "tags": [],  # TODO: tags created by reqs2reqs
+                        "tags": res_one_payload.tags.concat(
+                            res_other_payload.tags
+                        ).uniq(),  # TODO: tags created by reqs2reqs
                         "request_time": req_time.isoformat(),
                         "status": status,
                         "method": arg.req.method,

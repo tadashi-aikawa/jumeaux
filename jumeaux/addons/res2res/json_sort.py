@@ -26,6 +26,7 @@ class Sorter(OwlMixin):
 
 class Config(OwlMixin):
     items: TList[Sorter]
+    footprints_tag: TOption[str]
 
 
 def traverse(value: Any, location: str, targets: TList[Target]):
@@ -68,22 +69,21 @@ class Executor(Res2ResExecutor):
             return payload
 
         res_json = json.loads(res.text)
-        sorted_res = json.dumps(
-            self.config.items.reduce(
-                lambda t, s: (
-                    _dict_sort(t, s.targets) if isinstance(t, dict) else _list_sort(t, s.targets)
-                )
-                if when_filter(s.when, payload.req.to_dict())
-                else t,
-                res_json,
-            ),
-            ensure_ascii=False,
+        res_json_sorted = self.config.items.reduce(
+            lambda t, s: (
+                _dict_sort(t, s.targets) if isinstance(t, dict) else _list_sort(t, s.targets)
+            )
+            if when_filter(s.when, payload.req.to_dict())
+            else t,
+            res_json,
         )
 
         return Res2ResAddOnPayload.from_dict(
             {
                 "response": {
-                    "body": sorted_res.encode(res.encoding.get(), errors="replace"),
+                    "body": json.dumps(res_json_sorted, ensure_ascii=False).encode(
+                        res.encoding.get(), errors="replace"
+                    ),
                     "type": res.type,
                     "encoding": res.encoding.get(),
                     "headers": res.headers,
@@ -93,5 +93,10 @@ class Executor(Res2ResExecutor):
                     "elapsed_sec": res.elapsed_sec,
                 },
                 "req": payload.req,
+                "tags": payload.tags.concat(
+                    self.config.footprints_tag.map(
+                        lambda x: [x] if res_json != res_json_sorted else []
+                    ).get_or([])
+                ),
             }
         )
