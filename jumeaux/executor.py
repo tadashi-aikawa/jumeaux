@@ -106,6 +106,48 @@ __/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ _
 \    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
 /_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\
   \/   |____/ \__\__,_|_|   \__|  \___/ \__,_|_| |_| |_|\___|\__,_|\__,_/_/\_\   \/
+
+
+                    ..JgHggggggggHm&..   ...gWggggggggggHa-..
+                .(WgggggggggggggggggggNNNMgggggggggggggggggggHa,
+             .(ggggggggggggggggggggMMMMMMMMNggggggggggggggggggggga,
+           .dggggggggggggggggggggHMMMMMMMMMMMNgggggggggggggggggggggN,
+        ..ggggggggggggggggggggg@NMMMMMMMMMMMMMNHgggggggggggggggggggggHa.   `
+      .JgggggggggggggggggggggggNMMMMMMMMMMMMMMMMHgggggggggggggggggggggggn.
+     .ggggggggggggggggggggggggNMMMMMMMMMMMMMMMMMMggggggggggggggggggggggggH,
+   .dgggggggggggggggggggggggg@MMMMMMMMMMMMMMMMMMMNgggggggggggggggggggggggggh.
+  .ggggggggggggggggggggggggggMMMMMMMMMMMMMMMMMMMMMggggggggggggggggggggggggggH,
+ .gggggggggggggggggggggggggggMMMMMMMMMMMMMMMMMMMMMNg@ggggggggggggggggggggggggH,
+ dggggggggggggggggggggggggg@gMMMMMMMMMMMMMMMMMMMMMNgggggggggggggggggggggggggggL
+ WgggggggggggggggggggggggggggMMMMMMMMMMMMMMMMMMMMMMgggggggggggggggggggggggggggP
+ (gggggggggggggggggggggggggggMMMMMMMMMMMMMMMMMMMMMMggggggggggggggggggggggggggH'
+  ,UggggggggggggggggggggggggggMMMMMMMMMMMMMMMMMMMMgggggggggggggggggggggggggHY`
+     ?"YHgHHBHHgggggggggggggggMMMMMMMMMMMMMMMMMMMNggggggggggggggHWYWHgHY""(
+    JH.      _?!~-?"4HggggggggMMMMMMMMMMMMMMMMMMMHgggggggg#"=~`~!`       .gL
+   .ggh               (HgggggggMMMMMMMMMMMMMMMMMNgggggggf`              .Hgg,
+   JggH                ,HYJggggMMMMMMMMMMMMMMMMMMgggg]7g|               .ggg]
+   dggF               ."` HggggHMMMMMMMMMMMMMMMMgggggb  7.               Ogg]
+   JgK                   .ggggggMMMMMMMMMMMMMMMNgggggH                    Hg%
+   ,gHJ..                .ggggggMMMMMMMMMMMMMMMNgggggH                 ..(gg:
+    ggggg\                ggggggMMMMMMMMMMMMMMMMgggggK                (ggggK
+    zgggH,                4@ggg@MMMMMMMMMMMMMMMNgggggF             Ta..gggg%
+    .ggggH,               ,gggggMMMMMMMMMMMMMMMNggggg!               (ggggH
+     jWggggL        ..,    WgggMMMMMMMMMMMMMMMMMNgggP    .J,       .dggggD%
+     ./Hggggh.   ..WggH.   .HNMMMMMMMMMMMMMMMMMMMNH@    .gggH&, ` .Wgggg@,
+      G(gggggg@ggggggggh..+udMMMMMMMMMMMMMMMMMMMMMMmZ>-.Hggggggggggggggg%]
+      ,(ggggggggggggggggMggggHMMMMMMMMMMMMMMMMMMMMgggggMgggggggggggggggg({
+      .wggggggggggggggggg,7HgggMMMMMMMMMMMMMMMMMMgggHY(gggggggggggggggggJ`
+      .Wggggggggggggggggg]    ???jMMMMMMMMMMM#?777!   JgggggggggggggggggW<
+     .XggggggggggggggggggP      _?""Y"'"HHBYY""!      Wggggggggggggggggggh
+    .JgggggggggggggggggggP                            WggggggggggggggggggHJ.
+...dggggggggggggggggggggg]                            q@ggggggggggggggggggggm-..
+  _7""Y""!.gggggggggggggH`                            .gggggggggggggg;_""Y""'!
+         .WggggggggggggH^                              (gggggggggggggh
+        .dggggggggggggB!                                ,Hggggggggggggh
+       .dggggggggggg#=                                    ?Hgggggggggggh.
+      .gggggggggg#"!                                        -THgggggggggH,
+    .dgggggHYY"!                                                ?"YWHgggggh,
+                                                        
 """
 
 CONFIG_AA = r"""
