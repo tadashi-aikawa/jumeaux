@@ -178,17 +178,19 @@ Report
           }
         ]
       },
-      "key": "a90b680c26451c983ecb0e4db57830b745127e0f8af9fcc0cca898579cf40367",
+      "key": "398cdd3f0ddc2191dca8a5c7e9de9765d772585762ea5fc0b49ecaf7ed2ec78a",
       "summary": {
         "concurrency": {
           "processes": 1,
           "threads": 1
         },
         "one": {
+          "headers": {},
           "host": "http://localhost:8000/api/one",
           "name": "One endpoint"
         },
         "other": {
+          "headers": {},
           "host": "http://localhost:8000/api/other",
           "name": "Other endpoint"
         },
@@ -204,8 +206,8 @@ Report
         "tags": [],
         "time": {
           "elapsed_sec": 0,
-          "end": "2019-04-14T16:15:42.817128+09:00",
-          "start": "2019-04-14T16:15:42.711287+09:00"
+          "end": "2019-08-04T23:48:36.503226+09:00",
+          "start": "2019-08-04T23:48:36.368831+09:00"
         }
       },
       "title": "Ignore",
@@ -232,13 +234,14 @@ Report
             }
           },
           "headers": {},
+          "method": "GET",
           "name": "Regard as `Same` in spite of `Different` actually",
           "one": {
             "byte": 457,
             "content_type": "application/json",
             "encoding": "ascii",
             "mime_type": "application/json",
-            "response_sec": 0.03,
+            "response_sec": 0.01,
             "status_code": 200,
             "type": "json",
             "url": "http://localhost:8000/api/one/same-1.json?param1=hoge"
@@ -248,7 +251,7 @@ Report
             "content_type": "application/json",
             "encoding": "ascii",
             "mime_type": "application/json",
-            "response_sec": 0.03,
+            "response_sec": 0,
             "status_code": 200,
             "type": "json",
             "url": "http://localhost:8000/api/other/same-1.json?param1=hoge"
@@ -259,7 +262,7 @@ Report
               "hoge"
             ]
           },
-          "request_time": "2019-04-14T16:15:42.713374+09:00",
+          "request_time": "2019-08-04T23:48:36.370480+09:00",
           "seq": 1,
           "status": "same",
           "tags": []
@@ -275,13 +278,14 @@ Report
             }
           },
           "headers": {},
+          "method": "GET",
           "name": "Regard as `Same` in spite of `Different` actually (with when)",
           "one": {
             "byte": 497,
             "content_type": "application/json",
             "encoding": "ascii",
             "mime_type": "application/json",
-            "response_sec": 0,
+            "response_sec": 0.01,
             "status_code": 200,
             "type": "json",
             "url": "http://localhost:8000/api/one/same-2.json?param1=hoge"
@@ -302,7 +306,7 @@ Report
               "hoge"
             ]
           },
-          "request_time": "2019-04-14T16:15:42.769972+09:00",
+          "request_time": "2019-08-04T23:48:36.418567+09:00",
           "seq": 2,
           "status": "same",
           "tags": []
@@ -329,6 +333,7 @@ Report
             }
           },
           "headers": {},
+          "method": "GET",
           "name": "Only ignore `ignored_id`",
           "one": {
             "byte": 457,
@@ -349,7 +354,7 @@ Report
             "file": "other/(3)Only ignore `ignored_id`",
             "mime_type": "application/json",
             "prop_file": "other-props/(3)Only ignore `ignored_id`.json",
-            "response_sec": 0,
+            "response_sec": 0.01,
             "status_code": 200,
             "type": "json",
             "url": "http://localhost:8000/api/other/diff-1.json?param1=hoge&param1=hoge2&param2=huga"
@@ -364,13 +369,13 @@ Report
               "huga"
             ]
           },
-          "request_time": "2019-04-14T16:15:42.791674+09:00",
+          "request_time": "2019-08-04T23:48:36.456861+09:00",
           "seq": 3,
           "status": "different",
           "tags": []
         }
       ],
-      "version": "0.65.2"
+      "version": "2.0.0"
     }
     ```
 
