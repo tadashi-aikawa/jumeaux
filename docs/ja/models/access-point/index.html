@@ -576,6 +576,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#user-agentsuper-jumeaux" title="User-AgentをSuper-Jumeauxで上書きする" class="md-nav__link">
+    User-AgentをSuper-Jumeauxで上書きする
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -840,6 +847,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#user-agentsuper-jumeaux" title="User-AgentをSuper-Jumeauxで上書きする" class="md-nav__link">
+    User-AgentをSuper-Jumeauxで上書きする
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -908,6 +922,13 @@
 <td></td>
 </tr>
 <tr>
+<td>headers</td>
+<td>(dict[string])</td>
+<td>アクセス先ごとに追加するリクエストヘッダ</td>
+<td><pre>{"xxx": "xxx-value"}</pre></td>
+<td></td>
+</tr>
+<tr>
 <td>proxy</td>
 <td>(string)</td>
 <td>プロキシ <i class="fa fa-exclamation-triangle"></i></td>
@@ -923,6 +944,10 @@
 </tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">headers</p>
+<p><a href="../../models/request">Request</a>に同名headerが指定されている場合はそちらが優先されます。</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">proxy</p>
 <p>スキーム(<code>http://</code>など)は設定しないでください。<br />
@@ -1052,6 +1077,13 @@ proxy: proxy-host
 <div class="codehilite"><pre><span></span>name: Production
 host: &quot;http://jumeaux/production&quot;
 default_response_encoding: euc_jp
+</pre></div>
+
+<h3 id="user-agentsuper-jumeaux">User-AgentをSuper-Jumeauxで上書きする<a class="headerlink" href="#user-agentsuper-jumeaux" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>name: Production
+host: &quot;http://jumeaux/production&quot;
+headers:
+  User-Agent: Super-Jumeaux
 </pre></div>
                 
                   
