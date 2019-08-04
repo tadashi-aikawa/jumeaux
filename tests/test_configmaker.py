@@ -14,8 +14,13 @@ class TestCreateConfig:
             TList([config_only_access_points, config_without_access_points]), TOption(None)
         )
         expected = {
-            "one": {"name": "name_one", "host": "http://host/one", "proxy": "http://proxy"},
-            "other": {"name": "name_other", "host": "http://host/other"},
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy",
+                "headers": {},
+            },
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {}},
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
             "threads": 3,
             "max_retries": 2,
@@ -42,8 +47,13 @@ class TestCreateConfig:
         actual: Config = configmaker.create_config(TList([config_minimum]), TOption(None))
 
         expected = {
-            "one": {"name": "name_one", "host": "http://host/one", "proxy": "http://proxy"},
-            "other": {"name": "name_other", "host": "http://host/other"},
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy",
+                "headers": {},
+            },
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {}},
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
             "threads": 1,
             "max_retries": 3,
@@ -78,8 +88,13 @@ class TestCreateConfig:
         )
 
         expected = {
-            "one": {"name": "name_one", "host": "http://host/one", "proxy": "http://proxy"},
-            "other": {"name": "name_other", "host": "http://host/other"},
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy",
+                "headers": {},
+            },
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {}},
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
             "threads": 1,
             "max_retries": 3,
@@ -124,8 +139,13 @@ class TestCreateConfig:
 
         expected = {
             "title": "mergecase_2",
-            "one": {"name": "name_one", "host": "http://host/one", "proxy": "http://proxy"},
-            "other": {"name": "name_other", "host": "http://host/other"},
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy",
+                "headers": {},
+            },
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {}},
             "output": {"encoding": "utf8", "response_dir": "mergecase2"},
             "threads": 1,
             "max_retries": 3,
@@ -158,8 +178,13 @@ class TestCreateConfig:
 
         expected = {
             "title": "mergecase_2",
-            "one": {"name": "name_one", "host": "http://host/one", "proxy": "http://proxy"},
-            "other": {"name": "name_other", "host": "http://host/other"},
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy",
+                "headers": {},
+            },
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {}},
             "output": {"encoding": "utf8", "response_dir": "mergecase1"},
             "threads": 1,
             "max_retries": 3,
@@ -191,8 +216,13 @@ class TestCreateConfig:
 
         expected = {
             "title": "mergecase_with_tags",
-            "one": {"name": "name_one", "host": "http://host/one", "proxy": "http://proxy"},
-            "other": {"name": "name_other", "host": "http://host/other"},
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy",
+                "headers": {},
+            },
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {}},
             "output": {"encoding": "utf8", "response_dir": "mergecase_with_tags"},
             "threads": 1,
             "max_retries": 3,
@@ -236,8 +266,13 @@ class TestCreateConfig:
 
         expected = {
             "title": "includecase_1",
-            "one": {"name": "name_one", "host": "http://host/one", "proxy": "http://proxy"},
-            "other": {"name": "name_other", "host": "http://host/other"},
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy",
+                "headers": {},
+            },
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {}},
             "output": {"encoding": "utf8", "response_dir": "includecase1"},
             "threads": 1,
             "max_retries": 3,
