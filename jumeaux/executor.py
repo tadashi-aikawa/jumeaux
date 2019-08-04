@@ -106,6 +106,48 @@ __/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ _
 \    / \___ \| __/ _` | '__| __|  _  | | | | | '_ ` _ \ / _ \/ _` | | | \ \/ / \    /
 /_  _\  ___) | || (_| | |  | |_  | |_| | |_| | | | | | |  __/ (_| | |_| |>  <  /_  _\
   \/   |____/ \__\__,_|_|   \__|  \___/ \__,_|_| |_| |_|\___|\__,_|\__,_/_/\_\   \/
+
+
+                    ..JgHggggggggHm&..   ...gWggggggggggHa-..
+                .(WgggggggggggggggggggNNNMgggggggggggggggggggHa,
+             .(ggggggggggggggggggggMMMMMMMMNggggggggggggggggggggga,
+           .dggggggggggggggggggggHMMMMMMMMMMMNgggggggggggggggggggggN,
+        ..ggggggggggggggggggggg@NMMMMMMMMMMMMMNHgggggggggggggggggggggHa.   `
+      .JgggggggggggggggggggggggNMMMMMMMMMMMMMMMMHgggggggggggggggggggggggn.
+     .ggggggggggggggggggggggggNMMMMMMMMMMMMMMMMMMggggggggggggggggggggggggH,
+   .dgggggggggggggggggggggggg@MMMMMMMMMMMMMMMMMMMNgggggggggggggggggggggggggh.
+  .ggggggggggggggggggggggggggMMMMMMMMMMMMMMMMMMMMMggggggggggggggggggggggggggH,
+ .gggggggggggggggggggggggggggMMMMMMMMMMMMMMMMMMMMMNg@ggggggggggggggggggggggggH,
+ dggggggggggggggggggggggggg@gMMMMMMMMMMMMMMMMMMMMMNgggggggggggggggggggggggggggL
+ WgggggggggggggggggggggggggggMMMMMMMMMMMMMMMMMMMMMMgggggggggggggggggggggggggggP
+ (gggggggggggggggggggggggggggMMMMMMMMMMMMMMMMMMMMMMggggggggggggggggggggggggggH'
+  ,UggggggggggggggggggggggggggMMMMMMMMMMMMMMMMMMMMgggggggggggggggggggggggggHY`
+     ?"YHgHHBHHgggggggggggggggMMMMMMMMMMMMMMMMMMMNggggggggggggggHWYWHgHY""(
+    JH.      _?!~-?"4HggggggggMMMMMMMMMMMMMMMMMMMHgggggggg#"=~`~!`       .gL
+   .ggh               (HgggggggMMMMMMMMMMMMMMMMMNgggggggf`              .Hgg,
+   JggH                ,HYJggggMMMMMMMMMMMMMMMMMMgggg]7g|               .ggg]
+   dggF               ."` HggggHMMMMMMMMMMMMMMMMgggggb  7.               Ogg]
+   JgK                   .ggggggMMMMMMMMMMMMMMMNgggggH                    Hg%
+   ,gHJ..                .ggggggMMMMMMMMMMMMMMMNgggggH                 ..(gg:
+    ggggg\                ggggggMMMMMMMMMMMMMMMMgggggK                (ggggK
+    zgggH,                4@ggg@MMMMMMMMMMMMMMMNgggggF             Ta..gggg%
+    .ggggH,               ,gggggMMMMMMMMMMMMMMMNggggg!               (ggggH
+     jWggggL        ..,    WgggMMMMMMMMMMMMMMMMMNgggP    .J,       .dggggD%
+     ./Hggggh.   ..WggH.   .HNMMMMMMMMMMMMMMMMMMMNH@    .gggH&, ` .Wgggg@,
+      G(gggggg@ggggggggh..+udMMMMMMMMMMMMMMMMMMMMMMmZ>-.Hggggggggggggggg%]
+      ,(ggggggggggggggggMggggHMMMMMMMMMMMMMMMMMMMMgggggMgggggggggggggggg({
+      .wggggggggggggggggg,7HgggMMMMMMMMMMMMMMMMMMgggHY(gggggggggggggggggJ`
+      .Wggggggggggggggggg]    ???jMMMMMMMMMMM#?777!   JgggggggggggggggggW<
+     .XggggggggggggggggggP      _?""Y"'"HHBYY""!      Wggggggggggggggggggh
+    .JgggggggggggggggggggP                            WggggggggggggggggggHJ.
+...dggggggggggggggggggggg]                            q@ggggggggggggggggggggm-..
+  _7""Y""!.gggggggggggggH`                            .gggggggggggggg;_""Y""'!
+         .WggggggggggggH^                              (gggggggggggggh
+        .dggggggggggggB!                                ,Hggggggggggggh
+       .dggggggggggg#=                                    ?Hgggggggggggh.
+      .gggggggggg#"!                                        -THgggggggggH,
+    .dgggggHYY"!                                                ?"YWHgggggh,
+                                                        
 """
 
 CONFIG_AA = r"""
@@ -138,11 +180,7 @@ def make_dir(path):
 def http_get(args: Tuple[Any, str, TDict[str], TOption[Proxy]]):
     session, url, headers, proxies = args
     try:
-        r = session.get(
-            url,
-            headers=headers.assign({"User-Agent": f"jumeaux/{__version__}"}),
-            proxies=proxies.map(lambda x: x.to_dict()).get_or({}),
-        )
+        r = session.get(url, headers=headers, proxies=proxies.map(lambda x: x.to_dict()).get_or({}))
     finally:
         session.close()
     return r
@@ -155,12 +193,20 @@ def http_post(args: Tuple[Any, str, TOption[dict], TOption[dict], TDict[str], TO
             url,
             data=form.get(),
             json=json_.get(),
-            headers=headers.assign({"User-Agent": f"jumeaux/{__version__}"}),
+            headers=headers,
             proxies=proxies.map(lambda x: x.to_dict()).get_or({}),
         )
     finally:
         session.close()
     return r
+
+
+def merge_headers(access_point_base: TDict[str], this_request: TDict[str]) -> TDict[str]:
+    return (
+        TDict({"User-Agent": f"jumeaux/{__version__}"})
+        .assign(access_point_base)
+        .assign(this_request)
+    )
 
 
 def concurrent_request(
@@ -172,24 +218,31 @@ def concurrent_request(
     json_: TOption[dict],
     url_one: str,
     url_other: str,
+    headers_one: TDict[str],
+    headers_other: TDict[str],
     proxies_one: TOption[Proxy],
     proxies_other: TOption[Proxy],
 ):
+    merged_header_one: TDict[str] = merge_headers(headers_one, headers)
+    merged_header_other: TDict[str] = merge_headers(headers_other, headers)
+    logger.debug(f"One   Request headers: {merged_header_one}")
+    logger.debug(f"Other Request headers: {merged_header_other}")
+
     with futures.ThreadPoolExecutor(max_workers=2) as ex:
         if method is HttpMethod.GET:
             res_one, res_other = ex.map(
                 http_get,
                 (
-                    (session, url_one, headers, proxies_one),
-                    (session, url_other, headers, proxies_other),
+                    (session, url_one, merged_header_one, proxies_one),
+                    (session, url_other, merged_header_other, proxies_other),
                 ),
             )
         elif method is HttpMethod.POST:
             res_one, res_other = ex.map(
                 http_post,
                 (
-                    (session, url_one, form, json_, headers, proxies_one),
-                    (session, url_other, form, json_, headers, proxies_other),
+                    (session, url_one, form, json_, merged_header_one, proxies_one),
+                    (session, url_other, form, json_, merged_header_other, proxies_other),
                 ),
             )
         else:
@@ -359,6 +412,8 @@ def challenge(arg_dict: dict) -> dict:
             json_=arg.req.json,
             url_one=url_one,
             url_other=url_other,
+            headers_one=arg.headers_one,
+            headers_other=arg.headers_other,
             proxies_one=arg.proxy_one,
             proxies_other=arg.proxy_other,
         )
@@ -580,6 +635,8 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
             "path_other": config.other.path,
             "query_one": config.one.query,
             "query_other": config.other.query,
+            "headers_one": config.one.headers,
+            "headers_other": config.other.headers,
             "default_response_encoding_one": config.one.default_response_encoding,
             "default_response_encoding_other": config.other.default_response_encoding,
             "res_dir": config.output.response_dir,
@@ -624,6 +681,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
                 "path": config.one.path,
                 "query": config.one.query,
                 "proxy": config.one.proxy,
+                "headers": config.one.headers,
                 "default_response_encoding": config.one.default_response_encoding,
             },
             "other": {
@@ -632,6 +690,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
                 "path": config.other.path,
                 "query": config.other.query,
                 "proxy": config.other.proxy,
+                "headers": config.other.headers,
                 "default_response_encoding": config.other.default_response_encoding,
             },
             "status": trials.group_by(_.status.value).map_values(len).to_dict(),

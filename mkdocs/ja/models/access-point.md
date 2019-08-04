@@ -8,15 +8,19 @@ Definitions
 
 ### AccessPoint
 
-| Key                       | Type                                        | Description                                                   | Example                     | Default |
-|---------------------------|---------------------------------------------|---------------------------------------------------------------|-----------------------------|---------|
-| name                      | string                                      | アクセス先の名称                                              | Production                  |         |
-| host                      | string                                      | アクセス先のhost                                              | `http://jumeaux/production` |         |
-| path                      | ([PathReplace](#pathreplace))               | アクセス先ごとにパスを置換したい場合の設定                    | -                           |         |
-| query                     | ([QueryCustomization](#querycustomization)) | アクセス先ごとにクエリを上書き/削除したい場合の設定           | -                           |         |
-| proxy                     | (string)                                    | プロキシ :fa-exclamation-triangle:                            | `proxy-host`                |         |
-| default_response_encoding | (string)                                    | レスポンスのエンコーディングが不明な場合の値 :fa-info-circle: | utf8                        |         |
+|            Key            |                    Type                     |                          Description                          |             Example             | Default |
+| ------------------------- | ------------------------------------------- | ------------------------------------------------------------- | ------------------------------- | ------- |
+| name                      | string                                      | アクセス先の名称                                              | Production                      |         |
+| host                      | string                                      | アクセス先のhost                                              | `http://jumeaux/production`     |         |
+| path                      | ([PathReplace](#pathreplace))               | アクセス先ごとにパスを置換したい場合の設定                    | -                               |         |
+| query                     | ([QueryCustomization](#querycustomization)) | アクセス先ごとにクエリを上書き/削除したい場合の設定           | -                               |         |
+| headers                   | (dict[string])                              | アクセス先ごとに追加するリクエストヘッダ                      | <pre>{"xxx": "xxx-value"}</pre> |         |
+| proxy                     | (string)                                    | プロキシ :fa-exclamation-triangle:                            | `proxy-host`                    |         |
+| default_response_encoding | (string)                                    | レスポンスのエンコーディングが不明な場合の値 :fa-info-circle: | utf8                            |         |
 
+!!! warning "headers"
+
+    [Request]に同名headerが指定されている場合はそちらが優先されます。
 
 !!! warning  "proxy"
 
@@ -128,3 +132,13 @@ host: "http://jumeaux/production"
 default_response_encoding: euc_jp
 ```
 
+### User-AgentをSuper-Jumeauxで上書きする
+
+```yml
+name: Production
+host: "http://jumeaux/production"
+headers:
+  User-Agent: Super-Jumeaux
+```
+
+[request]: ../../models/request
