@@ -5,7 +5,7 @@
 import datetime
 import os
 import shutil
-from typing import Optional
+from typing import Optional, Dict
 from datetime import timezone, timedelta
 from unittest.mock import MagicMock
 from unittest.mock import patch
@@ -16,7 +16,7 @@ from requests.exceptions import ConnectionError
 
 from jumeaux import executor, __version__
 from jumeaux.addons import AddOnExecutor
-from jumeaux.executor import merge_args2config, create_query_string
+from jumeaux.executor import merge_args2config, create_query_string, merge_headers
 from jumeaux.models import (
     CaseInsensitiveDict,
     Addons,
@@ -169,6 +169,8 @@ class TestChallenge:
                 "res_dir": "tmpdir",
                 "proxy_one": None,
                 "proxy_other": None,
+                "headers_one": {},
+                "headers_other": {},
             }
         )
 
@@ -258,6 +260,8 @@ class TestChallenge:
                 "res_dir": "tmpdir",
                 "proxy_one": None,
                 "proxy_other": None,
+                "headers_one": {},
+                "headers_other": {},
             }
         )
         actual = executor.challenge(args)
@@ -320,6 +324,8 @@ class TestChallenge:
                 "res_dir": "tmpdir",
                 "proxy_one": None,
                 "proxy_other": None,
+                "headers_one": {},
+                "headers_other": {},
             }
         )
         actual = executor.challenge(args)
@@ -485,12 +491,14 @@ class TestMergeArgs2Config:
                     "name": "name_one",
                     "host": "http://host/one",
                     "proxy": "http://proxy-one",
+                    "headers": {"XXX": "xxx"},
                     "default_response_encoding": "euc-jp",
                 },
                 "other": {
                     "name": "name_other",
                     "host": "http://host/other",
                     "proxy": "http://proxy-other",
+                    "headers": {"YYY": "yyy"},
                     "default_response_encoding": "euc-jp",
                 },
                 "output": {"encoding": "utf8", "response_dir": "tmpdir"},
@@ -513,12 +521,14 @@ class TestMergeArgs2Config:
                 "host": "http://host/one",
                 "proxy": "http://proxy-one",
                 "default_response_encoding": "euc-jp",
+                "headers": {"XXX": "xxx"},
             },
             "other": {
                 "name": "name_other",
                 "host": "http://host/other",
                 "proxy": "http://proxy-other",
                 "default_response_encoding": "euc-jp",
+                "headers": {"YYY": "yyy"},
             },
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
             "addons": {
@@ -560,8 +570,12 @@ class TestMergeArgs2Config:
                 "threads": 1,
                 "processes": 4,
                 "max_retries": 5,
-                "one": {"name": "name_one", "host": "http://host/one"},
-                "other": {"name": "name_other", "host": "http://host/other"},
+                "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
+                "other": {
+                    "name": "name_other",
+                    "host": "http://host/other",
+                    "headers": {"YYY": "yyy"},
+                },
                 "output": {"encoding": "utf8", "response_dir": "tmpdir"},
                 "addons": {
                     "log2reqs": {"name": "addons.log2reqs.csv", "config": {"encoding": "utf8"}}
@@ -576,8 +590,8 @@ class TestMergeArgs2Config:
             "threads": 1,
             "processes": 4,
             "max_retries": 5,
-            "one": {"name": "name_one", "host": "http://host/one"},
-            "other": {"name": "name_other", "host": "http://host/other"},
+            "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {"YYY": "yyy"}},
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
             "addons": {
                 "log2reqs": {
@@ -612,8 +626,12 @@ class TestMergeArgs2Config:
 
         config: Config = Config.from_dict(
             {
-                "one": {"name": "name_one", "host": "http://host/one"},
-                "other": {"name": "name_other", "host": "http://host/other"},
+                "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
+                "other": {
+                    "name": "name_other",
+                    "host": "http://host/other",
+                    "headers": {"YYY": "yyy"},
+                },
                 "output": {"encoding": "utf8", "response_dir": "tmpdir"},
                 "addons": {
                     "log2reqs": {"name": "addons.log2reqs.csv", "config": {"encoding": "utf8"}}
@@ -624,8 +642,8 @@ class TestMergeArgs2Config:
         assert merge_args2config(args, config).to_dict() == {
             "threads": 1,
             "max_retries": 3,
-            "one": {"name": "name_one", "host": "http://host/one"},
-            "other": {"name": "name_other", "host": "http://host/other"},
+            "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {"YYY": "yyy"}},
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
             "addons": {
                 "log2reqs": {
@@ -643,6 +661,53 @@ class TestMergeArgs2Config:
                 "final": [],
             },
         }
+
+
+class TestMergeHeaders:
+    @pytest.mark.parametrize(
+        "title, access_point_base, this_request, expected",
+        [
+            ("No headers", {}, {}, {"User-Agent": f"jumeaux/{__version__}"}),
+            (
+                "Specify User-Agent -> overwritten",
+                {"User-Agent": "hoge"},
+                {},
+                {"User-Agent": "hoge"},
+            ),
+            (
+                "Specify User-Agent -> overwritten",
+                {"User-Agent": "low priority"},
+                {"User-Agent": "high priority"},
+                {"User-Agent": "high priority"},
+            ),
+            (
+                "Merge values",
+                {"key1": "value1"},
+                {"key2": "value2"},
+                {"key1": "value1", "key2": "value2", "User-Agent": f"jumeaux/{__version__}"},
+            ),
+            (
+                "Override values",
+                {"key1": "value1", "key2": "value2"},
+                {"key1": "VALUE1", "key3": "value3"},
+                {
+                    "key1": "VALUE1",
+                    "key2": "value2",
+                    "key3": "value3",
+                    "User-Agent": f"jumeaux/{__version__}",
+                },
+            ),
+        ],
+    )
+    def test_normal(
+        self,
+        title,
+        access_point_base: Dict[str, str],
+        this_request: Dict[str, str],
+        expected: Dict[str, str],
+    ):
+        actual: TDict[str] = merge_headers(TDict(access_point_base), TDict(this_request))
+        assert expected == actual.to_dict()
 
 
 @patch("jumeaux.executor.now")
@@ -736,11 +801,17 @@ class TestExec:
                 "description": "Report description",
                 "tags": ["tag1", "tag2"],
                 "threads": 1,
-                "one": {"name": "name_one", "host": "http://host/one", "proxy": "http://proxy"},
+                "one": {
+                    "name": "name_one",
+                    "host": "http://host/one",
+                    "proxy": "http://proxy",
+                    "headers": {"XXX1": "xxx1", "YYY1": "yyy1"},
+                },
                 "other": {
                     "name": "name_other",
                     "host": "http://host/other",
                     "query": {"overwrite": {"q3": ["3"]}},
+                    "headers": {"XXX2": "xxx2", "YYY2": "yyy2"},
                 },
                 "output": {"encoding": "utf8", "response_dir": "tmpdir"},
                 "addons": {
@@ -790,11 +861,17 @@ class TestExec:
                     "end": "2000-01-02T00:00:00.000200+09:00",
                     "elapsed_sec": 570,
                 },
-                "one": {"host": "http://host/one", "proxy": "http://proxy", "name": "name_one"},
+                "one": {
+                    "host": "http://host/one",
+                    "proxy": "http://proxy",
+                    "name": "name_one",
+                    "headers": {"XXX1": "xxx1", "YYY1": "yyy1"},
+                },
                 "other": {
                     "host": "http://host/other",
                     "name": "name_other",
                     "query": {"overwrite": {"q3": ["3"]}},
+                    "headers": {"XXX2": "xxx2", "YYY2": "yyy2"},
                 },
                 "tags": ["tag1", "tag2"],
                 "status": {"same": 1, "different": 1, "failure": 0},

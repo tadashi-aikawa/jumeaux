@@ -1,0 +1,39 @@
+- name: POST
+  method: POST
+  path: /same-1.json
+  qs:
+    param1: ["q1-1"]
+    param2: ["q1-2"]
+  form:
+    formparam:
+      - p11
+      - p12
+
+- name: POST and overwritten
+  method: POST
+  path: /same-1.json
+  qs:
+    param1: ["q1-1"]
+    param2: ["q1-2"]
+  form:
+    formparam:
+      - p11
+      - p12
+  headers:
+    User-Agent: "Hack by requests!"
+
+- name: GET
+  method: GET
+  path: /diff-1.json
+  qs:
+    param1: ["q2-1"]
+    param2: ["q2-2"]
+
+- name: GET and overwritten
+  method: GET
+  path: /diff-1.json
+  qs:
+    param1: ["q2-1"]
+    param2: ["q2-2"]
+  headers:
+    User-Agent: "Hack by requests!"

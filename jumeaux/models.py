@@ -15,7 +15,6 @@ class CaseInsensitiveDict(RequestsCaseInsensitiveDict):
     pass
 
 
-
 class NotifierType(OwlEnum):
     SLACK = "slack"
 
@@ -48,6 +47,7 @@ class AccessPoint(OwlMixin):
     query: TOption[QueryCustomization]
     proxy: TOption[str]
     default_response_encoding: TOption[str]
+    headers: TDict[str] = {}
 
 
 class OutputSummary(OwlMixin):
@@ -275,6 +275,8 @@ class ChallengeArg(OwlMixin):
     query_other: TOption[QueryCustomization]
     proxy_one: TOption[Proxy]
     proxy_other: TOption[Proxy]
+    headers_one: TDict[str]
+    headers_other: TDict[str]
     default_response_encoding_one: TOption[str]
     default_response_encoding_other: TOption[str]
     res_dir: str

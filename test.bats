@@ -23,18 +23,17 @@ assert_number_property() {
   [[ $(jq $path responses/latest/report.json) -eq $expected ]]
 }
 
-assert_string_property() {
+assert_not_number_property() {
   local path=$1
   local expected=$2
   # Distinguish between numbers and character strings
-  [[ $(jq $path responses/latest/report.json) == \""$expected"\" ]]
+  [[ $(jq -r $path responses/latest/report.json) == "$expected" ]]
 }
 
 assert_null_property() {
   local path=$1
   [[ $(jq $path responses/latest/report.json) == null ]]
 }
-
 
 #--------------------------
 # jumeaux usage
@@ -95,7 +94,7 @@ assert_null_property() {
   assert_number_property '.summary.status.same' 1
   assert_number_property '.summary.status.different' 1
 
-  assert_string_property '.trials[0].method' 'GET'
+  assert_not_number_property '.trials[0].method' 'GET'
 }
 
 @test "Run path_custom" {
@@ -111,15 +110,15 @@ assert_null_property() {
 
   assert_number_property '.summary.status.same' 0
   assert_number_property '.summary.status.different' 2
-  assert_string_property '.summary.one.path.before' 'json'
-  assert_string_property '.summary.one.path.after' 'xml'
-  assert_string_property '.summary.other.path.before' '([^-]+)-(\\d).json'
-  assert_string_property '.summary.other.path.after' '\\1/case-\\2.json'
+  assert_not_number_property '.summary.one.path.before' 'json'
+  assert_not_number_property '.summary.one.path.after' 'xml'
+  assert_not_number_property '.summary.other.path.before' '([^-]+)-(\d).json'
+  assert_not_number_property '.summary.other.path.after' '\1/case-\2.json'
 
-  assert_string_property '.trials[0].one.url' 'http://localhost:8000/api/one/same-1.xml'
-  assert_string_property '.trials[0].other.url' 'http://localhost:8000/api/other/same/case-1.json'
-  assert_string_property '.trials[1].one.url' 'http://localhost:8000/api/one/diff-1.xml?param=123'
-  assert_string_property '.trials[1].other.url' 'http://localhost:8000/api/other/diff/case-1.json?param=123'
+  assert_not_number_property '.trials[0].one.url' 'http://localhost:8000/api/one/same-1.xml'
+  assert_not_number_property '.trials[0].other.url' 'http://localhost:8000/api/other/same/case-1.json'
+  assert_not_number_property '.trials[1].one.url' 'http://localhost:8000/api/one/diff-1.xml?param=123'
+  assert_not_number_property '.trials[1].other.url' 'http://localhost:8000/api/other/diff/case-1.json?param=123'
 }
 
 @test "Run query_custom" {
@@ -137,13 +136,13 @@ assert_null_property() {
   assert_number_property '.summary.status.same' 1
   assert_number_property '.summary.status.different' 1
   assert_null_property '.summary.one.query'
-  assert_string_property '.summary.other.query.overwrite.additional[0]' hoge
-  assert_string_property '.summary.other.query.remove[0]' param
+  assert_not_number_property '.summary.other.query.overwrite.additional[0]' hoge
+  assert_not_number_property '.summary.other.query.remove[0]' param
 
-  assert_string_property '.trials[0].one.url' 'http://localhost:8000/api/one/same-1.json'
-  assert_string_property '.trials[0].other.url' 'http://localhost:8000/api/other/same-1.json?additional=hoge'
-  assert_string_property '.trials[1].one.url' 'http://localhost:8000/api/one/diff-1.json?param=123'
-  assert_string_property '.trials[1].other.url' 'http://localhost:8000/api/other/diff-1.json?additional=hoge'
+  assert_not_number_property '.trials[0].one.url' 'http://localhost:8000/api/one/same-1.json'
+  assert_not_number_property '.trials[0].other.url' 'http://localhost:8000/api/other/same-1.json?additional=hoge'
+  assert_not_number_property '.trials[1].one.url' 'http://localhost:8000/api/one/diff-1.json?param=123'
+  assert_not_number_property '.trials[1].other.url' 'http://localhost:8000/api/other/diff-1.json?additional=hoge'
 }
 
 @test "Run all_same" {
@@ -174,7 +173,7 @@ assert_null_property() {
   assert_exists responses/latest/index.html
 
   assert_number_property '.summary.status.different' 1
-  assert_string_property '.trials[0].tags[0]' 'over $10 (id=bk101)'
+  assert_not_number_property '.trials[0].tags[0]' 'over $10 (id=bk101)'
   assert_number_property '.trials[0].tags[1]'
 }
 
@@ -240,10 +239,29 @@ assert_null_property() {
   assert_exists responses/latest/report.json
   assert_exists responses/latest/index.html
 
-  assert_string_property '.trials[0].one.type' plain
-  assert_string_property '.trials[0].other.type' plain
-  assert_string_property '.trials[1].one.type' json
-  assert_string_property '.trials[1].other.type' json
+  assert_not_number_property '.trials[0].one.type' plain
+  assert_not_number_property '.trials[0].other.type' plain
+  assert_not_number_property '.trials[1].one.type' json
+  assert_not_number_property '.trials[1].other.type' json
+}
+
+@test "Run request_headers" {
+  $JUMEAUX init request_headers
+  $JUMEAUX run requests
+
+  assert_exists responses
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+
+  assert_not_number_property '.summary.one.headers["XXX-Header-Key"]' xxx-header-key-one
+  assert_not_number_property '.summary.one.headers["User-Agent"]' jumeaux-test
+  assert_not_number_property '.summary.other.headers["XXX-Header-Key"]' xxx-header-key-other
+  assert_not_number_property '.trials[0].headers' "{}"
+  assert_not_number_property '.trials[1].headers["User-Agent"]' "Hack by requests!"
+  assert_not_number_property '.trials[2].headers' "{}"
+  assert_not_number_property '.trials[3].headers["User-Agent"]' "Hack by requests!"
 }
 
 @test "Run with log level options" {
