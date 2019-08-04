@@ -1,12 +1,17 @@
-title: Post
+title: Request headers
 
 one:
   name: One endpoint
   host: http://localhost:8000/api/one
+  headers:
+    XXX-Header-Key: xxx-header-key-one
+    User-Agent: jumeaux-test
 
 other:
   name: Other endpoint
   host: http://localhost:8000/api/other
+  headers:
+    XXX-Header-Key: xxx-header-key-other
 
 output:
   response_dir: responses
