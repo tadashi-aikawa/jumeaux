@@ -10,6 +10,13 @@ from requests.structures import CaseInsensitiveDict as RequestsCaseInsensitiveDi
 
 DictOrList = any
 
+def to_json(value: DictOrList) -> str: 
+    if isinstance(value, dict):
+        return TDict(value).to_json()
+    if isinstance(value, list):
+        return TList(value).to_json()
+    return None
+
 
 class CaseInsensitiveDict(RequestsCaseInsensitiveDict):
     pass

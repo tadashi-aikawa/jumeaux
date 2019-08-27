@@ -66,6 +66,7 @@ from jumeaux.addons import AddOnExecutor
 from jumeaux.addons.utils import to_jumeaux_xpath
 from jumeaux.configmaker import create_config, create_config_from_report
 from jumeaux.models import (
+    to_json,
     Config,
     Report,
     Request,
@@ -525,14 +526,14 @@ def challenge(arg_dict: dict) -> dict:
             write_to_file(
                 prop_file_one,
                 dir,
-                TDict(dict_one.get()).to_json().encode("utf-8", errors="replace"),
+                to_json(dict_one.get()).encode("utf-8", errors="replace"),
             )
         if not dict_other.is_none():
             prop_file_other = f"other-props/({arg.seq}){name}.json"
             write_to_file(
                 prop_file_other,
                 dir,
-                TDict(dict_other.get()).to_json().encode("utf-8", errors="replace"),
+                to_json(dict_other.get()).encode("utf-8", errors="replace"),
             )
 
     return global_addon_executor.apply_did_challenge(
