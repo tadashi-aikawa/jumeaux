@@ -268,7 +268,7 @@ def judgement(
     r_one: Response,
     r_other: Response,
     d_one: TOption[DictOrList],
-    d_other: TOption[dict],
+    d_other: TOption[DictOrList],
     name: str,
     path: str,
     qs: TDict[TList[str]],
@@ -454,8 +454,8 @@ def challenge(arg_dict: dict) -> dict:
     res_one = res_one_payload.response
     res_other = res_other_payload.response
 
-    dict_one: TOption[dict] = res2dict(res_one)
-    dict_other: TOption[dict] = res2dict(res_other)
+    dict_one: TOption[DictOrList] = res2dict(res_one)
+    dict_other: TOption[DictOrList] = res2dict(res_other)
 
     # Create diff
     # Either dict_one or dic_other is None, it means that it can't be analyzed, therefore return None
