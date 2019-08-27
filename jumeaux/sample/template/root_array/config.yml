@@ -1,0 +1,46 @@
+title: Simple
+
+one:
+  name: One endpoint
+  host: http://localhost:8000/api/one
+
+other:
+  name: Other endpoint
+  host: http://localhost:8000/api/other
+
+output:
+  response_dir: responses
+
+addons:
+  log2reqs:
+    name: plain
+
+  res2dict:
+    - name: json
+
+  judgement:
+    - name: ignore
+      config:
+        ignores:
+          - title: Ignore second id
+            conditions:
+              - changed:
+                  - path: root<1><'id'>
+
+  store_criterion:
+    - name: free
+      config:
+        when_any:
+          - status == 'different'
+
+  dump:
+    - name: json
+
+  final:
+    - name: json
+    - name: viewer
+  #   - name: miroir
+  #     config:
+  #       table: miroir
+  #       bucket: mamansoft-miroir
+  #       cache_max_age: 120
