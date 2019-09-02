@@ -10,6 +10,13 @@ from requests.structures import CaseInsensitiveDict as RequestsCaseInsensitiveDi
 
 DictOrList = any
 
+def to_json(value: DictOrList) -> str: 
+    if isinstance(value, dict):
+        return TDict(value).to_json()
+    if isinstance(value, list):
+        return TList(value).to_json()
+    return None
+
 
 class CaseInsensitiveDict(RequestsCaseInsensitiveDict):
     pass
@@ -404,8 +411,8 @@ class DidChallengeAddOnPayload(OwlMixin):
 class DidChallengeAddOnReference(OwlMixin):
     res_one: Response
     res_other: Response
-    res_one_props: TOption[dict]
-    res_other_props: TOption[dict]
+    res_one_props: TOption[DictOrList]
+    res_other_props: TOption[DictOrList]
 
 
 class JudgementAddOnPayload(OwlMixin):

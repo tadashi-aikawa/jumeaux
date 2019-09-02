@@ -13,7 +13,7 @@ Outline
 Requirement
 ===========
 
-* pipenv (with python 3.6)
+* pipenv (with python 3.7)
 * make
 
 

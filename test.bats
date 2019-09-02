@@ -295,6 +295,22 @@ assert_null_property() {
   assert_number_property '.summary.concurrency.processes' 2
 }
 
+@test "Run root_array" {
+  $JUMEAUX init root_array
+  $JUMEAUX run requests
+
+  assert_exists responses
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/one-props/*
+  assert_exists responses/latest/other-props/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+
+  assert_number_property '.summary.status.same' 1
+  assert_number_property '.summary.status.different' 1
+}
+
 
 #--------------------------
 # jumeaux retry
