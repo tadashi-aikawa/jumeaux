@@ -9,6 +9,8 @@ on:
             - "tests/*"
             - "tests/**/*"
             - "Pipfile.lock"
+            - "test.bats"
+            - "Makefile"
     schedule:
         - cron: "0 0 * * *"
 
