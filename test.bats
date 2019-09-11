@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-JUMEAUX="pipenv run python jumeaux/executor.py"
+JUMEAUX="python jumeaux/executor.py"
 
 teardown() {
   rm -rf requests \
