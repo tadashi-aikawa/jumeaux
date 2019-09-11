@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.7
 
 RUN pip install jumeaux==2.2.0
 WORKDIR tmp
