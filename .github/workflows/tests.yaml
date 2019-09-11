@@ -30,8 +30,8 @@ jobs:
                   python-version: ${{ matrix.python }}
             - name: Install dependencies
               run: |
-                  python -m pip install --upgrade pip pipfile-requirements pytest pytest-cov mock
-                  pipfile2req > requirements.txt
+                  python -m pip install --upgrade pip pipenv pytest pytest-cov mock
+                  pipenv lock -r > requirements.txt
                   pip install -r requirements.txt
 
             - name: Unit test
