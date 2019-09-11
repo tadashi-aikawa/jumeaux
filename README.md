@@ -1,12 +1,12 @@
 Jumeaux
 =======
 
-[![versions](https://img.shields.io/pypi/pyversions/jumeaux.svg)]()
-[![pypi](https://img.shields.io/pypi/v/jumeaux.svg)]()
-[![travis](https://api.travis-ci.org/tadashi-aikawa/jumeaux.svg?branch=master)](https://travis-ci.org/tadashi-aikawa/jumeaux/builds)
+[![Versions](https://img.shields.io/pypi/pyversions/jumeaux.svg)](https://pypi.org/project/jumeaux/)
+[![pypi](https://img.shields.io/pypi/v/jumeaux.svg)](https://pypi.org/project/jumeaux/)
+[![Actions Status](https://github.com/tadashi-aikawa/jumeaux/workflows/Tests/badge.svg)](https://github.com/tadashi-aikawa/jumeaux/actions)
 [![coverage](https://codeclimate.com/github/tadashi-aikawa/jumeaux/badges/coverage.svg)](https://codeclimate.com/github/tadashi-aikawa/jumeaux/coverage)
 [![complexity](https://codeclimate.com/github/tadashi-aikawa/jumeaux/badges/gpa.svg)](https://codeclimate.com/github/tadashi-aikawa/jumeaux)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/tadashi-aikawa/jumeaux/blob/master/LICENSE)
 
 <img src="https://github.com/tadashi-aikawa/jumeaux/blob/master/logo.png?raw=true" width=400 height=400 />
 
