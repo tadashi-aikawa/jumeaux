@@ -62,7 +62,7 @@ stop-api: ## Stop dummy API
 test-cli: ## Test on CLI
 	@echo Start $@
 	@make start-api 2> /dev/null
-	@-bats test.bats
+	@bats test.bats
 	@make stop-api
 	@echo End $@
 

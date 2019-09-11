@@ -46,6 +46,11 @@ jobs:
                   chmod +x ./cc-test-reporter
                   ./cc-test-reporter after-build
 
+            - name: Install bats
+              run: sudo npm install -g bats
+            - name: CLI e2e test
+              run: make test-cli
+
             - name: Slack notification
               uses: homoluctus/slatify@master
               if: always()
