@@ -44,8 +44,10 @@ jobs:
           chmod +x ./cc-test-reporter
           ./cc-test-reporter after-build
 
-      - run: sudo npm install -g bats
-      - run: make test-cli
+      - name: CLI tests
+        run: |
+          sudo npm install -g bats
+          make test-cli
 
       - name: "Slack notification (not success)"
         uses: homoluctus/slatify@master
@@ -53,7 +55,7 @@ jobs:
         with:
           type: ${{ job.status }}
           username: GitHub Actions (Failure)
-          job_name: ":jumeaux: :python:*${{ matrix.python }}* Tests"
+          job_name: "<!channel> :jumeaux: :python:*${{ matrix.python }}* Tests"
           icon_emoji: "tio2"
           url: ${{ secrets.SLACK_WEBHOOK }}
 
