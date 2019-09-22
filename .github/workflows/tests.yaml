@@ -55,7 +55,9 @@ jobs:
         with:
           type: ${{ job.status }}
           username: GitHub Actions (Failure)
-          job_name: "<!channel> :jumeaux: :python:*${{ matrix.python }}* Tests"
+          job_name: ":jumeaux: :python:*${{ matrix.python }}* Tests"
+          mention: channel
+          mention_if: always
           icon_emoji: "tio2"
           url: ${{ secrets.SLACK_WEBHOOK }}
 
