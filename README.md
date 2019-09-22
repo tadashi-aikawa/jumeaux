@@ -25,13 +25,6 @@ Install
 See [quick start in documentation](https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/quickstart/).
 
 
-Test reports
-------------
-
-* Master: [![](https://api.travis-ci.org/tadashi-aikawa/jumeaux.png?branch=master)](https://travis-ci.org/tadashi-aikawa/jumeaux)
-* Current [![](https://api.travis-ci.org/tadashi-aikawa/jumeaux.png?)](https://travis-ci.org/tadashi-aikawa/jumeaux)
-
-
 For developer
 -------------
 
