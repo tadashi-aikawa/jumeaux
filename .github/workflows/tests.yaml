@@ -1,63 +1,73 @@
 name: "Tests"
 
 on:
-    push:
-        paths:
-            - ".github/**/*"
-            - "jumeaux/*"
-            - "jumeaux/**/*"
-            - "tests/*"
-            - "tests/**/*"
-            - "Pipfile.lock"
-            - "test.bats"
-            - "Makefile"
-    schedule:
-        - cron: "0 0 * * *"
+  push:
+    paths:
+      - ".github/**/*"
+      - "jumeaux/*"
+      - "jumeaux/**/*"
+      - "tests/*"
+      - "tests/**/*"
+      - "Pipfile.lock"
+      - "test.bats"
+      - "Makefile"
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                python: ["3.6", "3.7"]
-        name: Python ${{ matrix.python }}
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.6", "3.7"]
+    name: Python ${{ matrix.python }}
 
-        steps:
-            - name: Checkout a repository
-              uses: actions/checkout@v1
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python }}
 
-            - name: Set up Python
-              uses: actions/setup-python@v1
-              with:
-                  python-version: ${{ matrix.python }}
-            - name: Install dependencies
-              run: |
-                  python -m pip install --upgrade pip pipenv
-                  sed -ri 's/python_version = ".+"/python_version = "${{ matrix.python }}"/g' Pipfile
-                  pipenv install --dev --skip-lock
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip pipenv
+          sed -ri 's/python_version = ".+"/python_version = "${{ matrix.python }}"/g' Pipfile
+          pipenv install --dev --skip-lock
 
-            - name: Unit test
-              id: unittest
-              run: make test
-            - name: Test report
-              if: matrix.python == 3.7 && success()
-              env:
-                  CC_TEST_REPORTER_ID: 1561686e6399317b53a92aaad0550f8b91fe5af312e1f2852ab803ff6fcb6fa9
-              run: |
-                  curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-                  chmod +x ./cc-test-reporter
-                  ./cc-test-reporter after-build
+      - run: make test
+      - name: Test report
+        if: matrix.python == 3.7 && success()
+        env:
+          CC_TEST_REPORTER_ID: 1561686e6399317b53a92aaad0550f8b91fe5af312e1f2852ab803ff6fcb6fa9
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter after-build
 
-            - name: Install bats
-              run: sudo npm install -g bats
-            - name: CLI e2e test
-              run: make test-cli
+      - run: sudo npm install -g bats
+      - run: make test-cli
 
-            - name: Slack notification
-              uses: homoluctus/slatify@master
-              if: always()
-              with:
-                  type: ${{ job.status }}
-                  job_name: ":jumeaux: :python:*${{ matrix.python }}* Tests"
-                  icon_emoji: "tio2"
-                  url: ${{ secrets.SLACK_WEBHOOK }}
+      - name: "Slack notification (not success)"
+        uses: homoluctus/slatify@master
+        if: "! success()"
+        with:
+          type: ${{ job.status }}
+          username: GitHub Actions (Failure)
+          job_name: ":jumeaux: :python:*${{ matrix.python }}* Tests"
+          icon_emoji: "tio2"
+          url: ${{ secrets.SLACK_WEBHOOK }}
+
+  notify:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Slack Notification (success)"
+        uses: homoluctus/slatify@master
+        if: always()
+        with:
+          type: ${{ job.status }}
+          username: GitHub Actions (Success)
+          job_name: ":jumeaux: :python: All tests"
+          icon_emoji: ":renne:"
+          url: ${{ secrets.SLACK_WEBHOOK }}
