@@ -33,6 +33,15 @@ For developer
 * pipenv
 * make
 
+### Flow
+
+1. Create new version as following
+  * branch like as 2.3.0
+  * GitHub projects like as 2.3.0
+2. Create Issue and development! (Feature branch is optional)
+3. Commit with prefix emoji like ":memo:", and suffix issue number like "#120"
+
+
 ### Commands
 
 #### Create and activate env
