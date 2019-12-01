@@ -53,15 +53,16 @@ class Executor(Res2DictExecutor):
             logger.debug(f"{LOG_PREFIX} Skipped because result is already existed.")
             return payload
 
-        result: DictOrList
+        result: DictOrList  # type: ignore
         if self.config.force:
             logger.debug(f"{LOG_PREFIX} Force to convert to dict as block")
-            result = to_dict(payload.response.text, self.config.header_regexp, self.config.record_regexp)
+            result = to_dict(
+                payload.response.text, self.config.header_regexp, self.config.record_regexp
+            )
         else:
             logger.debug(f"{LOG_PREFIX} Convert to dict as block")
-            result = to_dict(payload.response.text, self.config.header_regexp, self.config.record_regexp)
+            result = to_dict(
+                payload.response.text, self.config.header_regexp, self.config.record_regexp
+            )
 
-        return Res2DictAddOnPayload.from_dict({
-            "response": payload.response,
-            "result": result
-        })
+        return Res2DictAddOnPayload.from_dict({"response": payload.response, "result": result})

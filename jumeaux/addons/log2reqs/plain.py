@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
 
 import urllib.parse as urlparser
+from typing import Dict, List
 
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.log2reqs import Log2ReqsExecutor
-from jumeaux.models import Request, Log2ReqsAddOnPayload, HttpMethod
 from jumeaux.logger import Logger
-
+from jumeaux.models import Request, Log2ReqsAddOnPayload
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[log2reqs/plain]"
@@ -43,7 +43,7 @@ class Executor(Log2ReqsExecutor):
             logger.debug(f"{LOG_PREFIX} [path] {path}")
 
             url_encoding = "utf-8"
-            qs = {}
+            qs: Dict[str, List[str]] = {}
             if len(line.split("?")) > 1:
                 url_encoding = guess_url_encoding(
                     line.split("?")[1], self.config.candidate_for_url_encodings

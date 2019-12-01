@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 import datetime
+from json import JSONDecodeError
 from typing import Optional, List, Any
 
 from requests_toolbelt.utils import deprecated
-from owlmixin import OwlMixin, TOption
-from owlmixin.owlcollections import TList, TDict
-from owlmixin.owlenum import OwlEnum
+from owlmixin import OwlMixin, TOption, TList, TDict, OwlEnum
 from requests.structures import CaseInsensitiveDict as RequestsCaseInsensitiveDict
 
-DictOrList = any
+DictOrList = any  # type: ignore
 
-def to_json(value: DictOrList) -> str: 
+
+def to_json(value: DictOrList) -> str:  # type: ignore
     if isinstance(value, dict):
         return TDict(value).to_json()
     if isinstance(value, list):
         return TList(value).to_json()
-    return None
+    raise TypeError("A argument must be dict or list")
 
 
 class CaseInsensitiveDict(RequestsCaseInsensitiveDict):
@@ -138,7 +138,7 @@ class Args(OwlMixin):
     init: bool
     name: TOption[str]  # Only case in which init is True
     server: bool
-    port: int
+    port: int = 8000
     viewer: bool
     responses_dir: str
 
@@ -162,7 +162,7 @@ class Args(OwlMixin):
 # or {}
 class Request(OwlMixin):
     name: TOption[str]
-    method: HttpMethod = HttpMethod.GET
+    method: HttpMethod = HttpMethod.GET  # type: ignore # Prevent for enum problem
     path: str
     qs: TDict[TList[str]] = {}
     form: TOption[dict]

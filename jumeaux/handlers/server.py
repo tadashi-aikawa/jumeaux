@@ -52,7 +52,7 @@ class ReuseAddressTCPServer(socketserver.TCPServer):
     allow_reuse_address = True
 
 
-def handle(port: Optional[int]):
+def handle(port: int):
     with ReuseAddressTCPServer(("", port), MyServerHandler) as httpd:
         logger.info_lv1(f"Serving HTTP on 0.0.0.0 port {port} (http://0.0.0.0:{port}/)")
         httpd.serve_forever()

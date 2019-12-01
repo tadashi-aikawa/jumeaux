@@ -148,7 +148,7 @@ __/\__ / ___|| |_ __ _ _ __| |_      | |_   _ _ __ ___   ___  __ _ _   ___  __ _
        .dggggggggggg#=                                    ?Hgggggggggggh.
       .gggggggggg#"!                                        -THgggggggggH,
     .dgggggHYY"!                                                ?"YWHgggggh,
-                                                        
+
 """
 
 CONFIG_AA = r"""
@@ -524,16 +524,12 @@ def challenge(arg_dict: dict) -> dict:
         if not dict_one.is_none():
             prop_file_one = f"one-props/({arg.seq}){name}.json"
             write_to_file(
-                prop_file_one,
-                dir,
-                to_json(dict_one.get()).encode("utf-8", errors="replace"),
+                prop_file_one, dir, to_json(dict_one.get()).encode("utf-8", errors="replace")
             )
         if not dict_other.is_none():
             prop_file_other = f"other-props/({arg.seq}){name}.json"
             write_to_file(
-                prop_file_other,
-                dir,
-                to_json(dict_other.get()).encode("utf-8", errors="replace"),
+                prop_file_other, dir, to_json(dict_other.get()).encode("utf-8", errors="replace")
             )
 
     return global_addon_executor.apply_did_challenge(

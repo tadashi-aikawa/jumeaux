@@ -7,19 +7,19 @@ import logging.config
 
 
 class Color:
-    BLACK = '\033[30m'
-    RED = '\033[31m'
-    GREEN = '\033[32m'
-    YELLOW = '\033[33m'
-    BLUE = '\033[34m'
-    PURPLE = '\033[35m'
-    CYAN = '\033[36m'
-    WHITE = '\033[37m'
-    END = '\033[0m'
-    BOLD = '\038[1m'
-    UNDERLINE = '\033[4m'
-    INVISIBLE = '\033[08m'
-    REVERCE = '\033[07m'
+    BLACK = "\033[30m"
+    RED = "\033[31m"
+    GREEN = "\033[32m"
+    YELLOW = "\033[33m"
+    BLUE = "\033[34m"
+    PURPLE = "\033[35m"
+    CYAN = "\033[36m"
+    WHITE = "\033[37m"
+    END = "\033[0m"
+    BOLD = "\038[1m"
+    UNDERLINE = "\033[4m"
+    INVISIBLE = "\033[08m"
+    REVERCE = "\033[07m"
 
 
 class LogLevel(OwlEnum):
@@ -35,25 +35,18 @@ class LogLevel(OwlEnum):
 
 def create_logger_config(level: LogLevel):
     return {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'formatters': {
-            'simple': {
-                'format': '%(message)s'
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {"simple": {"format": "%(message)s"}},
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "simple",
+                "level": level.value,
+                "stream": "ext://sys.stderr",
             }
         },
-        'handlers': {
-            'console': {
-                'class': 'logging.StreamHandler',
-                'formatter': 'simple',
-                'level': level.value,
-                'stream': 'ext://sys.stderr'
-            }
-        },
-        'root': {
-            'level': level.value,
-            'handlers': ['console']
-        }
+        "root": {"level": level.value, "handlers": ["console"]},
     }
 
 
@@ -62,16 +55,26 @@ def init_logger(v_num: int):
     Call when initialize Jumeaux !!
     :return:
     """
-    logging.addLevelName(LogLevel.INFO_LV1.value, 'INFO_LV1')  # type: ignore # Prevent for enum problem
-    logging.addLevelName(LogLevel.INFO_LV2.value, 'INFO_LV2')  # type: ignore # Prevent for enum problem
-    logging.addLevelName(LogLevel.INFO_LV3.value, 'INFO_LV3')  # type: ignore # Prevent for enum problem
+    logging.addLevelName(
+        LogLevel.INFO_LV1.value, "INFO_LV1"  # type: ignore # Prevent for enum problem
+    )
+    logging.addLevelName(
+        LogLevel.INFO_LV2.value, "INFO_LV2"  # type: ignore # Prevent for enum problem
+    )
+    logging.addLevelName(
+        LogLevel.INFO_LV3.value, "INFO_LV3"  # type: ignore # Prevent for enum problem
+    )
 
-    logging.config.dictConfig(create_logger_config({  # type: ignore # Prevent for enum problem
-        0: LogLevel.INFO_LV1,
-        1: LogLevel.INFO_LV2,
-        2: LogLevel.INFO_LV3,
-        3: LogLevel.DEBUG,
-    }[v_num]))
+    logging.config.dictConfig(
+        create_logger_config(
+            {  # type: ignore # Prevent for enum problem
+                0: LogLevel.INFO_LV1,
+                1: LogLevel.INFO_LV2,
+                2: LogLevel.INFO_LV3,
+                3: LogLevel.DEBUG,
+            }[v_num]
+        )
+    )
 
 
 class Logger:
