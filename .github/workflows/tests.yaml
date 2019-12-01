@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip --pre
+          python -m pip install --upgrade pip poetry --pre
           poetry install
 
       - run: make test
