@@ -30,7 +30,7 @@ For developer
 
 ### Requirements
 
-* pipenv
+* poetry
 * make
 
 ### Flow
@@ -44,17 +44,16 @@ For developer
 
 ### Commands
 
-#### Create and activate env
+#### Create environment
 
 ```
 $ make init
-$ pipenv shell
 ```
 
 #### Run
 
 ```
-$ python jumeaux/executor.py <args>
+$ poetry run python jumeaux/executor.py <args>
 ```
 
 #### Serve docs
