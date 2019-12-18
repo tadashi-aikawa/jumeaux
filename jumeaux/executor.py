@@ -7,8 +7,6 @@ Usage
 =======================
 
 Usage:
-  jumeaux init
-  jumeaux init <name>
   jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>]
                          [--tag=<tag>...] [--skip-addon-tag=<skip_add_on_tag>...]
                          [--threads=<threads>] [--processes=<processes>]
@@ -16,11 +14,8 @@ Usage:
   jumeaux retry <report> [--title=<title>] [--description=<description>]
                          [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
                          [--max-retries=<max_retries>] [-vvv]
-  jumeaux server [--port=<port>] [-vvv]
-  jumeaux viewer [--port=<port>] [--responses-dir=<responses_dir>]
 
 Options:
-  <name>                                        Initialize template name
   <files>...                                    Files written requests
   --config = <yaml>...                          Configuration files(see below) [def: config.yml]
   --title = <title>                             The title of report [def: No title]
@@ -32,8 +27,6 @@ Options:
   --max-retries = <max_retries>                 The max number of retries which accesses to API
   <report>                                      Report for retry
   -vvv                                          Logger level (`-v` or `-vv` or `-vvv`)
-  --port = <port>                               Running port [default: 8000]
-  --responses-dir = <responses_dir>             Directory which has responses [default: responses]
 """
 
 import datetime
@@ -61,7 +54,6 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 sys.path.append(os.getcwd())
 from jumeaux import __version__
-from jumeaux.handlers import server, init, viewer
 from jumeaux.addons import AddOnExecutor
 from jumeaux.addons.utils import to_jumeaux_xpath
 from jumeaux.configmaker import create_config, create_config_from_report
@@ -747,18 +739,6 @@ def main():
     init_logger(args.v)
 
     global global_addon_executor
-
-    if args.server:
-        server.handle(args.port)
-        return
-
-    if args.viewer:
-        viewer.handle(args.responses_dir, args.port)
-        return
-
-    if args.init:
-        init.handle(args.name)
-        return
 
     # TODO: refactoring
     if args.retry:

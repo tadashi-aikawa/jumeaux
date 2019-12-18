@@ -471,11 +471,6 @@ class TestMergeArgs2Config:
                 "max_retries": 5,
                 "v": 0,
                 "retry": False,
-                "init": False,
-                "server": False,
-                "port": 8000,
-                "viewer": False,
-                "responses_dir": "responses",
             }
         )
 
@@ -549,18 +544,7 @@ class TestMergeArgs2Config:
         }
 
     def test_empty_args(self):
-        args: Args = Args.from_dict(
-            {
-                "run": True,
-                "retry": False,
-                "init": False,
-                "v": 0,
-                "server": False,
-                "port": 8000,
-                "viewer": False,
-                "responses_dir": "responses",
-            }
-        )
+        args: Args = Args.from_dict({"run": True, "retry": False, "v": 0})
 
         config: Config = Config.from_dict(
             {
@@ -611,18 +595,7 @@ class TestMergeArgs2Config:
         }
 
     def test_empty_args_and_config(self):
-        args: Args = Args.from_dict(
-            {
-                "run": True,
-                "retry": False,
-                "init": False,
-                "v": 0,
-                "server": False,
-                "port": 8000,
-                "viewer": False,
-                "responses_dir": "responses",
-            }
-        )
+        args: Args = Args.from_dict({"run": True, "retry": False, "v": 0})
 
         config: Config = Config.from_dict(
             {

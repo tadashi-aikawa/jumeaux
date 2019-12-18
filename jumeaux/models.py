@@ -135,13 +135,6 @@ class Args(OwlMixin):
     retry: bool
     report: TOption[str]  # Only case in which retry is True
 
-    init: bool
-    name: TOption[str]  # Only case in which init is True
-    server: bool
-    port: int = 8000
-    viewer: bool
-    responses_dir: str
-
     @classmethod
     def ___threads(cls, v: Optional[str]) -> Optional[int]:
         return int(v) if v else None

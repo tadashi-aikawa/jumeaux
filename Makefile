@@ -20,10 +20,10 @@ init-dev: ## Install dependencies and create envirionment
 	@poetry install
 
 start-api: ## Start dummy API
-	@poetry run python jumeaux/executor.py server &
+	@poetry run python jumeaux/main.py server &
 
 stop-api: ## Stop dummy API
-	@pkill -f 'jumeaux/executor.py server'
+	@pkill -f 'jumeaux/main.py server'
 
 test: ## Test
 	@poetry run python -m pytest -vv --cov-report=xml --cov=. tests/
