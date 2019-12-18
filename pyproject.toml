@@ -33,6 +33,7 @@ livereload = "^2.6.1"
 tzlocal = "^2.0.0"
 deepdiff = "3.3.0"
 owlmixin = "^5.5.0"
+owcli = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.1"
