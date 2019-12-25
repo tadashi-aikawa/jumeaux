@@ -50,16 +50,21 @@ from requests.exceptions import ConnectionError
 from fn import _
 from tzlocal import get_localzone
 
+
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(PROJECT_ROOT)
 sys.path.append(os.getcwd())
 from jumeaux import __version__
 from jumeaux.addons import AddOnExecutor
 from jumeaux.addons.utils import to_jumeaux_xpath
-from jumeaux.configmaker import create_config, create_config_from_report
+from jumeaux.domain.config.service import (
+    create_config_from_report,
+    create_config,
+    merge_args2config,
+)
+from jumeaux.domain.config.vo import Config
 from jumeaux.models import (
     to_json,
-    Config,
     Report,
     Request,
     Response,
@@ -710,27 +715,6 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
 
 def hash_from_args(args: Args) -> str:
     return hashlib.sha256((str(now()) + args.to_json()).encode()).hexdigest()
-
-
-def merge_args2config(args: Args, config: Config) -> Config:
-    return Config.from_dict(
-        {
-            "one": config.one,
-            "other": config.other,
-            "output": config.output,
-            "threads": args.threads.get_or(config.threads),
-            "processes": args.processes if args.processes.get() else config.processes,
-            "max_retries": args.max_retries.get()
-            if args.max_retries.get() is not None
-            else config.max_retries,
-            "title": args.title if args.title.get() else config.title,
-            "description": args.description if args.description.get() else config.description,
-            "tags": args.tag if args.tag.get() else config.tags,
-            "input_files": args.files if args.files.get() else config.input_files,
-            "notifiers": config.notifiers,
-            "addons": config.addons,
-        }
-    )
 
 
 def main():

@@ -3,7 +3,8 @@
 import sys
 
 from jumeaux.logger import Logger
-from jumeaux.models import Notifier, NotifierType
+from jumeaux.models import Notifier
+from jumeaux.domain.config.vo import NotifierType
 from jumeaux.notification_handlers.base import NotificationHandler
 from jumeaux.notification_handlers.slack import SlackNotificationHandler
 
@@ -16,7 +17,7 @@ def create_notification_handler(notifier: Notifier) -> NotificationHandler:
             channel=notifier.channel,
             username=notifier.username,
             icon_emoji=notifier.icon_emoji,
-            icon_url=notifier.icon_url
+            icon_url=notifier.icon_url,
         )
     logger.error(f"Type {notifier.type} is not valid.")
     sys.exit(1)

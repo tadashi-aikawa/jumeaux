@@ -1,16 +1,196 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 # pylint: disable=no-self-use
-
 from owlmixin import TList, TOption
 
-from jumeaux import configmaker
-from jumeaux.models import Config
+from jumeaux.domain.config import service
+from jumeaux.models import Args
+from jumeaux.domain.config.vo import Config
+
+
+class TestMergeArgs2Config:
+    def test_full_args(self):
+        args: Args = Args.from_dict(
+            {
+                "run": True,
+                "files": ["file1", "file2"],
+                "title": "test_full_args",
+                "description": "Description for test_full_args",
+                "config": ["config.yml"],
+                "tag": ["tag1", "tag2"],
+                "threads": 3,
+                "processes": 2,
+                "max_retries": 5,
+                "v": 0,
+                "retry": False,
+            }
+        )
+
+        config: Config = Config.from_dict(
+            {
+                "title": "Config title",
+                "description": "Config description",
+                "tags": ["tag3", "tag4"],
+                "threads": 1,
+                "processes": 4,
+                "max_retries": 7,
+                "one": {
+                    "name": "name_one",
+                    "host": "http://host/one",
+                    "proxy": "http://proxy-one",
+                    "headers": {"XXX": "xxx"},
+                    "default_response_encoding": "euc-jp",
+                },
+                "other": {
+                    "name": "name_other",
+                    "host": "http://host/other",
+                    "proxy": "http://proxy-other",
+                    "headers": {"YYY": "yyy"},
+                    "default_response_encoding": "euc-jp",
+                },
+                "output": {"encoding": "utf8", "response_dir": "tmpdir"},
+                "addons": {
+                    "log2reqs": {"name": "addons.log2reqs.csv", "config": {"encoding": "utf8"}}
+                },
+            }
+        )
+
+        assert service.merge_args2config(args, config).to_dict() == {
+            "title": "test_full_args",
+            "description": "Description for test_full_args",
+            "tags": ["tag1", "tag2"],
+            "threads": 3,
+            "processes": 2,
+            "max_retries": 5,
+            "input_files": ["file1", "file2"],
+            "one": {
+                "name": "name_one",
+                "host": "http://host/one",
+                "proxy": "http://proxy-one",
+                "default_response_encoding": "euc-jp",
+                "headers": {"XXX": "xxx"},
+            },
+            "other": {
+                "name": "name_other",
+                "host": "http://host/other",
+                "proxy": "http://proxy-other",
+                "default_response_encoding": "euc-jp",
+                "headers": {"YYY": "yyy"},
+            },
+            "output": {"encoding": "utf8", "response_dir": "tmpdir"},
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {"encoding": "utf8"},
+                },
+                "reqs2reqs": [],
+                "res2res": [],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [],
+                "dump": [],
+                "did_challenge": [],
+                "final": [],
+            },
+        }
+
+    def test_empty_args(self):
+        args: Args = Args.from_dict({"run": True, "retry": False, "v": 0})
+
+        config: Config = Config.from_dict(
+            {
+                "title": "Config title",
+                "description": "Config description",
+                "tags": ["tag3", "tag4"],
+                "threads": 1,
+                "processes": 4,
+                "max_retries": 5,
+                "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
+                "other": {
+                    "name": "name_other",
+                    "host": "http://host/other",
+                    "headers": {"YYY": "yyy"},
+                },
+                "output": {"encoding": "utf8", "response_dir": "tmpdir"},
+                "addons": {
+                    "log2reqs": {"name": "addons.log2reqs.csv", "config": {"encoding": "utf8"}}
+                },
+            }
+        )
+
+        assert service.merge_args2config(args, config).to_dict() == {
+            "title": "Config title",
+            "description": "Config description",
+            "tags": ["tag3", "tag4"],
+            "threads": 1,
+            "processes": 4,
+            "max_retries": 5,
+            "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {"YYY": "yyy"}},
+            "output": {"encoding": "utf8", "response_dir": "tmpdir"},
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {"encoding": "utf8"},
+                },
+                "reqs2reqs": [],
+                "res2res": [],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [],
+                "dump": [],
+                "did_challenge": [],
+                "final": [],
+            },
+        }
+
+    def test_empty_args_and_config(self):
+        args: Args = Args.from_dict({"run": True, "retry": False, "v": 0})
+
+        config: Config = Config.from_dict(
+            {
+                "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
+                "other": {
+                    "name": "name_other",
+                    "host": "http://host/other",
+                    "headers": {"YYY": "yyy"},
+                },
+                "output": {"encoding": "utf8", "response_dir": "tmpdir"},
+                "addons": {
+                    "log2reqs": {"name": "addons.log2reqs.csv", "config": {"encoding": "utf8"}}
+                },
+            }
+        )
+
+        assert service.merge_args2config(args, config).to_dict() == {
+            "threads": 1,
+            "max_retries": 3,
+            "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
+            "other": {"name": "name_other", "host": "http://host/other", "headers": {"YYY": "yyy"}},
+            "output": {"encoding": "utf8", "response_dir": "tmpdir"},
+            "addons": {
+                "log2reqs": {
+                    "name": "addons.log2reqs.csv",
+                    "cls_name": "Executor",
+                    "config": {"encoding": "utf8"},
+                },
+                "reqs2reqs": [],
+                "res2res": [],
+                "res2dict": [],
+                "judgement": [],
+                "store_criterion": [],
+                "dump": [],
+                "did_challenge": [],
+                "final": [],
+            },
+        }
 
 
 class TestCreateConfig:
     def test(self, config_only_access_points, config_without_access_points):
-        actual: Config = configmaker.create_config(
+        actual: Config = service.create_config(
             TList([config_only_access_points, config_without_access_points]), TOption(None)
         )
         expected = {
@@ -44,7 +224,7 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
     def test_no_base(self, config_minimum):
-        actual: Config = configmaker.create_config(TList([config_minimum]), TOption(None))
+        actual: Config = service.create_config(TList([config_minimum]), TOption(None))
 
         expected = {
             "one": {
@@ -83,7 +263,7 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
     def test_no_base_skip_tags(self, config_with_tags):
-        actual: Config = configmaker.create_config(
+        actual: Config = service.create_config(
             TList([config_with_tags]), TOption(TList(["skip", "skip2"]))
         )
 
@@ -132,7 +312,7 @@ class TestCreateConfig:
     def test_mergecase1then2(
         self, config_only_access_points, config_mergecase_1, config_mergecase_2
     ):
-        actual: Config = configmaker.create_config(
+        actual: Config = service.create_config(
             TList([config_only_access_points, config_mergecase_1, config_mergecase_2]),
             TOption(None),
         )
@@ -171,7 +351,7 @@ class TestCreateConfig:
     def test_mergecase2then1(
         self, config_only_access_points, config_mergecase_1, config_mergecase_2
     ):
-        actual: Config = configmaker.create_config(
+        actual: Config = service.create_config(
             TList([config_only_access_points, config_mergecase_2, config_mergecase_1]),
             TOption(None),
         )
@@ -210,7 +390,7 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
     def test_mergecase_with_tags(self, config_with_tags, config_mergecase_with_tags):
-        actual: Config = configmaker.create_config(
+        actual: Config = service.create_config(
             TList([config_with_tags, config_mergecase_with_tags]), TOption(TList(["skip"]))
         )
 
@@ -260,7 +440,7 @@ class TestCreateConfig:
         assert actual.to_dict() == expected
 
     def test_includecase1(self, config_only_access_points, config_includecase_1):
-        actual: Config = configmaker.create_config(
+        actual: Config = service.create_config(
             TList([config_only_access_points, config_includecase_1]), TOption(None)
         )
 
