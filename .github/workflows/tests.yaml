@@ -58,7 +58,7 @@ jobs:
           job_name: ":jumeaux: :python:*${{ matrix.python }}* Tests"
           mention: channel
           mention_if: always
-          icon_emoji: "tio2"
+          icon_emoji: "github"
           url: ${{ secrets.SLACK_WEBHOOK }}
 
   notify:
@@ -73,5 +73,5 @@ jobs:
           type: ${{ job.status }}
           username: GitHub Actions (Success)
           job_name: ":jumeaux: :python: All tests"
-          icon_emoji: ":renne:"
+          icon_emoji: ":github:"
           url: ${{ secrets.SLACK_WEBHOOK }}
