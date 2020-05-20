@@ -30,7 +30,10 @@ from jumeaux.domain.config.service import (
     create_config,
     merge_args2config,
 )
-from jumeaux.domain.config.vo import Config
+from jumeaux.domain.config.vo import Config, MergedArgs
+
+# XXX: ...
+from jumeaux.logger import Logger
 from jumeaux.models import (
     to_json,
     Report,
@@ -60,11 +63,6 @@ from jumeaux.models import (
     FinalAddOnReference,
     HttpMethod,
 )
-
-# XXX: ...
-from jumeaux.commands.run.main import Args as RunArgs
-from jumeaux.commands.retry.main import Args as RetryArgs
-from jumeaux.logger import Logger
 
 logger: Logger = Logger(__name__)
 global_addon_executor: AddOnExecutor
@@ -726,11 +724,11 @@ def __run(
 
 
 def hash_from_args(args_str: str) -> str:
-    return hashlib.sha256((str(now())).encode(args_str)).hexdigest()
+    return hashlib.sha256((str(now()) + args_str).encode()).hexdigest()
 
 
-def retry(args: RetryArgs):
-    report: Report = Report.from_jsonf(args.report, force_cast=True)
+def retry(*, args: MergedArgs, report: str):
+    report: Report = Report.from_jsonf(report, force_cast=True)
     config: Config = merge_args2config(args, create_config_from_report(report))
     addon_executor = AddOnExecutor(config.addons)
     origin_reqs: TList[Request] = report.trials.map(
@@ -749,12 +747,15 @@ def retry(args: RetryArgs):
     __run(config, origin_reqs, addon_executor, hash_from_args(args.to_json()), report.key)
 
 
-def run(args: RunArgs):
+def run(
+    *, args: MergedArgs, config_paths: TList[str], skip_addon_tag: TOption[TList[str]],
+):
     config: Config = merge_args2config(
-        args, create_config(args.config.get() or TList(["config.yml"]), args.skip_addon_tag)
+        args, create_config(config_paths, skip_addon_tag),
     )
+
     addon_executor = AddOnExecutor(config.addons)
-    origin_reqs: TList[Request] = config.input_files.flat_map(
+    origin_reqs: TList[Request] = config.input_files.get().flat_map(
         lambda f: addon_executor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({"file": f}))
     )
     __run(config, origin_reqs, addon_executor, hash_from_args(args.to_json()), None)

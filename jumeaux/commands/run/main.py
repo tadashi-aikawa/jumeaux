@@ -1,9 +1,9 @@
 """Run Jumeaux
 Usage:
-  {cli} run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>]
-                       [--tag=<tag>...] [--skip-addon-tag=<skip_add_on_tag>...]
-                       [--threads=<threads>] [--processes=<processes>]
-                       [--max-retries=<max_retries>] [-vvv]
+  {cli} <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>]
+                   [--tag=<tag>...] [--skip-addon-tag=<skip_add_on_tag>...]
+                   [--threads=<threads>] [--processes=<processes>]
+                   [--max-retries=<max_retries>] [-vvv]
   {cli} (-h | --help)
 
 Options:
@@ -26,6 +26,7 @@ from owlmixin import OwlMixin, TList
 from owlmixin import TOption
 
 from jumeaux import executor
+from jumeaux.domain.config.vo import MergedArgs
 from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
@@ -35,9 +36,9 @@ class Args(OwlMixin):
     files: TList[str]
     title: TOption[str]
     description: TOption[str]
-    config: TOption[TList[str]]
-    tag: TOption[TList[str]]
-    skip_addon_tag: TOption[TList[str]]
+    config: TList[str]
+    tag: TList[str]
+    skip_addon_tag: TList[str]
     threads: TOption[int]
     processes: TOption[int]
     max_retries: TOption[int]
@@ -59,4 +60,18 @@ class Args(OwlMixin):
 
 def run(args: Args):
     init_logger(args.v)
-    executor.run(args)
+    executor.run(
+        args=MergedArgs.from_dict(
+            {
+                "files": args.files,
+                "title": args.title,
+                "description": args.description,
+                "tag": TOption(args.tag or None),
+                "threads": args.threads,
+                "processes": args.processes,
+                "max_retries": args.max_retries,
+            }
+        ),
+        config_paths=args.config or TList(["config.yml"]),
+        skip_addon_tag=TOption(args.skip_addon_tag or None),
+    )

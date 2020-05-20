@@ -41,7 +41,7 @@ assert_null_property() {
 #--------------------------
 
 @test "Usage" {
-  $JUMEAUX -h
+  $JUMEAUX_MAIN -h
 }
 
 
@@ -82,7 +82,7 @@ assert_null_property() {
 
 @test "Run simple" {
   $JUMEAUX_MAIN init simple
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/one/*
@@ -100,7 +100,7 @@ assert_null_property() {
 
 @test "Run path_custom" {
   $JUMEAUX_MAIN init path_custom
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/one/*
@@ -124,7 +124,7 @@ assert_null_property() {
 
 @test "Run query_custom" {
   $JUMEAUX_MAIN init query_custom
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/one/*
@@ -148,7 +148,7 @@ assert_null_property() {
 
 @test "Run all_same" {
   $JUMEAUX_MAIN init all_same
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_not_exists responses/latest/one/*
@@ -163,7 +163,7 @@ assert_null_property() {
 
 @test "Run xml" {
   $JUMEAUX_MAIN init xml
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/one/*
@@ -181,7 +181,7 @@ assert_null_property() {
 
 @test "Run html" {
   $JUMEAUX_MAIN init html
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/one/*
@@ -198,7 +198,7 @@ assert_null_property() {
 
 @test "Run ignore_order" {
   $JUMEAUX_MAIN init ignore_order
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/one/*
@@ -214,7 +214,7 @@ assert_null_property() {
 
 @test "Run ignore" {
   $JUMEAUX_MAIN init ignore
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/one/*
@@ -230,7 +230,7 @@ assert_null_property() {
 
 @test "Run force_json" {
   $JUMEAUX_MAIN init force_json
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/one/*
@@ -248,7 +248,7 @@ assert_null_property() {
 
 @test "Run request_headers" {
   $JUMEAUX_MAIN init request_headers
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/one/*
@@ -267,9 +267,9 @@ assert_null_property() {
 
 @test "Run with log level options" {
   $JUMEAUX_MAIN init simple
-  $JUMEAUX run requests -v
-  $JUMEAUX run requests -vv
-  $JUMEAUX run requests -vvv
+  $JUMEAUX_MAIN run requests -v
+  $JUMEAUX_MAIN run requests -vv
+  $JUMEAUX_MAIN run requests -vvv
 
   assert_exists responses
 }
@@ -277,7 +277,7 @@ assert_null_property() {
 
 @test "Run with threads" {
   $JUMEAUX_MAIN init simple
-  $JUMEAUX run requests --threads 2
+  $JUMEAUX_MAIN run requests --threads 2
 
   assert_exists responses
 
@@ -288,7 +288,7 @@ assert_null_property() {
 
 @test "Run with processes" {
   $JUMEAUX_MAIN init simple
-  $JUMEAUX run requests --processes 2
+  $JUMEAUX_MAIN run requests --processes 2
 
   assert_exists responses
 
@@ -298,7 +298,7 @@ assert_null_property() {
 
 @test "Run root_array" {
   $JUMEAUX_MAIN init root_array
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/one/*
@@ -319,7 +319,7 @@ assert_null_property() {
 
 @test "Retry with empty path" {
   $JUMEAUX_MAIN init path_empty
-  $JUMEAUX run requests
+  $JUMEAUX_MAIN run requests
 
   assert_exists responses
   assert_exists responses/latest/report.json
@@ -328,7 +328,7 @@ assert_null_property() {
   cp responses/latest/report.json .
   rm -rf requests responses
 
-  $JUMEAUX retry report.json
+  $JUMEAUX_MAIN retry report.json
   rm report.json
 
   assert_exists responses

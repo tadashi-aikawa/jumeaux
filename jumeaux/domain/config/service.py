@@ -4,7 +4,6 @@
 import os
 from typing import List
 
-from jumeaux.commands.viewer.main import Args
 from owlmixin import TList, TOption
 from owlmixin.util import load_yamlf
 
@@ -111,8 +110,8 @@ def merge_args2config(args: MergedArgs, config: Config) -> Config:
             else config.max_retries,
             "title": args.title if args.title.get() else config.title,
             "description": args.description if args.description.get() else config.description,
-            "tags": args.tag if args.tag.get() else config.tags,
-            "input_files": args.files if args.files.get() else config.input_files,
+            "tags": args.tag if args.tag.any() else config.tags,
+            "input_files": args.files if args.files.any() else config.input_files,
             "notifiers": config.notifiers,
             "addons": config.addons,
         }
