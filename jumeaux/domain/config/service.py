@@ -4,11 +4,12 @@
 import os
 from typing import List
 
+from jumeaux.commands.viewer.main import Args
 from owlmixin import TList, TOption
 from owlmixin.util import load_yamlf
 
-from jumeaux.domain.config.vo import Config
-from jumeaux.models import Report, Args
+from jumeaux.domain.config.vo import Config, MergedArgs
+from jumeaux.models import Report
 
 
 def apply_include(addon: dict, config_path: str) -> dict:
@@ -97,7 +98,7 @@ def create_config_from_report(report: Report) -> Config:
     )
 
 
-def merge_args2config(args: Args, config: Config) -> Config:
+def merge_args2config(args: MergedArgs, config: Config) -> Config:
     return Config.from_dict(
         {
             "one": config.one,

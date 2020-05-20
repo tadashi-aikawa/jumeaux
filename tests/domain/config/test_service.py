@@ -4,25 +4,20 @@
 from owlmixin import TList, TOption
 
 from jumeaux.domain.config import service
-from jumeaux.models import Args
-from jumeaux.domain.config.vo import Config
+from jumeaux.domain.config.vo import Config, MergedArgs
 
 
 class TestMergeArgs2Config:
     def test_full_args(self):
-        args: Args = Args.from_dict(
+        args: MergedArgs = MergedArgs.from_dict(
             {
-                "run": True,
                 "files": ["file1", "file2"],
                 "title": "test_full_args",
                 "description": "Description for test_full_args",
-                "config": ["config.yml"],
                 "tag": ["tag1", "tag2"],
                 "threads": 3,
                 "processes": 2,
                 "max_retries": 5,
-                "v": 0,
-                "retry": False,
             }
         )
 
@@ -96,7 +91,7 @@ class TestMergeArgs2Config:
         }
 
     def test_empty_args(self):
-        args: Args = Args.from_dict({"run": True, "retry": False, "v": 0})
+        args: MergedArgs = MergedArgs.from_dict({})
 
         config: Config = Config.from_dict(
             {
@@ -147,7 +142,7 @@ class TestMergeArgs2Config:
         }
 
     def test_empty_args_and_config(self):
-        args: Args = Args.from_dict({"run": True, "retry": False, "v": 0})
+        args: MergedArgs = MergedArgs.from_dict({})
 
         config: Config = Config.from_dict(
             {

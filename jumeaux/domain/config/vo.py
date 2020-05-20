@@ -65,3 +65,13 @@ class Config(OwlMixin):
     input_files: TOption[TList[str]]
     notifiers: TOption[TDict[Notifier]]
     addons: Addons
+
+
+class MergedArgs(OwlMixin):
+    files: TOption[TList[str]]
+    title: TOption[str]
+    description: TOption[str]
+    tag: TOption[TList[str]]
+    threads: TOption[int]
+    processes: TOption[int]
+    max_retries: TOption[int]

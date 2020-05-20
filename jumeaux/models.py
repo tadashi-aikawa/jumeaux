@@ -42,38 +42,6 @@ class HttpMethod(OwlEnum):
     POST = "POST"
 
 
-class Args(OwlMixin):
-    run: bool
-    files: TOption[TList[str]]
-    title: TOption[str]
-    description: TOption[str]
-    config: TOption[TList[str]]
-    tag: TOption[TList[str]]
-    skip_addon_tag: TOption[TList[str]]
-    threads: TOption[int]
-    processes: TOption[int]
-    max_retries: TOption[int]
-    v: int
-    retry: bool
-    report: TOption[str]  # Only case in which retry is True
-
-    @classmethod
-    def ___threads(cls, v: Optional[str]) -> Optional[int]:
-        return int(v) if v else None
-
-    @classmethod
-    def ___processes(cls, v: Optional[str]) -> Optional[int]:
-        return int(v) if v else None
-
-    @classmethod
-    def ___max_retries(cls, v: Optional[str]) -> Optional[int]:
-        return int(v) if v else None
-
-    @classmethod
-    def ___port(cls, v: str) -> int:
-        return int(v)
-
-
 # or {}
 class Request(OwlMixin):
     name: TOption[str]
