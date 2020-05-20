@@ -54,7 +54,7 @@ $ poetry install
 #### Run
 
 ```
-$ poetry run python jumeaux/executor.py <args>
+$ poetry run jumeaux <args>
 ```
 
 #### Serve docs
