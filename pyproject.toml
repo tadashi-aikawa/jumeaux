@@ -44,7 +44,7 @@ pymdown-extensions = "^6.2"
 fontawesome-markdown = "^0.2.6"
 
 [tool.poetry.plugins."console_scripts"]
-"jumeaux" = "jumeaux.executor:main"
+"jumeaux" = "jumeaux.main:main"
 
 [tool.black]
 line-length = 100
