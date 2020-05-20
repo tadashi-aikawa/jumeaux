@@ -16,9 +16,6 @@ version := $(shell git rev-parse --abbrev-ref HEAD)
 
 #---- Basic
 
-init-dev: ## Install dependencies and create envirionment
-	@poetry install
-
 start-api: ## Start dummy API
 	@poetry run python jumeaux/main.py server &
 

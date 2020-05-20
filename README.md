@@ -47,7 +47,8 @@ For developer
 #### Create environment
 
 ```
-$ make init
+$ poetry env use <path of python 3.8>
+$ poetry install
 ```
 
 #### Run
