@@ -47,13 +47,14 @@ For developer
 #### Create environment
 
 ```
-$ make init
+$ poetry env use <path of python 3.8>
+$ poetry install
 ```
 
 #### Run
 
 ```
-$ poetry run python jumeaux/executor.py <args>
+$ poetry run jumeaux <args>
 ```
 
 #### Serve docs

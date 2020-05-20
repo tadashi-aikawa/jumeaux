@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from jumeaux.models import Config as JumeauxConfig
+from jumeaux.domain.config.vo import Config as JumeauxConfig
 from jumeaux.models import Reqs2ReqsAddOnPayload
 
 

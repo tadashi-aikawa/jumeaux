@@ -348,6 +348,18 @@ version = "8.0.0"
 
 [[package]]
 category = "main"
+description = "CLI framework which supports both command and subcommand."
+name = "owcli"
+optional = false
+python-versions = ">=3.6,<4.0"
+version = "0.7.0"
+
+[package.dependencies]
+docopt = ">=0.6.2,<0.7.0"
+owlmixin = ">=5.4.1,<6.0.0"
+
+[[package]]
+category = "main"
 description = "Mixin which converts ``data class instance`` and others each other more simple."
 name = "owlmixin"
 optional = false
@@ -639,7 +651,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pathlib2", "contextlib2", "unittest2"]
 
 [metadata]
-content-hash = "28186c2cb8ea0e83c7902989ad584ac21397239048afbe511d0e687aff608395"
+content-hash = "a0b9d309e840ea64b5adcd704a342ade5fc42a5de525b028a1f37f39daf0be56"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -848,6 +860,9 @@ mkdocs-minify-plugin = [
 more-itertools = [
     {file = "more-itertools-8.0.0.tar.gz", hash = "sha256:53ff73f186307d9c8ef17a9600309154a6ae27f25579e80af4db8f047ba14bc2"},
     {file = "more_itertools-8.0.0-py3-none-any.whl", hash = "sha256:a0ea684c39bc4315ba7aae406596ef191fd84f873d2d2751f84d64e81a7a2d45"},
+]
+owcli = [
+    {file = "owcli-0.7.0-py3-none-any.whl", hash = "sha256:635d5d0ee5c7a214c871e40b490c8f3938c674fe57bd93bb2c511eab1ac447c7"},
 ]
 owlmixin = [
     {file = "owlmixin-5.5.0-py3-none-any.whl", hash = "sha256:706547173a3224038012f6d0b5eae047c638119745ad3e7d1163e33e13141122"},

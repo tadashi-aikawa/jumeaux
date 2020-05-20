@@ -1,77 +1,44 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-=======================
-Usage
-=======================
-
-Usage:
-  jumeaux init
-  jumeaux init <name>
-  jumeaux run <files>... [--config=<yaml>...] [--title=<title>] [--description=<description>]
-                         [--tag=<tag>...] [--skip-addon-tag=<skip_add_on_tag>...]
-                         [--threads=<threads>] [--processes=<processes>]
-                         [--max-retries=<max_retries>] [-vvv]
-  jumeaux retry <report> [--title=<title>] [--description=<description>]
-                         [--tag=<tag>...] [--threads=<threads>] [--processes=<processes>]
-                         [--max-retries=<max_retries>] [-vvv]
-  jumeaux server [--port=<port>] [-vvv]
-  jumeaux viewer [--port=<port>] [--responses-dir=<responses_dir>]
-
-Options:
-  <name>                                        Initialize template name
-  <files>...                                    Files written requests
-  --config = <yaml>...                          Configuration files(see below) [def: config.yml]
-  --title = <title>                             The title of report [def: No title]
-  --description = <description>                 The description of report
-  --tag = <tag>...                              Tags
-  --skip-addon-tag = <skip_addon_tag>...        Skip add-ons loading whose tags have one of this
-  --threads = <threads>                         The number of threads in challenge [def: 1]
-  --processes = <processes>                     The number of processes in challenge
-  --max-retries = <max_retries>                 The max number of retries which accesses to API
-  <report>                                      Report for retry
-  -vvv                                          Logger level (`-v` or `-vv` or `-vvv`)
-  --port = <port>                               Running port [default: 8000]
-  --responses-dir = <responses_dir>             Directory which has responses [default: responses]
-"""
-
 import datetime
+import hashlib
+import io
+import os
+import re
 import sys
 import urllib.parse as urlparser
 from concurrent import futures
 from typing import Tuple, Optional, Any
 
-import hashlib
-import io
-import os
-import re
-from docopt import docopt
-from owlmixin import TList, TOption, TDict
-from deepdiff import DeepDiff
-
 import requests
+from deepdiff import DeepDiff
+from fn import _
+from owlmixin import TList, TOption, TDict
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
-
-from fn import _
 from tzlocal import get_localzone
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-sys.path.append(PROJECT_ROOT)
-sys.path.append(os.getcwd())
+# PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+# sys.path.append(PROJECT_ROOT)
+# sys.path.append(os.getcwd())
 from jumeaux import __version__
-from jumeaux.handlers import server, init, viewer
 from jumeaux.addons import AddOnExecutor
 from jumeaux.addons.utils import to_jumeaux_xpath
-from jumeaux.configmaker import create_config, create_config_from_report
+from jumeaux.domain.config.service import (
+    create_config_from_report,
+    create_config,
+    merge_args2config,
+)
+from jumeaux.domain.config.vo import Config, MergedArgs
+
+# XXX: ...
+from jumeaux.logger import Logger
 from jumeaux.models import (
     to_json,
-    Config,
     Report,
     Request,
     Response,
-    Args,
     ChallengeArg,
     Trial,
     Proxy,
@@ -96,7 +63,6 @@ from jumeaux.models import (
     FinalAddOnReference,
     HttpMethod,
 )
-from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
 global_addon_executor: AddOnExecutor
@@ -716,81 +682,13 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
     )
 
 
-def hash_from_args(args: Args) -> str:
-    return hashlib.sha256((str(now()) + args.to_json()).encode()).hexdigest()
-
-
-def merge_args2config(args: Args, config: Config) -> Config:
-    return Config.from_dict(
-        {
-            "one": config.one,
-            "other": config.other,
-            "output": config.output,
-            "threads": args.threads.get_or(config.threads),
-            "processes": args.processes if args.processes.get() else config.processes,
-            "max_retries": args.max_retries.get()
-            if args.max_retries.get() is not None
-            else config.max_retries,
-            "title": args.title if args.title.get() else config.title,
-            "description": args.description if args.description.get() else config.description,
-            "tags": args.tag if args.tag.get() else config.tags,
-            "input_files": args.files if args.files.get() else config.input_files,
-            "notifiers": config.notifiers,
-            "addons": config.addons,
-        }
-    )
-
-
-def main():
-    # We can use args only in `main()`
-    args: Args = Args.from_dict(docopt(__doc__, version=__version__))
-    init_logger(args.v)
-
-    global global_addon_executor
-
-    if args.server:
-        server.handle(args.port)
-        return
-
-    if args.viewer:
-        viewer.handle(args.responses_dir, args.port)
-        return
-
-    if args.init:
-        init.handle(args.name)
-        return
-
-    # TODO: refactoring
-    if args.retry:
-        report: Report = Report.from_jsonf(args.report.get(), force_cast=True)
-        config: Config = merge_args2config(args, create_config_from_report(report))
-        global_addon_executor = AddOnExecutor(config.addons)
-        origin_reqs: TList[Request] = report.trials.map(
-            lambda x: Request.from_dict(
-                {
-                    "path": x.path,
-                    "qs": x.queries,
-                    "headers": x.headers,
-                    "name": x.name,
-                    "method": x.method,
-                    "form": x.form,
-                    "json": x.json,
-                }
-            )
-        )
-        retry_hash: Optional[str] = report.key
-    else:
-        config: Config = merge_args2config(
-            args, create_config(args.config.get() or TList(["config.yml"]), args.skip_addon_tag)
-        )
-        global_addon_executor = AddOnExecutor(config.addons)
-        origin_reqs: TList[Request] = config.input_files.get().flat_map(
-            lambda f: global_addon_executor.apply_log2reqs(
-                Log2ReqsAddOnPayload.from_dict({"file": f})
-            )
-        )
-        retry_hash: Optional[str] = None
-
+def __run(
+    config: Config,
+    origin_reqs: TList[Request],
+    addon_executor: AddOnExecutor,
+    hash: str,
+    retry_hash: Optional[str],
+):
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=config.output.encoding)
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding=config.output.encoding)
 
@@ -808,21 +706,56 @@ def main():
     logger.info_lv2("----")
     logger.info_lv2(config.to_yaml())
 
+    # XXX: Please fix to not use global!
+    global global_addon_executor
+    global_addon_executor = addon_executor
+
     # Requests
-    reqs: TList[Request] = global_addon_executor.apply_reqs2reqs(
+    reqs: TList[Request] = addon_executor.apply_reqs2reqs(
         Reqs2ReqsAddOnPayload.from_dict({"requests": origin_reqs}), config
     ).requests
 
-    global_addon_executor.apply_final(
+    addon_executor.apply_final(
         FinalAddOnPayload.from_dict(
-            {
-                "report": exec(config, reqs, hash_from_args(args), retry_hash),
-                "output_summary": config.output,
-            }
+            {"report": exec(config, reqs, hash, retry_hash), "output_summary": config.output}
         ),
         FinalAddOnReference.from_dict({"notifiers": config.notifiers}),
     )
 
 
-if __name__ == "__main__":
-    main()
+def hash_from_args(args_str: str) -> str:
+    return hashlib.sha256((str(now()) + args_str).encode()).hexdigest()
+
+
+def retry(*, args: MergedArgs, report: str):
+    report: Report = Report.from_jsonf(report, force_cast=True)
+    config: Config = merge_args2config(args, create_config_from_report(report))
+    addon_executor = AddOnExecutor(config.addons)
+    origin_reqs: TList[Request] = report.trials.map(
+        lambda x: Request.from_dict(
+            {
+                "path": x.path,
+                "qs": x.queries,
+                "headers": x.headers,
+                "name": x.name,
+                "method": x.method,
+                "form": x.form,
+                "json": x.json,
+            }
+        )
+    )
+    __run(config, origin_reqs, addon_executor, hash_from_args(args.to_json()), report.key)
+
+
+def run(
+    *, args: MergedArgs, config_paths: TList[str], skip_addon_tag: TOption[TList[str]],
+):
+    config: Config = merge_args2config(
+        args, create_config(config_paths, skip_addon_tag),
+    )
+
+    addon_executor = AddOnExecutor(config.addons)
+    origin_reqs: TList[Request] = config.input_files.get().flat_map(
+        lambda f: addon_executor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({"file": f}))
+    )
+    __run(config, origin_reqs, addon_executor, hash_from_args(args.to_json()), None)

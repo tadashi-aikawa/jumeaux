@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 import pytest
 from owlmixin import TOption
 from owlmixin.util import load_yaml
 
 from jumeaux.addons.reqs2reqs.empty_guard import Executor
+from jumeaux.domain.config.vo import Config as JumeauxConfig
 from jumeaux.models import Reqs2ReqsAddOnPayload, Notifier
-from jumeaux.models import Config as JumeauxConfig
 
 EMPTY = (
     "Guard empty",
@@ -22,7 +22,7 @@ EMPTY = (
          title: empty test
          one:
             name: one
-            host: http://one   
+            host: http://one
          other:
             name: other
             host: http://other
@@ -54,7 +54,7 @@ NOT_EMPTY = (
     """
              one:
                 name: one
-                host: http://one   
+                host: http://one
              other:
                 name: other
                 host: http://other
