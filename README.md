@@ -85,7 +85,7 @@ There are 2 steps.
 #### Update release note (mkdocs/ja/releases/*)
 
 ```
-$ git commit -m ":memo: Update release note"
+$ git commit -m "📝 Update release note"
 ```
 
 #### Confirm that your branch name equals release version
