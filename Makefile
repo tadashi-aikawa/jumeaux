@@ -72,7 +72,7 @@ release: package-docs ## Release
 
 	@echo '3. Staging and commit'
 	git add jumeaux/__init__.py Dockerfile docs pyproject.toml
-	git commit -m ':package: Version $(version)'
+	git commit -m '📦 Version $(version)'
 
 	@echo '4. Tags'
 	git tag v$(version) -m v$(version)
