@@ -13,89 +13,78 @@ help: ## Print this help
 
 version := $(shell git rev-parse --abbrev-ref HEAD)
 
-#------
 
-init: ## Install dependencies
-	pipenv install -d
+#---- Basic
 
-serve-docs: ## Build and serve documentation
+start-api: ## Start dummy API
+	@poetry run python jumeaux/main.py server &
+
+stop-api: ## Stop dummy API
+	@pkill -f 'jumeaux/main.py server'
+
+test: ## Test
+	@poetry run python -m pytest -vv --cov-report=xml --cov=. tests/
+
+test-cli: ## Test on CLI
 	@echo Start $@
-	@pipenv run mkdocs serve -a 0.0.0.0:8000
+	@make start-api 2> /dev/null
+	@poetry run bats test.bats
+	@make stop-api
 	@echo End $@
 
 clear: ## Remove responses, requests, api and config.yml
 	@rm -rf responses requests api config.yml
 
+
+#---- Docs
+
+serve-docs: ## Build and serve documentation
+	@poetry run mkdocs serve -a 0.0.0.0:8000
+
+
+#---- Release
+
 _clean-package-docs: ## Clean package documentation
 	@rm -rf docs/*
 
 package-docs: _clean-package-docs ## Package documentation
-	@echo Start $@
-	@pipenv run mkdocs build
-	@echo End $@
+	@poetry run mkdocs build
 
 _clean-package: ## Clean package
-	@echo Start $@
 	@rm -rf build dist jumeaux.egg-info
-	@echo End $@
 
 _package: _clean-package ## Package OwlMixin
-	@echo Start $@
-	@pipenv run python setup.py bdist_wheel
-	@echo End $@
+	@poetry build -f wheel
 
-test: ## Test
-	@echo Start $@
-	@pipenv run python -m pytest -vv --cov-report=xml --cov=. tests/
-	@echo End $@
-
-start-api: ## Start dummy API
-	@echo Start $@
-	@pipenv run python jumeaux/executor.py server &
-	@echo End $@
-
-stop-api: ## Stop dummy API
-	@echo Start $@
-	@pkill -f 'jumeaux/executor.py server'
-	@echo End $@
-
-test-cli: ## Test on CLI
-	@echo Start $@
-	@make start-api 2> /dev/null
-	@pipenv run bats test.bats
-	@make stop-api
-	@echo End $@
-
-release: package-docs ## Release (set TWINE_USERNAME and TWINE_PASSWORD to enviroment varialbles)
+release: package-docs ## Release
 
 	@echo '0. Install packages from lockfile and test'
-	@pipenv install --deploy
+	@poetry install
 	@make test
 	@make test-cli
 
-	@echo '1. Recreate `jumeaux/__init__.py`'
+	@echo '1. Version up'
+	@poetry version $(version)
 	@echo "__version__ = '$(version)'" > jumeaux/__init__.py
 
 	@echo '2. Recreate `Dockerfile`'
 	@cat template/Dockerfile | sed -r 's/VERSION/$(version)/g' > Dockerfile
 
 	@echo '3. Staging and commit'
-	git add jumeaux/__init__.py
-	git add Dockerfile
-	git add docs
-	git commit -m ':package: Version $(version)'
+	git add jumeaux/__init__.py Dockerfile docs pyproject.toml
+	git commit -m '📦 Version $(version)'
 
 	@echo '4. Tags'
 	git tag v$(version) -m v$(version)
 
-	@echo '5. Deploy'
-	@echo 'Packaging...'
-	@pipenv run python setup.py bdist_wheel
-	@echo 'Deploying...'
-	@pipenv run twine upload dist/jumeaux-$(version)-py3-none-any.whl
+	@echo '5. Package Jumeaux'
+	@make _package
 
-	@echo '6. Push'
-	git push --tags
+	@echo '6. Publish'
+	@poetry publish
+
+	@echo '7. Push'
+	git push origin v$(version)
 	git push
 
 	@echo 'Success All!!'

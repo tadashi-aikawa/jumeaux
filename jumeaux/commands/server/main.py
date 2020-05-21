@@ -1,13 +1,21 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""Boot mock API server
+Usage:
+  {cli} [--port <port>] [-v|-vv|-vvv]
+  {cli} (-h | --help)
 
+Options:
+  --port <port>                 Running port [default: 8000]
+  -v                            Logger level (`-v` or `-vv` or `-vvv`)
+  -h --help                     Show this screen.
+"""
 import json
 import socketserver
 import urllib
 from http.server import SimpleHTTPRequestHandler
-from typing import Optional
 
-from jumeaux.logger import Logger
+from owlmixin import OwlMixin
+
+from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
 
@@ -52,7 +60,13 @@ class ReuseAddressTCPServer(socketserver.TCPServer):
     allow_reuse_address = True
 
 
-def handle(port: Optional[int]):
-    with ReuseAddressTCPServer(("", port), MyServerHandler) as httpd:
-        logger.info_lv1(f"Serving HTTP on 0.0.0.0 port {port} (http://0.0.0.0:{port}/)")
+class Args(OwlMixin):
+    port: int
+    v: int
+
+
+def run(args: Args):
+    init_logger(args.v)
+    with ReuseAddressTCPServer(("", args.port), MyServerHandler) as httpd:
+        logger.info_lv1(f"Serving HTTP on 0.0.0.0 port {args.port} (http://0.0.0.0:{args.port}/)")
         httpd.serve_forever()

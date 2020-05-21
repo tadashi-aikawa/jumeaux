@@ -2,28 +2,33 @@
 import datetime
 from typing import Optional, List, Any
 
-from requests_toolbelt.utils import deprecated
-from owlmixin import OwlMixin, TOption
-from owlmixin.owlcollections import TList, TDict
-from owlmixin.owlenum import OwlEnum
+from owlmixin import OwlMixin, TOption, TList, TDict, OwlEnum
 from requests.structures import CaseInsensitiveDict as RequestsCaseInsensitiveDict
+from requests_toolbelt.utils import deprecated
 
-DictOrList = any
+from jumeaux.addons.models import Addons
+from jumeaux.domain.config.vo import (
+    PathReplace,
+    QueryCustomization,
+    AccessPoint,
+    Concurrency,
+    OutputSummary,
+    Notifier,
+)
 
-def to_json(value: DictOrList) -> str: 
+DictOrList = any  # type: ignore
+
+
+def to_json(value: DictOrList) -> str:  # type: ignore
     if isinstance(value, dict):
         return TDict(value).to_json()
     if isinstance(value, list):
         return TList(value).to_json()
-    return None
+    raise TypeError("A argument must be dict or list")
 
 
 class CaseInsensitiveDict(RequestsCaseInsensitiveDict):
     pass
-
-
-class NotifierType(OwlEnum):
-    SLACK = "slack"
 
 
 class Status(OwlEnum):
@@ -37,132 +42,10 @@ class HttpMethod(OwlEnum):
     POST = "POST"
 
 
-class QueryCustomization(OwlMixin):
-    overwrite: TOption[TDict[TList[str]]]
-    remove: TOption[TList[str]]
-
-
-class PathReplace(OwlMixin):
-    before: str
-    after: str
-
-
-class AccessPoint(OwlMixin):
-    name: str
-    host: str
-    path: TOption[PathReplace]
-    query: TOption[QueryCustomization]
-    proxy: TOption[str]
-    default_response_encoding: TOption[str]
-    headers: TDict[str] = {}
-
-
-class OutputSummary(OwlMixin):
-    response_dir: str
-    encoding: str = "utf8"
-    logger: TOption[any]
-
-
-class Concurrency(OwlMixin):
-    threads: int
-    processes: int
-
-
-class Addon(OwlMixin):
-    name: str
-    cls_name: str = "Executor"
-    config: TOption[dict]
-    include: TOption[str]
-    tags: TOption[TList[str]]
-
-
-# List is None...
-class Addons(OwlMixin):
-    log2reqs: Addon
-    reqs2reqs: TList[Addon] = []
-    res2res: TList[Addon] = []
-    res2dict: TList[Addon] = []
-    judgement: TList[Addon] = []
-    store_criterion: TList[Addon] = []
-    dump: TList[Addon] = []
-    did_challenge: TList[Addon] = []
-    final: TList[Addon] = []
-
-
-class Notifier(OwlMixin):
-    type: NotifierType
-    channel: str
-    username: str = "jumeaux"
-    icon_emoji: TOption[str]
-    icon_url: TOption[str]
-
-    @property
-    def logging_message(self) -> str:
-        return f"Send to {self.channel} by slack"
-
-
-class Config(OwlMixin):
-    one: AccessPoint
-    other: AccessPoint
-    output: OutputSummary
-    threads: int = 1
-    processes: TOption[int]
-    max_retries: int = 3
-    title: TOption[str]
-    description: TOption[str]
-    tags: TOption[TList[str]]
-    # TODO: remove
-    input_files: TOption[TList[str]]
-    notifiers: TOption[TDict[Notifier]]
-    addons: Addons
-
-
-# --------
-
-
-class Args(OwlMixin):
-    run: bool
-    files: TOption[TList[str]]
-    title: TOption[str]
-    description: TOption[str]
-    config: TOption[TList[str]]
-    tag: TOption[TList[str]]
-    skip_addon_tag: TOption[TList[str]]
-    threads: TOption[int]
-    processes: TOption[int]
-    max_retries: TOption[int]
-    v: int
-    retry: bool
-    report: TOption[str]  # Only case in which retry is True
-
-    init: bool
-    name: TOption[str]  # Only case in which init is True
-    server: bool
-    port: int
-    viewer: bool
-    responses_dir: str
-
-    @classmethod
-    def ___threads(cls, v: Optional[str]) -> Optional[int]:
-        return int(v) if v else None
-
-    @classmethod
-    def ___processes(cls, v: Optional[str]) -> Optional[int]:
-        return int(v) if v else None
-
-    @classmethod
-    def ___max_retries(cls, v: Optional[str]) -> Optional[int]:
-        return int(v) if v else None
-
-    @classmethod
-    def ___port(cls, v: str) -> int:
-        return int(v)
-
-
 # or {}
 class Request(OwlMixin):
     name: TOption[str]
-    method: HttpMethod = HttpMethod.GET
+    method: HttpMethod = HttpMethod.GET  # type: ignore # Prevent for enum problem
     path: str
     qs: TDict[TList[str]] = {}
     form: TOption[dict]

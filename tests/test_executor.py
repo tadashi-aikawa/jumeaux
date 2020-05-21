@@ -5,8 +5,8 @@
 import datetime
 import os
 import shutil
-from typing import Optional, Dict
 from datetime import timezone, timedelta
+from typing import Optional, Dict
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
@@ -15,18 +15,10 @@ from owlmixin import TList, TDict
 from requests.exceptions import ConnectionError
 
 from jumeaux import executor, __version__
-from jumeaux.addons import AddOnExecutor
-from jumeaux.executor import merge_args2config, create_query_string, merge_headers
-from jumeaux.models import (
-    CaseInsensitiveDict,
-    Addons,
-    ChallengeArg,
-    Config,
-    Args,
-    Request,
-    Report,
-    QueryCustomization,
-)
+from jumeaux.addons import AddOnExecutor, Addons
+from jumeaux.executor import create_query_string, merge_headers
+from jumeaux.domain.config.vo import Config
+from jumeaux.models import CaseInsensitiveDict, ChallengeArg, Request, Report, QueryCustomization
 
 
 def mock_date(year, month, day, hour, minute, second, microsecond):
@@ -454,213 +446,6 @@ class TestCreateQueryString:
         assert expected == create_query_string(
             TDict(qs), QueryCustomization.from_optional_dict(cqs), encoding
         )
-
-
-class TestMergeArgs2Config:
-    def test_full_args(self):
-        args: Args = Args.from_dict(
-            {
-                "run": True,
-                "files": ["file1", "file2"],
-                "title": "test_full_args",
-                "description": "Description for test_full_args",
-                "config": ["config.yml"],
-                "tag": ["tag1", "tag2"],
-                "threads": 3,
-                "processes": 2,
-                "max_retries": 5,
-                "v": 0,
-                "retry": False,
-                "init": False,
-                "server": False,
-                "port": 8000,
-                "viewer": False,
-                "responses_dir": "responses",
-            }
-        )
-
-        config: Config = Config.from_dict(
-            {
-                "title": "Config title",
-                "description": "Config description",
-                "tags": ["tag3", "tag4"],
-                "threads": 1,
-                "processes": 4,
-                "max_retries": 7,
-                "one": {
-                    "name": "name_one",
-                    "host": "http://host/one",
-                    "proxy": "http://proxy-one",
-                    "headers": {"XXX": "xxx"},
-                    "default_response_encoding": "euc-jp",
-                },
-                "other": {
-                    "name": "name_other",
-                    "host": "http://host/other",
-                    "proxy": "http://proxy-other",
-                    "headers": {"YYY": "yyy"},
-                    "default_response_encoding": "euc-jp",
-                },
-                "output": {"encoding": "utf8", "response_dir": "tmpdir"},
-                "addons": {
-                    "log2reqs": {"name": "addons.log2reqs.csv", "config": {"encoding": "utf8"}}
-                },
-            }
-        )
-
-        assert merge_args2config(args, config).to_dict() == {
-            "title": "test_full_args",
-            "description": "Description for test_full_args",
-            "tags": ["tag1", "tag2"],
-            "threads": 3,
-            "processes": 2,
-            "max_retries": 5,
-            "input_files": ["file1", "file2"],
-            "one": {
-                "name": "name_one",
-                "host": "http://host/one",
-                "proxy": "http://proxy-one",
-                "default_response_encoding": "euc-jp",
-                "headers": {"XXX": "xxx"},
-            },
-            "other": {
-                "name": "name_other",
-                "host": "http://host/other",
-                "proxy": "http://proxy-other",
-                "default_response_encoding": "euc-jp",
-                "headers": {"YYY": "yyy"},
-            },
-            "output": {"encoding": "utf8", "response_dir": "tmpdir"},
-            "addons": {
-                "log2reqs": {
-                    "name": "addons.log2reqs.csv",
-                    "cls_name": "Executor",
-                    "config": {"encoding": "utf8"},
-                },
-                "reqs2reqs": [],
-                "res2res": [],
-                "res2dict": [],
-                "judgement": [],
-                "store_criterion": [],
-                "dump": [],
-                "did_challenge": [],
-                "final": [],
-            },
-        }
-
-    def test_empty_args(self):
-        args: Args = Args.from_dict(
-            {
-                "run": True,
-                "retry": False,
-                "init": False,
-                "v": 0,
-                "server": False,
-                "port": 8000,
-                "viewer": False,
-                "responses_dir": "responses",
-            }
-        )
-
-        config: Config = Config.from_dict(
-            {
-                "title": "Config title",
-                "description": "Config description",
-                "tags": ["tag3", "tag4"],
-                "threads": 1,
-                "processes": 4,
-                "max_retries": 5,
-                "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
-                "other": {
-                    "name": "name_other",
-                    "host": "http://host/other",
-                    "headers": {"YYY": "yyy"},
-                },
-                "output": {"encoding": "utf8", "response_dir": "tmpdir"},
-                "addons": {
-                    "log2reqs": {"name": "addons.log2reqs.csv", "config": {"encoding": "utf8"}}
-                },
-            }
-        )
-
-        assert merge_args2config(args, config).to_dict() == {
-            "title": "Config title",
-            "description": "Config description",
-            "tags": ["tag3", "tag4"],
-            "threads": 1,
-            "processes": 4,
-            "max_retries": 5,
-            "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
-            "other": {"name": "name_other", "host": "http://host/other", "headers": {"YYY": "yyy"}},
-            "output": {"encoding": "utf8", "response_dir": "tmpdir"},
-            "addons": {
-                "log2reqs": {
-                    "name": "addons.log2reqs.csv",
-                    "cls_name": "Executor",
-                    "config": {"encoding": "utf8"},
-                },
-                "reqs2reqs": [],
-                "res2res": [],
-                "res2dict": [],
-                "judgement": [],
-                "store_criterion": [],
-                "dump": [],
-                "did_challenge": [],
-                "final": [],
-            },
-        }
-
-    def test_empty_args_and_config(self):
-        args: Args = Args.from_dict(
-            {
-                "run": True,
-                "retry": False,
-                "init": False,
-                "v": 0,
-                "server": False,
-                "port": 8000,
-                "viewer": False,
-                "responses_dir": "responses",
-            }
-        )
-
-        config: Config = Config.from_dict(
-            {
-                "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
-                "other": {
-                    "name": "name_other",
-                    "host": "http://host/other",
-                    "headers": {"YYY": "yyy"},
-                },
-                "output": {"encoding": "utf8", "response_dir": "tmpdir"},
-                "addons": {
-                    "log2reqs": {"name": "addons.log2reqs.csv", "config": {"encoding": "utf8"}}
-                },
-            }
-        )
-
-        assert merge_args2config(args, config).to_dict() == {
-            "threads": 1,
-            "max_retries": 3,
-            "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
-            "other": {"name": "name_other", "host": "http://host/other", "headers": {"YYY": "yyy"}},
-            "output": {"encoding": "utf8", "response_dir": "tmpdir"},
-            "addons": {
-                "log2reqs": {
-                    "name": "addons.log2reqs.csv",
-                    "cls_name": "Executor",
-                    "config": {"encoding": "utf8"},
-                },
-                "reqs2reqs": [],
-                "res2res": [],
-                "res2dict": [],
-                "judgement": [],
-                "store_criterion": [],
-                "dump": [],
-                "did_challenge": [],
-                "final": [],
-            },
-        }
 
 
 class TestMergeHeaders:

@@ -1,3 +1,51 @@
+[tool.poetry]
+name = "jumeaux"
+version = "2.3.0"
+description = "Check difference between two responses of API."
+authors = ["tadashi-aikawa <syou.maman@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://tadashi-aikawa.github.io/jumeaux"
+repository = "https://github.com/tadashi-aikawa/jumeaux/blob/master/README.md"
+documentation = "https://tadashi-aikawa.github.io/jumeaux"
+keywords = ["diff rest api response regression test"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Testing"
+]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+requests = "^2.22.0"
+docopt = "^0.6.2"
+schema = "^0.7.1"
+xmltodict = "^0.12.0"
+fn = "^0.4.3"
+boto3 = "^1.10.28"
+freezegun = "^0.3.12"
+pydash = "^4.7.6"
+requests-toolbelt = "^0.9.1"
+jinja2 = "^2.10.3"
+beautifulsoup4 = "^4.8.1"
+lxml = "^4.4.2"
+livereload = "^2.6.1"
+tzlocal = "^2.0.0"
+deepdiff = "3.3.0"
+owlmixin = "^5.5.0"
+owcli = "^0.7.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.3.1"
+pytest-cov = "^2.8.1"
+mkdocs = "^1.0.4"
+mkdocs-material = "^4.5.0"
+pymdown-extensions = "^6.2"
+fontawesome-markdown = "^0.2.6"
+
+[tool.poetry.plugins."console_scripts"]
+"jumeaux" = "jumeaux.main:main"
+
 [tool.black]
 line-length = 100
 target-version = ['py36', 'py37', 'py38']
@@ -20,3 +68,8 @@ exclude = '''
   | profiling
 )/
 '''
+
+[build-system]
+requires = ["poetry>=1.0"]
+build-backend = "poetry.masonry.api"
+

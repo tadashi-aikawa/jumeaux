@@ -30,22 +30,31 @@ For developer
 
 ### Requirements
 
-* pipenv
+* poetry
 * make
+
+### Flow
+
+1. Create new version as following
+  * branch like as 2.3.0
+  * GitHub projects like as 2.3.0
+2. Create Issue and development! (Feature branch is optional. It likes as Issue-120)
+3. Commit with prefix emoji like ":memo:", and suffix issue number like "#120"
+
 
 ### Commands
 
-#### Create and activate env
+#### Create environment
 
 ```
-$ make init
-$ pipenv shell
+$ poetry env use <path of python 3.8>
+$ poetry install
 ```
 
 #### Run
 
 ```
-$ python jumeaux/executor.py <args>
+$ poetry run jumeaux <args>
 ```
 
 #### Serve docs
@@ -76,7 +85,7 @@ There are 2 steps.
 #### Update release note (mkdocs/ja/releases/*)
 
 ```
-$ git commit -m ":memo: Update release note"
+$ git commit -m "📝 Update release note"
 ```
 
 #### Confirm that your branch name equals release version

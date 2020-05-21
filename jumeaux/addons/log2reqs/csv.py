@@ -2,6 +2,7 @@
 
 import csv
 import urllib.parse as urlparser
+from typing import Iterable
 
 from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
@@ -33,11 +34,8 @@ class Executor(Log2ReqsExecutor):
         outputs = []
 
         with open(payload.file, encoding=self.config.encoding) as f:
-            rs = csv.DictReader(
-                f,
-                ("name", "method", "path", "qs", "headers"),
-                restval={},
-                dialect=self.config.dialect,
+            rs: Iterable[dict] = csv.DictReader(
+                f, ("name", "method", "path", "qs", "headers"), dialect=self.config.dialect
             )
             for r in rs:
                 if len(r) > 5:
