@@ -59,7 +59,7 @@ _package: _clean-package ## Package OwlMixin
 release: package-docs ## Release
 
 	@echo '0. Install packages from lockfile and test'
-	@make init-dev
+	@poetry install
 	@make test
 	@make test-cli
 
