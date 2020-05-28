@@ -219,10 +219,11 @@ Bucketの`test/`配下にデータが保存されます。
 
 ##### Notify
 
-|   Key    |  Type  |               Description                |             Example              | Default |
-| -------- | ------ | ---------------------------------------- | -------------------------------- | ------- |
-| notifier | string | 使用する通知設定の名前  :fa-info-circle: | jumeaux                            |         |
-| message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{{ title }}が完了しました</pre> |         |
+| Key      | Type   | Description                              | Example                                                 | Default |
+| -------- | ------ | ---------------------------------------- | ------------------------------------------------------- | ------- |
+| notifier | string | 使用する通知設定の名前  :fa-info-circle: | jumeaux                                                 |         |
+| message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{{ title }}が完了しました</pre>                    |         |
+| when     | str    | 通知条件式 :fa-info-circle:              | <pre>'summary.status.different > 0'</pre>               |         |
 
 
 !!! info "notifierについて"
@@ -234,6 +235,10 @@ Bucketの`test/`配下にデータが保存されます。
     [Template表記]に対応しています。
     プロパティは[Report](../getstarted/report.md)で定義されたものを使用できます。
 
+!!! info "whenで指定できるプロパティ"
+
+    [Template表記]に対応しています。
+    プロパティは[Report](../getstarted/report.md)で定義されたものを使用できます。
 
 #### Examples
 
@@ -261,6 +266,17 @@ Bucketの`test/`配下にデータが保存されます。
         icon_emoji: "jumeaux"
     ```
 
+##### differentのstatusが存在するときのみ通知する
+
+```yaml
+  final:
+    - name: notify
+      config:
+        notifies:
+          - notifier: jumeaux
+            message: "There are {{ summary.status.different }} diffs.."
+            when: "summary.status.different > 0"
+```
 
 [:fa-github:][csv] csv
 ----------------------
