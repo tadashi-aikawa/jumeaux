@@ -754,6 +754,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#differentstatus" class="md-nav__link">
+    differentのstatusが存在するときのみ通知する
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1391,6 +1398,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#differentstatus" class="md-nav__link">
+    differentのstatusが存在するときのみ通知する
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1871,6 +1885,13 @@
 <td><pre>{{ title }}が完了しました</pre></td>
 <td></td>
 </tr>
+<tr>
+<td>when</td>
+<td>str</td>
+<td>通知条件式 <i class="fa fa-info-circle"></i></td>
+<td><pre>'summary.status.different &gt; 0'</pre></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <div class="admonition info">
@@ -1879,6 +1900,11 @@
 </div>
 <div class="admonition info">
 <p class="admonition-title">messageについて</p>
+<p><a href="../../template">Template表記</a>に対応しています。<br />
+プロパティは<a href="../../getstarted/report/">Report</a>で定義されたものを使用できます。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">whenで指定できるプロパティ</p>
 <p><a href="../../template">Template表記</a>に対応しています。<br />
 プロパティは<a href="../../getstarted/report/">Report</a>で定義されたものを使用できます。</p>
 </div>
@@ -1904,6 +1930,16 @@
 </pre></div>
 
 </div>
+<h5 id="differentstatus">differentのstatusが存在するときのみ通知する<a class="headerlink" href="#differentstatus" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>  <span class="nt">final</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">notify</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">notifies</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">notifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jumeaux</span>
+            <span class="nt">message</span><span class="p">:</span> <span class="s">&quot;There</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">summary.status.different</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">diffs..&quot;</span>
+            <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;summary.status.different</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">0&quot;</span>
+</pre></div>
+
 <h2 id="csv"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/csv.py"><i class="fa fa-github"></i></a> csv<a class="headerlink" href="#csv" title="Permanent link">&para;</a></h2>
 <p>レポートの<code>trials</code>をCSVファイル形式で追加出力します。</p>
 <h3 id="config_4">Config<a class="headerlink" href="#config_4" title="Permanent link">&para;</a></h3>
