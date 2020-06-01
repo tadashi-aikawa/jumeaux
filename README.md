@@ -86,6 +86,7 @@ There are 2 steps.
 
 ```
 $ git commit -m "📝 Update release note"
+$ git push
 ```
 
 #### Confirm that your branch name equals release version
