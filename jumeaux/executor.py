@@ -674,6 +674,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
             "key": key,
             "title": title,
             "description": description,
+            "notifiers": config.notifiers,
             "summary": summary.to_dict(),
             "trials": trials.to_dicts(),
             "addons": config.addons.to_dict(),

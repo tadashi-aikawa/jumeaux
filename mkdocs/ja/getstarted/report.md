@@ -8,17 +8,18 @@ Report
 
 ### Report
 
-| Key         | Type                | Description                             | Example                          |
-|-------------|---------------------|-----------------------------------------|----------------------------------|
-| version     | string              | 実行したJumeauxのバージョン             | 0.58.0                           |
-| key         | string              | 実行ごとにユニークになるキー            | a1e4d ... 416422                 |
-| title       | string              | タイトル                                | リグレッションテスト             |
-| description | (string)            | 説明                                    | デグレを発見するためのテストです |
-| summary     | [Summary](#summary) | 結果の概要                              |                                  |
-| trials      | [Trial][trial][]    | テストリクエスト1つ1つの結果詳細        |                                  |
-| addons      | [Addons][addons]    | 利用したアドオンの設定                  |                                  |
-| retry_hash  | (string)            | リトライ対象のkey. リトライした場合のみ | a1e4d ... 416422                 |
-| ignores     | Ignores[]           | ※ もうすぐ削除予定のため省略します      |                                  |
+| Key           | Type                         | Description                               | Example                          |     |
+| ------------- | ---------------------------- | ----------------------------------------- | -------------------------------- | --- |
+| version       | string                       | 実行したJumeauxのバージョン               | 0.58.0                           |     |
+| key           | string                       | 実行ごとにユニークになるキー              | a1e4d ... 416422                 |     |
+| title         | string                       | タイトル                                  | リグレッションテスト             |     |
+| description   | (string)                     | 説明                                      | デグレを発見するためのテストです |     |
+| notifiers     | (dict[[Notifier][notifier]]) | 通知設定                                  |                                  |     |
+| summary       | [Summary](#summary)          | 結果の概要                                |                                  |     |
+| trials        | [Trial][trial][]             | テストリクエスト1つ1つの結果詳細          |                                  |     |
+| addons        | [Addons][addons]             | 利用したアドオンの設定                    |                                  |     |
+| retry_hash    | (string)                     | リトライ対象のkey. リトライした場合のみ   | a1e4d ... 416422                 |     |
+| ignores       | Ignores[]                    | ※ もうすぐ削除予定のため省略します       |                                  |     |
 
 
 ### Summary
@@ -383,4 +384,4 @@ Report
 [addons]: ../../addons#configration-definitions
 [access-point]: ../../models/access-point
 [trial]: ../../models/trial
-
+[notifier]: ../../models/notifier

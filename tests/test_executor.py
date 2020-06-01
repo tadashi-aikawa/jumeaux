@@ -599,6 +599,14 @@ class TestExec:
                     "headers": {"XXX2": "xxx2", "YYY2": "yyy2"},
                 },
                 "output": {"encoding": "utf8", "response_dir": "tmpdir"},
+                "notifiers": {
+                    "jumeaux": {
+                        "type": "slack",
+                        "channel": "#jumeaux",
+                        "username": "jumeaux",
+                        "icon_emoji": "jumeaux_icon",
+                    },
+                },
                 "addons": {
                     "log2reqs": {"name": "addons.log2reqs.csv", "config": {"encoding": "utf8"}},
                     "store_criterion": [
@@ -619,6 +627,14 @@ class TestExec:
             "key": dummy_hash,
             "title": "Report title",
             "description": "Report description",
+            "notifiers": {
+                "jumeaux": {
+                    "type": "slack",
+                    "channel": "#jumeaux",
+                    "username": "jumeaux",
+                    "icon_emoji": "jumeaux_icon",
+                },
+            },
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",

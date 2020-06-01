@@ -96,6 +96,8 @@ assert_null_property() {
   assert_number_property '.summary.status.different' 1
 
   assert_not_number_property '.trials[0].method' 'GET'
+
+  assert_null_property '.notifiers'
 }
 
 @test "Run path_custom" {
@@ -312,6 +314,17 @@ assert_null_property() {
   assert_number_property '.summary.status.different' 1
 }
 
+@test "Run notifier" {
+  $JUMEAUX_MAIN init notifier
+  $JUMEAUX_MAIN run requests
+
+  assert_exists responses
+  assert_exists responses/latest/report.json
+
+  assert_not_number_property '.notifiers.jumeaux.type' 'slack'
+  assert_not_number_property '.notifiers.jumeaux.channel' '#bot_tadashi-aikawa'
+  assert_not_number_property '.notifiers.jumeaux.icon_emoji' 'miroir'
+}
 
 #--------------------------
 # jumeaux retry
@@ -338,5 +351,29 @@ assert_null_property() {
 
   assert_number_property '.summary.status.same' 0
   assert_number_property '.summary.status.different' 1
+}
+
+@test "Retry with notifiers" {
+  $JUMEAUX_MAIN init notifier
+  $JUMEAUX_MAIN run requests
+
+  assert_exists responses
+  assert_exists responses/latest/report.json
+  assert_exists api
+
+  cp responses/latest/report.json .
+  rm -rf requests responses
+
+  $JUMEAUX_MAIN retry report.json
+  rm report.json
+
+  assert_exists responses
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+  assert_exists api
+
+  assert_not_number_property '.notifiers.jumeaux.type' 'slack'
+  assert_not_number_property '.notifiers.jumeaux.channel' '#bot_tadashi-aikawa'
+  assert_not_number_property '.notifiers.jumeaux.icon_emoji' 'miroir'
 }
 
