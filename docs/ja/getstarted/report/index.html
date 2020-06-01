@@ -807,6 +807,7 @@
 <th>Type</th>
 <th>Description</th>
 <th>Example</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -815,29 +816,41 @@
 <td>string</td>
 <td>実行したJumeauxのバージョン</td>
 <td>0.58.0</td>
+<td></td>
 </tr>
 <tr>
 <td>key</td>
 <td>string</td>
 <td>実行ごとにユニークになるキー</td>
 <td>a1e4d ... 416422</td>
+<td></td>
 </tr>
 <tr>
 <td>title</td>
 <td>string</td>
 <td>タイトル</td>
 <td>リグレッションテスト</td>
+<td></td>
 </tr>
 <tr>
 <td>description</td>
 <td>(string)</td>
 <td>説明</td>
 <td>デグレを発見するためのテストです</td>
+<td></td>
+</tr>
+<tr>
+<td>notifiers</td>
+<td>(dict[<a href="../../models/notifier">Notifier</a>])</td>
+<td>通知設定</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>summary</td>
 <td><a href="#summary">Summary</a></td>
 <td>結果の概要</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -845,11 +858,13 @@
 <td><a href="../../models/trial">Trial</a>[]</td>
 <td>テストリクエスト1つ1つの結果詳細</td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td>addons</td>
 <td><a href="../../addons#configration-definitions">Addons</a></td>
 <td>利用したアドオンの設定</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -857,11 +872,13 @@
 <td>(string)</td>
 <td>リトライ対象のkey. リトライした場合のみ</td>
 <td>a1e4d ... 416422</td>
+<td></td>
 </tr>
 <tr>
 <td>ignores</td>
 <td>Ignores[]</td>
 <td>※ もうすぐ削除予定のため省略します</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>

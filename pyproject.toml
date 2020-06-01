@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jumeaux"
-version = "2.4.0"
+version = "2.4.1"
 description = "Check difference between two responses of API."
 authors = ["tadashi-aikawa <syou.maman@gmail.com>"]
 license = "MIT"
