@@ -253,6 +253,7 @@ class Report(OwlMixin):
     key: str
     title: str
     description: TOption[str]
+    notifiers: TOption[TDict[Notifier]]
     summary: Summary
     trials: TList[Trial]
     addons: TOption[Addons]

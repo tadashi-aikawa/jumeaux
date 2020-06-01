@@ -1,0 +1,54 @@
+title: Simple
+
+notifiers:
+  jumeaux:
+    type: slack
+    channel: '#bot_tadashi-aikawa'
+    username: 'Jumeaux results'
+    icon_emoji: 'miroir'
+
+one:
+  name: One endpoint
+  host: http://localhost:8000/api/one
+
+other:
+  name: Other endpoint
+  host: http://localhost:8000/api/other
+
+output:
+  response_dir: responses
+
+addons:
+  log2reqs:
+    name: plain
+
+  res2dict:
+    - name: json
+
+  store_criterion:
+    - name: free
+      config:
+        when_any:
+          - status == 'different'
+
+  dump:
+    - name: json
+
+  final:
+    - name: json
+    - name: viewer
+
+  # Uncomment if you want to notify => Slack
+  #   - name: notify
+  #     config:
+  #       notifies:
+  #         - notifier: jumeaux
+  #           message: "{{ title }} is Finish!! There are {{ summary.status.different }} diffs.."
+
+  # Uncomment if you want to upload to Miroir
+  #   - name: miroir
+  #     config:
+  #       table: miroir
+  #       bucket: mamansoft-miroir
+  #       cache_max_age: 120
+

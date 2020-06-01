@@ -92,6 +92,7 @@ def create_config_from_report(report: Report) -> Config:
             "threads": 1,
             "title": report.title,
             "description": report.description,
+            "notifiers": report.notifiers,
             "addons": report.addons.get().to_dict(),
         }
     )
