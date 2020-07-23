@@ -5,7 +5,7 @@ Jumeaux
 [![Versions](https://img.shields.io/pypi/pyversions/jumeaux.svg)](https://pypi.org/project/jumeaux/)
 [![Actions Status](https://github.com/tadashi-aikawa/jumeaux/workflows/Tests/badge.svg)](https://github.com/tadashi-aikawa/jumeaux/actions)
 [![codecov](https://codecov.io/gh/tadashi-aikawa/jumeaux/branch/master/graph/badge.svg)](https://codecov.io/gh/tadashi-aikawa/jumeaux)
-[![complexity](https://codeclimate.com/github/tadashi-aikawa/jumeaux/badges/gpa.svg)](https://codeclimate.com/github/tadashi-aikawa/jumeaux)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/tadashi-aikawa/jumeaux/blob/master/LICENSE)
 
 <img src="https://github.com/tadashi-aikawa/jumeaux/blob/master/logo.png?raw=true" width=400 height=400 />
 
