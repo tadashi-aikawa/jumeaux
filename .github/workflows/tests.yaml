@@ -35,14 +35,8 @@ jobs:
           poetry install
 
       - run: make test
-      - name: Test report
-        if: matrix.python == 3.7 && success()
-        env:
-          CC_TEST_REPORTER_ID: 1561686e6399317b53a92aaad0550f8b91fe5af312e1f2852ab803ff6fcb6fa9
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          ./cc-test-reporter after-build
+      - uses: codecov/codecov-action@v1
+        if: matrix.python == 3.8 && matrix.os == 'ubuntu-latest' && success()
 
       - name: CLI tests
         run: |
@@ -73,6 +67,6 @@ jobs:
         with:
           type: ${{ job.status }}
           username: GitHub Actions (Success)
-          job_name: ":jumeaux: :python: All tests"
+          job_name: ":jumeaux: All tests  `OS` :ubuntu:  `Versions` :python: 3.6/3.7/3.8"
           icon_emoji: ":github:"
           url: ${{ secrets.SLACK_WEBHOOK }}
