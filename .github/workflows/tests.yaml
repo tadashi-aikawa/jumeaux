@@ -36,7 +36,7 @@ jobs:
 
       - run: make test
       - uses: codecov/codecov-action@v1
-        if: matrix.python == 3.8 && matrix.os == 'ubuntu-latest' && success()
+        if: matrix.python == 3.8 && success()
 
       - name: CLI tests
         run: |
