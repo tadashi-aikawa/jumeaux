@@ -10,13 +10,14 @@ Definitions
 
 ### Trial
 
-|        Key         |                      Type                      |                 Description                 |                  Example                  |
+| Key                | Type                                           | Description                                 | Example                                   |
 | ------------------ | ---------------------------------------------- | ------------------------------------------- | ----------------------------------------- |
 | seq                | int                                            | リクエストされた順番                        | 1                                         |
 | name               | string                                         | リクエストの名称(未指定の場合は`seq`と同じ) | testcase-1                                |
 | tags               | string[]                                       | タグ                                        | `[good, bad]`                             |
 | headers            | dict[string]                                   | レスポンスヘッダ                            | <pre>{"content-type": "text/html;"}</pre> |
 | queries            | dict[string[]]                                 | リクエストのクエリ                          | a: [1]<br>b: [2]                          |
+| raw                | (string)                                       | rawのBODY                                   | a=100&b=200                               |
 | form               | (dict[string[]])                               | `x-www-form-urlencoded`のBODY               | key: [value1, value2]                     |
 | json               | (dict)                                         | `applicaton/json`のBODY                     | `{id: 1, name: 'Ichi'}`                   |
 | one                | [ResponseSummary](#responsesummary)            | oneのレスポンス概要                         |                                           |

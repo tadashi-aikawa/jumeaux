@@ -76,6 +76,37 @@ assert_null_property() {
 }
 
 
+@test "Run post" {
+  $JUMEAUX_MAIN init post
+  $JUMEAUX_MAIN run requests
+
+  assert_exists responses
+  assert_exists responses/latest/one/*
+  assert_exists responses/latest/other/*
+  assert_exists responses/latest/report.json
+  assert_exists responses/latest/index.html
+
+  assert_number_property '.summary.status.same' 1
+  assert_number_property '.summary.status.different' 2
+
+  assert_not_number_property '.trials[0].method' 'POST'
+  assert_null_property '.trials[0].raw'
+  assert_not_number_property '.trials[0].form.formparam[0]' "p11"
+  assert_not_number_property '.trials[0].form.formparam[1]' "p12"
+  assert_null_property '.trials[0].json'
+
+  assert_not_number_property '.trials[1].method' 'POST'
+  assert_null_property '.trials[1].raw'
+  assert_null_property '.trials[1].formparam'
+  assert_number_property '.trials[1].json["id"]' 1
+  assert_not_number_property '.trials[1].json["name"]' "Ichiro"
+
+  assert_not_number_property '.trials[2].method' 'POST'
+  assert_not_number_property '.trials[2].raw' "a=100&b=200"
+  assert_null_property '.trials[2].formparam'
+  assert_null_property '.trials[2].json'
+}
+
 #--------------------------
 # jumeaux run
 #--------------------------

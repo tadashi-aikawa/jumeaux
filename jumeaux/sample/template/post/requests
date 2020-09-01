@@ -16,3 +16,8 @@
     param1: ["q2-1"]
     param2: ["q2-2"]
   json: {"id": 1, "name": "Ichiro"}
+
+- name: Post raw diff
+  method: POST
+  path: /diff-1.json
+  raw: "a=100&b=200"
