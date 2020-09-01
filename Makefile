@@ -11,8 +11,13 @@ help: ## Print this help
 	@echo 'Targets:'
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9][a-zA-Z0-9_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-version := $(shell git rev-parse --abbrev-ref HEAD)
+guard-%:
+	@ if [ "${${*}}" = "" ]; then \
+		echo "[REQUIRED ERROR] \`$*\` is required."; \
+		exit 1; \
+	fi
 
+-include .env
 
 #---- Basic
 
@@ -56,12 +61,12 @@ _clean-package: ## Clean package
 _package: _clean-package ## Package OwlMixin
 	@poetry build -f wheel
 
-release: package-docs ## Release
-
-	@echo '0. Install packages from lockfile and test'
-	@poetry install
+release: guard-version ## make release version=x.y.z
+	@echo '0. Install packages from lockfile, then test and package documentation'
+	@poetry install --no-root
 	@make test
 	@make test-cli
+	@make test package-docs
 
 	@echo '1. Version up'
 	@poetry version $(version)
@@ -84,7 +89,7 @@ release: package-docs ## Release
 	@poetry publish
 
 	@echo '7. Push'
-	git push origin v$(version)
+	git push --tags
 	git push
 
 	@echo 'Success All!!'

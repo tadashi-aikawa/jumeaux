@@ -12,20 +12,20 @@ Jumeaux
 Check difference between two responses of API.
 
 
-Demo
-----
+🎥 Demo
+---------
 
 See [Top page in documentation](https://tadashi-aikawa.github.io/jumeaux/)
 
 
-Install
--------
+🦉 Install
+------------
 
 See [quick start in documentation](https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/quickstart/).
 
 
-For developer
--------------
+💻 For developer
+------------------
 
 ### Requirements
 
@@ -34,12 +34,8 @@ For developer
 
 ### Flow
 
-1. Create new version as following
-  * branch like as 2.3.0
-  * GitHub projects like as 2.3.0
-2. Create Issue and development! (Feature branch is optional. It likes as Issue-120)
-3. Commit with prefix emoji like ":memo:", and suffix issue number like "#120"
-
+1. Development on master and if you need branches and issues, create them
+2. Commit with prefix emoji such as "📝", and suffix issue number like "#120"
 
 ### Commands
 
@@ -75,30 +71,31 @@ $ make test-cli
 ```
 
 
-### Version up
 
-**Windows is not supported!!!**
+📦 Release
+------------
 
-There are 2 steps.
+### Requirements
 
-#### Update release note (mkdocs/ja/releases/*)
+* **Windows is not supported!!!**
+* poetry
+* make
+
+### Update release note (mkdocs/ja/releases/*)
 
 ```
 $ git commit -m "📝 Update release note"
 $ git push
 ```
 
-#### Confirm that your branch name equals release version
+### Commands
 
+```bash
+make release version=x.y.z
 ```
-$ make release
-```
 
-Finally, create pull request and merge to master!!
-
-
-Licence
--------
+🎫 Licence
+------------
 
 ### MIT
 
