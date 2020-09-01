@@ -244,6 +244,7 @@ class TestChallenge:
                     "path": "/challenge",
                     "qs": {"q1": ["1"], "q2": ["2-1", "2-2"]},
                     "headers": {"header1": "1", "header2": "2"},
+                    "raw": "dummy",
                     "form": {"form": "dummy"},
                     "json": {"json": "dummy"},
                 },
@@ -268,6 +269,7 @@ class TestChallenge:
             "path": "/challenge",
             "queries": {"q1": ["1"], "q2": ["2-1", "2-2"]},
             "headers": {"header1": "1", "header2": "2"},
+            "raw": "dummy",
             "form": {"form": "dummy"},
             "json": {"json": "dummy"},
             "one": {

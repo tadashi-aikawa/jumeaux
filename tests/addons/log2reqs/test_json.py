@@ -53,6 +53,11 @@ class TestFromFormat:
             "key1": "header1",
             "key2": "header2"
         }
+    },
+    {
+        "path": "/test6",
+        "method": "POST",
+        "raw": "id=100&name=hyaku"
     }
 ]
 """.strip()
@@ -88,17 +93,25 @@ class TestFromFormat:
                 "url_encoding": "utf-8",
             },
             {
-                "method": "GET",
                 "path": "/test5",
+                "method": "GET",
                 "qs": {"q1": ["1"], "q2": ["2-1", "2-2"]},
                 "headers": {"key1": "header1", "key2": "header2"},
+                "url_encoding": "utf-8",
+            },
+            {
+                "path": "/test6",
+                "method": "POST",
+                "qs": {},
+                "raw": "id=100&name=hyaku",
+                "headers": {},
                 "url_encoding": "utf-8",
             },
         ]
 
         assert expected == actual.to_dicts()
 
-    def test_yaml_path_not_exist(self):
+    def test_invalid_value(self):
         examinee = """
 - qs: ""
 """.strip()

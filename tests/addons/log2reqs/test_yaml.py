@@ -48,6 +48,9 @@ class TestFromFormat:
   headers:
     key1: "header1"
     key2: "header2"
+- path: "/test6"
+  method: "POST"
+  raw: "id=100&name=hyaku"
 """.strip()
         with open("tmp", "w", encoding="utf8") as f:
             f.write(examinee)
@@ -87,11 +90,19 @@ class TestFromFormat:
                 "headers": {"key1": "header1", "key2": "header2"},
                 "url_encoding": "utf-8",
             },
+            {
+                "method": "POST",
+                "path": "/test6",
+                "raw": "id=100&name=hyaku",
+                "qs": {},
+                "headers": {},
+                "url_encoding": "utf-8",
+            }
         ]
 
         assert actual.to_dicts() == expected
 
-    def test_yaml_path_not_exist(self):
+    def test_invalid_value(self):
         examinee = """
 - qs: ""
 """.strip()

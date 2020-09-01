@@ -153,12 +153,12 @@ def http_get(args: Tuple[Any, str, TDict[str], TOption[Proxy]]):
     return r
 
 
-def http_post(args: Tuple[Any, str, TOption[dict], TOption[dict], TDict[str], TOption[Proxy]]):
-    session, url, form, json_, headers, proxies = args
+def http_post(args: Tuple[Any, str, TOption[str], TOption[dict], TOption[dict], TDict[str], TOption[Proxy]]):
+    session, url, raw, form, json_, headers, proxies = args
     try:
         r = session.post(
             url,
-            data=form.get(),
+            data=raw.get() or form.get(),
             json=json_.get(),
             headers=headers,
             proxies=proxies.map(lambda x: x.to_dict()).get_or({}),
@@ -181,6 +181,7 @@ def concurrent_request(
     *,
     headers: TDict[str],
     method: HttpMethod,
+    raw: TOption[str],
     form: TOption[dict],
     json_: TOption[dict],
     url_one: str,
@@ -208,8 +209,8 @@ def concurrent_request(
             res_one, res_other = ex.map(
                 http_post,
                 (
-                    (session, url_one, form, json_, merged_header_one, proxies_one),
-                    (session, url_other, form, json_, merged_header_other, proxies_other),
+                    (session, url_one, raw, form, json_, merged_header_one, proxies_one),
+                    (session, url_other, raw, form, json_, merged_header_other, proxies_other),
                 ),
             )
         else:
@@ -366,6 +367,8 @@ def challenge(arg_dict: dict) -> dict:
 
         if arg.req.headers:
             logger.info_lv3(f"{log_prefix} Additional headers:   {arg.req.headers}")
+        if arg.req.raw.any():
+            logger.info_lv3(f"{log_prefix} raw:   {arg.req.raw.get()}")
         if arg.req.form.any():
             logger.info_lv3(f"{log_prefix} form:   {arg.req.form.get()}")
         if arg.req.json.any():
@@ -375,6 +378,7 @@ def challenge(arg_dict: dict) -> dict:
             arg.session,
             headers=arg.req.headers,
             method=arg.req.method,
+            raw=arg.req.raw,
             form=arg.req.form,
             json_=arg.req.json,
             url_one=url_one,
@@ -404,6 +408,7 @@ def challenge(arg_dict: dict) -> dict:
                 "method": arg.req.method,
                 "path": arg.req.path,
                 "queries": arg.req.qs,
+                "raw": arg.req.raw,
                 "form": arg.req.form,
                 "json": arg.req.json,
                 "headers": arg.req.headers,
@@ -513,6 +518,7 @@ def challenge(arg_dict: dict) -> dict:
                         "method": arg.req.method,
                         "path": arg.req.path,
                         "queries": arg.req.qs,
+                        "raw": arg.req.raw,
                         "form": arg.req.form,
                         "json": arg.req.json,
                         "headers": arg.req.headers,

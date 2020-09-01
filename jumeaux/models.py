@@ -48,6 +48,7 @@ class Request(OwlMixin):
     method: HttpMethod = HttpMethod.GET  # type: ignore # Prevent for enum problem
     path: str
     qs: TDict[TList[str]] = {}
+    raw: TOption[str]
     form: TOption[dict]
     json: TOption[dict]
     headers: TDict[str] = {}
@@ -233,6 +234,7 @@ class Trial(OwlMixin):
     tags: TList[str]
     headers: TDict[str]
     queries: TDict[TList[str]]
+    raw: TOption[str]
     form: TOption[dict]
     json: TOption[dict]
     one: ResponseSummary

@@ -8,13 +8,14 @@ Definitions
 
 ### Request
 
-|   Key   |             Type              |          Description          |         Example          | Default |
+| Key     | Type                          | Description                   | Example                  | Default |
 | ------- | ----------------------------- | ----------------------------- | ------------------------ | ------- |
 | path    | string                        | リクエストのPath              | /repositories            |         |
 | name    | (string)                      | リクエストの名称              | request1                 |         |
 | qs      | (dict[string[]])              | リクエストのクエリ            | a: [1]<br>b: [2]         | `{}`    |
 | headers | (dict[string])                | リクエストヘッダ              | header1: 1<br>header2: 2 | `{}`    |
 | method  | (HttpMethod) :fa-info-circle: | HTTPメソッド                  | POST                     | GET     |
+| raw     | (string)                      | `raw`のBody                   | a=100&b=200              |         |
 | form    | (dict[string[]])              | `x-www-form-urlencoded`のBody | key: [value1, value2]    |         |
 | json    | (dict)                        | `application/json`のBody      | `{id: 1, name: 'Ichi'}`  |         |
 
@@ -55,4 +56,12 @@ method: POST
 form:
   p1: [11]
   p2: [22]
+```
+
+### `/post` に raw string で `p1=11&p2=22` のクエリをリクエスト
+
+```yml
+path: /post
+method: POST
+raw: "p1=11&p2=22"
 ```

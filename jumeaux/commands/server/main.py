@@ -46,11 +46,18 @@ class MyServerHandler(SimpleHTTPRequestHandler):
                 )
             )
         elif content_type == "application/json":
+            logger.info_lv2("<<< Parse as json.. >>>")
             logger.info_lv2(
                 json.loads(
-                    self.rfile.read(int(self.headers.get("content-length"))),
-                    encoding=content_charset,
+                    self.rfile.read(int(self.headers.get("content-length"))).decode(content_charset),
                 )
+            )
+        else:
+            logger.info_lv2("<<< Parse as plain string.. >>>")
+            logger.info_lv2(
+                self.rfile.read(int(self.headers.get("content-length"))).decode(
+                    content_charset
+                ),
             )
 
         SimpleHTTPRequestHandler.do_GET(self)

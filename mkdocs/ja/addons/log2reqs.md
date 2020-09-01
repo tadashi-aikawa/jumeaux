@@ -207,6 +207,11 @@ JSON入力形式に対応しています。
             "auth-id": "xxxxxxxx",
             "device": "ios"
         }
+    },
+    {
+        "path": "/users",
+        "method": "POST",
+        "raw": "id=100&name=hyaku"
     }
 ]
 ```
@@ -282,6 +287,9 @@ YAML入力形式に対応しています。
   headers: 
     "auth-id": xxxxxxxx
     device: ios
+- path: "/users"
+  method: POST
+  raw: "id=100&name=hyaku"
 ```
 
 
