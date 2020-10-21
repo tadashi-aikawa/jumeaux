@@ -8,7 +8,7 @@ from typing import Iterator, Callable
 def create_tmpfile_from(tmpdir) -> Callable[[str], str]:
     def func(content: str) -> str:
         tmpfile = tmpdir.join("tmpfile")
-        with tmpfile.open("w") as f:
+        with tmpfile.open("w", encoding="utf-8") as f:
             f.write(content)
         return str(tmpfile)
 

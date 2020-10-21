@@ -20,14 +20,14 @@ NORMAL_BODY = """<?xml version="1.0"?>
         <title>次郎22</title>
     </book>
 </catalog>
-""".replace(os.linesep, '').replace('    ', '')
+""".replace('\n', '').replace('    ', '')
 
 CORRUPTION_BODY_BYTES: bytes = '<?xml version="1.0"?><catalog><book><title>ゆーてぃーえふ</title></book>'.encode(
     'utf8') + '<book><title>いーゆーしー</title></book></catalog>'.encode('euc-jp')
 
 NORMAL_CASE = ("Normal",
                """
-               force: False 
+               force: False
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('euc-jp'),
@@ -60,7 +60,7 @@ NORMAL_CASE = ("Normal",
 
 CORRUPTION_CASE = ("Corruption",
                    """
-                   force: False 
+                   force: False
                    """,
                    Response.from_dict({
                        "body": CORRUPTION_BODY_BYTES,

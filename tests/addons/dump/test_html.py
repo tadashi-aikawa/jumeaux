@@ -26,7 +26,7 @@ NORMAL_BODY = """<!DOCTYPE html>
   </div>
 </body>
 </html>
-""".replace(os.linesep, '').replace('  ', '')
+""".replace('\n', '').replace('  ', '')
 
 CORRUPTION_BODY_BYTES: bytes = \
     '<!DOCTYPE html><html><head><title>タイトル</title></head>'.encode('utf8') + \
@@ -34,7 +34,7 @@ CORRUPTION_BODY_BYTES: bytes = \
 
 NORMAL_CASE = ("Normal",
                """
-               force: False 
+               force: False
                """,
                Response.from_dict({
                    "body": NORMAL_BODY.encode('euc-jp'),
@@ -74,7 +74,7 @@ NORMAL_CASE = ("Normal",
 
 CORRUPTION_CASE = ("Corruption",
                    """
-                   force: False 
+                   force: False
                    """,
                    Response.from_dict({
                        "body": CORRUPTION_BODY_BYTES,
