@@ -67,7 +67,7 @@ $ make test
 #### Integration test
 
 ```
-$ make test-cli
+$ make test-e2e
 ```
 
 

@@ -43,7 +43,7 @@ jobs:
         run: |
           sudo npm install -g bats
           sudo chmod +rx $HOME/.config -R
-          make test-cli
+          make test-e2e
 
       - name: "Slack notification (not success)"
         uses: homoluctus/slatify@master

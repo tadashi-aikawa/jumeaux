@@ -30,12 +30,8 @@ stop-api: ## Stop dummy API
 test: ## Test
 	@poetry run python -m pytest -vv --cov-report=xml --cov=. tests/
 
-test-cli: ## Test on CLI
-	@echo Start $@
-	@make start-api 2> /dev/null
-	@poetry run bats test.bats
-	@make stop-api
-	@echo End $@
+test-e2e: ## Test on CLI
+	@poetry run python -m pytest -vv e2e/main.py
 
 clear: ## Remove responses, requests, api and config.yml
 	@rm -rf responses requests api config.yml
@@ -65,7 +61,7 @@ release: guard-version ## make release version=x.y.z
 	@echo '0. Install packages from lockfile, then test and package documentation'
 	@poetry install --no-root
 	@make test
-	@make test-cli
+	@make test-e2e
 	@make test package-docs
 
 	@echo '1. Version up'
