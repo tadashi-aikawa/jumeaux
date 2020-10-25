@@ -7,17 +7,24 @@ import subprocess
 import pytest
 
 
-@pytest.fixture()
-def clean_ws():
+def clean_workspace():
+    print("fixture: clean_ws")
     os.path.exists("api") and shutil.rmtree("api")
     os.path.exists("responses") and shutil.rmtree("responses")
     os.path.exists("requests") and os.remove("requests")
     os.path.exists("config.yml") and os.remove("config.yml")
 
 
+@pytest.fixture()
+def clean_ws():
+    clean_workspace()
+    yield
+    clean_workspace()
+
+
 @pytest.fixture(scope="module")
 def boot_server():
-    print("boot_server start")
+    print("fixture: boot_server start")
     p = subprocess.Popen(["python", "jumeaux/main.py", "server"])
     yield
 
