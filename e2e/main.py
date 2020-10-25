@@ -273,7 +273,7 @@ class TestRun:
 
     @pytest.mark.skipif(exec_all is False, reason="Need not exec all test")
     @pytest.mark.skipif(
-        is_windows=True, reason="Jumeaux doesn't support multiprocess executor in Windows."
+        is_windows, reason="Jumeaux doesn't support multiprocess executor in Windows."
     )
     def test_with_processes(self):
         assert cmd_jumeaux("init", "simple") == 0
