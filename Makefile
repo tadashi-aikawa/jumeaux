@@ -40,7 +40,7 @@ clear: ## Remove responses, requests, api and config.yml
 #---- Docs
 
 serve-docs: ## Build and serve documentation
-	@poetry run mkdocs serve -a 0.0.0.0:8000
+	@poetry run mkdocs serve -a localhost:8000
 
 
 #---- Release

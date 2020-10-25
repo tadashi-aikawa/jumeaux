@@ -42,8 +42,8 @@ Add-on specifications
 [final]: final
 
 
-Configration Definitions
-------------------------
+Configuration Definitions
+-------------------------
 
 アドオンを使用する場合は以下の定義に従って、[設定ファイル](ja/getstarted/configuration)に追加してください。
 
@@ -76,8 +76,8 @@ Configration Definitions
 | tags     | (string[]) | タグ                       |              |          |
 
 
-Configration Examples
----------------------
+Configuration Examples
+----------------------
 
 以下は設定の一例です。
 

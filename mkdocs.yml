@@ -1,14 +1,16 @@
 site_name: Jumeaux
+site_description: Check difference between two responses of API.
+site_url: https://tadashi-aikawa.github.io/jumeaux/
 site_author: tadashi-aikawa
-
-docs_dir: mkdocs
 site_dir: docs
-strict: true
-
 repo_name: tadashi-aikawa/jumeaux
 repo_url: https://github.com/tadashi-aikawa/jumeaux
+copyright: © 2020 tadashi-aikawa
+
+docs_dir: mkdocs
+strict: true
+
 edit_uri: edit/master/mkdocs/
-site_url: https://tadashi-aikawa.github.io/jumeaux/
 
 nav:
   - Home: index.md
@@ -42,23 +44,18 @@ nav:
 
 theme:
   name: material
-  logo: 'img/logo.png'
-  favicon: 'img/favicon.ico'
+  language: "ja"
   feature:
     tabs: false
+  logo: 'img/logo.png'
+  favicon: 'img/favicon.ico'
 
 extra:
-  i18n:
-    prev: 'Previous'
-    next: 'Next'
-  author:
-    github: tadashi-aikawa
   social:
-    - type: github-alt
-      link: https://github.com/tadashi-aikawa
-  search:
-    language: 'en, ja'
-
+    - icon: fontawesome/brands/github-alt
+      link: "https://github.com/tadashi-aikawa"
+    - icon: fontawesome/brands/twitter
+      link: "https://twitter.com/Tadashi_MAMAN"
 
 markdown_extensions:
     - meta
