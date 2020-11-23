@@ -310,7 +310,7 @@ class TestRun:
         report = load_latest_report()
 
         assert report.notifiers.get().get("jumeaux").get().type == NotifierType.SLACK
-        assert report.notifiers.get().get("jumeaux").get().channel == "#bot_tadashi-aikawa"
+        assert report.notifiers.get().get("jumeaux").get().channel.get() == "#bot_tadashi-aikawa"
         assert report.notifiers.get().get("jumeaux").get().icon_emoji.get() == "miroir"
 
     @pytest.mark.skipif(exec_all is False, reason="Need not exec all test")
@@ -379,5 +379,5 @@ class TestRetry:
         assert_exists_in_latest("report.json", "index.html")
 
         assert report.notifiers.get().get("jumeaux").get().type == NotifierType.SLACK
-        assert report.notifiers.get().get("jumeaux").get().channel == "#bot_tadashi-aikawa"
+        assert report.notifiers.get().get("jumeaux").get().channel.get() == "#bot_tadashi-aikawa"
         assert report.notifiers.get().get("jumeaux").get().icon_emoji.get() == "miroir"
