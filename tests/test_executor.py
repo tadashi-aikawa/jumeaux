@@ -604,9 +604,11 @@ class TestExec:
                 "notifiers": {
                     "jumeaux": {
                         "type": "slack",
+                        "version": 1,
                         "channel": "#jumeaux",
                         "username": "jumeaux",
                         "icon_emoji": "jumeaux_icon",
+                        "use_blocks": False,
                     },
                 },
                 "addons": {
@@ -632,9 +634,11 @@ class TestExec:
             "notifiers": {
                 "jumeaux": {
                     "type": "slack",
+                    "version": 1,
                     "channel": "#jumeaux",
                     "username": "jumeaux",
                     "icon_emoji": "jumeaux_icon",
+                    "use_blocks": False,
                 },
             },
             "addons": {

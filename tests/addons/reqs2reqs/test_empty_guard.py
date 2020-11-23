@@ -111,6 +111,8 @@ class TestExec:
             assert send.call_args[0][0] == "empty test notify!"
             assert send.call_args[0][1].to_dict() == {
                 "type": "slack",
+                "version": 1,
                 "channel": "#jumeaux",
                 "username": "jumeaux",
+                "use_blocks": False,
             }
