@@ -3,6 +3,7 @@
 import os
 import shutil
 import subprocess
+import time
 
 import pytest
 
@@ -26,6 +27,8 @@ def clean_ws():
 def boot_server():
     print("fixture: boot_server start")
     p = subprocess.Popen(["python", "jumeaux/main.py", "server"])
+    print("Wait 5 seconds for a server to end booting")
+    time.sleep(5)
     yield
 
     pid = p.pid
