@@ -20,26 +20,32 @@ class SlackPayload(OwlMixin):
 
 class SlackNotificationHandler(NotificationHandler):
     channel: str
-    username: str = 'jumeaux'
+    username: str = "jumeaux"
     icon_emoji: TOption[str]
     icon_url: TOption[str]
 
-    def __init__(self, channel: str, username: str, icon_emoji: TOption[str], icon_url: TOption[str]):
+    def __init__(
+        self, channel: str, username: str, icon_emoji: TOption[str], icon_url: TOption[str]
+    ):
         self.channel = channel
         self.username = username
         self.icon_emoji = icon_emoji
         self.icon_url = icon_url
 
     def notify(self, message: str) -> TOption[str]:
-        p = SlackPayload.from_dict({
-            "text": message,
-            "channel": self.channel,
-            "username": self.username,
-            "icon_emoji": self.icon_emoji.map(lambda x: f':{x}:').get(),
-            "icon_url": self.icon_url.get(),
-            "link_names": 1
-        })
+        p = SlackPayload.from_dict(
+            {
+                "text": message,
+                "channel": self.channel,
+                "username": self.username,
+                "icon_emoji": self.icon_emoji.map(lambda x: f":{x}:").get(),
+                "icon_url": self.icon_url.get(),
+                "link_names": 1,
+            }
+        )
         r: Response = Response.from_requests(
-            requests.post(os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json().encode('utf8'))
+            requests.post(
+                os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json().encode("utf8")
+            )
         )
         return TOption(r.text if not r.ok else None)

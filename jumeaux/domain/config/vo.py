@@ -41,14 +41,18 @@ class Concurrency(OwlMixin):
 
 class Notifier(OwlMixin):
     type: NotifierType
-    channel: str
+    version: int = 1
+    # slack v1
+    channel: TOption[str]
     username: str = "jumeaux"
     icon_emoji: TOption[str]
     icon_url: TOption[str]
+    # slack v2
+    use_blocks: bool = False
 
     @property
     def logging_message(self) -> str:
-        return f"Send to {self.channel} by slack"
+        return f"Notify using {self.type.value}@v{self.version}"
 
 
 class Config(OwlMixin):

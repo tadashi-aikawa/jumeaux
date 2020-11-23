@@ -242,6 +242,16 @@ Bucketの`test/`配下にデータが保存されます。
 
 #### Examples
 
+紹介する例は`jumeaux`という名前の[notifier]が設定されている必要があります。
+
+??? note "設定例"
+    ```yaml
+    notifiers:
+      jumeaux:
+        type: slack
+        version: 2
+    ```
+
 ##### 通知設定`jumeaux`を使って終了時通知する
 
 ```yaml
@@ -252,19 +262,6 @@ Bucketの`test/`配下にデータが保存されます。
           - notifier: jumeaux
             message: "{{ title }} is Finish!! There are {{ summary.status.different }} diffs.."
 ```
-
-!!! hint "`notifier: jumeaux`について"
-
-    Jumeauxのconfigに以下のような設定が必要です。
-
-    ```yml
-    notifiers:
-      jumeaux:
-        type: slack
-        channel: "#jumeaux"
-        username: jumeaux
-        icon_emoji: "jumeaux"
-    ```
 
 ##### differentのstatusが存在するときのみ通知する
 

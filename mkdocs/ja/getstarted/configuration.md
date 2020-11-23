@@ -59,10 +59,9 @@ other:
   host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/other
 
 notifiers:
-  test:
+  test-notifier:
     type: slack
-    channel: "#times_tadashi-aikawa"
-    icon_emoji: "innocent"
+    version: 2
 
 output:
   response_dir: responses
@@ -75,7 +74,7 @@ addons:
     - name: empty_guard
       config:
         notifies:
-          - notifier: test
+          - notifier: test-notifier
             message: "{{ title }} notify!"
 ```
 
