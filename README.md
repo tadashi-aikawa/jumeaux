@@ -49,7 +49,7 @@ $ poetry install
 #### Run
 
 ```
-$ poetry run jumeaux <args>
+$ poetry run python jumeaux/main.py <args>
 ```
 
 #### Serve docs
