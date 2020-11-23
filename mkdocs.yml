@@ -50,6 +50,14 @@ theme:
   logo: 'img/logo.png'
   favicon: 'img/favicon.ico'
 
+
+plugins:
+  - search:
+      lang:
+        - en
+      prebuild_index: true
+
+
 extra:
   social:
     - icon: fontawesome/brands/github-alt
