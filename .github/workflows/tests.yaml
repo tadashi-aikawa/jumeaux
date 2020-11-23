@@ -8,6 +8,7 @@ on:
       - "jumeaux/**/*"
       - "tests/*"
       - "tests/**/*"
+      - "e2e/*"
       - "pyproject.toml"
       - "poetry.lock"
       - "Makefile"
