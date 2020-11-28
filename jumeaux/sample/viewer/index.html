@@ -46,9 +46,7 @@
     }
 
     .json-viewer {
-      height: 80vh;
       padding: 10px 50px 10px 20px;
-      overflow: scroll;
     }
   </style>
 
@@ -91,6 +89,10 @@
         require(['vs/editor/editor.main'], () => {
           diffEditor = monaco.editor.createDiffEditor(document.getElementById('container'));
           diffNavigator = monaco.editor.createDiffNavigator(diffEditor);
+        })
+
+        window.addEventListener('resize', (e) => {
+            diffEditor.layout()
         })
 
         require(['vue-shortkey'], () => {
@@ -270,9 +272,9 @@
           </el-button>
         </el-tooltip>
       </el-header>
-      <div style="text-align: center; font-size: 10px;">
+      <div style="text-align: center; font-size: 16px;">
           <i class="fas fa-clock">
-            {{ summary && summary.time.end.replace('T', ' ') }}
+            {{ summary && summary.time.end.replace('T', ' ').slice(0, 19) }}
           </i>
       </div>
       <el-container>
@@ -283,7 +285,7 @@
                 placement="right"
                 v-model="tableVisible">
 
-                <template>
+                <div style="max-height: 85vh; max-width: 80vw; overflow: scroll">
                   <el-select v-model="enableStatuses" multiple style="width: 300px">
                     <el-option v-for="s in statuses" :key="s.value" :label="s.label" :value="s.value"> </el-option>
                   </el-select>
@@ -316,7 +318,7 @@
                       </template>
                     </el-table-column>
                   </el-table>
-                </template>
+                </div>
 
                 <template slot="reference">
                   <el-tooltip class="item" effect="dark" content="Show trials and set filters (q)" placement="right">
@@ -333,9 +335,9 @@
                 width="100%"
                 v-model="jsonVisible">
 
-                <template>
+                <div style="max-height: 85vh; max-width: 80vw; overflow: scroll">
                   <pre class="json-viewer">{{JSON.stringify(currentTrial, undefined, 4)}}</pre>
-                </template>
+                </div>
 
                 <template slot="reference">
                   <el-tooltip class="item" effect="dark" content="Show trial by original json (f)" placement="right">
@@ -352,9 +354,9 @@
                 width="100%"
                 v-model="addOnVisible">
 
-                <template>
+                <div style="max-height: 85vh; max-width: 80vw; overflow: scroll">
                   <pre class="json-viewer">{{JSON.stringify(addOns, undefined, 4)}}</pre>
-                </template>
+                </div>
 
                 <template slot="reference">
                   <el-tooltip class="item" effect="dark" content="Show add-on settings by original json (a)" placement="right">
