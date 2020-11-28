@@ -4,7 +4,7 @@ Usage:
   {cli} (-h | --help)
 
 Options:
-  --port <port>                       Running port [default: 8000]
+  --port <port>                       Running port [default: 5500]
   --responses-dir <responses_dir>     Directory which has responses [default: responses]
   -h --help                           Show this screen.
 """

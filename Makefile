@@ -21,11 +21,11 @@ guard-%:
 
 #---- Basic
 
-start-api: ## Start dummy API
-	@poetry run python jumeaux/main.py server &
+server: ## Start dummy API
+	@poetry run python jumeaux/main.py server
 
-stop-api: ## Stop dummy API
-	@pkill -f 'jumeaux/main.py server'
+viewer: ## Start Jumeaux Viewer
+	@poetry run python jumeaux/main.py viewer
 
 test: ## Test
 	@poetry run python -m pytest -vv --cov-report=xml --cov=. tests/

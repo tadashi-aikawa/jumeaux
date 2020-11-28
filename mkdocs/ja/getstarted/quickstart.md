@@ -125,8 +125,8 @@ responses/
 
 `jumeaux viewer`コマンドを実行している場合は以下いずれかのURLにアクセスすると、Viewerで結果を確認することができます。
 
-* http://localhost:8000/responses/latest
-* http://localhost:8000/responses/057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
+* http://localhost:5500/responses/latest
+* http://localhost:5500/responses/057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
 
 !!! hint "他の結果も確認してみよう"
 
