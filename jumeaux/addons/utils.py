@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-
+from datetime import datetime
 import math
 import ast
 import re
@@ -9,10 +9,23 @@ import pydash as py_
 from jinja2 import Environment, BaseLoader
 from jinja2.exceptions import TemplateSyntaxError
 from owlmixin import TOption
+from tzlocal import get_localzone
+
+
+LOCAL_ZONE = get_localzone()
 
 
 def exact_match(target: str, regexp: str) -> bool:
     return bool(re.search(f"^({regexp})$", target))
+
+
+def now():
+    return datetime.now(LOCAL_ZONE)
+
+
+def mill_seconds_until(from_: datetime) -> float:
+    dt = datetime.now(LOCAL_ZONE) - from_
+    return dt.seconds * 1000 + dt.microseconds / 1000
 
 
 def to_jumeaux_xpath(xpath: str):

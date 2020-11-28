@@ -17,14 +17,13 @@ from fn import _
 from owlmixin import TList, TOption, TDict
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
-from tzlocal import get_localzone
 
 # PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 # sys.path.append(PROJECT_ROOT)
 # sys.path.append(os.getcwd())
 from jumeaux import __version__
 from jumeaux.addons import AddOnExecutor
-from jumeaux.addons.utils import to_jumeaux_xpath
+from jumeaux.addons.utils import to_jumeaux_xpath, mill_seconds_until, now
 from jumeaux.domain.config.service import (
     create_config_from_report,
     create_config,
@@ -127,13 +126,6 @@ __/\__  / ___|___  _ __  / _(_) __ _  __/\__
 """
 
 
-def now():
-    """
-    For test
-    """
-    return datetime.datetime.now(get_localzone())
-
-
 def write_to_file(name, dir, body):
     with open(f"{dir}/{name}", "wb") as f:
         f.write(body)
@@ -153,7 +145,9 @@ def http_get(args: Tuple[Any, str, TDict[str], TOption[Proxy]]):
     return r
 
 
-def http_post(args: Tuple[Any, str, TOption[str], TOption[dict], TOption[dict], TDict[str], TOption[Proxy]]):
+def http_post(
+    args: Tuple[Any, str, TOption[str], TOption[dict], TOption[dict], TDict[str], TOption[Proxy]]
+):
     session, url, raw, form, json_, headers, proxies = args
     try:
         r = session.post(
@@ -417,26 +411,44 @@ def challenge(arg_dict: dict) -> dict:
             }
         ).to_dict()
 
+    res2res_one_begin = now()
     res_one_payload: Res2ResAddOnPayload = res2res(
         Response.from_requests(r_one, arg.default_response_encoding_one), arg.req
     )
+    res_one = res_one_payload.response
+    logger.info_lv3(f"{log_prefix} ⏰ One   res2res:   {mill_seconds_until(res2res_one_begin)}ms")
+
+    res2res_other_begin = now()
     res_other_payload: Res2ResAddOnPayload = res2res(
         Response.from_requests(r_other, arg.default_response_encoding_other), arg.req
     )
-    res_one = res_one_payload.response
     res_other = res_other_payload.response
+    logger.info_lv3(
+        f"{log_prefix} ⏰ Other   res2res:   {mill_seconds_until(res2res_other_begin)}ms"
+    )
 
+    res2dict_one_begin = now()
     dict_one: TOption[DictOrList] = res2dict(res_one)
+    logger.info_lv3(f"{log_prefix} ⏰ One   res2dict:   {mill_seconds_until(res2dict_one_begin)}ms")
+
+    res2dict_other_begin = now()
     dict_other: TOption[DictOrList] = res2dict(res_other)
+    logger.info_lv3(
+        f"{log_prefix} ⏰ Other   res2dict:   {mill_seconds_until(res2dict_other_begin)}ms"
+    )
 
     # Create diff
     # Either dict_one or dic_other is None, it means that it can't be analyzed, therefore return None
+    diff_diagnosis_begin = now()
     ddiff = (
         None
         if dict_one.is_none() or dict_other.is_none()
         else {}
         if res_one.body == res_other.body
         else DeepDiff(dict_one.get(), dict_other.get())
+    )
+    logger.info_lv3(
+        f"{log_prefix} ⏰ Diff diagnosis:   {mill_seconds_until(diff_diagnosis_begin)}ms"
     )
 
     initial_diffs_by_cognition: Optional[TDict[DiffKeys]] = TDict(
@@ -467,6 +479,7 @@ def challenge(arg_dict: dict) -> dict:
     ) if ddiff is not None else None
 
     # Judgement
+    judgement_begin = now()
     status, diffs_by_cognition = judgement(
         res_one,
         res_other,
@@ -478,10 +491,14 @@ def challenge(arg_dict: dict) -> dict:
         arg.req.headers,
         initial_diffs_by_cognition,
     )
+    logger.info_lv3(f"{log_prefix} ⏰ Judgement:   {mill_seconds_until(judgement_begin)}ms")
+
     status_symbol = "O" if status == Status.SAME else "X"
     log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{res_one.elapsed_sec}s - {res_other.elapsed_sec}s> {{{arg.req.method}}} {arg.req.name.get_or(arg.req.path)}"  # noqa
     (logger.info_lv2 if status == Status.SAME else logger.info_lv1)(log_msg)
 
+    # Store files
+    store_criterion_begin = now()
     file_one: Optional[str] = None
     file_other: Optional[str] = None
     prop_file_one: Optional[str] = None
@@ -502,8 +519,13 @@ def challenge(arg_dict: dict) -> dict:
             write_to_file(
                 prop_file_other, dir, to_json(dict_other.get()).encode("utf-8", errors="replace")
             )
+    logger.info_lv3(
+        f"{log_prefix} ⏰ Store criterion:   {mill_seconds_until(store_criterion_begin)}ms"
+    )
 
-    return global_addon_executor.apply_did_challenge(
+    # Did challenge
+    did_challenge_begin = now()
+    payload = global_addon_executor.apply_did_challenge(
         DidChallengeAddOnPayload.from_dict(
             {
                 "trial": Trial.from_dict(
@@ -559,7 +581,10 @@ def challenge(arg_dict: dict) -> dict:
                 "res_other_props": dict_other,
             }
         ),
-    ).trial.to_dict()
+    )
+    logger.info_lv3(f"{log_prefix} ⏰ Did challenge:   {mill_seconds_until(did_challenge_begin)}ms")
+
+    return payload.trial.to_dict()
 
 
 def create_concurrent_executor(config: Config) -> Tuple[Any, Concurrency]:
@@ -722,10 +747,12 @@ def __run(
         Reqs2ReqsAddOnPayload.from_dict({"requests": origin_reqs}), config
     ).requests
 
+    # Execute
+    report = exec(config, reqs, hash, retry_hash)
+
+    # Finalize
     addon_executor.apply_final(
-        FinalAddOnPayload.from_dict(
-            {"report": exec(config, reqs, hash, retry_hash), "output_summary": config.output}
-        ),
+        FinalAddOnPayload.from_dict({"report": report, "output_summary": config.output}),
         FinalAddOnReference.from_dict({"notifiers": config.notifiers}),
     )
 
