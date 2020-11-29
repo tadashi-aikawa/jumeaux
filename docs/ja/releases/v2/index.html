@@ -578,6 +578,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#270" class="md-nav__link">
+    2.7.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#260" class="md-nav__link">
     2.6.0
   </a>
@@ -693,6 +700,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#270" class="md-nav__link">
+    2.7.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#260" class="md-nav__link">
     2.6.0
   </a>
@@ -767,6 +781,48 @@
                 
                 <h1 id="version-2030">Version 2.0～3.0<a class="headerlink" href="#version-2030" title="Permanent link">&para;</a></h1>
 <p>Version2.0～3.0までのリリースノートです。</p>
+<h2 id="270"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.7.0<a class="headerlink" href="#270" title="Permanent link">&para;</a></h2>
+<p><i class="fa fa-calendar"></i> <code>2020-11-29</code></p>
+<div class="admonition danger">
+<p class="admonition-title">jumeaux viewerで起動するサーバのデフォルトポート番号を5500に変更しました</p>
+<p>v2.6.0以前はデフォルト8000でしたが、<code>jumeaux server</code>のデフォルトポート8000とバッティングするため</p>
+</div>
+<details class="hint"><summary>Challengeの各フローにかかる時間をログへ出力できるようにしました</summary><ul>
+<li>HTTPリクエストの結果取得後フローについて追加しました<ul>
+<li>HTTPリクエストにかかる時間はリクエスト結果ログを参照してください</li>
+</ul>
+</li>
+<li><code>-vv</code>または<code>-vvv</code>オプションを指定したときに出力されます</li>
+<li>現在時刻の差分から計算しているため、小さな時間差の場合は<code>0.0ms</code>のように表示されます<ul>
+<li>ボトルネック測定用途を想定しているので1/1000以上の精度は気にしていません</li>
+</ul>
+</li>
+</ul>
+<p><code>出力例</code><br />
+<div class="highlight"><pre><span></span><code>[1 / 2] --------------------------------------------------------------------------------
+[1 / 2]  1. /same-1.json
+[1 / 2] --------------------------------------------------------------------------------
+[1 / 2] One   URL:   http://localhost:8000/api/one/same-1.json?
+[1 / 2] Other URL:   http://localhost:8000/api/other/same-1.json?
+[1 / 2] One:   200 / 2.02s / 107b / application/json
+[1 / 2] Other: 200 / 2.03s / 107b / application/json
+[1 / 2] ⏰ One   res2res:   0.0ms
+[1 / 2] ⏰ Other   res2res:   0.0ms
+[1 / 2] ⏰ One   res2dict:   0.0ms
+[1 / 2] ⏰ Other   res2dict:   0.0ms
+[1 / 2] ⏰ Diff diagnosis:   0.0ms
+[1 / 2] ⏰ Judgement:   0.0ms
+[1 / 2] O (200 - 200) &lt;2.02s - 2.03s&gt; {HttpMethod.GET} /same-1.json
+[1 / 2] ⏰ Store criterion:   3.003ms
+[1 / 2] ⏰ Did challenge:   1.079ms
+</code></pre></div></p>
+</details>
+<details class="bug"><summary><a href="../../getstarted/quickstart/#gui">viewer</a>のサイズに関する不具合を修正しました</summary><ul>
+<li>フキダシの横幅がウィンドウサイズの横幅を超えたときスクロールできない不具合を修正</li>
+<li>ウィンドウをリサイズしたとき、Diff Editorがリサイズされない不具合を修正</li>
+<li>フキダシや最終更新日時のサイズ/レイアウトを調整</li>
+</ul>
+</details>
 <h2 id="260"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.6.0<a class="headerlink" href="#260" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2020-11-24</code></p>
 <details class="info"><summary>Notifierに<code>slack@v2</code>を追加しました (<a href="../../models/notifier">notifier</a>)</summary><ul>
