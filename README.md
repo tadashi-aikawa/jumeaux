@@ -11,11 +11,12 @@ Jumeaux
 
 Check difference between two responses of API.
 
+📚 Documentation
+------------------
 
-🎥 Demo
----------
+https://tadashi-aikawa.github.io/jumeaux/
 
-See [Top page in documentation](https://tadashi-aikawa.github.io/jumeaux/)
+There is a 🎥demo, too.
 
 
 🦉 Install
@@ -58,7 +59,7 @@ $ poetry run python jumeaux/main.py <args>
 $ make serve-docs
 ```
 
-#### Unite test
+#### Unit test
 
 ```
 $ make test
@@ -90,9 +91,14 @@ $ git push
 
 ### Commands
 
+We can release with [GitHub Actions (`Release`)](https://github.com/tadashi-aikawa/jumeaux/actions?query=workflow%3ARelease).
+
+or in locally
+
 ```bash
 make release version=x.y.z
 ```
+
 
 🎫 Licence
 ------------
