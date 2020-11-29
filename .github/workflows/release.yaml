@@ -1,0 +1,55 @@
+name: "Release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (ex: 2.3.1)"
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip poetry --pre
+          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+      - run: |
+          git config user.email "github-actions@users.noreply.github.com"
+          git config user.name "GitHub Actions"
+
+      - name: Release and Deploy
+      - run: make release version=${{ github.event.inputs.version }}
+
+      - name: "Slack notification (not success)"
+        uses: homoluctus/slatify@master
+        if: "! success()"
+        with:
+          type: ${{ job.status }}
+          username: GitHub Actions (Failure)
+          job_name: ":jumeaux: Release v${{ github.event.inputs.version }}"
+          mention: channel
+          mention_if: always
+          icon_emoji: "github"
+          url: ${{ secrets.SLACK_WEBHOOK }}
+
+  notify:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Slack Notification (success)"
+        uses: homoluctus/slatify@master
+        if: always()
+        with:
+          type: ${{ job.status }}
+          username: GitHub Actions (Success)
+          job_name: ":jumeaux: Release v${{ github.event.inputs.version }}"
+          icon_emoji: ":github:"
+          url: ${{ secrets.SLACK_WEBHOOK }}
