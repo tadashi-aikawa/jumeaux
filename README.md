@@ -76,24 +76,30 @@ $ make test-e2e
 📦 Release
 ------------
 
-### Requirements
-
-* **Windows is not supported!!!**
-* poetry
-* make
-
-### Update release note (mkdocs/ja/releases/*)
+### 1. Update release note (mkdocs/ja/releases/*)
 
 ```
 $ git commit -m "📝 Update release note"
 $ git push
 ```
 
-### Commands
+### 2. Release with GitHub Actions
 
-We can release with [GitHub Actions (`Release`)](https://github.com/tadashi-aikawa/jumeaux/actions?query=workflow%3ARelease).
+https://github.com/tadashi-aikawa/jumeaux/actions?query=workflow%3ARelease
 
-or in locally
+----
+
+### (Appendix) Another way
+
+If you can't or don't want to use GitHub Actions, you can release locally as following.
+
+#### (a1) Requirements
+
+* **Windows is not supported!!!**
+* poetry (with pypi authentications)
+* make
+
+#### (a2) Commands
 
 ```bash
 make release version=x.y.z
