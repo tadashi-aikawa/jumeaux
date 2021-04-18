@@ -26,6 +26,8 @@ jobs:
 
       - name: Release
         run: make release version=${{ github.event.inputs.version }}
+        env:
+            TZ: 'Asia/Tokyo'
 
       - name: "Slack notification (not success)"
         uses: homoluctus/slatify@master
