@@ -61,6 +61,14 @@ Definitions
     `overwrite`は既存のクエリに値を追加できません。  
     既にクエリの値が設定されている場合、それらは削除されます。
 
+??? info "overwriteで使える$DATETIMEマクロについて"
+
+    値に`$DATETIME`マクロを使うと現在時刻からの相対時刻に任意のフォーマットで置換できます。
+
+    - フォーマットは`$DATETIME(フォーマット)(相対秒)`
+    - 現在時刻が2021年4月18日20時52分00秒のとき
+        - `$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)`で`2021-04-18T21:52:00`になる
+        - `$DATETIME(%Y/%m/%d)(-86400)`で`2021/04/17`になる
 
 Examples
 --------
@@ -116,7 +124,17 @@ query:
     - name/i
 ```
 
-### `proxy-host`をプロキシとしてい経由するProduction環境のアクセス先情報
+### 各テスト(trial)実行時の日時をクエリのtimeに追加/置換する
+
+```yml
+name: Add or replace time
+host: "http://jumeaux/production"
+query:
+  overwrite:
+    time: ['$DATETIME(%Y-%m-%dT%H:%M:%S)(0)']
+```
+
+### `proxy-host`をプロキシとして経由するProduction環境のアクセス先情報
 
 ```yml
 name: Production

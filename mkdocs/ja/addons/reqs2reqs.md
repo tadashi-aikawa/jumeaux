@@ -131,16 +131,25 @@ reqs2reqs [:fa-github:][s1]
 
 ##### Replacer
 
-|   Key   |     Type     |       Description       |                 Example                 | Default |
-| ------- | ------------ | ----------------------- | --------------------------------------- | ------- |
-| when    | (str)        | 条件式 :fa-info-circle: | <pre>"qs.id.0 == 1"</pre>               |         |
-| queries | dict[str[]]) | 置換するクエリ          | <pre>{"a": [1], "b": [2, 3]}</pre>      |         |
-| headers | dict[str]    | 置換するヘッダ          | <pre>{"header1": 1, "header2": 2}</pre> |         |
+| Key     | Type         | Description                     | Example                                 | Default |
+| ------- | ------------ | ------------------------------- | --------------------------------------- | ------- |
+| when    | (str)        | 条件式 :fa-info-circle:         | <pre>"qs.id.0 == 1"</pre>               |         |
+| queries | dict[str[]]) | 置換するクエリ :fa-info-circle: | <pre>{"a": [1], "b": [2, 3]}</pre>      |         |
+| headers | dict[str]    | 置換するヘッダ                  | <pre>{"header1": 1, "header2": 2}</pre> |         |
 
 ??? info "when"
 
     [jinja2の表現](http://jinja.pocoo.org/docs/2.10/templates)を利用できます。  
     プロパティは[request]で定義されたものを使用できます。
+
+??? info "queriesで使える$DATETIMEマクロについて"
+
+    値に`$DATETIME`マクロを使うと現在時刻からの相対時刻に任意のフォーマットで置換できます。
+
+    - フォーマットは`$DATETIME(フォーマット)(相対秒)`
+    - 現在時刻が2021年4月18日20時52分00秒のとき
+        - `$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)`で`2021-04-18T21:52:00`になる
+        - `$DATETIME(%Y/%m/%d)(-86400)`で`2021/04/17`になる
 
 !!! info "`queries`と`headers`について"
 
@@ -161,6 +170,17 @@ reqs2reqs [:fa-github:][s1]
               time: ["dummy_date"]
 ```
 
+##### queryに`time`が含まれるとき、現在時刻1時間後の`%Y-%m-%dT%H:%M:%S`フォーマットで上書きする
+
+```yaml
+  reqs2reqs:
+    - name: replace
+      config:
+        items:
+          - when: 'time' in qs
+            queries:
+              time: ["$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)"]
+```
 
 [:fa-github:][shuffle] shuffle
 ------------------------------
