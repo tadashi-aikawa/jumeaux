@@ -987,18 +987,18 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="0110">ランダムで0.1～1.0秒待機する<a class="headerlink" href="#0110" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  did_challenge:
-    - name: sleep
-      config:
-        min: 0.1
-        max: 1.0
+<div class="highlight"><pre><span></span><code>  <span class="nt">did_challenge</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sleep</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.0</span>
 </code></pre></div>
 <h5 id="05">0.5秒待機する<a class="headerlink" href="#05" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  did_challenge:
-    - name: sleep
-      config:
-        min: 0.5
-        max: 0.5
+<div class="highlight"><pre><span></span><code>  <span class="nt">did_challenge</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sleep</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
+        <span class="nt">max</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
 </code></pre></div>
 <h2 id="tag"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/did_challenge/tag.py"><i class="fa fa-github"></i></a> tag<a class="headerlink" href="#tag" title="Permanent link">&para;</a></h2>
 <p>リクエスト結果ごとにタグを設定します。</p>
@@ -1096,27 +1096,27 @@
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="trialnamejsonjson">Trialのnameが<code>json</code>のとき、<code>json</code>というタグを付ける<a class="headerlink" href="#trialnamejsonjson" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  did_challenge:
-    - name: tag
-      config:
-        conditions:
-          - tag: json
-            when: &quot;trial.name == &#39;json&#39;&quot;
+<div class="highlight"><pre><span></span><code>  <span class="nt">did_challenge</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tag</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">conditions</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+            <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;trial.name</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&#39;json&#39;&quot;</span>
 </code></pre></div>
 <h5 id="_1">それぞれのレスポンスタイプをタグとして付ける<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  did_challenge:
-    - name: tag
-      config:
-        conditions:
-          - tag: &quot;tag:{{ trial.one.type }}&quot;
-          - tag: &quot;tag:{{ trial.other.type }}&quot;
+<div class="highlight"><pre><span></span><code>  <span class="nt">did_challenge</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tag</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">conditions</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">tag</span><span class="p">:</span> <span class="s">&quot;tag:{{</span><span class="nv"> </span><span class="s">trial.one.type</span><span class="nv"> </span><span class="s">}}&quot;</span>
+          <span class="p p-Indicator">-</span> <span class="nt">tag</span><span class="p">:</span> <span class="s">&quot;tag:{{</span><span class="nv"> </span><span class="s">trial.other.type</span><span class="nv"> </span><span class="s">}}&quot;</span>
 </code></pre></div>
 <h5 id="oneitems0type">oneのレスポンスプロパティ<code>items[0].type</code> の値をタグにつける<a class="headerlink" href="#oneitems0type" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  did_challenge:
-    - name: tag
-      config:
-        conditions:
-          - tag: &quot;{{ res_one_props.items[0].type }}&quot;
+<div class="highlight"><pre><span></span><code>  <span class="nt">did_challenge</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tag</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">conditions</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">tag</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">res_one_props.items[0].type</span><span class="nv"> </span><span class="s">}}&quot;</span>
 </code></pre></div>
                 
               

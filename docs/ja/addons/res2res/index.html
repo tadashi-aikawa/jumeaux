@@ -1255,27 +1255,27 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="sampletransformjson"><code>sample</code>モジュールの<code>transform</code>関数を使ってjsonに変換する<a class="headerlink" href="#sampletransformjson" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2res:
-    - name: json
-      config:
-        transformer:
-          module: sample
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2res</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">transformer</span><span class="p">:</span>
+          <span class="nt">module</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sample</span>
 </code></pre></div>
 <h5 id="samplebytes2jsonjson"><code>sample</code>モジュールの<code>bytes2json</code>関数を使ってjsonに変換する<a class="headerlink" href="#samplebytes2jsonjson" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2res:
-    - name: json
-      config:
-        transformer:
-          module: sample
-          function: bytes2json
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2res</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">transformer</span><span class="p">:</span>
+          <span class="nt">module</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sample</span>
+          <span class="nt">function</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bytes2json</span>
 </code></pre></div>
 <h5 id="pathjsonsampletransformjson">pathにjsonを含む場合だけ<code>sample</code>モジュールの<code>transform</code>関数を使ってjsonに変換する<a class="headerlink" href="#pathjsonsampletransformjson" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2res:
-    - name: json
-      config:
-        transformer:
-          module: sample
-        when: &#39;&quot;sample&quot; in req.path&#39;
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2res</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">transformer</span><span class="p">:</span>
+          <span class="nt">module</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sample</span>
+        <span class="nt">when</span><span class="p">:</span> <span class="s">&#39;&quot;sample&quot;</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">req.path&#39;</span>
 </code></pre></div>
 <h2 id="json_sort"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/json_sort.py"><i class="fa fa-github"></i></a> json_sort<a class="headerlink" href="#json_sort" title="Permanent link">&para;</a></h2>
 <p>JSONレスポンスの並び順をソートします。</p>
@@ -1378,23 +1378,23 @@
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="pathfilter-dict1list1-1">pathが<code>/filter</code>である場合 <code>dict1.list1-1</code> のリストをソートする<a class="headerlink" href="#pathfilter-dict1list1-1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2res:
-    - name: json_sort
-      config:
-        items:
-          - when: &quot;path == &#39;/filter&#39;&quot;
-            targets:
-              - path: root&lt;&#39;dict1&#39;&gt;&lt;&#39;list1-1&#39;&gt; 
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2res</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json_sort</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">items</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;path</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&#39;/filter&#39;&quot;</span>
+            <span class="nt">targets</span><span class="p">:</span>
+              <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">root&lt;&#39;dict1&#39;&gt;&lt;&#39;list1-1&#39;&gt;</span> 
 </code></pre></div>
 <h5 id="pathfilter-list2-id-name">pathが<code>/filter</code>である場合 <code>list2</code> のリストをid, nameの優先順にソートする<a class="headerlink" href="#pathfilter-list2-id-name" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2res:
-    - name: json_sort
-      config:
-        items:
-          - when: &quot;path == &#39;/filter&#39;&quot;
-            targets:
-              - path: root&lt;&#39;list2&#39;&gt;
-                sort_keys: [id, name]
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2res</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json_sort</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">items</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;path</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&#39;/filter&#39;&quot;</span>
+            <span class="nt">targets</span><span class="p">:</span>
+              <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">root&lt;&#39;list2&#39;&gt;</span>
+                <span class="nt">sort_keys</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">id</span><span class="p p-Indicator">,</span> <span class="nv">name</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <h2 id="type"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/type.py"><i class="fa fa-github"></i></a> type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h2>
 <p>レスポンスのtypeを変更します。<br />
@@ -1478,12 +1478,12 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 </div>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="pathtargetjsontype">pathに<code>target</code>という文字列が含まれる場合に<code>json</code>へtypeを変更する<a class="headerlink" href="#pathtargetjsontype" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2res:
-    - name: type
-      config:
-        conditions:
-          - type: json
-            when: &quot;&#39;target&#39; in req.path&quot;
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2res</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">conditions</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+            <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;&#39;target&#39;</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">req.path&quot;</span>
 </code></pre></div>
                 
               

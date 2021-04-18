@@ -595,6 +595,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#querytime1y-m-dthms" class="md-nav__link">
+    queryにtimeが含まれるとき、現在時刻1時間後の%Y-%m-%dT%H:%M:%Sフォーマットで上書きする
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1424,6 +1431,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#querytime1y-m-dthms" class="md-nav__link">
+    queryにtimeが含まれるとき、現在時刻1時間後の%Y-%m-%dT%H:%M:%Sフォーマットで上書きする
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1905,7 +1919,7 @@
 <tr>
 <td>queries</td>
 <td>dict[str[]])</td>
-<td>置換するクエリ</td>
+<td>置換するクエリ <i class="fa fa-info-circle"></i></td>
 <td><pre>{"a": [1], "b": [2, 3]}</pre></td>
 <td></td>
 </tr>
@@ -1921,6 +1935,16 @@
 <details class="info"><summary>when</summary><p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
 プロパティは<a href="../../models/request">request</a>で定義されたものを使用できます。</p>
 </details>
+<details class="info"><summary>queriesで使える$DATETIMEマクロについて</summary><p>値に<code>$DATETIME</code>マクロを使うと現在時刻からの相対時刻に任意のフォーマットで置換できます。</p>
+<ul>
+<li>フォーマットは<code>$DATETIME(フォーマット)(相対秒)</code></li>
+<li>現在時刻が2021年4月18日20時52分00秒のとき<ul>
+<li><code>$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)</code>で<code>2021-04-18T21:52:00</code>になる</li>
+<li><code>$DATETIME(%Y/%m/%d)(-86400)</code>で<code>2021/04/17</code>になる</li>
+</ul>
+</li>
+</ul>
+</details>
 <div class="admonition info">
 <p class="admonition-title"><code>queries</code>と<code>headers</code>について</p>
 <p>リクエストに存在しないクエリやヘッダの場合は、設定した値が追加されます</p>
@@ -1935,6 +1959,15 @@
             <span class="nt">queries</span><span class="p">:</span>
               <span class="nt">id</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;dummy_id&quot;</span><span class="p p-Indicator">]</span>
               <span class="nt">time</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;dummy_date&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h5 id="querytime1y-m-dthms">queryに<code>time</code>が含まれるとき、現在時刻1時間後の<code>%Y-%m-%dT%H:%M:%S</code>フォーマットで上書きする<a class="headerlink" href="#querytime1y-m-dthms" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">replace</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">items</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">when</span><span class="p">:</span> <span class="s">&#39;time&#39;</span> <span class="l l-Scalar l-Scalar-Plain">in qs</span>
+            <span class="nt">queries</span><span class="p">:</span>
+              <span class="nt">time</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)&quot;</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <h2 id="shuffle"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/shuffle.py"><i class="fa fa-github"></i></a> shuffle<a class="headerlink" href="#shuffle" title="Permanent link">&para;</a></h2>
 <p>リクエストの順序をシャッフルします。</p>

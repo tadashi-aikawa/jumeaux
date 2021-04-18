@@ -948,9 +948,9 @@
 <p><code>use_blocks: true</code>のとき、通知メッセージに<a href="https://api.slack.com/block-kit">Block Kit</a>の<code>blocks[]</code>をjson文字列として指定すると<a href="https://api.slack.com/block-kit">Block Kit</a>のUI表現を使って通知できます。</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <h4 id="slackblodk-kitnotifier">SlackのBlodk Kit方式で通知するNotifier<a class="headerlink" href="#slackblodk-kitnotifier" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>type: slack
-version: 2
-use_blocks: true
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">slack</span>
+<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">use_blocks</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <h3 id="block-kit">Block Kitを使ったメッセージの構築について<a class="headerlink" href="#block-kit" title="Permanent link">&para;</a></h3>
 <p><a href="https://api.slack.com/block-kit">Block Kit</a>の構築には<a href="https://app.slack.com/block-kit-builder">Block Kit Builder</a>が便利です。</p>
@@ -1139,9 +1139,9 @@ version=2を使ってください。</p>
 </table>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
 <h4 id="slacktimes_testnotifier">Slackの<code>#times_test</code>チャンネルに通知するNotifier<a class="headerlink" href="#slacktimes_testnotifier" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>type: slack
-channel: &quot;#times_test&quot;
-icon_emoji: &quot;innocent&quot;
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">slack</span>
+<span class="nt">channel</span><span class="p">:</span> <span class="s">&quot;#times_test&quot;</span>
+<span class="nt">icon_emoji</span><span class="p">:</span> <span class="s">&quot;innocent&quot;</span>
 </code></pre></div>
                 
               

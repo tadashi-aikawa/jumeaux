@@ -1317,14 +1317,14 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="json-dict">レスポンスがJSONの場合 dictに変換する<a class="headerlink" href="#json-dict" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2dict:
-    - name: json
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2dict</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
 </code></pre></div>
 <h5 id="_1">変換する必要がないケースでも強制的に変換する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2dict:
-    - name: json
-      config:
-        force: true
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2dict</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">force</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <h2 id="xml"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/xml.py"><i class="fa fa-github"></i></a> xml<a class="headerlink" href="#xml" title="Permanent link">&para;</a></h2>
 <p>XMLレスポンスをdictに変換します。</p>
@@ -1360,14 +1360,14 @@
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="xml-dict">レスポンスがXMLの場合 dictに変換する<a class="headerlink" href="#xml-dict" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2dict:
-    - name: xml
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2dict</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
 </code></pre></div>
 <h5 id="_2">変換する必要がないケースでも強制的に変換する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2dict:
-    - name: xml
-      config:
-        force: true
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2dict</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">xml</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">force</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <h2 id="html"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/html.py"><i class="fa fa-github"></i></a> html<a class="headerlink" href="#html" title="Permanent link">&para;</a></h2>
 <p>HTMLレスポンスをdictに変換します。</p>
@@ -1468,11 +1468,11 @@
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <h5 id="ini">INIファイルっぽい形式に変換する<a class="headerlink" href="#ini" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  res2dict:
-    - name: block
-      config:
-        header_regexp: &#39;\[(.+)\]&#39;
-        record_regexp: &#39;([^:]+): (.+)&#39;
+<div class="highlight"><pre><span></span><code>  <span class="nt">res2dict</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">block</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">header_regexp</span><span class="p">:</span> <span class="s">&#39;\[(.+)\]&#39;</span>
+        <span class="nt">record_regexp</span><span class="p">:</span> <span class="s">&#39;([^:]+):</span><span class="nv"> </span><span class="s">(.+)&#39;</span>
 </code></pre></div>
 <h3 id="_4">ブロック単位のルール<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <ul>

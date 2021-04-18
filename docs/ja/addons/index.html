@@ -935,26 +935,26 @@
 </table>
 <h2 id="configuration-examples">Configuration Examples<a class="headerlink" href="#configuration-examples" title="Permanent link">&para;</a></h2>
 <p>以下は設定の一例です。</p>
-<div class="highlight"><pre><span></span><code>addons:
-  log2reqs:
-    name: csv
+<div class="highlight"><pre><span></span><code><span class="nt">addons</span><span class="p">:</span>
+  <span class="nt">log2reqs</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">csv</span>
 
-  reqs2reqs:
-    - name: shuffle
-    - name: head
-      config:
-        size: 10
+  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">shuffle</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">head</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
 
-  final:
-    - name: slack
-      tags:
-        - production
-      config:
-        conditions:
-          - payload:
-              message_format: Finish Jumeaux!!
-              channel: &quot;#jumeaux&quot;
-              icon_emoji: &quot;:innocent:&quot;
+  <span class="nt">final</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">slack</span>
+      <span class="nt">tags</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">production</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">conditions</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">payload</span><span class="p">:</span>
+              <span class="nt">message_format</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Finish Jumeaux!!</span>
+              <span class="nt">channel</span><span class="p">:</span> <span class="s">&quot;#jumeaux&quot;</span>
+              <span class="nt">icon_emoji</span><span class="p">:</span> <span class="s">&quot;:innocent:&quot;</span>
 </code></pre></div>
 <p>この設定は以下のように動作します。</p>
 <ol>

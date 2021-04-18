@@ -883,35 +883,35 @@
 </table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="config_1">リクエストが空だと通知するconfigの例<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>title: Test
-Description: Running for test
+<div class="highlight"><pre><span></span><code><span class="nt">title</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Test</span>
+<span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Running for test</span>
 
-one:
-  name: One
-  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/one
+<span class="nt">one</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">One</span>
+  <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/one</span>
 
-other:
-  name: Other
-  host: https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/other
+<span class="nt">other</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Other</span>
+  <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/other</span>
 
-notifiers:
-  test-notifier:
-    type: slack
-    version: 2
+<span class="nt">notifiers</span><span class="p">:</span>
+  <span class="nt">test-notifier</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">slack</span>
+    <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
 
-output:
-  response_dir: responses
+<span class="nt">output</span><span class="p">:</span>
+  <span class="nt">response_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">responses</span>
 
-addons:
-  log2reqs:
-    name: plain
+<span class="nt">addons</span><span class="p">:</span>
+  <span class="nt">log2reqs</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">plain</span>
 
-  reqs2reqs:
-    - name: empty_guard
-      config:
-        notifies:
-          - notifier: test-notifier
-            message: &quot;{{ title }} notify!&quot;
+  <span class="nt">reqs2reqs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">empty_guard</span>
+      <span class="nt">config</span><span class="p">:</span>
+        <span class="nt">notifies</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">notifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-notifier</span>
+            <span class="nt">message</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">notify!&quot;</span>
 </code></pre></div>
                 
               
