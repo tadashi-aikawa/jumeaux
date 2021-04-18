@@ -46,7 +46,7 @@ Configuration
 
 ### リクエストが空だと通知するconfigの例
 
-```yml
+```yaml
 title: Test
 Description: Running for test
 

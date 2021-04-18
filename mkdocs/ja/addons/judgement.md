@@ -103,7 +103,7 @@ judgement [:fa-github:][s1]
 
 ##### path `/api1` の `items[].id` は値が変更されていても無視する
 
-```yml
+```yaml
   judgement:
     - name: ignore
       config:
@@ -117,7 +117,7 @@ judgement [:fa-github:][s1]
 
 ##### `items[].type` が追加されていても、その値がallなら無視する
 
-```yml
+```yaml
   judgement:
     - name: ignore
       config:
@@ -137,7 +137,7 @@ judgement [:fa-github:][s1]
 * nameに ``check`` を含む ``debug`` または ``url`` は削除されている場合
 * ``name`` がignoreまたはunknown に変更された場合
 
-```yml
+```yaml
   judgement:
     - name: ignore
       config:
@@ -197,7 +197,7 @@ judgement [:fa-github:][s1]
 
 ##### リクエストのpathが`/test0`または`/test1`のときはSameとする
 
-```yml
+```yaml
   judgement:
     - name: same
       config:

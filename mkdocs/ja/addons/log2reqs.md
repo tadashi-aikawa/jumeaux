@@ -49,14 +49,14 @@ log2reqs [:fa-github:][s1]
 
 ##### 最もシンプルな例
 
-```yml
+```yaml
   log2reqs:
     name: plain
 ```
 
 ##### 入力ファイルのエンコーディングはEUC-JPで空のクエリも有効にする
 
-```yml
+```yaml
   log2reqs:
     name: plain
     config:
@@ -66,7 +66,7 @@ log2reqs [:fa-github:][s1]
 
 ##### URLエンコーディングをsjis => euc-jpの順番で推測(判定)する
 
-```yml
+```yaml
   log2reqs:
     name: plain
     config:
@@ -144,14 +144,14 @@ CSV入力形式に対応しています。
 
 ##### 最もシンプルな例
 
-```yml
+```yaml
   log2reqs:
     name: csv
 ```
 
 ##### 入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP、空のクエリも有効にする
 
-```yml
+```yaml
   log2reqs:
     name: csv
     config:
@@ -229,14 +229,14 @@ JSON入力形式に対応しています。
 
 ##### 最もシンプルな例
 
-```yml
+```yaml
   log2reqs:
     name: json
 ```
 
 ##### 入力ファイルのエンコーディングはEUC-JP
 
-```yml
+```yaml
   log2reqs:
     name: json
     config:
@@ -262,7 +262,7 @@ YAML入力形式に対応しています。
 
 #### Examples
 
-```yml
+```yaml
 - path: "/users"
 - path: "/users"
   method: GET
@@ -305,14 +305,14 @@ YAML入力形式に対応しています。
 
 ##### 最もシンプルな例
 
-```yml
+```yaml
   log2reqs:
     name: yaml
 ```
 
 ##### 入力ファイルのエンコーディングはEUC-JP
 
-```yml
+```yaml
   log2reqs:
     name: yaml
     config:

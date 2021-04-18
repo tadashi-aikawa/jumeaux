@@ -32,7 +32,7 @@ did_challenge [:fa-github:][s1]
 
 ##### ランダムで0.1～1.0秒待機する
 
-```yml
+```yaml
   did_challenge:
     - name: sleep
       config:
@@ -42,7 +42,7 @@ did_challenge [:fa-github:][s1]
 
 ##### 0.5秒待機する
 
-```yml
+```yaml
   did_challenge:
     - name: sleep
       config:
@@ -95,7 +95,7 @@ did_challenge [:fa-github:][s1]
 
 ##### Trialのnameが`json`のとき、`json`というタグを付ける
 
-```yml
+```yaml
   did_challenge:
     - name: tag
       config:
@@ -106,7 +106,7 @@ did_challenge [:fa-github:][s1]
 
 ##### それぞれのレスポンスタイプをタグとして付ける
 
-```yml
+```yaml
   did_challenge:
     - name: tag
       config:
@@ -117,7 +117,7 @@ did_challenge [:fa-github:][s1]
 
 ##### oneのレスポンスプロパティ`items[0].type` の値をタグにつける
 
-```yml
+```yaml
   did_challenge:
     - name: tag
       config:

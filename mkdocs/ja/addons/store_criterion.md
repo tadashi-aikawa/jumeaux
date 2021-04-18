@@ -45,7 +45,7 @@ APIレスポンスを保存する基準を決定します。
 
 ##### pathが`/test`またはステータスがSameの結果は保存する
 
-```yml
+```yaml
   store_criterion:
     - name: free
       config:

@@ -60,7 +60,7 @@ APIから返却されたレスポンスを判定前に変換します。
 
 ##### `sample`モジュールの`transform`関数を使ってjsonに変換する
 
-```yml
+```yaml
   res2res:
     - name: json
       config:
@@ -70,7 +70,7 @@ APIから返却されたレスポンスを判定前に変換します。
 
 ##### `sample`モジュールの`bytes2json`関数を使ってjsonに変換する
 
-```yml
+```yaml
   res2res:
     - name: json
       config:
@@ -81,7 +81,7 @@ APIから返却されたレスポンスを判定前に変換します。
 
 ##### pathにjsonを含む場合だけ`sample`モジュールの`transform`関数を使ってjsonに変換する
 
-```yml
+```yaml
   res2res:
     - name: json
       config:
@@ -143,7 +143,7 @@ JSONレスポンスの並び順をソートします。
 
 ##### pathが`/filter`である場合 `dict1.list1-1` のリストをソートする
 
-```yml
+```yaml
   res2res:
     - name: json_sort
       config:
@@ -155,7 +155,7 @@ JSONレスポンスの並び順をソートします。
 
 ##### pathが`/filter`である場合 `list2` のリストをid, nameの優先順にソートする
 
-```yml
+```yaml
   res2res:
     - name: json_sort
       config:
@@ -207,7 +207,7 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 
 ##### pathに`target`という文字列が含まれる場合に`json`へtypeを変更する
 
-```yml
+```yaml
   res2res:
     - name: type
       config:

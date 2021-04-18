@@ -46,7 +46,7 @@ Notifier
 
 #### SlackのBlodk Kit方式で通知するNotifier
 
-```yml
+```yaml
 type: slack
 version: 2
 use_blocks: true
@@ -213,7 +213,7 @@ addons:
 
 #### Slackの`#times_test`チャンネルに通知するNotifier
 
-```yml
+```yaml
 type: slack
 channel: "#times_test"
 icon_emoji: "innocent"

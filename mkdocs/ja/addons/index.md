@@ -81,7 +81,7 @@ Configuration Examples
 
 以下は設定の一例です。
 
-```yml
+```yaml
 addons:
   log2reqs:
     name: csv

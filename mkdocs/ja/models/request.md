@@ -31,7 +31,7 @@ Examples
 
 ### `/sample/one?word=hoge&size=10` 相当の `hogehoge` という名前のリクエスト
 
-```yml
+```yaml
 path: /sample/one
 name: hogehoge
 qs:
@@ -41,7 +41,7 @@ qs:
 
 ### `/sample/two` 相当で リクエストヘッダが `x-header="1", y-header="2"` である名も無きリクエスト
 
-```yml
+```yaml
 path: /sample/two
 headers:
   x-header: "1"
@@ -50,7 +50,7 @@ headers:
 
 ### `/post` に content-type が `x-www-form-urlencoded` で `p1=11&p2=22` のクエリをリクエスト
 
-```yml
+```yaml
 path: /post
 method: POST
 form:
@@ -60,7 +60,7 @@ form:
 
 ### `/post` に raw string で `p1=11&p2=22` のクエリをリクエスト
 
-```yml
+```yaml
 path: /post
 method: POST
 raw: "p1=11&p2=22"

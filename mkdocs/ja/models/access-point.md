@@ -75,14 +75,14 @@ Examples
 
 ### Production環境のアクセス先情報
 
-```yml
+```yaml
 name: Production
 host: "http://jumeaux/production"
 ```
 
 ### パス中のoneをtwoに置換する
 
-```yml
+```yaml
 name: Path replace normal
 host: "http://jumeaux/production"
 path:
@@ -92,7 +92,7 @@ path:
 
 ### パス中の先頭に出現する連続した数字を末尾に移動する
 
-```yml
+```yaml
 name: Path replace moving
 host: "http://jumeaux/production"
 path:
@@ -102,7 +102,7 @@ path:
 
 ### クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別する)
 
-```yml
+```yaml
 name: Query Customization case sensitive
 host: "http://jumeaux/production"
 query:
@@ -114,7 +114,7 @@ query:
 
 ### クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別しない)
 
-```yml
+```yaml
 name: Query Customization case insensitive
 host: "http://jumeaux/production"
 query:
@@ -126,7 +126,7 @@ query:
 
 ### 各テスト(trial)実行時の日時をクエリのtimeに追加/置換する
 
-```yml
+```yaml
 name: Add or replace time
 host: "http://jumeaux/production"
 query:
@@ -136,7 +136,7 @@ query:
 
 ### `proxy-host`をプロキシとして経由するProduction環境のアクセス先情報
 
-```yml
+```yaml
 name: Production
 host: "http://jumeaux/production"
 proxy: proxy-host
@@ -144,7 +144,7 @@ proxy: proxy-host
 
 ### レスポンスが不明な場合にeuc_jpと解釈させるProduction環境のアクセス先情報
 
-```yml
+```yaml
 name: Production
 host: "http://jumeaux/production"
 default_response_encoding: euc_jp
@@ -152,7 +152,7 @@ default_response_encoding: euc_jp
 
 ### User-AgentをSuper-Jumeauxで上書きする
 
-```yml
+```yaml
 name: Production
 host: "http://jumeaux/production"
 headers:

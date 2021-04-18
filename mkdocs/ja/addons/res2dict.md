@@ -34,14 +34,14 @@ JSONレスポンスをdictに変換します。
 
 ##### レスポンスがJSONの場合 dictに変換する
 
-```yml
+```yaml
   res2dict:
     - name: json
 ```
 
 ##### 変換する必要がないケースでも強制的に変換する
 
-```yml
+```yaml
   res2dict:
     - name: json
       config:
@@ -77,14 +77,14 @@ XMLレスポンスをdictに変換します。
 
 ##### レスポンスがXMLの場合 dictに変換する
 
-```yml
+```yaml
   res2dict:
     - name: xml
 ```
 
 ##### 変換する必要がないケースでも強制的に変換する
 
-```yml
+```yaml
   res2dict:
     - name: xml
       config:
@@ -173,7 +173,7 @@ HTMLレスポンスをdictに変換します。
 
 ##### INIファイルっぽい形式に変換する
 
-```yml
+```yaml
   res2dict:
     - name: block
       config:
