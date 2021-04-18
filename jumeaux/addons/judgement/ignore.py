@@ -4,7 +4,7 @@ from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList, TDict
 
 from jumeaux.addons.judgement import JudgementExecutor
-from jumeaux.addons.utils import exact_match, when_optional_filter, jinja2_format, get_jinja2_format_error, \
+from jumeaux.utils import exact_match, when_optional_filter, get_jinja2_format_error, \
     get_by_diff_key
 from jumeaux.logger import Logger
 from jumeaux.models import JudgementAddOnPayload, DiffKeys, JudgementAddOnReference

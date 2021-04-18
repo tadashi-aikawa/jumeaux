@@ -5,7 +5,7 @@ from owlmixin.owlcollections import TList
 
 from jumeaux.logger import Logger
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
-from jumeaux.addons.utils import when_optional_filter, jinja2_format, get_jinja2_format_error
+from jumeaux.utils import when_optional_filter, jinja2_format, get_jinja2_format_error
 from jumeaux.domain.config.vo import Config as JumeauxConfig
 from jumeaux.models import Request, Reqs2ReqsAddOnPayload
 

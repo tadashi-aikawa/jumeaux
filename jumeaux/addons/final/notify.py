@@ -6,7 +6,7 @@ from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.final import FinalExecutor
-from jumeaux.addons.utils import jinja2_format, get_jinja2_format_error, when_optional_filter
+from jumeaux.utils import jinja2_format, get_jinja2_format_error, when_optional_filter
 from jumeaux.logger import Logger
 from jumeaux.models import FinalAddOnPayload, Notifier, FinalAddOnReference, Report
 from jumeaux.notification_handlers import create_notification_handler

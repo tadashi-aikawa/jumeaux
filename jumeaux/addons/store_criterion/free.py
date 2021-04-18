@@ -4,9 +4,9 @@ from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.store_criterion import StoreCriterionExecutor, StoreCriterionAddOnReference
-from jumeaux.addons.utils import when_filter
+from jumeaux.utils import when_filter
 from jumeaux.logger import Logger
-from jumeaux.models import StoreCriterionAddOnPayload, Status
+from jumeaux.models import StoreCriterionAddOnPayload
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[store_criterion/free]"

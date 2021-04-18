@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import datetime
 import hashlib
 import io
 import os
@@ -23,7 +22,7 @@ from requests.exceptions import ConnectionError
 # sys.path.append(os.getcwd())
 from jumeaux import __version__
 from jumeaux.addons import AddOnExecutor
-from jumeaux.addons.utils import to_jumeaux_xpath, mill_seconds_until, now
+from jumeaux.utils import to_jumeaux_xpath, mill_seconds_until, now
 from jumeaux.domain.config.service import (
     create_config_from_report,
     create_config,

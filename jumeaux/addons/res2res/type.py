@@ -2,7 +2,7 @@
 from owlmixin import OwlMixin, TOption, TList
 
 from jumeaux.addons.res2res import Res2ResExecutor
-from jumeaux.addons.utils import when_optional_filter
+from jumeaux.utils import when_optional_filter
 from jumeaux.logger import Logger
 from jumeaux.models import Res2ResAddOnPayload, Response, Request
 

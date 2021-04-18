@@ -3,7 +3,7 @@
 from owlmixin import OwlMixin, TOption, TList, TDict
 
 from jumeaux.addons.did_challenge import DidChallengeExecutor
-from jumeaux.addons.utils import when_optional_filter, jinja2_format, get_jinja2_format_error
+from jumeaux.utils import when_optional_filter, jinja2_format, get_jinja2_format_error
 from jumeaux.logger import Logger
 from jumeaux.models import DidChallengeAddOnPayload, DidChallengeAddOnReference, Trial
 

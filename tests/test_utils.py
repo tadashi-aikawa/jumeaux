@@ -3,7 +3,7 @@
 
 import pytest
 
-from jumeaux.addons import utils
+from jumeaux import utils
 
 
 class TestExactMatch:

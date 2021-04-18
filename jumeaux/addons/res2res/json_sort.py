@@ -6,7 +6,7 @@ from typing import Any
 from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.res2res import Res2ResExecutor
-from jumeaux.addons.utils import exact_match, when_filter
+from jumeaux.utils import exact_match, when_filter
 from jumeaux.logger import Logger
 from jumeaux.models import Res2ResAddOnPayload, Response
 

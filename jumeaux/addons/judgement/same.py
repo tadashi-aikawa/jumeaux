@@ -3,7 +3,7 @@
 from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.judgement import JudgementExecutor
-from jumeaux.addons.utils import when_filter
+from jumeaux.utils import when_filter
 from jumeaux.logger import Logger
 from jumeaux.models import JudgementAddOnPayload, JudgementAddOnReference
 

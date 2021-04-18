@@ -5,7 +5,7 @@ import sys
 from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
-from jumeaux.addons.utils import jinja2_format, get_jinja2_format_error
+from jumeaux.utils import jinja2_format, get_jinja2_format_error
 from jumeaux.logger import Logger
 from jumeaux.domain.config.vo import Config as JumeauxConfig
 from jumeaux.models import Reqs2ReqsAddOnPayload, Notifier

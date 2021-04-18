@@ -10,7 +10,7 @@ from owlmixin.util import load_json
 from jumeaux.addons.res2res import Res2ResExecutor
 from jumeaux.logger import Logger
 from jumeaux.models import Res2ResAddOnPayload, Response, Request
-from jumeaux.addons.utils import when_filter
+from jumeaux.utils import when_filter
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[res2res/json]"
