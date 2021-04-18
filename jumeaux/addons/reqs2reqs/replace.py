@@ -1,14 +1,12 @@
 # -*- coding:utf-8 -*-
 
 import copy
-import re
-from datetime import datetime, timedelta
 
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList, TDict
 
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
-from jumeaux.utils import when_optional_filter
+from jumeaux.utils import when_optional_filter, parse_datetime_dsl
 from jumeaux.domain.config.vo import Config as JumeauxConfig
 from jumeaux.models import Request, Reqs2ReqsAddOnPayload
 
@@ -23,14 +21,9 @@ class Config(OwlMixin):
     items: TList[Replacer]
 
 
-def special_parse(value: str):
-    m = re.search(r"^\$DATETIME\((.+)\)\((.+)\)$", value)
-    return (datetime.now() + timedelta(seconds=int(m[2]))).strftime(m[1]) if m else value
-
-
 def replace_queries(req: Request, queries: TDict[TList[str]]) -> Request:
     copied = copy.deepcopy(req.qs)
-    copied.update(queries.map_values(lambda vs: vs.map(special_parse)))
+    copied.update(queries.map_values(lambda vs: vs.map(parse_datetime_dsl)))
     req.qs = copied
     return req
 

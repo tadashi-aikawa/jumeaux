@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from datetime import datetime
+from datetime import datetime, timedelta
 import math
 import ast
 import re
@@ -83,3 +83,8 @@ def get_jinja2_format_error(fmt: str) -> TOption[str]:
         return TOption(None)
     except TemplateSyntaxError as err:
         return TOption(err.message)
+
+
+def parse_datetime_dsl(value: str):
+    m = re.search(r"^\$DATETIME\((.+)\)\((.+)\)$", value)
+    return (datetime.now() + timedelta(seconds=int(m[2]))).strftime(m[1]) if m else value
