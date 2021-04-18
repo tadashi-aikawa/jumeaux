@@ -36,11 +36,15 @@ jobs:
           poetry install
 
       - run: make test
+        env:
+            TZ: 'Asia/Tokyo'
       - uses: codecov/codecov-action@v1
         if: matrix.python == 3.9 && success()
 
       - name: CLI tests
         run: make test-e2e
+        env:
+            TZ: 'Asia/Tokyo'
 
       - name: "Slack notification (not success)"
         uses: homoluctus/slatify@master
