@@ -24,7 +24,7 @@ def now():
 
 
 def mill_seconds_until(from_: datetime) -> float:
-    dt = datetime.now(LOCAL_ZONE) - from_
+    dt = now() - from_
     return dt.seconds * 1000 + dt.microseconds / 1000
 
 
@@ -87,4 +87,4 @@ def get_jinja2_format_error(fmt: str) -> TOption[str]:
 
 def parse_datetime_dsl(value: str):
     m = re.search(r"^\$DATETIME\((.+)\)\((.+)\)$", value)
-    return (datetime.now() + timedelta(seconds=int(m[2]))).strftime(m[1]) if m else value
+    return (now() + timedelta(seconds=int(m[2]))).strftime(m[1]) if m else value

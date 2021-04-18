@@ -4,12 +4,14 @@ import glob
 import os
 import shutil
 import subprocess
+from datetime import timedelta
 
 import pytest
 
 import jumeaux.addons  # XXX: Workaround for cyclic import
 from jumeaux.domain.config.vo import NotifierType
 from jumeaux.models import Report, HttpMethod
+from jumeaux.utils import now
 
 URL_BASE = "http://localhost:8000/api"
 
@@ -141,15 +143,33 @@ class TestRun:
 
         assert report.summary.status.same == 1
         assert report.summary.status.different == 1
-        assert report.summary.one.query.is_none()
+        assert (
+            report.summary.one.query.get().overwrite.get()["time"][0]
+            == "$DATETIME(%Y-%m-%d)(-86400)"
+        )
         assert report.summary.other.query.get().overwrite.get()["additional"][0] == "hoge"
+        assert (
+            report.summary.other.query.get().overwrite.get()["time"][0]
+            == "$DATETIME(%Y-%m-%d)(86400)"
+        )
         assert report.summary.other.query.get().remove.get()[0] == "param"
 
-        assert report.trials[0].one.url == f"{URL_BASE}/one/same-1.json"
-        assert report.trials[0].other.url == f"{URL_BASE}/other/same-1.json?additional=hoge"
+        def time(*, days: int) -> str:
+            return (now() + timedelta(days=days)).strftime("%Y-%m-%d")
 
-        assert report.trials[1].one.url == f"{URL_BASE}/one/diff-1.json?param=123"
-        assert report.trials[1].other.url == f"{URL_BASE}/other/diff-1.json?additional=hoge"
+        assert report.trials[0].one.url == f"{URL_BASE}/one/same-1.json?time={time(days=-1)}"
+        assert (
+            report.trials[0].other.url
+            == f"{URL_BASE}/other/same-1.json?additional=hoge&time={time(days=+1)}"
+        )
+
+        assert (
+            report.trials[1].one.url == f"{URL_BASE}/one/diff-1.json?param=123&time={time(days=-1)}"
+        )
+        assert (
+            report.trials[1].other.url
+            == f"{URL_BASE}/other/diff-1.json?additional=hoge&time={time(days=+1)}"
+        )
 
     @pytest.mark.skipif(exec_all is False, reason="Need not exec all test")
     def test_all_same(self):

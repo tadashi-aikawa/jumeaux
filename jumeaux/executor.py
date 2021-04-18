@@ -22,7 +22,7 @@ from requests.exceptions import ConnectionError
 # sys.path.append(os.getcwd())
 from jumeaux import __version__
 from jumeaux.addons import AddOnExecutor
-from jumeaux.utils import to_jumeaux_xpath, mill_seconds_until, now
+from jumeaux.utils import to_jumeaux_xpath, mill_seconds_until, now, parse_datetime_dsl
 from jumeaux.domain.config.service import (
     create_config_from_report,
     create_config,
@@ -307,8 +307,8 @@ def create_query_string(
 
     overwritten = qs.assign(
         {
-            select_key_as_case_insensitive(k, qs): v
-            for k, v in cqs.get().overwrite.get_or(TDict()).to_dict().items()
+            select_key_as_case_insensitive(k, qs): [parse_datetime_dsl(v) for v in vs]
+            for k, vs in cqs.get().overwrite.get_or(TDict()).to_dict().items()
         }
     )
     removed = {

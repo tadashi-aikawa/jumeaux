@@ -10,6 +10,7 @@ from typing import Optional, Dict
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
+import freezegun
 import pytest
 from owlmixin import TList, TDict
 from requests.exceptions import ConnectionError
@@ -381,6 +382,13 @@ class TestCreateQueryString:
                 "q1=v1&q2=v2-1&Q2=v2-2&Q2=v2-3",
             ),
             (
+                "Overwrite existing with $DATETIME",
+                {"q1": ["hoge"], "q2": ["huga"]},
+                {"overwrite": {"q1": ["$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)"]}},
+                "utf-8",
+                "q1=2000-01-02T14%3A40%3A50&q2=huga",
+            ),
+            (
                 "Overwrite empty",
                 {"q1": ["v1"]},
                 {"overwrite": {"q2": ["v2"]}},
@@ -442,11 +450,13 @@ class TestCreateQueryString:
             ),
         ],
     )
+    @freezegun.freeze_time("2000-01-02 13:40:50+09:00")
     def test_normal(
         self, title, qs: TDict[TList[str]], cqs: Optional[dict], encoding: str, expected
     ):
-        assert expected == create_query_string(
-            TDict(qs), QueryCustomization.from_optional_dict(cqs), encoding
+        assert (
+            create_query_string(TDict(qs), QueryCustomization.from_optional_dict(cqs), encoding)
+            == expected
         )
 
 

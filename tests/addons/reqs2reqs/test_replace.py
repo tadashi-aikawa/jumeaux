@@ -109,7 +109,7 @@ items:
             ),
         ],
     )
-    @freezegun.freeze_time("2000-01-01 09:00:00")
+    @freezegun.freeze_time("2000-01-01 09:00:00+09:00")
     def test_datetime(self, q1, reqs, expected):
         config = {"items": [{"queries": {"q1": q1}}]}
 
