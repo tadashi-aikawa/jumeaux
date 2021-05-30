@@ -16,7 +16,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.6.2"
 requests = "^2.22.0"
 docopt = "^0.6.2"
 schema = "^0.7.1"
@@ -42,6 +42,7 @@ mkdocs = "^1.0.4"
 mkdocs-material = "^6.1.0"
 pymdown-extensions = "^8.0.1"
 fontawesome-markdown = "^0.2.6"
+black = "^21.5b1"
 
 [tool.poetry.plugins."console_scripts"]
 "jumeaux" = "jumeaux.main:main"
