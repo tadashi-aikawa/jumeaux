@@ -117,7 +117,7 @@ class Executor(JudgementExecutor):
         validate_config(self.config)
 
     def exec(self, payload: JudgementAddOnPayload, reference: JudgementAddOnReference) -> JudgementAddOnPayload:
-        if payload.regard_as_same or payload.diffs_by_cognition.is_none():
+        if payload.regard_as_same_body or payload.diffs_by_cognition.is_none():
             return payload
 
         diffs_by_cognition = self.config.ignores \
@@ -129,5 +129,5 @@ class Executor(JudgementExecutor):
 
         return JudgementAddOnPayload.from_dict({
             "diffs_by_cognition": diffs_by_cognition.omit_by(lambda k, v: v.is_empty()),
-            "regard_as_same": diffs_by_cognition["unknown"].is_empty(),
+            "regard_as_same_body": diffs_by_cognition["unknown"].is_empty(),
         })

@@ -28,7 +28,7 @@ class Executor(JudgementExecutor):
         self.config: Config = Config.from_dict(config)
 
     def exec(self, payload: JudgementAddOnPayload, reference: JudgementAddOnReference) -> JudgementAddOnPayload:
-        if payload.regard_as_same:
+        if payload.regard_as_same_body:
             return payload
 
         same: TOption[str] = self.config.when_any.find(lambda x: when_filter(x, {
@@ -49,5 +49,5 @@ class Executor(JudgementExecutor):
 
         return JudgementAddOnPayload.from_dict({
             "diffs_by_cognition": payload.diffs_by_cognition,
-            "regard_as_same": not same.is_none(),
+            "regard_as_same_body": not same.is_none(),
         })

@@ -21,8 +21,10 @@ class Executor(JudgementExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
 
-    def exec(self, payload: JudgementAddOnPayload, reference: JudgementAddOnReference) -> JudgementAddOnPayload:
-        if payload.regard_as_same or payload.remaining_diff_keys.is_none():
+    def exec(
+        self, payload: JudgementAddOnPayload, reference: JudgementAddOnReference
+    ) -> JudgementAddOnPayload:
+        if payload.regard_as_same_body or payload.remaining_diff_keys.is_none():
             return payload
 
         def reject_apple(key: str):
@@ -31,14 +33,21 @@ class Executor(JudgementExecutor):
             return self.config.values.any(lambda x: x in str(one) or x in str(other))
 
         keys: DiffKeys = payload.remaining_diff_keys.get()
-        filtered_diff_keys: DiffKeys = DiffKeys.from_dict({
-            'added': keys.added.reject(reject_apple),
-            'changed': keys.changed.reject(reject_apple),
-            'removed': keys.removed.reject(reject_apple),
-        })
+        filtered_diff_keys: DiffKeys = DiffKeys.from_dict(
+            {
+                "added": keys.added.reject(reject_apple),
+                "changed": keys.changed.reject(reject_apple),
+                "removed": keys.removed.reject(reject_apple),
+            }
+        )
 
-
-        return JudgementAddOnPayload.from_dict({
-            "remaining_diff_keys": filtered_diff_keys,
-            "regard_as_same": not (filtered_diff_keys.added or filtered_diff_keys.removed or filtered_diff_keys.changed)
-        })
+        return JudgementAddOnPayload.from_dict(
+            {
+                "remaining_diff_keys": filtered_diff_keys,
+                "regard_as_same_body": not (
+                    filtered_diff_keys.added
+                    or filtered_diff_keys.removed
+                    or filtered_diff_keys.changed
+                ),
+            }
+        )

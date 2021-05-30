@@ -241,7 +241,7 @@ def judgement(
             {
                 "diffs_by_cognition": diffs_by_cognition
                 and diffs_by_cognition.omit_by(lambda k, v: v.is_empty()),
-                "regard_as_same": r_one.body == r_other.body
+                "regard_as_same_body": r_one.body == r_other.body
                 if diffs_by_cognition is None
                 else diffs_by_cognition["unknown"].is_empty(),
             }
@@ -260,7 +260,7 @@ def judgement(
         ),
     )
 
-    status: Status = Status.SAME if result.regard_as_same else Status.DIFFERENT  # type: ignore # Prevent for enum problem
+    status: Status = Status.SAME if result.regard_as_same_body else Status.DIFFERENT  # type: ignore # Prevent for enum problem
 
     return status, result.diffs_by_cognition
 

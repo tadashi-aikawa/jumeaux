@@ -305,7 +305,7 @@ class JudgementAddOnPayload(OwlMixin):
     # By ignores title in config.yml
     # `unknown` is diffs which didn't match any configurations
     diffs_by_cognition: TOption[TDict[DiffKeys]]
-    regard_as_same: bool
+    regard_as_same_body: bool
 
 
 class JudgementAddOnReference(OwlMixin):
