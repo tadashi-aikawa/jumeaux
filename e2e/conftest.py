@@ -3,6 +3,7 @@
 import os
 import shutil
 import subprocess
+import sys
 import time
 
 import pytest
@@ -26,7 +27,13 @@ def clean_ws():
 @pytest.fixture(scope="module")
 def boot_server():
     print("fixture: boot_server start")
-    p = subprocess.Popen(["python", "jumeaux/main.py", "server"])
+    p = subprocess.Popen(
+        [
+            sys.executable,
+            "jumeaux/main.py",
+            "server",
+        ]
+    )
     print("Wait 5 seconds for a server to end booting")
     time.sleep(5)
     yield

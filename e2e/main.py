@@ -4,6 +4,7 @@ import glob
 import os
 import shutil
 import subprocess
+import sys
 from datetime import timedelta
 
 import pytest
@@ -20,7 +21,13 @@ is_windows = os.name == "nt"
 
 
 def cmd_jumeaux(*args: str) -> int:
-    return subprocess.run(["python", "jumeaux/main.py", *args]).returncode
+    return subprocess.run(
+        [
+            sys.executable,
+            "jumeaux/main.py",
+            *args,
+        ]
+    ).returncode
 
 
 def assert_exists(*paths: str):
@@ -102,7 +109,12 @@ class TestRun:
         assert cmd_jumeaux("init", "simple") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "other-props/*", "report.json", "index.html",
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
@@ -119,7 +131,11 @@ class TestRun:
         assert cmd_jumeaux("init", "path_custom") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "other-props/*", "report.json", "index.html",
+            "one/*",
+            "other/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
@@ -136,7 +152,12 @@ class TestRun:
         assert cmd_jumeaux("init", "query_custom") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "other-props/*", "report.json", "index.html",
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
@@ -338,7 +359,11 @@ class TestRun:
         assert cmd_jumeaux("init", "post") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "report.json", "index.html",
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
