@@ -450,32 +450,36 @@ def challenge(arg_dict: dict) -> dict:
         f"{log_prefix} ⏰ Diff diagnosis:   {mill_seconds_until(diff_diagnosis_begin)}ms"
     )
 
-    initial_diffs_by_cognition: Optional[TDict[DiffKeys]] = TDict(
-        {
-            "unknown": DiffKeys.from_dict(
-                {
-                    "changed": TList(
-                        ddiff.get("type_changes", {}).keys()
-                        | ddiff.get("values_changed", {}).keys()
-                    )
-                    .map(to_jumeaux_xpath)
-                    .order_by(_),
-                    "added": TList(
-                        ddiff.get("dictionary_item_added", {})
-                        | ddiff.get("iterable_item_added", {}).keys()
-                    )
-                    .map(to_jumeaux_xpath)
-                    .order_by(_),
-                    "removed": TList(
-                        ddiff.get("dictionary_item_removed", {})
-                        | ddiff.get("iterable_item_removed", {}).keys()
-                    )
-                    .map(to_jumeaux_xpath)
-                    .order_by(_),
-                }
-            )
-        }
-    ) if ddiff is not None else None
+    initial_diffs_by_cognition: Optional[TDict[DiffKeys]] = (
+        TDict(
+            {
+                "unknown": DiffKeys.from_dict(
+                    {
+                        "changed": TList(
+                            ddiff.get("type_changes", {}).keys()
+                            | ddiff.get("values_changed", {}).keys()
+                        )
+                        .map(to_jumeaux_xpath)
+                        .order_by(_),
+                        "added": TList(
+                            ddiff.get("dictionary_item_added", {})
+                            | ddiff.get("iterable_item_added", {}).keys()
+                        )
+                        .map(to_jumeaux_xpath)
+                        .order_by(_),
+                        "removed": TList(
+                            ddiff.get("dictionary_item_removed", {})
+                            | ddiff.get("iterable_item_removed", {}).keys()
+                        )
+                        .map(to_jumeaux_xpath)
+                        .order_by(_),
+                    }
+                )
+            }
+        )
+        if ddiff is not None
+        else None
+    )
 
     # Judgement
     judgement_begin = now()
@@ -555,6 +559,9 @@ def challenge(arg_dict: dict) -> dict:
                             "encoding": res_one.encoding,
                             "file": file_one,
                             "prop_file": prop_file_one,
+                            "response_header": dict(res_one.headers)
+                            if arg.judge_response_header
+                            else None,
                         },
                         "other": {
                             "url": res_other.url,
@@ -567,6 +574,9 @@ def challenge(arg_dict: dict) -> dict:
                             "encoding": res_other.encoding,
                             "file": file_other,
                             "prop_file": prop_file_other,
+                            "response_header": dict(res_other.headers)
+                            if arg.judge_response_header
+                            else None,
                         },
                     }
                 )
@@ -633,6 +643,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
             "default_response_encoding_one": config.one.default_response_encoding,
             "default_response_encoding_other": config.other.default_response_encoding,
             "res_dir": config.output.response_dir,
+            "judge_response_header": config.judge_response_header,
         }
     ).to_dicts()
 
@@ -781,10 +792,14 @@ def retry(*, args: MergedArgs, report: str):
 
 
 def run(
-    *, args: MergedArgs, config_paths: TList[str], skip_addon_tag: TOption[TList[str]],
+    *,
+    args: MergedArgs,
+    config_paths: TList[str],
+    skip_addon_tag: TOption[TList[str]],
 ):
     config: Config = merge_args2config(
-        args, create_config(config_paths, skip_addon_tag),
+        args,
+        create_config(config_paths, skip_addon_tag),
     )
 
     addon_executor = AddOnExecutor(config.addons)

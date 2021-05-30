@@ -29,6 +29,7 @@ class TestMergeArgs2Config:
                 "threads": 1,
                 "processes": 4,
                 "max_retries": 7,
+                "judge_response_header": True,
                 "one": {
                     "name": "name_one",
                     "host": "http://host/one",
@@ -57,6 +58,7 @@ class TestMergeArgs2Config:
             "threads": 3,
             "processes": 2,
             "max_retries": 5,
+            "judge_response_header": True,
             "input_files": ["file1", "file2"],
             "one": {
                 "name": "name_one",
@@ -101,6 +103,7 @@ class TestMergeArgs2Config:
                 "threads": 1,
                 "processes": 4,
                 "max_retries": 5,
+                "judge_response_header": True,
                 "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
                 "other": {
                     "name": "name_other",
@@ -121,6 +124,7 @@ class TestMergeArgs2Config:
             "threads": 1,
             "processes": 4,
             "max_retries": 5,
+            "judge_response_header": True,
             "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
             "other": {"name": "name_other", "host": "http://host/other", "headers": {"YYY": "yyy"}},
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
@@ -162,6 +166,7 @@ class TestMergeArgs2Config:
         assert service.merge_args2config(args, config).to_dict() == {
             "threads": 1,
             "max_retries": 3,
+            "judge_response_header": False,
             "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
             "other": {"name": "name_other", "host": "http://host/other", "headers": {"YYY": "yyy"}},
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
@@ -199,6 +204,7 @@ class TestCreateConfig:
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
             "threads": 3,
             "max_retries": 2,
+            "judge_response_header": False,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -232,6 +238,7 @@ class TestCreateConfig:
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
             "threads": 1,
             "max_retries": 3,
+            "judge_response_header": False,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -273,6 +280,7 @@ class TestCreateConfig:
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
             "threads": 1,
             "max_retries": 3,
+            "judge_response_header": False,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -324,6 +332,7 @@ class TestCreateConfig:
             "output": {"encoding": "utf8", "response_dir": "mergecase2"},
             "threads": 1,
             "max_retries": 3,
+            "judge_response_header": False,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -363,6 +372,7 @@ class TestCreateConfig:
             "output": {"encoding": "utf8", "response_dir": "mergecase1"},
             "threads": 1,
             "max_retries": 3,
+            "judge_response_header": False,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -401,6 +411,7 @@ class TestCreateConfig:
             "output": {"encoding": "utf8", "response_dir": "mergecase_with_tags"},
             "threads": 1,
             "max_retries": 3,
+            "judge_response_header": False,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -451,6 +462,7 @@ class TestCreateConfig:
             "output": {"encoding": "utf8", "response_dir": "includecase1"},
             "threads": 1,
             "max_retries": 3,
+            "judge_response_header": False,
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",

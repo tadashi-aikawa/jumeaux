@@ -115,5 +115,6 @@ def merge_args2config(args: MergedArgs, config: Config) -> Config:
             "input_files": args.files if args.files.any() else config.input_files,
             "notifiers": config.notifiers,
             "addons": config.addons,
+            "judge_response_header": config.judge_response_header,
         }
     )

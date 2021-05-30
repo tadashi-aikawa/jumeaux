@@ -55,6 +55,8 @@ class Notifier(OwlMixin):
         return f"Notify using {self.type.value}@v{self.version}"
 
 
+# 💀 Caution!!!
+# If you update Config, you must update <<service.merge_args2config>>, too.
 class Config(OwlMixin):
     one: AccessPoint
     other: AccessPoint
@@ -69,6 +71,7 @@ class Config(OwlMixin):
     input_files: TOption[TList[str]]
     notifiers: TOption[TDict[Notifier]]
     addons: Addons
+    judge_response_header: bool = False
 
 
 class MergedArgs(OwlMixin):

@@ -42,11 +42,12 @@ class ResponseBuilder:
         self._json = None
         self._url = None
         self._status_code = None
-        self._content_type = None
+        self._headers = None
         self._content = None
         self._encoding = None
         self._seconds = None
         self._microseconds = None
+        self._judge_response_header = False
 
     def text(self, text):
         self._text = text
@@ -64,8 +65,8 @@ class ResponseBuilder:
         self._status_code = status_code
         return self
 
-    def content_type(self, content_type):
-        self._content_type = content_type
+    def headers(self, headers):
+        self._headers = headers
         return self
 
     def content(self, content):
@@ -81,15 +82,20 @@ class ResponseBuilder:
         self._microseconds = microseconds
         return self
 
+    def judge_response_header(self, judge_response_header: bool):
+        self._judge_response_header = judge_response_header
+        return self
+
     def build(self):
         m = MagicMock()
         m.text = self._text
         m.url = self._url
         m.status_code = self._status_code
-        m.headers = CaseInsensitiveDict({"content-type": self._content_type})
+        m.headers = CaseInsensitiveDict(self._headers)
         m.content = self._content
         m.encoding = self._encoding
         m.elapsed = datetime.timedelta(seconds=self._seconds, microseconds=self._microseconds)
+        m.judge_response_header = self._judge_response_header
         m.json.return_value = self._json
         return m
 
@@ -122,7 +128,7 @@ class TestChallenge:
             .json({"items": [1, 2, 3]})
             .url("URL_ONE")
             .status_code(200)
-            .content_type("application/json;utf-8")
+            .headers({"Content-Type": "application/json;charset=UTF-8"})
             .content(b'{"items": [1, 2, 3]}')
             .encoding("utf8")
             .second(1, 234567)
@@ -135,7 +141,7 @@ class TestChallenge:
             .json({"items": [1, 2, 3, 4]})
             .url("URL_OTHER")
             .status_code(400)
-            .content_type("application/json;utf-8")
+            .headers({"Content-Type": "application/json;charset=UTF-8"})
             .content(b'{"items": [1, 2, 3, 4]}')
             .encoding("utf8")
             .second(9, 876543)
@@ -164,6 +170,7 @@ class TestChallenge:
                 "proxy_other": None,
                 "headers_one": {},
                 "headers_other": {},
+                "judge_response_header": False,
             }
         )
 
@@ -186,7 +193,7 @@ class TestChallenge:
                 "status_code": 200,
                 "byte": 20,
                 "response_sec": 1.23,
-                "content_type": "application/json;utf-8",
+                "content_type": "application/json;charset=UTF-8",
                 "mime_type": "application/json",
                 "encoding": "utf8",
             },
@@ -197,7 +204,7 @@ class TestChallenge:
                 "status_code": 400,
                 "byte": 23,
                 "response_sec": 9.88,
-                "content_type": "application/json;utf-8",
+                "content_type": "application/json;charset=UTF-8",
                 "mime_type": "application/json",
                 "encoding": "utf8",
             },
@@ -211,7 +218,7 @@ class TestChallenge:
             .text("a")
             .url("URL_ONE")
             .status_code(200)
-            .content_type("text/plain;utf-8")
+            .headers({"Content-Type": "text/plain;charset=UTF-8"})
             .content(b"a")
             .encoding("utf8")
             .second(1, 234567)
@@ -223,7 +230,7 @@ class TestChallenge:
             .text("a")
             .url("URL_OTHER")
             .status_code(200)
-            .content_type("text/plain")
+            .headers({"Content-Type": "text/plain"})
             .content(b"a")
             .encoding("utf8")
             .second(9, 876543)
@@ -256,6 +263,7 @@ class TestChallenge:
                 "proxy_other": None,
                 "headers_one": {},
                 "headers_other": {},
+                "judge_response_header": True,
             }
         )
         actual = executor.challenge(args)
@@ -279,9 +287,10 @@ class TestChallenge:
                 "status_code": 200,
                 "byte": 1,
                 "response_sec": 1.23,
-                "content_type": "text/plain;utf-8",
+                "content_type": "text/plain;charset=UTF-8",
                 "mime_type": "text/plain",
                 "encoding": "utf8",
+                "response_header": {"Content-Type": "text/plain;charset=UTF-8"},
             },
             "other": {
                 "url": "URL_OTHER",
@@ -292,6 +301,7 @@ class TestChallenge:
                 "content_type": "text/plain",
                 "mime_type": "text/plain",
                 "encoding": "utf8",
+                "response_header": {"Content-Type": "text/plain"},
             },
         }
 
@@ -321,6 +331,7 @@ class TestChallenge:
                 "proxy_other": None,
                 "headers_one": {},
                 "headers_other": {},
+                "judge_response_header": False,
             }
         )
         actual = executor.challenge(args)
@@ -511,8 +522,7 @@ class TestMergeHeaders:
 @patch("jumeaux.executor.challenge")
 @patch("jumeaux.executor.hash_from_args")
 class TestExec:
-    """TODO: Multi process test to fix dead lock!!!
-    """
+    """TODO: Multi process test to fix dead lock!!!"""
 
     @classmethod
     def setup_class(cls):

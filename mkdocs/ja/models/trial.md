@@ -48,18 +48,28 @@ Definitions
 
 ### ResponseSummary
 
-| Key          | Type     | Description                                        | Example                            |
-|--------------|----------|----------------------------------------------------|------------------------------------|
-| url          | string   | リクエストしたURL                                  | http://hoge?id=1                   |
-| type         | string   | レスポンス形式                                     | html, json, png など               |
-| status_code  | (int)    | レスポンスのステータスコード                       | 200                                |
-| byte         | (int)    | レスポンスのバイト数                               | 123                                |
-| response_sec | (float)  | レスポンスタイム(秒)(小数点第二位)                 | 10.23                              |
-| content_type | (string) | レスポンスヘッダcontent-typeの値                   | <pre>text/html;charset=UTF-8</pre> |
-| mime_type    | (string) | レスポンスヘッダcontent-typeに記載されたMIMEタイプ | `text/html`                        |
-| encoding     | (string) | 様々な情報から決定したレスポンスエンコーディング   | euc-jp                             |
-| file         | (string) | 保存されたレスポンスのファイル名                   | res1.json                          |
-| prop_file    | (string) | 保存されたレスポンスプロパティのファイル名         | res1.json                          |
+| Key          | Type           | Description                                        | Example                                   |
+| ------------ | -------------- | -------------------------------------------------- | ----------------------------------------- |
+| url          | string         | リクエストしたURL                                  | http://hoge?id=1                          |
+| type         | string         | レスポンス形式                                     | html, json, png など                      |
+| status_code  | (int)          | レスポンスのステータスコード                       | 200                                       |
+| byte         | (int)          | レスポンスのバイト数                               | 123                                       |
+| response_sec | (float)        | レスポンスタイム(秒)(小数点第二位)                 | 10.23                                     |
+| content_type | (string)       | レスポンスヘッダcontent-typeの値                   | <pre>text/html;charset=UTF-8</pre>        |
+| mime_type    | (string)       | レスポンスヘッダcontent-typeに記載されたMIMEタイプ | `text/html`                               |
+| encoding     | (string)       | 様々な情報から決定したレスポンスエンコーディング   | euc-jp                                    |
+| file         | (string)       | 保存されたレスポンスのファイル名                   | res1.json                                 |
+| prop_file    | (string)       | 保存されたレスポンスプロパティのファイル名         | res1.json                                 |
+| headers      | (dict[string]) | レスポンスヘッダ  :fa-info-circle:                 | <pre>{"content-type": "text/html;"}</pre> |
+
+
+
+!!! info "headers"
+
+    [judge_response_header]が`true`の場合のみ
+
+    [judge_response_header]: ../../getstarted/configuration#Config
+
 
 ### DiffKeys
 

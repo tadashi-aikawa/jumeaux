@@ -171,6 +171,7 @@ class ChallengeArg(OwlMixin):
     default_response_encoding_one: TOption[str]
     default_response_encoding_other: TOption[str]
     res_dir: str
+    judge_response_header: bool
 
 
 # --------
@@ -223,11 +224,11 @@ class ResponseSummary(OwlMixin):
     encoding: TOption[str]
     file: TOption[str]
     prop_file: TOption[str]
+    response_header: TOption[dict]
 
 
 class Trial(OwlMixin):
-    """ Affect `final/csv` config specifications,
-    """
+    """Affect `final/csv` config specifications,"""
 
     seq: int
     name: str
@@ -248,8 +249,7 @@ class Trial(OwlMixin):
 
 
 class Report(OwlMixin):
-    """ Affect `final/slack` config specifications,
-    """
+    """Affect `final/slack` config specifications,"""
 
     version: str
     key: str
