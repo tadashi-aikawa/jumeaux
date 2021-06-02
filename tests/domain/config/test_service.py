@@ -30,6 +30,7 @@ class TestMergeArgs2Config:
                 "processes": 4,
                 "max_retries": 7,
                 "judge_response_header": True,
+                "ignore_response_header_keys": ["Date", "Cache-Control"],
                 "one": {
                     "name": "name_one",
                     "host": "http://host/one",
@@ -59,6 +60,7 @@ class TestMergeArgs2Config:
             "processes": 2,
             "max_retries": 5,
             "judge_response_header": True,
+            "ignore_response_header_keys": ["Date", "Cache-Control"],
             "input_files": ["file1", "file2"],
             "one": {
                 "name": "name_one",
@@ -104,6 +106,7 @@ class TestMergeArgs2Config:
                 "processes": 4,
                 "max_retries": 5,
                 "judge_response_header": True,
+                "ignore_response_header_keys": ["Date", "Cache-Control"],
                 "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
                 "other": {
                     "name": "name_other",
@@ -125,6 +128,7 @@ class TestMergeArgs2Config:
             "processes": 4,
             "max_retries": 5,
             "judge_response_header": True,
+            "ignore_response_header_keys": ["Date", "Cache-Control"],
             "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
             "other": {"name": "name_other", "host": "http://host/other", "headers": {"YYY": "yyy"}},
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
@@ -167,6 +171,7 @@ class TestMergeArgs2Config:
             "threads": 1,
             "max_retries": 3,
             "judge_response_header": False,
+            "ignore_response_header_keys": ["Content-Length", "Date"],
             "one": {"name": "name_one", "host": "http://host/one", "headers": {"XXX": "xxx"}},
             "other": {"name": "name_other", "host": "http://host/other", "headers": {"YYY": "yyy"}},
             "output": {"encoding": "utf8", "response_dir": "tmpdir"},
@@ -205,6 +210,7 @@ class TestCreateConfig:
             "threads": 3,
             "max_retries": 2,
             "judge_response_header": False,
+            "ignore_response_header_keys": ["Content-Length", "Date"],
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -239,6 +245,7 @@ class TestCreateConfig:
             "threads": 1,
             "max_retries": 3,
             "judge_response_header": False,
+            "ignore_response_header_keys": ["Content-Length", "Date"],
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -281,6 +288,7 @@ class TestCreateConfig:
             "threads": 1,
             "max_retries": 3,
             "judge_response_header": False,
+            "ignore_response_header_keys": ["Content-Length", "Date"],
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -333,6 +341,7 @@ class TestCreateConfig:
             "threads": 1,
             "max_retries": 3,
             "judge_response_header": False,
+            "ignore_response_header_keys": ["Content-Length", "Date"],
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -373,6 +382,7 @@ class TestCreateConfig:
             "threads": 1,
             "max_retries": 3,
             "judge_response_header": False,
+            "ignore_response_header_keys": ["Content-Length", "Date"],
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -412,6 +422,7 @@ class TestCreateConfig:
             "threads": 1,
             "max_retries": 3,
             "judge_response_header": False,
+            "ignore_response_header_keys": ["Content-Length", "Date"],
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",
@@ -463,6 +474,7 @@ class TestCreateConfig:
             "threads": 1,
             "max_retries": 3,
             "judge_response_header": False,
+            "ignore_response_header_keys": ["Content-Length", "Date"],
             "addons": {
                 "log2reqs": {
                     "name": "addons.log2reqs.csv",

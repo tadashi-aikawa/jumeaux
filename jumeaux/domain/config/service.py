@@ -116,5 +116,6 @@ def merge_args2config(args: MergedArgs, config: Config) -> Config:
             "notifiers": config.notifiers,
             "addons": config.addons,
             "judge_response_header": config.judge_response_header,
+            "ignore_response_header_keys": config.ignore_response_header_keys,
         }
     )

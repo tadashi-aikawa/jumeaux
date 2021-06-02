@@ -172,6 +172,7 @@ class ChallengeArg(OwlMixin):
     default_response_encoding_other: TOption[str]
     res_dir: str
     judge_response_header: bool
+    ignore_response_header_keys: TList[str]
 
 
 # --------
@@ -306,6 +307,11 @@ class JudgementAddOnPayload(OwlMixin):
     # `unknown` is diffs which didn't match any configurations
     diffs_by_cognition: TOption[TDict[DiffKeys]]
     regard_as_same_body: bool
+    regard_as_same_header: bool
+
+    @property
+    def regard_as_same(self) -> bool:
+        return self.regard_as_same_body and self.regard_as_same_header
 
 
 class JudgementAddOnReference(OwlMixin):

@@ -7,20 +7,21 @@ Configuration
 
 ### Config
 
-| Key                   | Type                            | Description                               | Example                        | Default  |
-| --------------------- | ------------------------------- | ----------------------------------------- | ------------------------------ | -------- |
-| one                   | [AccessPoint][access-point]     | 比較元のアクセス先情報                    |                                |          |
-| other                 | [AccessPoint][access-point]     | 比較先のアクセス先情報                    |                                |          |
-| output                | [OutputSummary](#outputsummary) | 出力に関する設定                          |                                |          |
-| threads               | (int)                           | 実行スレッド数  :fa-exclamation-triangle: | 2                              | 1        |
-| processes             | (int)                           | 実行プロセス数  :fa-exclamation-triangle: | 2                              | 1        |
-| max_retries           | (int)                           | 接続エラー時の最大リトライ数              | 0                              | 3        |
-| title                 | (string)                        | タイトル                                  | Test                           | No title |
-| description           | (string)                        | 説明                                      | Running for test               |          |
-| tags                  | (string[])                      | タグ                                      | <pre>- test<br>- jumeaux</pre> |          |
-| notifiers             | (dict[[Notifier][notifier]])    | 通知設定  :fa-info-circle:                |                                |          |
-| judge_response_header | (bool)                          | レスポンスヘッダも判定に加えるかどうか    | `true`                         | `false`  |
-| addons                | [Addons][addons]                | 利用するアドオンの設定                    |                                |          |
+| Key                         | Type                            | Description                                 | Example                        | Default                      |
+| --------------------------- | ------------------------------- | ------------------------------------------- | ------------------------------ | ---------------------------- |
+| one                         | [AccessPoint][access-point]     | 比較元のアクセス先情報                      |                                |                              |
+| other                       | [AccessPoint][access-point]     | 比較先のアクセス先情報                      |                                |                              |
+| output                      | [OutputSummary](#outputsummary) | 出力に関する設定                            |                                |                              |
+| threads                     | (int)                           | 実行スレッド数  :fa-exclamation-triangle:   | 2                              | 1                            |
+| processes                   | (int)                           | 実行プロセス数  :fa-exclamation-triangle:   | 2                              | 1                            |
+| max_retries                 | (int)                           | 接続エラー時の最大リトライ数                | 0                              | 3                            |
+| title                       | (string)                        | タイトル                                    | Test                           | No title                     |
+| description                 | (string)                        | 説明                                        | Running for test               |                              |
+| tags                        | (string[])                      | タグ                                        | <pre>- test<br>- jumeaux</pre> |                              |
+| notifiers                   | (dict[[Notifier][notifier]])    | 通知設定  :fa-info-circle:                  |                                |                              |
+| judge_response_header       | (bool)                          | レスポンスヘッダも判定に加えるかどうか      | `true`                         | `false`                      |
+| ignore_response_header_keys | (string[])                      | レスポンスヘッダの比較で無視するkeyのリスト | `["Date", "Server"]`           | `["Content-Length", "Date"]` |
+| addons                      | [Addons][addons]                | 利用するアドオンの設定                      |                                |                              |
 
 !!! warning "threads"
 

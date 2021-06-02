@@ -8,7 +8,7 @@ import re
 import sys
 import urllib.parse as urlparser
 from concurrent import futures
-from typing import Tuple, Optional, Any
+from typing import Tuple, Optional, Any, List
 
 import requests
 from deepdiff import DeepDiff
@@ -169,6 +169,12 @@ def merge_headers(access_point_base: TDict[str], this_request: TDict[str]) -> TD
     )
 
 
+def has_different(one_headers: dict, other_headers: dict, ignore_keys: List[str]) -> bool:
+    return TDict(one_headers).omit_by(lambda k, v: k in ignore_keys) == TDict(
+        other_headers
+    ).omit_by(lambda k, v: k in ignore_keys)
+
+
 def concurrent_request(
     session,
     *,
@@ -235,6 +241,8 @@ def judgement(
     qs: TDict[TList[str]],
     headers: TDict[str],
     diffs_by_cognition: Optional[TDict[DiffKeys]],
+    judge_response_header: bool,
+    ignore_response_header_keys: TList[str],
 ) -> Tuple[Status, TOption[TDict[DiffKeys]]]:
     result: JudgementAddOnPayload = global_addon_executor.apply_judgement(
         JudgementAddOnPayload.from_dict(
@@ -244,6 +252,11 @@ def judgement(
                 "regard_as_same_body": r_one.body == r_other.body
                 if diffs_by_cognition is None
                 else diffs_by_cognition["unknown"].is_empty(),
+                "regard_as_same_header": has_different(
+                    r_one.headers, r_other.headers, ignore_response_header_keys
+                )
+                if judge_response_header
+                else True,
             }
         ),
         JudgementAddOnReference.from_dict(
@@ -260,7 +273,7 @@ def judgement(
         ),
     )
 
-    status: Status = Status.SAME if result.regard_as_same_body else Status.DIFFERENT  # type: ignore # Prevent for enum problem
+    status: Status = Status.SAME if result.regard_as_same else Status.DIFFERENT  # type: ignore # Prevent for enum problem
 
     return status, result.diffs_by_cognition
 
@@ -493,6 +506,8 @@ def challenge(arg_dict: dict) -> dict:
         arg.req.qs,
         arg.req.headers,
         initial_diffs_by_cognition,
+        arg.judge_response_header,
+        arg.ignore_response_header_keys,
     )
     logger.info_lv3(f"{log_prefix} ⏰ Judgement:   {mill_seconds_until(judgement_begin)}ms")
 
@@ -644,6 +659,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
             "default_response_encoding_other": config.other.default_response_encoding,
             "res_dir": config.output.response_dir,
             "judge_response_header": config.judge_response_header,
+            "ignore_response_header_keys": config.ignore_response_header_keys,
         }
     ).to_dicts()
 

@@ -171,6 +171,7 @@ class TestChallenge:
                 "headers_one": {},
                 "headers_other": {},
                 "judge_response_header": False,
+                "ignore_response_header_keys": [],
             }
         )
 
@@ -264,6 +265,7 @@ class TestChallenge:
                 "headers_one": {},
                 "headers_other": {},
                 "judge_response_header": True,
+                "ignore_response_header_keys": ["Content-Type"],
             }
         )
         actual = executor.challenge(args)
@@ -332,6 +334,7 @@ class TestChallenge:
                 "headers_one": {},
                 "headers_other": {},
                 "judge_response_header": False,
+                "ignore_response_header_keys": [],
             }
         )
         actual = executor.challenge(args)

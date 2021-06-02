@@ -96,6 +96,7 @@ class TestExec:
                     }
                 },
                 "regard_as_same_body": False,
+                "regard_as_same_header": False,
             }
         )
         reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
@@ -122,6 +123,7 @@ class TestExec:
                 }
             },
             "regard_as_same_body": True,
+            "regard_as_same_header": False,
         } == actual.to_dict()
 
     def test_only_condition_partial_same_is_false(self):
@@ -139,6 +141,7 @@ class TestExec:
                     }
                 },
                 "regard_as_same_body": False,
+                "regard_as_same_header": True,
             }
         )
         reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
@@ -169,6 +172,7 @@ class TestExec:
                 }
             },
             "regard_as_same_body": False,
+            "regard_as_same_header": True,
         } == actual.to_dict()
 
     def test_over_conditions_same(self):
@@ -187,6 +191,7 @@ class TestExec:
                     }
                 },
                 "regard_as_same_body": False,
+                "regard_as_same_header": True,
             }
         )
         reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
@@ -218,6 +223,7 @@ class TestExec:
                 }
             },
             "regard_as_same_body": True,
+            "regard_as_same_header": True,
         }
 
     def test_over_ignores_same(self):
@@ -237,6 +243,7 @@ class TestExec:
                     }
                 },
                 "regard_as_same_body": False,
+                "regard_as_same_header": True,
             }
         )
         reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
@@ -269,6 +276,7 @@ class TestExec:
                 "Check point 2": {"added": ["root<'add'><99>"], "changed": [], "removed": []},
             },
             "regard_as_same_body": True,
+            "regard_as_same_header": True,
         } == actual.to_dict()
 
     def test_over_ignores_different(self):
@@ -289,6 +297,7 @@ class TestExec:
                     }
                 },
                 "regard_as_same_body": False,
+                "regard_as_same_header": True,
             }
         )
         reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
@@ -322,6 +331,7 @@ class TestExec:
                 "unknown": {"added": ["root<'add'><4>"], "changed": [], "removed": []},
             },
             "regard_as_same_body": False,
+            "regard_as_same_header": True,
         } == actual.to_dict()
 
     def test_path_specified_same(self):
@@ -335,6 +345,7 @@ class TestExec:
                     }
                 },
                 "regard_as_same_body": False,
+                "regard_as_same_header": True,
             }
         )
         reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
@@ -361,6 +372,7 @@ class TestExec:
                 }
             },
             "regard_as_same_body": True,
+            "regard_as_same_header": True,
         } == actual.to_dict()
 
     def test_path_specified_different(self):
@@ -374,6 +386,7 @@ class TestExec:
                     }
                 },
                 "regard_as_same_body": False,
+                "regard_as_same_header": True,
             }
         )
         reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
@@ -400,6 +413,7 @@ class TestExec:
                 }
             },
             "regard_as_same_body": False,
+            "regard_as_same_header": True,
         } == actual.to_dict()
 
     def test_name_specified_different(self):
@@ -413,6 +427,7 @@ class TestExec:
                     }
                 },
                 "regard_as_same_body": False,
+                "regard_as_same_header": True,
             }
         )
         reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
@@ -439,6 +454,7 @@ class TestExec:
                 }
             },
             "regard_as_same_body": False,
+            "regard_as_same_header": True,
         } == actual.to_dict()
 
     def test_merge_to_default_diffs(self):
@@ -462,6 +478,7 @@ class TestExec:
                     },
                 },
                 "regard_as_same_body": False,
+                "regard_as_same_header": True,
             }
         )
         reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
@@ -498,6 +515,7 @@ class TestExec:
                 },
             },
             "regard_as_same_body": False,
+            "regard_as_same_header": True,
         } == actual.to_dict()
 
     def test_value_not_match_different(self):
@@ -511,6 +529,7 @@ class TestExec:
                     }
                 },
                 "regard_as_same_body": False,
+                "regard_as_same_header": True,
             }
         )
         reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
@@ -542,4 +561,46 @@ class TestExec:
                 },
             },
             "regard_as_same_body": False,
+            "regard_as_same_header": True,
+        } == actual.to_dict()
+
+    def test_skip_judgement_if_as_same_before(self):
+        payload: JudgementAddOnPayload = JudgementAddOnPayload.from_dict(
+            {
+                "diffs_by_cognition": {
+                    "unknown": {
+                        "added": ["root<'add'><0>"],
+                        "changed": ["root<'add'><0>"],
+                        "removed": ["root<'add'><0>"],
+                    }
+                },
+                "regard_as_same_body": True,
+                "regard_as_same_header": True,
+            }
+        )
+        reference: JudgementAddOnReference = JudgementAddOnReference.from_dict(
+            {
+                "name": "no title",
+                "path": "/test1",
+                "qs": {},
+                "headers": {},
+                "res_one": RES_ONE,
+                "res_other": RES_OTHER,
+                "dict_one": DICT_ONE,
+                "dict_other": DICT_OTHER,
+            }
+        )
+
+        actual: JudgementAddOnPayload = Executor(CONFIG).exec(payload, reference)
+
+        assert {
+            "diffs_by_cognition": {
+                "unknown": {
+                    "added": ["root<'add'><0>"],
+                    "changed": ["root<'add'><0>"],
+                    "removed": ["root<'add'><0>"],
+                }
+            },
+            "regard_as_same_body": True,
+            "regard_as_same_header": True,
         } == actual.to_dict()

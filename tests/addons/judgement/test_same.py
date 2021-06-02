@@ -54,42 +54,74 @@ class TestExec:
         [
             (
                 "Match 1 of 1",
-                {"diffs_by_cognition": EMPTY_KEYS, "regard_as_same_body": False},
+                {
+                    "diffs_by_cognition": EMPTY_KEYS,
+                    "regard_as_same_body": False,
+                    "regard_as_same_header": True,
+                },
                 """
                 when_any:
                   - req.path == '/test1'
                 """,
-                {"diffs_by_cognition": EMPTY_KEYS, "regard_as_same_body": True},
+                {
+                    "diffs_by_cognition": EMPTY_KEYS,
+                    "regard_as_same_body": True,
+                    "regard_as_same_header": True,
+                },
             ),
             (
                 "Match 0 of 1",
-                {"diffs_by_cognition": EMPTY_KEYS, "regard_as_same_body": False},
+                {
+                    "diffs_by_cognition": EMPTY_KEYS,
+                    "regard_as_same_body": False,
+                    "regard_as_same_header": True,
+                },
                 """
                 when_any:
                   - req.path == '/test0'
                 """,
-                {"diffs_by_cognition": EMPTY_KEYS, "regard_as_same_body": False},
+                {
+                    "diffs_by_cognition": EMPTY_KEYS,
+                    "regard_as_same_body": False,
+                    "regard_as_same_header": True,
+                },
             ),
             (
                 "Match 1 of 2",
-                {"diffs_by_cognition": EMPTY_KEYS, "regard_as_same_body": False},
+                {
+                    "diffs_by_cognition": EMPTY_KEYS,
+                    "regard_as_same_body": False,
+                    "regard_as_same_header": True,
+                },
                 """
                 when_any:
                   - req.path == '/test0'
                   - req.path == '/test1'
                 """,
-                {"diffs_by_cognition": EMPTY_KEYS, "regard_as_same_body": True},
+                {
+                    "diffs_by_cognition": EMPTY_KEYS,
+                    "regard_as_same_body": True,
+                    "regard_as_same_header": True,
+                },
             ),
             (
                 "Match 2 of 3",
-                {"diffs_by_cognition": EMPTY_KEYS, "regard_as_same_body": False},
+                {
+                    "diffs_by_cognition": EMPTY_KEYS,
+                    "regard_as_same_body": False,
+                    "regard_as_same_header": True,
+                },
                 """
                 when_any:
                   - req.path == '/test1'
                   - req.path == '/test1'
                   - req.name == 'no title'
                 """,
-                {"diffs_by_cognition": EMPTY_KEYS, "regard_as_same_body": True},
+                {
+                    "diffs_by_cognition": EMPTY_KEYS,
+                    "regard_as_same_body": True,
+                    "regard_as_same_header": True,
+                },
             ),
         ],
     )

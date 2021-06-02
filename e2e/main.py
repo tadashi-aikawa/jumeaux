@@ -9,6 +9,7 @@ from datetime import timedelta
 
 import pytest
 
+# noinspection PyUnresolvedReferences
 import jumeaux.addons  # XXX: Workaround for cyclic import
 from jumeaux.domain.config.vo import NotifierType
 from jumeaux.models import Report, HttpMethod
@@ -290,6 +291,20 @@ class TestRun:
         assert report.trials[1].headers["User-Agent"] == "Hack by requests!"
         assert report.trials[2].headers == {}
         assert report.trials[3].headers["User-Agent"] == "Hack by requests!"
+
+    @pytest.mark.skipif(exec_all is False, reason="Need not exec all test")
+    def test_judge_response_headers(self):
+        assert cmd_jumeaux("init", "judge_response_headers") == 0
+        assert cmd_jumeaux("run", "requests") == 0
+        assert_exists_in_latest(
+            "report.json", "index.html", "one/*", "other/*", "one-props/*", "other-props/*"
+        )
+        report = load_latest_report()
+
+        assert report.summary.status.different == 1
+
+        assert report.trials[0].one.response_header.any()
+        assert report.trials[0].other.response_header.any()
 
     @pytest.mark.skipif(exec_all is False, reason="Need not exec all test")
     def test_with_log_level_options(self):

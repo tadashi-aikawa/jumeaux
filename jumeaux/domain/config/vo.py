@@ -72,6 +72,7 @@ class Config(OwlMixin):
     notifiers: TOption[TDict[Notifier]]
     addons: Addons
     judge_response_header: bool = False
+    ignore_response_header_keys: TList[str] = ["Content-Length", "Date"]
 
 
 class MergedArgs(OwlMixin):
