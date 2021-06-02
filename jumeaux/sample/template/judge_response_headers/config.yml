@@ -12,6 +12,8 @@ output:
   response_dir: responses
 
 judge_response_header: true
+ignore_response_header_keys:
+  - "Last-Modified"
 
 addons:
   log2reqs:
