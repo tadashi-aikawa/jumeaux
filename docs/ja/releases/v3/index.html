@@ -9,7 +9,7 @@
         <meta name="description" content="Check difference between two responses of API.">
       
       
-        <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/constants/status/">
+        <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/releases/v3/">
       
       
         <meta name="author" content="tadashi-aikawa">
@@ -19,7 +19,7 @@
     
     
       
-        <title>Status - Jumeaux</title>
+        <title>v3.x.y - Jumeaux</title>
       
     
     
@@ -65,6 +65,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#version-3040" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -90,7 +95,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Status
+              v3.x.y
             
           </span>
         </div>
@@ -505,10 +510,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
     
     <label class="md-nav__link" for="nav-6">
       📦Releases
@@ -528,7 +535,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../releases/" class="md-nav__link">
+    <a href="../" class="md-nav__link">
       All
     </a>
   </li>
@@ -538,11 +545,49 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../releases/v3/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        v3.x.y
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       v3.x.y
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#300" class="md-nav__link">
+    3.0.0
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -552,7 +597,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../releases/v2/" class="md-nav__link">
+    <a href="../v2/" class="md-nav__link">
       v2.x.y
     </a>
   </li>
@@ -564,7 +609,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../releases/v1/" class="md-nav__link">
+    <a href="../v1/" class="md-nav__link">
       v1.x.y
     </a>
   </li>
@@ -576,7 +621,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../releases/v0/" class="md-nav__link">
+    <a href="../v0/" class="md-nav__link">
       v0.x.y
     </a>
   </li>
@@ -594,40 +639,65 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#300" class="md-nav__link">
+    3.0.0
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/tadashi-aikawa/jumeaux/edit/master/mkdocs/ja/constants/status.md" title="編集" class="md-content__button md-icon">
+                  <a href="https://github.com/tadashi-aikawa/jumeaux/edit/master/mkdocs/ja/releases/v3.md" title="編集" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                  <h1>Status</h1>
-                
-                <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>same</td>
-<td>結果を同一とみなす</td>
-</tr>
-<tr>
-<td>different</td>
-<td>結果を同一ではないとみなす</td>
-</tr>
-<tr>
-<td>failure</td>
-<td>リクエストを失敗とみなす</td>
-</tr>
-</tbody>
-</table>
+                <h1 id="version-3040">Version 3.0～4.0<a class="headerlink" href="#version-3040" title="Permanent link">&para;</a></h1>
+<p>Version3.0～4.0までのリリースノートです。</p>
+<h2 id="300"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 3.0.0<a class="headerlink" href="#300" title="Permanent link">&para;</a></h2>
+<p><i class="fa fa-calendar"></i> <code>2021-06-03</code></p>
+<details class="info"><summary>レスポンスヘッダの比較ができるようになりました</summary><ul>
+<li>デフォルトではレスポンスヘッダの保存/比較はしません (今まで通り)<ul>
+<li><a href="../../getstarted/configuration">config</a>の<code>judge_response_header</code>を<code>true</code>にする必要があります</li>
+</ul>
+</li>
+<li>レスポンスヘッダは<a href="../../getstarted/report">report</a> &gt; <a href="../../models/trial">trial</a>内に保存されます<ul>
+<li>詳細は<a href="../../models/trial#responsesummary">ResponseSummary</a> &gt; <code>headers</code>をご覧ください</li>
+</ul>
+</li>
+<li><a href="../../getstarted/configuration">config</a> &gt; <code>ignore_response_header_keys</code>で指定したkeyは差分があっても無視できます<ul>
+<li><a href="../../models/trial">trial</a> &gt; <code>diffs_by_cognition</code>のような機能はありません</li>
+</ul>
+</li>
+</ul>
+</details>
                 
               
               
@@ -642,6 +712,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  前
+                </span>
+                All
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../v2/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  次
+                </span>
+                v2.x.y
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
