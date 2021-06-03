@@ -20,8 +20,3 @@ Jumeaux Document
 !!! hint "If you want to check more graphical with GUI tools, Use [Miroir]."
 
 [Miroir]: https://github.com/tadashi-aikawa/miroir
-[GitHub]: https://github.com/tadashi-aikawa/jumeaux/actions
-[coverage]: https://codeclimate.com/github/tadashi-aikawa/jumeaux/coverage
-[complexity]: https://codeclimate.com/github/tadashi-aikawa/jumeaux
-[pypi]: https://pypi.python.org/pypi/jumeaux
-[license]: https://github.com/tadashi-aikawa/jumeaux/blob/master/LICENSE

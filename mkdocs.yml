@@ -5,7 +5,7 @@ site_author: tadashi-aikawa
 site_dir: docs
 repo_name: tadashi-aikawa/jumeaux
 repo_url: https://github.com/tadashi-aikawa/jumeaux
-copyright: © 2020 tadashi-aikawa
+copyright: © 2021 tadashi-aikawa
 
 docs_dir: mkdocs
 strict: true
@@ -13,12 +13,12 @@ strict: true
 edit_uri: edit/master/mkdocs/
 
 nav:
-  - Home: index.md
-  - Get Started:
+  - 🏠Home: index.md
+  - 👉Get Started:
     - Quickstart: ja/getstarted/quickstart.md
     - Configuration: ja/getstarted/configuration.md
     - Report: ja/getstarted/report.md
-  - Addons:
+  - 🌍Addons:
     - Summary: ja/addons/index.md
     - log2reqs: ja/addons/log2reqs.md
     - reqs2reqs: ja/addons/reqs2reqs.md
@@ -29,15 +29,16 @@ nav:
     - dump: ja/addons/dump.md
     - did_challenge: ja/addons/did_challenge.md
     - final: ja/addons/final.md
-  - Models:
+  - 💽Models:
     - AccessPoint: ja/models/access-point.md
     - Notifier: ja/models/notifier.md
     - Request: ja/models/request.md
     - Response: ja/models/response.md
     - Trial: ja/models/trial.md
-  - Template: ja/template.md
-  - Releases:
+  - 📝Template: ja/template.md
+  - 📦Releases:
     - All: ja/releases/index.md
+    - v3.x.y: ja/releases/v3.md
     - v2.x.y: ja/releases/v2.md
     - v1.x.y: ja/releases/v1.md
     - v0.x.y: ja/releases/v0.md
