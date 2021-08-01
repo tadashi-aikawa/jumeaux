@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt install -y libxml2-dev libxslt1-dev  # For install lxml
-          python -m pip install --upgrade pip poetry --pre
+          python -m pip install --upgrade pip poetry
           poetry install
 
       - run: make test
