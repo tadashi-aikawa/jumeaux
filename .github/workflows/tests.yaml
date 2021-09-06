@@ -37,38 +37,36 @@ jobs:
 
       - run: make test
         env:
-            TZ: 'Asia/Tokyo'
+          TZ: "Asia/Tokyo"
       - uses: codecov/codecov-action@v1
         if: matrix.python == 3.9 && success()
 
       - name: CLI tests
         run: make test-e2e
         env:
-            TZ: 'Asia/Tokyo'
+          TZ: "Asia/Tokyo"
 
-      - name: "Slack notification (not success)"
-        uses: homoluctus/slatify@master
+      - name: "Discord notification (not success)"
+        uses: rjstone/discord-webhook-notify@v1
         if: "! success()"
         with:
-          type: ${{ job.status }}
-          username: GitHub Actions (Failure)
-          job_name: ":jumeaux: :python:*${{ matrix.python }}* Tests"
-          mention: channel
-          mention_if: always
-          icon_emoji: "github"
-          url: ${{ secrets.SLACK_WEBHOOK }}
+          description: "⚠ Jumeaux Tests failed!"
+          footer: "Python v${{ matrix.python }} on ${{ matrix.os }})"
+          severity: error
+          avatarUrl: https://www.suruga-ya.jp/database/pics_light/game/871005085.jpg
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
   notify:
     needs: test
     runs-on: ubuntu-latest
 
     steps:
-      - name: "Slack Notification (success)"
-        uses: homoluctus/slatify@master
+      - name: "Discord notification (success)"
+        uses: rjstone/discord-webhook-notify@v1
         if: always()
         with:
-          type: ${{ job.status }}
-          username: GitHub Actions (Success)
-          job_name: ":jumeaux: All tests  `OS` :ubuntu:  `Versions` :python: 3.6/3.7/3.8/3.9"
-          icon_emoji: ":github:"
-          url: ${{ secrets.SLACK_WEBHOOK }}
+          description: "✅ Jumeaux Tests passed!"
+          footer: "Python v3.6/3.7/3.8/3.9"
+          severity: info
+          avatarUrl: https://www.suruga-ya.jp/database/pics_light/game/871005085.jpg
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
