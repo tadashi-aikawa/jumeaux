@@ -31,9 +31,10 @@ beautifulsoup4 = "^4.8.1"
 lxml = "^4.4.2"
 livereload = "^2.6.1"
 tzlocal = "^2.0.0"
-deepdiff = "3.3.0"
 owlmixin = "^5.5.0"
 owcli = "^0.7.0"
+deepdiff = "3.3.0" # sensitive
+markupsafe = "2.0.1" # sensitive
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.1"
