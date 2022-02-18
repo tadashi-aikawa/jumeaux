@@ -9,13 +9,14 @@
         <meta name="description" content="Check difference between two responses of API.">
       
       
-        <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/final/">
-      
       
         <meta name="author" content="tadashi-aikawa">
       
+      
+        <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/final/">
+      
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.8">
     
     
       
@@ -23,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.bc7e593a.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.cb6bc1d0.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab28b872.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.39b8e14a.min.css">
         
       
     
@@ -34,7 +35,7 @@
     
       
         
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
@@ -60,6 +61,7 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
       
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -78,7 +80,7 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
+  <nav class="md-header-nav md-grid" aria-label="ヘッダー">
     <a href="https://tadashi-aikawa.github.io/jumeaux/" title="Jumeaux" class="md-header-nav__button md-logo" aria-label="Jumeaux">
       
   <img src="../../../img/logo.png" alt="logo">
@@ -88,18 +90,20 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             Jumeaux
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             
               final
             
           </span>
         </div>
-      
+      </div>
     </div>
     
       <label class="md-header-nav__button md-icon" for="__search">
@@ -110,12 +114,12 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+      <button type="reset" class="md-search__icon md-icon" aria-label="クリア" data-md-component="search-reset" tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
@@ -123,7 +127,7 @@
       <div class="md-search__scrollwrap" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            検索を初期化
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -158,12 +162,16 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="https://tadashi-aikawa.github.io/jumeaux/" title="Jumeaux" class="md-nav__button md-logo" aria-label="Jumeaux">
       
@@ -192,74 +200,82 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../../.." class="md-nav__link">
-      🏠Home
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        🏠Home
+      </a>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
-    
-    <label class="md-nav__link" for="nav-2">
-      👉Get Started
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="👉Get Started" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
         👉Get Started
+        <span class="md-nav__icon md-icon"></span>
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="👉Get Started" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          👉Get Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/quickstart/" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/configuration/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/quickstart/" class="md-nav__link">
-      Quickstart
-    </a>
-  </li>
-
-        
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/report/" class="md-nav__link">
+        Report
+      </a>
+    </li>
+  
+
           
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/configuration/" class="md-nav__link">
-      Configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/report/" class="md-nav__link">
-      Report
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
@@ -267,156 +283,159 @@
       
 
   
-
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+  
+  
     
-    <label class="md-nav__link" for="nav-3">
-      🌍Addons
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="🌍Addons" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      
+      <label class="md-nav__link" for="nav-3">
         🌍Addons
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../" class="md-nav__link">
-      Summary
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../log2reqs/" class="md-nav__link">
-      log2reqs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../reqs2reqs/" class="md-nav__link">
-      reqs2reqs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../res2res/" class="md-nav__link">
-      res2res
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../res2dict/" class="md-nav__link">
-      res2dict
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../judgement/" class="md-nav__link">
-      judgement
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../store_criterion/" class="md-nav__link">
-      store_criterion
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../dump/" class="md-nav__link">
-      dump
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../did_challenge/" class="md-nav__link">
-      did_challenge
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        final
         <span class="md-nav__icon md-icon"></span>
       </label>
+      <nav class="md-nav" aria-label="🌍Addons" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          🌍Addons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log2reqs/" class="md-nav__link">
+        log2reqs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reqs2reqs/" class="md-nav__link">
+        reqs2reqs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../res2res/" class="md-nav__link">
+        res2res
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../res2dict/" class="md-nav__link">
+        res2dict
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../judgement/" class="md-nav__link">
+        judgement
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../store_criterion/" class="md-nav__link">
+        store_criterion
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dump/" class="md-nav__link">
+        dump
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../did_challenge/" class="md-nav__link">
+        did_challenge
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
-    <a href="./" class="md-nav__link md-nav__link--active">
-      final
-    </a>
-    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
       
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          final
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        final
+      </a>
+      
+        
 <nav class="md-nav md-nav--secondary" aria-label="目次">
   
   
@@ -872,197 +891,212 @@
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
 
-        
-      </ul>
-    </nav>
-  </li>
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
-    
-    <label class="md-nav__link" for="nav-4">
-      💽Models
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="💽Models" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
         💽Models
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/access-point/" class="md-nav__link">
-      AccessPoint
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/notifier/" class="md-nav__link">
-      Notifier
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/request/" class="md-nav__link">
-      Request
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/response/" class="md-nav__link">
-      Response
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/trial/" class="md-nav__link">
-      Trial
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../template/" class="md-nav__link">
-      📝Template
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
-    
-    <label class="md-nav__link" for="nav-6">
-      📦Releases
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="📦Releases" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
         <span class="md-nav__icon md-icon"></span>
-        📦Releases
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="💽Models" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          💽Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/access-point/" class="md-nav__link">
+        AccessPoint
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/notifier/" class="md-nav__link">
+        Notifier
+      </a>
+    </li>
+  
 
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/request/" class="md-nav__link">
+        Request
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="../../releases/" class="md-nav__link">
-      All
-    </a>
-  </li>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/response/" class="md-nav__link">
+        Response
+      </a>
+    </li>
+  
 
-        
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/trial/" class="md-nav__link">
+        Trial
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template/" class="md-nav__link">
+        📝Template
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      
+      <label class="md-nav__link" for="nav-6">
+        📦Releases
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="📦Releases" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          📦Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/" class="md-nav__link">
+        All
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v3/" class="md-nav__link">
+        v3.x.y
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../../releases/v3/" class="md-nav__link">
-      v3.x.y
-    </a>
-  </li>
-
-        
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v2/" class="md-nav__link">
+        v2.x.y
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v1/" class="md-nav__link">
+        v1.x.y
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v0/" class="md-nav__link">
+        v0.x.y
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../../releases/v2/" class="md-nav__link">
-      v2.x.y
-    </a>
-  </li>
-
-        
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../releases/v1/" class="md-nav__link">
-      v1.x.y
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../releases/v0/" class="md-nav__link">
-      v0.x.y
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
   </ul>
@@ -1072,7 +1106,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1582,14 +1617,14 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="_1">結果の概要ファイルを出力する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">summary</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">summary</span><span class="w"></span>
 </code></pre></div>
 <h5 id="_2">結果の概要を標準出力に出力する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">summary</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">sysout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">summary</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">sysout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <h2 id="json"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/json.py"><i class="fa fa-github"></i></a> json<a class="headerlink" href="#json" title="Permanent link">&para;</a></h2>
 <p>結果のレポートをjson形式で出力します。<br />
@@ -1637,15 +1672,15 @@
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="json_1">結果のレポートをjsonファイルで出力する<a class="headerlink" href="#json_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span><span class="w"></span>
 </code></pre></div>
 <h5 id="4">結果のレポートをインデントサイズ4で標準出力に出力する<a class="headerlink" href="#4" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">sysout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-        <span class="nt">indent</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">sysout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">        </span><span class="nt">indent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span><span class="w"></span>
 </code></pre></div>
 <h2 id="miroir"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/miroir.py"><i class="fa fa-github"></i></a> miroir<a class="headerlink" href="#miroir" title="Permanent link">&para;</a></h2>
 <p>Miroir参照用にデータをAWSに登録します。</p>
@@ -1728,7 +1763,9 @@
 </tr>
 </tbody>
 </table>
-<details class="info"><summary>when</summary><table>
+<details class="info">
+<summary>when</summary>
+<table>
 <thead>
 <tr>
 <th>Name</th>
@@ -1781,40 +1818,40 @@
 </table>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="1">キャッシュ1時間で保存する<a class="headerlink" href="#1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">miroir</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">table</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">miroir</span>
-        <span class="nt">bucket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mamansoft-miroir</span>
-        <span class="nt">cache_max_age</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3600</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">miroir</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">miroir</span><span class="w"></span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamansoft-miroir</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cache_max_age</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3600</span><span class="w"></span>
 </code></pre></div>
 <h5 id="prefix">キャッシュなしでprefixを指定して保存する<a class="headerlink" href="#prefix" title="Permanent link">&para;</a></h5>
 <p>Bucketの<code>test/</code>配下にデータが保存されます。</p>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">miroir</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">table</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">miroir</span>
-        <span class="nt">bucket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mamansoft-miroir</span>
-        <span class="nt">prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">miroir</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">miroir</span><span class="w"></span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamansoft-miroir</span><span class="w"></span>
+<span class="w">        </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w"></span>
 </code></pre></div>
 <h5 id="localstack2">LocalStackを使ってキャッシュ2分で保存する<a class="headerlink" href="#localstack2" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">miroir</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">table</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">miroir</span>
-        <span class="nt">bucket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mamansoft-miroir</span>
-        <span class="nt">cache_max_age</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">120</span>
-        <span class="nt">local_stack</span><span class="p">:</span>
-          <span class="nt">use</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">miroir</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">miroir</span><span class="w"></span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamansoft-miroir</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cache_max_age</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120</span><span class="w"></span>
+<span class="w">        </span><span class="nt">local_stack</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">use</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <h5 id="_3">結果が空でないときだけ保存する<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">miroir</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">table</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">miroir</span>
-        <span class="nt">bucket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mamansoft-miroir</span>
-        <span class="nt">when</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">not_empty</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">miroir</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">miroir</span><span class="w"></span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamansoft-miroir</span><span class="w"></span>
+<span class="w">        </span><span class="nt">when</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">not_empty</span><span class="w"></span>
 </code></pre></div>
 <h2 id="notify"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/notify.py"><i class="fa fa-github"></i></a> notify<a class="headerlink" href="#notify" title="Permanent link">&para;</a></h2>
 <p>実行結果を通知します。</p>
@@ -1894,28 +1931,30 @@
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <p>紹介する例は<code>jumeaux</code>という名前の<a href="../../models/notifier">notifier</a>が設定されている必要があります。</p>
-<details class="note"><summary>設定例</summary><div class="highlight"><pre><span></span><code><span class="nt">notifiers</span><span class="p">:</span>
-  <span class="nt">jumeaux</span><span class="p">:</span>
-    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">slack</span>
-    <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+<details class="note">
+<summary>設定例</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">notifiers</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">jumeaux</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack</span><span class="w"></span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
 </code></pre></div>
 </details>
 <h5 id="jumeaux">通知設定<code>jumeaux</code>を使って終了時通知する<a class="headerlink" href="#jumeaux" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">notify</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">notifies</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">notifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jumeaux</span>
-            <span class="nt">message</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">Finish!!</span><span class="nv"> </span><span class="s">There</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">summary.status.different</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">diffs..&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notify</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">notifies</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">notifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jumeaux</span><span class="w"></span>
+<span class="w">            </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">Finish!!</span><span class="nv"> </span><span class="s">There</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">summary.status.different</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">diffs..&quot;</span><span class="w"></span>
 </code></pre></div>
 <h5 id="differentstatus">differentのstatusが存在するときのみ通知する<a class="headerlink" href="#differentstatus" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">notify</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">notifies</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">notifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jumeaux</span>
-            <span class="nt">message</span><span class="p">:</span> <span class="s">&quot;There</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">summary.status.different</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">diffs..&quot;</span>
-            <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;summary.status.different</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">0&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notify</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">notifies</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">notifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jumeaux</span><span class="w"></span>
+<span class="w">            </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;There</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">summary.status.different</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">diffs..&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;summary.status.different</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">0&quot;</span><span class="w"></span>
 </code></pre></div>
 <h2 id="csv"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/csv.py"><i class="fa fa-github"></i></a> csv<a class="headerlink" href="#csv" title="Permanent link">&para;</a></h2>
 <p>レポートの<code>trials</code>をCSVファイル形式で追加出力します。</p>
@@ -1955,7 +1994,9 @@
 </tr>
 </tbody>
 </table>
-<details class="info"><summary>column_names</summary><p>以下の要素が有効です。</p>
+<details class="info">
+<summary>column_names</summary>
+<p>以下の要素が有効です。</p>
 <table>
 <thead>
 <tr>
@@ -2049,27 +2090,27 @@
 </details>
 <h4 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h4>
 <h5 id="seq-name-status"><code>seq</code> <code>name</code> <code>status</code> の要素を出力する<a class="headerlink" href="#seq-name-status" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">csv</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">column_names</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">seq</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status</span>
-        <span class="nt">output_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">result.csv</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">csv</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">column_names</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">seq</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status</span><span class="w"></span>
+<span class="w">        </span><span class="nt">output_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">result.csv</span><span class="w"></span>
 </code></pre></div>
 <h5 id="seq-name-status-oneresponse_sec-otherresponse_sec"><code>seq</code> <code>name</code> <code>status</code>, <code>one.response_sec</code>, <code>other.response_sec</code> の要素をヘッダ付きで出力する<a class="headerlink" href="#seq-name-status-oneresponse_sec-otherresponse_sec" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">csv</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">with_header</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-        <span class="nt">column_names</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">seq</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">one.response_sec</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">other.response_sec</span>
-        <span class="nt">output_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">result.csv</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">csv</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">with_header</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">        </span><span class="nt">column_names</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">seq</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">one.response_sec</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">other.response_sec</span><span class="w"></span>
+<span class="w">        </span><span class="nt">output_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">result.csv</span><span class="w"></span>
 </code></pre></div>
 <h2 id="viewer"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/viewer.py"><i class="fa fa-github"></i></a> viewer<a class="headerlink" href="#viewer" title="Permanent link">&para;</a></h2>
 <p>結果をGUIで確認するためのHTMLを出力します。</p>
@@ -2085,9 +2126,9 @@
 <p>Config設定はありません。</p>
 <h4 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h4>
 <h5 id="guiviewer">結果をGUIで確認するためのviewerを同梱する<a class="headerlink" href="#guiviewer" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">final</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>  <span class="c1"># report.jsonが必要なため</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">viewer</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span><span class="w">  </span><span class="c1"># report.jsonが必要なため</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">viewer</span><span class="w"></span>
 </code></pre></div>
                 
               
@@ -2105,7 +2146,7 @@
 <footer class="md-footer">
   
     <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+      <nav class="md-footer-nav__inner md-grid" aria-label="フッター">
         
           <a href="../did_challenge/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
@@ -2181,15 +2222,15 @@
       
     </div>
     
-      <script src="../../../assets/javascripts/vendor.6a3d08fc.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.71201edf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
       
       <script>
         app = initialize({
           base: "../../..",
           features: [],
           search: Object.assign({
-            worker: "../../../assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../../../assets/javascripts/worker/search.9c0e82ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

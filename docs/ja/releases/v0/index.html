@@ -9,13 +9,14 @@
         <meta name="description" content="Check difference between two responses of API.">
       
       
-        <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/releases/v0/">
-      
       
         <meta name="author" content="tadashi-aikawa">
       
+      
+        <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/releases/v0/">
+      
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.8">
     
     
       
@@ -23,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.bc7e593a.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.cb6bc1d0.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab28b872.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.39b8e14a.min.css">
         
       
     
@@ -34,7 +35,7 @@
     
       
         
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
@@ -60,6 +61,7 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
       
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -78,7 +80,7 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
+  <nav class="md-header-nav md-grid" aria-label="ヘッダー">
     <a href="https://tadashi-aikawa.github.io/jumeaux/" title="Jumeaux" class="md-header-nav__button md-logo" aria-label="Jumeaux">
       
   <img src="../../../img/logo.png" alt="logo">
@@ -88,18 +90,20 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             Jumeaux
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             
               v0.x.y
             
           </span>
         </div>
-      
+      </div>
     </div>
     
       <label class="md-header-nav__button md-icon" for="__search">
@@ -110,12 +114,12 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+      <button type="reset" class="md-search__icon md-icon" aria-label="クリア" data-md-component="search-reset" tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
@@ -123,7 +127,7 @@
       <div class="md-search__scrollwrap" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            検索を初期化
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -158,12 +162,16 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="https://tadashi-aikawa.github.io/jumeaux/" title="Jumeaux" class="md-nav__button md-logo" aria-label="Jumeaux">
       
@@ -192,318 +200,324 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../../.." class="md-nav__link">
-      🏠Home
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        🏠Home
+      </a>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
-    
-    <label class="md-nav__link" for="nav-2">
-      👉Get Started
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="👉Get Started" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
         👉Get Started
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/quickstart/" class="md-nav__link">
-      Quickstart
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/configuration/" class="md-nav__link">
-      Configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/report/" class="md-nav__link">
-      Report
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
-    
-    <label class="md-nav__link" for="nav-3">
-      🌍Addons
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="🌍Addons" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
         <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="👉Get Started" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          👉Get Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/quickstart/" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/configuration/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/report/" class="md-nav__link">
+        Report
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
         🌍Addons
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/" class="md-nav__link">
-      Summary
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/log2reqs/" class="md-nav__link">
-      log2reqs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/reqs2reqs/" class="md-nav__link">
-      reqs2reqs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/res2res/" class="md-nav__link">
-      res2res
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/res2dict/" class="md-nav__link">
-      res2dict
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/judgement/" class="md-nav__link">
-      judgement
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/store_criterion/" class="md-nav__link">
-      store_criterion
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/dump/" class="md-nav__link">
-      dump
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/did_challenge/" class="md-nav__link">
-      did_challenge
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/final/" class="md-nav__link">
-      final
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
-    
-    <label class="md-nav__link" for="nav-4">
-      💽Models
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="💽Models" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
         <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="🌍Addons" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          🌍Addons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/log2reqs/" class="md-nav__link">
+        log2reqs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/reqs2reqs/" class="md-nav__link">
+        reqs2reqs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/res2res/" class="md-nav__link">
+        res2res
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/res2dict/" class="md-nav__link">
+        res2dict
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/judgement/" class="md-nav__link">
+        judgement
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/store_criterion/" class="md-nav__link">
+        store_criterion
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/dump/" class="md-nav__link">
+        dump
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/did_challenge/" class="md-nav__link">
+        did_challenge
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/final/" class="md-nav__link">
+        final
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
         💽Models
+        <span class="md-nav__icon md-icon"></span>
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="💽Models" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          💽Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/access-point/" class="md-nav__link">
+        AccessPoint
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/notifier/" class="md-nav__link">
+        Notifier
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../../models/access-point/" class="md-nav__link">
-      AccessPoint
-    </a>
-  </li>
-
-        
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/request/" class="md-nav__link">
+        Request
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/response/" class="md-nav__link">
+        Response
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/trial/" class="md-nav__link">
+        Trial
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../../models/notifier/" class="md-nav__link">
-      Notifier
-    </a>
-  </li>
-
-        
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/request/" class="md-nav__link">
-      Request
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/response/" class="md-nav__link">
-      Response
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/trial/" class="md-nav__link">
-      Trial
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../template/" class="md-nav__link">
-      📝Template
-    </a>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
@@ -511,96 +525,114 @@
       
 
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template/" class="md-nav__link">
+        📝Template
+      </a>
+    </li>
+  
 
+    
+      
+      
+      
 
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+  
+  
     
-    <label class="md-nav__link" for="nav-6">
-      📦Releases
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="📦Releases" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+      
+      <label class="md-nav__link" for="nav-6">
         📦Releases
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../" class="md-nav__link">
-      All
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../v3/" class="md-nav__link">
-      v3.x.y
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../v2/" class="md-nav__link">
-      v2.x.y
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../v1/" class="md-nav__link">
-      v1.x.y
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        v0.x.y
         <span class="md-nav__icon md-icon"></span>
       </label>
+      <nav class="md-nav" aria-label="📦Releases" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          📦Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        All
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v3/" class="md-nav__link">
+        v3.x.y
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v2/" class="md-nav__link">
+        v2.x.y
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v1/" class="md-nav__link">
+        v1.x.y
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
-    <a href="./" class="md-nav__link md-nav__link--active">
-      v0.x.y
-    </a>
-    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
       
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          v0.x.y
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        v0.x.y
+      </a>
+      
+        
 <nav class="md-nav md-nav--secondary" aria-label="目次">
   
   
@@ -1001,13 +1033,15 @@
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
 
-        
-      </ul>
-    </nav>
-  </li>
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
   </ul>
@@ -1017,7 +1051,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1448,10 +1483,14 @@
 </code></pre></div>
 <h2 id="0652"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.65.2<a class="headerlink" href="#0652" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-03-20</code></p>
-<details class="bug"><summary>一部環境でJumeauxのインストールができない不具合を修正しました</summary></details>
+<details class="bug">
+<summary>一部環境でJumeauxのインストールができない不具合を修正しました</summary>
+</details>
 <h2 id="0651"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.65.1<a class="headerlink" href="#0651" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-03-06</code></p>
-<details class="bug"><summary>完全一致の正規表現が特定のケースで部分一致になる不具合を修正しました</summary><ul>
+<details class="bug">
+<summary>完全一致の正規表現が特定のケースで部分一致になる不具合を修正しました</summary>
+<ul>
 <li>再現するケースは以下2つを満たすパターンの場合です<ul>
 <li>パイプ(<code>|</code>)がある</li>
 <li>カッコがない</li>
@@ -1479,14 +1518,18 @@
 </details>
 <h2 id="0650"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.65.0<a class="headerlink" href="#0650" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-03-04</code></p>
-<details class="info"><summary>notifyアドオンを追加しました (<a href="../../addons/final#notify">final/notify</a>)</summary><ul>
+<details class="info">
+<summary>notifyアドオンを追加しました (<a href="../../addons/final#notify">final/notify</a>)</summary>
+<ul>
 <li><a href="../../addons/final#slack">final/slack</a> アドオンは非推奨になりますので <a href="../../addons/final#notify">final/notify</a> に置き換えて下さい</li>
 <li>詳細は <a href="../../addons/final#notify">final/notify</a> をご覧下さい</li>
 </ul>
 </details>
 <h2 id="0640"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.64.0<a class="headerlink" href="#0640" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-02-21</code></p>
-<details class="info"><summary>ignoreアドオンを追加しました (<a href="../../addons/judgement#ignore">judgement/ignore</a>)</summary><ul>
+<details class="info">
+<summary>ignoreアドオンを追加しました (<a href="../../addons/judgement#ignore">judgement/ignore</a>)</summary>
+<ul>
 <li>judgement/ignore_propertiesとの差分は以下です<ul>
 <li>pathやqueryなどの条件絞り込みにjinja2フォーマットが使える</li>
 <li>oneとotherのプロパティを式で比較して無視するかどうかを判定できる</li>
@@ -1496,12 +1539,16 @@
 <li>judgement/ignore_propertiesを使っている場合はこちらへの移行をお願いします</li>
 </ul>
 </details>
-<details class="danger"><summary>ignore_propertiesアドオンを非推奨にしました (judgement/ignore_properties)</summary><ul>
+<details class="danger">
+<summary>ignore_propertiesアドオンを非推奨にしました (judgement/ignore_properties)</summary>
+<ul>
 <li>Version 1.0 までの間に削除します</li>
 <li><a href="../../addons/judgement#ignore">judgement/ignore</a>アドオンへの移行をお願いします</li>
 </ul>
 </details>
-<details class="danger"><summary>Reportのスキームを一部変更しました</summary><ul>
+<details class="danger">
+<summary>Reportのスキームを一部変更しました</summary>
+<ul>
 <li><code>ignores</code>を削除しました</li>
 <li><a href="../../models/trial">models/trial</a>の<code>diff_keys</code>を削除しました</li>
 <li><a href="../../models/trial">models/trial</a>の<code>diffs_by_cognition</code>を追加しました</li>
@@ -1509,17 +1556,23 @@
 </details>
 <h2 id="0630"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.63.0<a class="headerlink" href="#0630" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-02-05</code></p>
-<details class="info"><summary>whenやtagでレスポンスプロパティを利用できるようにしました(<a href="../../addons/did_challenge#tag">did_challenge/tag</a>)</summary><ul>
+<details class="info">
+<summary>whenやtagでレスポンスプロパティを利用できるようにしました(<a href="../../addons/did_challenge#tag">did_challenge/tag</a>)</summary>
+<ul>
 <li>OneとOtherそれぞれのレスポンスプロパティを参照できます</li>
 <li>詳細は <a href="../../addons/did_challenge#tag">did_challenge/tag</a> をご覧下さい</li>
 </ul>
 </details>
-<details class="info"><summary>Template functionにcalc_distance_kmを追加しました</summary><ul>
+<details class="info">
+<summary>Template functionにcalc_distance_kmを追加しました</summary>
+<ul>
 <li>座標間の概算距離を計算できます</li>
 <li>詳細は <a href="../../template#functions">template/#functions</a> をご覧下さい</li>
 </ul>
 </details>
-<details class="hint"><summary>アドオンのExamplesに表記された設定例のインデントを調整しました</summary><ul>
+<details class="hint">
+<summary>アドオンのExamplesに表記された設定例のインデントを調整しました</summary>
+<ul>
 <li>コピーボタンでコピーした設定をそのまま貼り付けられるようになりました</li>
 <li>もうペーストした後にインデント調整をする必要はありません <img alt="😄" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f604.png" title=":smile:" /></li>
 </ul>
@@ -1527,7 +1580,9 @@
 </details>
 <h2 id="0620"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.62.0<a class="headerlink" href="#0620" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-01-24</code></p>
-<details class="hint"><summary>whenやmessage_formatの値に構文エラーがある場合、実行直後にエラーを表示するようにしました</summary><ul>
+<details class="hint">
+<summary>whenやmessage_formatの値に構文エラーがある場合、実行直後にエラーを表示するようにしました</summary>
+<ul>
 <li>jinja2フォーマットを使っている以下のアドオンが対象です<ul>
 <li><a href="../../addons/reqs2reqs#empty_guard">reqs2reqs/empty_guard</a></li>
 <li><a href="../../addons/reqs2reqs#rename">reqs2reqs/rename</a></li>
@@ -1544,14 +1599,18 @@
 </div>
 <h2 id="0610"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.61.0<a class="headerlink" href="#0610" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-01-13</code></p>
-<details class="info"><summary>アクセス先ごとにパスを制御できるようにしました</summary><ul>
+<details class="info">
+<summary>アクセス先ごとにパスを制御できるようにしました</summary>
+<ul>
 <li>OneとOtherそれぞれに対して、正規表現を含めたpathの置換ができます</li>
 <li>設定の詳細は <a href="../../getstarted/configuration">configuration</a> から AccessPoint の<code>path</code>をご覧ください</li>
 </ul>
 </details>
 <h2 id="0600"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.60.0<a class="headerlink" href="#0600" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-12-12</code></p>
-<details class="danger"><summary>formatを指定できる設定箇所の仕様をwhen(jinja2)の仕様にあわせました</summary><p>以下のアドオンに影響があります。</p>
+<details class="danger">
+<summary>formatを指定できる設定箇所の仕様をwhen(jinja2)の仕様にあわせました</summary>
+<p>以下のアドオンに影響があります。</p>
 <ul>
 <li><a href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/reqs2reqs/#condition">reqs2reqs/rename</a></li>
 <li><a href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/reqs2reqs/#notify">reqs2reqs/empty_guard</a></li>
@@ -1572,25 +1631,33 @@
 </div>
 <h2 id="0590"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.59.0<a class="headerlink" href="#0590" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-12-03</code></p>
-<details class="info"><summary>did_challenge/tagアドオンを追加しました (<a href="../../addons/did_challenge#tag">did_challenge/tag</a>)</summary><ul>
+<details class="info">
+<summary>did_challenge/tagアドオンを追加しました (<a href="../../addons/did_challenge#tag">did_challenge/tag</a>)</summary>
+<ul>
 <li>指定した条件に一致するとき任意の値(パラメータ参照可)でタグを付与できます</li>
 <li>詳しくは<a href="../../addons/did_challenge#tag">did_challenge/tag</a>をご覧下さい</li>
 </ul>
 </details>
 <h2 id="0581"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.58.1<a class="headerlink" href="#0581" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-11-29</code></p>
-<details class="bug"><summary>proxyを指定すると実行できない不具合を修正しました</summary><ul>
+<details class="bug">
+<summary>proxyを指定すると実行できない不具合を修正しました</summary>
+<ul>
 <li>該当プロパティは <a href="http://tadashi-aikawa.github.io/jumeaux/ja/models/access-point/#accesspoint_1">AccessPoint</a> をご覧下さい</li>
 </ul>
 </details>
 <h2 id="0580"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.58.0<a class="headerlink" href="#0580" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-10-30</code></p>
-<details class="danger"><summary>出力レポート内の時刻にTimezone情報を追加しました</summary><ul>
+<details class="danger">
+<summary>出力レポート内の時刻にTimezone情報を追加しました</summary>
+<ul>
 <li>Jumeaux実行マシンのlocal timezoneに準拠した時刻が記載されます</li>
 <li>たとえばJSTの場合は<code>2018-10-30T10:01:28.199299+09:00</code>です</li>
 </ul>
 </details>
-<details class="bug"><summary>空のpathが含まれるレポートからretryすると期待通り動作しない不具合を修正しました</summary><ul>
+<details class="bug">
+<summary>空のpathが含まれるレポートからretryすると期待通り動作しない不具合を修正しました</summary>
+<ul>
 <li>pathが空の場合に<code>No Path</code>という値で上書きしていたのをやめました(空のまま)<ul>
 <li>retry時に<code>No Path</code>をpathとしてリクエストしてしまっていたのが原因のため</li>
 </ul>
@@ -1602,7 +1669,9 @@
 </div>
 <h2 id="0571"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.57.1<a class="headerlink" href="#0571" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-08-04</code></p>
-<details class="bug"><summary>特定の条件下でretryに失敗する不具合を修正しました</summary><p>以下の条件を満たすとき失敗していました。</p>
+<details class="bug">
+<summary>特定の条件下でretryに失敗する不具合を修正しました</summary>
+<p>以下の条件を満たすとき失敗していました。</p>
 <ol>
 <li>Jumeauxの実行結果に整数で表現可能なresponse_secが含まれる (例: response_sec: 2.0 など)</li>
 <li>1のReportをMiroirからダウンロードし、それを入力にして<code>jumeaux retry</code>を実行する</li>
@@ -1613,14 +1682,18 @@
 </details>
 <h2 id="0570"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.57.0<a class="headerlink" href="#0570" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-07-30</code></p>
-<details class="info"><summary>アクセス先クエリ制御のcase insensitive対応をしました</summary><ul>
+<details class="info">
+<summary>アクセス先クエリ制御のcase insensitive対応をしました</summary>
+<ul>
 <li><code>/i</code>を付けることでキーの大文字/小文字を同一視することができます</li>
 <li>詳しくは <a href="../../models/access-point">models/accesspoint</a> のQueryCustomizationをご覧下さい</li>
 </ul>
 </details>
 <h2 id="0560"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.56.0<a class="headerlink" href="#0560" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-07-29</code></p>
-<details class="info"><summary>アクセス先ごとにクエリを制御できるようにしました</summary><ul>
+<details class="info">
+<summary>アクセス先ごとにクエリを制御できるようにしました</summary>
+<ul>
 <li>OneとOtherそれぞれに対して、上書き(無い場合は追加)と削除の操作が可能です</li>
 <li>アクセス先情報という位置づけのため、リクエストごとに制御を変更することはできません</li>
 <li>設定の詳細は <a href="../../getstarted/configuration">configuration</a> から AccessPoint の<code>query</code>をご覧ください</li>
@@ -1628,31 +1701,41 @@
 </details>
 <h2 id="0552"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.55.2<a class="headerlink" href="#0552" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-07-04</code></p>
-<details class="hint"><summary>PythonPathにJumeaux実行時のカレントディレクトリを追加するようにしました</summary><ul>
+<details class="hint">
+<summary>PythonPathにJumeaux実行時のカレントディレクトリを追加するようにしました</summary>
+<ul>
 <li>カレントディレクトリに配置するだけで独自アドオンなどを気軽に使用できるようになります</li>
 </ul>
 </details>
 <h2 id="0551"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.55.1<a class="headerlink" href="#0551" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-07-02</code></p>
-<details class="bug"><summary>特定ケースでプロパティに差分が無くてもSameとならない不具合を修正しました</summary><ul>
+<details class="bug">
+<summary>特定ケースでプロパティに差分が無くてもSameとならない不具合を修正しました</summary>
+<ul>
 <li>特定ケースとは <strong>judgementレイヤにアドオンが未指定の場合</strong> です。</li>
 </ul>
 </details>
 <h2 id="0550"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.55.0<a class="headerlink" href="#0550" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-06-26</code></p>
-<details class="info"><summary>store_criterion/freeアドオンを追加しました (<a href="../../addons/store_criterion#free">store_criterion/free</a>)</summary><ul>
+<details class="info">
+<summary>store_criterion/freeアドオンを追加しました (<a href="../../addons/store_criterion#free">store_criterion/free</a>)</summary>
+<ul>
 <li>指定した条件のいずれかに一致する場合のみ結果をdumpさせることができます</li>
 <li>詳しくは<a href="../../addons/store_criterion#free">store_criterion/free</a>をご覧下さい</li>
 </ul>
 </details>
-<details class="info"><summary>property解析用のdictをjsonファイルとしてdumpするようにしました</summary><ul>
+<details class="info">
+<summary>property解析用のdictをjsonファイルとしてdumpするようにしました</summary>
+<ul>
 <li>JSON以外のデータ形式に対してプロパティベースで解析したい場合に利用できます</li>
 <li>ファイルは<code>one</code>, <code>other</code>と同階層の<code>one-props</code>, <code>other-props</code>ディレクトリ配下に作成されます</li>
 </ul>
 </details>
 <h2 id="0540"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.54.0<a class="headerlink" href="#0540" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-06-22</code></p>
-<details class="info"><summary>judgement/sameアドオンを追加しました (<a href="../../addons/judgement#same">judgement/same</a>)</summary><ul>
+<details class="info">
+<summary>judgement/sameアドオンを追加しました (<a href="../../addons/judgement#same">judgement/same</a>)</summary>
+<ul>
 <li>指定した条件のいずれかに一致する場合、ステータスをSameにすることができます<ul>
 <li>例: ファイルタイプがバイナリでサイズが変わらない場合はSameとする</li>
 </ul>
@@ -1660,38 +1743,50 @@
 <li>詳しくは<a href="../../addons/judgement#same">judgement/same</a>をご覧下さい</li>
 </ul>
 </details>
-<details class="info"><summary>リクエストのURLエンコーディング候補を指定できるようにしました (<a href="../../addons/log2reqs#plain">log2reqs/plain</a>)</summary><ul>
+<details class="info">
+<summary>リクエストのURLエンコーディング候補を指定できるようにしました (<a href="../../addons/log2reqs#plain">log2reqs/plain</a>)</summary>
+<ul>
 <li><code>candidate_for_url_encodings</code>に指定した複数のエンコーディングを候補として判定します</li>
 <li>詳しくは<a href="../../addons/log2reqs#plain">log2reqs/plain</a>をご覧下さい</li>
 </ul>
 </details>
 <h2 id="0530"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.53.0<a class="headerlink" href="#0530" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-06-11</code></p>
-<details class="info"><summary>whenオプションを追加しました (<a href="../../addons/res2res#json">res2res/json</a>)</summary><ul>
+<details class="info">
+<summary>whenオプションを追加しました (<a href="../../addons/res2res#json">res2res/json</a>)</summary>
+<ul>
 <li>jinja2の式を使って柔軟な条件を指定することができます</li>
 <li>詳しくは<a href="../../addons/res2res#json">res2res/json</a>をご覧下さい</li>
 </ul>
 </details>
-<details class="info"><summary>キーのみが指定されたクエリを除外しないオプションを追加しました (<a href="../../addons/log2reqs#plain">log2reqs/plain</a>) (<a href="../../addons/log2reqs#csv">log2reqs/csv</a>)</summary><ul>
+<details class="info">
+<summary>キーのみが指定されたクエリを除外しないオプションを追加しました (<a href="../../addons/log2reqs#plain">log2reqs/plain</a>) (<a href="../../addons/log2reqs#csv">log2reqs/csv</a>)</summary>
+<ul>
 <li><code>keep_blank: true</code>を指定すると<code>key=</code>や<code>key</code>を空値として解釈します</li>
 <li>詳しくは<a href="../../addons/log2reqs#plain">log2reqs/plain</a>や<a href="../../addons/log2reqs#csv">log2reqs/csv</a>をご覧下さい</li>
 </ul>
 </details>
 <h2 id="0520"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.52.0<a class="headerlink" href="#0520" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-05-28</code></p>
-<details class="info"><summary>テスト結果のtrialsにtypeプロパティを追加しました</summary><ul>
+<details class="info">
+<summary>テスト結果のtrialsにtypeプロパティを追加しました</summary>
+<ul>
 <li>該当レスポンスがどのようなファイルタイプであるかを示すパラメータです</li>
 <li>レスポンスヘッダのcontent-typeから判断します</li>
 <li><a href="https://tools.ietf.org/html/rfc2045#section-5.1">RFC-2045</a>のsubtypeで判断します</li>
 <li>一般的ではないtypeを変換するには<a href="../../addons/res2res#type">res2res/type</a>を使用して下さい</li>
 </ul>
 </details>
-<details class="info"><summary>res2res/typeアドオンを追加しました (<a href="../../addons/res2res#type">res2res/type</a>)</summary><ul>
+<details class="info">
+<summary>res2res/typeアドオンを追加しました (<a href="../../addons/res2res#type">res2res/type</a>)</summary>
+<ul>
 <li>特定条件に一致する場合にtypeを変更することができます</li>
 <li>詳しくは<a href="../../addons/res2res#type">res2res/type</a>をご覧下さい</li>
 </ul>
 </details>
-<details class="danger"><summary>以下アドオンのconfigから<code>mime_types</code>を削除しました</summary><ul>
+<details class="danger">
+<summary>以下アドオンのconfigから<code>mime_types</code>を削除しました</summary>
+<ul>
 <li><a href="../../addons/res2dict#json">res2dict/json</a></li>
 <li><a href="../../addons/res2dict#xml">res2dict/xml</a></li>
 <li><a href="../../addons/res2dict#html">res2dict/html</a></li>
@@ -1703,7 +1798,9 @@
 </details>
 <h2 id="0510"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.51.0<a class="headerlink" href="#0510" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-05-13</code></p>
-<details class="info"><summary>res2res/jsonアドオンを追加しました (<a href="../../addons/res2res#json">res2res/json</a>)</summary><ul>
+<details class="info">
+<summary>res2res/jsonアドオンを追加しました (<a href="../../addons/res2res#json">res2res/json</a>)</summary>
+<ul>
 <li>任意のロジックを指定してレスポンスを強制的にjsonへ変換することができます</li>
 <li>詳しくは<a href="../../addons/res2res#json">res2res/json</a>をご覧下さい</li>
 </ul>
@@ -1713,7 +1810,9 @@
 </div>
 <h2 id="0500"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.50.0<a class="headerlink" href="#0500" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-05-10</code></p>
-<details class="info"><summary><code>jumeaux viewer</code>コマンドを追加しました</summary><ul>
+<details class="info">
+<summary><code>jumeaux viewer</code>コマンドを追加しました</summary>
+<ul>
 <li>Jumeauxを実行して結果が出力されたらViewerをlivereloadすることができます</li>
 <li>詳しくは<a href="../../getstarted/quickstart/#viewer">viewer</a>をご覧下さい</li>
 </ul>
@@ -1723,47 +1822,63 @@
 </div>
 <h2 id="0490"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.49.0<a class="headerlink" href="#0490" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-05-06</code></p>
-<details class="danger"><summary>デフォルトで標準出力に結果を出力しないようにしました</summary><ul>
+<details class="danger">
+<summary>デフォルトで標準出力に結果を出力しないようにしました</summary>
+<ul>
 <li>今までのようにjsonを出力するには<a href="../../addons/final#json">final/json</a>アドオンを使用してください</li>
 </ul>
 </details>
-<details class="info"><summary>viewerアドオンを追加しました (<a href="../../addons/final#viewer">final/viewer</a>)</summary><ul>
+<details class="info">
+<summary>viewerアドオンを追加しました (<a href="../../addons/final#viewer">final/viewer</a>)</summary>
+<ul>
 <li>結果をGUIで確認可能なHTMLファイルを出力します</li>
 <li><a href="../../addons/final#json">final/json</a>アドオンと一緒に使う必要があります</li>
 <li>詳しくは<a href="../../addons/final#viewer">final/viewer</a>をご覧下さい</li>
 </ul>
 <p><a href="https://dl.dropboxusercontent.com/s/btw02l0xsn10bzl/0.49.0-1.png"><img alt="" src="https://dl.dropboxusercontent.com/s/btw02l0xsn10bzl/0.49.0-1.png" /></a></p>
 </details>
-<details class="info"><summary>jsonアドオンを追加しました (<a href="../../addons/final#json">final/json</a>)</summary><ul>
+<details class="info">
+<summary>jsonアドオンを追加しました (<a href="../../addons/final#json">final/json</a>)</summary>
+<ul>
 <li>結果をjsonとして出力します</li>
 <li>詳しくは<a href="../../addons/final#json">final/json</a>をご覧下さい</li>
 </ul>
 </details>
-<details class="info"><summary>summaryアドオンを追加しました (<a href="../../addons/final#summary">final/summary</a>)</summary><ul>
+<details class="info">
+<summary>summaryアドオンを追加しました (<a href="../../addons/final#summary">final/summary</a>)</summary>
+<ul>
 <li>結果を1画面に納まる程度のsummaryとして出力します</li>
 <li>詳しくは<a href="../../addons/final#summary">final/summary</a>をご覧下さい</li>
 </ul>
 </details>
-<details class="info"><summary><code>jumeaux server</code>コマンドに<code>-v</code>オプションを追加しました</summary><ul>
+<details class="info">
+<summary><code>jumeaux server</code>コマンドに<code>-v</code>オプションを追加しました</summary>
+<ul>
 <li><code>-v</code>オプションを指定する場合はリクエストヘッダを標準エラー出力に出力します (今までと同じ挙動)</li>
 </ul>
 </details>
 <h2 id="0480"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.48.0<a class="headerlink" href="#0480" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-04-30</code></p>
-<details class="info"><summary>htmlアドオンを追加しました (<a href="../../addons/res2dict#html">res2dict/html</a>)(<a href="../../addons/dump#html">dump/html</a>)</summary><ul>
+<details class="info">
+<summary>htmlアドオンを追加しました (<a href="../../addons/res2dict#html">res2dict/html</a>)(<a href="../../addons/dump#html">dump/html</a>)</summary>
+<ul>
 <li>HTMLをプロパティとして解析したり、保存時にフォーマットすることができます</li>
 <li>詳しくは <a href="../../addons/res2dict#html">res2dict/html</a> と <a href="../../addons/dump#html">dump/html</a> をご覧下さい</li>
 </ul>
 </details>
 <h2 id="0470"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.47.0<a class="headerlink" href="#0470" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-04-17</code></p>
-<details class="info"><summary>renameアドオンを追加しました (<a href="../../addons/reqs2reqs#rename">reqs2reqs/rename</a>)</summary><ul>
+<details class="info">
+<summary>renameアドオンを追加しました (<a href="../../addons/reqs2reqs#rename">reqs2reqs/rename</a>)</summary>
+<ul>
 <li>特定条件に一致するリクエストの名称を変更することができます</li>
 <li>jinja2の式を使って柔軟な条件を指定することができます</li>
 <li>詳しくは <a href="../../addons/reqs2reqs#rename">reqs2reqs/rename</a> をご覧下さい</li>
 </ul>
 </details>
-<details class="info"><summary>User agentに適切な値を設定するようにしました</summary><ul>
+<details class="info">
+<summary>User agentに適切な値を設定するようにしました</summary>
+<ul>
 <li>詳しくは<a href="https://github.com/tadashi-aikawa/jumeaux/issues/66">Issue #66</a>をご覧下さい</li>
 </ul>
 </details>
@@ -1772,7 +1887,9 @@
 <div class="admonition bug">
 <p class="admonition-title">レスポンスのエンコーディングが推測した結果でかつ不適切なとき強制終了する不具合を修正しました (<a href="../../addons/res2res#json_sort">res2res/json_sort</a>)</p>
 </div>
-<details class="danger"><summary>default_encodingを非推奨にしました (<a href="../../addons/res2res#json_sort">res2res/json_sort</a>)</summary><ul>
+<details class="danger">
+<summary>default_encodingを非推奨にしました (<a href="../../addons/res2res#json_sort">res2res/json_sort</a>)</summary>
+<ul>
 <li>近い内に削除します</li>
 <li>削除された後は指定するとエラーになりますので注意してください</li>
 <li><a href="../../addons/res2res#json_sort">res2res/json_sort</a>の仕様からは既に削除済みです</li>
@@ -1780,7 +1897,9 @@
 </details>
 <h2 id="0460"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.46.0<a class="headerlink" href="#0460" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-04-04</code></p>
-<details class="danger"><summary><code>jumeaux init</code>で作成できるテンプレートの候補と中身が変更されました</summary><ul>
+<details class="danger">
+<summary><code>jumeaux init</code>で作成できるテンプレートの候補と中身が変更されました</summary>
+<ul>
 <li>新しい候補を表示するには<code>jumeaux init help</code>を実行してください</li>
 <li>新しいテンプレートは<code>python -m http.server</code>を実行したときに動作する想定で作られています</li>
 <li>後のバージョンにてjumeauxコマンド経由で上記を実行/停止できるようにする予定です</li>
@@ -1793,7 +1912,9 @@
 </div>
 <h2 id="0440"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.44.0<a class="headerlink" href="#0440" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-03-30</code></p>
-<details class="danger"><summary>reportに出力される日付フォーマットをISO 8601に変更しました</summary><ul>
+<details class="danger">
+<summary>reportに出力される日付フォーマットをISO 8601に変更しました</summary>
+<ul>
 <li><code>2000/01/01 10:00:00</code> =&gt; <code>2000-01-01T10:00:00.000000</code> のように変わります</li>
 </ul>
 </details>
@@ -1807,7 +1928,9 @@
 </div>
 <h2 id="0430"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.43.0<a class="headerlink" href="#0430" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-03-26</code></p>
-<details class="info"><summary>特定のタグを持つアドオンをスキップする実行オプションを追加しました</summary><ul>
+<details class="info">
+<summary>特定のタグを持つアドオンをスキップする実行オプションを追加しました</summary>
+<ul>
 <li><code>--skip-addon-tag</code>オプションでスキップ対象のタグを指定します<ul>
 <li><code>--skip-addon-tag</code>は複数指定可能</li>
 </ul>
@@ -1817,7 +1940,9 @@
 </details>
 <h2 id="0420"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.42.0<a class="headerlink" href="#0420" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-03-02</code></p>
-<details class="info"><summary>レスポンスの文字コードが不明なとき任意のエンコーディングを指定するオプションを追加しました</summary><ul>
+<details class="info">
+<summary>レスポンスの文字コードが不明なとき任意のエンコーディングを指定するオプションを追加しました</summary>
+<ul>
 <li>OneとOtherそれぞれに対して1つずつ設定できます</li>
 <li>未指定の場合はレスポンスボディからエンコーディングを推測します<ul>
 <li>推測の場合、パフォーマンスが著しく低下します</li>
@@ -1828,7 +1953,9 @@
 </details>
 <h2 id="0412"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.41.2<a class="headerlink" href="#0412" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-02-27</code></p>
-<details class="hint"><summary> 文字化けしたレスポンスをdumpできるようにしました(<a href="../../addons/dump#xml">dump/xml</a>)(<a href="../../addons/dump#json">dump/json</a>)</summary><ul>
+<details class="hint">
+<summary> 文字化けしたレスポンスをdumpできるようにしました(<a href="../../addons/dump#xml">dump/xml</a>)(<a href="../../addons/dump#json">dump/json</a>)</summary>
+<ul>
 <li>化けている文字は<code>?</code>に置換されます</li>
 <li>0.41.1までは強制終了していました</li>
 </ul>
@@ -1843,7 +1970,9 @@
 <div class="admonition bug">
 <p class="admonition-title"><code>jumeaux init</code>が動作しない不具合を修正しました</p>
 </div>
-<details class="hint"><summary>アドオンの引数にoneとotherのdictを追加しました (judgement/ignore_properties)</summary><ul>
+<details class="hint">
+<summary>アドオンの引数にoneとotherのdictを追加しました (judgement/ignore_properties)</summary>
+<ul>
 <li>アドオン作成者以外は影響ありません</li>
 <li>詳細は <a href="../../addons">addons</a> の設計図をご覧ください</li>
 </ul>
@@ -1876,7 +2005,9 @@
 </div>
 <h2 id="0380"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.38.0<a class="headerlink" href="#0380" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-02-06</code></p>
-<details class="info"><summary>ログの出力設定インタフェースと出力内容を変更しました</summary><p>実行時にvオプションを指定することで必要なレベルのログを出力することができます。</p>
+<details class="info">
+<summary>ログの出力設定インタフェースと出力内容を変更しました</summary>
+<p>実行時にvオプションを指定することで必要なレベルのログを出力することができます。</p>
 <ul>
 <li>指定無し: 差分のあったケースの出力など最低限必要なレベル</li>
 <li><code>-v</code>:     ケースの結果など途中経過を把握できるレベル</li>
@@ -1889,7 +2020,9 @@
 </details>
 <h2 id="0370"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.37.0<a class="headerlink" href="#0370" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-01-26</code></p>
-<details class="info"><summary>リクエストの接続失敗最大数を指定できるようにしました</summary><ul>
+<details class="info">
+<summary>リクエストの接続失敗最大数を指定できるようにしました</summary>
+<ul>
 <li>対応前の接続失敗最大数は3</li>
 <li>引数の場合は <code>--max-retries</code> を指定します</li>
 <li>設定の詳細は <a href="../../getstarted/configuration">configuration</a> をご覧ください</li>
@@ -1903,20 +2036,26 @@
 </div>
 <h2 id="0362"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.36.2<a class="headerlink" href="#0362" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-01-17</code></p>
-<details class="bug"><summary>バイナリなどencodingの推測が不可能な場合に強制終了する不具合を修正しました</summary><ul>
+<details class="bug">
+<summary>バイナリなどencodingの推測が不可能な場合に強制終了する不具合を修正しました</summary>
+<ul>
 <li>encodingの予測すら不可能な場合はUTF-8でdecodeします</li>
 <li>decodeできない文字が出現した場合は文字化けとして扱います</li>
 <li>バイナリをTextとして扱うアドオンなどを使用していなければdecodeはされません</li>
 </ul>
 </details>
-<details class="hint"><summary>Jumeauxのバージョンを開始ログに追記しました</summary><ul>
+<details class="hint">
+<summary>Jumeauxのバージョンを開始ログに追記しました</summary>
+<ul>
 <li>実行時の設定が出力される直前に表示されます</li>
 <li>動作確認や不具合問い合わせ時にご利用ください</li>
 </ul>
 </details>
 <h2 id="0361"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.36.1<a class="headerlink" href="#0361" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-01-15</code></p>
-<details class="bug"><summary>特定のケースで不適切なencodingによるdecode/encodeされていた不具合を修正しました</summary><p>content-typeのcharsetが指定されていない場合にdefault-encodingを使用していましたが、以下の順で判断するよう変更しました。</p>
+<details class="bug">
+<summary>特定のケースで不適切なencodingによるdecode/encodeされていた不具合を修正しました</summary>
+<p>content-typeのcharsetが指定されていない場合にdefault-encodingを使用していましたが、以下の順で判断するよう変更しました。</p>
 <ol>
 <li>xmlなどbodyにエンコーディング情報が含まれる場合はそれを採用する</li>
 <li>1が存在しない場合はbodyの内容からエンコーディングを推測する</li>
@@ -1931,32 +2070,42 @@
 </details>
 <h2 id="0360"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.36.0<a class="headerlink" href="#0360" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2018-01-11</code></p>
-<details class="danger"><summary><code>jumeaux run</code>コマンドのrunを省略できなくなりました</summary><ul>
+<details class="danger">
+<summary><code>jumeaux run</code>コマンドのrunを省略できなくなりました</summary>
+<ul>
 <li>runなしで実行している場合はrunを付けるようにしてください</li>
 </ul>
 </details>
 <div class="admonition bug">
 <p class="admonition-title">jumeaux retryコマンドが実行できない不具合を修正しました</p>
 </div>
-<details class="hint"><summary>実行時の設定をログに出力するようにしました</summary><ul>
+<details class="hint">
+<summary>実行時の設定をログに出力するようにしました</summary>
+<ul>
 <li><code>config.yml</code>, <code>report.json</code>, コマンドライン引数の全てを考慮した値が出力されます</li>
 <li>動作確認や不具合問い合わせ時にご利用ください</li>
 </ul>
 </details>
 <h2 id="0350"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.35.0<a class="headerlink" href="#0350" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2017-12-26</code></p>
-<details class="danger"><summary>filterアドオンのconfig仕様に破壊的変更があります (<a href="../../addons/reqs2reqs#filter">reqs2reqs/filter</a>)</summary><ul>
+<details class="danger">
+<summary>filterアドオンのconfig仕様に破壊的変更があります (<a href="../../addons/reqs2reqs#filter">reqs2reqs/filter</a>)</summary>
+<ul>
 <li>新しい仕様を <a href="../../addons/reqs2reqs#filter">reqs2reqs/filter</a> でご確認の上、設定を移行してください</li>
 </ul>
 </details>
-<details class="hint"><summary>アドオンのドキュメントが完成しました</summary><ul>
+<details class="hint">
+<summary>アドオンのドキュメントが完成しました</summary>
+<ul>
 <li><a href="../../addons">addons</a> TODOのアドオンが無くなりました</li>
 <li>部分的にTODOの項目は今後対応していきます</li>
 </ul>
 </details>
 <h2 id="0341"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.34.1<a class="headerlink" href="#0341" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2017-12-23</code></p>
-<details class="bug"><summary>CLIの引数で指定した値が通知メッセージに反映されない不具合を修正しました (<a href="../../addons/reqs2reqs#empty_guard">reqs2reqs/empty_guard</a>)</summary><p>例: <code>notifies[].message</code>に<code>"{hoge} is End"</code>と設定し、jumeauxの実行引数に<code>--title TITLE</code>を指定した場合</p>
+<details class="bug">
+<summary>CLIの引数で指定した値が通知メッセージに反映されない不具合を修正しました (<a href="../../addons/reqs2reqs#empty_guard">reqs2reqs/empty_guard</a>)</summary>
+<p>例: <code>notifies[].message</code>に<code>"{hoge} is End"</code>と設定し、jumeauxの実行引数に<code>--title TITLE</code>を指定した場合</p>
 <ul>
 <li>0.34.1未満 =&gt; <code>None is End</code></li>
 <li>0.34.1     =&gt; <code>TITLE is End</code></li>
@@ -1964,7 +2113,9 @@
 </details>
 <h2 id="0340"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.34.0<a class="headerlink" href="#0340" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2017-12-22</code></p>
-<details class="info"><summary>empty_guardアドオンを追加しました (<a href="../../addons/reqs2reqs#empty_guard">reqs2reqs/empty_guard</a>)</summary><ul>
+<details class="info">
+<summary>empty_guardアドオンを追加しました (<a href="../../addons/reqs2reqs#empty_guard">reqs2reqs/empty_guard</a>)</summary>
+<ul>
 <li><code>reqs2reqs</code>のレイヤーでリクエストを確認し、0件の場合は処理を中断させることができます</li>
 <li>中断した場合は任意の方法で通知することができます (今はSlackのみ)</li>
 <li>詳細は <a href="../../addons/reqs2reqs#empty_guard">reqs2reqs/empty_guard</a> をご覧ください</li>
@@ -1973,14 +2124,18 @@
 </details>
 <h2 id="0330"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.33.0<a class="headerlink" href="#0330" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2017-12-20</code></p>
-<details class="danger"><summary>richplainアドオンの名称をblockアドオンに変更し、機能を追加しました (<a href="../../addons/res2dict#block">res2dict/block</a>)</summary><ul>
+<details class="danger">
+<summary>richplainアドオンの名称をblockアドオンに変更し、機能を追加しました (<a href="../../addons/res2dict#block">res2dict/block</a>)</summary>
+<ul>
 <li>空行区切りのテキストをブロックとして扱い、任意のパターンで変換することができます</li>
 <li>詳細は <a href="../../addons/res2dict#block">res2dict/block</a> をご覧ください</li>
 </ul>
 </details>
 <h2 id="0320"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.32.0<a class="headerlink" href="#0320" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2017-12-19</code></p>
-<details class="info"><summary>richplainアドオンを追加しました ([res2dict/richplain])</summary><p>Version 0.33.0で名称が変更されています</p>
+<details class="info">
+<summary>richplainアドオンを追加しました ([res2dict/richplain])</summary>
+<p>Version 0.33.0で名称が変更されています</p>
 <ul>
 <li>特殊な形式で記載されたテキストをdictに変換することができます</li>
 <li>詳細は <a href="../../addons/res2dict#block">res2dict/block</a> をご覧ください</li>
@@ -1988,11 +2143,15 @@
 </details>
 <h2 id="0311"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.31.1<a class="headerlink" href="#0311" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2017-12-19</code></p>
-<details class="hint"><summary>レスポンスヘッダにエンコーディング情報が無い場合、UTF8ではなく推測したエンコーディングでデコードするようにしました</summary><p>APIにリクエストした結果(body)をUnicodeへデコードする場合の話です</p>
+<details class="hint">
+<summary>レスポンスヘッダにエンコーディング情報が無い場合、UTF8ではなく推測したエンコーディングでデコードするようにしました</summary>
+<p>APIにリクエストした結果(body)をUnicodeへデコードする場合の話です</p>
 </details>
 <h2 id="0310"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.31.0<a class="headerlink" href="#0310" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2017-12-14</code></p>
-<details class="hint"><summary>リクエスト結果が返却された後の処理を高速化しました</summary><p>レスポンスサイズが大きく、結果がほぼSameの場合は10倍以上速くなるケースもあります</p>
+<details class="hint">
+<summary>リクエスト結果が返却された後の処理を高速化しました</summary>
+<p>レスポンスサイズが大きく、結果がほぼSameの場合は10倍以上速くなるケースもあります</p>
 </details>
 <h2 id="0301"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 0.30.1<a class="headerlink" href="#0301" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2017-12-06</code></p>
@@ -2015,7 +2174,7 @@
 <footer class="md-footer">
   
     <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+      <nav class="md-footer-nav__inner md-grid" aria-label="フッター">
         
           <a href="../v1/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
@@ -2077,15 +2236,15 @@
       
     </div>
     
-      <script src="../../../assets/javascripts/vendor.6a3d08fc.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.71201edf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
       
       <script>
         app = initialize({
           base: "../../..",
           features: [],
           search: Object.assign({
-            worker: "../../../assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../../../assets/javascripts/worker/search.9c0e82ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

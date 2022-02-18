@@ -9,13 +9,14 @@
         <meta name="description" content="Check difference between two responses of API.">
       
       
-        <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/reqs2reqs/">
-      
       
         <meta name="author" content="tadashi-aikawa">
       
+      
+        <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/reqs2reqs/">
+      
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.8">
     
     
       
@@ -23,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.bc7e593a.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.cb6bc1d0.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab28b872.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.39b8e14a.min.css">
         
       
     
@@ -34,7 +35,7 @@
     
       
         
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
@@ -60,6 +61,7 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
       
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -78,7 +80,7 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
+  <nav class="md-header-nav md-grid" aria-label="ヘッダー">
     <a href="https://tadashi-aikawa.github.io/jumeaux/" title="Jumeaux" class="md-header-nav__button md-logo" aria-label="Jumeaux">
       
   <img src="../../../img/logo.png" alt="logo">
@@ -88,18 +90,20 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             Jumeaux
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             
               reqs2reqs
             
           </span>
         </div>
-      
+      </div>
     </div>
     
       <label class="md-header-nav__button md-icon" for="__search">
@@ -110,12 +114,12 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+      <button type="reset" class="md-search__icon md-icon" aria-label="クリア" data-md-component="search-reset" tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
@@ -123,7 +127,7 @@
       <div class="md-search__scrollwrap" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            検索を初期化
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -158,12 +162,16 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="https://tadashi-aikawa.github.io/jumeaux/" title="Jumeaux" class="md-nav__button md-logo" aria-label="Jumeaux">
       
@@ -192,74 +200,82 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../../.." class="md-nav__link">
-      🏠Home
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        🏠Home
+      </a>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
-    
-    <label class="md-nav__link" for="nav-2">
-      👉Get Started
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="👉Get Started" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
         👉Get Started
+        <span class="md-nav__icon md-icon"></span>
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="👉Get Started" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          👉Get Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/quickstart/" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/configuration/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/quickstart/" class="md-nav__link">
-      Quickstart
-    </a>
-  </li>
-
-        
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/report/" class="md-nav__link">
+        Report
+      </a>
+    </li>
+  
+
           
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/configuration/" class="md-nav__link">
-      Configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/report/" class="md-nav__link">
-      Report
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
@@ -267,72 +283,75 @@
       
 
   
-
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+  
+  
     
-    <label class="md-nav__link" for="nav-3">
-      🌍Addons
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="🌍Addons" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      
+      <label class="md-nav__link" for="nav-3">
         🌍Addons
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../" class="md-nav__link">
-      Summary
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../log2reqs/" class="md-nav__link">
-      log2reqs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        reqs2reqs
         <span class="md-nav__icon md-icon"></span>
       </label>
+      <nav class="md-nav" aria-label="🌍Addons" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          🌍Addons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log2reqs/" class="md-nav__link">
+        log2reqs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
-    <a href="./" class="md-nav__link md-nav__link--active">
-      reqs2reqs
-    </a>
-    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
       
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          reqs2reqs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        reqs2reqs
+      </a>
+      
+        
 <nav class="md-nav md-nav--secondary" aria-label="目次">
   
   
@@ -893,281 +912,296 @@
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
 
-        
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../res2res/" class="md-nav__link">
+        res2res
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../res2dict/" class="md-nav__link">
+        res2dict
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../judgement/" class="md-nav__link">
+        judgement
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../res2res/" class="md-nav__link">
-      res2res
-    </a>
-  </li>
-
-        
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../store_criterion/" class="md-nav__link">
+        store_criterion
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dump/" class="md-nav__link">
+        dump
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../did_challenge/" class="md-nav__link">
+        did_challenge
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../res2dict/" class="md-nav__link">
-      res2dict
-    </a>
-  </li>
-
-        
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../final/" class="md-nav__link">
+        final
+      </a>
+    </li>
+  
+
           
-          
-
-
-  <li class="md-nav__item">
-    <a href="../judgement/" class="md-nav__link">
-      judgement
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../store_criterion/" class="md-nav__link">
-      store_criterion
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../dump/" class="md-nav__link">
-      dump
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../did_challenge/" class="md-nav__link">
-      did_challenge
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../final/" class="md-nav__link">
-      final
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
-    
-    <label class="md-nav__link" for="nav-4">
-      💽Models
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="💽Models" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
         💽Models
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/access-point/" class="md-nav__link">
-      AccessPoint
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/notifier/" class="md-nav__link">
-      Notifier
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/request/" class="md-nav__link">
-      Request
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/response/" class="md-nav__link">
-      Response
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/trial/" class="md-nav__link">
-      Trial
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../template/" class="md-nav__link">
-      📝Template
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
-    
-    <label class="md-nav__link" for="nav-6">
-      📦Releases
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="📦Releases" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
         <span class="md-nav__icon md-icon"></span>
-        📦Releases
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="💽Models" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          💽Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/access-point/" class="md-nav__link">
+        AccessPoint
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/notifier/" class="md-nav__link">
+        Notifier
+      </a>
+    </li>
+  
 
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/request/" class="md-nav__link">
+        Request
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="../../releases/" class="md-nav__link">
-      All
-    </a>
-  </li>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/response/" class="md-nav__link">
+        Response
+      </a>
+    </li>
+  
 
-        
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/trial/" class="md-nav__link">
+        Trial
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template/" class="md-nav__link">
+        📝Template
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      
+      <label class="md-nav__link" for="nav-6">
+        📦Releases
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="📦Releases" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          📦Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/" class="md-nav__link">
+        All
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v3/" class="md-nav__link">
+        v3.x.y
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../../releases/v3/" class="md-nav__link">
-      v3.x.y
-    </a>
-  </li>
-
-        
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v2/" class="md-nav__link">
+        v2.x.y
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v1/" class="md-nav__link">
+        v1.x.y
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v0/" class="md-nav__link">
+        v0.x.y
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../../releases/v2/" class="md-nav__link">
-      v2.x.y
-    </a>
-  </li>
-
-        
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../releases/v1/" class="md-nav__link">
-      v1.x.y
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../releases/v0/" class="md-nav__link">
-      v0.x.y
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
   </ul>
@@ -1177,7 +1211,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1783,10 +1818,10 @@
 </table>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="10">先頭の10リクエストを抽出する<a class="headerlink" href="#10" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">head</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">head</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
 </code></pre></div>
 <h2 id="filter"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/filter.py"><i class="fa fa-github"></i></a> filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h2>
 <p>条件に一致するリクエストのみを抽出します。</p>
@@ -1813,15 +1848,17 @@
 </tr>
 </tbody>
 </table>
-<details class="info"><summary>when</summary><p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
+<details class="info">
+<summary>when</summary>
+<p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
 プロパティは<a href="../../models/request">request</a>で定義されたものを使用できます。</p>
 </details>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="pathok-nameok">pathに<code>ok</code>が含まれ かつ nameに<code>OK</code>が含まれるリクエストのみ抽出する<a class="headerlink" href="#pathok-nameok" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">res2res</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">filter</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">when</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">(&#39;ok&#39; in path) and (&#39;OK&#39; in name)</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">res2res</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filter</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(&#39;ok&#39; in path) and (&#39;OK&#39; in name)</span><span class="w"></span>
 </code></pre></div>
 <h2 id="add"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/add.py"><i class="fa fa-github"></i></a> add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h2>
 <p>先頭または末尾にリクエストを追加します。</p>
@@ -1876,13 +1913,13 @@
 </table>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="restsamplewordhoge">末尾に<code>/rest/sample?word=hoge</code>というリクエストを追加する<a class="headerlink" href="#restsamplewordhoge" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">add</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">reqs</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/rest/sample</span>
-            <span class="nt">qs</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt">word</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">hoge</span><span class="p p-Indicator">]}</span>
-        <span class="nt">location</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tail</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">add</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/rest/sample</span><span class="w"></span>
+<span class="w">            </span><span class="nt">qs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">word</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">hoge</span><span class="p p-Indicator">]}</span><span class="w"></span>
+<span class="w">        </span><span class="nt">location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tail</span><span class="w"></span>
 </code></pre></div>
 <h2 id="replace"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/replace.py"><i class="fa fa-github"></i></a> replace<a class="headerlink" href="#replace" title="Permanent link">&para;</a></h2>
 <p>条件に一致するリクエストを置換します。</p>
@@ -1944,10 +1981,14 @@
 </tr>
 </tbody>
 </table>
-<details class="info"><summary>when</summary><p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
+<details class="info">
+<summary>when</summary>
+<p><a href="http://jinja.pocoo.org/docs/2.10/templates">jinja2の表現</a>を利用できます。<br />
 プロパティは<a href="../../models/request">request</a>で定義されたものを使用できます。</p>
 </details>
-<details class="info"><summary>queriesで使える$DATETIMEマクロについて</summary><p>値に<code>$DATETIME</code>マクロを使うと現在時刻からの相対時刻に任意のフォーマットで置換できます。</p>
+<details class="info">
+<summary>queriesで使える$DATETIMEマクロについて</summary>
+<p>値に<code>$DATETIME</code>マクロを使うと現在時刻からの相対時刻に任意のフォーマットで置換できます。</p>
 <ul>
 <li>フォーマットは<code>$DATETIME(フォーマット)(相対秒)</code></li>
 <li>現在時刻が2021年4月18日20時52分00秒のとき<ul>
@@ -1963,23 +2004,23 @@
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <h5 id="pathtarget-iddummay_id-timedummy_date">pathが<code>/target</code>と一致するリクエストのクエリを置換する (<code>id=dummay_id</code>, <code>time=dummy_date</code>)<a class="headerlink" href="#pathtarget-iddummay_id-timedummy_date" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">replace</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">items</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;path</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">/target&quot;</span>
-            <span class="nt">queries</span><span class="p">:</span>
-              <span class="nt">id</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;dummy_id&quot;</span><span class="p p-Indicator">]</span>
-              <span class="nt">time</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;dummy_date&quot;</span><span class="p p-Indicator">]</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">replace</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">/target&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">queries</span><span class="p">:</span><span class="w"></span>
+<span class="w">              </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;dummy_id&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">              </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;dummy_date&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
 </code></pre></div>
 <h5 id="querytime1y-m-dthms">queryに<code>time</code>が含まれるとき、現在時刻1時間後の<code>%Y-%m-%dT%H:%M:%S</code>フォーマットで上書きする<a class="headerlink" href="#querytime1y-m-dthms" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">replace</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">items</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">when</span><span class="p">:</span> <span class="s">&#39;time&#39;</span> <span class="l l-Scalar l-Scalar-Plain">in qs</span>
-            <span class="nt">queries</span><span class="p">:</span>
-              <span class="nt">time</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)&quot;</span><span class="p p-Indicator">]</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">replace</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;time&#39;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">in qs</span><span class="w"></span>
+<span class="w">            </span><span class="nt">queries</span><span class="p">:</span><span class="w"></span>
+<span class="w">              </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
 </code></pre></div>
 <h2 id="shuffle"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/shuffle.py"><i class="fa fa-github"></i></a> shuffle<a class="headerlink" href="#shuffle" title="Permanent link">&para;</a></h2>
 <p>リクエストの順序をシャッフルします。</p>
@@ -1988,8 +2029,8 @@
 <p>Config設定はありません。</p>
 <h4 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h4>
 <h5 id="_1">リクエストをシャッフルする<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">shuffle</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shuffle</span><span class="w"></span>
 </code></pre></div>
 <h2 id="repeat"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/repeat.py"><i class="fa fa-github"></i></a> repeat<a class="headerlink" href="#repeat" title="Permanent link">&para;</a></h2>
 <p>リクエスト全体を指定回数だけ複製します。</p>
@@ -2017,10 +2058,10 @@
 </table>
 <h4 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h4>
 <h5 id="10_1">リクエスト全体を10回複製する<a class="headerlink" href="#10_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">repeat</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">times</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">repeat</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">times</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
 </code></pre></div>
 <h2 id="empty_guard"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/empty_guard.py"><i class="fa fa-github"></i></a> empty_guard<a class="headerlink" href="#empty_guard" title="Permanent link">&para;</a></h2>
 <p>リクエストが空の場合に処理を中断します。</p>
@@ -2088,26 +2129,26 @@
 </div>
 <h4 id="examples_6">Examples<a class="headerlink" href="#examples_6" title="Permanent link">&para;</a></h4>
 <h5 id="_2">リクエストが空の場合に処理を中断する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">empty_guard</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">empty_guard</span><span class="w"></span>
 </code></pre></div>
 <h5 id="notifier-jumeaux">リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする<a class="headerlink" href="#notifier-jumeaux" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">empty_guard</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">notifies</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">notifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jumeaux</span>
-            <span class="nt">message</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">notify!&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">empty_guard</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">notifies</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">notifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jumeaux</span><span class="w"></span>
+<span class="w">            </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">notify!&quot;</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition hint">
 <p class="admonition-title"><code>notifier: jumeaux</code>について</p>
 <p>Jumeauxのconfigに以下のような設定が必要です。</p>
-<div class="highlight"><pre><span></span><code><span class="nt">notifiers</span><span class="p">:</span>
-  <span class="nt">jumeaux</span><span class="p">:</span>
-    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">slack</span>
-    <span class="nt">channel</span><span class="p">:</span> <span class="s">&quot;#jumeaux&quot;</span>
-    <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jumeaux</span>
-    <span class="nt">icon_emoji</span><span class="p">:</span> <span class="s">&quot;jumeaux&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">notifiers</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">jumeaux</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack</span><span class="w"></span>
+<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#jumeaux&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jumeaux</span><span class="w"></span>
+<span class="w">    </span><span class="nt">icon_emoji</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;jumeaux&quot;</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h2 id="rename"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/rename.py"><i class="fa fa-github"></i></a> rename<a class="headerlink" href="#rename" title="Permanent link">&para;</a></h2>
@@ -2172,12 +2213,12 @@
 </div>
 <h4 id="examples_7">Examples<a class="headerlink" href="#examples_7" title="Permanent link">&para;</a></h4>
 <h5 id="pathtargetrenamed">pathに<code>target</code>という文字列が含まれる場合に<code>renamed</code>へ名称を変更する<a class="headerlink" href="#pathtargetrenamed" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rename</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">conditions</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">renamed</span>
-            <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;&#39;target&#39;</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">path&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rename</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">conditions</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">renamed</span><span class="w"></span>
+<span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&#39;target&#39;</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">path&quot;</span><span class="w"></span>
 </code></pre></div>
 <h5 id="_3">複雑な条件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
 <ol>
@@ -2186,14 +2227,14 @@
   2-1. 例えば<code>id=4</code>で名称が<code>hoge</code>のとき、新しい名称は<code>4: hoge</code>となる</li>
 <li>1と2に該当しない場合は名称を変更しない</li>
 </ol>
-<div class="highlight"><pre><span></span><code>  <span class="nt">reqs2reqs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rename</span>
-      <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">conditions</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;GOOD&quot;</span>
-            <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;path|reg(&#39;[a-z]{3}&#39;)&quot;</span>
-          <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;{{</span><span class="nv"> </span><span class="s">qs.id.0</span><span class="nv"> </span><span class="s">}}:</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">}}&quot;</span>
-            <span class="nt">when</span><span class="p">:</span> <span class="s">&quot;qs.id|length</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">qs.id.0|int</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">2&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rename</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">conditions</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GOOD&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path|reg(&#39;[a-z]{3}&#39;)&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">qs.id.0</span><span class="nv"> </span><span class="s">}}:</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;qs.id|length</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">qs.id.0|int</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">2&quot;</span><span class="w"></span>
 </code></pre></div>
                 
               
@@ -2211,7 +2252,7 @@
 <footer class="md-footer">
   
     <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+      <nav class="md-footer-nav__inner md-grid" aria-label="フッター">
         
           <a href="../log2reqs/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
@@ -2287,15 +2328,15 @@
       
     </div>
     
-      <script src="../../../assets/javascripts/vendor.6a3d08fc.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.71201edf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
       
       <script>
         app = initialize({
           base: "../../..",
           features: [],
           search: Object.assign({
-            worker: "../../../assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../../../assets/javascripts/worker/search.9c0e82ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

@@ -9,13 +9,14 @@
         <meta name="description" content="Check difference between two responses of API.">
       
       
-        <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/releases/v2/">
-      
       
         <meta name="author" content="tadashi-aikawa">
       
+      
+        <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/releases/v2/">
+      
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.8">
     
     
       
@@ -23,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.bc7e593a.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.cb6bc1d0.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab28b872.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.39b8e14a.min.css">
         
       
     
@@ -34,7 +35,7 @@
     
       
         
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
@@ -60,6 +61,7 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
       
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -78,7 +80,7 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
+  <nav class="md-header-nav md-grid" aria-label="ヘッダー">
     <a href="https://tadashi-aikawa.github.io/jumeaux/" title="Jumeaux" class="md-header-nav__button md-logo" aria-label="Jumeaux">
       
   <img src="../../../img/logo.png" alt="logo">
@@ -88,18 +90,20 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             Jumeaux
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             
               v2.x.y
             
           </span>
         </div>
-      
+      </div>
     </div>
     
       <label class="md-header-nav__button md-icon" for="__search">
@@ -110,12 +114,12 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+      <button type="reset" class="md-search__icon md-icon" aria-label="クリア" data-md-component="search-reset" tabindex="-1">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
@@ -123,7 +127,7 @@
       <div class="md-search__scrollwrap" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            検索を初期化
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -158,12 +162,16 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="https://tadashi-aikawa.github.io/jumeaux/" title="Jumeaux" class="md-nav__button md-logo" aria-label="Jumeaux">
       
@@ -192,318 +200,324 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../../.." class="md-nav__link">
-      🏠Home
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        🏠Home
+      </a>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
-    
-    <label class="md-nav__link" for="nav-2">
-      👉Get Started
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="👉Get Started" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
         👉Get Started
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/quickstart/" class="md-nav__link">
-      Quickstart
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/configuration/" class="md-nav__link">
-      Configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../getstarted/report/" class="md-nav__link">
-      Report
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
-    
-    <label class="md-nav__link" for="nav-3">
-      🌍Addons
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="🌍Addons" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
         <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="👉Get Started" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          👉Get Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/quickstart/" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/configuration/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getstarted/report/" class="md-nav__link">
+        Report
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
         🌍Addons
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/" class="md-nav__link">
-      Summary
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/log2reqs/" class="md-nav__link">
-      log2reqs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/reqs2reqs/" class="md-nav__link">
-      reqs2reqs
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/res2res/" class="md-nav__link">
-      res2res
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/res2dict/" class="md-nav__link">
-      res2dict
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/judgement/" class="md-nav__link">
-      judgement
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/store_criterion/" class="md-nav__link">
-      store_criterion
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/dump/" class="md-nav__link">
-      dump
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/did_challenge/" class="md-nav__link">
-      did_challenge
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../addons/final/" class="md-nav__link">
-      final
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
-    
-    <label class="md-nav__link" for="nav-4">
-      💽Models
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="💽Models" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
         <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="🌍Addons" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          🌍Addons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/log2reqs/" class="md-nav__link">
+        log2reqs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/reqs2reqs/" class="md-nav__link">
+        reqs2reqs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/res2res/" class="md-nav__link">
+        res2res
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/res2dict/" class="md-nav__link">
+        res2dict
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/judgement/" class="md-nav__link">
+        judgement
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/store_criterion/" class="md-nav__link">
+        store_criterion
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/dump/" class="md-nav__link">
+        dump
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/did_challenge/" class="md-nav__link">
+        did_challenge
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../addons/final/" class="md-nav__link">
+        final
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
         💽Models
+        <span class="md-nav__icon md-icon"></span>
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="💽Models" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          💽Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/access-point/" class="md-nav__link">
+        AccessPoint
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/notifier/" class="md-nav__link">
+        Notifier
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../../models/access-point/" class="md-nav__link">
-      AccessPoint
-    </a>
-  </li>
-
-        
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/request/" class="md-nav__link">
+        Request
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/response/" class="md-nav__link">
+        Response
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/trial/" class="md-nav__link">
+        Trial
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="../../models/notifier/" class="md-nav__link">
-      Notifier
-    </a>
-  </li>
-
-        
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/request/" class="md-nav__link">
-      Request
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/response/" class="md-nav__link">
-      Response
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../models/trial/" class="md-nav__link">
-      Trial
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../template/" class="md-nav__link">
-      📝Template
-    </a>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
@@ -511,72 +525,90 @@
       
 
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../template/" class="md-nav__link">
+        📝Template
+      </a>
+    </li>
+  
 
+    
+      
+      
+      
 
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+  
+  
     
-    <label class="md-nav__link" for="nav-6">
-      📦Releases
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="📦Releases" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+      
+      <label class="md-nav__link" for="nav-6">
         📦Releases
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../" class="md-nav__link">
-      All
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../v3/" class="md-nav__link">
-      v3.x.y
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        v2.x.y
         <span class="md-nav__icon md-icon"></span>
       </label>
+      <nav class="md-nav" aria-label="📦Releases" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          📦Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        All
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v3/" class="md-nav__link">
+        v3.x.y
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
     
-    <a href="./" class="md-nav__link md-nav__link--active">
-      v2.x.y
-    </a>
-    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
       
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          v2.x.y
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        v2.x.y
+      </a>
+      
+        
 <nav class="md-nav md-nav--secondary" aria-label="目次">
   
   
@@ -662,37 +694,39 @@
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
 
-        
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v1/" class="md-nav__link">
+        v1.x.y
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../v0/" class="md-nav__link">
+        v0.x.y
+      </a>
+    </li>
+  
+
           
-
-
-  <li class="md-nav__item">
-    <a href="../v1/" class="md-nav__link">
-      v1.x.y
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../v0/" class="md-nav__link">
-      v0.x.y
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
   </ul>
@@ -702,7 +736,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -809,7 +844,9 @@
 <p>Version2.0～3.0までのリリースノートです。</p>
 <h2 id="280"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.8.0<a class="headerlink" href="#280" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2021-04-18</code></p>
-<details class="info"><summary><code>$DATETIME</code>マクロを追加しました</summary><ul>
+<details class="info">
+<summary><code>$DATETIME</code>マクロを追加しました</summary>
+<ul>
 <li>任意のフォーマットでqueryに現在時刻からの相対時間を指定できます</li>
 <li><a href="../../addons/reqs2reqs#replace">reqs2reqs/replace</a>の<code>queries</code>、<a href="../../models/access-point">AccessPoint</a>の<code>overwrite</code>で利用できます</li>
 <li>詳細は各ページの<code>queries</code>、<code>overwrite</code>に対する注釈をご覧下さい</li>
@@ -824,7 +861,9 @@
 <p class="admonition-title">jumeaux viewerで起動するサーバのデフォルトポート番号を5500に変更しました</p>
 <p>v2.6.0以前はデフォルト8000でしたが、<code>jumeaux server</code>のデフォルトポート8000とバッティングするため</p>
 </div>
-<details class="hint"><summary>Challengeの各フローにかかる時間をログへ出力できるようにしました</summary><ul>
+<details class="hint">
+<summary>Challengeの各フローにかかる時間をログへ出力できるようにしました</summary>
+<ul>
 <li>HTTPリクエストの結果取得後フローについて追加しました<ul>
 <li>HTTPリクエストにかかる時間はリクエスト結果ログを参照してください</li>
 </ul>
@@ -854,7 +893,9 @@
 [1 / 2] ⏰ Did challenge:   1.079ms
 </code></pre></div></p>
 </details>
-<details class="bug"><summary><a href="../../getstarted/quickstart/#gui">viewer</a>のサイズに関する不具合を修正しました</summary><ul>
+<details class="bug">
+<summary><a href="../../getstarted/quickstart/#gui">viewer</a>のサイズに関する不具合を修正しました</summary>
+<ul>
 <li>フキダシの横幅がウィンドウサイズの横幅を超えたときスクロールできない不具合を修正</li>
 <li>ウィンドウをリサイズしたとき、Diff Editorがリサイズされない不具合を修正</li>
 <li>フキダシや最終更新日時のサイズ/レイアウトを調整</li>
@@ -862,42 +903,56 @@
 </details>
 <h2 id="260"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.6.0<a class="headerlink" href="#260" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2020-11-24</code></p>
-<details class="info"><summary>Notifierに<code>slack@v2</code>を追加しました (<a href="../../models/notifier">notifier</a>)</summary><ul>
+<details class="info">
+<summary>Notifierに<code>slack@v2</code>を追加しました (<a href="../../models/notifier">notifier</a>)</summary>
+<ul>
 <li>新しいIncoming Webhook URLに対応しました</li>
 <li>Block KitのリッチなUI表現が可能になりました</li>
 <li>任意のスレッドに対して通知できるようになりました</li>
 <li>詳しくは<a href="../../models/notifier">notifier</a>をご覧ください</li>
 </ul>
 </details>
-<details class="info"><summary>Windowsのサポートを開始しました</summary><ul>
+<details class="info">
+<summary>Windowsのサポートを開始しました</summary>
+<ul>
 <li>マルチプロセス非対応である点を除けばすべての機能を使用できます</li>
 </ul>
 </details>
-<details class="hint"><summary>Jumeauxドキュメントの検索ロジックを変更しました</summary><ul>
+<details class="hint">
+<summary>Jumeauxドキュメントの検索ロジックを変更しました</summary>
+<ul>
 <li>ドキュメントビルダーのバージョンアップおよびindex作成方法を変更しています</li>
 <li>期待する検索結果が表示されない場合は、単語に分解してスペース区切りにしてみてください</li>
 </ul>
 </details>
-<details class="note"><summary>試験的にPython3.9をサポート開始しました</summary><ul>
+<details class="note">
+<summary>試験的にPython3.9をサポート開始しました</summary>
+<ul>
 <li>動作実績があまりないため正式サポートではありません</li>
 <li>不具合などありましたら報告いただけると助かります🙇‍♀</li>
 </ul>
 </details>
-<details class="note"><summary>[開発者向け]Windowsでのe2eテストをサポートしました</summary><ul>
+<details class="note">
+<summary>[開発者向け]Windowsでのe2eテストをサポートしました</summary>
+<ul>
 <li>batsで行っていたe2eテストをpytestでリプレイスしました</li>
 <li>それによりWindowsでもテストが可能になりました</li>
 </ul>
 </details>
 <h2 id="250"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.5.0<a class="headerlink" href="#250" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2020-09-01</code></p>
-<details class="info"><summary>POSTリクエストでrawが指定できるようになりました (<a href="../../addons/log2reqs#json">log2reqs/json</a>)(<a href="../../addons/log2reqs#yaml">log2reqs/yaml</a>)</summary><ul>
+<details class="info">
+<summary>POSTリクエストでrawが指定できるようになりました (<a href="../../addons/log2reqs#json">log2reqs/json</a>)(<a href="../../addons/log2reqs#yaml">log2reqs/yaml</a>)</summary>
+<ul>
 <li><code>raw</code>に文字列を指定することでcontent-typeを指定せずPOSTできます</li>
 <li>詳しくは各アドオンページの具体例をご覧下さい</li>
 </ul>
 </details>
 <h2 id="241"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.4.1<a class="headerlink" href="#241" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2020-06-01</code></p>
-<details class="info"><summary>Reportに<code>notifiers</code>を追加しました</summary><ul>
+<details class="info">
+<summary>Reportに<code>notifiers</code>を追加しました</summary>
+<ul>
 <li>実行時に指定した<code>notifiers</code>がそのままReportに追加されます</li>
 <li>この変更により『retry時にnotifiersが空になり<a href="../../addons/final#notify">final/notify</a>でエラーになる』問題が解消しました</li>
 <li>詳しくは<a href="../../getstarted/report">report</a>の仕様をご覧ください</li>
@@ -905,14 +960,18 @@
 </details>
 <h2 id="240"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.4.0<a class="headerlink" href="#240" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2020-05-28</code></p>
-<details class="info"><summary>通知の条件を設定できるようにしました (<a href="../../addons/final#notify">final/notify</a>)</summary><ul>
+<details class="info">
+<summary>通知の条件を設定できるようにしました (<a href="../../addons/final#notify">final/notify</a>)</summary>
+<ul>
 <li>Notifyに追加された<code>when</code>プロパティで通知条件を指定できます</li>
 <li>詳しくは各アドオンページのConfig/Definitionsをご覧下さい</li>
 </ul>
 </details>
 <h2 id="230"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.3.0<a class="headerlink" href="#230" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2020-05-21</code></p>
-<details class="note"><summary>開発に関する仕組みのリプレイス</summary><ul>
+<details class="note">
+<summary>開発に関する仕組みのリプレイス</summary>
+<ul>
 <li><a href="https://github.com/tadashi-aikawa/owcli">owcli</a>を使用して全体の設計を一新しました</li>
 <li>Pipenvの代わりに<a href="https://python-poetry.org/">Poetry</a>を使うようにしました</li>
 <li><a href="http://mypy-lang.org/">mypy</a>に対応しました</li>
@@ -920,14 +979,18 @@
 </details>
 <h2 id="220"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.2.0<a class="headerlink" href="#220" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-09-03</code></p>
-<details class="info"><summary>レスポンスがArrayのケースをサポートするようにしました</summary><ul>
+<details class="info">
+<summary>レスポンスがArrayのケースをサポートするようにしました</summary>
+<ul>
 <li>リクエストに対するレスポンスのrootがDictではなくArrayの場合でも動作するようにしました</li>
 <li>具体例は<a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/sample/template/root_array">root_arrayのtemplate</a>をご覧下さい</li>
 </ul>
 </details>
 <h2 id="210"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.1.0<a class="headerlink" href="#210" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-08-05</code></p>
-<details class="info"><summary>接続先ごとにリクエストヘッダを指定できるようにしました</summary><ul>
+<details class="info">
+<summary>接続先ごとにリクエストヘッダを指定できるようにしました</summary>
+<ul>
 <li><a href="../../models/access-point">AccessPoint</a>に<code>headers</code>を追加しました</li>
 <li><code>headers</code>に指定したリクエストヘッダがリクエスト時に追加されます</li>
 <li><a href="../../models/request">Request</a>で同じヘッダが指定された場合はそちらが優先されます</li>
@@ -938,7 +1001,9 @@
 </div>
 <h2 id="200"><img alt="📦" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4e6.png" title=":package:" /> 2.0.0<a class="headerlink" href="#200" title="Permanent link">&para;</a></h2>
 <p><i class="fa fa-calendar"></i> <code>2019-07-24</code></p>
-<details class="info"><summary>POSTに対応しました (<a href="../../addons/log2reqs#csv">log2reqs/csv</a>)(<a href="../../addons/log2reqs#json">log2reqs/json</a>)(<a href="../../addons/log2reqs#yaml">log2reqs/yaml</a>)</summary><ul>
+<details class="info">
+<summary>POSTに対応しました (<a href="../../addons/log2reqs#csv">log2reqs/csv</a>)(<a href="../../addons/log2reqs#json">log2reqs/json</a>)(<a href="../../addons/log2reqs#yaml">log2reqs/yaml</a>)</summary>
+<ul>
 <li><a href="../../addons/log2reqs#csv">log2reqs/csv</a>, <a href="../../addons/log2reqs#json">log2reqs/json</a>, <a href="../../addons/log2reqs#yaml">log2reqs/yaml</a>で<code>HttpMethod</code>にPOSTを指定できます</li>
 <li><a href="../../addons/log2reqs#json">log2reqs/json</a>, <a href="../../addons/log2reqs#yaml">log2reqs/yaml</a> は以下の<code>content-type</code>に対応しています<ul>
 <li><code>x-www-form-urlencoded</code> -&gt; <code>form</code>に指定</li>
@@ -956,7 +1021,9 @@
 <li>POST対応の影響です</li>
 </ul>
 </div>
-<details class="info"><summary>一部アドオンの条件式をjinja2フォーマットに対応しました (<a href="../../addons/reqs2reqs#filter">reqs2reqs/filter</a>)(<a href="../../addons/reqs2reqs#replace">reqs2reqs/replace</a>)(<a href="../../addons/res2res#json_sort">res2res/json_sort</a>)</summary><ul>
+<details class="info">
+<summary>一部アドオンの条件式をjinja2フォーマットに対応しました (<a href="../../addons/reqs2reqs#filter">reqs2reqs/filter</a>)(<a href="../../addons/reqs2reqs#replace">reqs2reqs/replace</a>)(<a href="../../addons/res2res#json_sort">res2res/json_sort</a>)</summary>
+<ul>
 <li><code>when</code>が使えるようになりました</li>
 <li>詳しくは各アドオンページのConfig/Definitionsをご覧下さい</li>
 <li>具体的な移行例として以下のコミット差分もご覧下さい<ul>
@@ -988,7 +1055,9 @@
 </li>
 </ul>
 </div>
-<details class="danger"><summary>configからdefault_encodingを削除しました (<a href="../../addons/res2res#json_sort">res2res/json_sort</a>)</summary><ul>
+<details class="danger">
+<summary>configからdefault_encodingを削除しました (<a href="../../addons/res2res#json_sort">res2res/json_sort</a>)</summary>
+<ul>
 <li>以前のバージョンアップ時に仕様書からは削除済みです</li>
 </ul>
 </details>
@@ -1008,7 +1077,7 @@
 <footer class="md-footer">
   
     <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+      <nav class="md-footer-nav__inner md-grid" aria-label="フッター">
         
           <a href="../v3/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
@@ -1084,15 +1153,15 @@
       
     </div>
     
-      <script src="../../../assets/javascripts/vendor.6a3d08fc.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.71201edf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
       
       <script>
         app = initialize({
           base: "../../..",
           features: [],
           search: Object.assign({
-            worker: "../../../assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../../../assets/javascripts/worker/search.9c0e82ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
