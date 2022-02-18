@@ -33,6 +33,7 @@ jobs:
         run: |
           sudo apt install -y libxml2-dev libxslt1-dev  # For install lxml
           python -m pip install --upgrade pip poetry
+          poetry update
           poetry install
 
       - run: make test
