@@ -60,9 +60,15 @@ def calc_distance_km(
     return R * c
 
 
+def equals_without_host(one: str, other: str) -> bool:
+    pattern = "https?://[^$/]+"
+    return re.sub(pattern, "", one) == re.sub(pattern, "", other)
+
+
 ENV = Environment(loader=BaseLoader())
 ENV.filters["reg"] = exact_match
 ENV.globals["calc_distance_km"] = calc_distance_km
+ENV.globals["equals_without_host"] = equals_without_host
 
 
 def when_filter(when: str, data: dict) -> bool:

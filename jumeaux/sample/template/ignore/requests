@@ -1,3 +1,4 @@
 Regard as `Same` in spite of `Different` actually,GET,/same-1.json,param1=hoge
 Regard as `Same` in spite of `Different` actually (with when),GET,/same-2.json,param1=hoge
 Only ignore `ignored_id`,GET,/diff-1.json,param1=hoge&param2=huga&param1=hoge2
+Ignore hosts,GET,/diff-2.json

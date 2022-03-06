@@ -1,0 +1,5 @@
+{
+    "equals": "https://example.com/path?q=1",
+    "equals_without_hosts": "https://example2.com/path?q=1",
+    "diff": "https://example.com/path?q=2"
+}

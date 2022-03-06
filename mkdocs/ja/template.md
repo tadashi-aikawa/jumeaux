@@ -96,7 +96,7 @@ JumeauxオリジナルのFilterをいくつか利用できます。
 Jumeauxオリジナルの関数をいくつか利用できます。
 
 
-### calc_distance_km(lat1, lon1, lat2, lon2)
+### calc_distance_km(lat1: float, lon1: float, lat2: float, lon2: float)
 
 座標(lat1, lon1)～座標(lat2, lon2)間の概算距離を計算します。
 
@@ -107,8 +107,22 @@ Jumeauxオリジナルの関数をいくつか利用できます。
 
 #### Examples
 
-`calc_distance_km(35.694253, 139.784099, 35.664131, 139.759302)`
+```python
+calc_distance_km(35.694253, 139.784099, 35.664131, 139.759302)
+```
 
+### equals_without_host(one: str, other: str)
+
+文字列oneとotherについて、ホスト部分を除き一致するかどうかを判定します。
+
+#### Examples
+
+```python
+equals_without_host("https://hoge.com/hoge", "https://fuga.com/hoge")
+// -> True
+equals_without_host("https://hoge.com/hoge", "https://hoge.com/fuga")
+// -> False
+```
 
 [trial]: ./models/trial
 

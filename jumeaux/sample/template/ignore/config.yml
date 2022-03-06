@@ -40,6 +40,12 @@ addons:
                   - path: root<'members'><\d+><'favorite'>.*
                 removed:
                   - path: root<'members'><\d+><'favorite'>.*
+          - title: "Ignore hosts"
+            conditions:
+              - when: 'req.path == "/diff-2.json"'
+                changed:
+                  - path: root<'.+'>
+                    when: equals_without_host(one, other)
 
   store_criterion:
     - name: free

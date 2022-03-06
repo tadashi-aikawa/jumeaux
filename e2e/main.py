@@ -256,7 +256,11 @@ class TestRun:
         report = load_latest_report()
 
         assert report.summary.status.same == 2
-        assert report.summary.status.different == 1
+        assert report.summary.status.different == 2
+        assert report.trials[3].diffs_by_cognition.get()["Ignore hosts"].changed == [
+            "root<'equals_without_hosts'>"
+        ]
+        assert report.trials[3].diffs_by_cognition.get()["unknown"].changed == ["root<'diff'>"]
 
     @pytest.mark.skipif(exec_all is False, reason="Need not exec all test")
     def test_force_json(self):
