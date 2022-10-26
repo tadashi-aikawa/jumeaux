@@ -12,7 +12,6 @@ from typing import Tuple, Optional, Any, List
 
 import requests
 from deepdiff import DeepDiff
-from fn import _
 from owlmixin import TList, TOption, TDict
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
@@ -473,19 +472,19 @@ def challenge(arg_dict: dict) -> dict:
                             | ddiff.get("values_changed", {}).keys()
                         )
                         .map(to_jumeaux_xpath)
-                        .order_by(_),
+                        .order_by(lambda x: x),
                         "added": TList(
                             ddiff.get("dictionary_item_added", {})
                             | ddiff.get("iterable_item_added", {}).keys()
                         )
                         .map(to_jumeaux_xpath)
-                        .order_by(_),
+                        .order_by(lambda x: x),
                         "removed": TList(
                             ddiff.get("dictionary_item_removed", {})
                             | ddiff.get("iterable_item_removed", {}).keys()
                         )
                         .map(to_jumeaux_xpath)
-                        .order_by(_),
+                        .order_by(lambda x: x),
                     }
                 )
             }
@@ -713,7 +712,7 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
                 "headers": config.other.headers,
                 "default_response_encoding": config.other.default_response_encoding,
             },
-            "status": trials.group_by(_.status.value).map_values(len).to_dict(),
+            "status": trials.group_by(lambda x: x.status.value).map_values(len).to_dict(),
             "tags": tags,
             "time": {
                 "start": start_time.isoformat(),

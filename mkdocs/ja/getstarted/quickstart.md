@@ -6,14 +6,14 @@ Quickstart
 
 以下の環境いずれかが必要です。
 
-* Python3.6以上
+* Python3.7以上
 * Docker
 
 
 :fa-download: Installation
 --------------------------
 
-### Python3.6以上
+### Python3.7以上
 
 ```
 $ pip install jumeaux

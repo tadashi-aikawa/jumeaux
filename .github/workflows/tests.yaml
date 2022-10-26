@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ["3.6", "3.7", "3.8", "3.9"]
+        python: ["3.7", "3.8", "3.9", "3.10"]
     name: Python ${{ matrix.python }}
 
     steps:
@@ -40,7 +40,7 @@ jobs:
         env:
           TZ: "Asia/Tokyo"
       - uses: codecov/codecov-action@v1
-        if: matrix.python == 3.9 && success()
+        if: matrix.python == 3.10 && success()
 
       - name: CLI tests
         run: make test-e2e
@@ -67,7 +67,7 @@ jobs:
         if: always()
         with:
           description: "✅ Jumeaux Tests passed!"
-          footer: "Python v3.6/3.7/3.8/3.9"
+          footer: "Python v3.7/3.8/3.9/3.10"
           severity: info
           avatarUrl: https://www.suruga-ya.jp/database/pics_light/game/871005085.jpg
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
