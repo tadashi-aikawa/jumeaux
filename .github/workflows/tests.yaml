@@ -31,7 +31,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt install -y libxml2-dev libxslt1-dev  # For install lxml
           python -m pip install --upgrade pip poetry
           rm poetry.lock
           poetry install
