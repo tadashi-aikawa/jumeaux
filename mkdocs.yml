@@ -15,49 +15,48 @@ edit_uri: edit/master/mkdocs/
 nav:
   - 🏠Home: index.md
   - 👉Get Started:
-    - Quickstart: ja/getstarted/quickstart.md
-    - Configuration: ja/getstarted/configuration.md
-    - Report: ja/getstarted/report.md
+      - Quickstart: ja/getstarted/quickstart.md
+      - Configuration: ja/getstarted/configuration.md
+      - Report: ja/getstarted/report.md
   - 🌍Addons:
-    - Summary: ja/addons/index.md
-    - log2reqs: ja/addons/log2reqs.md
-    - reqs2reqs: ja/addons/reqs2reqs.md
-    - res2res: ja/addons/res2res.md
-    - res2dict: ja/addons/res2dict.md
-    - judgement: ja/addons/judgement.md
-    - store_criterion: ja/addons/store_criterion.md
-    - dump: ja/addons/dump.md
-    - did_challenge: ja/addons/did_challenge.md
-    - final: ja/addons/final.md
+      - Summary: ja/addons/index.md
+      - log2reqs: ja/addons/log2reqs.md
+      - reqs2reqs: ja/addons/reqs2reqs.md
+      - res2res: ja/addons/res2res.md
+      - res2dict: ja/addons/res2dict.md
+      - judgement: ja/addons/judgement.md
+      - store_criterion: ja/addons/store_criterion.md
+      - dump: ja/addons/dump.md
+      - did_challenge: ja/addons/did_challenge.md
+      - final: ja/addons/final.md
   - 💽Models:
-    - AccessPoint: ja/models/access-point.md
-    - Notifier: ja/models/notifier.md
-    - Request: ja/models/request.md
-    - Response: ja/models/response.md
-    - Trial: ja/models/trial.md
+      - AccessPoint: ja/models/access-point.md
+      - Notifier: ja/models/notifier.md
+      - Request: ja/models/request.md
+      - Response: ja/models/response.md
+      - Trial: ja/models/trial.md
   - 📝Template: ja/template.md
   - 📦Releases:
-    - All: ja/releases/index.md
-    - v3.x.y: ja/releases/v3.md
-    - v2.x.y: ja/releases/v2.md
-    - v1.x.y: ja/releases/v1.md
-    - v0.x.y: ja/releases/v0.md
+      - All: ja/releases/index.md
+      - v4.x.y: ja/releases/v4.md
+      - v3.x.y: ja/releases/v3.md
+      - v2.x.y: ja/releases/v2.md
+      - v1.x.y: ja/releases/v1.md
+      - v0.x.y: ja/releases/v0.md
 
 theme:
   name: material
   language: "ja"
   feature:
     tabs: false
-  logo: 'img/logo.png'
-  favicon: 'img/favicon.ico'
-
+  logo: "img/logo.png"
+  favicon: "img/favicon.ico"
 
 plugins:
   - search:
       lang:
         - en
       prebuild_index: true
-
 
 extra:
   social:
@@ -67,34 +66,34 @@ extra:
       link: "https://twitter.com/Tadashi_MAMAN"
 
 markdown_extensions:
-    - meta
-    # fontawesomeのアイコン
-    - fontawesome_markdown
-    # 内部参照
-    - wikilinks
-    # 改行が2spaceじゃなくてもOK
-    - nl2br
-    # warningとか
-    - admonition
-    # 注釈
-    - footnotes
-    # コードのsyntax
-    - codehilite:
-        guess_lang: false
-    - toc:
-        permalink: True
-    # expandableにする
-    - pymdownx.details
-    # 絵文字対応
-    - pymdownx.emoji
-    # HTMLやemailをリンク化
-    - pymdownx.magiclink
-    # 別のmarkdownファイルを埋め込み可能
-    - pymdownx.snippets:
-        base_path: mkdocs
-    # indentされた中でのcode blockとか
-    - pymdownx.superfences
+  - meta
+  # fontawesomeのアイコン
+  - fontawesome_markdown
+  # 内部参照
+  - wikilinks
+  # 改行が2spaceじゃなくてもOK
+  - nl2br
+  # warningとか
+  - admonition
+  # 注釈
+  - footnotes
+  # コードのsyntax
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: True
+  # expandableにする
+  - pymdownx.details
+  # 絵文字対応
+  - pymdownx.emoji
+  # HTMLやemailをリンク化
+  - pymdownx.magiclink
+  # 別のmarkdownファイルを埋め込み可能
+  - pymdownx.snippets:
+      base_path: mkdocs
+  # indentされた中でのcode blockとか
+  - pymdownx.superfences
 
 extra_css:
-    - "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
-    - 'css/custom.css'
+  - "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
+  - "css/custom.css"
