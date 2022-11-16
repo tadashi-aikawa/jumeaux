@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/quickstart/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
     
     
       
@@ -139,7 +139,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/tadashi-aikawa/jumeaux/" title="リポジトリへ" class="md-source">
+<a href="https://github.com/tadashi-aikawa/jumeaux" title="リポジトリへ" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -183,7 +183,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/tadashi-aikawa/jumeaux/" title="リポジトリへ" class="md-source">
+<a href="https://github.com/tadashi-aikawa/jumeaux" title="リポジトリへ" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -289,8 +289,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#python36" class="md-nav__link">
-    Python3.6以上
+  <a href="#python37" class="md-nav__link">
+    Python3.7以上
   </a>
   
 </li>
@@ -692,6 +692,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../releases/v4/" class="md-nav__link">
+        v4.x.y
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../releases/v3/" class="md-nav__link">
         v3.x.y
       </a>
@@ -781,8 +793,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#python36" class="md-nav__link">
-    Python3.6以上
+  <a href="#python37" class="md-nav__link">
+    Python3.7以上
   </a>
   
 </li>
@@ -868,19 +880,17 @@
 <h2 id="requirements"><i class="fa fa-desktop"></i> Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <p>以下の環境いずれかが必要です。</p>
 <ul>
-<li>Python3.6以上</li>
+<li>Python3.7以上</li>
 <li>Docker</li>
 </ul>
 <h2 id="installation"><i class="fa fa-download"></i> Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<h3 id="python36">Python3.6以上<a class="headerlink" href="#python36" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>$ pip install jumeaux
-</code></pre></div>
+<h3 id="python37">Python3.7以上<a class="headerlink" href="#python37" title="Permanent link">&para;</a></h3>
+<p><code>$ pip install jumeaux</code></p>
 <p><code>jumeaux --version</code>でバージョンが表示されればOKです。</p>
 <h3 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>$ git clone https://github.com/tadashi-aikawa/jumeaux.git
+<p><code>$ git clone https://github.com/tadashi-aikawa/jumeaux.git
 $ cd jumeaux
-$ docker build -t tadashi-aikawa/jumeaux .
-</code></pre></div>
+$ docker build -t tadashi-aikawa/jumeaux .</code></p>
 <p><code>docker run -it tadashi-aikawa/jumeaux --version</code>でバージョンが表示されればOKです。</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -911,8 +921,7 @@ $ docker build -t tadashi-aikawa/jumeaux .
 </tbody>
 </table>
 <p>上記ファイルの作成に<code>jumeaux init</code>コマンドを使用できます。</p>
-<div class="highlight"><pre><span></span><code>$ jumeaux init simple
-</code></pre></div>
+<p><code>$ jumeaux init simple</code></p>
 <p><code>simple</code>は作成するファイルの種類です。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -925,8 +934,7 @@ $ docker build -t tadashi-aikawa/jumeaux .
 ローカル環境で動作確認をするため、<code>jumeaux server</code>コマンドを実行しましょう。</p>
 <h2 id="execute"><i class="fa fa-play-circle"></i> Execute<a class="headerlink" href="#execute" title="Permanent link">&para;</a></h2>
 <p><code>config.yml</code>と<code>requests</code>を指定して実行しましょう。</p>
-<div class="highlight"><pre><span></span><code>$ jumeaux run requests
-</code></pre></div>
+<p><code>$ jumeaux run requests</code></p>
 <ul>
 <li>デフォルトでは標準出力に何も出力されません <i class="fa fa-info-circle"></i></li>
 <li>標準エラー出力にはログまたはエラーが出力されます</li>
@@ -939,14 +947,13 @@ $ docker build -t tadashi-aikawa/jumeaux .
 <p class="admonition-title">Note</p>
 <p><code>--config</code>を指定しないと<code>config.yml</code>が設定されたことになります。<br />
 つまり、<code>jumeaux run requests</code>は以下のコマンドと等価です。</p>
-<div class="highlight"><pre><span></span><code>$ jumeaux run requests --config config.yml
-</code></pre></div>
+<p><code>$ jumeaux run requests --config config.yml</code></p>
 </div>
 <h2 id="check"><i class="fa fa-laptop"></i> Check<a class="headerlink" href="#check" title="Permanent link">&para;</a></h2>
 <p>結果は設定ファイルの<a href="../configuration/#outputsummary">response_dir</a>で指定したディレクトリ配下に作成されます。<br />
 配下には、実行ごとに生成されるユニークなハッシュに基づいたディレクトリが存在します。</p>
 <p>また最も新しい結果にはlatestのシンボリックリンクが貼られます。</p>
-<div class="highlight"><pre><span></span><code>responses/
+<p><code>responses/
 ├── latest -&gt; 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16  # 最新の結果へのシンボリックリンク
 └── 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
     ├── index.html       # Localサーバを立ち上げてアクセスすると結果をGUIで確認できる
@@ -958,8 +965,7 @@ $ docker build -t tadashi-aikawa/jumeaux .
     │   └── (2)2
     ├── other-props      # otherの結果をプロパティとして解析した結果を保存している. 結果がjsonの場合はほぼ同じ
     │   └── (2)2.json
-    └── report.json  # 結果のjson. index.htmlもこれを参照している
-</code></pre></div>
+    └── report.json  # 結果のjson. index.htmlもこれを参照している</code></p>
 <h3 id="gui">GUIで結果を確認する<a class="headerlink" href="#gui" title="Permanent link">&para;</a></h3>
 <p><code>jumeaux viewer</code>コマンドを実行している場合は以下いずれかのURLにアクセスすると、Viewerで結果を確認することができます。</p>
 <ul>
@@ -1077,7 +1083,7 @@ responsesに結果が1つ以上格納された状態で<code>jumeaux viewer</cod
     </div>
     
       <script src="../../../assets/javascripts/vendor.18f0862e.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
+      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
       
       <script>
         app = initialize({

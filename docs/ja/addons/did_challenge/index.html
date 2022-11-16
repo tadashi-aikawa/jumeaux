@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/did_challenge/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
     
     
       
@@ -139,7 +139,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/tadashi-aikawa/jumeaux/" title="リポジトリへ" class="md-source">
+<a href="https://github.com/tadashi-aikawa/jumeaux" title="リポジトリへ" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -183,7 +183,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/tadashi-aikawa/jumeaux/" title="リポジトリへ" class="md-source">
+<a href="https://github.com/tadashi-aikawa/jumeaux" title="リポジトリへ" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -757,6 +757,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../releases/v4/" class="md-nav__link">
+        v4.x.y
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../releases/v3/" class="md-nav__link">
         v3.x.y
       </a>
@@ -1034,19 +1046,19 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="0110">ランダムで0.1～1.0秒待機する<a class="headerlink" href="#0110" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">did_challenge</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sleep</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"></span>
-<span class="w">        </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  did_challenge:
+    - name: sleep
+      config:
+        min: 0.1
+        max: 1.0</code></p>
 <h5 id="05">0.5秒待機する<a class="headerlink" href="#05" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">did_challenge</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sleep</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w"></span>
-<span class="w">        </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  did_challenge:
+    - name: sleep
+      config:
+        min: 0.5
+        max: 0.5</code></p>
 <h2 id="tag"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/did_challenge/tag.py"><i class="fa fa-github"></i></a> tag<a class="headerlink" href="#tag" title="Permanent link">&para;</a></h2>
 <p>リクエスト結果ごとにタグを設定します。</p>
 <h3 id="config_1">Config<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
@@ -1143,28 +1155,28 @@
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="trialnamejsonjson">Trialのnameが<code>json</code>のとき、<code>json</code>というタグを付ける<a class="headerlink" href="#trialnamejsonjson" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">did_challenge</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tag</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">conditions</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span><span class="w"></span>
-<span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;trial.name</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&#39;json&#39;&quot;</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  did_challenge:
+    - name: tag
+      config:
+        conditions:
+          - tag: json
+            when: "trial.name == 'json'"</code></p>
 <h5 id="_1">それぞれのレスポンスタイプをタグとして付ける<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">did_challenge</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tag</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">conditions</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;tag:{{</span><span class="nv"> </span><span class="s">trial.one.type</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;tag:{{</span><span class="nv"> </span><span class="s">trial.other.type</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  did_challenge:
+    - name: tag
+      config:
+        conditions:
+          - tag: "tag:{{ trial.one.type }}"
+          - tag: "tag:{{ trial.other.type }}"</code></p>
 <h5 id="oneitems0type">oneのレスポンスプロパティ<code>items[0].type</code> の値をタグにつける<a class="headerlink" href="#oneitems0type" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">did_challenge</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tag</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">conditions</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">res_one_props.items[0].type</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  did_challenge:
+    - name: tag
+      config:
+        conditions:
+          - tag: "{{ res_one_props.items[0].type }}"</code></p>
                 
               
               
@@ -1258,7 +1270,7 @@
     </div>
     
       <script src="../../../assets/javascripts/vendor.18f0862e.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
+      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
       
       <script>
         app = initialize({

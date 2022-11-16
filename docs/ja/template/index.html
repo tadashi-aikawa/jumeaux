@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/template/">
       
       <link rel="shortcut icon" href="../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
     
     
       
@@ -139,7 +139,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/tadashi-aikawa/jumeaux/" title="リポジトリへ" class="md-source">
+<a href="https://github.com/tadashi-aikawa/jumeaux" title="リポジトリへ" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -183,7 +183,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/tadashi-aikawa/jumeaux/" title="リポジトリへ" class="md-source">
+<a href="https://github.com/tadashi-aikawa/jumeaux" title="リポジトリへ" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -721,6 +721,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../releases/v4/" class="md-nav__link">
+        v4.x.y
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../releases/v3/" class="md-nav__link">
         v3.x.y
       </a>
@@ -938,13 +950,10 @@
 </ul>
 <p>Typeが<a href="./models/trial">Trial</a>であるtrial変数を使った場合の一例です。</p>
 <p><code>OK</code></p>
-<div class="highlight"><pre><span></span><code>- when: &quot;trial.name == &#39;json&#39;&quot;
-</code></pre></div>
+<p><code>- when: "trial.name == 'json'"</code></p>
 <p><code>NG</code></p>
-<div class="highlight"><pre><span></span><code>- when: &quot;trial.name == json&quot;
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>- when: &quot;{{ trial.name == json }}&quot;
-</code></pre></div>
+<p><code>- when: "trial.name == json"</code></p>
+<p><code>- when: "{{ trial.name == json }}"</code></p>
 <h3 id="when_1">when系以外のプロパティ<a class="headerlink" href="#when_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>値の一部として記載</li>
@@ -957,17 +966,12 @@
 <p>Typeが<a href="./models/trial">Trial</a>であるtrial変数を使った場合の一例です。<br />
 プロパティ名はtagです。</p>
 <p><code>OK</code></p>
-<div class="highlight"><pre><span></span><code>- tag: &quot;TAG: {{ trial.name }}&quot;
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>- tag: &quot;{{ trial.name == &#39;hoge&#39; }}&quot;
-</code></pre></div>
+<p><code>- tag: "TAG: {{ trial.name }}"</code></p>
+<p><code>- tag: "{{ trial.name == 'hoge' }}"</code></p>
 <p><code>NG</code></p>
-<div class="highlight"><pre><span></span><code>- when: &quot;TAG: trial.name&quot;
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>- when: &quot;trial.name == hoge&quot;
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>- when: &quot;{{ trial.name == hoge }}&quot;
-</code></pre></div>
+<p><code>- when: "TAG: trial.name"</code></p>
+<p><code>- when: "trial.name == hoge"</code></p>
+<p><code>- when: "{{ trial.name == hoge }}"</code></p>
 <h2 id="filters"><i class="fa fa-filter"></i> Filters<a class="headerlink" href="#filters" title="Permanent link">&para;</a></h2>
 <p>JumeauxオリジナルのFilterをいくつか利用できます。</p>
 <h3 id="regregstr">reg(regstr)<a class="headerlink" href="#regregstr" title="Permanent link">&para;</a></h3>
@@ -986,16 +990,16 @@
 <li>返却値の単位はkm</li>
 </ul>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="n">calc_distance_km</span><span class="p">(</span><span class="mf">35.694253</span><span class="p">,</span> <span class="mf">139.784099</span><span class="p">,</span> <span class="mf">35.664131</span><span class="p">,</span> <span class="mf">139.759302</span><span class="p">)</span>
-</code></pre></div>
+<p><code>python
+calc_distance_km(35.694253, 139.784099, 35.664131, 139.759302)</code></p>
 <h3 id="equals_without_hostone-str-other-str">equals_without_host(one: str, other: str)<a class="headerlink" href="#equals_without_hostone-str-other-str" title="Permanent link">&para;</a></h3>
 <p>文字列oneとotherについて、ホスト部分を除き一致するかどうかを判定します。</p>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="n">equals_without_host</span><span class="p">(</span><span class="s2">&quot;https://hoge.com/hoge&quot;</span><span class="p">,</span> <span class="s2">&quot;https://fuga.com/hoge&quot;</span><span class="p">)</span>
-<span class="o">//</span> <span class="o">-&gt;</span> <span class="kc">True</span>
-<span class="n">equals_without_host</span><span class="p">(</span><span class="s2">&quot;https://hoge.com/hoge&quot;</span><span class="p">,</span> <span class="s2">&quot;https://hoge.com/fuga&quot;</span><span class="p">)</span>
-<span class="o">//</span> <span class="o">-&gt;</span> <span class="kc">False</span>
-</code></pre></div>
+<p><code>python
+equals_without_host("https://hoge.com/hoge", "https://fuga.com/hoge")
+// -&gt; True
+equals_without_host("https://hoge.com/hoge", "https://hoge.com/fuga")
+// -&gt; False</code></p>
                 
               
               
@@ -1089,7 +1093,7 @@
     </div>
     
       <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
-      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
       
       <script>
         app = initialize({

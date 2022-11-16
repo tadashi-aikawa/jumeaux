@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/reqs2reqs/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
     
     
       
@@ -139,7 +139,7 @@
     
       <div class="md-header-nav__source">
         
-<a href="https://github.com/tadashi-aikawa/jumeaux/" title="リポジトリへ" class="md-source">
+<a href="https://github.com/tadashi-aikawa/jumeaux" title="リポジトリへ" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -183,7 +183,7 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/tadashi-aikawa/jumeaux/" title="リポジトリへ" class="md-source">
+<a href="https://github.com/tadashi-aikawa/jumeaux" title="リポジトリへ" class="md-source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
@@ -1155,6 +1155,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../releases/v4/" class="md-nav__link">
+        v4.x.y
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../releases/v3/" class="md-nav__link">
         v3.x.y
       </a>
@@ -1818,11 +1830,11 @@
 </table>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="10">先頭の10リクエストを抽出する<a class="headerlink" href="#10" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">head</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  reqs2reqs:
+    - name: head
+      config:
+        size: 10</code></p>
 <h2 id="filter"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/filter.py"><i class="fa fa-github"></i></a> filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h2>
 <p>条件に一致するリクエストのみを抽出します。</p>
 <h3 id="config_1">Config<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
@@ -1855,11 +1867,11 @@
 </details>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="pathok-nameok">pathに<code>ok</code>が含まれ かつ nameに<code>OK</code>が含まれるリクエストのみ抽出する<a class="headerlink" href="#pathok-nameok" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">res2res</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filter</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(&#39;ok&#39; in path) and (&#39;OK&#39; in name)</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  res2res:
+    - name: filter
+      config:
+        when: ('ok' in path) and ('OK' in name)</code></p>
 <h2 id="add"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/add.py"><i class="fa fa-github"></i></a> add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h2>
 <p>先頭または末尾にリクエストを追加します。</p>
 <h3 id="config_2">Config<a class="headerlink" href="#config_2" title="Permanent link">&para;</a></h3>
@@ -1913,14 +1925,14 @@
 </table>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="restsamplewordhoge">末尾に<code>/rest/sample?word=hoge</code>というリクエストを追加する<a class="headerlink" href="#restsamplewordhoge" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">add</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/rest/sample</span><span class="w"></span>
-<span class="w">            </span><span class="nt">qs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">word</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">hoge</span><span class="p p-Indicator">]}</span><span class="w"></span>
-<span class="w">        </span><span class="nt">location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tail</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  reqs2reqs:
+    - name: add
+      config:
+        reqs:
+          - path: /rest/sample
+            qs: {word: [hoge]}
+        location: tail</code></p>
 <h2 id="replace"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/replace.py"><i class="fa fa-github"></i></a> replace<a class="headerlink" href="#replace" title="Permanent link">&para;</a></h2>
 <p>条件に一致するリクエストを置換します。</p>
 <h3 id="config_3">Config<a class="headerlink" href="#config_3" title="Permanent link">&para;</a></h3>
@@ -2004,24 +2016,24 @@
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <h5 id="pathtarget-iddummay_id-timedummy_date">pathが<code>/target</code>と一致するリクエストのクエリを置換する (<code>id=dummay_id</code>, <code>time=dummy_date</code>)<a class="headerlink" href="#pathtarget-iddummay_id-timedummy_date" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">replace</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">/target&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="nt">queries</span><span class="p">:</span><span class="w"></span>
-<span class="w">              </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;dummy_id&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="w">              </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;dummy_date&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  reqs2reqs:
+    - name: replace
+      config:
+        items:
+          - when: "path == /target"
+            queries:
+              id: ["dummy_id"]
+              time: ["dummy_date"]</code></p>
 <h5 id="querytime1y-m-dthms">queryに<code>time</code>が含まれるとき、現在時刻1時間後の<code>%Y-%m-%dT%H:%M:%S</code>フォーマットで上書きする<a class="headerlink" href="#querytime1y-m-dthms" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">replace</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">items</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;time&#39;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">in qs</span><span class="w"></span>
-<span class="w">            </span><span class="nt">queries</span><span class="p">:</span><span class="w"></span>
-<span class="w">              </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)&quot;</span><span class="p p-Indicator">]</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  reqs2reqs:
+    - name: replace
+      config:
+        items:
+          - when: 'time' in qs
+            queries:
+              time: ["$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)"]</code></p>
 <h2 id="shuffle"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/shuffle.py"><i class="fa fa-github"></i></a> shuffle<a class="headerlink" href="#shuffle" title="Permanent link">&para;</a></h2>
 <p>リクエストの順序をシャッフルします。</p>
 <h3 id="config_4">Config<a class="headerlink" href="#config_4" title="Permanent link">&para;</a></h3>
@@ -2029,9 +2041,9 @@
 <p>Config設定はありません。</p>
 <h4 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h4>
 <h5 id="_1">リクエストをシャッフルする<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shuffle</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  reqs2reqs:
+    - name: shuffle</code></p>
 <h2 id="repeat"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/repeat.py"><i class="fa fa-github"></i></a> repeat<a class="headerlink" href="#repeat" title="Permanent link">&para;</a></h2>
 <p>リクエスト全体を指定回数だけ複製します。</p>
 <h3 id="config_5">Config<a class="headerlink" href="#config_5" title="Permanent link">&para;</a></h3>
@@ -2058,11 +2070,11 @@
 </table>
 <h4 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h4>
 <h5 id="10_1">リクエスト全体を10回複製する<a class="headerlink" href="#10_1" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">repeat</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">times</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  reqs2reqs:
+    - name: repeat
+      config:
+        times: 10</code></p>
 <h2 id="empty_guard"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/empty_guard.py"><i class="fa fa-github"></i></a> empty_guard<a class="headerlink" href="#empty_guard" title="Permanent link">&para;</a></h2>
 <p>リクエストが空の場合に処理を中断します。</p>
 <h3 id="prerequirements">Prerequirements<a class="headerlink" href="#prerequirements" title="Permanent link">&para;</a></h3>
@@ -2129,27 +2141,27 @@
 </div>
 <h4 id="examples_6">Examples<a class="headerlink" href="#examples_6" title="Permanent link">&para;</a></h4>
 <h5 id="_2">リクエストが空の場合に処理を中断する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">empty_guard</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  reqs2reqs:
+    - name: empty_guard</code></p>
 <h5 id="notifier-jumeaux">リクエストが空の場合にnotifier jumeauxを使用して通知 および 処理の中断をする<a class="headerlink" href="#notifier-jumeaux" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">empty_guard</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">notifies</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">notifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jumeaux</span><span class="w"></span>
-<span class="w">            </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">notify!&quot;</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  reqs2reqs:
+    - name: empty_guard
+      config:
+        notifies:
+          - notifier: jumeaux
+            message: "{{ title }} notify!"</code></p>
 <div class="admonition hint">
 <p class="admonition-title"><code>notifier: jumeaux</code>について</p>
 <p>Jumeauxのconfigに以下のような設定が必要です。</p>
-<div class="highlight"><pre><span></span><code><span class="nt">notifiers</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">jumeaux</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack</span><span class="w"></span>
-<span class="w">    </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#jumeaux&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jumeaux</span><span class="w"></span>
-<span class="w">    </span><span class="nt">icon_emoji</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;jumeaux&quot;</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+notifiers:
+  jumeaux:
+    type: slack
+    channel: "#jumeaux"
+    username: jumeaux
+    icon_emoji: "jumeaux"</code></p>
 </div>
 <h2 id="rename"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/rename.py"><i class="fa fa-github"></i></a> rename<a class="headerlink" href="#rename" title="Permanent link">&para;</a></h2>
 <p>条件に一致するリクエストの名称を変更します。</p>
@@ -2213,13 +2225,13 @@
 </div>
 <h4 id="examples_7">Examples<a class="headerlink" href="#examples_7" title="Permanent link">&para;</a></h4>
 <h5 id="pathtargetrenamed">pathに<code>target</code>という文字列が含まれる場合に<code>renamed</code>へ名称を変更する<a class="headerlink" href="#pathtargetrenamed" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rename</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">conditions</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">renamed</span><span class="w"></span>
-<span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&#39;target&#39;</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">path&quot;</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  reqs2reqs:
+    - name: rename
+      config:
+        conditions:
+          - name: renamed
+            when: "'target' in path"</code></p>
 <h5 id="_3">複雑な条件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
 <ol>
 <li>pathが小文字のアルファベット3文字である場合は<code>GOOD</code>へ名称を変更する</li>
@@ -2227,15 +2239,15 @@
   2-1. 例えば<code>id=4</code>で名称が<code>hoge</code>のとき、新しい名称は<code>4: hoge</code>となる</li>
 <li>1と2に該当しない場合は名称を変更しない</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rename</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">conditions</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GOOD&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path|reg(&#39;[a-z]{3}&#39;)&quot;</span><span class="w"></span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">qs.id.0</span><span class="nv"> </span><span class="s">}}:</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;qs.id|length</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">qs.id.0|int</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">2&quot;</span><span class="w"></span>
-</code></pre></div>
+<p><code>yaml
+  reqs2reqs:
+    - name: rename
+      config:
+        conditions:
+          - name: "GOOD"
+            when: "path|reg('[a-z]{3}')"
+          - name: "{{ qs.id.0 }}: {{ name }}"
+            when: "qs.id|length == 1 and qs.id.0|int &gt; 2"</code></p>
                 
               
               
@@ -2329,7 +2341,7 @@
     </div>
     
       <script src="../../../assets/javascripts/vendor.18f0862e.min.js"></script>
-      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
+      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e]+", "search.placeholder": "\u691c\u7d22", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044"}</script>
       
       <script>
         app = initialize({
