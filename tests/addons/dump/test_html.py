@@ -10,6 +10,7 @@ from owlmixin.util import load_yaml
 from jumeaux.addons.dump.html import Executor
 from jumeaux.models import Response, DumpAddOnPayload
 
+
 NORMAL_BODY = """<!DOCTYPE html>
 <html>
 <head>
@@ -32,9 +33,10 @@ NORMAL_BODY = """<!DOCTYPE html>
     "  ", ""
 )
 
-CORRUPTION_BODY_BYTES: bytes = "<!DOCTYPE html><html><head><title>タイトル</title></head>".encode(
-    "utf8"
-) + "<body><div>コンテンツ</div></body></html>".encode("euc-jp")
+CORRUPTION_BODY_BYTES: bytes = (
+    "<!DOCTYPE html><html><head><title>タイトル</title></head>".encode("utf8")
+    + "<body><div>コンテンツ</div></body></html>".encode("euc-jp")
+)
 
 NORMAL_CASE = (
     "Normal",
@@ -124,7 +126,16 @@ class TestExec:
             CORRUPTION_CASE,
         ],
     )
-    def test(self, title, config_yml, response, body, encoding, expected_body, expected_encoding):
+    def test(
+        self,
+        title,
+        config_yml,
+        response,
+        body,
+        encoding,
+        expected_body,
+        expected_encoding,
+    ):
         payload: DumpAddOnPayload = DumpAddOnPayload.from_dict(
             {
                 "response": response,
