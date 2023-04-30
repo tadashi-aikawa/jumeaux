@@ -42,7 +42,7 @@ mkdocs = "^1.2.3"
 mkdocs-material = "^6.1.0"
 pymdown-extensions = "^8.0.1"
 fontawesome-markdown = "^0.2.6"
-black = "^21.5b1"
+black = {extras = ["d"], version = "^23.3.0"}
 
 [tool.poetry.plugins."console_scripts"]
 "jumeaux" = "jumeaux.main:main"

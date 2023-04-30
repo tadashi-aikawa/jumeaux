@@ -73,7 +73,8 @@ NORMAL_CASE = (
    </span>
   </div>
  </body>
-</html>""".encode(
+</html>
+""".encode(
         "euc-jp"
     ),
     "euc-jp",
@@ -109,7 +110,8 @@ CORRUPTION_CASE = (
    コンテンツ
   </div>
  </body>
-</html>""".encode(
+</html>
+""".encode(
         "euc-jp", errors="replace"
     ),
     "euc-jp",
