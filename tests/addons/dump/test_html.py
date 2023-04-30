@@ -2,14 +2,12 @@
 # -*- coding:utf-8 -*-
 
 import datetime
-import os
-import pytest
 
+import pytest
 from owlmixin.util import load_yaml
 
 from jumeaux.addons.dump.html import Executor
 from jumeaux.models import Response, DumpAddOnPayload
-
 
 NORMAL_BODY = """<!DOCTYPE html>
 <html>
