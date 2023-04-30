@@ -1,5 +1,4 @@
-Jumeaux
-=======
+# Jumeaux
 
 [![pypi](https://img.shields.io/pypi/v/jumeaux.svg)](https://pypi.org/project/jumeaux/)
 [![Versions](https://img.shields.io/pypi/pyversions/jumeaux.svg)](https://pypi.org/project/jumeaux/)
@@ -11,22 +10,19 @@ Jumeaux
 
 Check difference between two responses of API.
 
-📚 Documentation
-------------------
+## 📚 Documentation
 
 https://tadashi-aikawa.github.io/jumeaux/
 
 There is a 🎥demo, too.
 
 
-🦉 Install
-------------
+## 🦉 Install
 
 See [quick start in documentation](https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/quickstart/).
 
 
-💻 For developer
-------------------
+## 💻 For developer
 
 ### Requirements
 
@@ -73,8 +69,7 @@ $ make test-e2e
 
 
 
-📦 Release
-------------
+## 📦 Release
 
 ### 1. Update release note (mkdocs/ja/releases/*)
 
@@ -106,8 +101,7 @@ make release version=x.y.z
 ```
 
 
-🎫 Licence
-------------
+## 🎫 Licence
 
 ### MIT
 
