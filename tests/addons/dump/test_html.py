@@ -26,31 +26,36 @@ NORMAL_BODY = """<!DOCTYPE html>
   </div>
 </body>
 </html>
-""".replace('\n', '').replace('  ', '')
+""".replace(
+    "\n", ""
+).replace(
+    "  ", ""
+)
 
-CORRUPTION_BODY_BYTES: bytes = \
-    '<!DOCTYPE html><html><head><title>タイトル</title></head>'.encode('utf8') + \
-    '<body><div>コンテンツ</div></body></html>'.encode('euc-jp')
+CORRUPTION_BODY_BYTES: bytes = "<!DOCTYPE html><html><head><title>タイトル</title></head>".encode(
+    "utf8"
+) + "<body><div>コンテンツ</div></body></html>".encode("euc-jp")
 
-NORMAL_CASE = ("Normal",
-               """
+NORMAL_CASE = (
+    "Normal",
+    """
                force: False
                """,
-               Response.from_dict({
-                   "body": NORMAL_BODY.encode('euc-jp'),
-                   "type": "html",
-                   "encoding": 'euc-jp',
-                   "headers": {
-                       "content-type": "text/html; charset=euc-jp"
-                   },
-                   "url": "http://test",
-                   "status_code": 200,
-                   "elapsed": datetime.timedelta(seconds=1),
-                   "elapsed_sec": 1.0,
-               }),
-               NORMAL_BODY.encode('euc-jp'),
-               'euc-jp',
-               """<html>
+    Response.from_dict(
+        {
+            "body": NORMAL_BODY.encode("euc-jp"),
+            "type": "html",
+            "encoding": "euc-jp",
+            "headers": {"content-type": "text/html; charset=euc-jp"},
+            "url": "http://test",
+            "status_code": 200,
+            "elapsed": datetime.timedelta(seconds=1),
+            "elapsed_sec": 1.0,
+        }
+    ),
+    NORMAL_BODY.encode("euc-jp"),
+    "euc-jp",
+    """<html>
  <head>
   <title>
    タイトル
@@ -68,29 +73,32 @@ NORMAL_CASE = ("Normal",
    </span>
   </div>
  </body>
-</html>""".encode('euc-jp'),
-               'euc-jp'
-               )
+</html>""".encode(
+        "euc-jp"
+    ),
+    "euc-jp",
+)
 
-CORRUPTION_CASE = ("Corruption",
-                   """
+CORRUPTION_CASE = (
+    "Corruption",
+    """
                    force: False
                    """,
-                   Response.from_dict({
-                       "body": CORRUPTION_BODY_BYTES,
-                       "type": "html",
-                       "encoding": 'euc-jp',
-                       "headers": {
-                           "content-type": "text/html; charset=euc-jp"
-                       },
-                       "url": "http://test",
-                       "status_code": 200,
-                       "elapsed": datetime.timedelta(seconds=1),
-                       "elapsed_sec": 1.0
-                   }),
-                   CORRUPTION_BODY_BYTES,
-                   'euc-jp',
-                   """<html>
+    Response.from_dict(
+        {
+            "body": CORRUPTION_BODY_BYTES,
+            "type": "html",
+            "encoding": "euc-jp",
+            "headers": {"content-type": "text/html; charset=euc-jp"},
+            "url": "http://test",
+            "status_code": 200,
+            "elapsed": datetime.timedelta(seconds=1),
+            "elapsed_sec": 1.0,
+        }
+    ),
+    CORRUPTION_BODY_BYTES,
+    "euc-jp",
+    """<html>
  <head>
   <title>
    ��帥�ゃ�����
@@ -101,24 +109,29 @@ CORRUPTION_CASE = ("Corruption",
    コンテンツ
   </div>
  </body>
-</html>""".encode('euc-jp', errors='replace'),
-                   'euc-jp'
-                   )
+</html>""".encode(
+        "euc-jp", errors="replace"
+    ),
+    "euc-jp",
+)
 
 
 class TestExec:
     @pytest.mark.parametrize(
-        'title, config_yml, response, body, encoding, expected_body, expected_encoding', [
+        "title, config_yml, response, body, encoding, expected_body, expected_encoding",
+        [
             NORMAL_CASE,
             CORRUPTION_CASE,
-        ]
+        ],
     )
     def test(self, title, config_yml, response, body, encoding, expected_body, expected_encoding):
-        payload: DumpAddOnPayload = DumpAddOnPayload.from_dict({
-            'response': response,
-            'body': body,
-            'encoding': encoding,
-        })
+        payload: DumpAddOnPayload = DumpAddOnPayload.from_dict(
+            {
+                "response": response,
+                "body": body,
+                "encoding": encoding,
+            }
+        )
 
         actual: DumpAddOnPayload = Executor(load_yaml(config_yml)).exec(payload)
 
