@@ -40,7 +40,7 @@ pytest = "^7.2.0"
 pytest-cov = "^4.0.0"
 mkdocs = "^1.2.3"
 mkdocs-material = "^6.1.0"
-pymdown-extensions = "^8.0.1"
+pymdown-extensions = "^10.0"
 fontawesome-markdown = "^0.2.6"
 black = {extras = ["d"], version = "^23.3.0"}
 
