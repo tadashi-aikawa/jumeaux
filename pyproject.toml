@@ -34,6 +34,7 @@ owlmixin = "^5.5.0"
 owcli = "^0.7.0"
 deepdiff = "6.2.1" # sensitive
 markupsafe = "2.0.1" # sensitive
+urllib3 = "<2" # sensitive
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.2.0"
