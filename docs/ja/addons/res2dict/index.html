@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/res2dict/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -1376,15 +1376,15 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="json-dict">レスポンスがJSONの場合 dictに変換する<a class="headerlink" href="#json-dict" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  res2dict:
-    - name: json</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">res2dict</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span>
+</code></pre></div>
 <h5 id="_1">変換する必要がないケースでも強制的に変換する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  res2dict:
-    - name: json
-      config:
-        force: true</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">res2dict</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">force</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
 <h2 id="xml"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/xml.py"><i class="fa fa-github"></i></a> xml<a class="headerlink" href="#xml" title="Permanent link">&para;</a></h2>
 <p>XMLレスポンスをdictに変換します。</p>
 <h3 id="config_1">Config<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
@@ -1419,15 +1419,15 @@
 </div>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="xml-dict">レスポンスがXMLの場合 dictに変換する<a class="headerlink" href="#xml-dict" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  res2dict:
-    - name: xml</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">res2dict</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xml</span>
+</code></pre></div>
 <h5 id="_2">変換する必要がないケースでも強制的に変換する<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  res2dict:
-    - name: xml
-      config:
-        force: true</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">res2dict</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xml</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">force</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
 <h2 id="html"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/html.py"><i class="fa fa-github"></i></a> html<a class="headerlink" href="#html" title="Permanent link">&para;</a></h2>
 <p>HTMLレスポンスをdictに変換します。</p>
 <h3 id="config_2">Config<a class="headerlink" href="#config_2" title="Permanent link">&para;</a></h3>
@@ -1462,15 +1462,15 @@
 </div>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="html-dict">レスポンスがHTMLの場合 dictに変換する<a class="headerlink" href="#html-dict" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  res2dict:
-    - name: html</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">res2dict</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html</span>
+</code></pre></div>
 <h5 id="_3">変換する必要がないケースでも強制的に変換する<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  res2dict:
-    - name: html
-      config:
-        force: true</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">res2dict</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">force</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
 <h2 id="block"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/block.py"><i class="fa fa-github"></i></a> block<a class="headerlink" href="#block" title="Permanent link">&para;</a></h2>
 <p>ブロック単位(空行で区切られた)のレスポンスをdictに変換します。<br />
 ブロック単位の定義は下記セクションを参照してください。</p>
@@ -1527,12 +1527,12 @@
 </div>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <h5 id="ini">INIファイルっぽい形式に変換する<a class="headerlink" href="#ini" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  res2dict:
-    - name: block
-      config:
-        header_regexp: '\[(.+)\]'
-        record_regexp: '([^:]+): (.+)'</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">res2dict</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">block</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">header_regexp</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;\[(.+)\]&#39;</span>
+<span class="w">        </span><span class="nt">record_regexp</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;([^:]+):</span><span class="nv"> </span><span class="s">(.+)&#39;</span>
+</code></pre></div>
 <h3 id="_4">ブロック単位のルール<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li>1つ以上の空行で区切られた単位をブロック単位とする</li>
@@ -1540,52 +1540,56 @@
 </ul>
 <h4 id="1">パターン1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
 <h5 id="_5">変換対象<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h5>
-<p>```<br />
-[Mimizou]<br />
-ID: 001<br />
-Name: Mimizou Aikawa</p>
-<p>[Tatsuwo(GOD)]<br />
-ID: 002<br />
-Name: Tatsuwo Aikawa<br />
-```</p>
+<div class="highlight"><pre><span></span><code>[Mimizou]
+ID: 001
+Name: Mimizou Aikawa
+
+[Tatsuwo(GOD)]
+ID: 002
+Name: Tatsuwo Aikawa
+</code></pre></div>
 <h5 id="config_4">configの設定<a class="headerlink" href="#config_4" title="Permanent link">&para;</a></h5>
-<p><code>header_regexp: '\[(.+)\]'
-record_regexp: '([^:]+): (.+)'</code></p>
+<div class="highlight"><pre><span></span><code>header_regexp: &#39;\[(.+)\]&#39;
+record_regexp: &#39;([^:]+): (.+)&#39;
+</code></pre></div>
 <h5 id="_6">変換後<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h5>
-<p><code>{
-  "Mimizou": {
-    "ID": "001",
-    "Name": "Mimizou Aikawa"
+<div class="highlight"><pre><span></span><code>{
+  &quot;Mimizou&quot;: {
+    &quot;ID&quot;: &quot;001&quot;,
+    &quot;Name&quot;: &quot;Mimizou Aikawa&quot;
   },
-  "Tatsuwo(GOD)": {
-    "ID": "002",
-    "Name": "Tatsuwo Aikawa"
+  &quot;Tatsuwo(GOD)&quot;: {
+    &quot;ID&quot;: &quot;002&quot;,
+    &quot;Name&quot;: &quot;Tatsuwo Aikawa&quot;
   }
-}</code></p>
+}
+</code></pre></div>
 <h4 id="2">パターン2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
 <h5 id="_7">変換対象<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h5>
-<p>```<br />
-1)Mimizou<br />
-ID 001<br />
-Name Mimizou Aikawa</p>
-<p>12)Tatsuwo(GOD)<br />
-ID 002<br />
-Name Tatsuwo Aikawa<br />
-```</p>
+<div class="highlight"><pre><span></span><code>1)Mimizou
+ID 001
+Name Mimizou Aikawa
+
+12)Tatsuwo(GOD)
+ID 002
+Name Tatsuwo Aikawa
+</code></pre></div>
 <h5 id="config_5">configの設定<a class="headerlink" href="#config_5" title="Permanent link">&para;</a></h5>
-<p><code>header_regexp: '^\d+\)(.+)'
-record_regexp: '([^ ]+) (.+)'</code></p>
+<div class="highlight"><pre><span></span><code>header_regexp: &#39;^\d+\)(.+)&#39;
+record_regexp: &#39;([^ ]+) (.+)&#39;
+</code></pre></div>
 <h5 id="_8">変換後<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h5>
-<p><code>{
-  "Mimizou": {
-    "ID": "001",
-    "Name": "Mimizou Aikawa"
+<div class="highlight"><pre><span></span><code>{
+  &quot;Mimizou&quot;: {
+    &quot;ID&quot;: &quot;001&quot;,
+    &quot;Name&quot;: &quot;Mimizou Aikawa&quot;
   },
-  "Tatsuwo(GOD)": {
-    "ID": "002",
-    "Name": "Tatsuwo Aikawa"
+  &quot;Tatsuwo(GOD)&quot;: {
+    &quot;ID&quot;: &quot;002&quot;,
+    &quot;Name&quot;: &quot;Tatsuwo Aikawa&quot;
   }
-}</code></p>
+}
+</code></pre></div>
                 
               
               

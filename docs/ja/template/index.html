@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/template/">
       
       <link rel="shortcut icon" href="../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -950,10 +950,13 @@
 </ul>
 <p>Typeが<a href="./models/trial">Trial</a>であるtrial変数を使った場合の一例です。</p>
 <p><code>OK</code></p>
-<p><code>- when: "trial.name == 'json'"</code></p>
+<div class="highlight"><pre><span></span><code>- when: &quot;trial.name == &#39;json&#39;&quot;
+</code></pre></div>
 <p><code>NG</code></p>
-<p><code>- when: "trial.name == json"</code></p>
-<p><code>- when: "{{ trial.name == json }}"</code></p>
+<div class="highlight"><pre><span></span><code>- when: &quot;trial.name == json&quot;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- when: &quot;{{ trial.name == json }}&quot;
+</code></pre></div>
 <h3 id="when_1">when系以外のプロパティ<a class="headerlink" href="#when_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>値の一部として記載</li>
@@ -966,12 +969,17 @@
 <p>Typeが<a href="./models/trial">Trial</a>であるtrial変数を使った場合の一例です。<br />
 プロパティ名はtagです。</p>
 <p><code>OK</code></p>
-<p><code>- tag: "TAG: {{ trial.name }}"</code></p>
-<p><code>- tag: "{{ trial.name == 'hoge' }}"</code></p>
+<div class="highlight"><pre><span></span><code>- tag: &quot;TAG: {{ trial.name }}&quot;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- tag: &quot;{{ trial.name == &#39;hoge&#39; }}&quot;
+</code></pre></div>
 <p><code>NG</code></p>
-<p><code>- when: "TAG: trial.name"</code></p>
-<p><code>- when: "trial.name == hoge"</code></p>
-<p><code>- when: "{{ trial.name == hoge }}"</code></p>
+<div class="highlight"><pre><span></span><code>- when: &quot;TAG: trial.name&quot;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- when: &quot;trial.name == hoge&quot;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- when: &quot;{{ trial.name == hoge }}&quot;
+</code></pre></div>
 <h2 id="filters"><i class="fa fa-filter"></i> Filters<a class="headerlink" href="#filters" title="Permanent link">&para;</a></h2>
 <p>JumeauxオリジナルのFilterをいくつか利用できます。</p>
 <h3 id="regregstr">reg(regstr)<a class="headerlink" href="#regregstr" title="Permanent link">&para;</a></h3>
@@ -990,16 +998,16 @@
 <li>返却値の単位はkm</li>
 </ul>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
-<p><code>python
-calc_distance_km(35.694253, 139.784099, 35.664131, 139.759302)</code></p>
+<div class="highlight"><pre><span></span><code><span class="n">calc_distance_km</span><span class="p">(</span><span class="mf">35.694253</span><span class="p">,</span> <span class="mf">139.784099</span><span class="p">,</span> <span class="mf">35.664131</span><span class="p">,</span> <span class="mf">139.759302</span><span class="p">)</span>
+</code></pre></div>
 <h3 id="equals_without_hostone-str-other-str">equals_without_host(one: str, other: str)<a class="headerlink" href="#equals_without_hostone-str-other-str" title="Permanent link">&para;</a></h3>
 <p>文字列oneとotherについて、ホスト部分を除き一致するかどうかを判定します。</p>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
-<p><code>python
-equals_without_host("https://hoge.com/hoge", "https://fuga.com/hoge")
-// -&gt; True
-equals_without_host("https://hoge.com/hoge", "https://hoge.com/fuga")
-// -&gt; False</code></p>
+<div class="highlight"><pre><span></span><code><span class="n">equals_without_host</span><span class="p">(</span><span class="s2">&quot;https://hoge.com/hoge&quot;</span><span class="p">,</span> <span class="s2">&quot;https://fuga.com/hoge&quot;</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">-&gt;</span> <span class="kc">True</span>
+<span class="n">equals_without_host</span><span class="p">(</span><span class="s2">&quot;https://hoge.com/hoge&quot;</span><span class="p">,</span> <span class="s2">&quot;https://hoge.com/fuga&quot;</span><span class="p">)</span>
+<span class="o">//</span> <span class="o">-&gt;</span> <span class="kc">False</span>
+</code></pre></div>
                 
               
               

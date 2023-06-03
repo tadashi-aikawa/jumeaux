@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/store_criterion/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -907,13 +907,13 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="pathtestsame">pathが<code>/test</code>またはステータスがSameの結果は保存する<a class="headerlink" href="#pathtestsame" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  store_criterion:
-    - name: free
-      config:
-        when_any:
-          - req.path == '/test'
-          - status == 'same'</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">store_criterion</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">free</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">when_any</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">req.path == &#39;/test&#39;</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status == &#39;same&#39;</span>
+</code></pre></div>
                 
               
               

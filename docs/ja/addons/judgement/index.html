@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/judgement/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -1263,27 +1263,27 @@
 </div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="path-api1-itemsid">path <code>/api1</code> の <code>items[].id</code> は値が変更されていても無視する<a class="headerlink" href="#path-api1-itemsid" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  judgement:
-    - name: ignore
-      config:
-        ignores:
-          - title: API1のitems[].idの値は無視
-            conditions:
-              - when: 'req.path == "/api1"'
-                changed:
-                  - path: root&lt;'items'&gt;&lt;\d+&gt;&lt;'id'&gt;</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">judgement</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ignore</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ignores</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API1のitems[].idの値は無視</span>
+<span class="w">            </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;req.path</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;/api1&quot;&#39;</span>
+<span class="w">                </span><span class="nt">changed</span><span class="p">:</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root&lt;&#39;items&#39;&gt;&lt;\d+&gt;&lt;&#39;id&#39;&gt;</span>
+</code></pre></div>
 <h5 id="itemstype-all"><code>items[].type</code> が追加されていても、その値がallなら無視する<a class="headerlink" href="#itemstype-all" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  judgement:
-    - name: ignore
-      config:
-        ignores:
-          - title: items[].type
-            conditions:
-              - added:
-                  - path: root&lt;'items'&gt;&lt;\d+&gt;&lt;'type'&gt;
-                    when: 'other == "all"'</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">judgement</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ignore</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ignores</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">items[].type</span>
+<span class="w">            </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">added</span><span class="p">:</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root&lt;&#39;items&#39;&gt;&lt;\d+&gt;&lt;&#39;type&#39;&gt;</span>
+<span class="w">                    </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;other</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;all&quot;&#39;</span>
+</code></pre></div>
 <h5 id="_1">複雑な条件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
 <p>以下3つのケースを無視した上でステータスを判断する。</p>
 <ul>
@@ -1291,26 +1291,26 @@
 <li>nameに <code>check</code> を含む <code>debug</code> または <code>url</code> は削除されている場合</li>
 <li><code>name</code> がignoreまたはunknown に変更された場合</li>
 </ul>
-<p><code>yaml
-  judgement:
-    - name: ignore
-      config:
-        ignores:
-          - title: /apiから始まる場合に追加されたプロパティ.idは無視
-            conditions:
-              - when: 'req.path|reg("/api.*")'
-                added:
-                  - path: root&lt;'id'&gt;
-          - title: nameにcheckを含む場合は全階層のプロパティdebugとurlが削除されていても無視
-            conditions:
-              - when: 'req.name|reg(.*check.*)'
-                removed:
-                  - path: .*&lt;'(debug|url)'&gt;.*
-          - title: プロパティ.nameがignoreまたはunknownに変更された場合だけは無視
-            conditions:
-              - changed:
-                  - path: root&lt;'name'&gt;
-                    when: 'other in ["ignore", "unknown"]'</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">judgement</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ignore</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ignores</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/apiから始まる場合に追加されたプロパティ.idは無視</span>
+<span class="w">            </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;req.path|reg(&quot;/api.*&quot;)&#39;</span>
+<span class="w">                </span><span class="nt">added</span><span class="p">:</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root&lt;&#39;id&#39;&gt;</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nameにcheckを含む場合は全階層のプロパティdebugとurlが削除されていても無視</span>
+<span class="w">            </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;req.name|reg(.*check.*)&#39;</span>
+<span class="w">                </span><span class="nt">removed</span><span class="p">:</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.*&lt;&#39;(debug|url)&#39;&gt;.*</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">プロパティ.nameがignoreまたはunknownに変更された場合だけは無視</span>
+<span class="w">            </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">changed</span><span class="p">:</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root&lt;&#39;name&#39;&gt;</span>
+<span class="w">                    </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;other</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">[&quot;ignore&quot;,</span><span class="nv"> </span><span class="s">&quot;unknown&quot;]&#39;</span>
+</code></pre></div>
 <h2 id="same"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/same.py"><i class="fa fa-github"></i></a> same<a class="headerlink" href="#same" title="Permanent link">&para;</a></h2>
 <p>指定した条件のいずれかに一致する場合、ステータスをSameにします。</p>
 <h3 id="config_1">Config<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
@@ -1379,13 +1379,13 @@
 </details>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <h5 id="pathtest0test1same">リクエストのpathが<code>/test0</code>または<code>/test1</code>のときはSameとする<a class="headerlink" href="#pathtest0test1same" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  judgement:
-    - name: same
-      config:
-        when_any:
-          - req.path == '/test0'
-          - req.path == '/test1'</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">judgement</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">same</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">when_any</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">req.path == &#39;/test0&#39;</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">req.path == &#39;/test1&#39;</span>
+</code></pre></div>
                 
               
               

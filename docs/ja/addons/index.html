@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/">
       
       <link rel="shortcut icon" href="../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -994,26 +994,27 @@
 </table>
 <h2 id="configuration-examples">Configuration Examples<a class="headerlink" href="#configuration-examples" title="Permanent link">&para;</a></h2>
 <p>以下は設定の一例です。</p>
-<p>```yaml<br />
-addons:<br />
-  log2reqs:<br />
-    name: csv</p>
-<p>reqs2reqs:<br />
-    - name: shuffle<br />
-    - name: head<br />
-      config:<br />
-        size: 10</p>
-<p>final:<br />
-    - name: slack<br />
-      tags:<br />
-        - production<br />
-      config:<br />
-        conditions:<br />
-          - payload:<br />
-              message_format: Finish Jumeaux!!<br />
-              channel: "#jumeaux"<br />
-              icon_emoji: "<img alt="😇" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f607.png" title=":innocent:" />"<br />
-```</p>
+<div class="highlight"><pre><span></span><code><span class="nt">addons</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">csv</span>
+
+<span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shuffle</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">head</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+
+<span class="w">  </span><span class="nt">final</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack</span>
+<span class="w">      </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">payload</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">message_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Finish Jumeaux!!</span>
+<span class="w">              </span><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#jumeaux&quot;</span>
+<span class="w">              </span><span class="nt">icon_emoji</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:innocent:&quot;</span>
+</code></pre></div>
 <p>この設定は以下のように動作します。</p>
 <ol>
 <li>リクエストファイルをcsvと解釈してパースする</li>

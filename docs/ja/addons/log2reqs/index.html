@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/addons/log2reqs/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -1389,8 +1389,9 @@
 要件が単純な場合に適しています。</p>
 <h3 id="input-file-format">Input file format<a class="headerlink" href="#input-file-format" title="Permanent link">&para;</a></h3>
 <p>各行にリクエストURLのpathとqueryを記載します。</p>
-<p><code>/api/path
-/api/path2?key=hoge</code></p>
+<div class="highlight"><pre><span></span><code>/api/path
+/api/path2?key=hoge
+</code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <ul>
@@ -1443,24 +1444,24 @@
 </details>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <h5 id="_1">最もシンプルな例<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  log2reqs:
-    name: plain</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plain</span>
+</code></pre></div>
 <h5 id="euc-jp">入力ファイルのエンコーディングはEUC-JPで空のクエリも有効にする<a class="headerlink" href="#euc-jp" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  log2reqs:
-    name: plain
-    config:
-      encoding: euc-jp
-      keep_blank: true</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plain</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
+<span class="w">      </span><span class="nt">keep_blank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
 <h5 id="urlsjis-euc-jp">URLエンコーディングをsjis =&gt; euc-jpの順番で推測(判定)する<a class="headerlink" href="#urlsjis-euc-jp" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  log2reqs:
-    name: plain
-    config:
-      candidate_for_url_encodings:
-        - sjis
-        - euc-jp</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plain</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">candidate_for_url_encodings</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sjis</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
+</code></pre></div>
 <h2 id="csv"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/csv.py"><i class="fa fa-github"></i></a> csv<a class="headerlink" href="#csv" title="Permanent link">&para;</a></h2>
 <p>CSV入力形式に対応しています。<br />
 ほぼ全ての項目を指定することができます。</p>
@@ -1530,11 +1531,11 @@
 </table>
 </details>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
-<p><code>csv
-"title1","GET","/path1","a=1&amp;b=2","header1=1&amp;header2=2"
-"title2","GET","/path2","c=1"
-"title3","GET","/path3",,"header1=1&amp;header2=2"
-"title4","GET","/path4"</code></p>
+<div class="highlight"><pre><span></span><code>&quot;title1&quot;,&quot;GET&quot;,&quot;/path1&quot;,&quot;a=1&amp;b=2&quot;,&quot;header1=1&amp;header2=2&quot;
+&quot;title2&quot;,&quot;GET&quot;,&quot;/path2&quot;,&quot;c=1&quot;
+&quot;title3&quot;,&quot;GET&quot;,&quot;/path3&quot;,,&quot;header1=1&amp;header2=2&quot;
+&quot;title4&quot;,&quot;GET&quot;,&quot;/path4&quot;
+</code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p>後方のカラムは省略することができます</p>
@@ -1592,17 +1593,17 @@
 </details>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="_2">最もシンプルな例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  log2reqs:
-    name: csv</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">csv</span>
+</code></pre></div>
 <h5 id="tabcsveuc-jp">入力ファイルはtab区切りのcsvでエンコーディングはEUC-JP、空のクエリも有効にする<a class="headerlink" href="#tabcsveuc-jp" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  log2reqs:
-    name: csv
-    config:
-      encoding: euc-jp
-      keep_blank: true
-      dialect: excel-tab</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">csv</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
+<span class="w">      </span><span class="nt">keep_blank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">dialect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">excel-tab</span>
+</code></pre></div>
 <h2 id="json"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/json.py"><i class="fa fa-github"></i></a> json<a class="headerlink" href="#json" title="Permanent link">&para;</a></h2>
 <p>JSON入力形式に対応しています。<br />
 全ての項目を指定することができます。</p>
@@ -1610,42 +1611,42 @@
 <h4 id="definitions_3">Definitions<a class="headerlink" href="#definitions_3" title="Permanent link">&para;</a></h4>
 <p><a href="../../models/request">Request</a>で定義されたものをjson形式で指定できます。</p>
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
-<p><code>json
-[
-    {
-        "path": "/users"
-    },
-    {
-        "path": "/users",
-        "method": "GET",
-        "qs": {
-            "id": ["147"]
-        }
-    },
-    {
-        "path": "/users",
-        "method": "POST",
-        "form": {"ids":["100", "200"]},
-        "qs": {
-            "name": ["auto"],
-            "options": ["man", "japanese"]
-        }
-    },
-    {
-        "path": "/users",
-        "method": "POST",
-        "json": {"users": [{"id": "100", "name": "hyaku"}, {"id": "200", "name": "nihyaku"}]},
-        "headers": {
-            "auth-id": "xxxxxxxx",
-            "device": "ios"
-        }
-    },
-    {
-        "path": "/users",
-        "method": "POST",
-        "raw": "id=100&amp;name=hyaku"
-    }
-]</code></p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/users&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/users&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;qs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;147&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/users&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;form&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;ids&quot;</span><span class="p">:[</span><span class="s2">&quot;100&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">]},</span>
+<span class="w">        </span><span class="nt">&quot;qs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;man&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;japanese&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/users&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;json&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;users&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;100&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hyaku&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nihyaku&quot;</span><span class="p">}]},</span>
+<span class="w">        </span><span class="nt">&quot;headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;auth-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxxxxx&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ios&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/users&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;raw&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;id=100&amp;name=hyaku&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
 <h3 id="config_2">config<a class="headerlink" href="#config_2" title="Permanent link">&para;</a></h3>
 <h4 id="definitions_4">Definitions<a class="headerlink" href="#definitions_4" title="Permanent link">&para;</a></h4>
 <table>
@@ -1670,15 +1671,15 @@
 </table>
 <h4 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h4>
 <h5 id="_3">最もシンプルな例<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  log2reqs:
-    name: json</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span>
+</code></pre></div>
 <h5 id="euc-jp_1">入力ファイルのエンコーディングはEUC-JP<a class="headerlink" href="#euc-jp_1" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  log2reqs:
-    name: json
-    config:
-      encoding: euc-jp</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
+</code></pre></div>
 <h2 id="yaml"><a href="https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/log2reqs/yaml.py"><i class="fa fa-github"></i></a> yaml<a class="headerlink" href="#yaml" title="Permanent link">&para;</a></h2>
 <p>YAML入力形式に対応しています。<br />
 全ての項目を指定することができます。</p>
@@ -1686,34 +1687,34 @@
 <h4 id="definitions_5">Definitions<a class="headerlink" href="#definitions_5" title="Permanent link">&para;</a></h4>
 <p><a href="../../models/request">Request</a>で定義されたものをyaml形式で指定できます。</p>
 <h4 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h4>
-<p><code>yaml
-- path: "/users"
-- path: "/users"
-  method: GET
-  qs: 
-    id: 
-      - 147
-- path: "/users"
-  method: POST
-  form: 
-    ids: 
-      - 100
-      - 200
-  qs: 
-    name: 
-      - auto
-    options: 
-      - man
-      - japanese
-- path: "/users"
-  method: POST
-  json: {"users": [{"id": "100", "name": "hyaku"}, {"id": "200", "name": "nihyaku"}]}
-  headers: 
-    "auth-id": xxxxxxxx
-    device: ios
-- path: "/users"
-  method: POST
-  raw: "id=100&amp;name=hyaku"</code></p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users&quot;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users&quot;</span>
+<span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GET</span>
+<span class="w">  </span><span class="nt">qs</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">147</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users&quot;</span>
+<span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
+<span class="w">  </span><span class="nt">form</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">ids</span><span class="p">:</span><span class="w"> </span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class="w">  </span><span class="nt">qs</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span><span class="w"> </span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">man</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">japanese</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users&quot;</span>
+<span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
+<span class="w">  </span><span class="nt">json</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;users&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;id&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;100&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;hyaku&quot;</span><span class="p p-Indicator">},</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;id&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;200&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;nihyaku&quot;</span><span class="p p-Indicator">}]}</span>
+<span class="w">  </span><span class="nt">headers</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="s">&quot;auth-id&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xxxxxxxx</span>
+<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ios</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users&quot;</span>
+<span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
+<span class="w">  </span><span class="nt">raw</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;id=100&amp;name=hyaku&quot;</span>
+</code></pre></div>
 <h3 id="config_3">config<a class="headerlink" href="#config_3" title="Permanent link">&para;</a></h3>
 <h4 id="definitions_6">Definitions<a class="headerlink" href="#definitions_6" title="Permanent link">&para;</a></h4>
 <table>
@@ -1738,15 +1739,15 @@
 </table>
 <h4 id="examples_6">Examples<a class="headerlink" href="#examples_6" title="Permanent link">&para;</a></h4>
 <h5 id="_4">最もシンプルな例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  log2reqs:
-    name: yaml</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yaml</span>
+</code></pre></div>
 <h5 id="euc-jp_2">入力ファイルのエンコーディングはEUC-JP<a class="headerlink" href="#euc-jp_2" title="Permanent link">&para;</a></h5>
-<p><code>yaml
-  log2reqs:
-    name: yaml
-    config:
-      encoding: euc-jp</code></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yaml</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">encoding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">euc-jp</span>
+</code></pre></div>
                 
               
               

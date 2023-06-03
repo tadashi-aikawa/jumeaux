@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/quickstart/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -885,12 +885,14 @@
 </ul>
 <h2 id="installation"><i class="fa fa-download"></i> Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <h3 id="python37">Python3.7以上<a class="headerlink" href="#python37" title="Permanent link">&para;</a></h3>
-<p><code>$ pip install jumeaux</code></p>
+<div class="highlight"><pre><span></span><code>$ pip install jumeaux
+</code></pre></div>
 <p><code>jumeaux --version</code>でバージョンが表示されればOKです。</p>
 <h3 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
-<p><code>$ git clone https://github.com/tadashi-aikawa/jumeaux.git
+<div class="highlight"><pre><span></span><code>$ git clone https://github.com/tadashi-aikawa/jumeaux.git
 $ cd jumeaux
-$ docker build -t tadashi-aikawa/jumeaux .</code></p>
+$ docker build -t tadashi-aikawa/jumeaux .
+</code></pre></div>
 <p><code>docker run -it tadashi-aikawa/jumeaux --version</code>でバージョンが表示されればOKです。</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -921,7 +923,8 @@ $ docker build -t tadashi-aikawa/jumeaux .</code></p>
 </tbody>
 </table>
 <p>上記ファイルの作成に<code>jumeaux init</code>コマンドを使用できます。</p>
-<p><code>$ jumeaux init simple</code></p>
+<div class="highlight"><pre><span></span><code>$ jumeaux init simple
+</code></pre></div>
 <p><code>simple</code>は作成するファイルの種類です。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -934,7 +937,8 @@ $ docker build -t tadashi-aikawa/jumeaux .</code></p>
 ローカル環境で動作確認をするため、<code>jumeaux server</code>コマンドを実行しましょう。</p>
 <h2 id="execute"><i class="fa fa-play-circle"></i> Execute<a class="headerlink" href="#execute" title="Permanent link">&para;</a></h2>
 <p><code>config.yml</code>と<code>requests</code>を指定して実行しましょう。</p>
-<p><code>$ jumeaux run requests</code></p>
+<div class="highlight"><pre><span></span><code>$ jumeaux run requests
+</code></pre></div>
 <ul>
 <li>デフォルトでは標準出力に何も出力されません <i class="fa fa-info-circle"></i></li>
 <li>標準エラー出力にはログまたはエラーが出力されます</li>
@@ -947,13 +951,14 @@ $ docker build -t tadashi-aikawa/jumeaux .</code></p>
 <p class="admonition-title">Note</p>
 <p><code>--config</code>を指定しないと<code>config.yml</code>が設定されたことになります。<br />
 つまり、<code>jumeaux run requests</code>は以下のコマンドと等価です。</p>
-<p><code>$ jumeaux run requests --config config.yml</code></p>
+<div class="highlight"><pre><span></span><code>$ jumeaux run requests --config config.yml
+</code></pre></div>
 </div>
 <h2 id="check"><i class="fa fa-laptop"></i> Check<a class="headerlink" href="#check" title="Permanent link">&para;</a></h2>
 <p>結果は設定ファイルの<a href="../configuration/#outputsummary">response_dir</a>で指定したディレクトリ配下に作成されます。<br />
 配下には、実行ごとに生成されるユニークなハッシュに基づいたディレクトリが存在します。</p>
 <p>また最も新しい結果にはlatestのシンボリックリンクが貼られます。</p>
-<p><code>responses/
+<div class="highlight"><pre><span></span><code>responses/
 ├── latest -&gt; 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16  # 最新の結果へのシンボリックリンク
 └── 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
     ├── index.html       # Localサーバを立ち上げてアクセスすると結果をGUIで確認できる
@@ -965,7 +970,8 @@ $ docker build -t tadashi-aikawa/jumeaux .</code></p>
     │   └── (2)2
     ├── other-props      # otherの結果をプロパティとして解析した結果を保存している. 結果がjsonの場合はほぼ同じ
     │   └── (2)2.json
-    └── report.json  # 結果のjson. index.htmlもこれを参照している</code></p>
+    └── report.json  # 結果のjson. index.htmlもこれを参照している
+</code></pre></div>
 <h3 id="gui">GUIで結果を確認する<a class="headerlink" href="#gui" title="Permanent link">&para;</a></h3>
 <p><code>jumeaux viewer</code>コマンドを実行している場合は以下いずれかのURLにアクセスすると、Viewerで結果を確認することができます。</p>
 <ul>

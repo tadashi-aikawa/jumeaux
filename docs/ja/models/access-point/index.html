@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/models/access-point/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -1093,64 +1093,64 @@
 </details>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="production">Production環境のアクセス先情報<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-name: Production
-host: "http://jumeaux/production"</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Production</span>
+<span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://jumeaux/production&quot;</span>
+</code></pre></div>
 <h3 id="onetwo">パス中のoneをtwoに置換する<a class="headerlink" href="#onetwo" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-name: Path replace normal
-host: "http://jumeaux/production"
-path:
-  before: one
-  after: two</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Path replace normal</span>
+<span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://jumeaux/production&quot;</span>
+<span class="nt">path</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">before</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">one</span>
+<span class="w">  </span><span class="nt">after</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">two</span>
+</code></pre></div>
 <h3 id="_1">パス中の先頭に出現する連続した数字を末尾に移動する<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-name: Path replace moving
-host: "http://jumeaux/production"
-path:
-  before: "^(\\d+)(.+)"
-  after: "\\2\\1"</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Path replace moving</span>
+<span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://jumeaux/production&quot;</span>
+<span class="nt">path</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">before</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;^(\\d+)(.+)&quot;</span>
+<span class="w">  </span><span class="nt">after</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;\\2\\1&quot;</span>
+</code></pre></div>
 <h3 id="id123name">クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別する)<a class="headerlink" href="#id123name" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-name: Query Customization case sensitive
-host: "http://jumeaux/production"
-query:
-  overwrite:
-    id: ['123']
-  remove:
-    - name</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Query Customization case sensitive</span>
+<span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://jumeaux/production&quot;</span>
+<span class="nt">query</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;123&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">remove</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+</code></pre></div>
 <h3 id="id123name_1">クエリ、idを123に上書きしnameを削除する (キーの大文字小文字を区別しない)<a class="headerlink" href="#id123name_1" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-name: Query Customization case insensitive
-host: "http://jumeaux/production"
-query:
-  overwrite:
-    id/i: ['123']
-  remove:
-    - name/i</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Query Customization case insensitive</span>
+<span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://jumeaux/production&quot;</span>
+<span class="nt">query</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id/i</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;123&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">remove</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name/i</span>
+</code></pre></div>
 <h3 id="trialtime">各テスト(trial)実行時の日時をクエリのtimeに追加/置換する<a class="headerlink" href="#trialtime" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-name: Add or replace time
-host: "http://jumeaux/production"
-query:
-  overwrite:
-    time: ['$DATETIME(%Y-%m-%dT%H:%M:%S)(0)']</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Add or replace time</span>
+<span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://jumeaux/production&quot;</span>
+<span class="nt">query</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overwrite</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;$DATETIME(%Y-%m-%dT%H:%M:%S)(0)&#39;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
 <h3 id="proxy-hostproduction"><code>proxy-host</code>をプロキシとして経由するProduction環境のアクセス先情報<a class="headerlink" href="#proxy-hostproduction" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-name: Production
-host: "http://jumeaux/production"
-proxy: proxy-host</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Production</span>
+<span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://jumeaux/production&quot;</span>
+<span class="nt">proxy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">proxy-host</span>
+</code></pre></div>
 <h3 id="euc_jpproduction">レスポンスが不明な場合にeuc_jpと解釈させるProduction環境のアクセス先情報<a class="headerlink" href="#euc_jpproduction" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-name: Production
-host: "http://jumeaux/production"
-default_response_encoding: euc_jp</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Production</span>
+<span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://jumeaux/production&quot;</span>
+<span class="nt">default_response_encoding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">euc_jp</span>
+</code></pre></div>
 <h3 id="user-agentsuper-jumeaux">User-AgentをSuper-Jumeauxで上書きする<a class="headerlink" href="#user-agentsuper-jumeaux" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-name: Production
-host: "http://jumeaux/production"
-headers:
-  User-Agent: Super-Jumeaux</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Production</span>
+<span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://jumeaux/production&quot;</span>
+<span class="nt">headers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">User-Agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Super-Jumeaux</span>
+</code></pre></div>
                 
               
               

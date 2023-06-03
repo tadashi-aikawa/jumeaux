@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/models/notifier/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -1007,126 +1007,126 @@
 <p><code>use_blocks: true</code>のとき、通知メッセージに<a href="https://api.slack.com/block-kit">Block Kit</a>の<code>blocks[]</code>をjson文字列として指定すると<a href="https://api.slack.com/block-kit">Block Kit</a>のUI表現を使って通知できます。</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <h4 id="slackblodk-kitnotifier">SlackのBlodk Kit方式で通知するNotifier<a class="headerlink" href="#slackblodk-kitnotifier" title="Permanent link">&para;</a></h4>
-<p><code>yaml
-type: slack
-version: 2
-use_blocks: true</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">use_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
 <h3 id="block-kit">Block Kitを使ったメッセージの構築について<a class="headerlink" href="#block-kit" title="Permanent link">&para;</a></h3>
 <p><a href="https://api.slack.com/block-kit">Block Kit</a>の構築には<a href="https://app.slack.com/block-kit-builder">Block Kit Builder</a>が便利です。</p>
 <p><img alt="" src="../resources/dd951f62.jpeg" /></p>
 <p><a href="https://app.slack.com/block-kit-builder">Block Kit Builder</a>で作成したJSONの<code>blocks[]</code>を切り出し、notifierを使うアドオンのメッセージに指定しましょう。<br />
 <a href="../../addons/final#notify">final/notify</a>の場合は以下のように指定します。<br />
 YAMLのヒアドキュメント<code>&gt;-</code>を使うことでjsonをそのまま挿入できるのがポイントですね。</p>
-<p>```yaml<br />
-// 中略<br />
-notifiers:<br />
-  jumeaux:<br />
-    type: slack<br />
-    version: 2<br />
-    use_blocks: true</p>
-<p>addons:<br />
-  final:<br />
-    - name: notify<br />
-      config:<br />
-        notifies:<br />
-          - notifier: jumeaux<br />
-            message: &gt;-<br />
-              [<br />
-                  {<br />
-                      "type": "header",<br />
-                      "text": {<br />
-                          "type": "plain_text",<br />
-                          "text": "{{ title }}"<br />
-                      }<br />
-                  },<br />
-                  {<br />
-                      "type": "section",<br />
-                      "text": {<br />
-                          "type": "mrkdwn",<br />
-                          "text": "　🟢 <em>Same: {{ summary.status.same }}</em>\n<em>　🟣 Diff: {{ summary.status.different }}</em>\n<em>　🟠 Fail: {{ summary.status.failure }}</em>"<br />
-                      },<br />
-                      "accessory": {<br />
-                          "type": "image",<br />
-                          "image_url": "<a href="https://avatars1.githubusercontent.com/u/9500018?s=160&amp;v=4">https://avatars1.githubusercontent.com/u/9500018?s=160&amp;v=4</a>",<br />
-                          "alt_text": "alt text for image"<br />
-                      }<br />
-                  }<br />
-              ]<br />
-```</p>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">// 中略</span>
+<span class="l l-Scalar l-Scalar-Plain">notifiers</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="nt">jumeaux</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">use_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">addons</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">final</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notify</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">notifies</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">notifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jumeaux</span>
+<span class="w">            </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
+<span class="w">              </span><span class="no">[</span>
+<span class="w">                  </span><span class="no">{</span>
+<span class="w">                      </span><span class="no">&quot;type&quot;: &quot;header&quot;,</span>
+<span class="w">                      </span><span class="no">&quot;text&quot;: {</span>
+<span class="w">                          </span><span class="no">&quot;type&quot;: &quot;plain_text&quot;,</span>
+<span class="w">                          </span><span class="no">&quot;text&quot;: &quot;{{ title }}&quot;</span>
+<span class="w">                      </span><span class="no">}</span>
+<span class="w">                  </span><span class="no">},</span>
+<span class="w">                  </span><span class="no">{</span>
+<span class="w">                      </span><span class="no">&quot;type&quot;: &quot;section&quot;,</span>
+<span class="w">                      </span><span class="no">&quot;text&quot;: {</span>
+<span class="w">                          </span><span class="no">&quot;type&quot;: &quot;mrkdwn&quot;,</span>
+<span class="w">                          </span><span class="no">&quot;text&quot;: &quot;</span><span class="err">　</span><span class="no">🟢 *Same: {{ summary.status.same }}*\n*</span><span class="err">　</span><span class="no">🟣 Diff: {{ summary.status.different }}*\n*</span><span class="err">　</span><span class="no">🟠 Fail: {{ summary.status.failure }}*&quot;</span>
+<span class="w">                      </span><span class="no">},</span>
+<span class="w">                      </span><span class="no">&quot;accessory&quot;: {</span>
+<span class="w">                          </span><span class="no">&quot;type&quot;: &quot;image&quot;,</span>
+<span class="w">                          </span><span class="no">&quot;image_url&quot;: &quot;https://avatars1.githubusercontent.com/u/9500018?s=160&amp;v=4&quot;,</span>
+<span class="w">                          </span><span class="no">&quot;alt_text&quot;: &quot;alt text for image&quot;</span>
+<span class="w">                      </span><span class="no">}</span>
+<span class="w">                  </span><span class="no">}</span>
+<span class="w">              </span><span class="no">]</span>
+</code></pre></div>
 <p>通知は以下のようになります。</p>
 <p><img alt="" src="../resources/dda8d983.jpeg" /></p>
 <p>もう少し情報を充実させた例も紹介します。</p>
-<p>```yaml<br />
-// 中略<br />
-notifiers:<br />
-  jumeaux:<br />
-    type: slack<br />
-    version: 2<br />
-    use_blocks: true</p>
-<p>addons:<br />
-  final:<br />
-    - name: notify<br />
-      config:<br />
-        notifies:<br />
-          - notifier: jumeaux2<br />
-            message: &gt;-<br />
-              [<br />
-                {<br />
-                  "type": "header",<br />
-                  "text": {<br />
-                    "type": "plain_text",<br />
-                    "text": "{{ title }}"<br />
-                  }<br />
-                },<br />
-                {<br />
-                  "type": "section",<br />
-                  "text": {<br />
-                    "type": "mrkdwn",<br />
-                    "text": "　🟢 <em>Same: {{ summary.status.same }}</em>\n<em>　🟣 Diff: {{ summary.status.different }}</em>\n<em>　🟠 Fail: {{ summary.status.failure }}</em>"<br />
-                  },<br />
-                  "accessory": {<br />
-                    "type": "image",<br />
-                    "image_url": "<a href="https://avatars1.githubusercontent.com/u/9500018?s=160&amp;v=4">https://avatars1.githubusercontent.com/u/9500018?s=160&amp;v=4</a>",<br />
-                    "alt_text": "alt text for image"<br />
-                  }<br />
-                },<br />
-                {<br />
-                  "type": "divider"<br />
-                },<br />
-                {<br />
-                  "type": "context",<br />
-                  "elements": [<br />
-                    {<br />
-                      "type": "image",<br />
-                      "image_url": "<a href="https://tadashi-aikawa.github.io/jumeaux/img/logo-large.png">https://tadashi-aikawa.github.io/jumeaux/img/logo-large.png</a>",<br />
-                      "alt_text": "jumeaux"<br />
-                    },<br />
-                    {<br />
-                      "type": "mrkdwn",<br />
-                      "text": "v{{ version }}"<br />
-                    },<br />
-                    {<br />
-                      "type": "mrkdwn",<br />
-                      "text": "#️⃣ {{ key[:7] }}"<br />
-                    },<br />
-                    {% if summary.tags %}<br />
-                    {<br />
-                      "type": "mrkdwn",<br />
-                      "text": "🏷️️{% for x in summary.tags %} <code>{{ x }}</code>{% endfor %}"<br />
-                    },<br />
-                    {% endif %}<br />
-                    {<br />
-                      "type": "mrkdwn",<br />
-                      "text": "⏰ {{ summary.time.start[:19] | replace('T', ' ') }} ～ {{ summary.time.end[:19] | replace('T', ' ') }} ({{ summary.time.elapsed_sec }}秒)"<br />
-                    },<br />
-                    {<br />
-                      "type": "mrkdwn",<br />
-                      "text": "&lt;{{ summary.one.host }}|{{ summary.one.name }}&gt; 👈 🤖 👉 &lt;{{ summary.other.host }}|{{ summary.other.name }}&gt;"<br />
-                    }<br />
-                  ]<br />
-                }<br />
-              ]<br />
-```</p>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">// 中略</span>
+<span class="l l-Scalar l-Scalar-Plain">notifiers</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="nt">jumeaux</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">use_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">addons</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">final</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notify</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">notifies</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">notifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jumeaux2</span>
+<span class="w">            </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
+<span class="w">              </span><span class="no">[</span>
+<span class="w">                </span><span class="no">{</span>
+<span class="w">                  </span><span class="no">&quot;type&quot;: &quot;header&quot;,</span>
+<span class="w">                  </span><span class="no">&quot;text&quot;: {</span>
+<span class="w">                    </span><span class="no">&quot;type&quot;: &quot;plain_text&quot;,</span>
+<span class="w">                    </span><span class="no">&quot;text&quot;: &quot;{{ title }}&quot;</span>
+<span class="w">                  </span><span class="no">}</span>
+<span class="w">                </span><span class="no">},</span>
+<span class="w">                </span><span class="no">{</span>
+<span class="w">                  </span><span class="no">&quot;type&quot;: &quot;section&quot;,</span>
+<span class="w">                  </span><span class="no">&quot;text&quot;: {</span>
+<span class="w">                    </span><span class="no">&quot;type&quot;: &quot;mrkdwn&quot;,</span>
+<span class="w">                    </span><span class="no">&quot;text&quot;: &quot;</span><span class="err">　</span><span class="no">🟢 *Same: {{ summary.status.same }}*\n*</span><span class="err">　</span><span class="no">🟣 Diff: {{ summary.status.different }}*\n*</span><span class="err">　</span><span class="no">🟠 Fail: {{ summary.status.failure }}*&quot;</span>
+<span class="w">                  </span><span class="no">},</span>
+<span class="w">                  </span><span class="no">&quot;accessory&quot;: {</span>
+<span class="w">                    </span><span class="no">&quot;type&quot;: &quot;image&quot;,</span>
+<span class="w">                    </span><span class="no">&quot;image_url&quot;: &quot;https://avatars1.githubusercontent.com/u/9500018?s=160&amp;v=4&quot;,</span>
+<span class="w">                    </span><span class="no">&quot;alt_text&quot;: &quot;alt text for image&quot;</span>
+<span class="w">                  </span><span class="no">}</span>
+<span class="w">                </span><span class="no">},</span>
+<span class="w">                </span><span class="no">{</span>
+<span class="w">                  </span><span class="no">&quot;type&quot;: &quot;divider&quot;</span>
+<span class="w">                </span><span class="no">},</span>
+<span class="w">                </span><span class="no">{</span>
+<span class="w">                  </span><span class="no">&quot;type&quot;: &quot;context&quot;,</span>
+<span class="w">                  </span><span class="no">&quot;elements&quot;: [</span>
+<span class="w">                    </span><span class="no">{</span>
+<span class="w">                      </span><span class="no">&quot;type&quot;: &quot;image&quot;,</span>
+<span class="w">                      </span><span class="no">&quot;image_url&quot;: &quot;https://tadashi-aikawa.github.io/jumeaux/img/logo-large.png&quot;,</span>
+<span class="w">                      </span><span class="no">&quot;alt_text&quot;: &quot;jumeaux&quot;</span>
+<span class="w">                    </span><span class="no">},</span>
+<span class="w">                    </span><span class="no">{</span>
+<span class="w">                      </span><span class="no">&quot;type&quot;: &quot;mrkdwn&quot;,</span>
+<span class="w">                      </span><span class="no">&quot;text&quot;: &quot;v{{ version }}&quot;</span>
+<span class="w">                    </span><span class="no">},</span>
+<span class="w">                    </span><span class="no">{</span>
+<span class="w">                      </span><span class="no">&quot;type&quot;: &quot;mrkdwn&quot;,</span>
+<span class="w">                      </span><span class="no">&quot;text&quot;: &quot;#️⃣ {{ key[:7] }}&quot;</span>
+<span class="w">                    </span><span class="no">},</span>
+<span class="w">                    </span><span class="no">{% if summary.tags %}</span>
+<span class="w">                    </span><span class="no">{</span>
+<span class="w">                      </span><span class="no">&quot;type&quot;: &quot;mrkdwn&quot;,</span>
+<span class="w">                      </span><span class="no">&quot;text&quot;: &quot;🏷️️{% for x in summary.tags %} `{{ x }}`{% endfor %}&quot;</span>
+<span class="w">                    </span><span class="no">},</span>
+<span class="w">                    </span><span class="no">{% endif %}</span>
+<span class="w">                    </span><span class="no">{</span>
+<span class="w">                      </span><span class="no">&quot;type&quot;: &quot;mrkdwn&quot;,</span>
+<span class="w">                      </span><span class="no">&quot;text&quot;: &quot;⏰ {{ summary.time.start[:19] | replace(&#39;T&#39;, &#39; &#39;) }} ～ {{ summary.time.end[:19] | replace(&#39;T&#39;, &#39; &#39;) }} ({{ summary.time.elapsed_sec }}秒)&quot;</span>
+<span class="w">                    </span><span class="no">},</span>
+<span class="w">                    </span><span class="no">{</span>
+<span class="w">                      </span><span class="no">&quot;type&quot;: &quot;mrkdwn&quot;,</span>
+<span class="w">                      </span><span class="no">&quot;text&quot;: &quot;&lt;{{ summary.one.host }}|{{ summary.one.name }}&gt; 👈 🤖 👉 &lt;{{ summary.other.host }}|{{ summary.other.name }}&gt;&quot;</span>
+<span class="w">                    </span><span class="no">}</span>
+<span class="w">                  </span><span class="no">]</span>
+<span class="w">                </span><span class="no">}</span>
+<span class="w">              </span><span class="no">]</span>
+</code></pre></div>
 <p>このようになります。</p>
 <p><img alt="" src="../resources/d658b0a0.jpeg" /></p>
 <h2 id="slackv1"><i class="fa fa-slack"></i> slack@v1<a class="headerlink" href="#slackv1" title="Permanent link">&para;</a></h2>
@@ -1198,10 +1198,10 @@ version=2を使ってください。</p>
 </table>
 <h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
 <h4 id="slacktimes_testnotifier">Slackの<code>#times_test</code>チャンネルに通知するNotifier<a class="headerlink" href="#slacktimes_testnotifier" title="Permanent link">&para;</a></h4>
-<p><code>yaml
-type: slack
-channel: "#times_test"
-icon_emoji: "innocent"</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack</span>
+<span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#times_test&quot;</span>
+<span class="nt">icon_emoji</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;innocent&quot;</span>
+</code></pre></div>
                 
               
               

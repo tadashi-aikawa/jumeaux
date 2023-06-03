@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/models/request/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -930,30 +930,30 @@
 </details>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="sampleonewordhogesize10-hogehoge"><code>/sample/one?word=hoge&amp;size=10</code> 相当の <code>hogehoge</code> という名前のリクエスト<a class="headerlink" href="#sampleonewordhogesize10-hogehoge" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-path: /sample/one
-name: hogehoge
-qs:
-  word: [hoge]
-  size: ["10"]</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/sample/one</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hogehoge</span>
+<span class="nt">qs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">word</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">hoge</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;10&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
 <h3 id="sampletwo-x-header1-y-header2"><code>/sample/two</code> 相当で リクエストヘッダが <code>x-header="1", y-header="2"</code> である名も無きリクエスト<a class="headerlink" href="#sampletwo-x-header1-y-header2" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-path: /sample/two
-headers:
-  x-header: "1"
-  y-header: "2"</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/sample/two</span>
+<span class="nt">headers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">x-header</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">  </span><span class="nt">y-header</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2&quot;</span>
+</code></pre></div>
 <h3 id="post-content-type-x-www-form-urlencoded-p111p222"><code>/post</code> に content-type が <code>x-www-form-urlencoded</code> で <code>p1=11&amp;p2=22</code> のクエリをリクエスト<a class="headerlink" href="#post-content-type-x-www-form-urlencoded-p111p222" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-path: /post
-method: POST
-form:
-  p1: [11]
-  p2: [22]</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/post</span>
+<span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
+<span class="nt">form</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">p1</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">11</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">p2</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">22</span><span class="p p-Indicator">]</span>
+</code></pre></div>
 <h3 id="post-raw-string-p111p222"><code>/post</code> に raw string で <code>p1=11&amp;p2=22</code> のクエリをリクエスト<a class="headerlink" href="#post-raw-string-p111p222" title="Permanent link">&para;</a></h3>
-<p><code>yaml
-path: /post
-method: POST
-raw: "p1=11&amp;p2=22"</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/post</span>
+<span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
+<span class="nt">raw</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;p1=11&amp;p2=22&quot;</span>
+</code></pre></div>
                 
               
               

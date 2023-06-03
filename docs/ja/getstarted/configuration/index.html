@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/">
       
       <link rel="shortcut icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.1, mkdocs-material-6.2.8">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-6.2.8">
     
     
       
@@ -956,31 +956,36 @@
 </table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="config_1">リクエストが空だと通知するconfigの例<a class="headerlink" href="#config_1" title="Permanent link">&para;</a></h3>
-<p>```yaml<br />
-title: Test<br />
-Description: Running for test</p>
-<p>one:<br />
-  name: One<br />
-  host: <a href="https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/one">https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/one</a></p>
-<p>other:<br />
-  name: Other<br />
-  host: <a href="https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/other">https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/other</a></p>
-<p>notifiers:<br />
-  test-notifier:<br />
-    type: slack<br />
-    version: 2</p>
-<p>output:<br />
-  response_dir: responses</p>
-<p>addons:<br />
-  log2reqs:<br />
-    name: plain</p>
-<p>reqs2reqs:<br />
-    - name: empty_guard<br />
-      config:<br />
-        notifies:<br />
-          - notifier: test-notifier<br />
-            message: "{{ title }} notify!"<br />
-```</p>
+<div class="highlight"><pre><span></span><code><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test</span>
+<span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Running for test</span>
+
+<span class="nt">one</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">One</span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/one</span>
+
+<span class="nt">other</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Other</span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://raw.githubusercontent.com/tadashi-aikawa/jumeaux-toolbox/master/vagrant/ignore/other</span>
+
+<span class="nt">notifiers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">test-notifier</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+
+<span class="nt">output</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">response_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">responses</span>
+
+<span class="nt">addons</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plain</span>
+
+<span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">empty_guard</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">notifies</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">notifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-notifier</span>
+<span class="w">            </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">notify!&quot;</span>
+</code></pre></div>
                 
               
               
