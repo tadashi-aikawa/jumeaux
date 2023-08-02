@@ -30,8 +30,8 @@ beautifulsoup4 = "^4.8.1"
 lxml = "^4.4.2"
 livereload = "^2.6.1"
 tzlocal = "^2.0.0"
-owlmixin = "^5.5.0"
-owcli = "^0.7.0"
+owlmixin = "^6.0.0"
+owcli = "^0.8.0"
 deepdiff = "6.2.1" # sensitive
 markupsafe = "2.0.1" # sensitive
 urllib3 = "<2" # sensitive
@@ -50,7 +50,7 @@ black = {extras = ["d"], version = "^23.3.0"}
 
 [tool.black]
 line-length = 100
-target-version = ['py37', 'py38', 'py39', 'py310']
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
 include = '\.pyi?$'
 exclude = '''
 /(
