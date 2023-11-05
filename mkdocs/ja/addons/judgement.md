@@ -1,4 +1,4 @@
-judgement [:fa-github:][s1]
+judgement [:fontawesome-brands-github:][s1]
 ===========================
 
 [s1]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement
@@ -6,7 +6,7 @@ judgement [:fa-github:][s1]
 プロパティ差分情報を元に ステータス(Same/Different)を決定します。
 
 
-[:fa-github:][_ignore] ignore
+[:fontawesome-brands-github:][_ignore] ignore
 -----------------------------
 
 [_ignore]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/ignore.py
@@ -47,7 +47,7 @@ judgement [:fa-github:][s1]
 
 | Key     | Type              | Description                                      | Example                          | Default |
 |---------|-------------------|--------------------------------------------------|----------------------------------|---------|
-| when    | (string)          | 条件式 :fa-exclamation-triangle:                 | <pre>"req.path == '/test'"</pre> |         |
+| when    | (string)          | 条件式 :fontawesome-solid-triangle-exclamation:                 | <pre>"req.path == '/test'"</pre> |         |
 | added   | ([Case[]](#case)) | 追加されていても無視するプロパティのリストと条件 |                                  |         |
 | changed | ([Case[]](#case)) | 変更されていても無視するプロパティのリストと条件 |                                  |         |
 | removed | ([Case[]](#case)) | 削除されていても無視するプロパティのリストと条件 |                                  |         |
@@ -73,8 +73,8 @@ judgement [:fa-github:][s1]
 
 | Key  | Type   | Description                    | Example                                | Default |
 |------|--------|--------------------------------|----------------------------------------|---------|
-| path | string | プロパティの正規表現(完全一致) | `root<'id'>` :fa-exclamation-triangle: |         |
-| when | (str)  | 条件式 :fa-info-circle:        | <pre>"one.name == 'hoge'"</pre>        |         |
+| path | string | プロパティの正規表現(完全一致) | `root<'id'>` :fontawesome-solid-triangle-exclamation: |         |
+| when | (str)  | 条件式 :fontawesome-solid-circle-exclamation:        | <pre>"one.name == 'hoge'"</pre>        |         |
 
 
 ??? info "whenについて"
@@ -160,7 +160,7 @@ judgement [:fa-github:][s1]
 ```
 
 
-[:fa-github:][same] same
+[:fontawesome-brands-github:][same] same
 ------------------------
 
 [same]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/judgement/same.py
@@ -176,7 +176,7 @@ judgement [:fa-github:][s1]
 
 | Key      | Type  | Description             | Example                      | Default |
 |----------|-------|-------------------------|------------------------------|---------|
-| when_any | str[] | 条件式 :fa-info-circle: | <pre>'"2" in req.path'</pre> |         |
+| when_any | str[] | 条件式 :fontawesome-solid-circle-exclamation: | <pre>'"2" in req.path'</pre> |         |
 
 
 ??? info "when_anyで指定できるプロパティ"

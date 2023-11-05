@@ -1,4 +1,4 @@
-res2res [:fa-github:][s1]
+res2res [:fontawesome-brands-github:][s1]
 =========================
 
 [s1]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res
@@ -6,7 +6,7 @@ res2res [:fa-github:][s1]
 APIから返却されたレスポンスを判定前に変換します。
 
 
-[:fa-github:][json] json
+[:fontawesome-brands-github:][json] json
 ------------------------
 
 [json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/json.py
@@ -25,7 +25,7 @@ APIから返却されたレスポンスを判定前に変換します。
 |------------------|-----------------------------|------------------------------------------------------------------------|------------------------------|---------|
 | transformer      | [Transformer](#transformer) | 変換処理                                                               |                              |         |
 | default_encoding | (string)                    | レスポンスヘッダにエンコーディング情報が無い場合の出力エンコーディング | euc-jp                       | utf8    |
-| when             | str                         | 条件式 :fa-info-circle:                                                | <pre>'"2" in req.path'</pre> |         |
+| when             | str                         | 条件式 :fontawesome-solid-circle-exclamation:                                                | <pre>'"2" in req.path'</pre> |         |
 
 !!! info "whenで指定できるプロパティ"
 
@@ -42,7 +42,7 @@ APIから返却されたレスポンスを判定前に変換します。
 | Key      | Type                      | Description                    | Example       | Default   |
 |----------|---------------------------|--------------------------------|---------------|-----------|
 | module   | string                    | 変換処理のあるモジュールのパス | sample.module |           |
-| function | (string) :fa-info-circle: | 変換処理の関数                 | bytes2json    | transform |
+| function | (string) :fontawesome-solid-circle-exclamation: | 変換処理の関数                 | bytes2json    | transform |
 
 !!! info "functionのインタフェース"
 
@@ -91,7 +91,7 @@ APIから返却されたレスポンスを判定前に変換します。
 ```
 
 
-[:fa-github:][json-sort] json_sort
+[:fontawesome-brands-github:][json-sort] json_sort
 ----------------------------------
 
 [json-sort]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/json_sort.py
@@ -119,7 +119,7 @@ JSONレスポンスの並び順をソートします。
 
 |   Key   |        Type         |       Description       |          Example          | Default |
 | ------- | ------------------- | ----------------------- | ------------------------- | ------- |
-| when    | str                 | 条件式 :fa-info-circle: | <pre>"qs.id.0 == 1"</pre> |         |
+| when    | str                 | 条件式 :fontawesome-solid-circle-exclamation: | <pre>"qs.id.0 == 1"</pre> |         |
 | targets | [Target[]](#target) |                         |                           |         |
 
 ??? info "when"
@@ -133,7 +133,7 @@ JSONレスポンスの並び順をソートします。
 |    Key    |    Type    |                            Description                             |         Example          |     Default      |
 | --------- | ---------- | ------------------------------------------------------------------ | ------------------------ | ---------------- |
 | path      | string     | ソート対象となるプロパティの正規表現                               | root<'dict1'><'list1-1'> |                  |
-| sort_keys | (string[]) | pathで指定したプロパティがObjectだった場合のソートプロパティリスト | `[id, name]`             | :fa-info-circle: |
+| sort_keys | (string[]) | pathで指定したプロパティがObjectだった場合のソートプロパティリスト | `[id, name]`             | :fontawesome-solid-circle-exclamation: |
 
 !!! info "`sort_keys`が未指定の場合"
 
@@ -167,7 +167,7 @@ JSONレスポンスの並び順をソートします。
 ```
 
 
-[:fa-github:][type] type
+[:fontawesome-brands-github:][type] type
 ------------------------
 
 [type]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2res/type.py
@@ -190,7 +190,7 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
 | Key  | Type | Description             | Example                             | Default |
 |------|------|-------------------------|-------------------------------------|---------|
 | type | str  | 変更後のtype            | json                                |         |
-| when | str  | 条件式 :fa-info-circle: | <pre>"res.status_code == 200"</pre> |         |
+| when | str  | 条件式 :fontawesome-solid-circle-exclamation: | <pre>"res.status_code == 200"</pre> |         |
 
 !!! info "whenで指定できるプロパティ"
 

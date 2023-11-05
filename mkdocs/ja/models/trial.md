@@ -22,11 +22,11 @@ Definitions
 | json               | (dict)                                         | `applicaton/json`のBODY                     | `{id: 1, name: 'Ichi'}`                   |
 | one                | [ResponseSummary](#responsesummary)            | oneのレスポンス概要                         |                                           |
 | other              | [ResponseSummary](#responsesummary)            | otherのレスポンス概要                       |                                           |
-| method             | HttpMethod :fa-info-circle:                    | HTTPメソッド                                | POST                                      |
+| method             | HttpMethod :fontawesome-solid-circle-exclamation:                    | HTTPメソッド                                | POST                                      |
 | path               | string                                         | リクエストURLのパス                         | /path                                     |
 | request_time       | string                                         | リクエストした時間                          | 2018-12-03T00:12:02.444940+09:00          |
-| status             | Status :fa-info-circle:                        | ステータス                                  | different                                 |
-| diffs_by_cognition | (dict[[DiffKeys](#diffkeys)]) :fa-info-circle: | 認識と差分のあるプロパティの紐付け          |                                           |
+| status             | Status :fontawesome-solid-circle-exclamation:                        | ステータス                                  | different                                 |
+| diffs_by_cognition | (dict[[DiffKeys](#diffkeys)]) :fontawesome-solid-circle-exclamation: | 認識と差分のあるプロパティの紐付け          |                                           |
 
 
 ??? info "HttpMethod"
@@ -60,7 +60,7 @@ Definitions
 | encoding     | (string)       | 様々な情報から決定したレスポンスエンコーディング   | euc-jp                                    |
 | file         | (string)       | 保存されたレスポンスのファイル名                   | res1.json                                 |
 | prop_file    | (string)       | 保存されたレスポンスプロパティのファイル名         | res1.json                                 |
-| headers      | (dict[string]) | レスポンスヘッダ  :fa-info-circle:                 | <pre>{"content-type": "text/html;"}</pre> |
+| headers      | (dict[string]) | レスポンスヘッダ  :fontawesome-solid-circle-exclamation:                 | <pre>{"content-type": "text/html;"}</pre> |
 
 
 

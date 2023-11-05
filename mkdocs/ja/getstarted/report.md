@@ -63,7 +63,7 @@ Report
 
 | Key       | Type | Description                              | Example |
 |-----------|------|------------------------------------------|---------|
-| threads   | int  | 実行スレッド数 :fa-exclamation-triangle: | 2       |
+| threads   | int  | 実行スレッド数 :fontawesome-solid-triangle-exclamation: | 2       |
 | processes | int  | 実行プロセス数                           | 2       |
 
 !!! warning "threads"

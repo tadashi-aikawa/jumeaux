@@ -1,4 +1,4 @@
-did_challenge [:fa-github:][s1]
+did_challenge [:fontawesome-brands-github:][s1]
 ===============================
 
 [s1]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/did_challenge
@@ -6,7 +6,7 @@ did_challenge [:fa-github:][s1]
 次のchallengeに移る前に処理をします。
 
 
-[:fa-github:][sleep] sleep
+[:fontawesome-brands-github:][sleep] sleep
 --------------------------
 
 [sleep]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/did_challenge/sleep.py
@@ -20,8 +20,8 @@ did_challenge [:fa-github:][s1]
 
 | Key | Type  |            Description             | Example | Default |
 | --- | ----- | ---------------------------------- | ------- | ------- |
-| min | float | 待機時間 :fa-info-circle: の下限値 | 0.1     |         |
-| max | float | 待機時間 :fa-info-circle: の上限値 | 1.0     |         |
+| min | float | 待機時間 :fontawesome-solid-circle-exclamation: の下限値 | 0.1     |         |
+| max | float | 待機時間 :fontawesome-solid-circle-exclamation: の上限値 | 1.0     |         |
 
 !!! info "待機時間について"
 
@@ -51,7 +51,7 @@ did_challenge [:fa-github:][s1]
 ```
 
 
-[:fa-github:][tag] tag
+[:fontawesome-brands-github:][tag] tag
 ----------------------
 
 [tag]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/did_challenge/tag.py
@@ -73,8 +73,8 @@ did_challenge [:fa-github:][s1]
 
 | Key  | Type | Description                   | Example                           | Default |
 |------|------|-------------------------------|-----------------------------------|---------|
-| tag  | str  | 付与するタグ :fa-info-circle: | `tag: {{ trial.one.type }}`       |         |
-| when | str  | 条件式 :fa-info-circle:       | <pre>"trial.name == 'hoge'"</pre> |         |
+| tag  | str  | 付与するタグ :fontawesome-solid-circle-exclamation: | `tag: {{ trial.one.type }}`       |         |
+| when | str  | 条件式 :fontawesome-solid-circle-exclamation:       | <pre>"trial.name == 'hoge'"</pre> |         |
 
 
 !!! info "tagおよびwhenについて"

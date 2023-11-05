@@ -1,4 +1,4 @@
-final [:fa-github:][s1]
+final [:fontawesome-brands-github:][s1]
 =======================
 
 [s1]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final
@@ -6,7 +6,7 @@ final [:fa-github:][s1]
 Jumeauxの処理が完了する直前処理を行う事ができます。
 
 
-[:fa-github:][summary] summary
+[:fontawesome-brands-github:][summary] summary
 ------------------------------
 
 [summary]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/summary.py
@@ -23,7 +23,7 @@ Jumeauxの処理が完了する直前処理を行う事ができます。
 
 | Key    | Type   | Description                                       | Example | Default |
 |--------|--------|---------------------------------------------------|---------|---------|
-| sysout | (bool) | ファイルではなく標準出力を使うか :fa-info-circle: | true    | false   |
+| sysout | (bool) | ファイルではなく標準出力を使うか :fontawesome-solid-circle-exclamation: | true    | false   |
 
 !!! info "sysout"
 
@@ -50,7 +50,7 @@ Jumeauxの処理が完了する直前処理を行う事ができます。
 ```
 
 
-[:fa-github:][json] json
+[:fontawesome-brands-github:][json] json
 ------------------------
 
 [json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/json.py
@@ -67,8 +67,8 @@ Jumeauxの処理が完了する直前処理を行う事ができます。
 
 | Key    | Type   | Description                                       | Example | Default |
 |--------|--------|---------------------------------------------------|---------|---------|
-| sysout | (bool) | ファイルではなく標準出力を使うか :fa-info-circle: | true    | false   |
-| indent | (int)  | インデント :fa-info-circle:                       | 2       | -       |
+| sysout | (bool) | ファイルではなく標準出力を使うか :fontawesome-solid-circle-exclamation: | true    | false   |
+| indent | (int)  | インデント :fontawesome-solid-circle-exclamation:                       | 2       | -       |
 
 !!! info "sysout"
 
@@ -99,7 +99,7 @@ Jumeauxの処理が完了する直前処理を行う事ができます。
 ```
 
 
-[:fa-github:][miroir] miroir
+[:fontawesome-brands-github:][miroir] miroir
 ----------------------------
 
 [miroir]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/miroir.py
@@ -194,7 +194,7 @@ Bucketの`test/`配下にデータが保存されます。
 ```
 
 
-[:fa-github:][notify] notify
+[:fontawesome-brands-github:][notify] notify
 ----------------------------
 
 [notify]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/notify.py
@@ -221,9 +221,9 @@ Bucketの`test/`配下にデータが保存されます。
 
 | Key      | Type   | Description                              | Example                                                 | Default |
 | -------- | ------ | ---------------------------------------- | ------------------------------------------------------- | ------- |
-| notifier | string | 使用する通知設定の名前  :fa-info-circle: | jumeaux                                                 |         |
-| message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{{ title }}が完了しました</pre>                    |         |
-| when     | str    | 通知条件式 :fa-info-circle:              | <pre>'summary.status.different > 0'</pre>               |         |
+| notifier | string | 使用する通知設定の名前  :fontawesome-solid-circle-exclamation: | jumeaux                                                 |         |
+| message  | string | 送信するメッセージ :fontawesome-solid-circle-exclamation:      | <pre>{{ title }}が完了しました</pre>                    |         |
+| when     | str    | 通知条件式 :fontawesome-solid-circle-exclamation:              | <pre>'summary.status.different > 0'</pre>               |         |
 
 
 !!! info "notifierについて"
@@ -275,7 +275,7 @@ Bucketの`test/`配下にデータが保存されます。
             when: "summary.status.different > 0"
 ```
 
-[:fa-github:][csv] csv
+[:fontawesome-brands-github:][csv] csv
 ----------------------
 
 [csv]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/csv.py
@@ -289,7 +289,7 @@ Bucketの`test/`配下にデータが保存されます。
 
 |     Key      |   Type   |               Description                |        Example        | Default |
 | ------------ | -------- | ---------------------------------------- | --------------------- | ------- |
-| column_names | string[] | 出力する要素名のリスト  :fa-info-circle: | `[seq, name, status]` |         |
+| column_names | string[] | 出力する要素名のリスト  :fontawesome-solid-circle-exclamation: | `[seq, name, status]` |         |
 | output_path  | string   | 出力するCSVファイルのパス                | result.csv            |         |
 | with_header  | (bool)   | ヘッダ行を出力するか                     | true                  | false   |
 
@@ -353,7 +353,7 @@ Bucketの`test/`配下にデータが保存されます。
 ```
 
 
-[:fa-github:][viewer] viewer
+[:fontawesome-brands-github:][viewer] viewer
 ----------------------------
 
 [viewer]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/final/viewer.py

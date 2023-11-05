@@ -18,7 +18,7 @@ Notifier
 たとえば、type=hoge, version=3の場合は`hoge@v3`となります。
 
 
-:fa-slack: slack@v2
+:fontawesome-brands-slack: slack@v2
 -------------------
 
 ### Environmental variables
@@ -186,7 +186,7 @@ addons:
 
 
 
-:fa-slack: slack@v1
+:fontawesome-brands-slack: slack@v1
 -------------------
 
 !!! danger "Deprecated"

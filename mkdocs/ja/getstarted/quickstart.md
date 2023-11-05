@@ -1,8 +1,6 @@
-Quickstart
-==========
+# Quickstart
 
-:fa-desktop: Requirements
--------------------------
+## :fontawesome-solid-desktop: Requirements
 
 以下の環境いずれかが必要です。
 
@@ -10,8 +8,7 @@ Quickstart
 * Docker
 
 
-:fa-download: Installation
---------------------------
+## :fontawesome-solid-download: Installation
 
 ### Python3.7以上
 
@@ -37,8 +34,7 @@ $ docker build -t tadashi-aikawa/jumeaux .
     つまり `jumeaux` => `docker run -v (pwd):/tmp -it tadashi-aikawa/jumeaux` とコマンドを置き換えてください。
 
 
-:fa-file: Create files
-----------------------
+## :fontawesome-solid-file: Create files
 
 Jumeauxを実行するには、以下2つのファイルを用意する必要があります。
 
@@ -60,8 +56,7 @@ $ jumeaux init simple
     `jumeaux init help`コマンドで`simple`以外の有効な値を確認できます。
 
 
-:fa-server: Run mock server
----------------------------
+## :fontawesome-solid-server: Run mock server
 
 `jumeaux init`コマンドでは上記2ファイルの他に`api`ディレクトリが作成されます。  
 `api`ディレクトリの中には、`jumeaux init`で指定したファイルの種類に応じて確認用のダミーhttpレスポンスが作成されます。
@@ -70,8 +65,7 @@ $ jumeaux init simple
 ローカル環境で動作確認をするため、`jumeaux server`コマンドを実行しましょう。
 
 
-:fa-play-circle: Execute
-------------------------
+## :fontawesome-solid-circle-play: Execute
 
 `config.yml`と`requests`を指定して実行しましょう。
 
@@ -79,7 +73,7 @@ $ jumeaux init simple
 $ jumeaux run requests
 ```
 
-* デフォルトでは標準出力に何も出力されません :fa-info-circle:
+* デフォルトでは標準出力に何も出力されません :fontawesome-solid-circle-info:
 * 標準エラー出力にはログまたはエラーが出力されます
 
 !!! info "標準出力"
@@ -96,8 +90,7 @@ $ jumeaux run requests
     ```
 
 
-:fa-laptop: Check
------------------
+## :fontawesome-solid-laptop: Check
 
 結果は設定ファイルの[response_dir]で指定したディレクトリ配下に作成されます。
 配下には、実行ごとに生成されるユニークなハッシュに基づいたディレクトリが存在します。

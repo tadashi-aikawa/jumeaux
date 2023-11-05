@@ -14,7 +14,7 @@ Definitions
 | name    | (string)                      | リクエストの名称              | request1                 |         |
 | qs      | (dict[string[]])              | リクエストのクエリ            | a: [1]<br>b: [2]         | `{}`    |
 | headers | (dict[string])                | リクエストヘッダ              | header1: 1<br>header2: 2 | `{}`    |
-| method  | (HttpMethod) :fa-info-circle: | HTTPメソッド                  | POST                     | GET     |
+| method  | (HttpMethod) :fontawesome-solid-circle-exclamation: | HTTPメソッド                  | POST                     | GET     |
 | raw     | (string)                      | `raw`のBody                   | a=100&b=200              |         |
 | form    | (dict[string[]])              | `x-www-form-urlencoded`のBody | key: [value1, value2]    |         |
 | json    | (dict)                        | `application/json`のBody      | `{id: 1, name: 'Ichi'}`  |         |

@@ -56,7 +56,6 @@ plugins:
   - search:
       lang:
         - en
-      prebuild_index: true
 
 extra:
   social:
@@ -67,8 +66,6 @@ extra:
 
 markdown_extensions:
   - meta
-  # fontawesomeのアイコン
-  - fontawesome_markdown
   # 内部参照
   - wikilinks
   # 改行が2spaceじゃなくてもOK
@@ -85,7 +82,10 @@ markdown_extensions:
   # expandableにする
   - pymdownx.details
   # 絵文字対応
-  - pymdownx.emoji
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   # HTMLやemailをリンク化
   - pymdownx.magiclink
   # 別のmarkdownファイルを埋め込み可能

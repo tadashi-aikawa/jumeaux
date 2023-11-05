@@ -1,4 +1,4 @@
-res2dict [:fa-github:][res2dict]
+res2dict [:fontawesome-brands-github:][res2dict]
 ================================
 
 [res2dict]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict
@@ -6,7 +6,7 @@ res2dict [:fa-github:][res2dict]
 APIレスポンスを差分比較に必要なdictへ変換します。
 
 
-[:fa-github:][json] json
+[:fontawesome-brands-github:][json] json
 ------------------------
 
 [json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/json.py
@@ -20,7 +20,7 @@ JSONレスポンスをdictに変換します。
 
 | Key   | Type   | Description                                                      | Example | Default |
 |-------|--------|------------------------------------------------------------------|---------|---------|
-| force | (bool) | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
+| force | (bool) | 変換する必要がないケース :fontawesome-solid-circle-exclamation: でも強制的に変換するか | true    | false   |
 
 !!! info "`force` 変換する必要がないケース"
 
@@ -49,7 +49,7 @@ JSONレスポンスをdictに変換します。
 ```
 
 
-[:fa-github:][xml] xml
+[:fontawesome-brands-github:][xml] xml
 ----------------------
 
 [xml]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/xml.py
@@ -63,7 +63,7 @@ XMLレスポンスをdictに変換します。
 
 | Key   | Type   | Description                                                      | Example | Default |
 |-------|--------|------------------------------------------------------------------|---------|---------|
-| force | (bool) | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
+| force | (bool) | 変換する必要がないケース :fontawesome-solid-circle-exclamation: でも強制的に変換するか | true    | false   |
 
 !!! info "`force` 変換する必要がないケース"
 
@@ -92,7 +92,7 @@ XMLレスポンスをdictに変換します。
 ```
 
 
-[:fa-github:][html] html
+[:fontawesome-brands-github:][html] html
 ------------------------
 
 [html]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/html.py
@@ -106,7 +106,7 @@ HTMLレスポンスをdictに変換します。
 
 | Key   | Type   | Description                                                      | Example | Default |
 |-------|--------|------------------------------------------------------------------|---------|---------|
-| force | (bool) | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか | true    | false   |
+| force | (bool) | 変換する必要がないケース :fontawesome-solid-circle-exclamation: でも強制的に変換するか | true    | false   |
 
 !!! info "`force` 変換する必要がないケース"
 
@@ -135,7 +135,7 @@ HTMLレスポンスをdictに変換します。
 ```
 
 
-[:fa-github:][block] block
+[:fontawesome-brands-github:][block] block
 --------------------------
 
 [block]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/res2dict/block.py
@@ -150,9 +150,9 @@ HTMLレスポンスをdictに変換します。
 
 | Key           | Type   | Description                                                       | Example                 | Default |
 |---------------|--------|-------------------------------------------------------------------|-------------------------|---------|
-| header_regexp | string | ヘッダ行のキーを抽出する正規表現 :fa-exclamation-triangle:        | <pre>^\d+\)(.+)</pre>   |         |
-| record_regexp | string | レコード行のkey/valueを抽出する正規表現 :fa-exclamation-triangle: | <pre>([^ ]+) (.+)</pre> |         |
-| force         | (bool) | 変換する必要がないケース :fa-info-circle: でも強制的に変換するか  | true                    | false   |
+| header_regexp | string | ヘッダ行のキーを抽出する正規表現 :fontawesome-solid-triangle-exclamation:        | <pre>^\d+\)(.+)</pre>   |         |
+| record_regexp | string | レコード行のkey/valueを抽出する正規表現 :fontawesome-solid-triangle-exclamation: | <pre>([^ ]+) (.+)</pre> |         |
+| force         | (bool) | 変換する必要がないケース :fontawesome-solid-circle-exclamation: でも強制的に変換するか  | true                    | false   |
 
 !!! warning "header_regexpの正規表現について"
 

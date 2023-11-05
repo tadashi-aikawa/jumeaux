@@ -1,4 +1,4 @@
-store_criterion [:fa-github:][s1]
+store_criterion [:fontawesome-brands-github:][s1]
 =================================
 
 [s1]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/store_criterion
@@ -6,7 +6,7 @@ store_criterion [:fa-github:][s1]
 APIレスポンスを保存する基準を決定します。
 
 
-[:fa-github:][free] free
+[:fontawesome-brands-github:][free] free
 ------------------------
 
 [free]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/store_criterion/free.py
@@ -20,7 +20,7 @@ APIレスポンスを保存する基準を決定します。
 
 | Key      | Type  | Description             | Example                      | Default |
 |----------|-------|-------------------------|------------------------------|---------|
-| when_any | str[] | 条件式 :fa-info-circle: | <pre>'"2" in req.path'</pre> |         |
+| when_any | str[] | 条件式 :fontawesome-solid-circle-exclamation: | <pre>'"2" in req.path'</pre> |         |
 
 !!! info "when_anyで指定できるプロパティ"
 
@@ -29,7 +29,7 @@ APIレスポンスを保存する基準を決定します。
 
     | key       | Type                    | Description           |
     |-----------|-------------------------|-----------------------|
-    | status    | Status :fa-info-circle: | ステータス
+    | status    | Status :fontawesome-solid-circle-exclamation: | ステータス
     | req       | [Request][request]      | リクエスト情報        |
     | res_one   | [Response][response]    | oneのレスポンス情報   |
     | res_other | [Response][response]    | otherのレスポンス情報 |

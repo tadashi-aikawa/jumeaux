@@ -1,4 +1,4 @@
-reqs2reqs [:fa-github:][s1]
+reqs2reqs [:fontawesome-brands-github:][s1]
 ===========================
 
 [s1]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs
@@ -6,7 +6,7 @@ reqs2reqs [:fa-github:][s1]
 リクエストを変換します。
 
 
-[:fa-github:][head] head
+[:fontawesome-brands-github:][head] head
 ------------------------
 
 [head]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/head.py
@@ -34,7 +34,7 @@ reqs2reqs [:fa-github:][s1]
 ```
 
 
-[:fa-github:][filter] filter
+[:fontawesome-brands-github:][filter] filter
 ----------------------------
 
 [filter]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/filter.py
@@ -49,7 +49,7 @@ reqs2reqs [:fa-github:][s1]
 
 | Key  | Type |       Description       |          Example          | Default |
 | ---- | ---- | ----------------------- | ------------------------- | ------- |
-| when | str  | 条件式 :fa-info-circle: | <pre>"qs.id.0 == 1"</pre> |         |
+| when | str  | 条件式 :fontawesome-solid-circle-exclamation: | <pre>"qs.id.0 == 1"</pre> |         |
 
 
 ??? info "when"
@@ -70,7 +70,7 @@ reqs2reqs [:fa-github:][s1]
 ```
 
 
-[:fa-github:][add] add
+[:fontawesome-brands-github:][add] add
 ----------------------
 
 [add]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/add.py
@@ -112,7 +112,7 @@ reqs2reqs [:fa-github:][s1]
 ```
 
 
-[:fa-github:][replace] replace
+[:fontawesome-brands-github:][replace] replace
 ------------------------------
 
 [replace]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/replace.py
@@ -133,8 +133,8 @@ reqs2reqs [:fa-github:][s1]
 
 | Key     | Type         | Description                     | Example                                 | Default |
 | ------- | ------------ | ------------------------------- | --------------------------------------- | ------- |
-| when    | (str)        | 条件式 :fa-info-circle:         | <pre>"qs.id.0 == 1"</pre>               |         |
-| queries | dict[str[]]) | 置換するクエリ :fa-info-circle: | <pre>{"a": [1], "b": [2, 3]}</pre>      |         |
+| when    | (str)        | 条件式 :fontawesome-solid-circle-exclamation:         | <pre>"qs.id.0 == 1"</pre>               |         |
+| queries | dict[str[]]) | 置換するクエリ :fontawesome-solid-circle-exclamation: | <pre>{"a": [1], "b": [2, 3]}</pre>      |         |
 | headers | dict[str]    | 置換するヘッダ                  | <pre>{"header1": 1, "header2": 2}</pre> |         |
 
 ??? info "when"
@@ -182,7 +182,7 @@ reqs2reqs [:fa-github:][s1]
               time: ["$DATETIME(%Y-%m-%dT%H:%M:%S)(3600)"]
 ```
 
-[:fa-github:][shuffle] shuffle
+[:fontawesome-brands-github:][shuffle] shuffle
 ------------------------------
 
 [shuffle]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/shuffle.py
@@ -205,7 +205,7 @@ Config設定はありません。
 ```
 
 
-[:fa-github:][repeat] repeat
+[:fontawesome-brands-github:][repeat] repeat
 ----------------------------
 
 [repeat]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/repeat.py
@@ -233,7 +233,7 @@ Config設定はありません。
 ```
 
 
-[:fa-github:][empty_guard] empty_guard
+[:fontawesome-brands-github:][empty_guard] empty_guard
 --------------------------------------
 
 [empty_guard]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/empty_guard.py
@@ -260,8 +260,8 @@ Config設定はありません。
 
 |   Key    |  Type  |               Description                |             Example              | Default |
 | -------- | ------ | ---------------------------------------- | -------------------------------- | ------- |
-| notifier | string | 使用する通知設定の名前  :fa-info-circle: | jumeaux                          |         |
-| message  | string | 送信するメッセージ :fa-info-circle:      | <pre>{{ title }}を中断しました</pre> |         |
+| notifier | string | 使用する通知設定の名前  :fontawesome-solid-circle-exclamation: | jumeaux                          |         |
+| message  | string | 送信するメッセージ :fontawesome-solid-circle-exclamation:      | <pre>{{ title }}を中断しました</pre> |         |
 
 
 !!! info "notifierについて"
@@ -311,7 +311,7 @@ Config設定はありません。
 [request-condition]: ../../models/request-condition
 
 
-[:fa-github:][rename] rename
+[:fontawesome-brands-github:][rename] rename
 ----------------------------
 
 [rename]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/reqs2reqs/rename.py
@@ -332,8 +332,8 @@ Config設定はありません。
 
 | Key  | Type |          Description          |              Example               | Default |
 | ---- | ---- | ----------------------------- | ---------------------------------- | ------- |
-| name | str  | 変更後の名称 :fa-info-circle: | <pre>{{ name }} ({{ path }})</pre> |         |
-| when | str  | 条件式 :fa-info-circle:       | <pre>"qs.id.0 == 1"</pre>          |         |
+| name | str  | 変更後の名称 :fontawesome-solid-circle-exclamation: | <pre>{{ name }} ({{ path }})</pre> |         |
+| when | str  | 条件式 :fontawesome-solid-circle-exclamation:       | <pre>"qs.id.0 == 1"</pre>          |         |
 
 !!! info "nameおよびwhenについて"
 

@@ -5,7 +5,7 @@ Template
 対応内容の詳細は[jinja2公式サイト](http://jinja.pocoo.org/docs/2.10/templates/)をご覧下さい。
 
 
-:fa-pencil: Property rules
+:fontawesome-solid-pencil: Property rules
 --------------------------
 
 条件を記載するwhenプロパティと、値を記載するその他プロパティで記載の仕方が少し異なります。
@@ -73,7 +73,7 @@ Typeが[Trial][trial]であるtrial変数を使った場合の一例です。
 ```
 
 
-:fa-filter: Filters
+:fontawesome-solid-filter: Filters
 -------------------
 
 JumeauxオリジナルのFilterをいくつか利用できます。
@@ -90,7 +90,7 @@ JumeauxオリジナルのFilterをいくつか利用できます。
 `age|reg("[0-9]{2}")`
 
 
-:fa-calculator: Functions
+:fontawesome-solid-calculator: Functions
 -------------------------
 
 Jumeauxオリジナルの関数をいくつか利用できます。

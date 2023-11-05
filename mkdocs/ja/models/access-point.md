@@ -15,8 +15,8 @@ Definitions
 | path                      | ([PathReplace](#pathreplace))               | アクセス先ごとにパスを置換したい場合の設定                    | -                               |         |
 | query                     | ([QueryCustomization](#querycustomization)) | アクセス先ごとにクエリを上書き/削除したい場合の設定           | -                               |         |
 | headers                   | (dict[string])                              | アクセス先ごとに追加するリクエストヘッダ                      | <pre>{"xxx": "xxx-value"}</pre> |         |
-| proxy                     | (string)                                    | プロキシ :fa-exclamation-triangle:                            | `proxy-host`                    |         |
-| default_response_encoding | (string)                                    | レスポンスのエンコーディングが不明な場合の値 :fa-info-circle: | utf8                            |         |
+| proxy                     | (string)                                    | プロキシ :fontawesome-solid-triangle-exclamation:                            | `proxy-host`                    |         |
+| default_response_encoding | (string)                                    | レスポンスのエンコーディングが不明な場合の値 :fontawesome-solid-circle-exclamation: | utf8                            |         |
 
 !!! warning "headers"
 
@@ -39,7 +39,7 @@ Definitions
 | Key    | Type     | Description                 | Example         | Default |
 |--------|----------|-----------------------------|-----------------|---------|
 | before | (string) | 置換対象の正規表現          | `([0-9]+).json` |         |
-| after  | (string) | 置換後の値 :fa-info-circle: | `\\1.xml`       |         |
+| after  | (string) | 置換後の値 :fontawesome-solid-circle-exclamation: | `\\1.xml`       |         |
 
 
 !!! info "after"
@@ -51,7 +51,7 @@ Definitions
 
 | Key       | Type                 | Description                                       | Example                                   | Default |
 |-----------|----------------------|---------------------------------------------------|-------------------------------------------|---------|
-| overwrite | (dict[list[string]]) | 上書きクエリのkey-value :fa-exclamation-triangle: | <pre>{"a": ["v1"], "b": ["2", "3"]}</pre> |         |
+| overwrite | (dict[list[string]]) | 上書きクエリのkey-value :fontawesome-solid-triangle-exclamation: | <pre>{"a": ["v1"], "b": ["2", "3"]}</pre> |         |
 | remove    | (list[string])       | 削除するクエリのリスト                            | `[id, name]`                              |         |
 
 名前が`/i`で終わるキーはcase insensitive(大文字小文字を区別しない)になります。

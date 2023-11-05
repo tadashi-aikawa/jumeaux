@@ -1,4 +1,4 @@
-dump [:fa-github:][dump]
+dump [:fontawesome-brands-github:][dump]
 ========================
 
 [dump]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump
@@ -6,7 +6,7 @@ dump [:fa-github:][dump]
 APIレスポンスを保存前に加工します。
 
 
-[:fa-github:][json] json
+[:fontawesome-brands-github:][json] json
 ------------------------
 
 [json]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/json.py
@@ -59,7 +59,7 @@ APIレスポンスを保存前に加工します。
 ```
 
 
-[:fa-github:][xml] xml
+[:fontawesome-brands-github:][xml] xml
 -----------------------
 
 [xml]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/xml.py
@@ -108,7 +108,7 @@ APIレスポンスを保存前に加工します。
 ```
 
 
-[:fa-github:][html] html
+[:fontawesome-brands-github:][html] html
 -------------------------
 
 [html]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/html.py
@@ -157,7 +157,7 @@ APIレスポンスを保存前に加工します。
 ```
 
 
-[:fa-github:][encoding] encoding
+[:fontawesome-brands-github:][encoding] encoding
 --------------------------------
 
 [encoding]: https://github.com/tadashi-aikawa/jumeaux/tree/master/jumeaux/addons/dump/encoding.py
