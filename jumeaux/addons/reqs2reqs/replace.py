@@ -3,12 +3,12 @@
 import copy
 
 from owlmixin import OwlMixin, TOption
-from owlmixin.owlcollections import TList, TDict
+from owlmixin.owlcollections import TDict, TList
 
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
-from jumeaux.utils import when_optional_filter, parse_datetime_dsl
 from jumeaux.domain.config.vo import Config as JumeauxConfig
-from jumeaux.models import Request, Reqs2ReqsAddOnPayload
+from jumeaux.models import Reqs2ReqsAddOnPayload, Request
+from jumeaux.utils import parse_datetime_dsl, when_optional_filter
 
 
 class Replacer(OwlMixin):
@@ -52,7 +52,13 @@ class Executor(Reqs2ReqsExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
 
-    def exec(self, payload: Reqs2ReqsAddOnPayload, config: JumeauxConfig) -> Reqs2ReqsAddOnPayload:
+    def exec(
+        self, payload: Reqs2ReqsAddOnPayload, config: JumeauxConfig
+    ) -> Reqs2ReqsAddOnPayload:
         return Reqs2ReqsAddOnPayload.from_dict(
-            {"requests": payload.requests.map(lambda req: apply_replacers(req, self.config.items))}
+            {
+                "requests": payload.requests.map(
+                    lambda req: apply_replacers(req, self.config.items)
+                )
+            }
         )

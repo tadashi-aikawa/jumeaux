@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+from typing import Any
 
 import requests
 
 from jumeaux.logger import Logger
-from jumeaux.models import *
+from jumeaux.models import OwlMixin, Response, TList, TOption
 from jumeaux.notification_handlers import NotificationHandler
 
 logger: Logger = Logger(__name__)
@@ -14,7 +15,7 @@ LOG_PREFIX = "[notification_handlers]"
 
 
 # See, https://app.slack.com/block-kit-builder
-Block = any  # type: ignore
+Block = Any
 
 
 class SlackPayload(OwlMixin):
@@ -52,7 +53,8 @@ class Slack2NotificationHandler(NotificationHandler):
         )
         r: Response = Response.from_requests(
             requests.post(
-                os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json().encode("utf8")
+                os.environ["SLACK_INCOMING_WEBHOOKS_URL"],
+                data=p.to_json().encode("utf8"),
             )
         )
         return TOption(r.text if not r.ok else None)

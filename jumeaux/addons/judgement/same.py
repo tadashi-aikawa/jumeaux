@@ -3,9 +3,9 @@
 from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.judgement import JudgementExecutor
-from jumeaux.utils import when_filter
 from jumeaux.logger import Logger
 from jumeaux.models import JudgementAddOnPayload, JudgementAddOnReference
+from jumeaux.utils import when_filter
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[judgement/same]"

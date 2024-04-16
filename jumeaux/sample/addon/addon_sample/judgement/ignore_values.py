@@ -4,9 +4,9 @@ from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.judgement import JudgementExecutor
-from jumeaux.utils import get_by_diff_key
 from jumeaux.logger import Logger
-from jumeaux.models import JudgementAddOnPayload, DiffKeys, JudgementAddOnReference
+from jumeaux.models import DiffKeys, JudgementAddOnPayload, JudgementAddOnReference
+from jumeaux.utils import get_by_diff_key
 
 logger: Logger = Logger(__name__)
 

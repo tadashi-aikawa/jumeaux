@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
 
 import xmltodict
-from owlmixin import OwlMixin, TList
+from owlmixin import OwlMixin
 
 from jumeaux.addons.res2dict import Res2DictExecutor
-from jumeaux.models import Res2DictAddOnPayload, DictOrList
 from jumeaux.logger import Logger
+from jumeaux.models import DictOrList, Res2DictAddOnPayload
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[res2dict/xml]"
@@ -29,10 +29,14 @@ class Executor(Res2DictExecutor):
             logger.debug(f"{LOG_PREFIX} Force to convert to dict as xml")
             result = xmltodict.parse(payload.response.text)
         elif payload.response.type == "xml":
-            logger.debug(f"{LOG_PREFIX} Convert to dict as json because this response is xml.")
+            logger.debug(
+                f"{LOG_PREFIX} Convert to dict as json because this response is xml."
+            )
             result = xmltodict.parse(payload.response.text)
         else:
             logger.debug(f"{LOG_PREFIX} Skipped because this response is not xml.")
             result = None
 
-        return Res2DictAddOnPayload.from_dict({"response": payload.response, "result": result})
+        return Res2DictAddOnPayload.from_dict(
+            {"response": payload.response, "result": result}
+        )

@@ -8,11 +8,11 @@ import re
 import sys
 import urllib.parse as urlparser
 from concurrent import futures
-from typing import Tuple, Optional, Any, List
+from typing import Any, List, Optional, Tuple
 
 import requests
 from deepdiff import DeepDiff
-from owlmixin import TList, TOption, TDict
+from owlmixin import TDict, TList, TOption
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError
 
@@ -21,10 +21,9 @@ from requests.exceptions import ConnectionError
 # sys.path.append(os.getcwd())
 from jumeaux import __version__
 from jumeaux.addons import AddOnExecutor
-from jumeaux.utils import to_jumeaux_xpath, mill_seconds_until, now, parse_datetime_dsl
 from jumeaux.domain.config.service import (
-    create_config_from_report,
     create_config,
+    create_config_from_report,
     merge_args2config,
 )
 from jumeaux.domain.config.vo import Config, MergedArgs
@@ -32,34 +31,35 @@ from jumeaux.domain.config.vo import Config, MergedArgs
 # XXX: ...
 from jumeaux.logger import Logger
 from jumeaux.models import (
-    to_json,
-    Report,
-    Request,
-    Response,
     ChallengeArg,
-    Trial,
-    Proxy,
-    Summary,
     Concurrency,
-    Log2ReqsAddOnPayload,
-    Reqs2ReqsAddOnPayload,
-    Res2ResAddOnPayload,
-    Res2DictAddOnPayload,
-    JudgementAddOnPayload,
-    JudgementAddOnReference,
-    StoreCriterionAddOnPayload,
-    StoreCriterionAddOnReference,
-    DumpAddOnPayload,
-    FinalAddOnPayload,
+    DictOrList,
     DidChallengeAddOnPayload,
     DidChallengeAddOnReference,
     DiffKeys,
-    Status,
-    DictOrList,
-    QueryCustomization,
+    DumpAddOnPayload,
+    FinalAddOnPayload,
     FinalAddOnReference,
     HttpMethod,
+    JudgementAddOnPayload,
+    JudgementAddOnReference,
+    Log2ReqsAddOnPayload,
+    Proxy,
+    QueryCustomization,
+    Report,
+    Reqs2ReqsAddOnPayload,
+    Request,
+    Res2DictAddOnPayload,
+    Res2ResAddOnPayload,
+    Response,
+    Status,
+    StoreCriterionAddOnPayload,
+    StoreCriterionAddOnReference,
+    Summary,
+    Trial,
+    to_json,
 )
+from jumeaux.utils import mill_seconds_until, now, parse_datetime_dsl, to_jumeaux_xpath
 
 logger: Logger = Logger(__name__)
 global_addon_executor: AddOnExecutor
@@ -137,14 +137,18 @@ def make_dir(path):
 def http_get(args: Tuple[Any, str, TDict[str], TOption[Proxy]]):
     session, url, headers, proxies = args
     try:
-        r = session.get(url, headers=headers, proxies=proxies.map(lambda x: x.to_dict()).get_or({}))
+        r = session.get(
+            url, headers=headers, proxies=proxies.map(lambda x: x.to_dict()).get_or({})
+        )
     finally:
         session.close()
     return r
 
 
 def http_post(
-    args: Tuple[Any, str, TOption[str], TOption[dict], TOption[dict], TDict[str], TOption[Proxy]]
+    args: Tuple[
+        Any, str, TOption[str], TOption[dict], TOption[dict], TDict[str], TOption[Proxy]
+    ],
 ):
     session, url, raw, form, json_, headers, proxies = args
     try:
@@ -160,7 +164,9 @@ def http_post(
     return r
 
 
-def merge_headers(access_point_base: TDict[str], this_request: TDict[str]) -> TDict[str]:
+def merge_headers(
+    access_point_base: TDict[str], this_request: TDict[str]
+) -> TDict[str]:
     return (
         TDict({"User-Agent": f"jumeaux/{__version__}"})
         .assign(access_point_base)
@@ -168,7 +174,9 @@ def merge_headers(access_point_base: TDict[str], this_request: TDict[str]) -> TD
     )
 
 
-def has_different(one_headers: dict, other_headers: dict, ignore_keys: List[str]) -> bool:
+def has_different(
+    one_headers: dict, other_headers: dict, ignore_keys: List[str]
+) -> bool:
     return TDict(one_headers).omit_by(lambda k, v: k in ignore_keys) == TDict(
         other_headers
     ).omit_by(lambda k, v: k in ignore_keys)
@@ -207,8 +215,24 @@ def concurrent_request(
             res_one, res_other = ex.map(
                 http_post,
                 (
-                    (session, url_one, raw, form, json_, merged_header_one, proxies_one),
-                    (session, url_other, raw, form, json_, merged_header_other, proxies_other),
+                    (
+                        session,
+                        url_one,
+                        raw,
+                        form,
+                        json_,
+                        merged_header_one,
+                        proxies_one,
+                    ),
+                    (
+                        session,
+                        url_other,
+                        raw,
+                        form,
+                        json_,
+                        merged_header_other,
+                        proxies_other,
+                    ),
                 ),
             )
         else:
@@ -277,13 +301,20 @@ def judgement(
     return status, result.diffs_by_cognition
 
 
-def store_criterion(status: Status, name: str, req: Request, r_one: Response, r_other: Response):
+def store_criterion(
+    status: Status, name: str, req: Request, r_one: Response, r_other: Response
+):
     return global_addon_executor.apply_store_criterion(
         StoreCriterionAddOnPayload.from_dict({"stored": False}),
         StoreCriterionAddOnReference.from_dict(
             {
                 "status": status,
-                "req": {"name": name, "path": req.path, "qs": req.qs, "headers": req.headers},
+                "req": {
+                    "name": name,
+                    "path": req.path,
+                    "qs": req.qs,
+                    "headers": req.headers,
+                },
                 "res_one": r_one,
                 "res_other": r_other,
             }
@@ -293,7 +324,9 @@ def store_criterion(status: Status, name: str, req: Request, r_one: Response, r_
 
 def dump(res: Response):
     return global_addon_executor.apply_dump(
-        DumpAddOnPayload.from_dict({"response": res, "body": res.body, "encoding": res.encoding})
+        DumpAddOnPayload.from_dict(
+            {"response": res, "body": res.body, "encoding": res.encoding}
+        )
     ).body
 
 
@@ -301,7 +334,9 @@ def to_sec(elapsed):
     return round(elapsed.seconds + elapsed.microseconds / 1000000, 2)
 
 
-def select_key_as_case_insensitive(target_key_pattern: str, qs: TDict[TList[str]]) -> str:
+def select_key_as_case_insensitive(
+    target_key_pattern: str, qs: TDict[TList[str]]
+) -> str:
     case_insensitive: bool = target_key_pattern.endswith("/i")
     target_key = target_key_pattern[:-2] if case_insensitive else target_key_pattern
 
@@ -327,7 +362,10 @@ def create_query_string(
         k: v
         for k, v in overwritten.items()
         if k
-        not in [select_key_as_case_insensitive(x, qs) for x in cqs.get().remove.get_or(TList())]
+        not in [
+            select_key_as_case_insensitive(x, qs)
+            for x in cqs.get().remove.get_or(TList())
+        ]
     }
 
     return urlparser.urlencode(removed, doseq=True, encoding=encoding)
@@ -348,14 +386,16 @@ def challenge(arg_dict: dict) -> dict:
     logger.info_lv3(f"{log_prefix}  {arg.seq}. {arg.req.name.get_or(arg.req.path)}")
     logger.info_lv3(f"{log_prefix} {'-'*80}")
 
-    path_str_one = arg.path_one.map(lambda x: re.sub(x.before, x.after, arg.req.path)).get_or(
-        arg.req.path
-    )
-    path_str_other = arg.path_other.map(lambda x: re.sub(x.before, x.after, arg.req.path)).get_or(
-        arg.req.path
-    )
+    path_str_one = arg.path_one.map(
+        lambda x: re.sub(x.before, x.after, arg.req.path)
+    ).get_or(arg.req.path)
+    path_str_other = arg.path_other.map(
+        lambda x: re.sub(x.before, x.after, arg.req.path)
+    ).get_or(arg.req.path)
     qs_str_one = create_query_string(arg.req.qs, arg.query_one, arg.req.url_encoding)
-    qs_str_other = create_query_string(arg.req.qs, arg.query_other, arg.req.url_encoding)
+    qs_str_other = create_query_string(
+        arg.req.qs, arg.query_other, arg.req.url_encoding
+    )
     url_one = f"{arg.host_one}{path_str_one}?{qs_str_one}"
     url_other = f"{arg.host_other}{path_str_other}?{qs_str_other}"
 
@@ -363,7 +403,9 @@ def challenge(arg_dict: dict) -> dict:
     req_time = now()
     try:
         logger.info_lv3(f"{log_prefix} One   URL:   {url_one}")
-        logger.debug(f"{log_prefix} One   PROXY: {arg.proxy_one.map(lambda x: x.to_dict()).get()}")
+        logger.debug(
+            f"{log_prefix} One   PROXY: {arg.proxy_one.map(lambda x: x.to_dict()).get()}"
+        )
 
         logger.info_lv3(f"{log_prefix} Other URL:   {url_other}")
         logger.debug(
@@ -427,7 +469,9 @@ def challenge(arg_dict: dict) -> dict:
         Response.from_requests(r_one, arg.default_response_encoding_one), arg.req
     )
     res_one = res_one_payload.response
-    logger.info_lv3(f"{log_prefix} ⏰ One   res2res:   {mill_seconds_until(res2res_one_begin)}ms")
+    logger.info_lv3(
+        f"{log_prefix} ⏰ One   res2res:   {mill_seconds_until(res2res_one_begin)}ms"
+    )
 
     res2res_other_begin = now()
     res_other_payload: Res2ResAddOnPayload = res2res(
@@ -440,7 +484,9 @@ def challenge(arg_dict: dict) -> dict:
 
     res2dict_one_begin = now()
     dict_one: TOption[DictOrList] = res2dict(res_one)
-    logger.info_lv3(f"{log_prefix} ⏰ One   res2dict:   {mill_seconds_until(res2dict_one_begin)}ms")
+    logger.info_lv3(
+        f"{log_prefix} ⏰ One   res2dict:   {mill_seconds_until(res2dict_one_begin)}ms"
+    )
 
     res2dict_other_begin = now()
     dict_other: TOption[DictOrList] = res2dict(res_other)
@@ -508,7 +554,9 @@ def challenge(arg_dict: dict) -> dict:
         arg.judge_response_header,
         arg.ignore_response_header_keys,
     )
-    logger.info_lv3(f"{log_prefix} ⏰ Judgement:   {mill_seconds_until(judgement_begin)}ms")
+    logger.info_lv3(
+        f"{log_prefix} ⏰ Judgement:   {mill_seconds_until(judgement_begin)}ms"
+    )
 
     status_symbol = "O" if status == Status.SAME else "X"
     log_msg = f"{log_prefix} {status_symbol} ({res_one.status_code} - {res_other.status_code}) <{res_one.elapsed_sec}s - {res_other.elapsed_sec}s> {{{arg.req.method}}} {arg.req.name.get_or(arg.req.path)}"  # noqa
@@ -529,12 +577,16 @@ def challenge(arg_dict: dict) -> dict:
         if not dict_one.is_none():
             prop_file_one = f"one-props/({arg.seq}){name}.json"
             write_to_file(
-                prop_file_one, dir, to_json(dict_one.get()).encode("utf-8", errors="replace")
+                prop_file_one,
+                dir,
+                to_json(dict_one.get()).encode("utf-8", errors="replace"),
             )
         if not dict_other.is_none():
             prop_file_other = f"other-props/({arg.seq}){name}.json"
             write_to_file(
-                prop_file_other, dir, to_json(dict_other.get()).encode("utf-8", errors="replace")
+                prop_file_other,
+                dir,
+                to_json(dict_other.get()).encode("utf-8", errors="replace"),
             )
     logger.info_lv3(
         f"{log_prefix} ⏰ Store criterion:   {mill_seconds_until(store_criterion_begin)}ms"
@@ -605,7 +657,9 @@ def challenge(arg_dict: dict) -> dict:
             }
         ),
     )
-    logger.info_lv3(f"{log_prefix} ⏰ Did challenge:   {mill_seconds_until(did_challenge_begin)}ms")
+    logger.info_lv3(
+        f"{log_prefix} ⏰ Did challenge:   {mill_seconds_until(did_challenge_begin)}ms"
+    )
 
     return payload.trial.to_dict()
 
@@ -625,7 +679,9 @@ def create_concurrent_executor(config: Config) -> Tuple[Any, Concurrency]:
     )
 
 
-def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]) -> Report:
+def exec(
+    config: Config, reqs: TList[Request], key: str, retry_hash: Optional[str]
+) -> Report:
     # Provision
     s = requests.Session()
     s.mount("http://", HTTPAdapter(max_retries=config.max_retries))
@@ -712,7 +768,9 @@ def exec(config: Config, reqs: TList[Request], key: str, retry_hash: Optional[st
                 "headers": config.other.headers,
                 "default_response_encoding": config.other.default_response_encoding,
             },
-            "status": trials.group_by(lambda x: x.status.value).map_values(len).to_dict(),
+            "status": trials.group_by(lambda x: x.status.value)
+            .map_values(len)
+            .to_dict(),
             "tags": tags,
             "time": {
                 "start": start_time.isoformat(),
@@ -777,7 +835,9 @@ def __run(
 
     # Finalize
     addon_executor.apply_final(
-        FinalAddOnPayload.from_dict({"report": report, "output_summary": config.output}),
+        FinalAddOnPayload.from_dict(
+            {"report": report, "output_summary": config.output}
+        ),
         FinalAddOnReference.from_dict({"notifiers": config.notifiers}),
     )
 
@@ -803,7 +863,9 @@ def retry(*, args: MergedArgs, report: str):
             }
         )
     )
-    __run(config, origin_reqs, addon_executor, hash_from_args(args.to_json()), report.key)
+    __run(
+        config, origin_reqs, addon_executor, hash_from_args(args.to_json()), report.key
+    )
 
 
 def run(
@@ -819,6 +881,8 @@ def run(
 
     addon_executor = AddOnExecutor(config.addons)
     origin_reqs: TList[Request] = config.input_files.get().flat_map(
-        lambda f: addon_executor.apply_log2reqs(Log2ReqsAddOnPayload.from_dict({"file": f}))
+        lambda f: addon_executor.apply_log2reqs(
+            Log2ReqsAddOnPayload.from_dict({"file": f})
+        )
     )
     __run(config, origin_reqs, addon_executor, hash_from_args(args.to_json()), None)

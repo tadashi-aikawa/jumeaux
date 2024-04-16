@@ -8,7 +8,7 @@ from owlmixin.owlcollections import TList
 
 from jumeaux.addons.log2reqs import Log2ReqsExecutor
 from jumeaux.logger import Logger
-from jumeaux.models import Request, Log2ReqsAddOnPayload
+from jumeaux.models import Log2ReqsAddOnPayload, Request
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[log2reqs/plain]"

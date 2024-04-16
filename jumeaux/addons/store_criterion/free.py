@@ -3,10 +3,13 @@
 from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
-from jumeaux.addons.store_criterion import StoreCriterionExecutor, StoreCriterionAddOnReference
-from jumeaux.utils import when_filter
+from jumeaux.addons.store_criterion import (
+    StoreCriterionAddOnReference,
+    StoreCriterionExecutor,
+)
 from jumeaux.logger import Logger
 from jumeaux.models import StoreCriterionAddOnPayload
+from jumeaux.utils import when_filter
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[store_criterion/free]"
@@ -20,7 +23,11 @@ class Executor(StoreCriterionExecutor):
     def __init__(self, config: dict) -> None:
         self.config: Config = Config.from_dict(config or {})
 
-    def exec(self, payload: StoreCriterionAddOnPayload, reference: StoreCriterionAddOnReference) -> StoreCriterionAddOnPayload:
+    def exec(
+        self,
+        payload: StoreCriterionAddOnPayload,
+        reference: StoreCriterionAddOnReference,
+    ) -> StoreCriterionAddOnPayload:
         if payload.stored:
             return payload
 
@@ -33,6 +40,6 @@ class Executor(StoreCriterionExecutor):
         if not matched_filter.is_none():
             logger.info_lv3(f"{LOG_PREFIX} Stored for `{matched_filter.get()}`.")
 
-        return StoreCriterionAddOnPayload.from_dict({
-            "stored": not matched_filter.is_none()
-        })
+        return StoreCriterionAddOnPayload.from_dict(
+            {"stored": not matched_filter.is_none()}
+        )

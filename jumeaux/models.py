@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 import datetime
-from typing import Optional, List, Any
+from typing import Any, List, Optional
 
-from owlmixin import OwlMixin, TOption, TList, TDict, OwlEnum
+from owlmixin import OwlEnum, OwlMixin, TDict, TList, TOption
 from requests.structures import CaseInsensitiveDict as RequestsCaseInsensitiveDict
 from requests_toolbelt.utils import deprecated
 
 from jumeaux.addons.models import Addons
 from jumeaux.domain.config.vo import (
-    PathReplace,
-    QueryCustomization,
     AccessPoint,
     Concurrency,
-    OutputSummary,
     Notifier,
+    OutputSummary,
+    PathReplace,
+    QueryCustomization,
 )
 
 DictOrList = any  # type: ignore
@@ -62,7 +62,9 @@ class Proxy(OwlMixin):
     @classmethod
     def from_host(cls, host: TOption[str]) -> "Proxy":
         return (
-            Proxy.from_dict({"http": f"http://{host.get()}", "https": f"https://{host.get()}"})
+            Proxy.from_dict(
+                {"http": f"http://{host.get()}", "https": f"https://{host.get()}"}
+            )
             if not host.is_none()
             else None
         )
@@ -97,7 +99,9 @@ class Response(OwlMixin):
 
     @property
     def charset(self) -> TOption[str]:
-        return self.content_type.map(lambda x: x.split(";")[1] if x.split(";") > 1 else None)
+        return self.content_type.map(
+            lambda x: x.split(";")[1] if x.split(";") > 1 else None
+        )
 
     @property
     def ok(self) -> bool:
@@ -116,12 +120,16 @@ class Response(OwlMixin):
         if content_type and "octet-stream" in content_type:
             return None
         # XXX: See 2.2 in https://tools.ietf.org/html/rfc2616#section-2.2
-        if res.encoding and not ("text" in content_type and res.encoding == "ISO-8859-1"):
+        if res.encoding and not (
+            "text" in content_type and res.encoding == "ISO-8859-1"
+        ):
             return res.encoding
 
         meta_encodings: List[str] = deprecated.get_encodings_from_content(res.content)
         return (
-            meta_encodings[0] if meta_encodings else default_encoding.get() or res.apparent_encoding
+            meta_encodings[0]
+            if meta_encodings
+            else default_encoding.get() or res.apparent_encoding
         )
 
     @classmethod
@@ -132,7 +140,9 @@ class Response(OwlMixin):
         return content_type.split(";")[0].split("/")[1]
 
     @classmethod
-    def from_requests(cls, res: Any, default_encoding: TOption[str] = TOption(None)) -> "Response":
+    def from_requests(
+        cls, res: Any, default_encoding: TOption[str] = TOption(None)
+    ) -> "Response":
         encoding: Optional[str] = cls._decide_encoding(res, default_encoding)
         type: str = cls._to_type(res)
         return Response.from_dict(
@@ -143,7 +153,9 @@ class Response(OwlMixin):
                 "url": res.url,
                 "status_code": res.status_code,
                 "elapsed": res.elapsed,
-                "elapsed_sec": round(res.elapsed.seconds + res.elapsed.microseconds / 1000000, 2),
+                "elapsed_sec": round(
+                    res.elapsed.seconds + res.elapsed.microseconds / 1000000, 2
+                ),
                 "type": type,
             }
         )

@@ -6,9 +6,9 @@ from typing import Any
 from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.res2res import Res2ResExecutor
-from jumeaux.utils import exact_match, when_filter
 from jumeaux.logger import Logger
 from jumeaux.models import Res2ResAddOnPayload, Response
+from jumeaux.utils import exact_match, when_filter
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[res2res/json_sort]"
@@ -44,14 +44,20 @@ def _dict_sort(dict_obj: dict, targets: TList[Target], location: str = "root") -
 def _list_sort(list_obj: list, targets: TList[Target], location: str = "root") -> list:
     target: TOption[Target] = targets.find(lambda t: exact_match(location, t.path))
 
-    traversed = [traverse(v, f"{location}<{i}>", targets) for i, v in enumerate(list_obj)]
+    traversed = [
+        traverse(v, f"{location}<{i}>", targets) for i, v in enumerate(list_obj)
+    ]
     if target.is_none():
         return traversed
 
     sort_func = (
         target.get()
         .sort_keys.map(lambda keys: lambda x: [x[k] for k in keys])
-        .get_or(lambda x: json.dumps(x, ensure_ascii=False) if isinstance(x, (dict, list)) else x)
+        .get_or(
+            lambda x: json.dumps(x, ensure_ascii=False)
+            if isinstance(x, (dict, list))
+            else x
+        )
     )
 
     return sorted(traversed, key=sort_func)
@@ -71,7 +77,9 @@ class Executor(Res2ResExecutor):
         res_json = json.loads(res.text)
         res_json_sorted = self.config.items.reduce(
             lambda t, s: (
-                _dict_sort(t, s.targets) if isinstance(t, dict) else _list_sort(t, s.targets)
+                _dict_sort(t, s.targets)
+                if isinstance(t, dict)
+                else _list_sort(t, s.targets)
             )
             if when_filter(s.when, payload.req.to_dict())
             else t,

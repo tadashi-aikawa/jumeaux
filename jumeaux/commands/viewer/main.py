@@ -9,8 +9,9 @@ Options:
   -h --help                           Show this screen.
 """
 
-from owlmixin import OwlMixin
 from livereload import Server
+from owlmixin import OwlMixin
+
 from jumeaux.logger import Logger, init_logger
 
 logger: Logger = Logger(__name__)
@@ -22,7 +23,7 @@ class Args(OwlMixin):
 
 
 def reload():
-    logger.info_lv1(f"Reload viewer.")
+    logger.info_lv1("Reload viewer.")
 
 
 def run(args: Args):

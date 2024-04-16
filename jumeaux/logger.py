@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 
-from owlmixin import OwlEnum
-
-import sys
 import logging.config
+import sys
+
+from owlmixin import OwlEnum
 
 
 class Color:
@@ -56,13 +56,16 @@ def init_logger(v_num: int):
     :return:
     """
     logging.addLevelName(
-        LogLevel.INFO_LV1.value, "INFO_LV1"  # type: ignore # Prevent for enum problem
+        LogLevel.INFO_LV1.value,
+        "INFO_LV1",  # type: ignore # Prevent for enum problem
     )
     logging.addLevelName(
-        LogLevel.INFO_LV2.value, "INFO_LV2"  # type: ignore # Prevent for enum problem
+        LogLevel.INFO_LV2.value,
+        "INFO_LV2",  # type: ignore # Prevent for enum problem
     )
     logging.addLevelName(
-        LogLevel.INFO_LV3.value, "INFO_LV3"  # type: ignore # Prevent for enum problem
+        LogLevel.INFO_LV3.value,
+        "INFO_LV3",  # type: ignore # Prevent for enum problem
     )
 
     logging.config.dictConfig(
@@ -91,7 +94,9 @@ class Logger:
         self.logger.log(LogLevel.INFO_LV3.value, msg)
 
     def warning(self, msg):
-        self.logger.log(LogLevel.WARNING.value, f"{Color.YELLOW}[WARNING] {msg}{Color.END}")
+        self.logger.log(
+            LogLevel.WARNING.value, f"{Color.YELLOW}[WARNING] {msg}{Color.END}"
+        )
 
     def error(self, msg, exit=False):
         self.logger.log(LogLevel.ERROR.value, f"{Color.RED}[ ERROR ] {msg}{Color.END}")
@@ -99,4 +104,6 @@ class Logger:
             sys.exit(1)
 
     def debug(self, msg):
-        self.logger.log(LogLevel.DEBUG.value, f"{Color.GREEN}[ DEBUG ] {msg}{Color.END}")
+        self.logger.log(
+            LogLevel.DEBUG.value, f"{Color.GREEN}[ DEBUG ] {msg}{Color.END}"
+        )

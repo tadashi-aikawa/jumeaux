@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
 
-from owlmixin import OwlMixin, TOption, TList, TDict
+from owlmixin import OwlMixin, TDict, TList, TOption
 
 from jumeaux.addons.did_challenge import DidChallengeExecutor
-from jumeaux.utils import when_optional_filter, jinja2_format, get_jinja2_format_error
 from jumeaux.logger import Logger
 from jumeaux.models import DidChallengeAddOnPayload, DidChallengeAddOnReference, Trial
+from jumeaux.utils import get_jinja2_format_error, jinja2_format, when_optional_filter
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[did_challenge/tag]"
@@ -24,9 +24,11 @@ class Executor(DidChallengeExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
 
-        errors: TList[str] = self.config.conditions.reject(lambda x: x.when.is_none()).map(
-            lambda x: get_jinja2_format_error(x.when.get()).get()
-        ).filter(lambda x: x is not None)
+        errors: TList[str] = (
+            self.config.conditions.reject(lambda x: x.when.is_none())
+            .map(lambda x: get_jinja2_format_error(x.when.get()).get())
+            .filter(lambda x: x is not None)
+        )
         if errors:
             logger.error(f"{LOG_PREFIX} Illegal format in `conditions[*].when`.")
             logger.error(f"{LOG_PREFIX} Please check your configuration yaml files.")
@@ -57,7 +59,8 @@ class Executor(DidChallengeExecutor):
             return payload
 
         tags: TList[str] = conditions.reduce(
-            lambda t, x: t + [jinja2_format(x.tag, to_dict(payload.trial))], payload.trial.tags
+            lambda t, x: t + [jinja2_format(x.tag, to_dict(payload.trial))],
+            payload.trial.tags,
         )
         return DidChallengeAddOnPayload.from_dict(
             {"trial": Trial.from_dict({**payload.trial.to_dict(), "tags": tags})}

@@ -3,20 +3,22 @@
 
 import os
 import re
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 
 
 def load_readme():
-    with open(os.path.join(here, 'README.rst')) as f:
+    with open(os.path.join(here, "README.rst")) as f:
         return f.read()
 
 
 setup(
-    name='addon_sample',
+    name="addon_sample",
     version=re.search(
         r'__version__\s*=\s*[\'"]([^\'"]*)[\'"]',  # It excludes inline comment too
-        open('addon_sample/__init__.py').read()).group(1),
-    packages=find_packages(exclude=['tests*'])
+        open("addon_sample/__init__.py").read(),
+    ).group(1),
+    packages=find_packages(exclude=["tests*"]),
 )

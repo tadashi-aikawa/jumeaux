@@ -47,7 +47,9 @@ def create_config(config_paths: TList[str], skip_tags: TOption[TList[str]]) -> C
         return [
             x
             for x in addons
-            if skip_tags.map(lambda y: not y.intersection(x.get("tags", []))).get_or(True)
+            if skip_tags.map(lambda y: not y.intersection(x.get("tags", []))).get_or(
+                True
+            )
         ]
 
     def reducer(merged: dict, config_path: str) -> dict:
@@ -62,9 +64,13 @@ def create_config(config_paths: TList[str], skip_tags: TOption[TList[str]]) -> C
                     "res2res": filter_by_tags(addons_by_key.get("res2res", [])),
                     "res2dict": filter_by_tags(addons_by_key.get("res2dict", [])),
                     "judgement": filter_by_tags(addons_by_key.get("judgement", [])),
-                    "store_criterion": filter_by_tags(addons_by_key.get("store_criterion", [])),
+                    "store_criterion": filter_by_tags(
+                        addons_by_key.get("store_criterion", [])
+                    ),
                     "dump": filter_by_tags(addons_by_key.get("dump", [])),
-                    "did_challenge": filter_by_tags(addons_by_key.get("did_challenge", [])),
+                    "did_challenge": filter_by_tags(
+                        addons_by_key.get("did_challenge", [])
+                    ),
                     "final": filter_by_tags(addons_by_key.get("final", [])),
                 }.items()
                 if v
@@ -110,7 +116,9 @@ def merge_args2config(args: MergedArgs, config: Config) -> Config:
             if args.max_retries.get() is not None
             else config.max_retries,
             "title": args.title if args.title.get() else config.title,
-            "description": args.description if args.description.get() else config.description,
+            "description": args.description
+            if args.description.get()
+            else config.description,
             "tags": args.tag if args.tag.any() else config.tags,
             "input_files": args.files if args.files.any() else config.input_files,
             "notifiers": config.notifiers,

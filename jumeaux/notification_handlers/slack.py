@@ -5,7 +5,7 @@ import os
 
 import requests
 
-from jumeaux.models import *
+from jumeaux.models import OwlMixin, Response, TOption
 from jumeaux.notification_handlers import NotificationHandler
 
 
@@ -25,7 +25,11 @@ class SlackNotificationHandler(NotificationHandler):
     icon_url: TOption[str]
 
     def __init__(
-        self, channel: str, username: str, icon_emoji: TOption[str], icon_url: TOption[str]
+        self,
+        channel: str,
+        username: str,
+        icon_emoji: TOption[str],
+        icon_url: TOption[str],
     ):
         self.channel = channel
         self.username = username
@@ -45,7 +49,8 @@ class SlackNotificationHandler(NotificationHandler):
         )
         r: Response = Response.from_requests(
             requests.post(
-                os.environ["SLACK_INCOMING_WEBHOOKS_URL"], data=p.to_json().encode("utf8")
+                os.environ["SLACK_INCOMING_WEBHOOKS_URL"],
+                data=p.to_json().encode("utf8"),
             )
         )
         return TOption(r.text if not r.ok else None)

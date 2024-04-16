@@ -27,11 +27,20 @@ server: ## Start dummy API
 viewer: ## Start Jumeaux Viewer
 	@poetry run python jumeaux/main.py viewer
 
+lint: ## Lint
+	@shopt -s globstar; poetry run ruff check jumeaux/**/*.py
+
+format: ## Format
+	@shopt -s globstar; poetry run ruff format jumeaux/**/*.py
+
 test: ## Test
 	@poetry run python -m pytest -vv --cov-report=xml --cov=. tests/
 
 test-e2e: ## Test on CLI
 	@poetry run python -m pytest -vv e2e/main.py
+
+ci: ## lint & format & test & test-e2e
+	@make lint && make format && make test && make test-e2e
 
 clear: ## Remove responses, requests, api and config.yml
 	@rm -rf responses requests api config.yml

@@ -6,10 +6,10 @@ from owlmixin import OwlMixin, TOption
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.final import FinalExecutor
-from jumeaux.utils import jinja2_format, get_jinja2_format_error, when_optional_filter
 from jumeaux.logger import Logger
-from jumeaux.models import FinalAddOnPayload, Notifier, FinalAddOnReference, Report
+from jumeaux.models import FinalAddOnPayload, FinalAddOnReference, Notifier, Report
 from jumeaux.notification_handlers import create_notification_handler
+from jumeaux.utils import get_jinja2_format_error, jinja2_format, when_optional_filter
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[final/notify]"
@@ -57,9 +57,13 @@ class Executor(FinalExecutor):
             errors.map(lambda x: logger.error(f"{LOG_PREFIX}   * `{x}`"))
             logger.error(f"{LOG_PREFIX} ---------------------", exit=True)
 
-    def exec(self, payload: FinalAddOnPayload, reference: FinalAddOnReference) -> FinalAddOnPayload:
+    def exec(
+        self, payload: FinalAddOnPayload, reference: FinalAddOnReference
+    ) -> FinalAddOnPayload:
         if reference.notifiers.is_none():
-            logger.error(f"{LOG_PREFIX} There are no notifiers. Please set notifiers in config.")
+            logger.error(
+                f"{LOG_PREFIX} There are no notifiers. Please set notifiers in config."
+            )
             logger.error(
                 f"{LOG_PREFIX} See https://tadashi-aikawa.github.io/jumeaux/ja/getstarted/configuration/"
             )

@@ -4,11 +4,11 @@ from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.log2reqs import Log2ReqsExecutor
-from jumeaux.models import Request, Log2ReqsAddOnPayload
+from jumeaux.models import Log2ReqsAddOnPayload, Request
 
 
 class Config(OwlMixin):
-    encoding: str = 'utf8'
+    encoding: str = "utf8"
 
 
 class Executor(Log2ReqsExecutor):
@@ -22,6 +22,8 @@ class Executor(Log2ReqsExecutor):
             ValueError: If path does not exist.
         """
         try:
-            return Request.from_yamlf_to_list(payload.file, encoding=self.config.encoding)
+            return Request.from_yamlf_to_list(
+                payload.file, encoding=self.config.encoding
+            )
         except TypeError as e:
             raise ValueError(e)

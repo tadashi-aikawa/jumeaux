@@ -11,8 +11,7 @@ Options:
 import os
 import shutil
 
-from owlmixin import OwlMixin
-from owlmixin import TOption
+from owlmixin import OwlMixin, TOption
 
 from jumeaux.logger import Logger, init_logger
 
@@ -46,7 +45,7 @@ def run(args: Args):
             shutil.copy(f"{target_dir}/{f}", ".")
             logger.info_lv1(f"✨ [Create] {f}")
         shutil.copytree(f"{target_dir}/api", "api")
-        logger.info_lv1(f"✨ [Create] templates with a api directory")
+        logger.info_lv1("✨ [Create] templates with a api directory")
         return
 
     if not os.path.exists(target_dir):

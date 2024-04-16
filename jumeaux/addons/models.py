@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from owlmixin import OwlMixin, TOption, TList
+from owlmixin import OwlMixin, TList, TOption
 
 
 class Addon(OwlMixin):

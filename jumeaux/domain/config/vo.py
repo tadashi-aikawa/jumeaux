@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from owlmixin import OwlMixin, TOption, TDict, TList, OwlEnum
+from owlmixin import OwlEnum, OwlMixin, TDict, TList, TOption
 
 from jumeaux.addons import Addons
 

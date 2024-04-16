@@ -20,12 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        python: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     name: Python ${{ matrix.python }}
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
 
@@ -35,16 +35,11 @@ jobs:
           rm poetry.lock
           poetry install
 
-      - run: make test
+      - run: make ci
         env:
           TZ: "Asia/Tokyo"
       - uses: codecov/codecov-action@v3
-        if: matrix.python == 3.11 && success()
-
-      - name: CLI tests
-        run: make test-e2e
-        env:
-          TZ: "Asia/Tokyo"
+        if: matrix.python == 3.12 && success()
 
       - name: "Discord notification (not success)"
         uses: rjstone/discord-webhook-notify@v1
@@ -66,7 +61,7 @@ jobs:
         if: always()
         with:
           description: "✅ Jumeaux Tests passed!"
-          footer: "Python v3.7/3.8/3.9/3.10/3.11/3.12"
+          footer: "Python v3.8/3.9/3.10/3.11/3.12"
           severity: info
           avatarUrl: https://www.suruga-ya.jp/database/pics_light/game/871005085.jpg
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}

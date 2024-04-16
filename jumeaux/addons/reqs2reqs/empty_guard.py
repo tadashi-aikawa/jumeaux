@@ -5,11 +5,11 @@ import sys
 from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.reqs2reqs import Reqs2ReqsExecutor
-from jumeaux.utils import jinja2_format, get_jinja2_format_error
-from jumeaux.logger import Logger
 from jumeaux.domain.config.vo import Config as JumeauxConfig
-from jumeaux.models import Reqs2ReqsAddOnPayload, Notifier
+from jumeaux.logger import Logger
+from jumeaux.models import Notifier, Reqs2ReqsAddOnPayload
 from jumeaux.notification_handlers import create_notification_handler
+from jumeaux.utils import get_jinja2_format_error, jinja2_format
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[reqs2reqs/empty_guard]"
@@ -43,7 +43,9 @@ class Executor(Reqs2ReqsExecutor):
             errors.map(lambda x: logger.error(f"{LOG_PREFIX}   * `{x}`"))
             logger.error(f"{LOG_PREFIX} ---------------------", exit=True)
 
-    def exec(self, payload: Reqs2ReqsAddOnPayload, config: JumeauxConfig) -> Reqs2ReqsAddOnPayload:
+    def exec(
+        self, payload: Reqs2ReqsAddOnPayload, config: JumeauxConfig
+    ) -> Reqs2ReqsAddOnPayload:
         if not payload.requests:
             logger.warning("Requests are empty. Exit executor.")
             # TODO: Error handling

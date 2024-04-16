@@ -8,6 +8,7 @@ class HTMLToDictParser(html.parser.HTMLParser):
     """
     Original is http://www.xavierdupre.fr/blog/2013-10-27_nojs.html
     """
+
     def __init__(self, raise_exception=True):
         html.parser.HTMLParser.__init__(self)
         self.doc = {}
@@ -67,4 +68,3 @@ class HTMLToDictParser(html.parser.HTMLParser):
                     else:
                         del values[k]
         del values["__parent__"]
-

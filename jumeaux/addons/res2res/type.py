@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
-from owlmixin import OwlMixin, TOption, TList
+from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux.addons.res2res import Res2ResExecutor
-from jumeaux.utils import when_optional_filter
 from jumeaux.logger import Logger
-from jumeaux.models import Res2ResAddOnPayload, Response, Request
+from jumeaux.models import Request, Res2ResAddOnPayload, Response
+from jumeaux.utils import when_optional_filter
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[res2res/type]"
@@ -19,9 +19,13 @@ class Config(OwlMixin):
     conditions: TList[Condition]
 
 
-def apply_first_condition(res: Response, req: Request, conditions: TList[Condition]) -> Response:
+def apply_first_condition(
+    res: Response, req: Request, conditions: TList[Condition]
+) -> Response:
     condition: TOption[Condition] = conditions.find(
-        lambda c: when_optional_filter(c.when, {'req': req.to_dict(), 'res': res.to_dict()})
+        lambda c: when_optional_filter(
+            c.when, {"req": req.to_dict(), "res": res.to_dict()}
+        )
     )
     if condition.is_none():
         return res
@@ -45,8 +49,12 @@ class Executor(Res2ResExecutor):
         self.config: Config = Config.from_dict(config or {})
 
     def exec(self, payload: Res2ResAddOnPayload) -> Res2ResAddOnPayload:
-        return Res2ResAddOnPayload.from_dict({
-            "req": payload.req,
-            "response": apply_first_condition(payload.response, payload.req, self.config.conditions),
-            "tags": payload.tags,
-        })
+        return Res2ResAddOnPayload.from_dict(
+            {
+                "req": payload.req,
+                "response": apply_first_condition(
+                    payload.response, payload.req, self.config.conditions
+                ),
+                "tags": payload.tags,
+            }
+        )

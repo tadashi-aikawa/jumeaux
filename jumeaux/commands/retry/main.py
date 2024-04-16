@@ -17,10 +17,7 @@ Options:
   -h --help                                     Show this screen.
 """
 
-from typing import Optional
-
-from owlmixin import OwlMixin, TList
-from owlmixin import TOption
+from owlmixin import OwlMixin, TList, TOption
 
 from jumeaux import executor
 from jumeaux.domain.config.vo import MergedArgs

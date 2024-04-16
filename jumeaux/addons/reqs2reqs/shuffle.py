@@ -11,6 +11,8 @@ class Executor(Reqs2ReqsExecutor):
     def __init__(self, config: dict):
         pass
 
-    def exec(self, payload: Reqs2ReqsAddOnPayload, config: JumeauxConfig) -> Reqs2ReqsAddOnPayload:
+    def exec(
+        self, payload: Reqs2ReqsAddOnPayload, config: JumeauxConfig
+    ) -> Reqs2ReqsAddOnPayload:
         random.shuffle(payload.requests)
         return payload

@@ -1,11 +1,12 @@
 # -*- coding:utf-8 -*-
 
 import os
+
 from owlmixin import OwlMixin
 
 from jumeaux.addons.final import FinalExecutor
-from jumeaux.models import FinalAddOnPayload, Report, OutputSummary, FinalAddOnReference
 from jumeaux.logger import Logger
+from jumeaux.models import FinalAddOnPayload, FinalAddOnReference, OutputSummary, Report
 
 logger: Logger = Logger(__name__)
 
@@ -18,7 +19,9 @@ class Executor(FinalExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
 
-    def exec(self, payload: FinalAddOnPayload, reference: FinalAddOnReference) -> FinalAddOnPayload:
+    def exec(
+        self, payload: FinalAddOnPayload, reference: FinalAddOnReference
+    ) -> FinalAddOnPayload:
         r: Report = payload.report
         s: OutputSummary = payload.output_summary
 
@@ -54,7 +57,9 @@ class Executor(FinalExecutor):
         if self.config.sysout:
             print(summary)
         else:
-            with open(f"{payload.result_path}/summary.txt", "w", encoding=s.encoding) as f:
+            with open(
+                f"{payload.result_path}/summary.txt", "w", encoding=s.encoding
+            ) as f:
                 f.write(summary)
 
         return payload

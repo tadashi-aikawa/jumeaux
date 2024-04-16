@@ -3,5 +3,9 @@ from jumeaux.models import StoreCriterionAddOnPayload, StoreCriterionAddOnRefere
 
 
 class StoreCriterionExecutor:
-    def exec(self, payload: StoreCriterionAddOnPayload, reference: StoreCriterionAddOnReference) -> StoreCriterionAddOnPayload:
+    def exec(
+        self,
+        payload: StoreCriterionAddOnPayload,
+        reference: StoreCriterionAddOnReference,
+    ) -> StoreCriterionAddOnPayload:
         raise NotImplementedError()

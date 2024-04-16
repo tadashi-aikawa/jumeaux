@@ -2,9 +2,9 @@
 
 import sys
 
+from jumeaux.domain.config.vo import NotifierType
 from jumeaux.logger import Logger
 from jumeaux.models import Notifier
-from jumeaux.domain.config.vo import NotifierType
 from jumeaux.notification_handlers.base import NotificationHandler
 from jumeaux.notification_handlers.slack import SlackNotificationHandler
 from jumeaux.notification_handlers.slack2 import Slack2NotificationHandler
@@ -22,6 +22,8 @@ def create_notification_handler(notifier: Notifier) -> NotificationHandler:
                 icon_url=notifier.icon_url,
             )
         if notifier.version == 2:
-            return Slack2NotificationHandler(use_blocks=notifier.use_blocks,)
+            return Slack2NotificationHandler(
+                use_blocks=notifier.use_blocks,
+            )
     logger.error(f"Type {notifier.type.value}@v{notifier.version} is not valid.")
     sys.exit(1)

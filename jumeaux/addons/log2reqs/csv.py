@@ -8,7 +8,7 @@ from owlmixin import OwlMixin
 from owlmixin.owlcollections import TList
 
 from jumeaux.addons.log2reqs import Log2ReqsExecutor
-from jumeaux.models import Request, Log2ReqsAddOnPayload
+from jumeaux.models import Log2ReqsAddOnPayload, Request
 
 
 class Config(OwlMixin):
@@ -35,12 +35,16 @@ class Executor(Log2ReqsExecutor):
 
         with open(payload.file, encoding=self.config.encoding) as f:
             rs: Iterable[dict] = csv.DictReader(
-                f, ("name", "method", "path", "qs", "headers"), dialect=self.config.dialect
+                f,
+                ("name", "method", "path", "qs", "headers"),
+                dialect=self.config.dialect,
             )
             for r in rs:
                 if len(r) > 5:
                     raise ValueError
-                r["qs"] = urlparser.parse_qs(r["qs"], keep_blank_values=self.config.keep_blank)
+                r["qs"] = urlparser.parse_qs(
+                    r["qs"], keep_blank_values=self.config.keep_blank
+                )
 
                 # XXX: This is bad implementation but looks simple...
                 r["headers"] = urlparser.parse_qs(

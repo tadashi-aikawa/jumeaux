@@ -1,16 +1,15 @@
 # -*- coding:utf-8 -*-
-from datetime import datetime, timedelta
-import math
 import ast
+import math
 import re
+from datetime import datetime, timedelta
 from typing import Any
 
 import pydash as py_
-from jinja2 import Environment, BaseLoader
+from jinja2 import BaseLoader, Environment
 from jinja2.exceptions import TemplateSyntaxError
 from owlmixin import TOption
 from tzlocal import get_localzone
-
 
 LOCAL_ZONE = get_localzone()
 
@@ -44,7 +43,10 @@ def get_by_diff_key(dic: dict, diff_key: str) -> Any:
 
 
 def calc_distance_km(
-    wgs84_deg_lat1: float, wgs84_deg_lon1: float, wgs84_deg_lat2: float, wgs84_deg_lon2: float
+    wgs84_deg_lat1: float,
+    wgs84_deg_lon1: float,
+    wgs84_deg_lat2: float,
+    wgs84_deg_lon2: float,
 ) -> float:
     R = 6371
     rad1 = math.radians(wgs84_deg_lat1)
@@ -52,9 +54,9 @@ def calc_distance_km(
     delta_lat_rad = math.radians(wgs84_deg_lat2 - wgs84_deg_lat1)
     delta_lon_rad = math.radians(wgs84_deg_lon2 - wgs84_deg_lon1)
 
-    a = math.sin(delta_lat_rad / 2) * math.sin(delta_lat_rad / 2) + math.cos(rad1) * math.cos(
-        rad2
-    ) * math.sin(delta_lon_rad / 2) * math.sin(delta_lon_rad / 2)
+    a = math.sin(delta_lat_rad / 2) * math.sin(delta_lat_rad / 2) + math.cos(
+        rad1
+    ) * math.cos(rad2) * math.sin(delta_lon_rad / 2) * math.sin(delta_lon_rad / 2)
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
     return R * c

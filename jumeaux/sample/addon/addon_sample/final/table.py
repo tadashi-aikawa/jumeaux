@@ -1,19 +1,19 @@
 # -*- coding:utf-8 -*-
 
-from owlmixin import OwlMixin, OwlEnum, TList
+from owlmixin import OwlEnum, OwlMixin, TList
 
 from jumeaux.addons.final import FinalExecutor
 from jumeaux.logger import Logger
-from jumeaux.models import Report, FinalAddOnPayload, Trial
+from jumeaux.models import FinalAddOnPayload, Trial
 
 logger: Logger = Logger(__name__)
 
 
 class Column(OwlEnum):
-    SEQ = 'seq'
-    NAME = 'name'
-    PATH = 'path'
-    STATUS = 'status'
+    SEQ = "seq"
+    NAME = "name"
+    PATH = "path"
+    STATUS = "status"
 
 
 class Config(OwlMixin):
@@ -29,4 +29,3 @@ class Executor(FinalExecutor):
 
         logger.info_lv1(trials.to_table(self.config.columns.map(lambda x: x.value)))
         return payload
-

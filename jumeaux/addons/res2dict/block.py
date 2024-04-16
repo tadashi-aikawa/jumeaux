@@ -2,11 +2,11 @@
 
 import re
 
-from owlmixin import OwlMixin, TList
+from owlmixin import OwlMixin
 
 from jumeaux.addons.res2dict import Res2DictExecutor
-from jumeaux.models import Res2DictAddOnPayload, DictOrList
 from jumeaux.logger import Logger
+from jumeaux.models import DictOrList, Res2DictAddOnPayload
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[res2dict/block]"
@@ -23,19 +23,19 @@ def config_generator(blockstr: str, header_regexp: str, record_regexp: str):
     d: dict = {}
 
     # XXX: [""] means for the case which last line break is nothing
-    for l in blockstr.splitlines() + [""]:
-        if not l:
+    for line in blockstr.splitlines() + [""]:
+        if not line:
             if d:
                 yield key, d
                 d = {}
             continue
 
-        r = re.findall(header_regexp, l)
+        r = re.findall(header_regexp, line)
         if r and len(r) == 1:
             key = r[0]
             continue
 
-        b = re.findall(record_regexp, l)
+        b = re.findall(record_regexp, line)
         if b and len(b) == 1:
             d[b[0][0]] = b[0][1] if len(b[0]) > 1 else None
 
@@ -57,12 +57,18 @@ class Executor(Res2DictExecutor):
         if self.config.force:
             logger.debug(f"{LOG_PREFIX} Force to convert to dict as block")
             result = to_dict(
-                payload.response.text, self.config.header_regexp, self.config.record_regexp
+                payload.response.text,
+                self.config.header_regexp,
+                self.config.record_regexp,
             )
         else:
             logger.debug(f"{LOG_PREFIX} Convert to dict as block")
             result = to_dict(
-                payload.response.text, self.config.header_regexp, self.config.record_regexp
+                payload.response.text,
+                self.config.header_regexp,
+                self.config.record_regexp,
             )
 
-        return Res2DictAddOnPayload.from_dict({"response": payload.response, "result": result})
+        return Res2DictAddOnPayload.from_dict(
+            {"response": payload.response, "result": result}
+        )

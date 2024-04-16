@@ -9,7 +9,7 @@ from owlmixin.util import load_json
 
 from jumeaux.addons.res2res import Res2ResExecutor
 from jumeaux.logger import Logger
-from jumeaux.models import Res2ResAddOnPayload, Response, Request
+from jumeaux.models import Request, Res2ResAddOnPayload, Response
 from jumeaux.utils import when_filter
 
 logger: Logger = Logger(__name__)
@@ -17,9 +17,10 @@ LOG_PREFIX = "[res2res/json]"
 
 
 def wrap(anything: bytes, encoding: str) -> str:
-    """Use for example of Transformer.function
-    """
-    return json.dumps({"wrap": load_json(anything.decode(encoding))}, ensure_ascii=False)
+    """Use for example of Transformer.function"""
+    return json.dumps(
+        {"wrap": load_json(anything.decode(encoding))}, ensure_ascii=False
+    )
 
 
 class Transformer(OwlMixin):
@@ -41,23 +42,25 @@ class Executor(Res2ResExecutor):
         try:
             if not find_spec(t.module):
                 raise ModuleNotFoundError
-        except ModuleNotFoundError as e:
+        except ModuleNotFoundError:
             logger.error(f"{LOG_PREFIX} Module {t.module} is not existed.")
             sys.exit(1)
 
         try:
             self.module = getattr(import_module(t.module), t.function)
-        except AttributeError as e:
-            logger.error(f"{LOG_PREFIX} {t.function} is not existed in {t.module} module")
+        except AttributeError:
+            logger.error(
+                f"{LOG_PREFIX} {t.function} is not existed in {t.module} module"
+            )
             sys.exit(1)
 
     def exec(self, payload: Res2ResAddOnPayload) -> Res2ResAddOnPayload:
         req: Request = payload.req
         res: Response = payload.response
 
-        if not self.config.when.map(lambda x: when_filter(x, {"req": req, "res": res})).get_or(
-            True
-        ):
+        if not self.config.when.map(
+            lambda x: when_filter(x, {"req": req, "res": res})
+        ).get_or(True):
             return payload
 
         json_str: str = self.module(res.body, res.encoding.get())

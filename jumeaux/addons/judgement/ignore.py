@@ -1,17 +1,17 @@
 # -*- coding:utf-8 -*-
 
 from owlmixin import OwlMixin, TOption
-from owlmixin.owlcollections import TList, TDict
+from owlmixin.owlcollections import TDict, TList
 
 from jumeaux.addons.judgement import JudgementExecutor
+from jumeaux.logger import Logger
+from jumeaux.models import DiffKeys, JudgementAddOnPayload, JudgementAddOnReference
 from jumeaux.utils import (
     exact_match,
-    when_optional_filter,
-    get_jinja2_format_error,
     get_by_diff_key,
+    get_jinja2_format_error,
+    when_optional_filter,
 )
-from jumeaux.logger import Logger
-from jumeaux.models import JudgementAddOnPayload, DiffKeys, JudgementAddOnReference
 
 logger: Logger = Logger(__name__)
 LOG_PREFIX = "[judgement/ignore]"
@@ -55,17 +55,23 @@ def to_matched_unknown(
         {
             "added": unknown_diff.added.filter(
                 lambda path: condition.added.any(
-                    lambda case: match(path, case, ref.dict_one.get(), ref.dict_other.get())
+                    lambda case: match(
+                        path, case, ref.dict_one.get(), ref.dict_other.get()
+                    )
                 )
             ),
             "removed": unknown_diff.removed.filter(
                 lambda path: condition.removed.any(
-                    lambda case: match(path, case, ref.dict_one.get(), ref.dict_other.get())
+                    lambda case: match(
+                        path, case, ref.dict_one.get(), ref.dict_other.get()
+                    )
                 )
             ),
             "changed": unknown_diff.changed.filter(
                 lambda path: condition.changed.any(
-                    lambda case: match(path, case, ref.dict_one.get(), ref.dict_other.get())
+                    lambda case: match(
+                        path, case, ref.dict_one.get(), ref.dict_other.get()
+                    )
                 )
             ),
         }
@@ -95,8 +101,12 @@ def merge_diff_keys(
         else DiffKeys.from_dict(
             {
                 "added": diffs_by_cognition[title].added.concat(matched_unknown.added),
-                "removed": diffs_by_cognition[title].removed.concat(matched_unknown.removed),
-                "changed": diffs_by_cognition[title].changed.concat(matched_unknown.changed),
+                "removed": diffs_by_cognition[title].removed.concat(
+                    matched_unknown.removed
+                ),
+                "changed": diffs_by_cognition[title].changed.concat(
+                    matched_unknown.changed
+                ),
             }
         )
     )
@@ -165,7 +175,8 @@ class Executor(JudgementExecutor):
             return payload
 
         diffs_by_cognition = self.config.ignores.reduce(
-            lambda t, x: fold_diffs_by_cognition(t, x, reference), payload.diffs_by_cognition.get()
+            lambda t, x: fold_diffs_by_cognition(t, x, reference),
+            payload.diffs_by_cognition.get(),
         )
         logger.debug(f"{LOG_PREFIX} ----- [START] diffs by cognition")
         logger.debug(diffs_by_cognition.to_pretty_json())
@@ -173,7 +184,9 @@ class Executor(JudgementExecutor):
 
         return JudgementAddOnPayload.from_dict(
             {
-                "diffs_by_cognition": diffs_by_cognition.omit_by(lambda k, v: v.is_empty()),
+                "diffs_by_cognition": diffs_by_cognition.omit_by(
+                    lambda k, v: v.is_empty()
+                ),
                 "regard_as_same_body": diffs_by_cognition["unknown"].is_empty(),
                 "regard_as_same_header": payload.regard_as_same_header,
             }

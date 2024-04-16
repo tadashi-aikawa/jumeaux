@@ -3,5 +3,7 @@ from jumeaux.models import DidChallengeAddOnPayload, DidChallengeAddOnReference
 
 
 class DidChallengeExecutor:
-    def exec(self, payload: DidChallengeAddOnPayload, referenece: DidChallengeAddOnReference) -> DidChallengeAddOnPayload:
+    def exec(
+        self, payload: DidChallengeAddOnPayload, referenece: DidChallengeAddOnReference
+    ) -> DidChallengeAddOnPayload:
         raise NotImplementedError()

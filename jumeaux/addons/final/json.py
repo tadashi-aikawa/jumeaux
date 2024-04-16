@@ -3,8 +3,8 @@
 from owlmixin import OwlMixin, TOption
 
 from jumeaux.addons.final import FinalExecutor
-from jumeaux.models import FinalAddOnPayload, FinalAddOnReference
 from jumeaux.logger import Logger
+from jumeaux.models import FinalAddOnPayload, FinalAddOnReference
 
 logger: Logger = Logger(__name__)
 
@@ -18,7 +18,9 @@ class Executor(FinalExecutor):
     def __init__(self, config: dict):
         self.config: Config = Config.from_dict(config or {})
 
-    def exec(self, payload: FinalAddOnPayload, reference: FinalAddOnReference) -> FinalAddOnPayload:
+    def exec(
+        self, payload: FinalAddOnPayload, reference: FinalAddOnReference
+    ) -> FinalAddOnPayload:
         if self.config.sysout:
             print(payload.report.to_json(indent=self.config.indent.get()))
         else:

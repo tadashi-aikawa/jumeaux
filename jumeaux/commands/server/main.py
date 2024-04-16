@@ -8,6 +8,7 @@ Options:
   -v                            Logger level (`-v` or `-vv` or `-vvv`)
   -h --help                     Show this screen.
 """
+
 import json
 import socketserver
 import urllib
@@ -49,7 +50,9 @@ class MyServerHandler(SimpleHTTPRequestHandler):
             logger.info_lv2("<<< Parse as json.. >>>")
             logger.info_lv2(
                 json.loads(
-                    self.rfile.read(int(self.headers.get("content-length"))).decode(content_charset),
+                    self.rfile.read(int(self.headers.get("content-length"))).decode(
+                        content_charset
+                    ),
                 )
             )
         else:
@@ -75,5 +78,7 @@ class Args(OwlMixin):
 def run(args: Args):
     init_logger(args.v)
     with ReuseAddressTCPServer(("", args.port), MyServerHandler) as httpd:
-        logger.info_lv1(f"Serving HTTP on 0.0.0.0 port {args.port} (http://0.0.0.0:{args.port}/)")
+        logger.info_lv1(
+            f"Serving HTTP on 0.0.0.0 port {args.port} (http://0.0.0.0:{args.port}/)"
+        )
         httpd.serve_forever()
