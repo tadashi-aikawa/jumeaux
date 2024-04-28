@@ -38,6 +38,7 @@ nav:
   - 📝Template: ja/template.md
   - 📦Releases:
       - All: ja/releases/index.md
+      - v5.x.y: ja/releases/v5.md
       - v4.x.y: ja/releases/v4.md
       - v3.x.y: ja/releases/v3.md
       - v2.x.y: ja/releases/v2.md
@@ -85,8 +86,9 @@ markdown_extensions:
   - attr_list
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  # HTMLやemailをリンク化
+      emoji_generator:
+        !!python/name:material.extensions.emoji.to_svg # HTMLやemailをリンク化
+
   - pymdownx.magiclink
   # 別のmarkdownファイルを埋め込み可能
   - pymdownx.snippets:
