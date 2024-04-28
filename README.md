@@ -39,7 +39,7 @@ See [quick start in documentation](https://tadashi-aikawa.github.io/jumeaux/ja/g
 #### Create environment
 
 ```
-$ poetry env use <path of python 3.8>
+$ poetry env use <path of python 3.12>
 $ poetry install
 ```
 
