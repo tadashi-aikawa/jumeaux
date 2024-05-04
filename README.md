@@ -80,7 +80,7 @@ $ git push
 
 ### 2. Release with GitHub Actions
 
-https://github.com/tadashi-aikawa/jumeaux/actions?query=workflow%3ARelease
+https://github.com/tadashi-aikawa/jumeaux/actions/workflows/release.yaml?query=workflow%3ARelease
 
 ----
 
