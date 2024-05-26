@@ -1107,12 +1107,12 @@ owlmixin = ">=6.0,<7.0"
 
 [[package]]
 name = "owlmixin"
-version = "6.2.1"
+version = "6.2.2"
 description = "Mixin which converts ``data class instance`` and others each other more simple."
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "owlmixin-6.2.1-py3-none-any.whl", hash = "sha256:eed66ec8531f9f65a99aa758036bcb3f52af9ef1a3e6fe1dcf9e589af09394cd"},
+    {file = "owlmixin-6.2.2-py3-none-any.whl", hash = "sha256:3aa01bbfa69347586072019365ad30ccc12b7e788736a40ff117d77cb6a9637d"},
 ]
 
 [package.dependencies]
