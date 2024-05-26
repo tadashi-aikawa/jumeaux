@@ -1,7 +1,7 @@
-FROM python:3.12
+FROM python:3.7
 
-RUN pip install jumeaux==5.0.1
+RUN pip install jumeaux==5.0.2
 WORKDIR tmp
 
-ENTRYPOINT ["jumeaux"]
+ENTRYPOINT ["jumeaux", "run"]
 
