@@ -98,6 +98,4 @@ release: guard-version ## make release version=x.y.z
 	git push
 
 	@echo 'Success All!!'
-	@echo 'Create a pull request and merge to master!!'
-	@echo 'https://github.com/tadashi-aikawa/jumeaux/compare/$(version)?expand=1'
 
