@@ -4,13 +4,13 @@
 
 以下の環境いずれかが必要です。
 
-* Python3.8以上
+* Python3.9以上
 * Docker
 
 
 ## :fontawesome-solid-download: Installation
 
-### Python3.8以上
+### Python3.9以上
 
 ```
 $ pip install jumeaux

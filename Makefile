@@ -22,22 +22,22 @@ guard-%:
 #---- Basic
 
 server: ## Start dummy API
-	@poetry run python jumeaux/main.py server
+	@uv run python jumeaux/main.py server
 
 viewer: ## Start Jumeaux Viewer
-	@poetry run python jumeaux/main.py viewer
+	@uv run python jumeaux/main.py viewer
 
 lint: ## Lint
-	@shopt -s globstar; poetry run ruff check jumeaux/**/*.py
+	@shopt -s globstar; uv run ruff check jumeaux/**/*.py
 
 format: ## Format
-	@shopt -s globstar; poetry run ruff format jumeaux/**/*.py
+	@shopt -s globstar; uv run ruff format jumeaux/**/*.py
 
 test: ## Test
-	@poetry run python -m pytest -vv --cov-report=xml --cov=. tests/
+	@uv run python -m pytest -vv --cov-report=xml --cov=. tests/
 
 test-e2e: ## Test on CLI
-	@poetry run python -m pytest -vv e2e/main.py
+	@uv run python -m pytest -vv e2e/main.py
 
 ci: ## lint & format & test & test-e2e
 	@make lint && make format && make test && make test-e2e
@@ -49,7 +49,7 @@ clear: ## Remove responses, requests, api and config.yml
 #---- Docs
 
 serve-docs: ## Build and serve documentation
-	@poetry run mkdocs serve -a localhost:8000
+	@uv run mkdocs serve -a localhost:8000
 
 
 #---- Release
@@ -58,23 +58,21 @@ _clean-package-docs: ## Clean package documentation
 	@rm -rf docs/*
 
 package-docs: _clean-package-docs ## Package documentation
-	@poetry run mkdocs build
+	@uv run mkdocs build
 
 _clean-package: ## Clean package
 	@rm -rf build dist jumeaux.egg-info
 
-_package: _clean-package ## Package OwlMixin
-	@poetry build -f wheel
+_package: _clean-package ## Package Jumeaux
+	@uv build
 
 release: guard-version ## make release version=x.y.z
 	@echo '0. Install packages from lockfile, then test and package documentation'
-	@poetry install --no-root
-	@make test
-	@make test-e2e
-	@make test package-docs
+	@uv sync
+	@make test test-e2e package-docs
 
 	@echo '1. Version up'
-	@poetry version $(version)
+	@sed -i 's/^version = ".*"/version = "$(version)"/' pyproject.toml
 	@echo "__version__ = '$(version)'" > jumeaux/__init__.py
 
 	@echo '2. Recreate `Dockerfile`'
@@ -91,7 +89,7 @@ release: guard-version ## make release version=x.y.z
 	@make _package
 
 	@echo '6. Publish'
-	@poetry publish
+	@uv publish
 
 	@echo '7. Push'
 	git push --tags

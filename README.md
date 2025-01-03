@@ -26,7 +26,7 @@ See [quick start in documentation](https://tadashi-aikawa.github.io/jumeaux/ja/g
 
 ### Requirements
 
-* poetry
+* uv
 * make
 
 ### Flow
@@ -39,14 +39,13 @@ See [quick start in documentation](https://tadashi-aikawa.github.io/jumeaux/ja/g
 #### Create environment
 
 ```
-$ poetry env use <path of python 3.12>
-$ poetry install
+$ uv sync
 ```
 
 #### Run
 
 ```
-$ poetry run python jumeaux/main.py <args>
+$ uv run jumeaux/main.py <args>
 ```
 
 #### Serve docs
@@ -66,8 +65,6 @@ $ make test
 ```
 $ make test-e2e
 ```
-
-
 
 ## 📦 Release
 
@@ -91,7 +88,7 @@ If you can't or don't want to use GitHub Actions, you can release locally as fol
 #### (a1) Requirements
 
 * **Windows is not supported!!!**
-* poetry (with pypi authentications)
+* uv (with pypi authentications)
 * make
 
 #### (a2) Commands
