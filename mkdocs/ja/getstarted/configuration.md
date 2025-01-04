@@ -80,6 +80,6 @@ addons:
             message: "{{ title }} notify!"
 ```
 
-[addons]: ../../addons#configration-definitions
-[notifier]: ../../models/notifier
-[access-point]: ../../models/access-point
+[addons]: ../addons/index.md#configuration-definitions
+[notifier]: ../models/notifier.md
+[access-point]: ../models/access-point.md

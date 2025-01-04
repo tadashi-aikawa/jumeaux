@@ -68,7 +68,7 @@ Definitions
 
     [judge_response_header]が`true`の場合のみ
 
-    [judge_response_header]: ../../getstarted/configuration#Config
+    [judge_response_header]: ../getstarted/configuration.md#config
 
 
 ### DiffKeys
@@ -80,5 +80,5 @@ Definitions
 | removed | string[] | 削除されたプロパティ | `[<root><"id">]` |
 
 
-[judgement/ignore]: ../../addons/judgement#ignore
+[judgement/ignore]: ../addons/judgement.md#ignore
 

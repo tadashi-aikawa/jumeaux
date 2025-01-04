@@ -375,8 +375,8 @@ Config設定はありません。
             when: "qs.id|length == 1 and qs.id.0|int > 2"
 ```
 
-[Template表記]: ../../template
-[request]: ../../models/request
-[notifier]: ../../models/notifier
-[config/examples]: ../../getstarted/configuration/#examples
+[Template表記]: ../template.md
+[request]: ../models/request.md
+[notifier]: ../models/notifier.md
+[config/examples]: ../getstarted/configuration.md#examples
 

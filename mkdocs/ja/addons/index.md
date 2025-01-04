@@ -31,21 +31,21 @@ Add-on specifications
 | [did_challenge]   | 次のchallengeに移る前に処理をする               |
 | [final]           | jumeauxの処理が完了する前に処理をする           |
 
-[log2reqs]: log2reqs
-[reqs2reqs]: reqs2reqs
-[res2res]: res2res
-[res2dict]: res2dict
-[judgement]: judgement
-[store_criterion]: store_criterion
-[dump]: dump
-[did_challenge]: did_challenge
-[final]: final
+[log2reqs]: ./log2reqs.md
+[reqs2reqs]: ./reqs2reqs.md
+[res2res]: ./res2res.md
+[res2dict]: ./res2dict.md
+[judgement]: ./judgement.md
+[store_criterion]: ./store_criterion.md
+[dump]: ./dump.md
+[did_challenge]: ./did_challenge.md
+[final]: ./final.md
 
 
 Configuration Definitions
 -------------------------
 
-アドオンを使用する場合は以下の定義に従って、[設定ファイル](ja/getstarted/configuration)に追加してください。
+アドオンを使用する場合は以下の定義に従って、[設定ファイル]に追加してください。
 
 ### Addons
 
@@ -82,6 +82,12 @@ Configuration Examples
 以下は設定の一例です。
 
 ```yaml
+# final/notifyで通知手段にSlackを使う設定
+notifiers:
+  jumeaux:
+    type: slack
+    version: 2
+
 addons:
   log2reqs:
     name: csv
@@ -93,15 +99,13 @@ addons:
         size: 10
 
   final:
-    - name: slack
+    - name: notify
       tags:
         - production
       config:
-        conditions:
-          - payload:
-              message_format: Finish Jumeaux!!
-              channel: "#jumeaux"
-              icon_emoji: ":innocent:"
+        notifies:
+          - notifier: jumeaux
+            message: "{{ title }} is Finish!! There are {{ summary.status.different }} diffs.."
 ```
 
 この設定は以下のように動作します。
@@ -116,10 +120,11 @@ addons:
 * [log2reqs/csv]
 * [reqs2reqs/shuffle]
 * [reqs2reqs/head]
-* [final/slack]
+* [final/notify]
 
-[log2reqs/csv]: log2reqs#csv
-[reqs2reqs/shuffle]: reqs2reqs#shuffle
-[reqs2reqs/head]: reqs2reqs#head
-[final/slack]: final#slack
+[log2reqs/csv]: ./log2reqs.md#csv
+[reqs2reqs/shuffle]: ./reqs2reqs.md#shuffle
+[reqs2reqs/head]: ./reqs2reqs.md#head
+[final/notify]: ./final.md#notify
 
+[設定ファイル]: ../getstarted/configuration.md

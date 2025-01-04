@@ -159,4 +159,4 @@ headers:
   User-Agent: Super-Jumeaux
 ```
 
-[request]: ../../models/request
+[request]: ../models/request.md

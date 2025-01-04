@@ -124,5 +124,5 @@ equals_without_host("https://hoge.com/hoge", "https://hoge.com/fuga")
 // -> False
 ```
 
-[trial]: ./models/trial
+[trial]: ./models/trial.md
 

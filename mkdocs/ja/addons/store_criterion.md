@@ -54,7 +54,7 @@ APIレスポンスを保存する基準を決定します。
           - status == 'same'
 ```
 
-[Template表記]: ../../template
-[request]: ../../models/request
-[response]: ../../models/response
+[Template表記]: ../template.md
+[request]: ../models/request.md
+[response]: ../models/response.md
 

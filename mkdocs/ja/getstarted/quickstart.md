@@ -130,7 +130,7 @@ responses/
     [Miroir]の使用を検討してみましょう。`final/miroir`アドオンを使用するとJumeauxの結果を登録することができます。
 
 
-[response_dir]: ../configuration/#outputsummary
+[response_dir]: ./configuration.md#outputsummary
 [miroir]: https://github.com/tadashi-aikawa/miroir
 
 

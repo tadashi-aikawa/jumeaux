@@ -222,4 +222,4 @@ icon_emoji: "innocent"
 [Incoming webhook]: https://api.slack.com/incoming-webhooks
 [Block Kit]: https://api.slack.com/block-kit
 [Block Kit Builder]: https://app.slack.com/block-kit-builder
-[final/notify]: ../../addons/final#notify
+[final/notify]: ../addons/final.md#notify

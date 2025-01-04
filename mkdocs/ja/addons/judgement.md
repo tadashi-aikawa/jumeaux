@@ -206,6 +206,6 @@ judgement [:fontawesome-brands-github:][s1]
           - req.path == '/test1'
 ```
 
-[Template表記]: ../../template
-[request]: ../../models/request
-[response]: ../../models/response
+[Template表記]: ../template.md
+[request]: ../models/request.md
+[response]: ../models/response.md

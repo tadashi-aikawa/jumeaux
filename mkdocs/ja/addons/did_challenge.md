@@ -125,6 +125,6 @@ did_challenge [:fontawesome-brands-github:][s1]
           - tag: "{{ res_one_props.items[0].type }}"
 ```
 
-[Template表記]: ../../template
-[trial]: ../../models/trial
-[response]: ../../models/response
+[Template表記]: ../template.md
+[trial]: ../models/trial.md
+[response]: ../models/response.md

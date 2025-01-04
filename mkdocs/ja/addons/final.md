@@ -385,9 +385,9 @@ Config設定はありません。
 ```
 
 
-[Template表記]: ../../template
-[report]: ../../getstarted/report
-[response_dir]: ../../getstarted/configuration/#outputsummary
-[notifier]: ../../models/notifier
-[config/examples]: ../../getstarted/configuration/#examples
+[Template表記]: ../template.md
+[report]: ../getstarted/report.md
+[response_dir]: ../getstarted/configuration.md#outputsummary
+[notifier]: ../models/notifier.md
+[config/examples]: ../getstarted/configuration.md#examples
 

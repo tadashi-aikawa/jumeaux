@@ -216,7 +216,7 @@ typeはJumeauxのアドオンや連携先アプリケーションでファイル
             when: "'target' in req.path"
 ```
 
-[Template表記]: ../../template
-[request-condition]: ../../models/request-condition
-[request]: ../../models/request
-[response]: ../../models/response
+[Template表記]: ../template.md
+[request-condition]: ../models/request-condition.md
+[request]: ../models/request.md
+[response]: ../models/response.md

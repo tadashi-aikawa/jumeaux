@@ -319,4 +319,4 @@ YAML入力形式に対応しています。
       encoding: euc-jp
 ```
 
-[request]: ../../models/request
+[request]: ../models/request.md

@@ -381,7 +381,7 @@ Report
     ```
 
 
-[addons]: ../../addons#configration-definitions
-[access-point]: ../../models/access-point
-[trial]: ../../models/trial
-[notifier]: ../../models/notifier
+[addons]: ../addons/index.md#configuration-definitions
+[access-point]: ../models/access-point.md
+[trial]: ../models/trial.md
+[notifier]: ../models/notifier.md
