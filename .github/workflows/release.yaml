@@ -29,28 +29,3 @@ jobs:
         run: make release version=${{ github.event.inputs.version }}
         env:
           TZ: "Asia/Tokyo"
-
-      - name: "Discord notification (not success)"
-        uses: rjstone/discord-webhook-notify@v1
-        if: "! success()"
-        with:
-          description: "⚠ Jumeaux Release failed!"
-          details: "${{ github.event.inputs.version }}"
-          severity: error
-          avatarUrl: https://www.suruga-ya.jp/database/pics_light/game/871005085.jpg
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-
-  notify:
-    needs: release
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: "Discord notification (success)"
-        uses: rjstone/discord-webhook-notify@v1
-        if: always()
-        with:
-          description: "✅ Jumeaux Release finished!"
-          details: "${{ github.event.inputs.version }}"
-          severity: info
-          avatarUrl: https://www.suruga-ya.jp/database/pics_light/game/871005085.jpg
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}

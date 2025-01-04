@@ -39,28 +39,3 @@ jobs:
           TZ: "Asia/Tokyo"
       - uses: codecov/codecov-action@v3
         if: matrix.python == 3.13 && success()
-
-      - name: "Discord notification (not success)"
-        uses: rjstone/discord-webhook-notify@v1
-        if: "! success()"
-        with:
-          description: "⚠ Jumeaux Tests failed!"
-          footer: "Python v${{ matrix.python }} on ${{ matrix.os }})"
-          severity: error
-          avatarUrl: https://www.suruga-ya.jp/database/pics_light/game/871005085.jpg
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-
-  notify:
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: "Discord notification (success)"
-        uses: rjstone/discord-webhook-notify@v1
-        if: always()
-        with:
-          description: "✅ Jumeaux Tests passed!"
-          footer: "Python v3.9/3.10/3.11/3.12/3.13"
-          severity: info
-          avatarUrl: https://www.suruga-ya.jp/database/pics_light/game/871005085.jpg
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
