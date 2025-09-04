@@ -19,7 +19,7 @@ dependencies = [
     "tzlocal<3.0.0,>=2.0.0",
     "owlmixin<8.0.0,>=7.0.1",
     "owcli<1.0.0,>=0.8.0",
-    "deepdiff==6.2.1",
+    "deepdiff==8.6.1",
     "markupsafe==2.0.1",
     "urllib3<2",
     "jinja2<4.0.0,>=3.1.2",
