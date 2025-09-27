@@ -10,15 +10,15 @@ from datetime import timedelta
 import pytest
 
 # noinspection PyUnresolvedReferences
-import jumeaux.addons  # XXX: Workaround for cyclic import
+import jumeaux.addons  # XXX: Workaround for cyclic import  # noqa: F401
 from jumeaux.domain.config.vo import NotifierType
-from jumeaux.models import Report, HttpMethod
+from jumeaux.models import HttpMethod, Report
 from jumeaux.utils import now
 
 URL_BASE = "http://localhost:8000/api"
 
 exec_all = True
-is_windows = os.name == "nt"
+is_linux = sys.platform.startswith("linux")
 
 
 def cmd_jumeaux(*args: str) -> int:
@@ -169,7 +169,9 @@ class TestRun:
             report.summary.one.query.get().overwrite.get()["time"][0]
             == "$DATETIME(%Y-%m-%d)(-86400)"
         )
-        assert report.summary.other.query.get().overwrite.get()["additional"][0] == "hoge"
+        assert (
+            report.summary.other.query.get().overwrite.get()["additional"][0] == "hoge"
+        )
         assert (
             report.summary.other.query.get().overwrite.get()["time"][0]
             == "$DATETIME(%Y-%m-%d)(86400)"
@@ -179,14 +181,18 @@ class TestRun:
         def time(*, days: int) -> str:
             return (now() + timedelta(days=days)).strftime("%Y-%m-%d")
 
-        assert report.trials[0].one.url == f"{URL_BASE}/one/same-1.json?time={time(days=-1)}"
+        assert (
+            report.trials[0].one.url
+            == f"{URL_BASE}/one/same-1.json?time={time(days=-1)}"
+        )
         assert (
             report.trials[0].other.url
             == f"{URL_BASE}/other/same-1.json?additional=hoge&time={time(days=+1)}"
         )
 
         assert (
-            report.trials[1].one.url == f"{URL_BASE}/one/diff-1.json?param=123&time={time(days=-1)}"
+            report.trials[1].one.url
+            == f"{URL_BASE}/one/diff-1.json?param=123&time={time(days=-1)}"
         )
         assert (
             report.trials[1].other.url
@@ -210,7 +216,12 @@ class TestRun:
         assert cmd_jumeaux("init", "xml") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "other-props/*", "report.json", "index.html"
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
@@ -224,7 +235,12 @@ class TestRun:
         assert cmd_jumeaux("init", "html") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "other-props/*", "report.json", "index.html"
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
@@ -237,7 +253,12 @@ class TestRun:
         assert cmd_jumeaux("init", "ignore_order") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "other-props/*", "report.json", "index.html"
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
@@ -250,7 +271,12 @@ class TestRun:
         assert cmd_jumeaux("init", "ignore") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "other-props/*", "report.json", "index.html"
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
@@ -260,14 +286,21 @@ class TestRun:
         assert report.trials[3].diffs_by_cognition.get()["Ignore hosts"].changed == [
             "root<'equals_without_hosts'>"
         ]
-        assert report.trials[3].diffs_by_cognition.get()["unknown"].changed == ["root<'diff'>"]
+        assert report.trials[3].diffs_by_cognition.get()["unknown"].changed == [
+            "root<'diff'>"
+        ]
 
     @pytest.mark.skipif(exec_all is False, reason="Need not exec all test")
     def test_force_json(self):
         assert cmd_jumeaux("init", "force_json") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "other-props/*", "report.json", "index.html"
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
@@ -282,7 +315,12 @@ class TestRun:
         assert cmd_jumeaux("init", "request_headers") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "other-props/*", "report.json", "index.html"
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
@@ -301,7 +339,12 @@ class TestRun:
         assert cmd_jumeaux("init", "judge_response_headers") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "report.json", "index.html", "one/*", "other/*", "one-props/*", "other-props/*"
+            "report.json",
+            "index.html",
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
         )
         report = load_latest_report()
 
@@ -333,7 +376,8 @@ class TestRun:
 
     @pytest.mark.skipif(exec_all is False, reason="Need not exec all test")
     @pytest.mark.skipif(
-        is_windows, reason="Jumeaux doesn't support multiprocess executor in Windows."
+        not is_linux,
+        reason="The multiprocess executor in Jumeaux is only supported on Linux.",
     )
     def test_with_processes(self):
         assert cmd_jumeaux("init", "simple") == 0
@@ -351,7 +395,12 @@ class TestRun:
         assert cmd_jumeaux("init", "root_array") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "other-props/*", "report.json", "index.html"
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
@@ -364,13 +413,21 @@ class TestRun:
         assert cmd_jumeaux("init", "notifier") == 0
         assert cmd_jumeaux("run", "requests") == 0
         assert_exists_in_latest(
-            "one/*", "other/*", "one-props/*", "other-props/*", "report.json", "index.html"
+            "one/*",
+            "other/*",
+            "one-props/*",
+            "other-props/*",
+            "report.json",
+            "index.html",
         )
 
         report = load_latest_report()
 
         assert report.notifiers.get().get("jumeaux").get().type == NotifierType.SLACK
-        assert report.notifiers.get().get("jumeaux").get().channel.get() == "#bot_tadashi-aikawa"
+        assert (
+            report.notifiers.get().get("jumeaux").get().channel.get()
+            == "#bot_tadashi-aikawa"
+        )
         assert report.notifiers.get().get("jumeaux").get().icon_emoji.get() == "miroir"
 
     @pytest.mark.skipif(exec_all is False, reason="Need not exec all test")
@@ -443,5 +500,8 @@ class TestRetry:
         assert_exists_in_latest("report.json", "index.html")
 
         assert report.notifiers.get().get("jumeaux").get().type == NotifierType.SLACK
-        assert report.notifiers.get().get("jumeaux").get().channel.get() == "#bot_tadashi-aikawa"
+        assert (
+            report.notifiers.get().get("jumeaux").get().channel.get()
+            == "#bot_tadashi-aikawa"
+        )
         assert report.notifiers.get().get("jumeaux").get().icon_emoji.get() == "miroir"
