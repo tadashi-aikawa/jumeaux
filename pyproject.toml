@@ -25,7 +25,7 @@ dependencies = [
     "jinja2<4.0.0,>=3.1.2",
 ]
 name = "jumeaux"
-version = "6.0.0"
+version = "6.0.1"
 description = "Check difference between two responses of API."
 readme = "README.md"
 keywords = [
