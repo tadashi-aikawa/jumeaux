@@ -123,6 +123,7 @@ Miroir参照用にデータをAWSに登録します。
 | assumed_role_arn | (string)                  | Assumed roleで認証を行う場合はarnを指定する         | TODO:            |         |
 | checklist        | (string)                  | 今はまだ使用していません                            |                  |         |
 | local_stack      | [LocalStack](#localstack) | LocalStackを使用する場合に設定する                  |                  |         |
+| endpoints        | [Endpoints](#endpoints)   | DynamoDB/S3のエンドポイントを個別指定する           |                  |         |
 | when             | (When[])  | Miroirへ転送する条件                                |                  |         |
 
 ??? info "when"
@@ -141,6 +142,17 @@ Miroir参照用にデータをAWSに登録します。
 | -------- | -------- | -------------------------- | ----------------- | ---------------- |
 | use      | bool     | LocalStackを使用するか     | true              |                  |
 | endpoint | (string) | LocalStackのエンドポイント | http://localstack | http://localhost |
+
+##### Endpoints
+
+|   Key    |   Type   |           Description            |      Example      | Default |
+| -------- | -------- | -------------------------------- | ----------------- | ------- |
+| dynamodb | (string) | DynamoDBのエンドポイント         | http://localhost:3456 |         |
+| s3       | (string) | S3のエンドポイント               | http://localhost:3456 |         |
+
+!!! warning
+
+    `local_stack` と `endpoints` は同時に指定できません。
 
 #### Examples
 
@@ -179,6 +191,19 @@ Bucketの`test/`配下にデータが保存されます。
         cache_max_age: 120
         local_stack:
           use: true
+```
+
+##### DynamoDBとS3のendpointを個別指定する
+
+```yaml
+  final:
+    - name: miroir
+      config:
+        table: miroir
+        bucket: mamansoft-miroir
+        endpoints:
+          dynamodb: http://localhost:3456
+          s3: http://localhost:3456
 ```
 
 ##### 結果が空でないときだけ保存する
@@ -390,4 +415,3 @@ Config設定はありません。
 [response_dir]: ../getstarted/configuration.md#outputsummary
 [notifier]: ../models/notifier.md
 [config/examples]: ../getstarted/configuration.md#examples
-

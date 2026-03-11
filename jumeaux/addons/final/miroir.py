@@ -38,6 +38,11 @@ class LocalStack(OwlMixin):
     endpoint: str = "http://localhost"
 
 
+class Endpoints(OwlMixin):
+    dynamodb: TOption[str]
+    s3: TOption[str]
+
+
 class Config(OwlMixin):
     table: str
     bucket: str
@@ -47,12 +52,27 @@ class Config(OwlMixin):
     assumed_role_arn: TOption[str]
     checklist: TOption[str]
     local_stack: TOption[LocalStack]
+    endpoints: TOption[Endpoints]
     when: TList[When] = []
 
 
 class Executor(FinalExecutor):
     def __init__(self, config: dict) -> None:
         self.config: Config = Config.from_dict(config or {})
+        if not self.config.local_stack.is_none() and not self.config.endpoints.is_none():
+            raise ValueError(
+                "miroir config: endpoints and local_stack cannot be used together"
+            )
+
+    def _create_endpoint_url(self, service: str, localstack_port: int):
+        if not self.config.endpoints.is_none():
+            return getattr(self.config.endpoints.get(), service).get()
+
+        return (
+            f"{self.config.local_stack.get().endpoint}:{localstack_port}"
+            if not self.config.local_stack.is_none() and self.config.local_stack.get().use
+            else None
+        )
 
     def exec(
         self, payload: FinalAddOnPayload, reference: FinalAddOnReference
@@ -84,14 +104,6 @@ class Executor(FinalExecutor):
             else None
         )
 
-        def create_endpoint_url(port_as_localstack: int):
-            return (
-                f"{self.config.local_stack.get().endpoint}:{port_as_localstack}"
-                if not self.config.local_stack.is_none()
-                and self.config.local_stack.get().use
-                else None
-            )
-
         # dynamo
         dynamodb = boto3.resource(
             "dynamodb",
@@ -102,10 +114,10 @@ class Executor(FinalExecutor):
                         "SecretAccessKey"
                     ],
                     "aws_session_token": tmp_credential["Credentials"]["SessionToken"],
-                    "endpoint_url": create_endpoint_url(4569),
+                    "endpoint_url": self._create_endpoint_url("dynamodb", 4569),
                 }
                 if tmp_credential
-                else {"endpoint_url": create_endpoint_url(4569)}
+                else {"endpoint_url": self._create_endpoint_url("dynamodb", 4569)}
             ),
         )
 
@@ -143,10 +155,10 @@ class Executor(FinalExecutor):
                         "SecretAccessKey"
                     ],
                     "aws_session_token": tmp_credential["Credentials"]["SessionToken"],
-                    "endpoint_url": create_endpoint_url(4572),
+                    "endpoint_url": self._create_endpoint_url("s3", 4572),
                 }
                 if tmp_credential
-                else {"endpoint_url": create_endpoint_url(4572)}
+                else {"endpoint_url": self._create_endpoint_url("s3", 4572)}
             ),
         )
         base_key = self.config.prefix.map(lambda x: f"{x}/results").get_or("results")
