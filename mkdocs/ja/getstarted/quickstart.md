@@ -4,13 +4,13 @@
 
 以下の環境いずれかが必要です。
 
-* Python3.9以上
+* Python3.10以上
 * Docker
 
 
 ## :fontawesome-solid-download: Installation
 
-### Python3.9以上
+### Python3.10以上
 
 ```
 $ pip install jumeaux
@@ -147,4 +147,3 @@ responsesに結果が1つ以上格納された状態で`jumeaux viewer`を実行
 
     `latest/report.json`に変更があった場合にリロードされます。  
     そのため`jumeaux`を実行せずにシンボリックリンクを切り替えたり、`report.json`を編集しても自動リロードされます。
-

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import datetime
+import re
 from typing import Any, List, Optional
 
 from owlmixin import OwlEnum, OwlMixin, TDict, TList, TOption
 from requests.structures import CaseInsensitiveDict as RequestsCaseInsensitiveDict
-from requests_toolbelt.utils import deprecated
 
 from jumeaux.addons.models import Addons
 from jumeaux.domain.config.vo import (
@@ -17,6 +17,21 @@ from jumeaux.domain.config.vo import (
 )
 
 DictOrList = any  # type: ignore
+
+find_charset = re.compile(
+    br'<meta.*?charset=["\']*(.+?)["\'>]', flags=re.I
+).findall
+find_pragma = re.compile(
+    br'<meta.*?content=["\']*;?charset=(.+?)["\'>]', flags=re.I
+).findall
+find_xml = re.compile(
+    br'^<\?xml.*?encoding=["\']*(.+?)["\'>]'
+).findall
+
+
+def get_encodings_from_content(content: bytes) -> List[str]:
+    encodings = find_charset(content) + find_pragma(content) + find_xml(content)
+    return [encoding.decode("utf8") for encoding in encodings]
 
 
 def to_json(value: DictOrList) -> str:  # type: ignore
@@ -125,7 +140,7 @@ class Response(OwlMixin):
         ):
             return res.encoding
 
-        meta_encodings: List[str] = deprecated.get_encodings_from_content(res.content)
+        meta_encodings: List[str] = get_encodings_from_content(res.content)
         return (
             meta_encodings[0]
             if meta_encodings

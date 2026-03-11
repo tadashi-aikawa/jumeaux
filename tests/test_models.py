@@ -5,7 +5,7 @@ from collections import namedtuple
 import pytest
 from owlmixin import TOption
 
-from jumeaux.models import Proxy, Response
+from jumeaux.models import Proxy, Response, get_encodings_from_content
 
 
 class TestProxy:
@@ -20,6 +20,34 @@ class TestProxy:
 
 
 class TestModels:
+    @pytest.mark.parametrize(
+        "content, expected",
+        [
+            (
+                b'<meta charset="utf-8">',
+                ["utf-8"],
+            ),
+            (
+                b'<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">',
+                ["Shift_JIS"],
+            ),
+            (
+                b'<?xml version="1.0" encoding="EUC-JP" ?>',
+                ["EUC-JP"],
+            ),
+            (
+                b'<meta charset="utf-8"><?xml version="1.0" encoding="EUC-JP" ?>',
+                ["utf-8"],
+            ),
+            (
+                b"plain text",
+                [],
+            ),
+        ],
+    )
+    def test_get_encodings_from_content(self, content, expected):
+        assert get_encodings_from_content(content) == expected
+
     @pytest.mark.parametrize(
         "title, headers, text, content, encoding, apparent_encoding, default_encoding, expected",
         [
