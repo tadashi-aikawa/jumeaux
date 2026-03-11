@@ -841,6 +841,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoints
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -878,6 +887,15 @@
   <a href="#localstack2" class="md-nav__link">
     <span class="md-ellipsis">
       LocalStackを使ってキャッシュ2分で保存する
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamodbs3endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      DynamoDBとS3のendpointを個別指定する
     </span>
   </a>
   
@@ -1788,6 +1806,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoints
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1825,6 +1852,15 @@
   <a href="#localstack2" class="md-nav__link">
     <span class="md-ellipsis">
       LocalStackを使ってキャッシュ2分で保存する
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamodbs3endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      DynamoDBとS3のendpointを個別指定する
     </span>
   </a>
   
@@ -2287,6 +2323,13 @@
 <td></td>
 </tr>
 <tr>
+<td>endpoints</td>
+<td><a href="#endpoints">Endpoints</a></td>
+<td>DynamoDB/S3のエンドポイントを個別指定する</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
 <td>when</td>
 <td>(When[])</td>
 <td>Miroirへ転送する条件</td>
@@ -2348,6 +2391,38 @@
 </tr>
 </tbody>
 </table>
+<h5 id="endpoints">Endpoints<a class="headerlink" href="#endpoints" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dynamodb</td>
+<td>(string)</td>
+<td>DynamoDBのエンドポイント</td>
+<td><a href="http://localhost:3456">http://localhost:3456</a></td>
+<td></td>
+</tr>
+<tr>
+<td>s3</td>
+<td>(string)</td>
+<td>S3のエンドポイント</td>
+<td><a href="http://localhost:3456">http://localhost:3456</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code>local_stack</code> と <code>endpoints</code> は同時に指定できません。</p>
+</div>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
 <h5 id="1">キャッシュ1時間で保存する<a class="headerlink" href="#1" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span>
@@ -2375,6 +2450,16 @@
 <span class="w">        </span><span class="nt">cache_max_age</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120</span>
 <span class="w">        </span><span class="nt">local_stack</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">use</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<h5 id="dynamodbs3endpoint">DynamoDBとS3のendpointを個別指定する<a class="headerlink" href="#dynamodbs3endpoint" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">miroir</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">table</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">miroir</span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mamansoft-miroir</span>
+<span class="w">        </span><span class="nt">endpoints</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">dynamodb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:3456</span>
+<span class="w">          </span><span class="nt">s3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:3456</span>
 </code></pre></div>
 <h5 id="_3">結果が空でないときだけ保存する<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">final</span><span class="p">:</span>
