@@ -1269,14 +1269,12 @@
 </ul>
 <h2 id="installation"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <h3 id="python310">Python3.10以上<a class="headerlink" href="#python310" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>$ pip install jumeaux
-</code></pre></div>
+<p><code>$ pip install jumeaux</code></p>
 <p><code>jumeaux --version</code>でバージョンが表示されればOKです。</p>
 <h3 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>$ git clone https://github.com/tadashi-aikawa/jumeaux.git
+<p><code>$ git clone https://github.com/tadashi-aikawa/jumeaux.git
 $ cd jumeaux
-$ docker build -t tadashi-aikawa/jumeaux .
-</code></pre></div>
+$ docker build -t tadashi-aikawa/jumeaux .</code></p>
 <p><code>docker run -it tadashi-aikawa/jumeaux --version</code>でバージョンが表示されればOKです。</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1307,8 +1305,7 @@ $ docker build -t tadashi-aikawa/jumeaux .
 </tbody>
 </table>
 <p>上記ファイルの作成に<code>jumeaux init</code>コマンドを使用できます。</p>
-<div class="highlight"><pre><span></span><code>$ jumeaux init simple
-</code></pre></div>
+<p><code>$ jumeaux init simple</code></p>
 <p><code>simple</code>は作成するファイルの種類です。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1321,8 +1318,7 @@ $ docker build -t tadashi-aikawa/jumeaux .
 ローカル環境で動作確認をするため、<code>jumeaux server</code>コマンドを実行しましょう。</p>
 <h2 id="execute"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0m188.3-108.9c-7.6 4.2-12.3 12.3-12.3 20.9v176c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"/></svg></span> Execute<a class="headerlink" href="#execute" title="Permanent link">&para;</a></h2>
 <p><code>config.yml</code>と<code>requests</code>を指定して実行しましょう。</p>
-<div class="highlight"><pre><span></span><code>$ jumeaux run requests
-</code></pre></div>
+<p><code>$ jumeaux run requests</code></p>
 <ul>
 <li>デフォルトでは標準出力に何も出力されません <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m-40-176h24v-64h-24c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-80c-13.3 0-24-10.7-24-24s10.7-24 24-24m40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64"/></svg></span></li>
 <li>標準エラー出力にはログまたはエラーが出力されます</li>
@@ -1335,14 +1331,13 @@ $ docker build -t tadashi-aikawa/jumeaux .
 <p class="admonition-title">Note</p>
 <p><code>--config</code>を指定しないと<code>config.yml</code>が設定されたことになります。<br />
 つまり、<code>jumeaux run requests</code>は以下のコマンドと等価です。</p>
-<div class="highlight"><pre><span></span><code>$ jumeaux run requests --config config.yml
-</code></pre></div>
+<p><code>$ jumeaux run requests --config config.yml</code></p>
 </div>
 <h2 id="check"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M128 32c-35.3 0-64 28.7-64 64v256h64V96h384v256h64V96c0-35.3-28.7-64-64-64zM19.2 384C8.6 384 0 392.6 0 403.2 0 445.6 34.4 480 76.8 480h486.4c42.4 0 76.8-34.4 76.8-76.8 0-10.6-8.6-19.2-19.2-19.2z"/></svg></span> Check<a class="headerlink" href="#check" title="Permanent link">&para;</a></h2>
 <p>結果は設定ファイルの<a href="../configuration/#outputsummary">response_dir</a>で指定したディレクトリ配下に作成されます。<br />
 配下には、実行ごとに生成されるユニークなハッシュに基づいたディレクトリが存在します。</p>
 <p>また最も新しい結果にはlatestのシンボリックリンクが貼られます。</p>
-<div class="highlight"><pre><span></span><code>responses/
+<p><code>responses/
 ├── latest -&gt; 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16  # 最新の結果へのシンボリックリンク
 └── 057e69de9677f2694a9bf4e43b6229920554cfdfe3a30c915034919cb048fa16
     ├── index.html       # Localサーバを立ち上げてアクセスすると結果をGUIで確認できる
@@ -1354,8 +1349,7 @@ $ docker build -t tadashi-aikawa/jumeaux .
     │   └── (2)2
     ├── other-props      # otherの結果をプロパティとして解析した結果を保存している. 結果がjsonの場合はほぼ同じ
     │   └── (2)2.json
-    └── report.json  # 結果のjson. index.htmlもこれを参照している
-</code></pre></div>
+    └── report.json  # 結果のjson. index.htmlもこれを参照している</code></p>
 <h3 id="gui">GUIで結果を確認する<a class="headerlink" href="#gui" title="Permanent link">&para;</a></h3>
 <p><code>jumeaux viewer</code>コマンドを実行している場合は以下いずれかのURLにアクセスすると、Viewerで結果を確認することができます。</p>
 <ul>
