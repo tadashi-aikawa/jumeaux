@@ -1362,29 +1362,31 @@
 </table>
 <h2 id="configuration-examples">Configuration Examples<a class="headerlink" href="#configuration-examples" title="Permanent link">&para;</a></h2>
 <p>以下は設定の一例です。</p>
-<p>```yaml</p>
-<h1 id="finalnotifyslack">final/notifyで通知手段にSlackを使う設定<a class="headerlink" href="#finalnotifyslack" title="Permanent link">&para;</a></h1>
-<p>notifiers:<br />
-  jumeaux:<br />
-    type: slack<br />
-    version: 2</p>
-<p>addons:<br />
-  log2reqs:<br />
-    name: csv</p>
-<p>reqs2reqs:<br />
-    - name: shuffle<br />
-    - name: head<br />
-      config:<br />
-        size: 10</p>
-<p>final:<br />
-    - name: notify<br />
-      tags:<br />
-        - production<br />
-      config:<br />
-        notifies:<br />
-          - notifier: jumeaux<br />
-            message: "{{ title }} is Finish!! There are {{ summary.status.different }} diffs.."<br />
-```</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># final/notifyで通知手段にSlackを使う設定</span>
+<span class="nt">notifiers</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">jumeaux</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+
+<span class="nt">addons</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">log2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">csv</span>
+
+<span class="w">  </span><span class="nt">reqs2reqs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shuffle</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">head</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+
+<span class="w">  </span><span class="nt">final</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notify</span>
+<span class="w">      </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">notifies</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">notifier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jumeaux</span>
+<span class="w">            </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">title</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">Finish!!</span><span class="nv"> </span><span class="s">There</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">summary.status.different</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">diffs..&quot;</span>
+</code></pre></div>
 <p>この設定は以下のように動作します。</p>
 <ol>
 <li>リクエストファイルをcsvと解釈してパースする</li>
