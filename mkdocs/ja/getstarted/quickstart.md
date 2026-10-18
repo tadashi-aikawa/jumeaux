@@ -2,36 +2,18 @@
 
 ## :fontawesome-solid-desktop: Requirements
 
-以下の環境いずれかが必要です。
+以下の環境が必要です。
 
 * Python3.10以上
-* Docker
 
 
 ## :fontawesome-solid-download: Installation
-
-### Python3.10以上
 
 ```
 $ pip install jumeaux
 ```
 
 `jumeaux --version`でバージョンが表示されればOKです。
-
-### Docker
-
-```
-$ git clone https://github.com/tadashi-aikawa/jumeaux.git
-$ cd jumeaux
-$ docker build -t tadashi-aikawa/jumeaux .
-```
-
-`docker run -it tadashi-aikawa/jumeaux --version`でバージョンが表示されればOKです。
-
-!!! warning
-
-    以降はPythonの場合を想定して説明します。
-    つまり `jumeaux` => `docker run -v (pwd):/tmp -it tadashi-aikawa/jumeaux` とコマンドを置き換えてください。
 
 
 ## :fontawesome-solid-file: Create files

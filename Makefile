@@ -75,23 +75,20 @@ release: guard-version ## make release version=x.y.z
 	@sed -i 's/^version = ".*"/version = "$(version)"/' pyproject.toml
 	@echo "__version__ = '$(version)'" > jumeaux/__init__.py
 
-	@echo '2. Recreate `Dockerfile`'
-	@cat template/Dockerfile | sed -r 's/VERSION/$(version)/g' > Dockerfile
-
-	@echo '3. Staging and commit'
-	git add jumeaux/__init__.py Dockerfile docs pyproject.toml
+	@echo '2. Staging and commit'
+	git add jumeaux/__init__.py docs pyproject.toml
 	git commit -m '📦 Version $(version)'
 
-	@echo '4. Tags'
+	@echo '3. Tags'
 	git tag v$(version) -m v$(version)
 
-	@echo '5. Package Jumeaux'
+	@echo '4. Package Jumeaux'
 	@make _package
 
-	@echo '6. Publish'
+	@echo '5. Publish'
 	@uv publish
 
-	@echo '7. Push'
+	@echo '6. Push'
 	git push --tags
 	git push
 
