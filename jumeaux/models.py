@@ -18,15 +18,11 @@ from jumeaux.domain.config.vo import (
 
 DictOrList = any  # type: ignore
 
-find_charset = re.compile(
-    br'<meta.*?charset=["\']*(.+?)["\'>]', flags=re.I
-).findall
+find_charset = re.compile(rb'<meta.*?charset=["\']*(.+?)["\'>]', flags=re.I).findall
 find_pragma = re.compile(
-    br'<meta.*?content=["\']*;?charset=(.+?)["\'>]', flags=re.I
+    rb'<meta.*?content=["\']*;?charset=(.+?)["\'>]', flags=re.I
 ).findall
-find_xml = re.compile(
-    br'^<\?xml.*?encoding=["\']*(.+?)["\'>]'
-).findall
+find_xml = re.compile(rb'^<\?xml.*?encoding=["\']*(.+?)["\'>]').findall
 
 
 def get_encodings_from_content(content: bytes) -> List[str]:

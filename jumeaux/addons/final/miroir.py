@@ -59,7 +59,10 @@ class Config(OwlMixin):
 class Executor(FinalExecutor):
     def __init__(self, config: dict) -> None:
         self.config: Config = Config.from_dict(config or {})
-        if not self.config.local_stack.is_none() and not self.config.endpoints.is_none():
+        if (
+            not self.config.local_stack.is_none()
+            and not self.config.endpoints.is_none()
+        ):
             raise ValueError(
                 "miroir config: endpoints and local_stack cannot be used together"
             )
@@ -70,7 +73,8 @@ class Executor(FinalExecutor):
 
         return (
             f"{self.config.local_stack.get().endpoint}:{localstack_port}"
-            if not self.config.local_stack.is_none() and self.config.local_stack.get().use
+            if not self.config.local_stack.is_none()
+            and self.config.local_stack.get().use
             else None
         )
 

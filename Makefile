@@ -73,7 +73,7 @@ release: guard-version ## make release version=x.y.z
 
 	@echo '1. Version up'
 	@sed -i 's/^version = ".*"/version = "$(version)"/' pyproject.toml
-	@echo "__version__ = '$(version)'" > jumeaux/__init__.py
+	@echo '__version__ = "$(version)"' > jumeaux/__init__.py
 
 	@echo '2. Staging and commit'
 	git add jumeaux/__init__.py docs pyproject.toml
