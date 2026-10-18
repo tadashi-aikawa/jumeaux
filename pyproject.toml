@@ -20,7 +20,7 @@ dependencies = [
     "owcli<1.0.0,>=0.8.0",
     "deepdiff==8.6.2",
     "markupsafe==2.0.1",
-    "urllib3<3,>=2.6.3",
+    "urllib3<3,>=2.8.0",
     "jinja2<4.0.0,>=3.1.2",
 ]
 name = "jumeaux"
