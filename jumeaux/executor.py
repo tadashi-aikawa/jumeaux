@@ -3,6 +3,7 @@
 
 import hashlib
 import io
+import multiprocessing
 import os
 import re
 import sys
@@ -668,7 +669,10 @@ def create_concurrent_executor(config: Config) -> Tuple[Any, Concurrency]:
     processes = config.processes.get()
     if processes:
         return (
-            futures.ProcessPoolExecutor(max_workers=processes),
+            # Python 3.14+ uses forkserver by default on Linux, which does not inherit global_addon_executor
+            futures.ProcessPoolExecutor(
+                max_workers=processes, mp_context=multiprocessing.get_context("fork")
+            ),
             Concurrency.from_dict({"processes": processes, "threads": 1}),
         )
 
