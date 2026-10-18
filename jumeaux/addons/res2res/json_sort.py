@@ -54,9 +54,9 @@ def _list_sort(list_obj: list, targets: TList[Target], location: str = "root") -
         target.get()
         .sort_keys.map(lambda keys: lambda x: [x[k] for k in keys])
         .get_or(
-            lambda x: json.dumps(x, ensure_ascii=False)
-            if isinstance(x, (dict, list))
-            else x
+            lambda x: (
+                json.dumps(x, ensure_ascii=False) if isinstance(x, (dict, list)) else x
+            )
         )
     )
 
@@ -77,12 +77,14 @@ class Executor(Res2ResExecutor):
         res_json = json.loads(res.text)
         res_json_sorted = self.config.items.reduce(
             lambda t, s: (
-                _dict_sort(t, s.targets)
-                if isinstance(t, dict)
-                else _list_sort(t, s.targets)
-            )
-            if when_filter(s.when, payload.req.to_dict())
-            else t,
+                (
+                    _dict_sort(t, s.targets)
+                    if isinstance(t, dict)
+                    else _list_sort(t, s.targets)
+                )
+                if when_filter(s.when, payload.req.to_dict())
+                else t
+            ),
             res_json,
         )
 

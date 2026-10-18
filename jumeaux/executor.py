@@ -383,9 +383,9 @@ def challenge(arg_dict: dict) -> dict:
     name: str = arg.req.name.get_or(str(arg.seq))
     log_prefix = f"[{arg.seq} / {arg.number_of_request}]"
 
-    logger.info_lv3(f"{log_prefix} {'-'*80}")
+    logger.info_lv3(f"{log_prefix} {'-' * 80}")
     logger.info_lv3(f"{log_prefix}  {arg.seq}. {arg.req.name.get_or(arg.req.path)}")
-    logger.info_lv3(f"{log_prefix} {'-'*80}")
+    logger.info_lv3(f"{log_prefix} {'-' * 80}")
 
     path_str_one = arg.path_one.map(
         lambda x: re.sub(x.before, x.after, arg.req.path)

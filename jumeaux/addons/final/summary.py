@@ -29,7 +29,7 @@ class Executor(FinalExecutor):
 ===================================================================
 | {r.title}
 ===================================================================
-{os.linesep + r.description.get() + os.linesep if r.description.get() else ''}
+{os.linesep + r.description.get() + os.linesep if r.description.get() else ""}
 -------------------------------------------------------------------
 | key   | {r.key}
 | One   | {r.summary.one.host} ({r.summary.one.name})

@@ -41,9 +41,11 @@ def replace(req: Request, replacer: Replacer) -> Request:
 
 def apply_replacers(req: Request, replacers: TList[Replacer]) -> Request:
     return replacers.reduce(
-        lambda req_ret, rep: replace(req_ret, rep)
-        if when_optional_filter(rep.when, req.to_dict())
-        else req_ret,
+        lambda req_ret, rep: (
+            replace(req_ret, rep)
+            if when_optional_filter(rep.when, req.to_dict())
+            else req_ret
+        ),
         req,
     )
 
