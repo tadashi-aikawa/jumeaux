@@ -37,7 +37,3 @@ jobs:
       - run: make ci
         env:
           TZ: "Asia/Tokyo"
-      - uses: codecov/codecov-action@v7
-        if: matrix.python == 3.13 && success()
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}

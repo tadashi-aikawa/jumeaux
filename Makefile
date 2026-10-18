@@ -34,7 +34,7 @@ format: ## Format
 	@shopt -s globstar; uv run ruff format jumeaux/**/*.py
 
 test: ## Test
-	@uv run python -m pytest -vv --cov-report=xml --cov=. tests/
+	@uv run python -m pytest -vv tests/
 
 test-e2e: ## Test on CLI
 	@uv run python -m pytest -vv e2e/main.py
