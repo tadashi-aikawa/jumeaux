@@ -599,6 +599,7 @@ source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
     { name = "boto3" },
+    { name = "certifi" },
     { name = "deepdiff" },
     { name = "docopt" },
     { name = "jinja2" },
@@ -629,6 +630,7 @@ dev = [
 requires-dist = [
     { name = "beautifulsoup4", specifier = ">=4.8.1,<5.0.0" },
     { name = "boto3", specifier = ">=1.10.28,<2.0.0" },
+    { name = "certifi", specifier = ">=2026.10.19" },
     { name = "deepdiff", specifier = "==8.6.2" },
     { name = "docopt", specifier = ">=0.6.2,<1.0.0" },
     { name = "jinja2", specifier = ">=3.1.2,<4.0.0" },

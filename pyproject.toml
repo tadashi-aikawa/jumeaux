@@ -21,6 +21,8 @@ dependencies = [
     "markupsafe==2.0.1",
     "urllib3<3,>=2.8.0",
     "jinja2<4.0.0,>=3.1.2",
+    # eMudhraの危殆化したルート証明書 (emSign ECC Root CA - G3) を信頼しない版
+    "certifi>=2026.10.19",
 ]
 name = "jumeaux"
 version = "6.1.8"
