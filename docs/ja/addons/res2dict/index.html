@@ -2388,8 +2388,8 @@
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">res2dict</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">block</span>
 <span class="w">      </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">header_regexp</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;\[(.+)\]&#39;</span>
-<span class="w">        </span><span class="nt">record_regexp</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;([^:]+):</span><span class="nv"> </span><span class="s">(.+)&#39;</span>
+<span class="w">        </span><span class="nt">header_regexp</span><span class="p">:</span><span class="w"> </span><span class="s">'\[(.+)\]'</span>
+<span class="w">        </span><span class="nt">record_regexp</span><span class="p">:</span><span class="w"> </span><span class="s">'([^:]+):</span><span class="nv"> </span><span class="s">(.+)'</span>
 </code></pre></div>
 <h3 id="_4">ブロック単位のルール<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2407,18 +2407,18 @@ ID: 002
 Name: Tatsuwo Aikawa
 </code></pre></div>
 <h5 id="config_4">configの設定<a class="headerlink" href="#config_4" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>header_regexp: &#39;\[(.+)\]&#39;
-record_regexp: &#39;([^:]+): (.+)&#39;
+<div class="highlight"><pre><span></span><code>header_regexp: '\[(.+)\]'
+record_regexp: '([^:]+): (.+)'
 </code></pre></div>
 <h5 id="_6">変換後<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code>{
-  &quot;Mimizou&quot;: {
-    &quot;ID&quot;: &quot;001&quot;,
-    &quot;Name&quot;: &quot;Mimizou Aikawa&quot;
+  "Mimizou": {
+    "ID": "001",
+    "Name": "Mimizou Aikawa"
   },
-  &quot;Tatsuwo(GOD)&quot;: {
-    &quot;ID&quot;: &quot;002&quot;,
-    &quot;Name&quot;: &quot;Tatsuwo Aikawa&quot;
+  "Tatsuwo(GOD)": {
+    "ID": "002",
+    "Name": "Tatsuwo Aikawa"
   }
 }
 </code></pre></div>
@@ -2433,18 +2433,18 @@ ID 002
 Name Tatsuwo Aikawa
 </code></pre></div>
 <h5 id="config_5">configの設定<a class="headerlink" href="#config_5" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code>header_regexp: &#39;^\d+\)(.+)&#39;
-record_regexp: &#39;([^ ]+) (.+)&#39;
+<div class="highlight"><pre><span></span><code>header_regexp: '^\d+\)(.+)'
+record_regexp: '([^ ]+) (.+)'
 </code></pre></div>
 <h5 id="_8">変換後<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code>{
-  &quot;Mimizou&quot;: {
-    &quot;ID&quot;: &quot;001&quot;,
-    &quot;Name&quot;: &quot;Mimizou Aikawa&quot;
+  "Mimizou": {
+    "ID": "001",
+    "Name": "Mimizou Aikawa"
   },
-  &quot;Tatsuwo(GOD)&quot;: {
-    &quot;ID&quot;: &quot;002&quot;,
-    &quot;Name&quot;: &quot;Tatsuwo Aikawa&quot;
+  "Tatsuwo(GOD)": {
+    "ID": "002",
+    "Name": "Tatsuwo Aikawa"
   }
 }
 </code></pre></div>

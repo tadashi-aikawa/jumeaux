@@ -2413,10 +2413,10 @@
 </table>
 </details>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>&quot;title1&quot;,&quot;GET&quot;,&quot;/path1&quot;,&quot;a=1&amp;b=2&quot;,&quot;header1=1&amp;header2=2&quot;
-&quot;title2&quot;,&quot;GET&quot;,&quot;/path2&quot;,&quot;c=1&quot;
-&quot;title3&quot;,&quot;GET&quot;,&quot;/path3&quot;,,&quot;header1=1&amp;header2=2&quot;
-&quot;title4&quot;,&quot;GET&quot;,&quot;/path4&quot;
+<div class="highlight"><pre><span></span><code>"title1","GET","/path1","a=1&amp;b=2","header1=1&amp;header2=2"
+"title2","GET","/path2","c=1"
+"title3","GET","/path3",,"header1=1&amp;header2=2"
+"title4","GET","/path4"
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -2495,37 +2495,37 @@
 <h4 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/users&quot;</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/users"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/users&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GET&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;qs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;147&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/users"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GET"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"qs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"147"</span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/users&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;form&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;ids&quot;</span><span class="p">:[</span><span class="s2">&quot;100&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">]},</span>
-<span class="w">        </span><span class="nt">&quot;qs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;man&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;japanese&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/users"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"POST"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"ids"</span><span class="p">:[</span><span class="s2">"100"</span><span class="p">,</span><span class="w"> </span><span class="s2">"200"</span><span class="p">]},</span>
+<span class="w">        </span><span class="nt">"qs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"auto"</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"man"</span><span class="p">,</span><span class="w"> </span><span class="s2">"japanese"</span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/users&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;json&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;users&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;100&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hyaku&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nihyaku&quot;</span><span class="p">}]},</span>
-<span class="w">        </span><span class="nt">&quot;headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;auth-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxxxxx&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;device&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ios&quot;</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/users"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"POST"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"json"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hyaku"</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200"</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nihyaku"</span><span class="p">}]},</span>
+<span class="w">        </span><span class="nt">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"auth-id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"device"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ios"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/users&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;raw&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;id=100&amp;name=hyaku&quot;</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/users"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"POST"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"raw"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id=100&amp;name=hyaku"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div>
@@ -2569,13 +2569,13 @@
 <h4 id="definitions_5">Definitions<a class="headerlink" href="#definitions_5" title="Permanent link">&para;</a></h4>
 <p><a href="../../models/request/">Request</a>で定義されたものをyaml形式で指定できます。</p>
 <h4 id="examples_5">Examples<a class="headerlink" href="#examples_5" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users&quot;</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">"/users"</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">"/users"</span>
 <span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GET</span>
 <span class="w">  </span><span class="nt">qs</span><span class="p">:</span><span class="w"> </span>
 <span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">147</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users&quot;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">"/users"</span>
 <span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
 <span class="w">  </span><span class="nt">form</span><span class="p">:</span><span class="w"> </span>
 <span class="w">    </span><span class="nt">ids</span><span class="p">:</span><span class="w"> </span>
@@ -2587,15 +2587,15 @@
 <span class="w">    </span><span class="nt">options</span><span class="p">:</span><span class="w"> </span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">man</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">japanese</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users&quot;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">"/users"</span>
 <span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
-<span class="w">  </span><span class="nt">json</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;users&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">&quot;id&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;100&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;hyaku&quot;</span><span class="p p-Indicator">},</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;id&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;200&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;nihyaku&quot;</span><span class="p p-Indicator">}]}</span>
+<span class="w">  </span><span class="nt">json</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">"users"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="s">"id"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"100"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"name"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"hyaku"</span><span class="p p-Indicator">},</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">"id"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"200"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"name"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"nihyaku"</span><span class="p p-Indicator">}]}</span>
 <span class="w">  </span><span class="nt">headers</span><span class="p">:</span><span class="w"> </span>
-<span class="w">    </span><span class="s">&quot;auth-id&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xxxxxxxx</span>
+<span class="w">    </span><span class="s">"auth-id"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xxxxxxxx</span>
 <span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ios</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/users&quot;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">"/users"</span>
 <span class="w">  </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
-<span class="w">  </span><span class="nt">raw</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;id=100&amp;name=hyaku&quot;</span>
+<span class="w">  </span><span class="nt">raw</span><span class="p">:</span><span class="w"> </span><span class="s">"id=100&amp;name=hyaku"</span>
 </code></pre></div>
 <h3 id="config_3">config<a class="headerlink" href="#config_3" title="Permanent link">&para;</a></h3>
 <h4 id="definitions_6">Definitions<a class="headerlink" href="#definitions_6" title="Permanent link">&para;</a></h4>

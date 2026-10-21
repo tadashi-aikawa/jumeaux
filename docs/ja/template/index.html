@@ -1640,12 +1640,12 @@
 </ul>
 <p>Typeが<a href="../models/trial/">Trial</a>であるtrial変数を使った場合の一例です。</p>
 <p><code>OK</code></p>
-<div class="highlight"><pre><span></span><code>- when: &quot;trial.name == &#39;json&#39;&quot;
+<div class="highlight"><pre><span></span><code>- when: "trial.name == 'json'"
 </code></pre></div>
 <p><code>NG</code></p>
-<div class="highlight"><pre><span></span><code>- when: &quot;trial.name == json&quot;
+<div class="highlight"><pre><span></span><code>- when: "trial.name == json"
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>- when: &quot;{{ trial.name == json }}&quot;
+<div class="highlight"><pre><span></span><code>- when: "{{ trial.name == json }}"
 </code></pre></div>
 <h3 id="when_1">when系以外のプロパティ<a class="headerlink" href="#when_1" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1659,16 +1659,16 @@
 <p>Typeが<a href="../models/trial/">Trial</a>であるtrial変数を使った場合の一例です。<br />
 プロパティ名はtagです。</p>
 <p><code>OK</code></p>
-<div class="highlight"><pre><span></span><code>- tag: &quot;TAG: {{ trial.name }}&quot;
+<div class="highlight"><pre><span></span><code>- tag: "TAG: {{ trial.name }}"
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>- tag: &quot;{{ trial.name == &#39;hoge&#39; }}&quot;
+<div class="highlight"><pre><span></span><code>- tag: "{{ trial.name == 'hoge' }}"
 </code></pre></div>
 <p><code>NG</code></p>
-<div class="highlight"><pre><span></span><code>- when: &quot;TAG: trial.name&quot;
+<div class="highlight"><pre><span></span><code>- when: "TAG: trial.name"
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>- when: &quot;trial.name == hoge&quot;
+<div class="highlight"><pre><span></span><code>- when: "trial.name == hoge"
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>- when: &quot;{{ trial.name == hoge }}&quot;
+<div class="highlight"><pre><span></span><code>- when: "{{ trial.name == hoge }}"
 </code></pre></div>
 <h2 id="filters"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M32 64C19.1 64 7.4 71.8 2.4 83.8s-2.2 25.7 7 34.8L192 301.3V416c0 8.5 3.4 16.6 9.4 22.6l64 64c9.2 9.2 22.9 11.9 34.9 6.9S320 492.9 320 480V301.3l182.6-182.6c9.2-9.2 11.9-22.9 6.9-34.9S492.9 64 480 64z"/></svg></span> Filters<a class="headerlink" href="#filters" title="Permanent link">&para;</a></h2>
 <p>JumeauxオリジナルのFilterをいくつか利用できます。</p>
@@ -1693,9 +1693,9 @@
 <h3 id="equals_without_hostone-str-other-str">equals_without_host(one: str, other: str)<a class="headerlink" href="#equals_without_hostone-str-other-str" title="Permanent link">&para;</a></h3>
 <p>文字列oneとotherについて、ホスト部分を除き一致するかどうかを判定します。</p>
 <h4 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="n">equals_without_host</span><span class="p">(</span><span class="s2">&quot;https://hoge.com/hoge&quot;</span><span class="p">,</span> <span class="s2">&quot;https://fuga.com/hoge&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">equals_without_host</span><span class="p">(</span><span class="s2">"https://hoge.com/hoge"</span><span class="p">,</span> <span class="s2">"https://fuga.com/hoge"</span><span class="p">)</span>
 <span class="o">//</span> <span class="o">-&gt;</span> <span class="kc">True</span>
-<span class="n">equals_without_host</span><span class="p">(</span><span class="s2">&quot;https://hoge.com/hoge&quot;</span><span class="p">,</span> <span class="s2">&quot;https://hoge.com/fuga&quot;</span><span class="p">)</span>
+<span class="n">equals_without_host</span><span class="p">(</span><span class="s2">"https://hoge.com/hoge"</span><span class="p">,</span> <span class="s2">"https://hoge.com/fuga"</span><span class="p">)</span>
 <span class="o">//</span> <span class="o">-&gt;</span> <span class="kc">False</span>
 </code></pre></div>
 

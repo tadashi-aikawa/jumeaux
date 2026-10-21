@@ -1882,22 +1882,22 @@
 <span class="w">      </span><span class="nt">config</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">conditions</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">json</span>
-<span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;trial.name</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&#39;json&#39;&quot;</span>
+<span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">"trial.name</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">'json'"</span>
 </code></pre></div>
 <h5 id="_1">それぞれのレスポンスタイプをタグとして付ける<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">did_challenge</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tag</span>
 <span class="w">      </span><span class="nt">config</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">conditions</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;tag:{{</span><span class="nv"> </span><span class="s">trial.one.type</span><span class="nv"> </span><span class="s">}}&quot;</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;tag:{{</span><span class="nv"> </span><span class="s">trial.other.type</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">"tag:{{</span><span class="nv"> </span><span class="s">trial.one.type</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">"tag:{{</span><span class="nv"> </span><span class="s">trial.other.type</span><span class="nv"> </span><span class="s">}}"</span>
 </code></pre></div>
 <h5 id="oneitems0type">oneのレスポンスプロパティ<code>items[0].type</code> の値をタグにつける<a class="headerlink" href="#oneitems0type" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">did_challenge</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tag</span>
 <span class="w">      </span><span class="nt">config</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">conditions</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">res_one_props.items[0].type</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">res_one_props.items[0].type</span><span class="nv"> </span><span class="s">}}"</span>
 </code></pre></div>
 
 
