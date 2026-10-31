@@ -12,7 +12,7 @@ Conventional Commits 形式で日本語で書く。
 
 - `type`: `feat`, `fix`, `refactor`, `style`, `docs`, `chore`, `build`, `ci`, `test`
   - 破壊的変更がある場合は `feat!` のように `!` を付ける
-- `scope`: `timer_engine`, `ui_panel`, `alert`, `persistence` など機能単位 (省略可)
+- `scope`: `deps`, `addons` など機能単位 (省略可)
 - `description`: ユーザー視点で何が変わったかを簡潔に書く
 
 ### description の書き方
