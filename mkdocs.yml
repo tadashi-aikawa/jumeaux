@@ -38,6 +38,7 @@ nav:
   - 📝Template: ja/template.md
   - 📦Releases:
       - All: ja/releases/index.md
+      - v7.x.y: ja/releases/v7.md
       - v6.x.y: ja/releases/v6.md
       - v5.x.y: ja/releases/v5.md
       - v4.x.y: ja/releases/v4.md

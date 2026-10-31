@@ -4,7 +4,7 @@
 
 以下の環境が必要です。
 
-* Python3.10以上
+* Python3.11以上
 
 
 ## :fontawesome-solid-download: Installation

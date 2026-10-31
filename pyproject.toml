@@ -3,7 +3,7 @@ authors = [
     {name = "tadashi-aikawa", email = "syou.maman@gmail.com"},
 ]
 license = {text = "MIT"}
-requires-python = "<4.0.0,>=3.10.0"
+requires-python = "<4.0.0,>=3.11.0"
 dependencies = [
     "requests<3.0.0,>=2.22.0",
     "docopt<1.0.0,>=0.6.2",

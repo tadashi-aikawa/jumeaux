@@ -4,6 +4,7 @@ Releases
 リリースノートです。  
 メジャーバージョンごとにページが分かれています。
 
+* [Version 7.x.y](v7.md)
 * [Version 6.x.y](v6.md)
 * [Version 5.x.y](v5.md)
 * [Version 4.x.y](v4.md)
