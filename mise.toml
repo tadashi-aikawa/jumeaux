@@ -1,0 +1,6 @@
+min_version = "2026.10.17"
+
+[tools]
+# .python-versionと揃える。uvは.python-versionを見て.venvを作り直す
+python = "3.15.2"
+uv = "0.13.6"

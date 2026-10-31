@@ -15,12 +15,10 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: jdx/mise-action@v5
         with:
-          python-version: "3.13"
+          version: 2026.10.24
 
-      - name: Install uv
-        run: pipx install uv
       - run: |
           git config user.email "github-actions@users.noreply.github.com"
           git config user.name "GitHub Actions"
